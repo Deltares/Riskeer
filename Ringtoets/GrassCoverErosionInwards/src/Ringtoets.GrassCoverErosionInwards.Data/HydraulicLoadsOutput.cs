@@ -59,30 +59,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the norm used during the calculation.
         /// [1/year]
         /// </summary>
-        public double TargetProbability { get; private set; }
+        public double TargetProbability { get; }
 
         /// <summary>
         /// Gets the reliability index used during the calculation.
         /// [-]
         /// </summary>
-        public RoundedDouble TargetReliability { get; private set; }
+        public RoundedDouble TargetReliability { get; }
 
         /// <summary>
         /// Gets the calculated probability.
         /// [1/year]
         /// </summary>
-        public double CalculatedProbability { get; private set; }
+        public double CalculatedProbability { get; }
 
         /// <summary>
         /// Gets the calculated reliability index.
         /// [-]
         /// </summary>
-        public RoundedDouble CalculatedReliability { get; private set; }
+        public RoundedDouble CalculatedReliability { get; }
 
         /// <summary>
         /// Gets the convergence status of the calculation.
         /// [-]
         /// </summary>
-        public CalculationConvergence CalculationConvergence { get; private set; }
+        public CalculationConvergence CalculationConvergence { get; }
     }
 }

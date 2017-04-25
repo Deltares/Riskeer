@@ -53,6 +53,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the calculated dike height.
         /// [m+NAP]
         /// </summary>
-        public RoundedDouble DikeHeight { get; private set; }
+        public RoundedDouble DikeHeight { get; }
     }
 }

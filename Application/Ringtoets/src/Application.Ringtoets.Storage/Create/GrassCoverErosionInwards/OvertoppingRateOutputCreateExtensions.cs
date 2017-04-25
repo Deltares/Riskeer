@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// <returns>A new <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
         /// is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsOvertoppingRateOutputEntity CreateOvertoppingRate(this OvertoppingRateOutput output)
+        internal static GrassCoverErosionInwardsOvertoppingRateOutputEntity Create(this OvertoppingRateOutput output)
         {
             if (output == null)
             {

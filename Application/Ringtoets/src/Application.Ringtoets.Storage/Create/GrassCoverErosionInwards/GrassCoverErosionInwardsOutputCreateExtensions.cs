@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             if (output != null)
             {
-                entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Add(output.CreateDikeHeight());
+                entity.GrassCoverErosionInwardsDikeHeightOutputEntities.Add(output.Create());
             }
         }
 
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             if (output != null)
             {
-                entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.Add(output.CreateOvertoppingRate());
+                entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.Add(output.Create());
             }
         }
     }

@@ -34,13 +34,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     public class DikeHeightOutputCreateExtensionsTest
     {
         [Test]
-        public void CreateDikeHeight_OutputNull_ThrowArgumentNullException()
+        public void Create_OutputNull_ThrowArgumentNullException()
         {
             // Setup
             DikeHeightOutput output = null;
 
             // Call
-            TestDelegate test = () => output.CreateDikeHeight();
+            TestDelegate test = () => output.Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void CreateDikeHeight_WithValidParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputSet()
+        public void Create_WithValidParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
             // Call
-            GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.CreateDikeHeight();
+            GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNotNull(entity);
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void CreateDikeHeight_WithNaNParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputNull()
+        public void Create_WithNaNParameters_ReturnsGrassCoverErosionInwardsDikeHeightOutputEntityWithOutputNull()
         {
             // Setup
             var random = new Random(21);
@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
-            GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.CreateDikeHeight();
+            GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNotNull(entity);

@@ -34,13 +34,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     public class OvertoppingRateOutputCreateExtensionsTest
     {
         [Test]
-        public void CreateOvertoppingRate_OutputNull_ThrowArgumentNullException()
+        public void Create_OutputNull_ThrowArgumentNullException()
         {
             // Setup
             OvertoppingRateOutput output = null;
 
             // Call
-            TestDelegate test = () => output.CreateOvertoppingRate();
+            TestDelegate test = () => output.Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void CreateOvertoppingRate_WithValidParameters_ReturnsGrassCoverErosionInwardsOvertoppingRateOutputEntityWithOutputSet()
+        public void Create_WithValidParameters_ReturnsGrassCoverErosionInwardsOvertoppingRateOutputEntityWithOutputSet()
         {
             // Setup
             var random = new Random(21);
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
 
             // Call
-            GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = output.CreateOvertoppingRate();
+            GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNotNull(entity);
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void CreateOvertoppingRate_WithNaNParameters_ReturnsGrassCoverErosionInwardsOvertoppingRateOutputEntityWithOutputNull()
+        public void Create_WithNaNParameters_ReturnsGrassCoverErosionInwardsOvertoppingRateOutputEntityWithOutputNull()
         {
             // Setup
             var random = new Random(21);
@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                    double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
 
             // Call
-            GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = output.CreateOvertoppingRate();
+            GrassCoverErosionInwardsOvertoppingRateOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNotNull(entity);

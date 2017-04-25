@@ -55,27 +55,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// The height of the wave that was calculated in the overtopping sub failure mechanism.
         /// </summary>
-        public RoundedDouble WaveHeight { get; private set; }
+        public RoundedDouble WaveHeight { get; }
 
         /// <summary>
         /// Value indicating whether the overtopping sub failure mechanism was dominant over the overflow
         /// sub failure mechanism.
         /// </summary>
-        public bool IsOvertoppingDominant { get; private set; }
+        public bool IsOvertoppingDominant { get; }
 
         /// <summary>
         /// Gets the probabilistic assessment output.
         /// </summary>
-        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
+        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
 
         /// <summary>
         /// Gets the dike height output.
         /// </summary>
-        public DikeHeightOutput DikeHeightOutput { get; private set; }
+        public DikeHeightOutput DikeHeightOutput { get; }
 
         /// <summary>
         /// Gets the overtopping rate output.
         /// </summary>
-        public OvertoppingRateOutput OvertoppingRateOutput { get; private set; }
+        public OvertoppingRateOutput OvertoppingRateOutput { get; }
     }
 }
