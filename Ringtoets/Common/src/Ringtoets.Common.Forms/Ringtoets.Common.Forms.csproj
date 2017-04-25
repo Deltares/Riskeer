@@ -301,7 +301,6 @@
     <None Include="Resources\application_form.png" />
     <None Include="Resources\DikeProfile.png" />
     <None Include="Resources\calculation_icon.png" />
-    <None Include="Resources\PointShapefileIcon.png" />
     <None Include="Resources\Structures.png" />
     <Resource Include="Resources\MapsIcon.png" />
     <None Include="Resources\update.png" />
