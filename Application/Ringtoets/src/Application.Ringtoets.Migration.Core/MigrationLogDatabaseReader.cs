@@ -31,7 +31,8 @@ using Core.Common.IO.Readers;
 namespace Application.Ringtoets.Migration.Core
 {
     /// <summary>
-    /// This class reads an SqLite database file and constructs <see cref="MigrationLogMessage"/> instances from this database.
+    /// This class reads an SqLite database file and constructs <see cref="MigrationLogMessage"/> 
+    /// instances from this database.
     /// </summary>
     public class MigrationLogDatabaseReader : SqLiteDatabaseReaderBase
     {
@@ -45,9 +46,10 @@ namespace Application.Ringtoets.Migration.Core
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file was found at <paramref name="databaseFilePath"/>.</item>
         /// <item>Unable to open the database file.</item>
+        /// <item>The database contains invalid data.</item>
         /// </list>
         /// </exception>
-        public MigrationLogDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
+        public MigrationLogDatabaseReader(string databaseFilePath) : base(databaseFilePath) { }
 
         /// <summary>
         /// Gets the migration log messages from the database.
@@ -70,13 +72,20 @@ namespace Application.Ringtoets.Migration.Core
                     return ReadMigrationLogMessages(dataReader).AsReadOnly();
                 }
             }
-            catch (SQLiteException e)
+            catch (SystemException e) when (e is ArgumentException || e is SQLiteException)
             {
                 string message = Resources.MigrationLogDatabaseReader_GetMigrationLogMessages_failed;
                 throw new CriticalFileReadException(message, e);
             }
         }
 
+        /// <summary>
+        /// Reads and returns the log messages from the <see cref="IDataReader"/>.
+        /// </summary>
+        /// <param name="dataReader">The <see cref="IDataReader"/> that is used to read the log 
+        /// messages from.</param>
+        /// <returns>The read log messages.</returns>
+        /// <exception cref="ArgumentException">Thrown when the read data is <c>null</c> or empty.</exception>
         private static List<MigrationLogMessage> ReadMigrationLogMessages(IDataReader dataReader)
         {
             var messages = new List<MigrationLogMessage>();
@@ -86,11 +95,6 @@ namespace Application.Ringtoets.Migration.Core
                 string fromVersion = ReadStringOrNull(dataReader, MigrationLogEntityTableDefinitions.FromVersion);
                 string toVersion = ReadStringOrNull(dataReader, MigrationLogEntityTableDefinitions.ToVersion);
                 string message = ReadStringOrNull(dataReader, MigrationLogEntityTableDefinitions.LogMessage);
-
-                if (string.IsNullOrEmpty(fromVersion) || string.IsNullOrEmpty(toVersion) || string.IsNullOrEmpty(message))
-                {
-                    continue;
-                }
 
                 messages.Add(new MigrationLogMessage(fromVersion, toVersion, message));
             }

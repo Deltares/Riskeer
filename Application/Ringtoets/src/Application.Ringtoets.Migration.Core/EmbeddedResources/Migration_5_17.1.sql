@@ -313,9 +313,9 @@ INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsp
 CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
 (
 	'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
-	'FromVersion' VARCHAR(20), 
-	'ToVersion' VARCHAR(20), 
-	'LogMessage' TEXT 
+	'FromVersion' VARCHAR(20) NOT NULL, 
+	'ToVersion' VARCHAR(20) NOT NULL, 
+	'LogMessage' TEXT NOT NULL
 );
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity(

@@ -147,13 +147,13 @@ namespace Application.Ringtoets.Migration
 
         private bool MigrateToTargetLocation(string sourceFilePath, string targetLocation)
         {
+            if (!CreateInitializedDatabaseLogFile())
+            {
+                return false;
+            }
+
             try
             {
-                if (!CreateInitializedDatabaseLogFile())
-                {
-                    return false;
-                }
-
                 var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
                 fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
                 string message = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
@@ -216,7 +216,10 @@ namespace Application.Ringtoets.Migration
         {
             try
             {
-                File.Delete(migrationLogPath);
+                if (File.Exists(migrationLogPath))
+                {
+                    File.Delete(migrationLogPath);
+                }
             }
             catch (SystemException exception) when (exception is IOException
                                                     || exception is UnauthorizedAccessException)

@@ -162,11 +162,10 @@ namespace Application.Ringtoets.Migration.Core.Test
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Upgrade_ValidParameters_ExpectedProperties));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Upgrade_ValidParameters_ExpectedProperties), ".log"));
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, ";", logFilePath);
+            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, ";", "");
 
             // Call
             upgradeScript.Upgrade("c:\\file.ext", filePath);

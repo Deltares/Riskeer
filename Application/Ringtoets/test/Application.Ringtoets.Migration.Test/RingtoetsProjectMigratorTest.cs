@@ -500,12 +500,10 @@ namespace Application.Ringtoets.Migration.Test
                 Action call = () => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
-                var expectedLogMessagesAndLevel = new[]
-                {
-                    Tuple.Create($"Het is niet mogelijk om het Ringtoets logbestand '{logPath}' aan te maken.", LogLevelConstant.Error),
-                    Tuple.Create($"Het opruimen van het Ringtoets logbestand '{logPath}' is mislukt.", LogLevelConstant.Error)
-                };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
+                Tuple<string, LogLevelConstant> logMessage = Tuple.Create(
+                    $"Het is niet mogelijk om het Ringtoets logbestand '{logPath}' aan te maken.",
+                    LogLevelConstant.Error);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, logMessage);
                 Assert.IsFalse(migrationSuccessful);
 
                 Assert.IsTrue(File.Exists(logPath));

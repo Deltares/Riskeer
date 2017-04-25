@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
@@ -90,7 +91,7 @@ namespace Application.Ringtoets.Migration.Core.Test
         }
 
         [Test]
-        public void GetMigrationLogMessages_IncompleteMigrationLogFile_ReturnsOnlyCompleteLogMessages()
+        public void GetMigrationLogMessages_IncompleteMigrationLogFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string fileName = TestHelper.GetTestDataPath(testPath, "incompleteMigrationLog.sqlite");
@@ -98,11 +99,13 @@ namespace Application.Ringtoets.Migration.Core.Test
             using (var reader = new MigrationLogDatabaseReader(fileName))
             {
                 // Call
-                ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+                TestDelegate test = () => reader.GetMigrationLogMessages();
 
                 // Assert
-                Assert.AreEqual(1, messages.Count);
-                AssertMigrationLogMessageEqual(new MigrationLogMessage("A", "B", "C"), messages[0]);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van het Ringtoets logbestand van de migratie.",
+                                exception.Message);
+                Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
             }
         }
 
