@@ -225,7 +225,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// </summary>
         /// <param name="foreshoreProfileName">The name of the foreshore profile to find.</param>
         /// <param name="calculationName">Name of the calculation to assign the foreshore profile to.</param>
-        /// <param name="foreshoreProfiles">The collection of <see name="ForeshoreProfile"/> to search in.</param>
+        /// <param name="foreshoreProfiles">The collection of <see cref="ForeshoreProfile"/> to search in.</param>
         /// <param name="foundForeshoreProfile">The foreshore profile with the name equal to 
         /// <paramref name="foreshoreProfileName"/> if there was any.</param>
         /// <returns><c>true</c> if no <paramref name="foreshoreProfileName"/> is given, or when a foreshore profile with 
