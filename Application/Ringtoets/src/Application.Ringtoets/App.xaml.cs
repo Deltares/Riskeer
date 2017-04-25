@@ -197,7 +197,7 @@ namespace Application.Ringtoets
                     fileToOpen = potentialPath;
                     return true;
                 }
-                catch (ArgumentException) { }
+                catch (ArgumentException) {}
             }
             return false;
         }
@@ -291,7 +291,7 @@ namespace Application.Ringtoets
                                                  applicationName);
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }
-            catch (AbandonedMutexException) { } //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
+            catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
             return createdNew;
         }
 
