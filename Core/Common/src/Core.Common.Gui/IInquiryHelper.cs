@@ -51,10 +51,10 @@ namespace Core.Common.Gui
         /// Returns the path to a file, which may or may not exist yet, that the user has chosen.
         /// </summary>
         /// <param name="fileFilter">A filter to which the path returned complies.</param>
-        /// <param name="suggestedName">The initial name the user can choose.</param>
+        /// <param name="suggestedFileName">The initial file name the user can choose.</param>
         /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
         /// was chosen.</returns>
-        string GetTargetFileLocation(string fileFilter, string suggestedName);
+        string GetTargetFileLocation(string fileFilter, string suggestedFileName);
 
         /// <summary>
         /// Gets the confirmation of a user.

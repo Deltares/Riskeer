@@ -133,6 +133,7 @@ namespace Core.Components.DotSpatial.Forms
             mouseCoordinatesMapExtension.Dispose();
             mapDataCollectionObserver.Dispose();
             backGroundMapDataObserver.Dispose();
+            backgroundLayerStatus.Dispose();
 
             base.Dispose(disposing);
         }

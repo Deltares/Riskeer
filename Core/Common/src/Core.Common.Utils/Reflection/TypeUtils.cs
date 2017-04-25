@@ -311,13 +311,21 @@ namespace Core.Common.Utils.Reflection
             return typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName;
         }
 
+        /// <summary>
+        /// Gets the name of the member.
+        /// </summary>
+        /// <param name="originalExpression">The expression.</param>
+        /// <param name="expressionBody">The body of the expression.</param>
+        /// <returns>The string name of the member.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="expressionBody"/>
+        /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         private static string GetMemberName(Expression originalExpression, Expression expressionBody)
         {
             try
             {
                 return GetMemberNameFromExpression(expressionBody);
             }
-            catch (ArgumentException)
+            catch (NotSupportedException)
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
                                                Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
@@ -331,7 +339,7 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException">Thrown when the expression is not any of the following:
+        /// <exception cref="NotSupportedException">Thrown when the expression is not any of the following:
         /// <list type="bullet">
         /// <item><see cref="MemberExpression"/></item>
         /// <item><see cref="MethodCallExpression"/></item>
@@ -357,7 +365,7 @@ namespace Core.Common.Utils.Reflection
             {
                 return GetMemberNameFromExpression(unary.Operand);
             }
-            throw new ArgumentException("expression");
+            throw new NotSupportedException();
         }
 
         /// <summary>

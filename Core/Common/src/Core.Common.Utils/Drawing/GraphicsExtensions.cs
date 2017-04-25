@@ -41,7 +41,7 @@ namespace Core.Common.Utils.Drawing
         /// <param name="opacity">The opacity for the image.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="g"/> or
         /// <paramref name="image"/> is <c>null</c>.</exception>
-        /// <seealso cref="Graphics.DrawImage(System.Drawing.Image,int,int)"/>
+        /// <seealso cref="Graphics.DrawImage(Image,int,int)"/>
         public static void DrawImageTransparent(this Graphics g, Image image, int x, int y, float opacity)
         {
             if (g == null)

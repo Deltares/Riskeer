@@ -188,6 +188,7 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingCalculationObserver.Dispose();
                 pipingSurfaceLineObserver.Dispose();
                 pipingCalculationGroupObserver.Dispose();
+                stochasticSoilProfileObserver.Dispose();
                 pipingStochasticSoilModelsObserver.Dispose();
 
                 components?.Dispose();

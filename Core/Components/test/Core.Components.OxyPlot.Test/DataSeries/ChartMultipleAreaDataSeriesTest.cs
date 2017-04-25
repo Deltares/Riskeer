@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;

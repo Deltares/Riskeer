@@ -47,7 +47,7 @@ namespace Core.Common.Utils.Exceptions
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidTypeParameterException"/> class
-        /// with a specified error message and type rapameter name.
+        /// with a specified error message and type parameter name.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="typeParamName">The name of the type parameter that caused the exception.</param>

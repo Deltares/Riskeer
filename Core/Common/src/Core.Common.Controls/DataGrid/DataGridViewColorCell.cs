@@ -68,7 +68,7 @@ namespace Core.Common.Controls.DataGrid
             }
         }
 
-        private Rectangle CreateRectangleWithMargin(Rectangle cellBounds, int i)
+        private static Rectangle CreateRectangleWithMargin(Rectangle cellBounds, int i)
         {
             return new Rectangle(
                 cellBounds.X + i,

@@ -44,7 +44,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             Color = OxyColors.Automatic;
         }
 
-        public List<DataPoint[]> Areas { get; }
+        public IList<DataPoint[]> Areas { get; }
 
         /// <summary>
         /// Gets or sets the color of the curve.
@@ -95,13 +95,13 @@ namespace Core.Components.OxyPlot.CustomSeries
                 throw new ArgumentNullException(nameof(renderContext));
             }
 
-            List<DataPoint[]> areas = Areas;
+            IList<DataPoint[]> areas = Areas;
             int numberOfAreas = areas.Count;
             if (numberOfAreas == 0)
             {
                 return;
             }
-            if (areas.TrueForAll(a => !a.Any()))
+            if (areas.All(a => !a.Any()))
             {
                 return;
             }
