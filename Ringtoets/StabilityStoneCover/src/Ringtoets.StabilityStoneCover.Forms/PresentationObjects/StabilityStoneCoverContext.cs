@@ -65,12 +65,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public StabilityStoneCoverFailureMechanism FailureMechanism { get; private set; }
+        public StabilityStoneCoverFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the foreshore profiles currently known in the <see cref="FailureMechanism"/>.

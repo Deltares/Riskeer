@@ -307,8 +307,8 @@ namespace Ringtoets.Common.Forms.Test
                 Calculation = calculation;
             }
 
-            public string Name { get; private set; }
-            public ICalculation Calculation { get; set; }
+            public string Name { get; }
+            public ICalculation Calculation { get; }
         }
     }
 }

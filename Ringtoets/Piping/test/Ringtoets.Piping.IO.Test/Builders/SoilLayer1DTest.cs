@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var layer = new SoilLayer1D(0.0)
             {
-                BelowPhreaticLevelDistribution = -1,
+                BelowPhreaticLevelDistribution = -1
             };
 
             // Call

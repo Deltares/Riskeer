@@ -98,7 +98,7 @@ namespace Ringtoets.StabilityPointStructures.IO
             {
                 Name = structureName,
                 Id = structureId,
-                Location = structureLocation.Point,
+                Location = structureLocation.Point
             };
 
             TrySetConstructionProperty((rows, key) => constructionProperties.StructureNormalOrientation = (RoundedDouble) rows[key].NumericalValue,

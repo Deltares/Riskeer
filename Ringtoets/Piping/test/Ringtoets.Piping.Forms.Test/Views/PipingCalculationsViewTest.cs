@@ -724,7 +724,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, arbitryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel(),
+                new TestStochasticSoilModel()
             }, arbitryFilePath);
             pipingFailureMechanism.CalculationsGroup.Attach(observer);
 

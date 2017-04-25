@@ -245,7 +245,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 Name = "with structure",
                 InputParameters =
                 {
-                    Structure = new TestClosingStructure("kunstwerk1"),
+                    Structure = new TestClosingStructure("kunstwerk1")
                 }
             };
         }

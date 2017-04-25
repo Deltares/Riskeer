@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; private set; }
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the calculation group belongs to.

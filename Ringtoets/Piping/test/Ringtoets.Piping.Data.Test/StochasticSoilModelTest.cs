@@ -420,7 +420,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             return new[]
             {
-                new PipingSoilLayer(2),
+                new PipingSoilLayer(2)
             };
         }
 

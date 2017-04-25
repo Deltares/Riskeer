@@ -56,8 +56,8 @@ namespace Ringtoets.Common.Service.ValidationRules
 
             if (IsNotConcreteNumber(distribution.CoefficientOfVariation))
             {
-                yield return (string.Format(Resources.ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
-                                            parameterName));
+                yield return string.Format(Resources.ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
+                                           parameterName);
             }
         }
     }

@@ -478,7 +478,7 @@ namespace Ringtoets.Common.IO.Structures
 
         private static bool IsValueWholeNumber(double value)
         {
-            return (value % 1) < double.Epsilon;
+            return value % 1 < double.Epsilon;
         }
 
         private static List<string> ClosingStructureInflowModelTypeRule(StructuresParameterRow row)

@@ -414,8 +414,8 @@ namespace Ringtoets.Integration.TestUtils.Test
         private static void AssertCalculationConfig(
             IEnumerable<GrassCoverErosionInwardsCalculation> children, bool hasHydraulicBoundaryLocation, bool hasDikeProfile, bool hasOutput)
         {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
-                                                           && (calc.InputParameters.DikeProfile != null) == hasDikeProfile
+            Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation
+                                                           && calc.InputParameters.DikeProfile != null == hasDikeProfile
                                                            && calc.HasOutput == hasOutput));
         }
 
@@ -477,8 +477,8 @@ namespace Ringtoets.Integration.TestUtils.Test
         private static void AssertCalculationConfig(
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> children, bool hasHydraulicBoundaryLocation, bool hasDikeProfile, bool hasOutput)
         {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
-                                                           && (calc.InputParameters.ForeshoreProfile != null) == hasDikeProfile
+            Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation
+                                                           && calc.InputParameters.ForeshoreProfile != null == hasDikeProfile
                                                            && calc.HasOutput == hasOutput));
         }
 
@@ -541,8 +541,8 @@ namespace Ringtoets.Integration.TestUtils.Test
         private static void AssertCalculationConfig(
             IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> children, bool hasHydraulicBoundaryLocation, bool hasDikeProfile, bool hasOutput)
         {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
-                                                           && (calc.InputParameters.ForeshoreProfile != null) == hasDikeProfile
+            Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation
+                                                           && calc.InputParameters.ForeshoreProfile != null == hasDikeProfile
                                                            && calc.HasOutput == hasOutput));
         }
 
@@ -603,8 +603,8 @@ namespace Ringtoets.Integration.TestUtils.Test
         private static void AssertCalculationConfig(
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> children, bool hasHydraulicBoundaryLocation, bool hasDikeProfile, bool hasOutput)
         {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
-                                                           && (calc.InputParameters.ForeshoreProfile != null) == hasDikeProfile
+            Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation
+                                                           && calc.InputParameters.ForeshoreProfile != null == hasDikeProfile
                                                            && calc.HasOutput == hasOutput));
         }
 
@@ -784,8 +784,8 @@ namespace Ringtoets.Integration.TestUtils.Test
             where TStructureBase : StructureBase
             where TCalculationInput : StructuresInputBase<TStructureBase>, new()
         {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
-                                                           && (calc.InputParameters.ForeshoreProfile != null) == hasDikeProfile
+            Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation
+                                                           && calc.InputParameters.ForeshoreProfile != null == hasDikeProfile
                                                            && calc.HasOutput == hasOutput));
         }
 

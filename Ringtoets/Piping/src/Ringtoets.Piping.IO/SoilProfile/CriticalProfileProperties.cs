@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <summary>
         /// The name of the profile to read
         /// </summary>
-        internal string ProfileName { get; private set; }
+        internal string ProfileName { get; }
 
         /// <summary>
         /// The number of layers that the profile to read has

@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 new Segment2D(pointA, pointB),
                 new Segment2D(pointB, pointC),
-                new Segment2D(pointC, pointD),
+                new Segment2D(pointC, pointD)
             };
 
             // Assert
@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 new Segment2D(pointA, pointB),
                 new Segment2D(pointB, pointC),
-                new Segment2D(pointC, pointD),
+                new Segment2D(pointC, pointD)
             });
 
             // Assert
@@ -476,7 +476,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -518,7 +518,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -570,7 +570,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
             layer.AddInnerLoop(innerLoop2);
@@ -614,7 +614,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -664,7 +664,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
             layer.AddInnerLoop(innerLoop2);
@@ -706,7 +706,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -748,7 +748,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -789,7 +789,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -859,7 +859,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             var layer = new SoilLayer2D
             {
-                OuterLoop = outerLoop,
+                OuterLoop = outerLoop
             };
             layer.AddInnerLoop(innerLoop);
 
@@ -878,7 +878,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var layer = new SoilLayer2D
             {
-                BelowPhreaticLevelDistribution = -1,
+                BelowPhreaticLevelDistribution = -1
             };
 
             double bottom;

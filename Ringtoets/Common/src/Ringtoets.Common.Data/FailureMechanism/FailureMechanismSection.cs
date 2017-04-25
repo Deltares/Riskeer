@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the 2D points describing the geometry of the section.
         /// </summary>
-        public IEnumerable<Point2D> Points { get; private set; }
+        public IEnumerable<Point2D> Points { get; }
 
         /// <summary>
         /// Gets the geometric start of the section.

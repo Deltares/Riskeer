@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
-            if (disposing && (components != null))
+            if (disposing && components != null)
             {
                 components.Dispose();
             }

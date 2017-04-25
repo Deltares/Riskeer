@@ -46,12 +46,12 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the name of the folder.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the contents of the folder.
         /// </summary>
-        public IList Contents { get; private set; }
+        public IList Contents { get; }
 
         /// <summary>
         /// Gets the category of the folder.

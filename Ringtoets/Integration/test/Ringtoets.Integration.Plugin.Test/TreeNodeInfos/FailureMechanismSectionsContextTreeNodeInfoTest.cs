@@ -190,7 +190,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(3, 4),
                     new Point2D(5, 6)
-                }),
+                })
             });
             mocks.ReplayAll();
 

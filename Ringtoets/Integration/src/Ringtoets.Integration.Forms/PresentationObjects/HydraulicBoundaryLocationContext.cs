@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <summary>
         /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
 
         public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryDatabase> other)
         {

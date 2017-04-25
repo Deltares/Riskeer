@@ -509,7 +509,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                Calculation = new StructuresCalculation<HeightStructuresInput>()
+                Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
                 }
@@ -517,7 +517,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                Calculation = new StructuresCalculation<HeightStructuresInput>()
+                Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
                 }

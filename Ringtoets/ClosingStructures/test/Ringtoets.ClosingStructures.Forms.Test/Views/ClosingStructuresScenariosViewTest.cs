@@ -270,7 +270,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                         "<geen>",
                         "CalculationA",
                         "CalculationB"
-                    },
+                    }
                 });
             }
         }
@@ -285,7 +285,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[1]);
+                var calculationB = (StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[1];
                 var calculationC = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Name = "CalculationC",
@@ -314,7 +314,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                         "<geen>",
                         "CalculationB",
                         "CalculationC"
-                    },
+                    }
                 });
             }
         }

@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Utils.Test
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1),
-                new Point2D(2, 2),
+                new Point2D(2, 2)
             });
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Utils.Test
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1),
-                new Point2D(2, 2),
+                new Point2D(2, 2)
             });
 
             var sectionSegments = new SectionSegments(failureMechanismSection);
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Utils.Test
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1),
-                new Point2D(2, 2),
+                new Point2D(2, 2)
             });
 
             var sectionSegments = new SectionSegments(failureMechanismSection);

@@ -208,12 +208,12 @@ namespace Ringtoets.Integration.Forms
                 }
             }
 
-            public string AssessmentSectionId { get; private set; }
-            public string SignalingValue { get; private set; }
-            public int? SignalingReturnPeriod { get; private set; }
-            public string LowerLimitValue { get; private set; }
-            public int? LowerLimitValueReturnPeriod { get; private set; }
-            public ReferenceLineMeta ReferenceLineMeta { get; private set; }
+            public string AssessmentSectionId { get; }
+            public string SignalingValue { get; }
+            public int? SignalingReturnPeriod { get; }
+            public string LowerLimitValue { get; }
+            public int? LowerLimitValueReturnPeriod { get; }
+            public ReferenceLineMeta ReferenceLineMeta { get; }
 
             private static string GetNormValue(int? returnPeriod)
             {

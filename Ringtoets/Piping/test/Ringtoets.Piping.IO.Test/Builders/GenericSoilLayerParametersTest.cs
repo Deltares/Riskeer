@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 DiameterD70Mean = random.NextDouble(),
                 DiameterD70CoefficientOfVariation = random.NextDouble(),
                 PermeabilityMean = random.NextDouble(),
-                PermeabilityCoefficientOfVariation = random.NextDouble(),
+                PermeabilityCoefficientOfVariation = random.NextDouble()
             };
             var soilLayer = new PipingSoilLayer(3.0);
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 DiameterD70Mean = diameterD70Mean,
                 DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation,
                 PermeabilityMean = permeabilityMean,
-                PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation,
+                PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation
             };
 
             // Call

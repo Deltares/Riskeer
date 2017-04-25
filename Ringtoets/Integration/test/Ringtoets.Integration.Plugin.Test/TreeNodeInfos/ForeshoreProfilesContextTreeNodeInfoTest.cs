@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 profile1,
                 profile2,
-                profile3,
+                profile3
             };
             var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 

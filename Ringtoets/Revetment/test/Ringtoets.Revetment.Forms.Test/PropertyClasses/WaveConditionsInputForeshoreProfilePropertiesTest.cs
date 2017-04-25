@@ -70,7 +70,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {

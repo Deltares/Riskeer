@@ -291,8 +291,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 IntersectionPoint = intersectionPoint;
             }
 
-            public ReferenceLineIntersectionsResult TypeOfIntersection { get; private set; }
-            public Point2D IntersectionPoint { get; private set; }
+            public ReferenceLineIntersectionsResult TypeOfIntersection { get; }
+            public Point2D IntersectionPoint { get; }
 
             public static ReferenceLineIntersectionResult CreateNoSingleIntersectionResult()
             {

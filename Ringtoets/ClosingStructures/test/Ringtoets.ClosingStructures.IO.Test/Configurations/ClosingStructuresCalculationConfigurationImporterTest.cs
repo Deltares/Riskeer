@@ -436,7 +436,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     },
                     DrainCoefficient =
                     {
-                        Mean = (RoundedDouble) 1.1,
+                        Mean = (RoundedDouble) 1.1
                     },
                     InsideWaterLevel =
                     {
@@ -489,43 +489,43 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) 15.2,
+                        Mean = (RoundedDouble) 15.2
                     },
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) 15.2,
+                        Mean = (RoundedDouble) 15.2
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) 15000,
+                        Mean = (RoundedDouble) 15000
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) 0.2,
+                        Mean = (RoundedDouble) 0.2
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) 2,
+                        Mean = (RoundedDouble) 2
                     },
                     LevelCrestStructureNotClosing =
                     {
-                        Mean = (RoundedDouble) 4.3,
+                        Mean = (RoundedDouble) 4.3
                     },
                     AreaFlowApertures =
                     {
-                        Mean = (RoundedDouble) 80.5,
+                        Mean = (RoundedDouble) 80.5
                     },
                     DrainCoefficient =
                     {
-                        Mean = (RoundedDouble) 1.1,
+                        Mean = (RoundedDouble) 1.1
                     },
                     InsideWaterLevel =
                     {
-                        Mean = (RoundedDouble) 0.5,
+                        Mean = (RoundedDouble) 0.5
                     },
                     ThresholdHeightOpenWeir =
                     {
-                        Mean = (RoundedDouble) 1.2,
+                        Mean = (RoundedDouble) 1.2
                     }
                 }
             };

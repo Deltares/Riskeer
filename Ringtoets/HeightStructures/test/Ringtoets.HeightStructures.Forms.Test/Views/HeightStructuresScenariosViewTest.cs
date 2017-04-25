@@ -271,7 +271,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                         "<geen>",
                         "CalculationA",
                         "CalculationB"
-                    },
+                    }
                 });
             }
         }
@@ -286,7 +286,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[1]);
+                var calculationB = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[1];
                 var calculationC = new StructuresCalculation<HeightStructuresInput>
                 {
                     Name = "CalculationC"
@@ -311,7 +311,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                         "<geen>",
                         "CalculationB",
                         "CalculationC"
-                    },
+                    }
                 });
             }
         }

@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             DAMWAND = 64,
             KRUINHOOGTE = 128,
             DIJK = 256,
-            MEMO = 512,
+            MEMO = 512
         }
 
         private static readonly Range<double> orientationValidityRange = new Range<double>(0, 360);

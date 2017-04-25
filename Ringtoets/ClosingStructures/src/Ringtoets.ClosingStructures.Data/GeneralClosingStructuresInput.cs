@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the 'C' parameter used to factor in the 'length effect'.
         /// </summary>
-        public RoundedDouble C { get; private set; }
+        public RoundedDouble C { get; }
 
         /// <summary>
         /// Gets or sets the 'N2A' parameter used to factor in the 'length effect'.

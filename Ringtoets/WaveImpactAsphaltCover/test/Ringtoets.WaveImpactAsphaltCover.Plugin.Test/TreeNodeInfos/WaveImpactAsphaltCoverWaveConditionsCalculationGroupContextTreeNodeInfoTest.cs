@@ -751,7 +751,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation()
+            var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
@@ -766,7 +766,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation()
+            var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "B",
                 InputParameters =

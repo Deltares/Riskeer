@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets a value indicating whether or not <see cref="ICalculationBase.Name"/> is editable.
         /// </summary>
-        public bool IsNameEditable { get; private set; }
+        public bool IsNameEditable { get; }
 
         /// <summary>
         /// Gets the children that define this group.

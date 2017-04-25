@@ -219,7 +219,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 Name = "with structure",
                 InputParameters =
                 {
-                    Structure = new TestHeightStructure("kunstwerk1"),
+                    Structure = new TestHeightStructure("kunstwerk1")
                 }
             };
         }

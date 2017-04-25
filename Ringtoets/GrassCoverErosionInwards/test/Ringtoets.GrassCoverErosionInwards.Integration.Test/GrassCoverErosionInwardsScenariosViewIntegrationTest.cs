@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new GrassCoverErosionInwardsScenariosView()
+                var view = new GrassCoverErosionInwardsScenariosView
                 {
                     Data = assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
                     FailureMechanism = assessmentSection.GrassCoverErosionInwards
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
-                var view = new GrassCoverErosionInwardsScenariosView()
+                var view = new GrassCoverErosionInwardsScenariosView
                 {
                     Data = calculationsGroup,
                     FailureMechanism = assessmentSection.GrassCoverErosionInwards
@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
-                var view = new GrassCoverErosionInwardsScenariosView()
+                var view = new GrassCoverErosionInwardsScenariosView
                 {
                     Data = calculationsGroup,
                     FailureMechanism = assessmentSection.GrassCoverErosionInwards
@@ -224,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                var view = new GrassCoverErosionInwardsScenariosView()
+                var view = new GrassCoverErosionInwardsScenariosView
                 {
                     Data = assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
                     FailureMechanism = assessmentSection.GrassCoverErosionInwards

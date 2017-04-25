@@ -80,7 +80,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var sectionResults = new[]
             {
-                new HeightStructuresFailureMechanismSectionResult(CreateSection()),
+                new HeightStructuresFailureMechanismSectionResult(CreateSection())
             };
 
             var context = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(sectionResults, new HeightStructuresFailureMechanism());

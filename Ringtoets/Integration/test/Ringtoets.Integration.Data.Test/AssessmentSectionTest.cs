@@ -353,7 +353,7 @@ namespace Ringtoets.Integration.Data.Test
                 section.ClosingStructures,
                 section.PipingStructure,
                 section.StabilityPointStructures,
-                section.DuneErosion,
+                section.DuneErosion
             };
         }
 

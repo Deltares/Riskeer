@@ -50,12 +50,12 @@ namespace Ringtoets.Common.Utils.Test
             new FailureMechanismSection(firstSectionName, new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
-                new Point2D(10.0, 10.0),
+                new Point2D(10.0, 10.0)
             }),
             new FailureMechanismSection(secondSectionName, new List<Point2D>
             {
                 new Point2D(11.0, 11.0),
-                new Point2D(100.0, 100.0),
+                new Point2D(100.0, 100.0)
             })
         };
 
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Utils.Test
             // Call
             AssignUnassignCalculations.Update(sectionResults, new[]
             {
-                new CalculationWithLocation(calculationB, location),
+                new CalculationWithLocation(calculationB, location)
             });
 
             // Assert

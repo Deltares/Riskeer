@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
                 {
                     new StabilityStoneCoverWaveConditionsCalculation
                     {
-                        Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>()),
+                        Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
                     }
                 };
 

@@ -650,7 +650,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             if (validCalculation)
             {
-                calculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                calculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                 {
                     DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12)
                 };

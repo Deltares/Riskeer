@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1),
-                new Point2D(2, 2),
+                new Point2D(2, 2)
             };
 
             // Call
@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1),
-                new Point2D(2, 2),
+                new Point2D(2, 2)
             };
 
             // Call

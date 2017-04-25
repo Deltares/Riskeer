@@ -1990,7 +1990,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         SurfaceLine = surfaceLine,
                         EntryPointL = (RoundedDouble) 2,
                         ExitPointL = (RoundedDouble) 3
-                    },
+                    }
                 };
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);

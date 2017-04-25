@@ -59,7 +59,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation()
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {

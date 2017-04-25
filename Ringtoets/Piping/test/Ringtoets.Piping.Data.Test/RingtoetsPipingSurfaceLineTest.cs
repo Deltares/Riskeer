@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Data.Test
                 new Point3D(1.1, 2.2, 3.3),
                 new Point3D(4.4, 5.5, 6.6),
                 new Point3D(7.7, 8.8, 9.9),
-                new Point3D(10.10, 11.11, 12.12),
+                new Point3D(10.10, 11.11, 12.12)
             };
 
             // Call

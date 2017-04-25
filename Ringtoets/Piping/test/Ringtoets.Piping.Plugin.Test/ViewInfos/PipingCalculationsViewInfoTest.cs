@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView()
+            var view = new PipingCalculationsView
             {
                 Data = new CalculationGroup()
             };
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView()
+            var view = new PipingCalculationsView
             {
                 Data = new CalculationGroup()
             };
@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var view = new PipingCalculationsView()
+            var view = new PipingCalculationsView
             {
                 Data = failureMechanism.CalculationsGroup
             };

@@ -295,7 +295,10 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGrassAndDuneLocations), new object[] { "Location1" })]
+        [TestCaseSource(nameof(GetGrassAndDuneLocations), new object[]
+        {
+            "Location1"
+        })]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_GrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
             HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {
@@ -367,7 +370,10 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGrassAndDuneLocations), new object[] {"Location2"})]
+        [TestCaseSource(nameof(GetGrassAndDuneLocations), new object[]
+        {
+            "Location2"
+        })]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
             HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
         {

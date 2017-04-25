@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Data.Test
                 new TestCaseData(profileJ, profileK, true)
                 {
                     TestName = "Equals_DifferentIds_True"
-                },
+                }
             };
         }
 

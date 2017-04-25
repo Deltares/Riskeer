@@ -145,7 +145,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
             string[] expectedSubMessages =
             {
-                "Geen geldige parameter definities gevonden.",
+                "Geen geldige parameter definities gevonden."
             };
             string[] expectedMessages =
             {

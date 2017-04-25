@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var sectionResults = new[]
             {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection()),
+                new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection())
             };
 
             var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(

@@ -408,7 +408,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     {
                         UseBreakWater = true,
                         BreakWaterType = ConfigurationBreakWaterType.Dam,
-                        BreakWaterHeight = 0.2,
+                        BreakWaterHeight = 0.2
                     },
                     "waveReductionWithoutUseForeshoreProfile.xml")
                 .SetName("Wave reduction without use foreshore profile set.");

@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Structures
 
         public string Name { get; set; }
 
-        public Comment Comments { get; private set; }
+        public Comment Comments { get; }
 
         public bool HasOutput
         {

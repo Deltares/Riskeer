@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Data.Test
                 new TestCaseData(layerD, layerG, false)
                 {
                     TestName = "Equals_LayerDLayerG_False"
-                },
+                }
             };
         }
 

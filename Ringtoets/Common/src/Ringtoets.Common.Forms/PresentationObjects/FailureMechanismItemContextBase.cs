@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the available hydraulic boundary locations.

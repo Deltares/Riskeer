@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                     IsAquifer = true
                 },
                 new PipingSoilLayer(2),
-                new PipingSoilLayer(-1),
+                new PipingSoilLayer(-1)
             }, SoilProfileType.SoilProfile1D, 1234L);
         }
 

@@ -53,12 +53,12 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the geometry point of the <see cref="RoughnessPoint"/>.
         /// </summary>
-        public Point2D Point { get; private set; }
+        public Point2D Point { get; }
 
         /// <summary>
         /// Gets the roughness of the <see cref="RoughnessPoint"/>.
         /// </summary>
-        public RoundedDouble Roughness { get; private set; }
+        public RoundedDouble Roughness { get; }
 
         public override bool Equals(object obj)
         {

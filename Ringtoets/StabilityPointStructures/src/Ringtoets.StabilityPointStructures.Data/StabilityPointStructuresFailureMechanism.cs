@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
 
-        public CalculationGroup CalculationsGroup { get; private set; }
+        public CalculationGroup CalculationsGroup { get; }
 
         public IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
         {

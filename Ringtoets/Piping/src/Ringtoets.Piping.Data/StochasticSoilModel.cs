@@ -67,12 +67,12 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the list of geometry points.
         /// </summary>
-        public List<Point2D> Geometry { get; private set; }
+        public List<Point2D> Geometry { get; }
 
         /// <summary>
         /// Gets the list of <see cref="StochasticSoilProfile"/>.
         /// </summary>
-        public List<StochasticSoilProfile> StochasticSoilProfiles { get; private set; }
+        public List<StochasticSoilProfile> StochasticSoilProfiles { get; }
 
         /// <summary>
         /// Updates the <see cref="StochasticSoilModel"/> with the properties

@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the container of all calculations.
         /// </summary>
-        public CalculationGroup CalculationsGroup { get; private set; }
+        public CalculationGroup CalculationsGroup { get; }
 
         public IEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
         {

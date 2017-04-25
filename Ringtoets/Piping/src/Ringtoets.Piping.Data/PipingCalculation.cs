@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public Comment Comments { get; private set; }
+        public Comment Comments { get; }
 
         public void ClearOutput()
         {

@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Utils
         /// <summary>
         /// Gets the <see cref="FailureMechanismSectionResult"/> for which the assignment object is defined.
         /// </summary>
-        public FailureMechanismSectionResult Result { get; private set; }
+        public FailureMechanismSectionResult Result { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="ICalculation"/> from the <see cref="Result"/> using the actions passed

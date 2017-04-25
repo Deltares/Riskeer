@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var dikeGeometry = new[]
             {
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.7),
-                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7),
+                new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
             };
 
             var foreshoreGeometry = new[]

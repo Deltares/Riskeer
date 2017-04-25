@@ -153,7 +153,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// Gets the directory in which Hydra-Ring will place temporary input and output files created during a
         /// calculation.
         /// </summary>
-        public string TemporaryWorkingDirectory { get; private set; }
+        public string TemporaryWorkingDirectory { get; }
 
         /// <summary>
         /// Generates the initialization script necessary for performing Hydra-Ring calculations.

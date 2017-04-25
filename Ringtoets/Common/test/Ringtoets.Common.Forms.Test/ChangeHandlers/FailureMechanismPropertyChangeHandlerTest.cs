@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var testFailureMechanism = new TestFailureMechanism(
                 new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithOutput(),
+                    CalculationTestHelper.CreateCalculationWithOutput()
                 });
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();

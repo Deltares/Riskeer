@@ -327,7 +327,7 @@ namespace Ringtoets.Revetment.Data
 
             if (double.IsNaN(upperBoundary) ||
                 double.IsNaN(lowerBoundary) ||
-                (lowerBoundary >= upperBoundary))
+                lowerBoundary >= upperBoundary)
             {
                 return waterLevels;
             }

@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the name of the hydraulic boundary location.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the coordinates of the hydraulic boundary location.

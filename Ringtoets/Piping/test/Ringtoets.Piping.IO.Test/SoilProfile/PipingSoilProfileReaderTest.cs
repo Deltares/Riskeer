@@ -799,7 +799,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     -2.5,
                     -13,
                     -17,
-                    -25,
+                    -25
                 };
                 double[] layer2Tops = secondProfile.Layers.Select(l => l.Top).ToArray();
                 CollectionAssert.AllItemsAreUnique(layer2Tops);

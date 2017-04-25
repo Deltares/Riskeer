@@ -779,7 +779,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(0.5)
                 {
                     IsAquifer = true
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -819,7 +819,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -867,7 +867,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -904,7 +904,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -933,7 +933,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -968,7 +968,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -1106,7 +1106,7 @@ namespace Ringtoets.Piping.Data.Test
                     IsAquifer = true,
                     PermeabilityCoefficientOfVariation = 0.3,
                     PermeabilityMean = 2.4
-                },
+                }
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call

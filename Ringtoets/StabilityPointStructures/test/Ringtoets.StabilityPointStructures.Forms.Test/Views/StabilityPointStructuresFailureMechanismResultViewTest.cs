@@ -605,7 +605,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
                 }
@@ -613,7 +613,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
                 }

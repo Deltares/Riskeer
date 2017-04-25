@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Integration.TestUtils
         private static void AssertCalculationConfig(
             IEnumerable<PipingCalculation> children, bool hasHydraulicBoundaryLocation, bool hasOutput)
         {
-            Assert.NotNull(children.FirstOrDefault(calc => (calc.InputParameters.HydraulicBoundaryLocation != null) == hasHydraulicBoundaryLocation
+            Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation
                                                            && calc.HasOutput == hasOutput));
         }
     }

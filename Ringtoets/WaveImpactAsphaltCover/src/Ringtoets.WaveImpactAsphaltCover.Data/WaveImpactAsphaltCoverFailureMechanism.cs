@@ -72,7 +72,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <summary>
         /// Gets the container of all wave conditions calculations.
         /// </summary>
-        public CalculationGroup WaveConditionsCalculationGroup { get; private set; }
+        public CalculationGroup WaveConditionsCalculationGroup { get; }
 
         public IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {

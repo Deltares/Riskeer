@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Utils.Test
             SectionSegments[] sectionSegments =
             {
                 new SectionSegments(failureMechanismSection1),
-                new SectionSegments(failureMechanismSection2),
+                new SectionSegments(failureMechanismSection2)
             };
 
             // Call
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Utils.Test
             SectionSegments[] sectionSegments =
             {
                 new SectionSegments(failureMechanismSection1),
-                new SectionSegments(failureMechanismSection2),
+                new SectionSegments(failureMechanismSection2)
             };
 
             // Call

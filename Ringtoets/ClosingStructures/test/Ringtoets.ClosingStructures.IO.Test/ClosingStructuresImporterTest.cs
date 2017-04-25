@@ -231,7 +231,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
 
-            var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties()
+            var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
             {
                 Name = "test",
                 Location = new Point2D(0, 0),

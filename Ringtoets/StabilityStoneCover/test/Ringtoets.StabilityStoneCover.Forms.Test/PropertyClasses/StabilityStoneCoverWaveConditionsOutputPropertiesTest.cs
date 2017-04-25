@@ -69,7 +69,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsOutputProperties()
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties
             {
                 Data = stabilityStoneCoverWaveConditionsOutput
             };
@@ -126,12 +126,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var blocksOutput = new[]
             {
-                new TestWaveConditionsOutput(),
+                new TestWaveConditionsOutput()
             };
 
             var columnsOutput = new[]
             {
-                new TestWaveConditionsOutput(),
+                new TestWaveConditionsOutput()
             };
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);

@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Data.Test
             var project = new RingtoetsProject
             {
                 Name = niceProjectName,
-                Description = nicerDescription,
+                Description = nicerDescription
             };
 
             // Assert

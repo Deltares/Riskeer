@@ -405,27 +405,27 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) 15.2,
+                        Mean = (RoundedDouble) 15.2
                     },
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) 15.2,
+                        Mean = (RoundedDouble) 15.2
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) 15000,
+                        Mean = (RoundedDouble) 15000
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) 0.2,
+                        Mean = (RoundedDouble) 0.2
                     },
                     LevelCrestStructure =
                     {
-                        Mean = (RoundedDouble) 4.3,
+                        Mean = (RoundedDouble) 4.3
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) 2,
+                        Mean = (RoundedDouble) 2
                     }
                 }
             };

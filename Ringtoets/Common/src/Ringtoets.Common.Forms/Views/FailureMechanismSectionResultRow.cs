@@ -95,6 +95,6 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
         /// </summary>
-        protected T SectionResult { get; private set; }
+        protected T SectionResult { get; }
     }
 }

@@ -579,7 +579,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 readSurfaceLineOne,
-                surfaceLineCollection,
+                surfaceLineCollection
             }, affectedObjects);
         }
 
@@ -961,7 +961,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 InputParameters =
                 {
                     SurfaceLine = surfaceLine,
-                    StochasticSoilModel = soilModel,
+                    StochasticSoilModel = soilModel
                 }
             };
 
@@ -1210,7 +1210,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
                                                                                                    new[]
                                                                                                    {
-                                                                                                       importedAffectedSurfaceLine,
+                                                                                                       importedAffectedSurfaceLine
                                                                                                    }, "path").ToArray();
 
             // Assert
@@ -1281,7 +1281,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
                                                                                                    new[]
                                                                                                    {
-                                                                                                       importedAffectedSurfaceLine,
+                                                                                                       importedAffectedSurfaceLine
                                                                                                    }, "path").ToArray();
 
             // Assert

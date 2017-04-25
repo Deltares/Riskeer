@@ -117,7 +117,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollection_ValidData_ReturnsValidCollection()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput()
+            var waveConditionsInput = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -216,7 +216,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollection_ValidDataWithCoverType_ReturnsValidCollection()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput()
+            var waveConditionsInput = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),

@@ -237,13 +237,13 @@ namespace Ringtoets.Common.Utils.Test
         private static readonly FailureMechanismSection failureMechanismSectionA = new FailureMechanismSection(firstSectionName, new List<Point2D>
         {
             new Point2D(0.0, 0.0),
-            new Point2D(10.0, 10.0),
+            new Point2D(10.0, 10.0)
         });
 
         private static readonly FailureMechanismSection failureMechanismSectionB = new FailureMechanismSection(secondSectionName, new List<Point2D>
         {
             new Point2D(11.0, 11.0),
-            new Point2D(100.0, 100.0),
+            new Point2D(100.0, 100.0)
         });
 
         private static readonly TestStructuresFailureMechanismSectionResult sectionResult = new TestStructuresFailureMechanismSectionResult(

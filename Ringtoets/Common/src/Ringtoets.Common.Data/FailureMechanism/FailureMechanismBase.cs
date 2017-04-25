@@ -83,9 +83,9 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public string Code { get; private set; }
+        public string Code { get; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
 
@@ -97,11 +97,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        public Comment InputComments { get; private set; }
+        public Comment InputComments { get; }
 
-        public Comment OutputComments { get; private set; }
+        public Comment OutputComments { get; }
 
-        public Comment NotRelevantComments { get; private set; }
+        public Comment NotRelevantComments { get; }
 
         public bool IsRelevant { get; set; }
 

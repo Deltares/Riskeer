@@ -71,7 +71,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Given
             var structure = new TestHeightStructure();
-            var input = new HeightStructuresInput()
+            var input = new HeightStructuresInput
             {
                 Structure = structure
             };

@@ -381,7 +381,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_ValidValueAccordingtoUpperBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
@@ -400,7 +400,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_InvalidValueAccordingtoUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
@@ -453,7 +453,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_ValidValueAccordingtoLowerBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
@@ -472,7 +472,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_InvalidValueAccordingtoLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
@@ -525,7 +525,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_ValidValueAccordingtoUpperBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -544,7 +544,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_InvalidValueAccordingtoUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -616,7 +616,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_InvalidValueAccordingtoLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryWaterLevels
             };

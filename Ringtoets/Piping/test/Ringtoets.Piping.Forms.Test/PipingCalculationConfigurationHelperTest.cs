@@ -733,7 +733,7 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var pipingCalculationScenario2 = ((PipingCalculationScenario) calculationGroup.Children[1]);
+            var pipingCalculationScenario2 = (PipingCalculationScenario) calculationGroup.Children[1];
             Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario2.Contribution);
 
             PipingInput calculationInput2 = pipingCalculationScenario2.InputParameters;

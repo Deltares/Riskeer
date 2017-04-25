@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 new ObjectWithName(nameBase),
                 new ObjectWithName(nameBase + " (3)"),
                 new ObjectWithName(nameBase + " (1)"),
-                new ObjectWithName(nameBase + " (2)"),
+                new ObjectWithName(nameBase + " (2)")
             };
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 Name = name;
             }
 
-            public string Name { get; private set; }
+            public string Name { get; }
         }
     }
 }

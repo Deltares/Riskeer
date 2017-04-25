@@ -147,7 +147,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
                 string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
@@ -472,9 +472,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 TotalSteps = totalSteps;
             }
 
-            public string Text { get; private set; }
-            public int CurrentStep { get; private set; }
-            public int TotalSteps { get; private set; }
+            public string Text { get; }
+            public int CurrentStep { get; }
+            public int TotalSteps { get; }
         }
     }
 }

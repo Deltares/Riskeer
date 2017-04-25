@@ -67,12 +67,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; private set; }
+        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the available dike profiles which can be used to assign to a <see cref="GrassCoverErosionInwardsCalculation"/>.

@@ -1344,7 +1344,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword3);
             yield return new TestCaseData(new StructuresParameterRow
             {
@@ -1398,27 +1398,27 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword11);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword12);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword13);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword14);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
-                AlphanumericValue = "LageDrempel",
+                AlphanumericValue = "LageDrempel"
             }).SetName(StructureFilesKeywords.ClosingStructureParameterKeyword15);
         }
 
@@ -1427,7 +1427,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword1);
             yield return new TestCaseData(new StructuresParameterRow
             {
@@ -1509,7 +1509,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword13,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword13);
             yield return new TestCaseData(new StructuresParameterRow
             {
@@ -1521,12 +1521,12 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword15,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword15);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword16,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword16);
             yield return new TestCaseData(new StructuresParameterRow
             {
@@ -1552,17 +1552,17 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword20);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword21,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword21);
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
-                NumericalValue = 1,
+                NumericalValue = 1
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword22);
             yield return new TestCaseData(new StructuresParameterRow
             {
@@ -1588,7 +1588,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             yield return new TestCaseData(new StructuresParameterRow
             {
                 ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword26,
-                AlphanumericValue = "LageDrempel",
+                AlphanumericValue = "LageDrempel"
             }).SetName(StructureFilesKeywords.StabilityPointStructureParameterKeyword26);
         }
     }

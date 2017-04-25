@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 
-        public Comment Comments { get; private set; }
+        public Comment Comments { get; }
 
         public string Name { get; set; }
 

@@ -136,7 +136,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                     TargetProbability = targetProbability,
                     TargetReliability = targetReliability,
                     CalculatedProbability = calculatedProbability,
-                    CalculatedReliability = calculatedReliability,
+                    CalculatedReliability = calculatedReliability
                 });
             var location = new DuneLocation(id, name, new Point2D(x, y),
                                             new DuneLocation.ConstructionProperties

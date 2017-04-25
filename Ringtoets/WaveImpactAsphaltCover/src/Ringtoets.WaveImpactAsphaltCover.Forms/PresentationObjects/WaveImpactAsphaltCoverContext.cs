@@ -67,12 +67,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanism FailureMechanism { get; private set; }
+        public WaveImpactAsphaltCoverFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the foreshore profiles currently known in the <see cref="FailureMechanism"/>.

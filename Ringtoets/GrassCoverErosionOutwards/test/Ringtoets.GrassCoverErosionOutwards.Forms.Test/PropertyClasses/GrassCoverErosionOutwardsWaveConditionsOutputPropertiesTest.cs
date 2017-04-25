@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties()
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
             {
                 Data = grassCoverErosionOutwardsWaveConditionsOutput
             };
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties()
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
             {
                 Data = grassCoverErosionOutwardsOutputProperties
             };

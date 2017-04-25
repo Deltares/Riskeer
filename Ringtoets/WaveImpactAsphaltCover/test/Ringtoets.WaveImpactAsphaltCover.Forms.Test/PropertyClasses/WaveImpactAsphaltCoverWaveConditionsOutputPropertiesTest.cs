@@ -62,7 +62,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(items);
 
             // Call
-            var properties = new WaveImpactAsphaltCoverWaveConditionsOutputProperties()
+            var properties = new WaveImpactAsphaltCoverWaveConditionsOutputProperties
             {
                 Data = waveImpactAsphaltCoverWaveConditionsOutput
             };
@@ -103,7 +103,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(items);
 
             // Call
-            var properties = new WaveImpactAsphaltCoverWaveConditionsOutputProperties()
+            var properties = new WaveImpactAsphaltCoverWaveConditionsOutputProperties
             {
                 Data = waveImpactAsphaltCoverWaveConditionsOutput
             };

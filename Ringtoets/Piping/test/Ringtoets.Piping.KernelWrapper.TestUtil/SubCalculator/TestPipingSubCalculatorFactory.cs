@@ -39,12 +39,12 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             LastCreatedPipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
         }
 
-        public EffectiveThicknessCalculatorStub LastCreatedEffectiveThicknessCalculator { get; private set; }
-        public UpliftCalculatorStub LastCreatedUpliftCalculator { get; private set; }
-        public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; private set; }
-        public HeaveCalculatorStub LastCreatedHeaveCalculator { get; private set; }
-        public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; private set; }
-        public PipingProfilePropertyCalculatorStub LastCreatedPipingProfilePropertyCalculator { get; private set; }
+        public EffectiveThicknessCalculatorStub LastCreatedEffectiveThicknessCalculator { get; }
+        public UpliftCalculatorStub LastCreatedUpliftCalculator { get; }
+        public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; }
+        public HeaveCalculatorStub LastCreatedHeaveCalculator { get; }
+        public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; }
+        public PipingProfilePropertyCalculatorStub LastCreatedPipingProfilePropertyCalculator { get; }
 
         public IUpliftCalculator CreateUpliftCalculator()
         {

@@ -741,7 +741,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     Id = "A"
                 }),
-                new ForeshoreProfile(new Point2D(3, 3), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()
+                new ForeshoreProfile(new Point2D(3, 3), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
                 {
                     Id = "bid",
                     Name = "B"

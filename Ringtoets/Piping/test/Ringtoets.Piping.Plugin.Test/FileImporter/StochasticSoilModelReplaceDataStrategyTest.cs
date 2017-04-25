@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
             var strategy = new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism);
             var readModel = new TestStochasticSoilModel("read");
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
-                existingModel,
+                existingModel
             }, sourceFilePath);
 
             // Call

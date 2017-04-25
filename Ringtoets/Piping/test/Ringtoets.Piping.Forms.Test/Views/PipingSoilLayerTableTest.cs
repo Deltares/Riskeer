@@ -220,7 +220,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DiameterD70CoefficientOfVariation = random.NextRoundedDouble(),
                 BelowPhreaticLevelMean = random.NextRoundedDouble(),
                 BelowPhreaticLevelDeviation = random.NextRoundedDouble(),
-                BelowPhreaticLevelShift = random.NextRoundedDouble(),
+                BelowPhreaticLevelShift = random.NextRoundedDouble()
             };
         }
     }

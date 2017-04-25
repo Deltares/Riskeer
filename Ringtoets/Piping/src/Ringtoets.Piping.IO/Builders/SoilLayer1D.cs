@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <summary>
         /// Gets the top level of the <see cref="SoilLayer1D"/>.
         /// </summary>
-        public double Top { get; private set; }
+        public double Top { get; }
 
         /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.

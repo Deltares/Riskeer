@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public DikeProfileCollection DikeProfiles { get; private set; }
 
-        public CalculationGroup CalculationsGroup { get; private set; }
+        public CalculationGroup CalculationsGroup { get; }
 
         public IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
         {

@@ -135,9 +135,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 FailureMechanism = failureMechanism;
             }
 
-            public ICalculation WrappedData { get; private set; }
+            public ICalculation WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculation : Observable, ICalculation

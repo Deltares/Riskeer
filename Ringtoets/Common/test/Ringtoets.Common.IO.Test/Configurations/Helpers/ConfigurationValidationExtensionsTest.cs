@@ -384,7 +384,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
             var configuration = new TestStructuresCalculationConfiguration(calculationName)
             {
-                ModelFactorSuperCriticalFlow = new StochastConfiguration()
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
                     Mean = new Random(21).NextDouble()
                 }

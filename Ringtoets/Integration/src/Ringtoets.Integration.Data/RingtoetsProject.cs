@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets or sets the assessmentSections of the <see cref="RingtoetsProject"/>.
         /// </summary>
-        public IList<AssessmentSection> AssessmentSections { get; private set; }
+        public IList<AssessmentSection> AssessmentSections { get; }
 
         /// <summary>
         /// Gets or sets the name of the <see cref="RingtoetsProject"/>.

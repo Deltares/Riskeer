@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Data
 
         private static bool IsSoilLayerPartlyBelowLevel(PipingSoilProfile soilProfile, PipingSoilLayer pipingSoilLayer, double level)
         {
-            return (pipingSoilLayer.Top < level || pipingSoilLayer.Top - soilProfile.GetLayerThickness(pipingSoilLayer) < level);
+            return pipingSoilLayer.Top < level || pipingSoilLayer.Top - soilProfile.GetLayerThickness(pipingSoilLayer) < level;
         }
     }
 }

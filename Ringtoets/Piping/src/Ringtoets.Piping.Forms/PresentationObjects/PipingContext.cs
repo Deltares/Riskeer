@@ -92,12 +92,12 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the piping failure mechanism which the piping context belongs to.
         /// </summary>
-        public PipingFailureMechanism FailureMechanism { get; private set; }
+        public PipingFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the piping context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Asserts the inputs are not <c>null</c>.

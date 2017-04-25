@@ -67,7 +67,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                                  TargetProbability = targetProbability,
                                                                  TargetReliability = targetReliability,
                                                                  CalculatedProbability = calculatedProbability,
-                                                                 CalculatedReliability = calculatedReliability,
+                                                                 CalculatedReliability = calculatedReliability
                                                              });
 
             // Assert
@@ -102,7 +102,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                                  TargetProbability = targetProbability,
                                                                  TargetReliability = targetReliability,
                                                                  CalculatedProbability = calculatedProbability,
-                                                                 CalculatedReliability = calculatedReliability,
+                                                                 CalculatedReliability = calculatedReliability
                                                              });
 
             // Assert
@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                     TargetProbability = targetProbability,
                                                     TargetReliability = targetReliability,
                                                     CalculatedProbability = calculatedProbability,
-                                                    CalculatedReliability = calculatedReliability,
+                                                    CalculatedReliability = calculatedReliability
                                                 });
 
             // Assert

@@ -42,7 +42,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {

@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Forms.Views
                 failureMechanismObserver.Dispose();
             }
 
-            if (disposing && (components != null))
+            if (disposing && components != null)
             {
                 components.Dispose();
             }

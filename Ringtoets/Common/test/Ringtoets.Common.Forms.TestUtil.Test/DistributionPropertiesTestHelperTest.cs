@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     false,
                     false,
                     true)
-                .SetName("Distribution, None read-only, correct assertions."),
+                .SetName("Distribution, None read-only, correct assertions.")
         };
 
         private static TestCaseData[] variationCoefficientDistributionTestCases =
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                     false,
                     false,
                     true)
-                .SetName("VariationDistribution, None read-only, correct assertions."),
+                .SetName("VariationDistribution, None read-only, correct assertions.")
         };
 
         #endregion

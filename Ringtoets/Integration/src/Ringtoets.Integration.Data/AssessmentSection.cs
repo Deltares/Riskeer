@@ -96,98 +96,98 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
+        public PipingFailureMechanism PipingFailureMechanism { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; private set; }
+        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public MacrostabilityInwardsFailureMechanism MacrostabilityInwards { get; private set; }
+        public MacrostabilityInwardsFailureMechanism MacrostabilityInwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
         /// </summary>
-        public MacrostabilityOutwardsFailureMechanism MacrostabilityOutwards { get; private set; }
+        public MacrostabilityOutwardsFailureMechanism MacrostabilityOutwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Microstabiliteit" failure mechanism.
         /// </summary>
-        public MicrostabilityFailureMechanism Microstability { get; private set; }
+        public MicrostabilityFailureMechanism Microstability { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
-        public StabilityStoneCoverFailureMechanism StabilityStoneCover { get; private set; }
+        public StabilityStoneCoverFailureMechanism StabilityStoneCover { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; private set; }
+        public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
         /// </summary>
-        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; private set; }
+        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; private set; }
+        public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; private set; }
+        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; private set; }
+        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
-        public HeightStructuresFailureMechanism HeightStructures { get; private set; }
+        public HeightStructuresFailureMechanism HeightStructures { get; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
         /// </summary>
-        public ClosingStructuresFailureMechanism ClosingStructures { get; private set; }
+        public ClosingStructuresFailureMechanism ClosingStructures { get; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
         /// </summary>
-        public PipingStructureFailureMechanism PipingStructure { get; private set; }
+        public PipingStructureFailureMechanism PipingStructure { get; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
-        public StabilityPointStructuresFailureMechanism StabilityPointStructures { get; private set; }
+        public StabilityPointStructuresFailureMechanism StabilityPointStructures { get; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
         /// </summary>
-        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction { get; private set; }
+        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction { get; }
 
         /// <summary>
         /// Gets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
-        public DuneErosionFailureMechanism DuneErosion { get; private set; }
+        public DuneErosionFailureMechanism DuneErosion { get; }
 
         /// <summary>
         /// Gets the "Technische innovaties - Technische innovaties" failure mechanism.
         /// </summary>
-        public TechnicalInnovationFailureMechanism TechnicalInnovation { get; private set; }
+        public TechnicalInnovationFailureMechanism TechnicalInnovation { get; }
 
         public string Id { get; set; }
 
         public string Name { get; set; }
 
-        public Comment Comments { get; private set; }
+        public Comment Comments { get; }
 
         public AssessmentSectionComposition Composition { get; private set; }
 
@@ -204,7 +204,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public FailureMechanismContribution FailureMechanismContribution { get; private set; }
+        public FailureMechanismContribution FailureMechanismContribution { get; }
 
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 

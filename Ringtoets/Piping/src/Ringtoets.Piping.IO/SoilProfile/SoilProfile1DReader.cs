@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// <summary>
             /// Gets the top level of the 1D soil layer.
             /// </summary>
-            internal double Top { get; private set; }
+            internal double Top { get; }
         }
 
         private class RequiredProfileProperties

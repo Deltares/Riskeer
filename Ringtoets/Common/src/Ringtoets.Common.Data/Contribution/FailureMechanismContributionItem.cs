@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// Gets a value indicating whether the corresponding <see cref="IFailureMechanism"/>
         /// is always relevant. When <c>true</c>, then <see cref="IsRelevant"/> cannot be set to <c>false</c>.
         /// </summary>
-        public bool IsAlwaysRelevant { get; private set; }
+        public bool IsAlwaysRelevant { get; }
 
         /// <summary>
         /// Gets the failure mechanism.

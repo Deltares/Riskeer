@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the container of all wave conditions calculations.
         /// </summary>
-        public CalculationGroup WaveConditionsCalculationGroup { get; private set; }
+        public CalculationGroup WaveConditionsCalculationGroup { get; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.

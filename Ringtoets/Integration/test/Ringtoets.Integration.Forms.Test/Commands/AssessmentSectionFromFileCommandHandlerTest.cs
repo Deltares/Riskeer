@@ -474,7 +474,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    Norm = (useSignalingValue) ? 1.0 / 3000 : 1.0 / 1000
+                    Norm = useSignalingValue ? 1.0 / 3000 : 1.0 / 1000
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;

@@ -420,11 +420,11 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 {
                     PhreaticLevelExit =
                     {
-                        Mean = (RoundedDouble) 4.4,
+                        Mean = (RoundedDouble) 4.4
                     },
                     DampingFactorExit =
                     {
-                        Mean = (RoundedDouble) 6.6,
+                        Mean = (RoundedDouble) 6.6
                     }
                 }
             };

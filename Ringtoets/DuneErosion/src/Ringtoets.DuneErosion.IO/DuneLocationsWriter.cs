@@ -99,7 +99,7 @@ namespace Ringtoets.DuneErosion.IO
                        {
                            Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
                            Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
-                           Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
+                           Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value
                        }
                        : new[]
                        {

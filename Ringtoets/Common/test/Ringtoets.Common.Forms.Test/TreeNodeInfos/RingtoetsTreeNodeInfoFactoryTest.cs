@@ -1159,9 +1159,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 FailureMechanism = failureMechanism;
             }
 
-            public CalculationGroup WrappedData { get; private set; }
+            public CalculationGroup WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
@@ -1172,9 +1172,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 FailureMechanism = failureMechanism;
             }
 
-            public TestCalculation WrappedData { get; private set; }
+            public TestCalculation WrappedData { get; }
 
-            public IFailureMechanism FailureMechanism { get; private set; }
+            public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculation : Observable, ICalculation

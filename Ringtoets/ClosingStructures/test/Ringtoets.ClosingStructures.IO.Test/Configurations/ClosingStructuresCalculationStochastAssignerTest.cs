@@ -192,7 +192,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 },
                 DrainCoefficient = new StochastConfiguration
                 {
-                    Mean = 8.1,
+                    Mean = 8.1
                 },
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {

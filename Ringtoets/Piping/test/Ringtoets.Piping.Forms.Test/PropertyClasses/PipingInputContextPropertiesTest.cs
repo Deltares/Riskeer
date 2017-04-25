@@ -476,7 +476,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
                 SurfaceLine = surfaceLine,
                 StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = (stochasticSoilProfile),
+                StochasticSoilProfile = stochasticSoilProfile,
                 UseAssessmentLevelManualInput = false
             };
 

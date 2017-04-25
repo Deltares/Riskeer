@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             {
                 true,
                 false,
-                false,
+                false
             };
             CollectionAssert.AreEqual(expectedAquifers, actual.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEqual(new[]
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             {
                 false,
                 false,
-                true,
+                true
             };
             CollectionAssert.AreEqual(expectedAquifers, actual.Layers.Select(l => l.IsAquifer));
             CollectionAssert.AreEqual(new[]
