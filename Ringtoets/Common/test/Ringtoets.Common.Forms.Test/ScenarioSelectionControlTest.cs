@@ -142,8 +142,8 @@ namespace Ringtoets.Common.Forms.Test
             var mockRepository = new MockRepository();
             var calculationA = mockRepository.Stub<ICalculation>();
             var calculationB = mockRepository.Stub<ICalculation>();
-            var rowA = new EditableScenarioRow(calculationA, sectionNameA);
-            var rowB = new EditableScenarioRow(calculationB, sectionNameB);
+            IScenarioRow<ICalculation> rowA = CreateScenarioRow(mockRepository, calculationA, sectionNameA);
+            IScenarioRow<ICalculation> rowB = CreateScenarioRow(mockRepository, calculationB, sectionNameB);
             mockRepository.ReplayAll();
 
             using (ScenarioSelectionControl control = ShowScenariosControl())
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Forms.Test
 
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();
-            var row = new EditableScenarioRow(calculation, sectionName);
+            IScenarioRow<ICalculation> row = CreateScenarioRow(mockRepository, calculation, sectionName);
             mockRepository.ReplayAll();
 
             using (ScenarioSelectionControl control = ShowScenariosControl())
@@ -242,15 +242,20 @@ namespace Ringtoets.Common.Forms.Test
         }
 
         [Test]
-        public void EndEdit_DataGridViewInEditMode_DataGridViewNotInEditMode()
+        public void EndEdit_DataGridViewWithEditableRowsInEditMode_DataGridViewNotInEditMode()
         {
             // Setup
             const string sectionName = "sectionName";
 
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();
-            var row = new EditableScenarioRow(calculation, sectionName);
             mockRepository.ReplayAll();
+
+            var row = new EditableScenarioRow
+            {
+                Name = sectionName,
+                Calculation = calculation
+            };
 
             using (ScenarioSelectionControl control = ShowScenariosControl())
             {
@@ -299,16 +304,18 @@ namespace Ringtoets.Common.Forms.Test
             return control;
         }
 
+        private static IScenarioRow<ICalculation> CreateScenarioRow(MockRepository mocks, ICalculation calculation, string sectionName)
+        {
+            var row = mocks.Stub<IScenarioRow<ICalculation>>();
+            row.Stub(r => r.Name).Return(sectionName);
+            row.Stub(r => r.Calculation).Return(calculation);
+            return row;
+        }
+
         private class EditableScenarioRow : IScenarioRow<ICalculation>
         {
-            public EditableScenarioRow(ICalculation calculation, string sectionName)
-            {
-                Name = sectionName;
-                Calculation = calculation;
-            }
-
-            public string Name { get; }
-            public ICalculation Calculation { get; }
+            public string Name { get; set; }
+            public ICalculation Calculation { get; set; }
         }
     }
 }
