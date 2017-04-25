@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Data.SQLite;
 using System.IO;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
@@ -146,6 +147,32 @@ namespace Application.Ringtoets.Migration.Core.Test
                 // Assert
                 var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
                 Assert.AreEqual(newVersion, toVersionedFile.GetVersion());
+            }
+        }
+
+        [Test]
+        public void Migrate_ValidFilesWithNonExistingLogFile_ThrowsCriticalDatabaseMigrationException()
+        {
+            // Setup
+            const string newVersion = "17.1";
+            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithNonExistingLogFile_ThrowsCriticalDatabaseMigrationException));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Migrate_ValidFilesWithNonExistingLogFile_ThrowsCriticalDatabaseMigrationException), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                // Call
+                TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                // Assert
+                var exception = Assert.Throws<CriticalMigrationException>(call);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
         }
 
