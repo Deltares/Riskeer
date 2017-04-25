@@ -132,7 +132,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         private void SetDefaultSchematizationProperties()
         {
             EvaluationLevel = (RoundedDouble) double.NaN;
-            FailureProbabilityRepairClosure = (RoundedDouble) 0.0;
+            FailureProbabilityRepairClosure = 0.0;
             InflowModelType = 0;
             LoadSchematizationType = LoadSchematizationType.Linear;
             StructureNormalOrientation = (RoundedDouble) double.NaN;

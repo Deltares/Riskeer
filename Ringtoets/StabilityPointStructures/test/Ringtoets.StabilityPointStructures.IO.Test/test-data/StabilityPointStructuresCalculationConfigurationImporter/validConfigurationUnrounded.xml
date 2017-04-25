@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <kunstwerk>kunstwerk1</kunstwerk>
+    <kansaanvaringtweedekeermiddel>1.2e-108</kansaanvaringtweedekeermiddel>
+    <faalkansgegevenerosiebodem>1.2e-108</faalkansgegevenerosiebodem>
+  </berekening>
+</configuratie>

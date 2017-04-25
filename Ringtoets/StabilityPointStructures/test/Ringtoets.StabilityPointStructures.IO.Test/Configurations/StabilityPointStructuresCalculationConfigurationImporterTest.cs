@@ -1043,6 +1043,36 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
         }
 
+        [Test]
+        public void Import_ConfigurationWithUnroundedValues_RoundedValuesAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationUnrounded.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new HydraulicBoundaryLocation[0],
+                new ForeshoreProfile[0],
+                new[]
+                {
+                    structure
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            var calculation = (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0];
+            double expectedValue = (RoundedDouble) 1.2e-108;
+            Assert.AreEqual(expectedValue, calculation.InputParameters.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(expectedValue, calculation.InputParameters.ProbabilityCollisionSecondaryStructure);
+        }
+
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
             "Het voorlandprofiel 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]

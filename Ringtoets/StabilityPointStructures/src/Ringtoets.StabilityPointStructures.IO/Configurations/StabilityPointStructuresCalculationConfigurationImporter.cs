@@ -305,7 +305,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
 
                 try
                 {
-                    calculation.InputParameters.ProbabilityCollisionSecondaryStructure = failureProbability;
+                    calculation.InputParameters.ProbabilityCollisionSecondaryStructure = (RoundedDouble) failureProbability;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
