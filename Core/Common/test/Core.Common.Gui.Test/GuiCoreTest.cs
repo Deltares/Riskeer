@@ -183,7 +183,7 @@ namespace Core.Common.Gui.Test
                 // Call
                 TestDelegate call = () =>
                 {
-                    using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) { }
+                    using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) {}
                 };
 
                 // Assert

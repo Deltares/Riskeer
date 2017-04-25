@@ -453,7 +453,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             DialogBoxHandler = (formName, wnd) =>
             {
-                using (new FormTester(formName)) { }
+                using (new FormTester(formName)) {}
             };
 
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -653,7 +653,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             DialogBoxHandler = (formName, wnd) =>
             {
-                using (new FormTester(formName)) { }
+                using (new FormTester(formName)) {}
             };
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
