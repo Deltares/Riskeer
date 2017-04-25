@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
@@ -71,6 +72,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertHydraulicBoundaryLocations(reader);
                     AssertDikeProfiles(reader);
                     AssertForeshoreProfiles(reader);
+                    AssertStochasticSoilModels(reader);
+                    AssertSurfaceLines(reader);
+
+                    AssertVersions(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -79,17 +84,56 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertDikeProfiles(MigratedDatabaseReader reader)
         {
-            const string validateDikeProfiles = "SELECT " +
-                                                "(SELECT COUNT(DISTINCT(Name)) = COUNT() FROM DikeProfileEntity) " +
-                                                "AND (SELECT COUNT() = 0 FROM DikeProfileEntity WHERE Id != Name);";
+            const string validateDikeProfiles =
+                "SELECT " +
+                "(SELECT COUNT(DISTINCT(Name)) = COUNT() FROM DikeProfileEntity) " +
+                "AND (SELECT COUNT() = 0 FROM DikeProfileEntity WHERE Id != Name);";
             reader.AssertReturnedDataIsValid(validateDikeProfiles);
         }
 
         private static void AssertForeshoreProfiles(MigratedDatabaseReader reader)
         {
-            const string validateDikeProfiles = "SELECT COUNT() = 0 " +
-                                                "FROM ForeshoreProfileEntity WHERE Id != Name;";
+            const string validateDikeProfiles =
+                "SELECT COUNT() = 0 " +
+                "FROM ForeshoreProfileEntity WHERE Id != Name;";
             reader.AssertReturnedDataIsValid(validateDikeProfiles);
+        }
+
+        private static void AssertStochasticSoilModels(MigratedDatabaseReader reader)
+        {
+            const string validateStochasticSoilModels =
+                "SELECT COUNT(DISTINCT(Name)) = COUNT() " +
+                "FROM StochasticSoilModelEntity;";
+            reader.AssertReturnedDataIsValid(validateStochasticSoilModels);
+
+            AssertStochasticSoilProfiles(reader);
+        }
+
+        private static void AssertStochasticSoilProfiles(MigratedDatabaseReader reader)
+        {
+            const string validateStochasticSoilProfiles =
+                "SELECT " +
+                "(SELECT COUNT() != 0 FROM StochasticSoilProfileEntity WHERE [Type] = 1) " +
+                "AND " +
+                "(SELECT COUNT() = 0 FROM StochasticSoilProfileEntity WHERE [Probability] NOT BETWEEN 0 AND 1 OR[Probability] IS NULL);";
+            reader.AssertReturnedDataIsValid(validateStochasticSoilProfiles);
+        }
+
+        private static void AssertSurfaceLines(MigratedDatabaseReader reader)
+        {
+            const string validateSurfaceLines =
+                "SELECT COUNT(DISTINCT(Name)) = COUNT() " +
+                "FROM SurfaceLineEntity;";
+            reader.AssertReturnedDataIsValid(validateSurfaceLines);
+        }
+
+        private static void AssertVersions(MigratedDatabaseReader reader)
+        {
+            const string validateSurfaceLines =
+                "SELECT COUNT() != 0 " +
+                "FROM VersionEntity " +
+                "WHERE [Version] = \"17.1\";";
+            reader.AssertReturnedDataIsValid(validateSurfaceLines);
         }
 
         private static void AssertLogDatabase(string logFilePath)
@@ -234,17 +278,26 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 using (IDataReader dataReader = CreateDataReader(queryString))
                 {
-                    Assert.IsFalse(dataReader.Read());
+                    Assert.IsFalse(dataReader.Read(), "Result should be empty when using query " +
+                                                      $"'{queryString}'.");
                 }
             }
 
+            /// <summary>
+            /// Asserts that the <paramref name="queryString"/> results in one field with the value <c>true</c>.
+            /// </summary>
+            /// <param name="queryString">The query to execute.</param>
+            /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> 
+            /// failed.</exception>
             public void AssertReturnedDataIsValid(string queryString)
             {
                 using (IDataReader dataReader = CreateDataReader(queryString))
                 {
-                    Assert.IsTrue(dataReader.Read());
-                    Assert.AreEqual(1, dataReader.FieldCount);
-                    Assert.AreEqual(1, dataReader[0]);
+                    Assert.IsTrue(dataReader.Read(), "No data can be read from the data reader " +
+                                                     $"when using query '{queryString}'.");
+                    Assert.AreEqual(1, dataReader.FieldCount, $"Expected one field, was {dataReader.FieldCount} " +
+                                                              $"fields when using query '{queryString}'.");
+                    Assert.IsTrue(Convert.ToBoolean(dataReader[0]));
                 }
             }
         }
