@@ -72,7 +72,7 @@ namespace Core.Plugins.CommonTools.Test
         public void RichTextFileViewInfoName_WithData_NameOfData()
         {
             // Setup
-            var expected = "SomeName";
+            const string expected = "SomeName";
             using (var plugin = new CommonToolsPlugin())
             {
                 ViewInfo info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));

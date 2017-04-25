@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double failureMechanismContribution = 50;
-            var n = 10;
+            const int n = 10;
 
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double norm = 0.5;
-            var n = 10;
+            const int n = 10;
 
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);

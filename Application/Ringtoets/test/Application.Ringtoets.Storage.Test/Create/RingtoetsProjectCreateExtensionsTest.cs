@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithCollector_ReturnsProjectEntityWithDescription()
         {
             // Setup
-            var testdescription = "testDescription";
+            const string testdescription = "testDescription";
             var project = new RingtoetsProject
             {
                 Description = testdescription
@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var testdescription = "original description";
+            const string testdescription = "original description";
             var project = new RingtoetsProject
             {
                 Description = testdescription

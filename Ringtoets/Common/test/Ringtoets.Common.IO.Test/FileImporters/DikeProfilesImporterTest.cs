@@ -238,9 +238,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
-                                     "ID 'profiel005' ligt niet op de referentielijn. " +
-                                     "Dit profiel wordt overgeslagen.";
+            const string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
+                                           "ID 'profiel005' ligt niet op de referentielijn. " +
+                                           "Dit profiel wordt overgeslagen.";
             var expectedLogMessage = new Tuple<string, LogLevelConstant>(expectedMessage,
                                                                          LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);

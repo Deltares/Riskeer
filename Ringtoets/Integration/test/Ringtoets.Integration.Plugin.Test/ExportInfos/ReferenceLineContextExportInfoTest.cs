@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 ReferenceLine = new ReferenceLine()
             };
             var context = new ReferenceLineContext(assessmentSection);
-            var filePath = "test";
+            const string filePath = "test";
 
             using (var plugin = new RingtoetsPlugin())
             {

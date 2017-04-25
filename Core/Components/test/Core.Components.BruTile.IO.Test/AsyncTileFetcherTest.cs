@@ -81,7 +81,7 @@ namespace Core.Components.BruTile.IO.Test
             TestDelegate call = () => new AsyncTileFetcher(tileProvider, min, max);
 
             // Assert
-            var message = "Het aantal kaart tegels voor de geheugen cache moeten positief zijn.";
+            const string message = "Het aantal kaart tegels voor de geheugen cache moeten positief zijn.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual(min < 0 ? "minTiles" : "maxTiles", paramName);
             mocks.VerifyAll();
@@ -101,7 +101,7 @@ namespace Core.Components.BruTile.IO.Test
             TestDelegate call = () => new AsyncTileFetcher(tileProvider, min, max);
 
             // Assert
-            var message = "Het minimale aantal kaart tegels voor de geheugen cache moet kleiner zijn dan het maximale aantal kaart tegels.";
+            const string message = "Het minimale aantal kaart tegels voor de geheugen cache moet kleiner zijn dan het maximale aantal kaart tegels.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
             mocks.VerifyAll();
         }

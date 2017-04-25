@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
-            var parameterIsRequired = "Parameter is required.";
+            const string parameterIsRequired = "Parameter is required.";
             if (string.IsNullOrEmpty(failureMechanismName))
             {
                 throw new ArgumentException(parameterIsRequired, nameof(failureMechanismName));

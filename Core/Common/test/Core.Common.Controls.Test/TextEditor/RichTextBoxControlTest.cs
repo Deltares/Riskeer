@@ -74,7 +74,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var data = "<Some data>";
+                const string data = "<Some data>";
 
                 // Call
                 control.Rtf = GetValidRtfString(data);
@@ -93,7 +93,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 // Show the view
                 var control = new RichTextBoxControl();
 
-                var data = "<Some data>";
+                const string data = "<Some data>";
 
                 control.Rtf = GetValidRtfString(data);
                 form.Controls.Add(control);
@@ -117,7 +117,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var data = "<Some data>";
+                const string data = "<Some data>";
                 string validRtfString = GetValidRtfString(data);
 
                 // Call
@@ -137,7 +137,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 // Show the view
                 var control = new RichTextBoxControl();
 
-                var data = "<Some data>";
+                const string data = "<Some data>";
                 string validRtfString = GetValidRtfString(data);
 
                 control.Rtf = validRtfString;

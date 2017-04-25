@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void Constructor_WitValidName_ExpectedPropertiesSet()
         {
             // Setup
-            var name = "some name";
+            const string name = "some name";
 
             // Call
             var model = new TestStochasticSoilModel(name);

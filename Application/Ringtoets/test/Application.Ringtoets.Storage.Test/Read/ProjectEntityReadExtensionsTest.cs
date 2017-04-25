@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithCollector_ReturnsNewProjectWithPropertiesSet()
         {
             // Setup
-            var testDescription = "testName";
+            const string testDescription = "testName";
             var entity = new ProjectEntity
             {
                 Description = testDescription

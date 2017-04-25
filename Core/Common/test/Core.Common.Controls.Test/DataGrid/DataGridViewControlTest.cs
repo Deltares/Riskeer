@@ -1645,7 +1645,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
-                var newValue = "3";
+                const string newValue = "3";
 
                 dataGridViewCell.Value = newValue;
 
@@ -1671,7 +1671,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                double initialValue = 25;
+                const double initialValue = 25;
 
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
 
@@ -1683,7 +1683,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
-                var newValue = "test";
+                const string newValue = "test";
 
                 dataGridViewCell.Value = newValue;
 

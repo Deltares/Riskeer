@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// required format or the file is empty.</exception>
         private void ValidateHeader(TextReader reader)
         {
-            var currentLine = 1;
+            const int currentLine = 1;
             string header = ReadLineAndHandleIOExceptions(reader, currentLine);
             if (header != null)
             {

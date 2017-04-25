@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Test
         public void Constructor_SurfaceLinesOneEntry_OneRowInGrid()
         {
             // Setup
-            var testname = "testName";
+            const string testname = "testName";
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = testname

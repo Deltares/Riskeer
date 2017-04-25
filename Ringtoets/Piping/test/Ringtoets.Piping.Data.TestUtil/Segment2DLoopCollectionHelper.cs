@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// have (1 digit).</exception>
         private static IEnumerable<Tuple<int, int>> AllIndexesOfDigit(string line)
         {
-            var guess = @"\d";
+            const string guess = @"\d";
             MatchCollection matches = Regex.Matches(line, guess);
             foreach (Match match in matches)
             {

@@ -1150,7 +1150,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var rootText = "root";
+                const string rootText = "root";
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
@@ -1184,8 +1184,8 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var rootText = "root";
-                var childText = "child";
+                const string rootText = "root";
+                const string childText = "child";
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
@@ -1430,7 +1430,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var identifier = "identifier";
+                const string identifier = "identifier";
                 var hit = 0;
                 treeViewControl.DataDoubleClick += (n, o) => hit++;
 
@@ -1462,7 +1462,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var identifier = "identifier";
+                const string identifier = "identifier";
 
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
@@ -1492,7 +1492,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var identifier = "identifier";
+                const string identifier = "identifier";
                 var hit = 0;
                 var treeNodeInfo = new TreeNodeInfo
                 {
@@ -1536,7 +1536,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var identifier = "identifier";
+                const string identifier = "identifier";
                 var hit = 0;
                 var treeNodeInfo = new TreeNodeInfo
                 {
@@ -1575,7 +1575,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var identifier = "identifier";
+                const string identifier = "identifier";
                 var hit = 0;
                 var treeNodeInfo = new TreeNodeInfo
                 {
@@ -1615,7 +1615,6 @@ namespace Core.Common.Controls.TreeView.Test
             using (var treeViewControl = new TreeViewControl())
             {
                 var testString = "test";
-                var expectedText = "newTest";
 
                 var treeNodeInfo = new TreeNodeInfo
                 {
@@ -1627,13 +1626,13 @@ namespace Core.Common.Controls.TreeView.Test
 
                 TreeNode node = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes[0];
 
-                testString = expectedText;
+                testString = "newTest";
 
                 // When
                 observable.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(expectedText, node.Text);
+                Assert.AreEqual("newTest", node.Text);
             }
         }
 
@@ -1650,7 +1649,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var selectionTarget = "I'm the target!";
+                const string selectionTarget = "I'm the target!";
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
@@ -1673,7 +1672,7 @@ namespace Core.Common.Controls.TreeView.Test
                 // Precondition:
                 Assert.AreSame(data, treeViewControl.SelectedData);
 
-                var identifier = "identifier";
+                const string identifier = "identifier";
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
 
@@ -1706,7 +1705,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var selectionTarget = "I'm the target!";
+                const string selectionTarget = "I'm the target!";
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
@@ -1730,7 +1729,7 @@ namespace Core.Common.Controls.TreeView.Test
                 // Precondition:
                 Assert.AreSame(data, treeViewControl.SelectedData);
 
-                var identifier = "identifier";
+                const string identifier = "identifier";
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
                 TreeNode childNode = treeView.Nodes[0].Nodes[0];

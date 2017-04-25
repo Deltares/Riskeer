@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocationId = 1000;
+            const int hydraulicBoundaryLocationId = 1000;
 
             const double sectionNormal = 22.2;
             const double dikeHeight = 1.1;

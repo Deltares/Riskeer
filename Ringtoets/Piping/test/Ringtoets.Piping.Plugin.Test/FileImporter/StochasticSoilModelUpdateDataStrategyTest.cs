@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithCurrentModelAndImportedModelWithSameName_ModelUpdated()
         {
             // Setup
-            var modelsName = "same model";
+            const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var targetCollection = new StochasticSoilModelCollection();
@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_UpdateCurrentModelWithImportedModelWithOtherProfiles_ProfilesAdded()
         {
             // Setup
-            var modelsName = "same model";
+            const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var targetCollection = new StochasticSoilModelCollection();
@@ -328,7 +328,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_ProfilesAssignedToCalculationsWithOneImportedModelProfileRemoved_OneProfileRemovedCalculationUpdatedAccordingly()
         {
             // Setup
-            var modelsName = "same model";
+            const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var targetCollection = new StochasticSoilModelCollection();
@@ -382,7 +382,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_ProfilesAssignedToCalculationsOneWithNoChangeInProfile_OnlyCalculationWithChangedProfileUpdated()
         {
             // Setup
-            var modelsName = "same model";
+            const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var targetCollection = new StochasticSoilModelCollection();

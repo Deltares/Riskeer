@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
-            var someFilePath = "location/to/a/file";
+            const string someFilePath = "location/to/a/file";
             var collection = new StochasticSoilModelCollection();
             collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
 

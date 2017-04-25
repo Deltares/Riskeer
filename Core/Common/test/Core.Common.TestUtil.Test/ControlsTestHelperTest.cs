@@ -37,8 +37,8 @@ namespace Core.Common.TestUtil.Test
             const string selectedvaluechanged = "SelectedValueChanged";
             const string selectionchangecommitted = "SelectionChangeCommitted";
 
-            var value1 = "1";
-            var value2 = "2";
+            const string value1 = "1";
+            const string value2 = "2";
 
             using (var form = new Form())
             using (var control = new ComboBox

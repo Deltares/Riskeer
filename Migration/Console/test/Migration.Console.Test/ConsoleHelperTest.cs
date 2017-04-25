@@ -112,7 +112,7 @@ namespace Migration.Console.Test
         public void WriteErrorLine_InvalidString_ThrowsFormatException()
         {
             // Setup
-            var invalidFormat = "{d}";
+            const string invalidFormat = "{d}";
 
             // Call
             TestDelegate call = () => ConsoleHelper.WriteErrorLine(invalidFormat, "ABC");
@@ -193,7 +193,7 @@ namespace Migration.Console.Test
         public void WriteCommandDescriptionLine_InvalidString_ThrowsFormatException()
         {
             // Setup
-            var invalidFormat = "{d}";
+            const string invalidFormat = "{d}";
 
             // Call
             TestDelegate call = () => ConsoleHelper.WriteCommandDescriptionLine(invalidFormat, "ABC");

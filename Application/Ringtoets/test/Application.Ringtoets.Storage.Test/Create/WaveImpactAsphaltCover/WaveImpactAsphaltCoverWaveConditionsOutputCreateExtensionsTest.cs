@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var output = new TestWaveConditionsOutput();
-            var order = 22;
+            const int order = 22;
 
             // Call
             WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(order);

@@ -298,7 +298,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var expectedMessage = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
+                const string expectedMessage = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -325,9 +325,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message1 = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
-                var message2 = "Fout bij het lezen van profiellocatie 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
-                var message3 = "Fout bij het lezen van profiellocatie 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                const string message1 = "Fout bij het lezen van profiellocatie 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                const string message2 = "Fout bij het lezen van profiellocatie 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                const string message3 = "Fout bij het lezen van profiellocatie 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(message1, messageArray[0]);
                 Assert.AreEqual(message2, messageArray[1]);
                 Assert.AreEqual(message3, messageArray[2]);
@@ -377,7 +377,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var expectedMessage = "Fout bij het lezen van profiellocatie 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
+                const string expectedMessage = "Fout bij het lezen van profiellocatie 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -470,8 +470,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
             {
-                var start = "Meerdere definities gevonden voor profiel 'profiel001'. Bestand '";
-                var end = "' wordt overgeslagen.";
+                const string start = "Meerdere definities gevonden voor profiel 'profiel001'. Bestand '";
+                const string end = "' wordt overgeslagen.";
                 bool found = messages.Any(m => m.StartsWith(start) && m.EndsWith(end));
                 Assert.IsTrue(found);
             };
@@ -500,7 +500,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
+                const string expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
                 Assert.AreEqual(expectedMessage, messageArray[1]);
             });

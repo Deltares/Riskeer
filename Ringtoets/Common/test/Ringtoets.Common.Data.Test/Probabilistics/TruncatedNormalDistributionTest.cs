@@ -55,8 +55,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [Test]
         public void LowerBoundary_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
-            var value = 1.23456789;
-            var numberOfDecimalPlaces = 4;
+            const double value = 1.23456789;
+            const int numberOfDecimalPlaces = 4;
             var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
 
             // Call
@@ -70,8 +70,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [Test]
         public void UpperBoundary_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
-            var value = 1.23456789;
-            var numberOfDecimalPlaces = 4;
+            const double value = 1.23456789;
+            const int numberOfDecimalPlaces = 4;
             var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
 
             // Call

@@ -39,10 +39,10 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var contribution1 = 0.2;
-            var contribution2 = 0.8;
-            double probability1 = 1.0 / 1000000.0;
-            double probability2 = 1.0 / 2000000.0;
+            const double contribution1 = 0.2;
+            const double contribution2 = 0.8;
+            const double probability1 = 1.0 / 1000000.0;
+            const double probability2 = 1.0 / 2000000.0;
 
             PipingCalculationScenario pipingCalculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability1, section);
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability2, section);
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations);
 
             // Assert
-            double expectedProbability = probability1 * contribution1 + probability2 * contribution2;
+            const double expectedProbability = probability1 * contribution1 + probability2 * contribution2;
             Assert.AreEqual(expectedProbability, assessmentLayerTwoA, 1e-8);
         }
 

@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
         {
             // Setup
-            double expectedProbability = 1.0 / 49862180;
+            const double expectedProbability = 1.0 / 49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Data.Test
         public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
         {
             // Setup
-            double expectedProbability = 1.0 / 49862180;
+            const double expectedProbability = 1.0 / 49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {

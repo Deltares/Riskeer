@@ -256,8 +256,8 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
         {
             // Setup
-            var outputALevel = 5.4;
-            var outputBLevel = 2.3;
+            const double outputALevel = 5.4;
+            const double outputBLevel = 2.3;
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
                 WaveImpactAsphaltCoverWaveConditionsOutputEntities =

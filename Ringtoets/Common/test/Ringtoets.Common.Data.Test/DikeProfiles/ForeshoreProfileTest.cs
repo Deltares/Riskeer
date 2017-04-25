@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                            });
 
             // Assert
-            var expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
+            const string expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void Constructor_NullOrWhitespaceName_NameSetToId(string name)
         {
             // Setup
-            var id = "id";
+            const string id = "id";
 
             // Call
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties
@@ -264,7 +264,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void ToString_Always_ReturnsName()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {

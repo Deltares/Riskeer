@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var newValue = "Test new name";
+            const string newValue = "Test new name";
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             var row = new PipingCalculationRow(calculation, handler);

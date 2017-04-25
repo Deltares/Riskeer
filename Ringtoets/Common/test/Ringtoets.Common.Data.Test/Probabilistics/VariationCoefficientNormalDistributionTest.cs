@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.IsInstanceOf<IVariationCoefficientDistribution>(distribution);
 
-            int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+            const int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
 
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.Mean.Value);
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
 
             // Assert
-            var expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
+            const string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

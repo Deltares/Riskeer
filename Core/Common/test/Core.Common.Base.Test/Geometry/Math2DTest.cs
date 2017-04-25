@@ -112,9 +112,9 @@ namespace Core.Common.Base.Test.Geometry
         public void LineIntersectionWithLine_InterSectionsHigherUpX_ReturnsIntersectionWithTolerance()
         {
             // Setup
-            var y1 = 5.925;
-            var y2 = 5.890;
-            var start = 133;
+            const double y1 = 5.925;
+            const double y2 = 5.890;
+            const int start = 133;
 
             // Call
             Point2D result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
@@ -1140,7 +1140,7 @@ namespace Core.Common.Base.Test.Geometry
             var pointA = new Point2D(1.8, 5.02);
             var pointB = new Point2D(3.8, -2.2);
             var segment = new Segment2D(pointA, pointB);
-            var fraction = 0.5;
+            const double fraction = 0.5;
 
             // Call
             Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
@@ -1156,7 +1156,7 @@ namespace Core.Common.Base.Test.Geometry
             var pointA = new Point2D(1.8, 5.02);
             var pointB = new Point2D(3.8, -2.2);
             var segment = new Segment2D(pointA, pointB);
-            var fraction = 0.0;
+            const double fraction = 0.0;
 
             // Call
             Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
@@ -1172,7 +1172,7 @@ namespace Core.Common.Base.Test.Geometry
             var pointA = new Point2D(1.8, 5.02);
             var pointB = new Point2D(3.8, -2.2);
             var segment = new Segment2D(pointA, pointB);
-            var fraction = 1.0;
+            const double fraction = 1.0;
 
             // Call
             Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);

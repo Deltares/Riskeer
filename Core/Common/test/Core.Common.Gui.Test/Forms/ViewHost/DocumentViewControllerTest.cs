@@ -642,7 +642,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
 
-            int data = default(int);
+            const int data = default(int);
 
             // Call
             ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();

@@ -156,8 +156,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNaNValuesAndDefaultsOnLayer()
         {
             // Setup
-            var bottom = 1.1;
-            var top = 1.1;
+            const double bottom = 1.1;
+            const double top = 1.1;
             SetExpectations(1, "", bottom, top, null, null, null, null, null, null, null, null, null);
 
             mocks.ReplayAll();
@@ -364,8 +364,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<string>(SoilProfileTableColumns.MaterialName)).Return(materialName).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.Color)).Return(color).Repeat.Any();
 
-            var logNormalDistribution = 3;
-            var logNormalShift = 0;
+            const int logNormalDistribution = 3;
+            const int logNormalShift = 0;
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelDistribution)).Return(logNormalDistribution).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelShift)).Return(logNormalShift).Repeat.Any();
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableColumns.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean).Repeat.Any();

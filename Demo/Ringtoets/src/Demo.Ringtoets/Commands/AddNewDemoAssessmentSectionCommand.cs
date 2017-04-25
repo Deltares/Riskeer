@@ -190,7 +190,7 @@ namespace Demo.Ringtoets.Commands
 
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelOutputValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            double targetProbability = 1.0 / 200000;
+            const double targetProbability = 1.0 / 200000;
             ObservableList<HydraulicBoundaryLocation> locations = failureMechanism.HydraulicBoundaryLocations;
             locations.ElementAt(0).DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 7.19,

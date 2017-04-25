@@ -183,7 +183,7 @@ namespace Core.Common.TestUtil.Test
         public void NextRoundedDouble_Always_ReturnsNewRoundedDouble()
         {
             // Setup
-            var seed = 21;
+            const int seed = 21;
             var seededRandomA = new Random(seed);
             var seededRandomB = new Random(seed);
 

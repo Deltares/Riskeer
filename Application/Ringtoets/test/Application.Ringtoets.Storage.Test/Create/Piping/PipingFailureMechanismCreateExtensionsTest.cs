@@ -145,7 +145,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var somePath = "some/path/to/file";
+            const string somePath = "some/path/to/file";
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 new StochasticSoilModel(-1, "name", "segmentName"),

@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
 
                 // Assert
                 Assert.DoesNotThrow(test);
-                var expectedVersion = "Namedate7";
+                const string expectedVersion = "Namedate7";
                 Assert.AreEqual(expectedVersion, version);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

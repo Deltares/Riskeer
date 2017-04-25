@@ -163,7 +163,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             Assert.AreEqual(2, dynamicProperties.Count);
 
-            var expectedCategory = "Algemeen";
+            const string expectedCategory = "Algemeen";
 
             PropertyDescriptor compositionProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(compositionProperty,
@@ -183,14 +183,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
+            const AssessmentSectionComposition assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
             var failureMechanismChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
-            var returnPeriod = 30000;
+            const int returnPeriod = 30000;
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.1, 1.0 / returnPeriod);
 
             // Call
@@ -414,7 +414,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
+            const AssessmentSectionComposition assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
             mocks.ReplayAll();
@@ -432,7 +432,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ReturnPeriod = invalidReturnPeriod;
 
             // Assert
-            var expectedMessage = "De waarde voor de 'Norm (terugkeertijd)' moet in het bereik [100, 1000000] liggen.";
+            const string expectedMessage = "De waarde voor de 'Norm (terugkeertijd)' moet in het bereik [100, 1000000] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

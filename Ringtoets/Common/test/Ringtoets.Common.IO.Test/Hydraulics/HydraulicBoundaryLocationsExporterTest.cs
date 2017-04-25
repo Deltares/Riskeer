@@ -141,7 +141,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
-            var baseName = "test";
+            const string baseName = "test";
 
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
-            var baseName = "test";
+            const string baseName = "test";
 
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {

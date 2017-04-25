@@ -353,7 +353,7 @@ namespace Core.Common.Geometry.Test
         public void FromXToXY_WithReferencePointOffsetAndRotation_ReturnsCoordinatesFromReferencePoint()
         {
             // Setup
-            var center = 5.0;
+            const double center = 5.0;
             var xCoordinates = new[]
             {
                 center - Math.Sqrt(8),
@@ -361,8 +361,8 @@ namespace Core.Common.Geometry.Test
                 center + Math.Sqrt(2)
             };
             var referencePoint = new Point2D(3, 4);
-            double offset = 5;
-            double rotation = 45;
+            const double offset = 5;
+            const double rotation = 45;
 
             // Call
             Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, rotation);
@@ -396,7 +396,7 @@ namespace Core.Common.Geometry.Test
                 Point2D actualPoint = actual[index];
                 Point2D expectedPoint = expected.ElementAt(index);
 
-                var delta = 1e-8;
+                const double delta = 1e-8;
                 Assert.AreEqual(expectedPoint.X, actualPoint.X, delta);
                 Assert.AreEqual(expectedPoint.Y, actualPoint.Y, delta);
             }

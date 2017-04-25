@@ -72,21 +72,21 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var random = new Random(22);
             double top = random.NextDouble();
-            var materialName = "materialX";
+            const string materialName = "materialX";
             Color color = Color.BlanchedAlmond;
 
-            var belowPhreaticLevelDistribution = 3;
-            var belowPhreaticLevelShift = 0;
+            const int belowPhreaticLevelDistribution = 3;
+            const int belowPhreaticLevelShift = 0;
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
 
-            var diameterD70Distribution = 3;
-            var diameterD70Shift = 0;
+            const int diameterD70Distribution = 3;
+            const int diameterD70Shift = 0;
             double diameterD70Mean = random.NextDouble();
             double diameterD70CoefficientOfVariation = random.NextDouble();
 
-            var permeabilityDistribution = 3;
-            var permeabilityShift = 0;
+            const int permeabilityDistribution = 3;
+            const int permeabilityShift = 0;
             double permeabilityMean = random.NextDouble();
             double permeabilityCoefficientOfVariation = random.NextDouble();
 
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             string expectedParameter)
         {
             // Setup
-            var validShift = 0.0;
+            const double validShift = 0.0;
             var layer = new SoilLayer1D(0.0)
             {
                 BelowPhreaticLevelDistribution = SoilLayerConstants.LogNormalDistributionValue,
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             string expectedParameter)
         {
             // Setup
-            long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
             var layer = new SoilLayer1D(1.0)
             {
                 DiameterD70Distribution = validDistribution,

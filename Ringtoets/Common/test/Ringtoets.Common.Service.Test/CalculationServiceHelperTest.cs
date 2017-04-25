@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Service.Test
         public void LogMessagesAsError_Always_LogsMessagesInGivenFormat()
         {
             // Setup
-            var format = "Message: {0}";
+            const string format = "Message: {0}";
             var errorMessages = new[]
             {
                 "Test 1",
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Service.Test
         public void LogValidationBeginTime_Always_LogsValidationBeginTime()
         {
             // Setup
-            var name = "Test name";
+            const string name = "Test name";
             DateTime dateTime = DateTime.Now;
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Service.Test
         public void LogValidationEndTime_Always_LogsValidationEndTime()
         {
             // Setup
-            var name = "Test name";
+            const string name = "Test name";
             DateTime dateTime = DateTime.Now;
 
             // Call
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Service.Test
         public void LogCalculationBeginTime_Always_LogsCalculationBeginTime()
         {
             // Setup
-            var name = "Test name";
+            const string name = "Test name";
             DateTime dateTime = DateTime.Now;
 
             // Call
@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Service.Test
         public void LogCalculationEndTime_Always_LogsCalculationEndTime()
         {
             // Setup
-            var name = "Test name";
+            const string name = "Test name";
             DateTime dateTime = DateTime.Now;
 
             // Call

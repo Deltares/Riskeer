@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            var probability = 0.65;
+            const double probability = 0.65;
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>

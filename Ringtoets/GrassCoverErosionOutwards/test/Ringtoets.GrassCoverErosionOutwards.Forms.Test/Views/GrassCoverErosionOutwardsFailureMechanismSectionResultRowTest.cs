@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            var newValue = AssessmentLayerTwoAResult.Successful;
+            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
             FailureMechanismSection section = CreateSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
             var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);

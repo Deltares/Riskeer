@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithCollectorAndGeometry_ReturnsFailureMechanismSectionWithGeometryStringSet()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var geometryPoints = new[]
             {
                 new Point2D(0, 0),
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var testName = "original name";
+            const string testName = "original name";
             var geometryPoints = new[]
             {
                 new Point2D(0, 0),

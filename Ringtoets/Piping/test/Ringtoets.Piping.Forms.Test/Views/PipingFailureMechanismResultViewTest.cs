@@ -273,7 +273,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
@@ -341,7 +341,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
@@ -372,7 +372,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
@@ -404,7 +404,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             using (ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
@@ -460,7 +460,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoAHasError_DoesNotShowError()
         {
             // Setup
-            var rowIndex = 0;
+            const int rowIndex = 0;
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))

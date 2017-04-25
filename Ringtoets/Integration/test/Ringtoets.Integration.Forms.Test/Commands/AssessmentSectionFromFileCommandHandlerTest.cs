@@ -451,7 +451,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static void SetShapeFileDirectory(AssessmentSectionFromFileCommandHandler commandHandler, string nonExistingFolder)
         {
-            var privateShapeFileDirectoryName = "shapeFileDirectory";
+            const string privateShapeFileDirectoryName = "shapeFileDirectory";
             Type commandHandlerType = commandHandler.GetType();
             FieldInfo fieldInfo = commandHandlerType.GetField(privateShapeFileDirectoryName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (fieldInfo == null)

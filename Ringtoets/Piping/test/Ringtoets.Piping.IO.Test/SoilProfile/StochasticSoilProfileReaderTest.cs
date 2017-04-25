@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ParameteredConstructor_PathToExistingFile_ExpectedValues()
         {
             // Setup
-            var dbName = "emptyschema.soil";
+            const string dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             // Call
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_CorruptDatabase_ThrowsException()
         {
             // Setup
-            var dbName = "corruptStochasticSoilProfile.soil";
+            const string dbName = "corruptStochasticSoilProfile.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             // Call
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void HasNext_EmptyDatabase_ReturnsFalse()
         {
             // Setup
-            var dbName = "emptyschema.soil";
+            const string dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void HasNext_CompleteDatabase_ReturnsTrue()
         {
             // Setup
-            var dbName = "complete.soil";
+            const string dbName = "complete.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilProfile_NoProfileIdsSet_ThrowsStochasticSoilProfileReadException()
         {
             // Setup
-            var dbName = "invalidStochasticSoilProfiles.soil";
+            const string dbName = "invalidStochasticSoilProfiles.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             const long stochasticProfileId = 1;
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
@@ -253,7 +253,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilProfile_CompleteDatabase_ReturnsExpectedValues(long profileId, double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             // Setup
-            var dbName = "complete.soil";
+            const string dbName = "complete.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilProfile_SoilModelIdNotInDatabase_ReturnNull()
         {
             // Setup
-            var dbName = "complete.soil";
+            const string dbName = "complete.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
@@ -295,9 +295,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilProfile_EmptyDatabase_ReturnsNull()
         {
             // Setup
-            var dbName = "emptyschema.soil";
+            const string dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            long profileId = 1;
+            const long profileId = 1;
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
             {

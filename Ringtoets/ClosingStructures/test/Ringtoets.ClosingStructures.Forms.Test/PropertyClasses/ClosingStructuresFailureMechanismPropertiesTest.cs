@@ -130,9 +130,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 changeHandler);
 
             // Assert
-            var generalCategory = "Algemeen";
-            var lengthEffectCategory = "Lengte-effect parameters";
-            var modelSettingsCategory = "Modelinstellingen";
+            const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(11, dynamicProperties.Count);
@@ -235,7 +235,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 changeHandler);
 
             // Assert
-            var generalCategory = "Algemeen";
+            const string generalCategory = "Algemeen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);

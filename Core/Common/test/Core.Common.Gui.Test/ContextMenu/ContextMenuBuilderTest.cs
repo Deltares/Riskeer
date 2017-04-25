@@ -338,7 +338,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddDeleteItem_WhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var nodeData = "string";
+            const string nodeData = "string";
             var parentData = new object();
             using (var treeViewControl = new TreeViewControl())
             {

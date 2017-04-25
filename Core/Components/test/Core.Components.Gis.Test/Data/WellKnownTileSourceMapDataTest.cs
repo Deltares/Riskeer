@@ -35,7 +35,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_ValidValues_ExpectedValues()
         {
             // Setup
-            var value = WellKnownTileSource.BingAerial;
+            const WellKnownTileSource value = WellKnownTileSource.BingAerial;
 
             // Call
             var mapData = new WellKnownTileSourceMapData(value);

@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Forms.Test
         public void Constructor_StructuresOneEntry_OneRowInGrid()
         {
             // Setup
-            var testname = "Test";
+            const string testname = "Test";
             var constructionProperties = new StructureBase.ConstructionProperties
             {
                 Name = testname,

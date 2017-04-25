@@ -1165,7 +1165,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var existingCalculationName = "Height structure";
+                const string existingCalculationName = "Height structure";
                 HeightStructure heightStructure = new TestHeightStructure(existingCalculationName);
 
                 var failureMechanism = new HeightStructuresFailureMechanism

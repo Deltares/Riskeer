@@ -1023,7 +1023,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
                 // Assert
-                var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
+                const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
                 Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
             }
             mocks.VerifyAll(); // No observer notified

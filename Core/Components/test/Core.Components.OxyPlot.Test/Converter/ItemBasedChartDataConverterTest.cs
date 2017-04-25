@@ -95,7 +95,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void ConvertSeriesProperties_ChartData_NameSetToSeries()
         {
             // Setup
-            var name = "<Some name>";
+            const string name = "<Some name>";
             var testConverter = new TestItemBasedChartDataConverter();
             var chartData = new TestItemBasedChartData(name);
             var chartSeries = new TestSeries();

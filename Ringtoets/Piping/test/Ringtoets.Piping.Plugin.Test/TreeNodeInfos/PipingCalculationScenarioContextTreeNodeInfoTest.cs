@@ -878,7 +878,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    var expectedValidationMessageCount = 5;
+                    const int expectedValidationMessageCount = 5;
                     TestHelper.AssertLogMessages(action, messages =>
                     {
                         IEnumerator<string> msgs = messages.GetEnumerator();
@@ -932,9 +932,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
                     // Then
-                    var expectedValidationMessageCount = 5;
-                    var expectedStatusMessageCount = 2;
-                    int expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
+                    const int expectedValidationMessageCount = 5;
+                    const int expectedStatusMessageCount = 2;
+                    const int expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
                     TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
                 }
             }

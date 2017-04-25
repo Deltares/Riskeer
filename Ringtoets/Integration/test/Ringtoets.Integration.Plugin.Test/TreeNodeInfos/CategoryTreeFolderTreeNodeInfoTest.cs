@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var testname = "testName";
+            const string testname = "testName";
             var categoryTreeFolder = new CategoryTreeFolder(testname, new object[0]);
 
             using (var plugin = new RingtoetsPlugin())

@@ -51,7 +51,7 @@ namespace Core.Common.IO.Test.Readers
         public void InitializeStreamReader_NotExistingFile_ThrowsCriticalFileReadExceptionWithInnerFileNotFoundException()
         {
             // Setup
-            var filePath = "nothing";
+            const string filePath = "nothing";
             string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
 
             // Call

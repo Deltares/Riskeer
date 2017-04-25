@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.TestUtils.Test
         {
             // Setup
             DataImportHelper.ImportReferenceLine(dikeSection);
-            var failureMechanismCount = 18;
+            const int failureMechanismCount = 18;
             int chosenFailureMechanismIndex = new Random(21).Next(0, failureMechanismCount);
             IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(chosenFailureMechanismIndex);
 

@@ -205,7 +205,7 @@ namespace Core.Common.Utils.Test
             object result = converter.ConvertFrom(second);
 
             // Assert
-            var expectedEnumValue = SimpleEnum.SecondValue;
+            const SimpleEnum expectedEnumValue = SimpleEnum.SecondValue;
             Assert.AreEqual(expectedEnumValue, result);
         }
 

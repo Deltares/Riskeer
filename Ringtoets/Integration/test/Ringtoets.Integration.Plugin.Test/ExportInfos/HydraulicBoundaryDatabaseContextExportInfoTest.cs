@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
-            var filePath = "test";
+            const string filePath = "test";
 
             using (var plugin = new RingtoetsPlugin())
             {

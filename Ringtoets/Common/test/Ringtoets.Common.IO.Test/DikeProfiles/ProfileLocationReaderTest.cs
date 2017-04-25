@@ -236,7 +236,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetNextProfileLocation();
 
                 // Assert
-                var expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
+                const string expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
                 string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -255,7 +255,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetNextProfileLocation();
 
                 // Assert
-                var expectedMessage = "Het profiel heeft geen geldige waarde voor attribuut 'X0'.";
+                const string expectedMessage = "Het profiel heeft geen geldige waarde voor attribuut 'X0'.";
                 string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -276,7 +276,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetNextProfileLocation();
 
                 // Assert
-                var expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
+                const string expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
                 string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }

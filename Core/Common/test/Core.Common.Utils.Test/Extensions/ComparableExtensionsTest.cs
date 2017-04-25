@@ -49,8 +49,8 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsBigger_FirstObjectNotSameTypeAsSecond_ThrowArgumentException()
         {
             // Setup
-            var first = 1;
-            var second = "one";
+            const int first = 1;
+            const string second = "one";
 
             // Call
             TestDelegate call = () => first.IsBigger(second);
@@ -80,8 +80,8 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsSmaller_FirstObjectNotSameTypeAsSecond_ThrowArgumentException()
         {
             // Setup
-            var first = 1;
-            var second = "one";
+            const int first = 1;
+            const string second = "one";
 
             // Call
             TestDelegate call = () => first.IsSmaller(second);
@@ -119,9 +119,9 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsInRange_SampleObjectTypeNotSameAsFirstLimit_ThrowArgumentException()
         {
             // Setup
-            var sample = 1;
-            var firstLimit = "one";
-            var secondLimit = 2;
+            const int sample = 1;
+            const string firstLimit = "one";
+            const int secondLimit = 2;
 
             // Call
             TestDelegate call = () => sample.IsInRange(firstLimit, secondLimit);
@@ -134,9 +134,9 @@ namespace Core.Common.Utils.Test.Extensions
         public void IsInRange_SampleObjectTypeNotSameAsSecondLimit_ThrowArgumentException()
         {
             // Setup
-            var sample = 1;
-            var firstLimit = 2;
-            var secondLimit = "one";
+            const int sample = 1;
+            const int firstLimit = 2;
+            const string secondLimit = "one";
 
             // Call
             TestDelegate call = () => sample.IsInRange(firstLimit, secondLimit);

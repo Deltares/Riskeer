@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var ringtoetsPipingSurfaceLine = mocks.StrictMock<RingtoetsPipingSurfaceLine>();
-            var testName = "ttt";
+            const string testName = "ttt";
             ringtoetsPipingSurfaceLine.Name = testName;
 
             mocks.ReplayAll();

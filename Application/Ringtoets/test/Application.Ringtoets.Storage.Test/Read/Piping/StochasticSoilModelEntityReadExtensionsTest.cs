@@ -73,8 +73,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSetAndEntityRegistered()
         {
             // Setup
-            var testName = "testName";
-            var testSegmentName = "testSegmentName";
+            const string testName = "testName";
+            const string testSegmentName = "testSegmentName";
             var entity = new StochasticSoilModelEntity
             {
                 Name = testName,

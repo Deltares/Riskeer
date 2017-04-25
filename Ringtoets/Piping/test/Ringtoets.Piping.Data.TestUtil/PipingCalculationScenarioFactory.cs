@@ -139,8 +139,8 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario CreatePipingCalculationScenarioWithValidInput()
         {
-            var bottom = 1.12;
-            var top = 10.56;
+            const double bottom = 1.12;
+            const double top = 10.56;
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new PipingSoilProfile(string.Empty, 0.0, new[]

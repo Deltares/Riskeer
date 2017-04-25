@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithOutLayers_ThrowsSoilProfileBuilderException()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             var builder = new SoilProfileBuilder1D(profileName, 0.0, 0);
 
             // Call
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithSingleLayer_ReturnsProfileWithBottomAndALayer()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             var random = new Random(22);
             double bottom = random.NextDouble();
             double top = random.NextDouble();
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithMultipleLayers_ReturnsProfileWithBottomAndALayer()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             var random = new Random(22);
             double bottom = random.NextDouble();
             double top = bottom + random.NextDouble();

@@ -51,7 +51,7 @@ namespace Core.Common.Utils.Test.Drawing
         {
             // Setup
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
-            var imageFormat = PixelFormat.Format32bppArgb;
+            const PixelFormat imageFormat = PixelFormat.Format32bppArgb;
 
             using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
@@ -71,7 +71,7 @@ namespace Core.Common.Utils.Test.Drawing
         {
             // Setup
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
-            var imageFormat = PixelFormat.Format32bppArgb;
+            const PixelFormat imageFormat = PixelFormat.Format32bppArgb;
 
             using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
             using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
@@ -91,7 +91,7 @@ namespace Core.Common.Utils.Test.Drawing
         {
             // Setup
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
-            var imageFormat = PixelFormat.Format32bppArgb;
+            const PixelFormat imageFormat = PixelFormat.Format32bppArgb;
 
             using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
             using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
@@ -110,7 +110,7 @@ namespace Core.Common.Utils.Test.Drawing
         {
             // Setup
             var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
-            var imageFormat = PixelFormat.Format32bppArgb;
+            const PixelFormat imageFormat = PixelFormat.Format32bppArgb;
 
             using (Bitmap image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
             using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))

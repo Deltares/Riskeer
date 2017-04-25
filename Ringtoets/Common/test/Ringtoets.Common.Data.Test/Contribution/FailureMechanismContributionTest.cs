@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanismContributions = new Collection<double>();
 
             var failureMechanisms = new Collection<IFailureMechanism>();
-            var namePrefixFormat = "mechanism_{0}";
+            const string namePrefixFormat = "mechanism_{0}";
 
             for (var i = 0; i < failureMechanismCount; i++)
             {
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate call = () => failureMechanismContribution.UpdateContributions(null, 0);
 
             // Assert
-            var message = "Kan geen bijdrageoverzicht maken zonder toetsspoor.";
+            const string message = "Kan geen bijdrageoverzicht maken zonder toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, message);
         }
 
@@ -258,14 +258,14 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void UpdateContributions_FailureMechanismsChangesAfterConstruction_UpdateDistribution(double newOtherContribution)
         {
             // Setup
-            var name1 = "A";
-            var name2 = "B";
-            var name3 = "C";
-            var name4 = "D";
-            var contribution1 = 1.1;
-            var contribution2 = 5.5;
-            var contribution3 = 23.45;
-            var contribution4 = 67.89;
+            const string name1 = "A";
+            const string name2 = "B";
+            const string name3 = "C";
+            const string name4 = "D";
+            const double contribution1 = 1.1;
+            const double contribution2 = 5.5;
+            const double contribution3 = 23.45;
+            const double contribution4 = 67.89;
 
             var mocks = new MockRepository();
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();

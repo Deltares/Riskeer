@@ -64,7 +64,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_NoHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             // Call
@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabaseFileLocation_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
             var isValid = false;
             string dbFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
@@ -135,7 +135,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
             var isValid = false;
             string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
@@ -159,7 +159,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             var input = new WaveConditionsInput();
@@ -185,7 +185,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_NoHydraulicBoundaryLocationDesignWaterLevel_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -194,7 +194,7 @@ namespace Ringtoets.Revetment.Service.Test
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
 
-            var designWaterLevelName = "<de arbitraire naam voor designwaterlevel>";
+            const string designWaterLevelName = "<de arbitraire naam voor designwaterlevel>";
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
@@ -225,7 +225,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                               double designWaterLevel)
         {
             // Setup
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -267,7 +267,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ForeshoreProfileUseBreakWaterAndHasInvalidBreakWaterHeight_ReturnsFalseAndLogsValidationMessages(double breakWaterHeight)
         {
             // Setup
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -302,7 +302,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ForeshoreProfileDoesNotUseBreakWaterAndHasInvalidBreakwaterHeight_ReturnsTrueAndLogsValidationStartAndEnd(double breakWaterHeight)
         {
             // Setup
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -336,7 +336,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ValidInputValidateForeshoreProfile_ReturnsTrueAndLogsValidationStartAndEnd(CalculationType calculationType)
         {
             // Setup 
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -381,7 +381,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_StructureNormalOrientationInvalid_ReturnsFalse()
         {
             // Setup
-            var name = "test";
+            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -418,7 +418,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-            var calculationName = "test";
+            const string calculationName = "test";
 
             // Call
             TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, calculationName);
@@ -453,7 +453,7 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-            var calculationName = "test";
+            const string calculationName = "test";
 
             using (new HydraRingCalculatorFactoryConfig())
             {

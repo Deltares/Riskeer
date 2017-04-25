@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocation(null, "aNAME", 1.1, referencePoint);
 
             // Assert
-            var expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
+            const string expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocation("anID", "aNAME", 1.1, null);
 
             // Assert
-            var expectedMessage = "De locatie heeft geen coördinaten.";
+            const string expectedMessage = "De locatie heeft geen coördinaten.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocation(id, "aNAME", 1.1, referencePoint);
 
             // Assert
-            var expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
+            const string expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -116,7 +116,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocation("anID", "aNAME", x0, referencePoint);
 
             // Assert
-            var expectedMessage = "De locatie parameter 'X0' bevat een ongeldig getal.";
+            const string expectedMessage = "De locatie parameter 'X0' bevat een ongeldig getal.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

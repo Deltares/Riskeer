@@ -62,7 +62,7 @@ namespace Core.Components.BruTile.Forms.Test
         public void GetWmtsCapabilities_ValidUrl_ReturnsWmtsCapabilities()
         {
             // Setup
-            var url = "validUrl";
+            const string url = "validUrl";
             var factory = new BruTileWmtsCapabilityFactory();
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 

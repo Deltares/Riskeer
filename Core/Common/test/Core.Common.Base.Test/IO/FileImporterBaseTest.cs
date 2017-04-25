@@ -125,9 +125,9 @@ namespace Core.Common.Base.Test.IO
         public void NotifyProgress_DelegateSet_CallProgressChanged()
         {
             // Setup
-            var expectedDescription = "B";
-            var expectedStep = 1;
-            var expectedNumberOfSteps = 3;
+            const string expectedDescription = "B";
+            const int expectedStep = 1;
+            const int expectedNumberOfSteps = 3;
 
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget);

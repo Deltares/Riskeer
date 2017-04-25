@@ -354,7 +354,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             };
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
-            var newName = "newName";
+            const string newName = "newName";
 
             // When
             dynamicPropertyBag.GetProperties()["Name"].SetValue(testProperties, newName);

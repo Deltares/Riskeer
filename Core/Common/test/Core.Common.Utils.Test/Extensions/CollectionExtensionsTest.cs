@@ -101,7 +101,7 @@ namespace Core.Common.Utils.Test.Extensions
         public void RemoveAllWhere_FilterReturningAlternatesForAllElements_CollectionHasSomeElementsRemoved()
         {
             // Setup
-            var expectedElementToKeep = 2;
+            const int expectedElementToKeep = 2;
 
             var collection = new List<int>();
             collection.AddRange(new[]

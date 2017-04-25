@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ValidatePathForCalculation_NonExistingFile_ReturnsMessageWithError()
         {
             // Setup
-            var nonexistingSqlite = "nonexisting.sqlite";
+            const string nonexistingSqlite = "nonexisting.sqlite";
             string filePath = Path.Combine(testDataPath, nonexistingSqlite);
 
             // Call
@@ -131,10 +131,10 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ValidatePathForCalculation_InvalidFilePath_ReturnsMessageWithError()
         {
             // Setup
-            string invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
-                                     "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
-                                     "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
-                                     "\\followedbythefile";
+            const string invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
+                                           "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
+                                           "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
+                                           "\\followedbythefile";
 
             // Call
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidFilePath);

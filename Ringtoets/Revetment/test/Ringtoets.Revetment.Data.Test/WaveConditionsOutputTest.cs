@@ -112,7 +112,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Constructor_WithInvalidCalculationConvergenceValue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var invalidEnumValue = (CalculationConvergence) 9001;
+            const CalculationConvergence invalidEnumValue = (CalculationConvergence) 9001;
 
             // Call
             TestDelegate call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,

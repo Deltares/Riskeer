@@ -99,8 +99,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
 
-            var generalCategory = "Algemeen";
-            var charactersticPointsCategory = "Karakteristieke punten";
+            const string generalCategory = "Algemeen";
+            const string charactersticPointsCategory = "Karakteristieke punten";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             Assert.IsTrue(nameProperty.IsReadOnly);

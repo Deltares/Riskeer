@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             double testValue = new Random(21).NextDouble();
-            var numberOfDecimalPlaces = 2;
+            const int numberOfDecimalPlaces = 2;
 
             var mocks = new MockRepository();
             var distributionMock = mocks.Stub<IDistribution>();

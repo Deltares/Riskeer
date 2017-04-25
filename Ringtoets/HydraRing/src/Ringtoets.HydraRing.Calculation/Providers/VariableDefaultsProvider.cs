@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         /// </summary>
         public VariableDefaultsProvider()
         {
-            var notApplicableCorrelationLength = 999999;
+            const int notApplicableCorrelationLength = 999999;
 
             variableDefaults = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, VariableDefaults>>
             {

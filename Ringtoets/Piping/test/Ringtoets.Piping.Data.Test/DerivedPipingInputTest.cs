@@ -885,8 +885,8 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            var belowPhreaticLevelMeanA = 2.5;
-            var belowPhreaticLevelMeanB = 3.4;
+            const double belowPhreaticLevelMeanA = 2.5;
+            const double belowPhreaticLevelMeanB = 3.4;
             input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(2.5)

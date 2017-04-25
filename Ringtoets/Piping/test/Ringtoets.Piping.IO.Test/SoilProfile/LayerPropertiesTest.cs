@@ -123,8 +123,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void LayerProperties_ReaderThrowsInvalidCastException_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            var path = "path";
-            var profileName = "SomeProfile";
+            const string path = "path";
+            const string profileName = "SomeProfile";
 
             var mocks = new MockRepository();
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();

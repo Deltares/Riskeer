@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollectorAndLayers_ReturnsSoilProfileEntityWithPropertiesAndSoilLayerEntitiesSet()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             double bottom = new Random(21).NextDouble();
             var layers = new[]
             {
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var layers = new[]
             {
                 new PipingSoilLayer(1),

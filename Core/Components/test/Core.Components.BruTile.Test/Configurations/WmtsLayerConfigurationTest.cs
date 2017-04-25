@@ -83,7 +83,7 @@ namespace Core.Components.BruTile.Test.Configurations
             TestDelegate call = () => WmtsLayerConfiguration.CreateInitializedConfiguration("A", "B", "png");
 
             // Assert
-            var message = "Afbeelding formaat moet opgegeven worden als MIME-type.";
+            const string message = "Afbeelding formaat moet opgegeven worden als MIME-type.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("preferredFormat", paramName);
         }
@@ -146,7 +146,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 {
                     // Assert
                     string message = Assert.Throws<CannotCreateTileCacheException>(call).Message;
-                    var expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
+                    const string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
                     Assert.AreEqual(expectedMessage, message);
                 }
                 finally

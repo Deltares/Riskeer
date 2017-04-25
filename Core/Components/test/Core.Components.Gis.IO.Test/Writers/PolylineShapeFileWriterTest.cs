@@ -135,7 +135,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.CopyToFeature(mapLineData2);
 
                 // Assert
-                var message = "Column 'anotherKey' does not belong to table .";
+                const string message = "Column 'anotherKey' does not belong to table .";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
             }
         }
@@ -146,7 +146,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             // Setup
             string directoryPath = TestHelper.GetScratchPadPath(nameof(SaveAs_ValidMapLineData_WritesShapeFile));
             string filePath = Path.Combine(directoryPath, "test.shp");
-            var baseName = "test";
+            const string baseName = "test";
 
             MapFeature[] features = CreateFeatures(0.0);
 

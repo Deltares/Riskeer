@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 new object(),
                 new object()
             };
-            var category = TreeFolderCategory.Output;
+            const TreeFolderCategory category = TreeFolderCategory.Output;
 
             // Call
             var treeFolder = new CategoryTreeFolder("<name>", contents, category);

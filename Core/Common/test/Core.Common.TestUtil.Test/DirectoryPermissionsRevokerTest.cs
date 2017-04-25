@@ -174,7 +174,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_DirectoryAlreadyRemoved_DoesNotThrowException()
         {
             // Setup
-            var subfolder = "Deleted";
+            const string subfolder = "Deleted";
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             using (new DirectoryDisposeHelper(rootFolder, subfolder))

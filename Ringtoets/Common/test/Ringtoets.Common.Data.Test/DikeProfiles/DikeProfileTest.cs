@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       });
 
             // Assert
-            var expectedMessage = "De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.";
+            const string expectedMessage = "De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
         }
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       });
 
             // Assert
-            var expectedMessage = "Een punt in de geometrie voor het dijkprofiel heeft geen waarde.";
+            const string expectedMessage = "Een punt in de geometrie voor het dijkprofiel heeft geen waarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       });
 
             // Assert
-            var expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
+            const string expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -228,7 +228,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void Constructor_NullOrWhitespaceName_NameSetToId(string name)
         {
             // Setup
-            var id = "id";
+            const string id = "id";
 
             // Call
             var foreshoreProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
@@ -312,7 +312,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         public void ToString_Always_ReturnsName()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {

@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, -1);
 
             // Assert
-            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
+            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => profile.AddProbability(probabilityToAdd);
 
             // Assert
-            var expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
+            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             Assert.AreEqual(startProbability, profile.Probability);
         }
@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Update_WithEqualProfile_ReturnsFalse()
         {
             // Setup
-            var probability = 1.0;
+            const double probability = 1.0;
             var profile = new TestPipingSoilProfile();
             var stochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
             {

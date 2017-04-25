@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var distribution = mockRepository.Stub<IVariationCoefficientDistribution>();
             mockRepository.ReplayAll();
 
-            var numberOfDecimalPlaces = 2;
+            const int numberOfDecimalPlaces = 2;
             distribution.Mean = new RoundedDouble(numberOfDecimalPlaces, 1);
             distribution.CoefficientOfVariation = new RoundedDouble(numberOfDecimalPlaces, 2);
 

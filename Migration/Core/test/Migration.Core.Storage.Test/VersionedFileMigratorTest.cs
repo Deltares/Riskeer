@@ -75,7 +75,7 @@ namespace Migration.Core.Storage.Test
             var comparer = mockRepository.Stub<IComparer>();
             mockRepository.ReplayAll();
 
-            var toVersion = "1";
+            const string toVersion = "1";
             var migrator = new SimpleVersionedFileMigrator(comparer)
             {
                 CreateScripts =

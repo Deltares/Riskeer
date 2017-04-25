@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble) value;
 
             // Assert
-            var expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+            const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble) value;
 
             // Assert
-            var expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+            const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

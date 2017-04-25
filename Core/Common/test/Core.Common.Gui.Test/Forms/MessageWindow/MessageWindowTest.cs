@@ -387,7 +387,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
-            var detailedMessage = "TestDetailedMessage";
+            const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
             using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))

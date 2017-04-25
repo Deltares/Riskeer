@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void ToString_Always_ReturnName()
         {
             // Setup
-            var expectedName = "someTestName";
+            const string expectedName = "someTestName";
             var calculation = new TestStructuresCalculation
             {
                 Name = expectedName

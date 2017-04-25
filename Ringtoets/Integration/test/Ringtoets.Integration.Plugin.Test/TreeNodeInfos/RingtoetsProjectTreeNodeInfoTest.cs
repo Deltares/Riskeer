@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var testName = "ttt";
+            const string testName = "ttt";
             var project = new RingtoetsProject(testName);
 
             using (var plugin = new RingtoetsPlugin())

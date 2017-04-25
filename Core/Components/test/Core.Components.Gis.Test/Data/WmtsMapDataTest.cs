@@ -207,7 +207,7 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate call = () => mapData.Configure(url, capabilityIdentifier, "png");
 
             // Assert
-            var message = "Specified image format is not a MIME type.";
+            const string message = "Specified image format is not a MIME type.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("preferredFormat", paramName);
         }

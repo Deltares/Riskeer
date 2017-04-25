@@ -2281,7 +2281,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 TestDelegate call = () => map.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
-                var message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
+                const string message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
                 Assert.AreEqual("mapData", paramName);
             }

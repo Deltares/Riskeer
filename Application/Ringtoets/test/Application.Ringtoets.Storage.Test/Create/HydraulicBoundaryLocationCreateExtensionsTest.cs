@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithPersistenceRegistry_ReturnsHydraulicLocationEntityWithPropertiesSet()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var random = new Random(21);
             double coordinateX = random.NextDouble();
             double coordinateY = random.NextDouble();
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_StringPropertiesDoNotShareReferences()
         {
             // Setup
-            var testName = "original name";
+            const string testName = "original name";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, testName, 0, 0);
             var registry = new PersistenceRegistry();
 
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistry_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithPropertiesSet()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var random = new Random(21);
             double coordinateX = random.NextDouble();
             double coordinateY = random.NextDouble();
@@ -186,7 +186,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_StringPropertiesDoNotShareReferences()
         {
             // Setup
-            var testName = "original name";
+            const string testName = "original name";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, testName, 0, 0);
             var registry = new PersistenceRegistry();
 

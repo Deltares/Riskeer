@@ -102,7 +102,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             var converter = new ConfigurationBreakWaterTypeConverter();
-            var invalidValue = (ConfigurationBreakWaterType) 99999999;
+            const ConfigurationBreakWaterType invalidValue = (ConfigurationBreakWaterType) 99999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));

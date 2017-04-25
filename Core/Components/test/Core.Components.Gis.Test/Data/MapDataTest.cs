@@ -48,7 +48,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var name = "Some name";
+            const string name = "Some name";
 
             // Call
             var data = new MapDataChild(name);
@@ -63,8 +63,8 @@ namespace Core.Components.Gis.Test.Data
         public void Name_SetName_ReturnsNewName()
         {
             // Setup
-            var name = "Some name";
-            var newName = "Something";
+            const string name = "Some name";
+            const string newName = "Something";
             var data = new MapDataChild(name);
 
             // Precondition

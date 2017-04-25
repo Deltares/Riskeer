@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var file = "nonexisting.soil";
+            const string file = "nonexisting.soil";
             string validFilePath = Path.Combine(testDataPath, file);
 
             var failureMechanism = new PipingFailureMechanism();
@@ -232,8 +232,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
-            var expectedProfiles = 26;
-            var expectedModels = 3;
+            const int expectedProfiles = 26;
+            const int expectedModels = 3;
 
             var expectedProgressMessages = new List<ProgressNotification>
             {
@@ -478,7 +478,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
+            const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
             StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
@@ -639,7 +639,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedLogMessage = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
+            const string expectedLogMessage = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
@@ -752,8 +752,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string expectedLogMessage = "Er zijn geen ondergrondschematisaties gevonden in het stochastische " +
-                                        "ondergrondmodel 'Model'. Dit model wordt overgeslagen.";
+            const string expectedLogMessage = "Er zijn geen ondergrondschematisaties gevonden in het stochastische " +
+                                              "ondergrondmodel 'Model'. Dit model wordt overgeslagen.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
@@ -785,8 +785,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Action importAction = () => importResult = importer.Import();
 
             // Assert
-            string expectedMessage = "Ondergrondschematisatie 'Profile' is meerdere keren gevonden in ondergrondmodel " +
-                                     "'StochasticSoilModelName'. Kansen van voorkomen worden opgeteld.";
+            const string expectedMessage = "Ondergrondschematisatie 'Profile' is meerdere keren gevonden in ondergrondmodel " +
+                                           "'StochasticSoilModelName'. Kansen van voorkomen worden opgeteld.";
             TestHelper.AssertLogMessageIsGenerated(importAction, expectedMessage, 1);
 
             StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);

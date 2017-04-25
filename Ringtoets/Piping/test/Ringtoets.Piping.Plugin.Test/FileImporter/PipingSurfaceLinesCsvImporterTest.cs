@@ -50,8 +50,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
         private readonly string pluginSurfaceLinesTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
 
-        private readonly string krpFormat = "{0}.krp.csv";
-        private readonly string surfaceLineFormat = "{0}.csv";
+        private const string krpFormat = "{0}.krp.csv";
+        private const string surfaceLineFormat = "{0}.csv";
 
         private MockRepository mocks;
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mocks.ReplayAll();
 
             const int expectedNumberOfSurfaceLines = 2;
-            var twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
+            const string twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
             string validFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var referenceLine = new ReferenceLine();
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var twovalidsurfacelinesCsv = "ValidSurfaceLine_HasConsecutiveDuplicatePoints.csv";
+            const string twovalidsurfacelinesCsv = "ValidSurfaceLine_HasConsecutiveDuplicatePoints.csv";
             string validFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var referenceLine = new ReferenceLine();
@@ -726,7 +726,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var fileName = "TwoValidSurfaceLines_DuplicateIdentifier";
+            const string fileName = "TwoValidSurfaceLines_DuplicateIdentifier";
             string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
             string expectedCharacteristicPointsFile = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
 
@@ -841,7 +841,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingRecline.csv";
+            const string twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingRecline.csv";
             string path = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var failureMechanism = new PipingFailureMechanism();
@@ -886,7 +886,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingZeroLength.csv";
+            const string twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingZeroLength.csv";
             string path = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var failureMechanism = new PipingFailureMechanism();
@@ -931,7 +931,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var fileName = "TwoValidSurfaceLines";
+            const string fileName = "TwoValidSurfaceLines";
             string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
             string nonExistingCharacteristicFile = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
@@ -1586,7 +1586,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mocks.ReplayAll();
 
             const int expectedNumberOfSurfaceLines = 1;
-            var twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
+            const string twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
             string validFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var referenceLine = new ReferenceLine();
@@ -1633,7 +1633,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mocks.ReplayAll();
 
             const int expectedNumberOfSurfaceLines = 1;
-            var twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
+            const string twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
             string validFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var referenceLine = new ReferenceLine();

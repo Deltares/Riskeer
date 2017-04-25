@@ -127,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             double orientation = random.NextDouble();
             double x0 = random.NextDouble();
             double height = random.NextDouble();
-            var breakWaterType = BreakWaterType.Wall;
+            const BreakWaterType breakWaterType = BreakWaterType.Wall;
 
             var points = new[]
             {

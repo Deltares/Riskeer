@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var groupName = "testName";
+            const string groupName = "testName";
             var group = new CalculationGroup
             {
                 Name = groupName
@@ -633,7 +633,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var calculationName = "calculationName";
+            const string calculationName = "calculationName";
             var calculation = new TestCalculation
             {
                 Name = calculationName

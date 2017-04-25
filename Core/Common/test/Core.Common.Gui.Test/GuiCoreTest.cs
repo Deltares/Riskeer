@@ -881,7 +881,7 @@ namespace Core.Common.Gui.Test
                 Action call = () => gui.Run();
 
                 // Assert
-                var expectedMessage = "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.";
+                const string expectedMessage = "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.";
                 Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessageAndLogLevel);
             }

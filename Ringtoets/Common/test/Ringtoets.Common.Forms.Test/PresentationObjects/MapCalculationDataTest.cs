@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_WithoutCalculationLocation_ThrowArgumentNullException()
         {
             // Setup
-            var calculationName = "name";
+            const string calculationName = "name";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
 
             // Call
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 hydraulicBoundaryLocation);
 
             // Assert
-            var expectedMessage = "A location for the calculation is required.";
+            const string expectedMessage = "A location for the calculation is required.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage)
                                          .ParamName;
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_WithoutHydraulicBoundaryLocation_ThrowArgumentNullException()
         {
             // Setup
-            var calculationName = "name";
+            const string calculationName = "name";
             var calculationLocation = new Point2D(0.0, 2.3);
 
             // Call
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 null);
 
             // Assert
-            var expectedMessage = "A hydraulic boundary location is required.";
+            const string expectedMessage = "A hydraulic boundary location is required.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage)
                                          .ParamName;
 
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculationName = "name";
+            const string calculationName = "name";
             var calculationLocation = new Point2D(0.0, 2.3);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
 

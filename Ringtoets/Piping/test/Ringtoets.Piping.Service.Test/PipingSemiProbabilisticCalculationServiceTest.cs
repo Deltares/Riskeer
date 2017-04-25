@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Service.Test
                 SectionLength = assessmentSectionLength
             };
             PipingCalculation calculation = AsPipingCalculation(calculatorResult);
-            double norm = 1.0 / returnPeriod;
+            const double norm = 1.0 / returnPeriod;
 
             PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
 

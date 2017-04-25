@@ -228,7 +228,7 @@ namespace Core.Common.Utils.Test
             object result = converter.ConvertFrom(second);
 
             // Assert
-            var expectedEnumValue = SimpleEnum.SecondValue;
+            const SimpleEnum expectedEnumValue = SimpleEnum.SecondValue;
             Assert.AreEqual(expectedEnumValue, result);
         }
 
@@ -243,7 +243,7 @@ namespace Core.Common.Utils.Test
             object result = converter.ConvertFrom(third);
 
             // Assert
-            var expectedEnumValue = SimpleEnum.ThirdValue;
+            const SimpleEnum expectedEnumValue = SimpleEnum.ThirdValue;
             Assert.AreEqual(expectedEnumValue, result);
         }
 

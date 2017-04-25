@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var testName = "ttt";
+            const string testName = "ttt";
             var pipingSoilLayer = mocks.StrictMock<PipingSoilLayer>(10);
             var pipingSoilProfile = mocks.StrictMock<PipingSoilProfile>(testName, 0, new[]
             {

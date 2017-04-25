@@ -958,7 +958,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newStringValue;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            const string expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -995,7 +995,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            const string expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -1030,7 +1030,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = null;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();

@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
-            var someFilePath = "location/to/a/file";
+            const string someFilePath = "location/to/a/file";
             var collection = new RingtoetsPipingSurfaceLineCollection();
             collection.AddRange(Enumerable.Empty<RingtoetsPipingSurfaceLine>(), someFilePath);
 

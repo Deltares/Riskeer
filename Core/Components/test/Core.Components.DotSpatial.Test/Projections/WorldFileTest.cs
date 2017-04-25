@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             TestDelegate call = () => new WorldFile(0.0, 0.0, 0.0, 0.0, 1.1, 2.2);
 
             // Assert
-            var message = "Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.";
+            const string message = "Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -124,12 +124,12 @@ namespace Core.Components.DotSpatial.Test.Projections
         public void GivenScreenSpaceCoordinate_WhenDoingRoundtripTransformation_ThenScreenSpaceCoordinateRemainsUnchanged()
         {
             // Given
-            var a11 = 1.1;
-            var a21 = 2.2;
-            var a12 = 3.3;
-            var a22 = 4.4;
-            var transformationX = 5.5;
-            var transformationY = 6.6;
+            const double a11 = 1.1;
+            const double a21 = 2.2;
+            const double a12 = 3.3;
+            const double a22 = 4.4;
+            const double transformationX = 5.5;
+            const double transformationY = 6.6;
 
             var worldFile = new WorldFile(a11, a21, a12, a22, transformationX, transformationY);
 

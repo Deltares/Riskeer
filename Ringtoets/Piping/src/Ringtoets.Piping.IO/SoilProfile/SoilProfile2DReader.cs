@@ -182,7 +182,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// casted to the expected column types.</exception>
             internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
             {
-                string readColumn = SoilProfileTableColumns.IntersectionX;
+                const string readColumn = SoilProfileTableColumns.IntersectionX;
                 try
                 {
                     IntersectionX = reader.Read<double>(readColumn);

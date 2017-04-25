@@ -178,8 +178,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(18, dynamicProperties.Count);
 
-            var hydraulicDataCategory = "Hydraulische gegevens";
-            var schematizationCategory = "Schematisatie";
+            const string hydraulicDataCategory = "Hydraulische gegevens";
+            const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -411,7 +411,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            var hydraulicDataCategory = "Hydraulische gegevens";
+            const string hydraulicDataCategory = "Hydraulische gegevens";
             if (!useManualAssessmentLevelInput)
             {
                 Assert.AreEqual(18, dynamicProperties.Count);
@@ -741,7 +741,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
-            var numberOfChangedProperties = 2;
+            const int numberOfChangedProperties = 2;
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
@@ -784,7 +784,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
-            var numberOfChangedProperties = 2;
+            const int numberOfChangedProperties = 2;
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
@@ -860,7 +860,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ExitPointL = newExitPointL;
 
             // Assert
-            var expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+            const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
@@ -906,7 +906,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.EntryPointL = entryPoint;
 
             // Assert
-            var expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
+            const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             Assert.IsTrue(handler.Called);
             mocks.VerifyAll(); // No observer notified

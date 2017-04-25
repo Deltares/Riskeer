@@ -336,9 +336,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SetDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -386,9 +386,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SetBottomDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -436,9 +436,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SetBottomDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -486,9 +486,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SetDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -536,9 +536,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SetDikeToeAtRiverAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -586,9 +586,9 @@ namespace Ringtoets.Piping.Data.Test
         public void SetDikeToeAtPolderAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -640,9 +640,9 @@ namespace Ringtoets.Piping.Data.Test
         public void ValidateInRange_PointNotInRange_ReturnsFalse(double invalidValue)
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -661,9 +661,9 @@ namespace Ringtoets.Piping.Data.Test
         public void ValidateInRange_PointInRange_ReturnsTrue(double validValue)
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -679,9 +679,9 @@ namespace Ringtoets.Piping.Data.Test
         public void GetLocalPointFromGeometry_ValidSurfaceLine_ReturnsLocalPoint()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
@@ -710,9 +710,9 @@ namespace Ringtoets.Piping.Data.Test
         public void GetLocalPointFromGeometry_OnePointOnSurfaceLine_ReturnsPointWithNanValues()
         {
             // Setup
-            var testX = 1.0;
-            var testY = 2.2;
-            var testZ = 4.4;
+            const double testX = 1.0;
+            const double testY = 2.2;
+            const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]

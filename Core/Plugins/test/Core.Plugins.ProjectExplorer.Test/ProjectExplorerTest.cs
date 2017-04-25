@@ -161,11 +161,11 @@ namespace Core.Plugins.ProjectExplorer.Test
             var viewCommands = mocks.StrictMock<IViewCommands>();
 
             var projectStub = mocks.Stub<IProject>();
-            var stringA = "testA";
+            const string stringA = "testA";
 
             mocks.ReplayAll();
 
-            var stringB = "testB";
+            const string stringB = "testB";
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
@@ -211,8 +211,8 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void TreeViewEnterPress_Always_OpenViewForSelection()
         {
             // Setup
-            var treeIdentifier = "SomeName";
-            var formIdentifier = "SomeForm";
+            const string treeIdentifier = "SomeName";
+            const string formIdentifier = "SomeForm";
             var mocks = new MockRepository();
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -269,8 +269,8 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             mocks.ReplayAll();
 
-            var stringA = "testA";
-            var stringB = "testB";
+            const string stringA = "testA";
+            const string stringB = "testB";
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {

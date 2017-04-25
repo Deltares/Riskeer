@@ -695,7 +695,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            const string expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -726,7 +726,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -755,7 +755,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newValue;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            const string expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -782,7 +782,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = null;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -814,7 +814,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = newProbabilityString;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            const string expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -843,7 +843,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = newValue;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            const string expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -870,7 +870,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityOpenStructure = null;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -902,7 +902,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityReparation = newProbabilityString;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            const string expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -931,7 +931,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityReparation = newValue;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            const string expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -958,7 +958,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityReparation = null;
 
             // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();

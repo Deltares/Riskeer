@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            var newValue = AssessmentLayerTwoAResult.Successful;
+            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
             FailureMechanismSection section = CreateSection();
             var result = new PipingStructureFailureMechanismSectionResult(section);
             var row = new PipingStructureSectionResultRow(result);

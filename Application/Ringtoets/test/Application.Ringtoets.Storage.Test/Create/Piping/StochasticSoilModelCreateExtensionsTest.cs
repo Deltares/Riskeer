@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             int order = new Random(1).Next();
-            var testName = "testName";
-            var testSegmentName = "testSegmentName";
+            const string testName = "testName";
+            const string testSegmentName = "testSegmentName";
             var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
             var registry = new PersistenceRegistry();
 
@@ -75,8 +75,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var testName = "testName";
-            var testSegmentName = "testSegmentName";
+            const string testName = "testName";
+            const string testSegmentName = "testSegmentName";
             var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
             var registry = new PersistenceRegistry();
 

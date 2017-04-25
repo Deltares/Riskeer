@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         {
             // Setup
             var provider = new DesignWaterLevelCalculationMessageProvider();
-            var failureMessage = "It failed!";
+            const string failureMessage = "It failed!";
 
             // Call
             string message = provider.GetCalculationFailedMessage(name, failureMessage);

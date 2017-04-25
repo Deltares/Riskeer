@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         {
             Assert.AreEqual(12, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
 
-            var message = "Value no longer corresponds to id in Hydra-Ring settings database files.";
+            const string message = "Value no longer corresponds to id in Hydra-Ring settings database files.";
             Assert.AreEqual(0, (int) HydraRingFailureMechanismType.AssessmentLevel, message);
             Assert.AreEqual(1, (int) HydraRingFailureMechanismType.QVariant, message);
             Assert.AreEqual(2, (int) HydraRingFailureMechanismType.WaveHeight, message);

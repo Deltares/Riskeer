@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         public void GetLocationsIdByTrackIdQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            var expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
+            const string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
 
             // Call
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();

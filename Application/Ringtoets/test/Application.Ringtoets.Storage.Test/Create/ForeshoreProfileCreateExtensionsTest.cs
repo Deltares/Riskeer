@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithSimpleProperties_ReturnsForeshoreProfileWithSimplePropertiesSet()
         {
             // Setup
-            var name = "testName";
-            var id = "fpid";
+            const string name = "testName";
+            const string id = "fpid";
             var random = new Random(21);
             int order = random.Next();
             double orientation = random.NextDouble();
@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             double height = new Random(21).NextDouble();
-            var breakWaterType = BreakWaterType.Caisson;
+            const BreakWaterType breakWaterType = BreakWaterType.Caisson;
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(breakWaterType, height));
             var registry = new PersistenceRegistry();
 

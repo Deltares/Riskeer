@@ -191,7 +191,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateExpandAllItem_DependingOnCanExpandOrCollapseForData_ItemWithExpandFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
-            var dataObject = "string";
+            const string dataObject = "string";
             var treeNodeInfo = new TreeNodeInfo<string>();
             var childTreeNodeInfo = new TreeNodeInfo<object>();
             var treeViewControl = new TreeViewControl();
@@ -227,7 +227,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateCollapseAllItem_DependingOnCanExpandOrCollapseForData_ItemWithCollapseFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
-            var dataObject = "string";
+            const string dataObject = "string";
             var treeNodeInfo = new TreeNodeInfo<string>();
             var childTreeNodeInfo = new TreeNodeInfo<object>();
             var treeViewControl = new TreeViewControl();

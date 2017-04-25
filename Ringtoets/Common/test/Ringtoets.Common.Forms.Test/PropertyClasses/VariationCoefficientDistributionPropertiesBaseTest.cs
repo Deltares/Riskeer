@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate call = () => new SimpleDistributionProperties(flags, distribution, null);
 
             // Assert
-            var message = "Change handler required if changes are possible.";
+            const string message = "Change handler required if changes are possible.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
             Assert.AreEqual("handler", exception.ParamName);
             mocks.VerifyAll();

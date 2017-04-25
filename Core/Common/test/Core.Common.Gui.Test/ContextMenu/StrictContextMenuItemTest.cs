@@ -38,8 +38,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var mockRepository = new MockRepository();
 
-            var text = "text";
-            var toolTip = "tooltip";
+            const string text = "text";
+            const string toolTip = "tooltip";
             Bitmap image = Resources.ImportIcon;
             var counter = 0;
 

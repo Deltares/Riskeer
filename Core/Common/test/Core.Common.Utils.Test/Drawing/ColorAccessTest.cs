@@ -56,7 +56,7 @@ namespace Core.Common.Utils.Test.Drawing
             TestDelegate call = () => ColorAccess.Create(Resources.Black2x2, rect);
 
             // Assert
-            var message = "Toegankelijk gebied moet geheel binnen de afbeelding vallen.";
+            const string message = "Toegankelijk gebied moet geheel binnen de afbeelding vallen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("accessibleArea", paramName);
         }
@@ -99,7 +99,7 @@ namespace Core.Common.Utils.Test.Drawing
             };
 
             // Assert
-            var message = "Index must be in range x:[0,1], y:[0,1].";
+            const string message = "Index must be in range x:[0,1], y:[0,1].";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
@@ -140,7 +140,7 @@ namespace Core.Common.Utils.Test.Drawing
             TestDelegate call = () => colorAccess[x, y] = Color.AliceBlue;
 
             // Assert
-            var message = "Index must be in range x:[0,15], y:[0,15].";
+            const string message = "Index must be in range x:[0,15], y:[0,15].";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 

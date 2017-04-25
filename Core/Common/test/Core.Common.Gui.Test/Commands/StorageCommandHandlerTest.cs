@@ -826,7 +826,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => returnedPath = storageCommandHandler.GetExistingProjectFilePath();
 
             // Assert
-            var expectedMessage = "Openen van bestaand Ringtoetsproject geannuleerd.";
+            const string expectedMessage = "Openen van bestaand Ringtoetsproject geannuleerd.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             Assert.IsNull(returnedPath);

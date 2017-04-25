@@ -34,7 +34,7 @@ namespace Core.Components.Charting.Test.Styles
             // Setup
             Color fillColor = Color.AliceBlue;
             Color strokeColor = Color.Blue;
-            var width = 3;
+            const int width = 3;
 
             // Call
             var areaStyle = new ChartAreaStyle(fillColor, strokeColor, width);

@@ -97,10 +97,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
-            var trackId = 18;
-            var hrdLocationId = 1;
-            var expectedLocationId = 1800001;
-            var expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
+            const int trackId = 18;
+            const int hrdLocationId = 1;
+            const int expectedLocationId = 1800001;
+            const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
             var locationIdDictionary = new Dictionary<long, long>();
 
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
@@ -123,7 +123,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             // Setup
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-            var trackId = 1;
+            const int trackId = 1;
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -147,7 +147,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
-            var trackId = 1;
+            const int trackId = 1;
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");

@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var random = new Random(12);
             int order = random.Next();
-            var name = "GrassCoverErosionInwardsCalculation Name";
+            const string name = "GrassCoverErosionInwardsCalculation Name";
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,

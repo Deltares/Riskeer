@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             {
                 Directory.CreateDirectory(directoryPath);
                 string filePath = Path.Combine(directoryPath, "test.shp");
-                var baseName = "test";
+                const string baseName = "test";
 
                 var writer = new ReferenceLineWriter();
 

@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(15, dynamicProperties.Count);
 
-            var hydraulicParametersCategory = "Hydraulische gegevens";
+            const string hydraulicParametersCategory = "Hydraulische gegevens";
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[1];
             Assert.IsNotNull(assessmentLevelProperty);

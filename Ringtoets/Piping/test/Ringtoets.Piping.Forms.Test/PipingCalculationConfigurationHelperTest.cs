@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Assert
-            var format = "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.";
+            const string format = "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.";
             Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create(string.Format(format, testName1), LogLevelConstant.Warn),
@@ -793,8 +793,8 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel2
             };
 
-            var surfaceLineName1 = "surface line 1";
-            var surfaceLineName2 = "surface line 2";
+            const string surfaceLineName1 = "surface line 1";
+            const string surfaceLineName2 = "surface line 2";
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
                 Name = surfaceLineName1
@@ -914,8 +914,8 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel2
             };
 
-            var surfaceLineName1 = "surface line 1";
-            var surfaceLineName2 = "surface line 2";
+            const string surfaceLineName1 = "surface line 1";
+            const string surfaceLineName2 = "surface line 2";
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
                 Name = surfaceLineName1

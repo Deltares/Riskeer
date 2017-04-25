@@ -1002,7 +1002,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var existingCalculationName = "StabilityPoint structure";
+                const string existingCalculationName = "StabilityPoint structure";
                 StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure(existingCalculationName);
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism

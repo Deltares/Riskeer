@@ -143,7 +143,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Action test = () => valid = assigner.Assign();
 
             // Assert
-            var expectedMessage = "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden. Berekening 'name' is overgeslagen.";
+            const string expectedMessage = "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden. Berekening 'name' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
         }

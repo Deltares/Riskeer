@@ -116,7 +116,7 @@ namespace Core.Common.Base.Test
             TestDelegate call = () => collection.AddRange(items, "path");
 
             // Assert
-            var message = "Collection cannot contain null.";
+            const string message = "Collection cannot contain null.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("items", paramName);
         }

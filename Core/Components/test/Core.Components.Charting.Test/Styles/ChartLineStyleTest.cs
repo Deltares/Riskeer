@@ -34,8 +34,8 @@ namespace Core.Components.Charting.Test.Styles
         {
             // Setup
             Color color = Color.AliceBlue;
-            var width = 3;
-            var style = DashStyle.Solid;
+            const int width = 3;
+            const DashStyle style = DashStyle.Solid;
 
             // Call
             var lineStyle = new ChartLineStyle(color, width, style);

@@ -49,9 +49,9 @@ namespace Ringtoets.Common.Forms.TestUtil
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            var typePropertyIndex = 0;
-            var meanPropertyIndex = 1;
-            var deviationPropertyIndex = 2;
+            const int typePropertyIndex = 0;
+            const int meanPropertyIndex = 1;
+            const int deviationPropertyIndex = 2;
 
             Assert.AreEqual(true, dynamicProperties[typePropertyIndex].IsReadOnly);
             Assert.AreEqual(meanReadOnly, dynamicProperties[meanPropertyIndex].IsReadOnly);
@@ -76,9 +76,9 @@ namespace Ringtoets.Common.Forms.TestUtil
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            var typePropertyIndex = 0;
-            var meanPropertyIndex = 1;
-            var variationCoefficientPropertyIndex = 2;
+            const int typePropertyIndex = 0;
+            const int meanPropertyIndex = 1;
+            const int variationCoefficientPropertyIndex = 2;
 
             Assert.AreEqual(true, dynamicProperties[typePropertyIndex].IsReadOnly);
             Assert.AreEqual(meanReadOnly, dynamicProperties[meanPropertyIndex].IsReadOnly);

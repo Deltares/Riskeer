@@ -136,8 +136,8 @@ namespace Ringtoets.Common.Forms.Test
         public void UpdateDataGridViewDataSource_WithCalculationsRowsAndCalculationsPerSection_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var sectionNameA = "sectionNameA";
-            var sectionNameB = "sectionNameB";
+            const string sectionNameA = "sectionNameA";
+            const string sectionNameB = "sectionNameB";
 
             var mockRepository = new MockRepository();
             var calculationA = mockRepository.Stub<ICalculation>();
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.Forms.Test
         public void ClearDataSource_WithPreviousData_DataGridViewEmpty()
         {
             // Setup
-            var sectionName = "sectionName";
+            const string sectionName = "sectionName";
 
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();

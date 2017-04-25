@@ -86,7 +86,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_TreeNodeDraggedToDroppableNode_DragDropEffectSetForEvent(bool canDrop, DragDropEffects dropEffect)
         {
             // Setup
-            var targetHeight = 30;
+            const int targetHeight = 30;
 
             var draggingNode = new TreeNode("DraggingNode");
 
@@ -128,7 +128,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_NoTreeNodeDraggedToDroppableNode_DragDropEffectNoneSetForEvent()
         {
             // Setup
-            var targetHeight = 30;
+            const int targetHeight = 30;
 
             var mocks = new MockRepository();
 
@@ -166,7 +166,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void HandleDragOver_DataDraggedThrowsInvalidCastException_DragDropEffectNoneSetForEvent()
         {
             // Setup
-            var targetHeight = 30;
+            const int targetHeight = 30;
 
             var mocks = new MockRepository();
             var data = mocks.Stub<IDataObject>();

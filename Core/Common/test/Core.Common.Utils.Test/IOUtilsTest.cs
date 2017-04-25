@@ -41,7 +41,7 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.GetFullPath(invalidPath);
 
             // Assert
-            var message = "Het bestandspad moet opgegeven zijn.";
+            const string message = "Het bestandspad moet opgegeven zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -60,7 +60,7 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.GetFullPath(tooLongFolderPath);
 
             // Assert
-            var message = "Het bestandspad is te lang.";
+            const string message = "Het bestandspad is te lang.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -76,7 +76,7 @@ namespace Core.Common.Utils.Test
             TestDelegate call = () => IOUtils.GetFullPath(invalidPath);
 
             // Assert
-            var message = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            const string message = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -84,13 +84,13 @@ namespace Core.Common.Utils.Test
         public void GetFullPath_InvalidColonCharacterInPath_ThrowsArgumentException()
         {
             // Setup
-            var folderWithInvalidColonCharacter = @"C:\Left:Right";
+            const string folderWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
             TestDelegate call = () => IOUtils.GetFullPath(folderWithInvalidColonCharacter);
 
             // Assert
-            var message = "Het bestandspad bevat een ':' op een ongeldige plek.";
+            const string message = "Het bestandspad bevat een ':' op een ongeldige plek.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -159,7 +159,7 @@ namespace Core.Common.Utils.Test
         public void IsValidFolderPath_InvalidColonCharacterInPath_ReturnFalse()
         {
             // Setup
-            var pathWithInvalidColonCharacter = @"C:\Left:Right";
+            const string pathWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
             bool isFolderPathValid = IOUtils.IsValidFolderPath(pathWithInvalidColonCharacter);
@@ -220,7 +220,7 @@ namespace Core.Common.Utils.Test
         public void ValidateFolderPath_InvalidColonCharacterInPath_ThrowsArgumentException()
         {
             // Setup
-            var folderWithInvalidColonCharacter = @"C:\Left:Right";
+            const string folderWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
             TestDelegate call = () => IOUtils.ValidateFolderPath(folderWithInvalidColonCharacter);

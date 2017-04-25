@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithCollector_NewPointAndEntityRegistered()
         {
             // Setup
-            var name = "testName";
+            const string name = "testName";
             var points = new[]
             {
                 new Point2D(0, 0)

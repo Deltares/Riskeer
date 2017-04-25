@@ -100,8 +100,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             BreakWater breakWater = null;
             if (withBreakWater)
             {
-                var nonDefaultBreakWaterType = BreakWaterType.Wall;
-                var nonDefaultBreakWaterHeight = 5.5;
+                const BreakWaterType nonDefaultBreakWaterType = BreakWaterType.Wall;
+                const double nonDefaultBreakWaterHeight = 5.5;
 
                 // Precondition
                 Assert.AreNotEqual(nonDefaultBreakWaterType, input.BreakWater.Type);

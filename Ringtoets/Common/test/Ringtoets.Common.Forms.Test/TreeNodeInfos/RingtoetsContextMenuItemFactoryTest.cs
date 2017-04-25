@@ -631,7 +631,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => errorMessage);
@@ -707,7 +707,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculation = new TestCalculation();
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, null, c => errorMessage);
@@ -824,7 +824,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
@@ -845,7 +845,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
@@ -967,7 +967,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
@@ -988,7 +988,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage);
@@ -1102,7 +1102,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage);
@@ -1126,7 +1126,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage);
@@ -1235,7 +1235,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
@@ -1262,7 +1262,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
-            var errorMessage = "Additional check failed.";
+            const string errorMessage = "Additional check failed.";
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(

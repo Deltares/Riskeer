@@ -531,8 +531,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(1, 0, 2.0),
                 new Point3D(2, 0, 3.0)
             });
-            var bottom = 1.5;
-            var top = 2.5;
+            const double bottom = 1.5;
+            const double top = 2.5;
             var soilLayer = new PipingSoilLayer(top);
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
@@ -569,8 +569,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(1.5, 0, 2.5),
                 new Point3D(2, 0, 3.0)
             });
-            var bottom = 1.5;
-            var top = 2.5;
+            const double bottom = 1.5;
+            const double top = 2.5;
             var soilLayer = new PipingSoilLayer(top);
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
@@ -605,8 +605,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(1, 0, 2.0),
                 new Point3D(2, 0, 3.0)
             });
-            var bottom = 1.5;
-            var top = 2.5;
+            const double bottom = 1.5;
+            const double top = 2.5;
             var soilLayer = new PipingSoilLayer(top);
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
@@ -640,8 +640,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(1, 0, 2.0),
                 new Point3D(2, 0, 2.0)
             });
-            var bottom = 1.5;
-            var top = 2.5;
+            const double bottom = 1.5;
+            const double top = 2.5;
             var soilLayer = new PipingSoilLayer(top);
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
@@ -675,8 +675,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(4, 0, 0.0),
                 new Point3D(8, 0, 4.0)
             });
-            var bottom = 1;
-            var top = 3;
+            const int bottom = 1;
+            const int top = 3;
             var soilLayer = new PipingSoilLayer(top);
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {

@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void CreateAssessmentSectionStub_WithFilePathSet_ReturnsStubbedAssessmentSectionWithHRDWithPath()
         {
             // Setup
-            var path = "C://temp";
+            const string path = "C://temp";
             var failureMechanism = new TestFailureMechanism();
             var mocks = new MockRepository();
 

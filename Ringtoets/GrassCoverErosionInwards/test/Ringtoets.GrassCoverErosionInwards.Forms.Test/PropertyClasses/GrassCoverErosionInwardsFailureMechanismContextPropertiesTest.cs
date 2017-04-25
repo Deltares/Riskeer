@@ -146,9 +146,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 handler);
 
             // Assert
-            var generalCategory = "Algemeen";
-            var lengthEffectParameterCategory = "Lengte-effect parameters";
-            var modelSettingsCategory = "Modelinstellingen";
+            const string generalCategory = "Algemeen";
+            const string lengthEffectParameterCategory = "Lengte-effect parameters";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
@@ -234,7 +234,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 handler);
 
             // Assert
-            var generalCategory = "Algemeen";
+            const string generalCategory = "Algemeen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);

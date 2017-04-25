@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void ParameteredConstructor_FromPropertyWithoutAttributesWithPublicGetSet_ExpectedValues()
         {
             // Setup
-            var propertyName = "IntegerProperty";
+            const string propertyName = "IntegerProperty";
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
 
             // Call
@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void ParameteredConstructor_FromPropertyWithoutAttributesWithOnlyPublicGet_ExpectedValues()
         {
             // Setup
-            var propertyName = "DoublePropertyWithOnlyPublicGet";
+            const string propertyName = "DoublePropertyWithOnlyPublicGet";
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
 
             // Call
@@ -81,7 +81,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void ParameteredConstructor_FromPropertyWithAttributesWithPublicGetSet_ExpectedValues()
         {
             // Setup
-            var propertyName = "StringPropertyWithAttributes";
+            const string propertyName = "StringPropertyWithAttributes";
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetProperty(propertyName);
 
             // Call
@@ -101,7 +101,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void ParameteredConstructor_FromPropertyOverridingAttributesFromBaseClass_InheritedAttributesAreInherited()
         {
             // Setup
-            var propertyName = "StringPropertyWithAttributes";
+            const string propertyName = "StringPropertyWithAttributes";
             PropertyInfo propertyInfo = typeof(InheritorSettingPropertyToNotBrowsable).GetProperty(propertyName);
 
             // Call
@@ -121,7 +121,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void ParameteredConstructor_FromPropertyWithAttributesFromBaseClass_InheritedAttributesAreInherited()
         {
             // Setup
-            var propertyName = "BoolPropertyWithAttributes";
+            const string propertyName = "BoolPropertyWithAttributes";
             PropertyInfo propertyInfo = typeof(InheritorSettingPropertyToNotBrowsable).GetProperty(propertyName);
 
             // Call

@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var random = new Random(21);
             long testId = random.Next(0, 400);
-            var testName = "testName";
+            const string testName = "testName";
             double x = random.NextDouble();
             double y = random.NextDouble();
             var entity = new HydraulicLocationEntity

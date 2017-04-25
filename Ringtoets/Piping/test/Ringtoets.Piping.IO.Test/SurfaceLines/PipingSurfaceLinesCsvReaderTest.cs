@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(corruptPath);
 
             // Assert
-            var innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            const string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }

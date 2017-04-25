@@ -68,7 +68,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            var columnName = "SomeColumn";
+            const string columnName = "SomeColumn";
             dataReader.Stub(dr => dr[columnName]).Throw(new IndexOutOfRangeException());
             mockRepository.ReplayAll();
 
@@ -90,7 +90,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            var columnName = "SomeColumn";
+            const string columnName = "SomeColumn";
             dataReader.Stub(dr => dr[columnName]).Return("3..2");
             mockRepository.ReplayAll();
 
@@ -110,8 +110,8 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            var columnName = "SomeColumn";
-            var value = 3.9;
+            const string columnName = "SomeColumn";
+            const double value = 3.9;
             dataReader.Stub(dr => dr[columnName]).Return(value);
             mockRepository.ReplayAll();
 
@@ -134,7 +134,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();
-            var columnName = "SomeColumn";
+            const string columnName = "SomeColumn";
             dataReader.Stub(dr => dr[columnName]).Return(3e139);
             mockRepository.ReplayAll();
 
@@ -152,8 +152,8 @@ namespace Core.Common.IO.Test.Readers
         public void Read_UsingSameTypeAsColumnType_ReturnsTypedValue()
         {
             // Setup
-            var columnName = "SomeColumn";
-            var testValue = "testValue";
+            const string columnName = "SomeColumn";
+            const string testValue = "testValue";
 
             var mockRepository = new MockRepository();
             var dataReader = mockRepository.Stub<IDataReader>();

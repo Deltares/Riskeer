@@ -119,7 +119,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var expectedMessage = "Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID 'unmatchable'.";
+                const string expectedMessage = "Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID 'unmatchable'.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -184,9 +184,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
-                                     "ID 'profiel005' ligt niet op de referentielijn. " +
-                                     "Dit profiel wordt overgeslagen.";
+            const string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
+                                           "ID 'profiel005' ligt niet op de referentielijn. " +
+                                           "Dit profiel wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, foreshoreProfiles.Count);

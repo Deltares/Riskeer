@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             var dikeProfileData = new DikeProfileData();
 
-            var coolText = "haha";
+            const string coolText = "haha";
 
             // Call
             dikeProfileData.Id = coolText;
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             var dikeProfileData = new DikeProfileData();
 
-            var coolText = "hihi";
+            const string coolText = "hihi";
 
             // Call
             dikeProfileData.Memo = coolText;

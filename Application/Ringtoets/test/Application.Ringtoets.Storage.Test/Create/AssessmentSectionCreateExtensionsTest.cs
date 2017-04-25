@@ -178,8 +178,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithHydraulicBoundaryDatabase_SetsPropertiesAndLocationsToEntity()
         {
             // Setup
-            var testFilePath = "path";
-            var testVersion = "1";
+            const string testFilePath = "path";
+            const string testVersion = "1";
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {

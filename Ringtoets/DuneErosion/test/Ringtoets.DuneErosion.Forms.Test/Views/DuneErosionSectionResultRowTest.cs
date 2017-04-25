@@ -73,7 +73,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            var newValue = AssessmentLayerTwoAResult.Successful;
+            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
             FailureMechanismSection section = CreateSection();
             var result = new DuneErosionFailureMechanismSectionResult(section);
             var row = new DuneErosionSectionResultRow(result);

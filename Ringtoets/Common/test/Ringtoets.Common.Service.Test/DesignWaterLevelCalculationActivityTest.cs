@@ -258,7 +258,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const double norm = 1.0 / 30;
-            var expectedDesignWaterLevel = 3.5;
+            const double expectedDesignWaterLevel = 3.5;
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
@@ -286,7 +286,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            var calculationFailedMessage = "Something went wrong";
+            const string calculationFailedMessage = "Something went wrong";
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);

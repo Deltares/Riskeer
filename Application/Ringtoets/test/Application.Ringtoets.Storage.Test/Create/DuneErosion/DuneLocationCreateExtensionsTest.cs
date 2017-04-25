@@ -126,7 +126,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         public void Create_StringPropertiesDoNotShareReferences()
         {
             // Setup
-            var testName = "original name";
+            const string testName = "original name";
             var location = new DuneLocation(1, testName, new Point2D(0, 0), new DuneLocation.ConstructionProperties());
             var registry = new PersistenceRegistry();
 

@@ -410,7 +410,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Validate_SoilProfileBottomAtTopLevel_ValidationMessageForHavingTooHighBottom(double bottom)
         {
             // Setup
-            var top = 0;
+            const int top = 0;
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
             properties.SoilProfile = new PipingSoilProfile(string.Empty, bottom, new[]
             {

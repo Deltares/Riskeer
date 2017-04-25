@@ -179,8 +179,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            var testLocation = "testLocation";
-            var testVersion = "testVersion";
+            const string testLocation = "testLocation";
+            const string testVersion = "testVersion";
             entity.HydraulicDatabaseLocation = testLocation;
             entity.HydraulicDatabaseVersion = testVersion;
             entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
@@ -642,8 +642,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            var profileAId = "profileA";
-            var profileBId = "profileB";
+            const string profileAId = "profileA";
+            const string profileBId = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
@@ -768,8 +768,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            var profileAId = "profileA";
-            var profileBId = "profileB";
+            const string profileAId = "profileA";
+            const string profileBId = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
@@ -849,8 +849,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            var profileAId = "profileA";
-            var profileBId = "profileB";
+            const string profileAId = "profileA";
+            const string profileBId = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,

@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
-            var someFilePath = "location/to/a/file";
+            const string someFilePath = "location/to/a/file";
             var collection = new DikeProfileCollection();
             collection.AddRange(Enumerable.Empty<DikeProfile>(), someFilePath);
 

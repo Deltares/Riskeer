@@ -27,8 +27,8 @@ namespace Ringtoets.Common.Data.TestUtil
 {
     public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResult>
     {
-        private static readonly string defaultName = "Test failure mechanism";
-        private static readonly string defaultCode = "TFM";
+        private const string defaultName = "Test failure mechanism";
+        private const string defaultCode = "TFM";
         private readonly IList<FailureMechanismSectionResult> sectionResults;
 
         public TestFailureMechanism()

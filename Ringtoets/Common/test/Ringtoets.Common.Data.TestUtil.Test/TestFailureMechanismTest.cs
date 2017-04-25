@@ -49,8 +49,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void Constructor_WithNameAndCode_SetNameAndCodeProperties()
         {
             // Setup
-            var testName = "Other name";
-            var testCode = "ON";
+            const string testName = "Other name";
+            const string testCode = "ON";
 
             // Call
             var failureMechanism = new TestFailureMechanism(testName, testCode);

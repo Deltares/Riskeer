@@ -678,7 +678,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         public void AddToolView_InvalidPosition_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var invalidLocation = 4;
+            const int invalidLocation = 4;
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             using (var testView = new TestView())

@@ -32,9 +32,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void Create_ReturnsExpectedProcess()
         {
             // Call
-            var iniFilePath = "D:\\iniFile.text";
-            var workingDirectory = "D:\\workingDirectory";
-            var mechanismComputationExeFilePath = "D:\\mechanismComputation.exe";
+            const string iniFilePath = "D:\\iniFile.text";
+            const string workingDirectory = "D:\\workingDirectory";
+            const string mechanismComputationExeFilePath = "D:\\mechanismComputation.exe";
 
             Process process = HydraRingProcessFactory.Create(mechanismComputationExeFilePath, iniFilePath, workingDirectory);
 

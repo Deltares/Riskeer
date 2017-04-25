@@ -118,7 +118,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             TestDelegate call = () => linearRing.Reproject(projection, projection);
 
             // Assert
-            var message = "Ring must contain at least 3 coordinates.";
+            const string message = "Ring must contain at least 3 coordinates.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
             Assert.AreEqual("ring", paramName);
         }

@@ -1739,7 +1739,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var sectionNormal = 3.3;
+            const double sectionNormal = 3.3;
             var forelandPoints = new List<HydraRingForelandPoint>
             {
                 new HydraRingForelandPoint(1.1, 2.2)

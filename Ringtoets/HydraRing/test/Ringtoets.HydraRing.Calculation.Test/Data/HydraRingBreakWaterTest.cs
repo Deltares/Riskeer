@@ -31,8 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var type = 1;
-            var height = 100.1;
+            const int type = 1;
+            const double height = 100.1;
 
             // Call
             var breakWater = new HydraRingBreakWater(type, height);

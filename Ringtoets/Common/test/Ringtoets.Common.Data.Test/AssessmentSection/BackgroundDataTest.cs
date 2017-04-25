@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             TestDelegate call = () => backgroundData.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
-            var message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
+            const string message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
         }

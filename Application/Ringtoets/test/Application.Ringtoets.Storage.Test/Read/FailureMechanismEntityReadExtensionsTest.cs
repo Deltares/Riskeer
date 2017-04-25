@@ -302,7 +302,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
-            var sourcePath = "some/Path";
+            const string sourcePath = "some/Path";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -350,7 +350,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
-            var sourcePath = "some/path";
+            const string sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -770,8 +770,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithHydraulicBoundaryLocations_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithLocationsSet()
         {
             // Setup
-            var locationAName = "Location A";
-            var locationBName = "Location B";
+            const string locationAName = "Location A";
+            const string locationBName = "Location B";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),

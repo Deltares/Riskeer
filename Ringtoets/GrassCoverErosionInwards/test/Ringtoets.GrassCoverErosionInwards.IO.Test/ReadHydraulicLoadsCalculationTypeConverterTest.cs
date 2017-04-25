@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
             // Setup
             var converter = new ReadHydraulicLoadsCalculationTypeConverter();
 
-            var invalidValue = (ReadHydraulicLoadsCalculationType) 9999999;
+            const ReadHydraulicLoadsCalculationType invalidValue = (ReadHydraulicLoadsCalculationType) 9999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));

@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         public void ToString_Always_ReturnsName()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0);
 
             // Call

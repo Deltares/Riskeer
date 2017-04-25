@@ -33,8 +33,8 @@ namespace Core.Components.Gis.Test.Style
         {
             // Setup
             Color color = Color.AliceBlue;
-            var width = 3;
-            var style = PointSymbol.Square;
+            const int width = 3;
+            const PointSymbol style = PointSymbol.Square;
 
             // Call
             var pointStyle = new PointStyle(color, width, style);

@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var expectedName = "<Name>";
+            const string expectedName = "<Name>";
             var points = new[]
             {
                 new Point2D(1, 2),

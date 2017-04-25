@@ -31,9 +31,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var expectedX = 1.1;
-            var expectedZ = 2.2;
-            var expectedRoughness = 3.3;
+            const double expectedX = 1.1;
+            const double expectedZ = 2.2;
+            const double expectedRoughness = 3.3;
 
             // Call
             var hydraRingRoughnessProfilePoint = new HydraRingRoughnessProfilePoint(expectedX, expectedZ, expectedRoughness);

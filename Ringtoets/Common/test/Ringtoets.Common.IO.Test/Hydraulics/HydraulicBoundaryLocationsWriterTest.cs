@@ -97,7 +97,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             string directoryPath = TestHelper.GetScratchPadPath("WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
-            var baseName = "test";
+            const string baseName = "test";
 
             var writer = new HydraulicBoundaryLocationsWriter("Toetspeil", "Golfhoogte");
 

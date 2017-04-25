@@ -53,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var lastErrorFileParser = new LastErrorFileParser();
-            var nonExistentDirectory = "c:/niet_bestaande_map";
+            const string nonExistentDirectory = "c:/niet_bestaande_map";
 
             // Call
             TestDelegate call = () => lastErrorFileParser.Parse(nonExistentDirectory, 1);

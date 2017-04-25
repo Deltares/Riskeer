@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ParameteredConstructor_PathToExistingFile_ExpectedValues()
         {
             // Setup
-            var dbName = "emptyschema.soil";
+            const string dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             // Call
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void HasNext_EmptyDatabase_ReturnsFalse()
         {
             // Setup
-            var dbName = "emptyschema.soil";
+            const string dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void HasNext_CompleteDatabase_ReturnsTrue()
         {
             // Setup
-            var dbName = "complete.soil";
+            const string dbName = "complete.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilModel_InvalidSegmentPoint_ThrowsStochasticSoilModelReadException()
         {
             // Setup
-            var dbName = "invalidSegmentPoint.soil";
+            const string dbName = "invalidSegmentPoint.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
                 .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilModel_EmptyDatabase_ReturnsNull()
         {
             // Setup
-            var dbName = "emptyschema.soil";
+            const string dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             const int expectedNrOfModels = 0;
 
@@ -275,7 +275,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilModel_ModelWithoutProfile_ThreeModelsWithSecondWithoutProfiles()
         {
             // Setup
-            var dbName = "modelWithoutProfile.soil";
+            const string dbName = "modelWithoutProfile.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             const int expectedNrOfModels = 3;
 
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilModel_CompleteDatabase_ThreeModelsWithProfiles()
         {
             // Setup
-            var dbName = "complete.soil";
+            const string dbName = "complete.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             const int expectedNrOfModels = 3;
 
@@ -389,7 +389,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Count_ThreeModelsOneModelWithoutSegmentPoints_ReturnsTwo()
         {
             // Setup
-            var dbName = "modelWithoutSegmentPoints.soil";
+            const string dbName = "modelWithoutSegmentPoints.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
@@ -406,7 +406,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilModel_ThreeModelsOneModelWithoutSegmentPointsUsingCount_ReturnsTwoModels()
         {
             // Setup
-            var dbName = "modelWithoutSegmentPoints.soil";
+            const string dbName = "modelWithoutSegmentPoints.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
@@ -430,7 +430,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadStochasticSoilModel_ThreeModelsOneModelWithoutSegmentPointsUsingHasNext_ReturnsTwoModels()
         {
             // Setup
-            var dbName = "modelWithoutSegmentPoints.soil";
+            const string dbName = "modelWithoutSegmentPoints.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))

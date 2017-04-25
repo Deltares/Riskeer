@@ -47,9 +47,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
-            var profileName = "profile";
-            var layerCount = 1;
-            long soilProfileId = 1234;
+            const string profileName = "profile";
+            const int layerCount = 1;
+            const long soilProfileId = 1234;
 
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Return(profileName);
             reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).IgnoreArguments().Return(layerCount);
@@ -73,8 +73,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
-            var layerCount = 1;
-            var path = "A";
+            const int layerCount = 1;
+            const string path = "A";
             var invalidCastException = new InvalidCastException();
 
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Throw(invalidCastException);
@@ -101,8 +101,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
-            var profileName = "profile";
-            var path = "A";
+            const string profileName = "profile";
+            const string path = "A";
             var invalidCastException = new InvalidCastException();
 
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).IgnoreArguments().Return(profileName).Repeat.Any();

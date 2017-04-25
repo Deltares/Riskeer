@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            var probabilityFormat = "1/{0:n0}";
+            const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(upliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
             Assert.AreEqual(string.Format(probabilityFormat, 1.0 / upliftProbability), properties.UpliftProbability);
@@ -142,11 +142,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double pipingReliability = random.NextDouble();
             double pipingFactorOfSafety = random.NextDouble();
 
-            double upliftProbability = 0;
-            double heaveProbability = 0;
-            double sellmeijerProbability = 0;
-            double requiredProbability = 0;
-            double pipingProbability = 0;
+            const double upliftProbability = 0;
+            const double heaveProbability = 0;
+            const double sellmeijerProbability = 0;
+            const double requiredProbability = 0;
+            const double pipingProbability = 0;
 
             // Call
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            var probability = "1/Oneindig";
+            const string probability = "1/Oneindig";
             Assert.AreEqual(probability, properties.UpliftProbability);
             Assert.AreEqual(probability, properties.HeaveProbability);
             Assert.AreEqual(probability, properties.SellmeijerProbability);
@@ -225,10 +225,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(19, dynamicProperties.Count);
 
-            var heaveCategory = "\t\tHeave";
-            var upliftCategory = "\t\t\tOpbarsten";
-            var sellmeijerCategory = "\tTerugschrijdende erosie (Sellmeijer)";
-            var pipingCategory = "Piping";
+            const string heaveCategory = "\t\tHeave";
+            const string upliftCategory = "\t\t\tOpbarsten";
+            const string sellmeijerCategory = "\tTerugschrijdende erosie (Sellmeijer)";
+            const string pipingCategory = "Piping";
 
             PropertyDescriptor upliftEffectiveStress = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftEffectiveStress,

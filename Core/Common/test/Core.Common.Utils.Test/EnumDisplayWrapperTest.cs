@@ -56,7 +56,7 @@ namespace Core.Common.Utils.Test
         public void DisplayName_ConstructedWithEnumTypeValueWithoutResourceDisplayNameAttribute_EqualsToDefaultStringRepresentation()
         {
             // Setup
-            var value = TestEnum.NoDisplayName;
+            const TestEnum value = TestEnum.NoDisplayName;
             var wrapper = new EnumDisplayWrapper<TestEnum>(value);
 
             // Call

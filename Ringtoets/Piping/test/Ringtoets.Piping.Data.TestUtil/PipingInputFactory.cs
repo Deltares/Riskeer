@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingInput CreateInputWithSingleAquiferLayerAboveSurfaceLine(double deltaAboveSurfaceLine)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var surfaceLineTopLevel = 2.0;
+            const double surfaceLineTopLevel = 2.0;
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, surfaceLineTopLevel),

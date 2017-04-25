@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSetAndEntityRegistered(bool isRelevant)
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             var random = new Random(21);
             double bottom = random.NextDouble();
             var entity = new SoilProfileEntity
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollectorReadTwice_ReturnsSamePipingSoilProfile()
         {
             // Setup
-            var testName = "testName";
+            const string testName = "testName";
             double bottom = new Random(21).NextDouble();
             var entity = new SoilProfileEntity
             {

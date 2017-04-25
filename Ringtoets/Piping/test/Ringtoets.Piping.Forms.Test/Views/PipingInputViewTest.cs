@@ -346,8 +346,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var initialName = "Initial name";
-                var updatedName = "Updated name";
+                const string initialName = "Initial name";
+                const string updatedName = "Updated name";
 
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
@@ -375,8 +375,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var initialName = "Initial name";
-                var updatedName = "Updated name";
+                const string initialName = "Initial name";
+                const string updatedName = "Updated name";
 
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {

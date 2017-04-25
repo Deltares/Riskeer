@@ -57,8 +57,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Constructor_WithFailureMechanism_SetProperties()
         {
             // Setup
-            var name = "SomeName";
-            var code = "SN";
+            const string name = "SomeName";
+            const string code = "SN";
             var random = new Random(21);
             double contribution = random.Next(1, 100);
             int norm = random.Next(1, int.MaxValue);
@@ -92,8 +92,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Constructor_WithFailureMechanismThatIsAlwaysRelevant_SetProperties()
         {
             // Setup
-            var name = "SomeName";
-            var code = "SN";
+            const string name = "SomeName";
+            const string code = "SN";
             var random = new Random(21);
             double contribution = random.Next(1, 100);
             int norm = random.Next(1, int.MaxValue);

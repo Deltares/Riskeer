@@ -390,8 +390,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
-            string expectedMessage = "Het bijwerken van de profielschematisaties is mislukt: " +
-                                     "Geïmporteerde data moet unieke elementen bevatten.";
+            const string expectedMessage = "Het bijwerken van de profielschematisaties is mislukt: " +
+                                           "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 

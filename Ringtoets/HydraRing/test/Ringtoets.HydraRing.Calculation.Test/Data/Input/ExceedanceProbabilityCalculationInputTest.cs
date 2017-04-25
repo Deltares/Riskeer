@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         {
             // Setup
             const int expectedCalculationTypeId = 1;
-            var hydraulicBoundaryLocationId = 1000;
+            const int hydraulicBoundaryLocationId = 1000;
 
             // Call
             ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInputImplementation =

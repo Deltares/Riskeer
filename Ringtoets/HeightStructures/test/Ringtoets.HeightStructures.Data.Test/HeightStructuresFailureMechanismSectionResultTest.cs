@@ -92,7 +92,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            var probability = 0.65;
+            const double probability = 0.65;
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>

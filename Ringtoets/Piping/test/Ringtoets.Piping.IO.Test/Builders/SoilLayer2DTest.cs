@@ -273,15 +273,15 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var random = new Random(22);
             double y1 = random.NextDouble();
             double y2 = y1 + random.NextDouble();
-            var x1 = 1.0;
-            var x2 = 1.1;
-            var x3 = 1.2;
-            var materialName = "materialX";
+            const double x1 = 1.0;
+            const double x2 = 1.1;
+            const double x3 = 1.2;
+            const string materialName = "materialX";
             Color color = Color.DarkSeaGreen;
             double bottom;
 
-            var logNormalDistribution = 3;
-            var logNormalShift = 0;
+            const int logNormalDistribution = 3;
+            const int logNormalShift = 0;
 
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
@@ -810,7 +810,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopVerticalAtX_ThrowsException()
         {
             // Setup
-            var atX = 2.0;
+            const double atX = 2.0;
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
@@ -838,7 +838,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_InnerLoopVerticalAtX_ThrowsException()
         {
             // Setup
-            var atX = 3.0;
+            const double atX = 3.0;
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
@@ -900,7 +900,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             string expectedParameter)
         {
             // Setup
-            var validShift = 0.0;
+            const double validShift = 0.0;
             var layer = new SoilLayer2D
             {
                 BelowPhreaticLevelDistribution = SoilLayerConstants.LogNormalDistributionValue,
@@ -929,7 +929,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             string expectedParameter)
         {
             // Setup
-            long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
             var layer = new SoilLayer2D
             {
                 DiameterD70Distribution = validDistribution,

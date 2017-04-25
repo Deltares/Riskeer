@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             string message = Assert.Throws<NotImplementedException>(call).Message;
-            var expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
+            const string expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

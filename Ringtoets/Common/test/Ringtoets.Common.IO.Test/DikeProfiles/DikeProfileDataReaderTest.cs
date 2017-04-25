@@ -117,7 +117,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadReferenceLine_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
-            var expectedMessage = "het bestand bestaat niet.";
+            const string expectedMessage = "het bestand bestaat niet.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, "I_do_not_exist.shp", expectedMessage);
         }
 
@@ -309,7 +309,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnsupportedVersion_ThrowCriticalFileReadException(
             string faultyFileName)
         {
-            var expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
+            const string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, faultyFileName, 1, expectedMessage);
         }
 
@@ -330,7 +330,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileValidationException>(call).Message;
-            var expectedMessage = "De ingelezen ID (\'profiel001\') is ongeldig.";
+            const string expectedMessage = "De ingelezen ID (\'profiel001\') is ongeldig.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -370,7 +370,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshorePointCount_ThrowCriticalFileReadException()
         {
-            var expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
+            const string expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_voorlandCountNegative.prfl", 9, expectedMessage);
         }
 
@@ -405,7 +405,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            var expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
+            const string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, faultyFileName, 1, expectedMessage);
         }
 
@@ -423,7 +423,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithInvalidId_ThrowCriticalFileReadException()
         {
-            var expectedMessage = @"de ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
+            const string expectedMessage = @"de ingelezen ID ('Id's are not allowed to have any white spaces!') bevat spaties. Spaties zijn niet toegestaan.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_invalidId.prfl", 2, expectedMessage);
         }
 
@@ -432,7 +432,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowVersion_ThrowCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            var expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
+            const string expectedMessage = @"enkel bestanden van versie '4.0' worden ondersteund.";
             ReadFileAndExpectCriticalFileReadException(string.Empty, faultyFileName, 1, expectedMessage);
         }
 
@@ -577,7 +577,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeFileName_FileWithNegativeDikeCount_ThrowsCriticalFileReadException()
         {
-            var expectedMessage = "het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
+            const string expectedMessage = "het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_dijkCountNegative.prfl", 13, expectedMessage);
         }
 
@@ -689,7 +689,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshoreCount_ThrowsCriticalFileReadException()
         {
-            var expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
+            const string expectedMessage = "het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("profiel001", "faulty_voorlandCountNegative.prfl",
                                                        9, expectedMessage);
         }
@@ -697,7 +697,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
         {
-            var expectedMessage = "het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
+            const string expectedMessage = "het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
             ReadFileAndExpectCriticalFileReadException("profiel004", "faulty_unparsableVoorland_missingElements.prfl",
                                                        11, expectedMessage);
         }

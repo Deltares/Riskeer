@@ -33,10 +33,10 @@ namespace Core.Components.Charting.Test.Styles
         {
             // Setup
             Color color = Color.AliceBlue;
-            var size = 3;
+            const int size = 3;
             Color strokeColor = Color.AntiqueWhite;
-            var strokeThickness = 2;
-            var symbol = ChartPointSymbol.Circle;
+            const int strokeThickness = 2;
+            const ChartPointSymbol symbol = ChartPointSymbol.Circle;
 
             // Call
             var pointStyle = new ChartPointStyle(color, size, strokeColor, strokeThickness, symbol);

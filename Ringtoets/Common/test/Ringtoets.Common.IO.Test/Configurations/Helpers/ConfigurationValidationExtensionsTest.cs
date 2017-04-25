@@ -277,7 +277,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             // Setup
             const string calculationName = "calculation";
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
-            var error = "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.";
+            const string error = "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.";
 
             var mocks = new MockRepository();
             var log = mocks.StrictMock<ILog>();
@@ -342,7 +342,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             // Setup
             const string calculationName = "calculation";
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
-            var error = "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.";
+            const string error = "Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.";
 
             var mocks = new MockRepository();
             var log = mocks.StrictMock<ILog>();

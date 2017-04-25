@@ -92,7 +92,7 @@ namespace Core.Common.Gui.Test.Forms
             var mocks = new MockRepository();
             var parent = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
-            var text = "Dialog text";
+            const string text = "Dialog text";
 
             using (var dialog = new SelectItemDialog(parent, text))
             {

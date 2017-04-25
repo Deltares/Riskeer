@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
-            var failureMessage = "It failed!";
+            const string failureMessage = "It failed!";
 
             // Call
             string message = provider.GetCalculationFailedMessage(name, failureMessage);

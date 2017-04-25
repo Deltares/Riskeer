@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
         public void Constructor_WithName_ExpectedValues()
         {
             // Setup
-            var name = "name";
+            const string name = "name";
 
             // Call
             var configuration = new SimpleStructuresCalculationConfiguration(name);
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreSame(waveReduction, configuration.WaveReduction);
         }
 
-        public class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
+        private class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration
         {
             public SimpleStructuresCalculationConfiguration(string name) : base(name) {}
         }

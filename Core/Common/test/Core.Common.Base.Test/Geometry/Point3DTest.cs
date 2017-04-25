@@ -32,9 +32,9 @@ namespace Core.Common.Base.Test.Geometry
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var x = 1.1;
-            var y = 2.2;
-            var z = -1.1;
+            const double x = 1.1;
+            const double y = 2.2;
+            const double z = -1.1;
 
             // Call
             var point = new Point3D(x, y, z);

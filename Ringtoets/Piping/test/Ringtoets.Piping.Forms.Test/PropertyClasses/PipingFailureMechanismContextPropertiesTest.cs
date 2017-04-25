@@ -149,11 +149,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(16, dynamicProperties.Count);
 
-            var generalCategory = "Algemeen";
-            var heaveCategory = "Heave";
-            var modelFactorCategory = "Modelinstellingen";
-            var semiProbabilisticCategory = "Semi-probabilistische parameters";
-            var sellmeijerCategory = "Terugschrijdende erosie (Sellmeijer)";
+            const string generalCategory = "Algemeen";
+            const string heaveCategory = "Heave";
+            const string modelFactorCategory = "Modelinstellingen";
+            const string semiProbabilisticCategory = "Semi-probabilistische parameters";
+            const string sellmeijerCategory = "Terugschrijdende erosie (Sellmeijer)";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            var generalCategory = "Algemeen";
+            const string generalCategory = "Algemeen";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,

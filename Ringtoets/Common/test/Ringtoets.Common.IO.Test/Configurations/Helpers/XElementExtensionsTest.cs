@@ -799,7 +799,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void GetStochastConfiguration_StochastWithSameName_ReturnsNewStochast()
         {
             // Setup
-            var stochastName = "stochastA";
+            const string stochastName = "stochastA";
 
             var stochastElement = new XElement("stochast");
             stochastElement.SetAttributeValue("naam", stochastName);
@@ -817,9 +817,9 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void GetStochastConfiguration_StochastWithParameters_ReturnsNewStochastWithParametersSet()
         {
             // Setup
-            var stochastName = "stochastA";
-            var mean = 1.2;
-            var standardDeviation = 3.5;
+            const string stochastName = "stochastA";
+            const double mean = 1.2;
+            const double standardDeviation = 3.5;
 
             var stochastElement = new XElement("stochast");
             stochastElement.SetAttributeValue("naam", stochastName);

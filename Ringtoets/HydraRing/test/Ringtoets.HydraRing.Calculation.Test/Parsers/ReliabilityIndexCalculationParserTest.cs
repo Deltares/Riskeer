@@ -173,7 +173,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);
-                var expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
+                const string expectedMessage = "Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }

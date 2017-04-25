@@ -466,7 +466,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var mapFrame = mocks.Stub<IFrame>();
             mocks.ReplayAll();
 
-            var transparency = 0.3f;
+            const float transparency = 0.3f;
             using (var layer = new BruTileLayer(configuration)
             {
                 Transparency = transparency,
@@ -988,7 +988,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
         private static IConfiguration CreateConfigurationForDrawing(MockRepository mocks, TileInfosTestConfig config, Action<ITileFetcher, IDictionary<TileInfo, Bitmap>> configureTileFetcherGetTileStub)
         {
-            var epsgCode = "EPSG:28992";
+            const string epsgCode = "EPSG:28992";
             int level = config.Level;
             string levelId = $"{epsgCode}:{level}";
 

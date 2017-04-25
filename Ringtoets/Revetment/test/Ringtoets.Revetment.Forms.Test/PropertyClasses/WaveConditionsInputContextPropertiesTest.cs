@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var lowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
             RoundedDouble upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
             RoundedDouble upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
-            var stepSize = WaveConditionsInputStepSize.Half;
+            const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
 
             var worldX = (RoundedDouble) random.NextDouble();
             var worldY = (RoundedDouble) random.NextDouble();
@@ -209,8 +209,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(15, dynamicProperties.Count);
 
-            var hydraulicParametersCategory = "Hydraulische gegevens";
-            var schematizationCategory = "Schematisatie";
+            const string hydraulicParametersCategory = "Hydraulische gegevens";
+            const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             Assert.IsNotNull(hydraulicBoundaryLocationProperty);

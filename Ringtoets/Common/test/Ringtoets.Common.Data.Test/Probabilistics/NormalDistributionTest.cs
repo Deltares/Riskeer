@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
 
-            int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
+            const int numberOfDecimalPlaces = RoundedDouble.MaximumNumberOfDecimalPlaces;
 
             Assert.AreEqual(0.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
@@ -70,8 +70,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
             // Setup
-            var value = 1.23456789;
-            var numberOfDecimalPlaces = 4;
+            const double value = 1.23456789;
+            const int numberOfDecimalPlaces = 4;
             var distribution = new NormalDistribution(numberOfDecimalPlaces);
 
             // Call
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double standardDeviation)
         {
             // Setup
-            var numberOfDecimalPlaces = 2;
+            const int numberOfDecimalPlaces = 2;
             var distribution = new NormalDistribution(numberOfDecimalPlaces);
 
             // Call

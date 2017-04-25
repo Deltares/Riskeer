@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromPathContainingInvalidPathCharacters_FalseAndLogError()
         {
             // Setup
-            var filePath = "c:\\Invalid_Characters.shp";
+            const string filePath = "c:\\Invalid_Characters.shp";
 
             char[] invalidPathChars = Path.GetInvalidPathChars();
             string invalidPath = filePath.Replace('_', invalidPathChars[0]);
@@ -420,7 +420,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var expectedMessage = "Een kunstwerklocatie met KWKIDENT 'KUNST6' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
+                const string expectedMessage = "Een kunstwerklocatie met KWKIDENT 'KUNST6' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
                 StringAssert.StartsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
@@ -451,7 +451,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            var expectedMessage = "Kunstwerklocatie met KWKIDENT 'KUNST3' is opnieuw ingelezen.";
+            const string expectedMessage = "Kunstwerklocatie met KWKIDENT 'KUNST3' is opnieuw ingelezen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(importResult);
         }

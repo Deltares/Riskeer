@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithNameBottomLayersAndAquifer_ReturnsInstanceWithPropsAndEquivalentLayerCollection(SoilProfileType type)
         {
             // Setup
-            var name = "Profile";
+            const string name = "Profile";
             var random = new Random(22);
             double bottom = random.NextDouble();
             var layers = new Collection<PipingSoilLayer>
@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var bottom = 0.0;
+            const double bottom = 0.0;
             var equivalentLayers = new List<PipingSoilLayer>(layerCount);
             for (var i = 0; i < layerCount; i++)
             {
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithNameBottomLayersBelowBottom_ThrowsArgumentException(double deltaBelowBottom)
         {
             // Setup
-            var bottom = 0.0;
+            const double bottom = 0.0;
             var pipingSoilLayers = new[]
             {
                 new PipingSoilLayer(bottom - deltaBelowBottom),
@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingSoilProfile profileF = CreateSingleLayerProfile("A", -2, SoilProfileType.SoilProfile1D);
             PipingSoilProfile profileG = CreateSingleLayerProfile("B", -3, SoilProfileType.SoilProfile1D);
 
-            var seed = 78;
+            const int seed = 78;
             var random = new Random(seed);
             var profileH = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
             {

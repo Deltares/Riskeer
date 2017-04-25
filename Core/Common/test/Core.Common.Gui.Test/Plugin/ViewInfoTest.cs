@@ -65,7 +65,7 @@ namespace Core.Common.Gui.Test.Plugin
             Type newDataType = typeof(int);
             Type newViewDataType = typeof(string);
             Type viewType = typeof(StringView);
-            var newDescription = "<text>";
+            const string newDescription = "<text>";
             Func<IView, object, string> getViewNameDelegate = (view, o) => "";
             Image icon = Resources.abacus;
             Func<object, bool> additionalDataDelegate = o => true;
@@ -168,7 +168,7 @@ namespace Core.Common.Gui.Test.Plugin
             // Setup
             var viewInfo = new ViewInfo<int, string, StringView>();
 
-            var newDescription = "<text>";
+            const string newDescription = "<text>";
             Func<IView, object, string> getViewNameDelegate = (view, o) => "";
             Image icon = Resources.abacus;
             Func<int, bool> additionalDataDelegate = o => true;
@@ -235,9 +235,9 @@ namespace Core.Common.Gui.Test.Plugin
             var viewInfo = new ViewInfo<int, string, StringView>();
 
             var stringView = new StringView();
-            var dataObject = 11;
+            const int dataObject = 11;
 
-            var newDescription = "<text>";
+            const string newDescription = "<text>";
             const string newViewName = "<view name>";
             Func<IView, object, string> getViewNameDelegate = (view, o) =>
             {

@@ -442,7 +442,7 @@ namespace Ringtoets.Common.IO.Structures
         {
             var messages = new List<string>();
 
-            string numericalValueColumn = StructureFilesKeywords.NumericalValueColumnName;
+            const string numericalValueColumn = StructureFilesKeywords.NumericalValueColumnName;
             messages.AddRange(meanMustBeGreaterThanZero ?
                                   ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn) :
                                   ValidateDoubleParameter(row, numericalValueColumn));

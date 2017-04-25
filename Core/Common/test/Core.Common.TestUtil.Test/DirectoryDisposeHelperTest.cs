@@ -35,7 +35,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_NullRoot_ThrowsArgumentNullException()
         {
             // Setup
-            var subfolder = "sub folder";
+            const string subfolder = "sub folder";
 
             // Call
             TestDelegate test = () => new DirectoryDisposeHelper(null, subfolder);
@@ -298,7 +298,7 @@ namespace Core.Common.TestUtil.Test
         public void UnlockDirectory_DirectoryNotLocked_UnlocksDirectory()
         {
             // Setup
-            string subfolder = nameof(UnlockDirectory_DirectoryNotLocked_UnlocksDirectory);
+            const string subfolder = nameof(UnlockDirectory_DirectoryNotLocked_UnlocksDirectory);
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
@@ -325,7 +325,7 @@ namespace Core.Common.TestUtil.Test
         public void UnlockDirectory_DirectoryLocked_UnlocksDirectory()
         {
             // Setup
-            string subfolder = nameof(UnlockDirectory_DirectoryLocked_UnlocksDirectory);
+            const string subfolder = nameof(UnlockDirectory_DirectoryLocked_UnlocksDirectory);
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             using (var disposeHelper = new DirectoryDisposeHelper(rootFolder, subfolder))
@@ -358,7 +358,7 @@ namespace Core.Common.TestUtil.Test
         public void UnlockDirectory_DirectoryAlreadyUnlocked_DoesNotThrowException()
         {
             // Setup
-            string subfolder = nameof(UnlockDirectory_DirectoryAlreadyUnlocked_DoesNotThrowException);
+            const string subfolder = nameof(UnlockDirectory_DirectoryAlreadyUnlocked_DoesNotThrowException);
             string folderPath = Path.Combine(rootFolder, subfolder);
 
             try

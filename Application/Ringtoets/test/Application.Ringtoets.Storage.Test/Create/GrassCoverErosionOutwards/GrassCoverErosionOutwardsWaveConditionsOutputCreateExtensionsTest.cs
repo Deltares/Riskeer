@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var output = new TestWaveConditionsOutput();
-            var order = 22;
+            const int order = 22;
 
             // Call
             GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(order);

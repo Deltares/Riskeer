@@ -38,8 +38,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsOutputPropertiesTest
     {
-        private readonly int requiredBlockPropertyIndex = 0;
-        private readonly int requiredColumnPropertyIndex = 1;
+        private const int requiredBlockPropertyIndex = 0;
+        private const int requiredColumnPropertyIndex = 1;
 
         [Test]
         public void DefaultConstructor_ExpectedValues()

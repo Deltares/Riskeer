@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -336,7 +336,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
-            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -384,7 +384,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
-            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -433,7 +433,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathNoSettings, "HRD dutch coast south.sqlite");
 
-            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -482,7 +482,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathInvalidSettings, "HRD dutch coast south.sqlite");
 
-            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -532,7 +532,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-            var contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (var importer = new HydraulicBoundaryDatabaseImporter())

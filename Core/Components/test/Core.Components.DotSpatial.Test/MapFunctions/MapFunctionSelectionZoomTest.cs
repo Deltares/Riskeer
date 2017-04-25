@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsInstanceOf<MapFunctionZoom>(mapFunction);
-            YieldStyles expectedYieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
+            const YieldStyles expectedYieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
             Assert.AreEqual(expectedYieldStyle, mapFunction.YieldStyle);
             mockingRepository.VerifyAll();
         }
@@ -116,8 +116,8 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var mapMock = mockingRepository.Stub<IMap>();
             mockingRepository.ReplayAll();
 
-            var startPointX = 0;
-            var startPointY = 0;
+            const int startPointX = 0;
+            const int startPointY = 0;
             var mapFunction = new MapFunctionSelectionZoom(mapMock);
             mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), mapMock));
 

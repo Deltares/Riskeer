@@ -229,8 +229,8 @@ namespace Core.Common.Gui.Test
 
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
-            var expectedQuery = "Are you sure you want to do this?";
-            var expectedTitle = "Bevestigen";
+            const string expectedQuery = "Are you sure you want to do this?";
+            const string expectedTitle = "Bevestigen";
             string query = null;
             string title = null;
 

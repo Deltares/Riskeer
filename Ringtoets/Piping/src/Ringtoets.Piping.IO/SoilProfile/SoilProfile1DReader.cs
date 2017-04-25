@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             internal Layer1DProperties(IRowBasedDatabaseReader reader, string profileName)
                 : base(reader, profileName)
             {
-                string readColumn = SoilProfileTableColumns.Top;
+                const string readColumn = SoilProfileTableColumns.Top;
                 try
                 {
                     Top = reader.Read<double>(readColumn);
@@ -183,7 +183,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// casted to the expected column types.</exception>
             internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
             {
-                string readColumn = SoilProfileTableColumns.Bottom;
+                const string readColumn = SoilProfileTableColumns.Bottom;
                 try
                 {
                     Bottom = reader.Read<double>(readColumn);

@@ -833,7 +833,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Point2D actualPoint = actual[index];
                 Point2D expectedPoint = expected.ElementAt(index);
 
-                var delta = 1e-8;
+                const double delta = 1e-8;
                 Assert.AreEqual(expectedPoint.X, actualPoint.X, delta);
                 Assert.AreEqual(expectedPoint.Y, actualPoint.Y, delta);
             }

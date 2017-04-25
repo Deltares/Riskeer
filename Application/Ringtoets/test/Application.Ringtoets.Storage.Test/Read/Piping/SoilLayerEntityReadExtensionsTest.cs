@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var random = new Random(21);
             double top = random.NextDouble();
             int color = Color.AliceBlue.ToArgb();
-            var materialName = "sand";
+            const string materialName = "sand";
 
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();

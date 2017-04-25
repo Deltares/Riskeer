@@ -38,7 +38,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetDisplayName_EnumWithoutResourcesAttribute_EnumToString()
         {
             // Setup
-            var value = TestEnum.NoDisplayName;
+            const TestEnum value = TestEnum.NoDisplayName;
 
             // Call
             string result = TypeUtils.GetDisplayName(value);
@@ -51,7 +51,7 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetDisplayName_EnumWithResourcesAttribute_ResourceText()
         {
             // Setup
-            var value = TestEnum.HasDisplayName;
+            const TestEnum value = TestEnum.HasDisplayName;
 
             // Call
             string result = TypeUtils.GetDisplayName(value);
@@ -64,13 +64,13 @@ namespace Core.Common.Utils.Test.Reflection
         public void GetDisplayName_ValueNotPartOfEnumMembers_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var value = (TestEnum) 999;
+            const TestEnum value = (TestEnum) 999;
 
             // Call
             TestDelegate call = () => TypeUtils.GetDisplayName(value);
 
             // Assert
-            var message = "The value of argument 'enumValue' (999) is invalid for Enum type 'TestEnum'.";
+            const string message = "The value of argument 'enumValue' (999) is invalid for Enum type 'TestEnum'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
             Assert.AreEqual("enumValue", exception.ParamName);
         }

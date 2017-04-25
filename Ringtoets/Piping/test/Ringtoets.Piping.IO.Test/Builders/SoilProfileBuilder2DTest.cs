@@ -65,8 +65,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Add_LayerWithVerticalLineOnXInXml_ThrowsSoilProfileBuilderException()
         {
             // Setup
-            var profileName = "SomeProfile";
-            var atX = 0.0;
+            const string profileName = "SomeProfile";
+            const double atX = 0.0;
             var builder = new SoilProfileBuilder2D(profileName, atX, 0);
 
             var soilLayer = new SoilLayer2D
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithOutLayers_ThrowsSoilProfileBuilderException()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             var builder = new SoilProfileBuilder2D(profileName, 0.0, 0);
 
             // Call
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithSingleLayerOnlyOuterLoop_ReturnsProfileWithBottomAndALayer()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             const long pipingSoilProfileId = 1234L;
             var builder = new SoilProfileBuilder2D(profileName, 0.0, pipingSoilProfileId);
             var firstPoint = new Point2D(-0.5, 1.0);
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndALayers()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             const long pipingSoilProfileId = 1234L;
             var builder = new SoilProfileBuilder2D(profileName, 1.0, pipingSoilProfileId);
             builder.Add(new SoilLayer2D
@@ -213,7 +213,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Build_WithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndALayers()
         {
             // Setup
-            var profileName = "SomeProfile";
+            const string profileName = "SomeProfile";
             const long pipingSoilProfileId = 1234L;
             var builder = new SoilProfileBuilder2D(profileName, 2.0, pipingSoilProfileId);
             List<Segment2D> loopHole = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,

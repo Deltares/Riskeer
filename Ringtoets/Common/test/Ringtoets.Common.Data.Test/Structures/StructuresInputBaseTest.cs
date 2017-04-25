@@ -519,8 +519,8 @@ namespace Ringtoets.Common.Data.Test.Structures
             BreakWater breakWater = null;
             if (withBreakWater)
             {
-                var nonDefaultBreakWaterType = BreakWaterType.Wall;
-                var nonDefaultBreakWaterHeight = 5.5;
+                const BreakWaterType nonDefaultBreakWaterType = BreakWaterType.Wall;
+                const double nonDefaultBreakWaterHeight = 5.5;
 
                 // Precondition
                 Assert.AreNotEqual(nonDefaultBreakWaterType, input.BreakWater.Type);
@@ -529,7 +529,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
             }
 
-            double orientation = 96;
+            const double orientation = 96;
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                                         foreshoreGeometry.ToArray(),
                                                         breakWater,

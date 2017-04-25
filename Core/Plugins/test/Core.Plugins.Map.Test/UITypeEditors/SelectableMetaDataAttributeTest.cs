@@ -43,7 +43,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void Constructor_Expectedvalues()
         {
             // Setup
-            var attribute = "Test";
+            const string attribute = "Test";
 
             // Call
             var selectableAttribute = new SelectableMetaDataAttribute(attribute);
@@ -56,7 +56,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void Equals_ToItself_ReturnTrue()
         {
             // Setup
-            var attribute = "Test";
+            const string attribute = "Test";
             var selectableAttribute = new SelectableMetaDataAttribute(attribute);
 
             // Call
@@ -83,7 +83,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void Equals_ToOtherWithSameAttribute_ReturnTrue()
         {
             // Setup
-            var attribute = "Test";
+            const string attribute = "Test";
             var selectableAttribute1 = new SelectableMetaDataAttribute(attribute);
             var selectableAttribute2 = new SelectableMetaDataAttribute(attribute);
 
@@ -131,7 +131,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void GetHashCode_EqualObjects_ReturnSameHashCode()
         {
             // Setup
-            var attribute = "Test";
+            const string attribute = "Test";
             var selectableAttribute1 = new SelectableMetaDataAttribute(attribute);
             var selectableAttribute2 = new SelectableMetaDataAttribute(attribute);
 
@@ -150,7 +150,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         public void ToString_Always_ReturnMetaDataAttribute()
         {
             // Setup
-            var metaDataAttribute = "Test";
+            const string metaDataAttribute = "Test";
             var selectableAttribute = new SelectableMetaDataAttribute(metaDataAttribute);
 
             // Call

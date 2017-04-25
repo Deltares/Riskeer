@@ -184,10 +184,10 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenMultipleAreaSeriesAddedToView_WhenViewOpenedAndUpdated_ThenXYAxisIncludesSeriesValues()
         {
             // Given
-            var maxY = 100;
-            int minY = -25;
-            var maxX = 50;
-            int minX = -10;
+            const int maxY = 100;
+            const int minY = -25;
+            const int maxX = 50;
+            const int minX = -10;
             var series = new MultipleAreaSeries
             {
                 Areas =

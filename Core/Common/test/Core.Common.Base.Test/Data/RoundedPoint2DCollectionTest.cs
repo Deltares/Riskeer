@@ -35,7 +35,7 @@ namespace Core.Common.Base.Test.Data
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var numberOfDecimals = 2;
+            const int numberOfDecimals = 2;
             IEnumerable<Point2D> points = CreatePointData();
 
             // Call
@@ -83,7 +83,7 @@ namespace Core.Common.Base.Test.Data
         public void GetEnumerator_Always_ReturnsRoundedPoints()
         {
             // Setup
-            var numberOfDecimals = 2;
+            const int numberOfDecimals = 2;
             IEnumerable<Point2D> points = CreatePointData();
 
             // Call

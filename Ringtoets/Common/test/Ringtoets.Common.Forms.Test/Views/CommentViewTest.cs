@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(GetValidRtfString(""), data.Body);
 
-                var expectedText = "<Some_text>";
+                const string expectedText = "<Some_text>";
                 string validRtfString = GetValidRtfString(expectedText);
 
                 var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;
@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 view.Data = null;
 
-                var expectedText = "<Some_text>";
+                const string expectedText = "<Some_text>";
                 string validRtfString = GetValidRtfString(expectedText);
 
                 var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;

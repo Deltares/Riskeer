@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             Point3D[] geometry = testCalculation.InputParameters.SurfaceLine.Points;
-            var surfaceLineName = "surfaceLineA";
+            const string surfaceLineName = "surfaceLineA";
             var surfaceLineMissingCharacteristicPoint = new RingtoetsPipingSurfaceLine
             {
                 Name = surfaceLineName
@@ -510,9 +510,9 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             var random = new Random(21);
-            var belowPhreaticLevelDeviation = 0.5;
-            var belowPhreaticLevelShift = 1;
-            var belowPhreaticLevelMeanBase = 15.0;
+            const double belowPhreaticLevelDeviation = 0.5;
+            const int belowPhreaticLevelShift = 1;
+            const double belowPhreaticLevelMeanBase = 15.0;
 
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {

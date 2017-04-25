@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         {
             // Setup
             var provider = new WaveHeightCalculationMessageProvider();
-            var failureMessage = "It failed!";
+            const string failureMessage = "It failed!";
 
             // Call
             string message = provider.GetCalculationFailedMessage(name, failureMessage);

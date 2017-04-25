@@ -48,7 +48,7 @@ namespace Core.Components.Charting.Test.Data
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var name = "Some name";
+            const string name = "Some name";
 
             // Call
             var data = new TestChartData(name);
@@ -63,8 +63,8 @@ namespace Core.Components.Charting.Test.Data
         public void Name_SetName_ReturnsNewName()
         {
             // Setup
-            var name = "Some name";
-            var newName = "Something";
+            const string name = "Some name";
+            const string newName = "Something";
             var data = new TestChartData(name);
 
             // Precondition
@@ -85,7 +85,7 @@ namespace Core.Components.Charting.Test.Data
         public void Name_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Setup
-            var name = "Some name";
+            const string name = "Some name";
             var data = new TestChartData(name);
 
             // Call

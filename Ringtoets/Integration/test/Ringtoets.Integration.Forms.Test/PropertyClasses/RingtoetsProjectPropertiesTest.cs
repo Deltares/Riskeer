@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Data = project
             };
 
-            var testName = "some name";
+            const string testName = "some name";
             project.Name = testName;
 
             // Call
@@ -60,8 +60,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Data = project
             };
 
-            var testDescription = "some description";
-            var anotherDescription = "another description";
+            const string testDescription = "some description";
+            const string anotherDescription = "another description";
 
             project.Description = testDescription;
 

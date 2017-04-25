@@ -284,7 +284,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapData_NameSetToLayer()
         {
             // Setup
-            var name = "<Some name>";
+            const string name = "<Some name>";
             var testConverter = new TestFeatureBasedMapDataConverter();
             var mapData = new TestFeatureBasedMapData(name);
             var mapLayer = new TestFeatureLayer();

@@ -34,7 +34,7 @@ namespace Core.Components.Gis.Test.Style
             // Setup
             Color fillColor = Color.AliceBlue;
             Color strokeColor = Color.Gainsboro;
-            var width = 3;
+            const int width = 3;
 
             // Call
             var polygonStyle = new PolygonStyle(fillColor, strokeColor, width);
