@@ -157,7 +157,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ondergrens van de rekenreeks.
+        ///   Looks up a localized string similar to ondergrens van de waterstanden.
         /// </summary>
         internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayName {
             get {
@@ -177,7 +177,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to bovengrens van de rekenreeks.
+        ///   Looks up a localized string similar to bovengrens van de waterstanden.
         /// </summary>
         internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayName {
             get {

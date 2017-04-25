@@ -152,9 +152,9 @@
     <value>ondergrens bekledingen</value>
   </data>
   <data name="WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayName" xml:space="preserve">
-    <value>bovengrens van de rekenreeks</value>
+    <value>bovengrens van de waterstanden</value>
   </data>
   <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayName" xml:space="preserve">
-    <value>ondergrens van de rekenreeks</value>
+    <value>ondergrens van de waterstanden</value>
   </data>
 </root>

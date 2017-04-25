@@ -92,7 +92,7 @@ namespace Ringtoets.Revetment.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bovengrens van de rekenreeks moet boven de ondergrens liggen..
+        ///   Looks up a localized string similar to De bovengrens van de waterstanden moet boven de ondergrens liggen..
         /// </summary>
         internal static string WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels {
             get {
