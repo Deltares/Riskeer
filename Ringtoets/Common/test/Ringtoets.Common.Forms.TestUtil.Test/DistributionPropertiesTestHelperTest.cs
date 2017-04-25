@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
     public class DistributionPropertiesTestHelperTest
     {
         [Test]
-        [TestCaseSource(nameof(distributionTestCases))]
+        [TestCaseSource(nameof(DistributionTestCases))]
         public void AssertPropertiesAreReadOnly_DifferentDistributions_ExpectedAssertionsCalled(
             DistributionPropertiesBase<SimpleDistribution> distribution,
             bool expectedMeanReadOnly,
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(variationCoefficientDistributionTestCases))]
+        [TestCaseSource(nameof(VariationCoefficientDistributionTestCases))]
         public void AssertPropertiesAreReadOnly_DifferentVariationCoefficientDistributions_ExpectedAssertionsCalled(
             VariationCoefficientDistributionPropertiesBase<SimpleDistribution> distribution,
             bool expectedMeanReadOnly,
@@ -118,85 +118,91 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         #region Test case data
 
-        private static TestCaseData[] distributionTestCases =
+        private static IEnumerable<TestCaseData> DistributionTestCases 
         {
-            new TestCaseData(
-                    new SimpleDistributionProperties(DistributionPropertiesReadOnly.All),
-                    true,
-                    true,
-                    true)
-                .SetName("Distribution, All read-only, correct assertions."),
-            new TestCaseData(
-                    new SimpleDistributionProperties(DistributionPropertiesReadOnly.All),
-                    false,
-                    true,
-                    false)
-                .SetName("Distribution, All read-only, incorrect assertion mean."),
-            new TestCaseData(
-                    new SimpleDistributionProperties(DistributionPropertiesReadOnly.All),
-                    true,
-                    false,
-                    false)
-                .SetName("Distribution, All read-only, incorrect assertion deviation."),
-            new TestCaseData(
-                    new SimpleDistributionProperties(DistributionPropertiesReadOnly.Mean),
-                    true,
-                    false,
-                    true)
-                .SetName("Distribution, Mean read-only, correct assertions."),
-            new TestCaseData(
-                    new SimpleDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation),
-                    false,
-                    true,
-                    true)
-                .SetName("Distribution, StandardDeviation read-only, correct assertions."),
-            new TestCaseData(
-                    new SimpleDistributionProperties(DistributionPropertiesReadOnly.None),
-                    false,
-                    false,
-                    true)
-                .SetName("Distribution, None read-only, correct assertions.")
-        };
+            get
+            {
+                yield return new TestCaseData(
+                        new SimpleDistributionProperties(DistributionPropertiesReadOnly.All),
+                        true,
+                        true,
+                        true)
+                    .SetName("Distribution, All read-only, correct assertions.");
+                yield return new TestCaseData(
+                        new SimpleDistributionProperties(DistributionPropertiesReadOnly.All),
+                        false,
+                        true,
+                        false)
+                    .SetName("Distribution, All read-only, incorrect assertion mean.");
+                yield return new TestCaseData(
+                        new SimpleDistributionProperties(DistributionPropertiesReadOnly.All),
+                        true,
+                        false,
+                        false)
+                    .SetName("Distribution, All read-only, incorrect assertion deviation.");
+                yield return new TestCaseData(
+                        new SimpleDistributionProperties(DistributionPropertiesReadOnly.Mean),
+                        true,
+                        false,
+                        true)
+                    .SetName("Distribution, Mean read-only, correct assertions.");
+                yield return new TestCaseData(
+                        new SimpleDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation),
+                        false,
+                        true,
+                        true)
+                    .SetName("Distribution, StandardDeviation read-only, correct assertions.");
+                yield return new TestCaseData(
+                        new SimpleDistributionProperties(DistributionPropertiesReadOnly.None),
+                        false,
+                        false,
+                        true)
+                    .SetName("Distribution, None read-only, correct assertions.");
+            }
+        }
 
-        private static TestCaseData[] variationCoefficientDistributionTestCases =
+        private static IEnumerable<TestCaseData> VariationCoefficientDistributionTestCases
         {
-            new TestCaseData(
-                    new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
-                    true,
-                    true,
-                    true)
-                .SetName("VariationDistribution, All read-only, correct assertions."),
-            new TestCaseData(
-                    new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
-                    false,
-                    true,
-                    false)
-                .SetName("VariationDistribution, All read-only, incorrect assertion mean."),
-            new TestCaseData(
-                    new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
-                    true,
-                    false,
-                    false)
-                .SetName("VariationDistribution, All read-only, incorrect assertion variation."),
-            new TestCaseData(
-                    new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.Mean),
-                    true,
-                    false,
-                    true)
-                .SetName("VariationDistribution, Mean read-only, correct assertions."),
-            new TestCaseData(
-                    new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation),
-                    false,
-                    true,
-                    true)
-                .SetName("VariationDistribution, CoefficientOfVariation read-only, correct assertions."),
-            new TestCaseData(
-                    new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None),
-                    false,
-                    false,
-                    true)
-                .SetName("VariationDistribution, None read-only, correct assertions.")
-        };
+            get
+            {
+                yield return new TestCaseData(
+                        new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
+                        true,
+                        true,
+                        true)
+                    .SetName("VariationDistribution, All read-only, correct assertions.");
+                yield return new TestCaseData(
+                        new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
+                        false,
+                        true,
+                        false)
+                    .SetName("VariationDistribution, All read-only, incorrect assertion mean.");
+                yield return new TestCaseData(
+                        new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All),
+                        true,
+                        false,
+                        false)
+                    .SetName("VariationDistribution, All read-only, incorrect assertion variation.");
+                yield return new TestCaseData(
+                        new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.Mean),
+                        true,
+                        false,
+                        true)
+                    .SetName("VariationDistribution, Mean read-only, correct assertions.");
+                yield return new TestCaseData(
+                        new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation),
+                        false,
+                        true,
+                        true)
+                    .SetName("VariationDistribution, CoefficientOfVariation read-only, correct assertions.");
+                yield return new TestCaseData(
+                        new SimpleVariationCoefficientDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None),
+                        false,
+                        false,
+                        true)
+                    .SetName("VariationDistribution, None read-only, correct assertions.");
+            }
+        }
 
         #endregion
     }

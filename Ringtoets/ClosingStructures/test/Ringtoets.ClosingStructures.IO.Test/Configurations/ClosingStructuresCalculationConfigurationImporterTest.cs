@@ -62,9 +62,6 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationStormDurationStandardDeviation.xml",
                                               "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")
                     .SetName(testNameFormat);
-                yield return new TestCaseData("validConfigurationStormDurationStandardDeviation.xml",
-                                              "Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.")
-                    .SetName(testNameFormat);
                 yield return new TestCaseData("validConfigurationDrainCoefficientStandardDeviation.xml",
                                               "Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.")
                     .SetName(testNameFormat);
