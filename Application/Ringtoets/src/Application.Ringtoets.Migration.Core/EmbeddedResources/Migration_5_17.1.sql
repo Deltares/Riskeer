@@ -32,7 +32,7 @@ INSERT INTO DikeProfileEntity (
 SELECT
 	[DikeProfileEntityId],
 	[FailureMechanismEntityId],
-	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Id],
 	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
 	[Orientation],
 	[BreakWaterType],
