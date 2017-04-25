@@ -409,7 +409,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
+            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -481,7 +481,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
+            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -553,7 +553,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels;
+            string expectedMessage = "De bovengrens van de waterstanden moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -625,7 +625,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryWaterLevels;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
+            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
