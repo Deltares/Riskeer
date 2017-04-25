@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <DirectoryRef Id="CommonDocumentsCalculationConfiguration">
+      <Component Id="CalculationConfigurationReadmeFile" Guid="65FD0752-1B1A-4D20-BC9C-51E33A45ED0C">
+        <File Source="CalculationConfigurations\Readme.rtf" KeyPath="yes"/>
+      </Component>
+      <Component Id="CalculationConfigurationClosingStructuresFile" Guid="38CCDF08-9BAF-42D1-B981-BE0CAE8EA0E0">
+        <File Source="..\..\..\..\Ringtoets\ClosingStructures\src\Ringtoets.ClosingStructures.IO\Resources\KunstwerkenBetrouwbaarheidSluitenSchema.xsd" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+	</Fragment>
+  <Fragment>
+    <ComponentGroup Id="CalculationConfigurationFiles">
+      <ComponentRef Id="CalculationConfigurationReadmeFile" />
+      <ComponentRef Id="CalculationConfigurationClosingStructuresFile" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>

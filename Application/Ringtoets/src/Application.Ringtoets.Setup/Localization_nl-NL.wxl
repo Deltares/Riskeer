@@ -13,6 +13,7 @@
 
   <String Id="Examples">Voorbeelden</String>
   <String Id="InstallationVerification">Installatie verificatie</String>
+  <String Id="CalculationConfigurationXSD">Berekeningen importeren of exporteren - xsd</String>
 
   <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
   

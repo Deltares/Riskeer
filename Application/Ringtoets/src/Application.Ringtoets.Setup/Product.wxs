@@ -150,22 +150,22 @@
             
             <!-- Examples folder -->
             <Directory Id="CommonDocumentsExamples" Name="!(loc.Examples)">
-              <!-- Examples.wxs defines all files going into this folder.
-              Examples.wxs will be generated on pre-build. Ensure you clean first before building the installer! -->
+              <!-- 
+              Examples.wxs defines all files going into this folder.
+              Examples.wxs will be generated on pre-build. Ensure you clean first before building the installer!
+              -->
             </Directory>
           
-            <Directory Id="CommonDocumentsInstallationVerification" Name="!(InstallationVerification)">
-              <Component Id="HLCDFile" Guid="841AAE17-FEDC-4D06-A5C6-887E59996140">
-                <File Source="InstallationVerification\hlcd.sqlite"/>
-              </Component>
-              <Component Id="HRDConfigFile" Guid="AA3C6607-7B3A-4A34-9C46-430CEA76BD4C">
-                <File Source="InstallationVerification\WBI2017_IJsselmeer_12-2_v01.config.sqlite"/>
-              </Component>
-              <Component Id="HRDFile" Guid="D495D4D6-8B24-48FC-936C-CB921714CDED">
-                <File Source="InstallationVerification\WBI2017_IJsselmeer_12-2_v01.sqlite"/>
-              </Component>
+            <!-- Installation verification -->
+            <Directory Id="CommonDocumentsInstallationVerification" Name="!(loc.InstallationVerification)">
+              <!-- InstallationVerification.wxs defines all files going into this folder. -->
             </Directory>
             
+            <!-- Calculation configuration -->
+            <Directory Id="CommonDocumentsCalculationConfiguration" Name="!(loc.CalculationConfigurationXSD)">
+              <!-- CalculationConfiguration.wxs defines all files going into this folder. -->
+            </Directory>
+          
           </Directory>
         </Directory>
       </Directory>
@@ -175,6 +175,8 @@
       <ComponentGroupRef Id="RingtoetsApplicationComponents"/>
       <ComponentGroupRef Id="ThirdPartyLicenseComponents"/>
       <ComponentGroupRef Id="Examples"/>
+      <ComponentGroupRef Id="InstallationVerificationFiles"/>
+      <ComponentGroupRef Id="CalculationConfigurationFiles"/>
       <ComponentRef Id="InstalledShortcut"/>
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>
@@ -183,9 +185,6 @@
       <ComponentRef Id="ProgramMenuManualShortcut"/>
       <ComponentRef Id="IHWFile"/>
       <ComponentRef Id="FileAssociation"/>
-      <ComponentRef Id="HLCDFile"/>
-      <ComponentRef Id="HRDConfigFile"/>
-      <ComponentRef Id="HRDFile"/>
     </Feature>
 
     <Icon Id="Ringtoets.ico" SourceFile="Ringtoets.ico"/>

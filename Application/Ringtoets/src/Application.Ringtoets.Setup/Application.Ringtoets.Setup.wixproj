@@ -37,7 +37,9 @@
     <Pedantic>False</Pedantic>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CalculationConfiguration.wxs" />
     <Compile Include="Examples.wxs" />
+    <Compile Include="InstallationVerification.wxs" />
     <Compile Include="Installer UI\BrowseDlgDeltares.wxs" />
     <Compile Include="Installer UI\CancelDlgDeltares.wxs" />
     <Compile Include="Installer UI\DiskCostDlgDeltares.wxs" />
@@ -65,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
+    <Content Include="CalculationConfigurations\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.dbf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.prj" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.qpj" />
@@ -210,6 +213,7 @@
     <EmbeddedResource Include="Localization_nl-NL.wxl" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CalculationConfigurations\" />
     <Folder Include="Examples\" />
     <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\" />
     <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\" />
