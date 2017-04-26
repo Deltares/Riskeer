@@ -330,7 +330,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             // Assert
             string message = Assert.Throws<CriticalFileValidationException>(call).Message;
-            const string expectedMessage = "De ingelezen ID (\'profiel001\') is ongeldig.";
+            const string expectedMessage = "De ingelezen ID ('profiel001') is ongeldig.";
             Assert.AreEqual(expectedMessage, message);
         }
 

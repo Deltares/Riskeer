@@ -436,7 +436,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             mocks.VerifyAll();
         }
 
-        private void SetExpectations(int layerCount, string profileName, double intersectionX, double? isAquifer, string materialName, double? color, byte[] geometry, double? belowPhreaticLevelMean, double? belowPhreaticLevelDeviation, double? diameterD70Mean, double? diameterD70CoefficientOfVariation, double? permeabilityMean, double? permeabilityCoefficientOfVariation)
+        private void SetExpectations(int layerCount, string profileName, double intersectionX, double? isAquifer,
+                                     string materialName, double? color, byte[] geometry, double? belowPhreaticLevelMean,
+                                     double? belowPhreaticLevelDeviation, double? diameterD70Mean, double? diameterD70CoefficientOfVariation,
+                                     double? permeabilityMean, double? permeabilityCoefficientOfVariation)
         {
             reader.Expect(r => r.Read<long>(SoilProfileTableColumns.LayerCount)).Return(layerCount).Repeat.Any();
             reader.Expect(r => r.Read<string>(SoilProfileTableColumns.ProfileName)).Return(profileName).Repeat.Any();
