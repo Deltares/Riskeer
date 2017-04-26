@@ -41,9 +41,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
         protected override SelectableHydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
         {
             IHasHydraulicBoundaryLocationProperty propertiesObject = GetPropertiesObject(context);
-            return propertiesObject != null
-                       ? propertiesObject.SelectedHydraulicBoundaryLocation
-                       : null;
+            return propertiesObject?.SelectedHydraulicBoundaryLocation;
         }
     }
 }

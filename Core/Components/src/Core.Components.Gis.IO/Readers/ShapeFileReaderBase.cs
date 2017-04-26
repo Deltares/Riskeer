@@ -68,7 +68,7 @@ namespace Core.Components.Gis.IO.Readers
         /// </summary>
         public int GetNumberOfFeatures()
         {
-            return ShapeFile != null ? ShapeFile.Features.Count : 0;
+            return ShapeFile?.Features.Count ?? 0;
         }
 
         /// <summary>

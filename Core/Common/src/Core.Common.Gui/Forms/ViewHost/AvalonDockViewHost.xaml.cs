@@ -454,7 +454,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                     layoutAnchorablePaneGroup = RightLayoutAnchorablePaneGroup;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("toolViewLocation", (int) toolViewLocation, typeof(ToolViewLocation));
+                    throw new InvalidEnumArgumentException(nameof(toolViewLocation), (int) toolViewLocation, typeof(ToolViewLocation));
             }
 
             layoutAnchorablePaneGroup.Descendents()
@@ -466,7 +466,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private static IView GetView(object content)
         {
             var windowsFormsHost = content as WindowsFormsHost;
-            return windowsFormsHost != null ? windowsFormsHost.Child as IView : null;
+            return windowsFormsHost?.Child as IView;
         }
     }
 }

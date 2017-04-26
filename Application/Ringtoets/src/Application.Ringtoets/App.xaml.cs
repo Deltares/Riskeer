@@ -323,7 +323,7 @@ namespace Application.Ringtoets
         {
             log.Error(CoreCommonGuiResources.App_Unhandled_exception, exception);
 
-            if (gui != null && gui.MainWindow != null)
+            if (gui?.MainWindow != null)
             {
                 using (var exceptionDialog = new ExceptionDialog(gui.MainWindow, gui, exception)
                 {
@@ -422,12 +422,9 @@ namespace Application.Ringtoets
                                                   .SelectMany(r => r.GetAppenders())
                                                   .OfType<FileAppender>()
                                                   .FirstOrDefault();
-            if (fileAppender == null || string.IsNullOrWhiteSpace(fileAppender.File))
-            {
-                return string.Empty;
-            }
-
-            return Path.GetDirectoryName(fileAppender.File);
+            return string.IsNullOrWhiteSpace(fileAppender?.File)
+                       ? string.Empty
+                       : Path.GetDirectoryName(fileAppender.File);
         }
     }
 }

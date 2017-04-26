@@ -159,7 +159,7 @@ namespace Core.Common.Controls.TreeView
             var draggedNode = (TreeNode) e.Item;
             treeView.SelectedNode = draggedNode;
             TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(draggedNode.Tag);
-            object parentTag = draggedNode.Parent != null ? draggedNode.Parent.Tag : null;
+            object parentTag = draggedNode.Parent?.Tag;
 
             if (treeNodeInfo.CanDrag == null || !treeNodeInfo.CanDrag(draggedNode.Tag, parentTag))
             {
@@ -240,7 +240,7 @@ namespace Core.Common.Controls.TreeView
 
         private static bool IsDropTargetChildOfDraggedNode(TreeNode dropTarget, TreeNode draggedNode)
         {
-            while (dropTarget != null && dropTarget.Parent != null)
+            while (dropTarget?.Parent != null)
             {
                 if (dropTarget.Parent.Equals(draggedNode))
                 {
@@ -284,7 +284,7 @@ namespace Core.Common.Controls.TreeView
                     if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Parent.Tag))
                     {
                         nodeDropTarget = nodeOver.Parent;
-                        dropAtLocation = nodeOver.Parent == null ? 0 : nodeOver.Parent.Nodes.IndexOf(nodeOver);
+                        dropAtLocation = nodeOver.Parent.Nodes.IndexOf(nodeOver);
                         placeholderLocation = PlaceholderLocation.Top;
                     }
                     else
@@ -309,9 +309,7 @@ namespace Core.Common.Controls.TreeView
                 if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Parent.Tag))
                 {
                     nodeDropTarget = nodeOver.Parent;
-                    dropAtLocation = nodeOver.Parent != null
-                                         ? nodeOver.Parent.Nodes.IndexOf(nodeOver) + 1
-                                         : 0;
+                    dropAtLocation = nodeOver.Parent.Nodes.IndexOf(nodeOver) + 1;
                     placeholderLocation = PlaceholderLocation.Bottom;
                 }
                 else

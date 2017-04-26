@@ -265,7 +265,7 @@ namespace Core.Common.Gui.Plugin
                 {
                     viewInfo.AfterCreate?.Invoke((TView) v, (TData) o);
                 },
-                GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView) v, (TViewData) o) : null,
+                GetViewName = (v, o) => viewInfo.GetViewName?.Invoke((TView) v, (TViewData) o),
                 CreateInstance = () => viewInfo.CreateInstance()
             };
         }

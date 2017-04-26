@@ -120,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (failureMechanism == null || failureMechanism.SectionResults == null || data == null || data.Children == null)
+            if (failureMechanism?.SectionResults == null || data?.Children == null)
             {
                 scenarioSelectionControl.ClearDataSource();
             }

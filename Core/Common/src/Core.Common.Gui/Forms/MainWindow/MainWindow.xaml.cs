@@ -197,7 +197,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         public void SubscribeToGui()
         {
-            if (viewController != null && viewController.ViewHost != null)
+            if (viewController?.ViewHost != null)
             {
                 viewController.ViewHost.ViewClosed += OnViewClosed;
                 viewController.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
@@ -210,7 +210,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         public void UnsubscribeFromGui()
         {
-            if (viewController != null && viewController.ViewHost != null)
+            if (viewController?.ViewHost != null)
             {
                 viewController.ViewHost.ViewClosed -= OnViewClosed;
                 viewController.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;

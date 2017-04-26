@@ -50,9 +50,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
             HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
-            Distance = new RoundedDouble(0, referencePoint != null
-                                                ? referencePoint.GetEuclideanDistanceTo(hydraulicBoundaryLocation.Location)
-                                                : double.NaN);
+            Distance = new RoundedDouble(0, referencePoint?.GetEuclideanDistanceTo(hydraulicBoundaryLocation.Location) ?? double.NaN);
         }
 
         /// <summary>

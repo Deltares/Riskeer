@@ -43,9 +43,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>An array of points in 2D space or an empty array when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
         public static Point2D[] CreateSurfaceLinePoints(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null
-                       ? surfaceLine.ProjectGeometryToLZ().ToArray()
-                       : new Point2D[0];
+            return surfaceLine?.ProjectGeometryToLZ().ToArray() ?? new Point2D[0];
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateEntryPointPoint(PipingInput pipingInput)
         {
-            return pipingInput != null && pipingInput.SurfaceLine != null && !double.IsNaN(pipingInput.EntryPointL)
+            return pipingInput?.SurfaceLine != null && !double.IsNaN(pipingInput.EntryPointL)
                        ? new[]
                        {
                            new Point2D(pipingInput.EntryPointL, pipingInput.SurfaceLine.GetZAtL(pipingInput.EntryPointL))
@@ -82,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateExitPointPoint(PipingInput pipingInput)
         {
-            return pipingInput != null && pipingInput.SurfaceLine != null && !double.IsNaN(pipingInput.ExitPointL)
+            return pipingInput?.SurfaceLine != null && !double.IsNaN(pipingInput.ExitPointL)
                        ? new[]
                        {
                            new Point2D(pipingInput.ExitPointL, pipingInput.SurfaceLine.GetZAtL(pipingInput.ExitPointL))
@@ -102,7 +100,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateDitchPolderSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null && surfaceLine.DitchPolderSide != null
+            return surfaceLine?.DitchPolderSide != null
                        ? new[]
                        {
                            surfaceLine.GetLocalPointFromGeometry(surfaceLine.DitchPolderSide)
@@ -122,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateBottomDitchPolderSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null && surfaceLine.BottomDitchPolderSide != null
+            return surfaceLine?.BottomDitchPolderSide != null
                        ? new[]
                        {
                            surfaceLine.GetLocalPointFromGeometry(surfaceLine.BottomDitchPolderSide)
@@ -142,7 +140,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateBottomDitchDikeSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null && surfaceLine.BottomDitchDikeSide != null
+            return surfaceLine?.BottomDitchDikeSide != null
                        ? new[]
                        {
                            surfaceLine.GetLocalPointFromGeometry(surfaceLine.BottomDitchDikeSide)
@@ -162,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateDitchDikeSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null && surfaceLine.DitchDikeSide != null
+            return surfaceLine?.DitchDikeSide != null
                        ? new[]
                        {
                            surfaceLine.GetLocalPointFromGeometry(surfaceLine.DitchDikeSide)
@@ -182,7 +180,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateDikeToeAtRiverPoint(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null && surfaceLine.DikeToeAtRiver != null
+            return surfaceLine?.DikeToeAtRiver != null
                        ? new[]
                        {
                            surfaceLine.GetLocalPointFromGeometry(surfaceLine.DikeToeAtRiver)
@@ -202,7 +200,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </returns>
         public static Point2D[] CreateDikeToeAtPolderPoint(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine != null && surfaceLine.DikeToeAtPolder != null
+            return surfaceLine?.DikeToeAtPolder != null
                        ? new[]
                        {
                            surfaceLine.GetLocalPointFromGeometry(surfaceLine.DikeToeAtPolder)

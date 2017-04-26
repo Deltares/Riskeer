@@ -86,9 +86,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput == null
-                           ? double.NaN
-                           : data.HydraulicBoundaryLocation.DesignWaterLevelOutput.TargetProbability;
+                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -101,9 +99,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput == null
-                           ? RoundedDouble.NaN
-                           : data.HydraulicBoundaryLocation.DesignWaterLevelOutput.TargetReliability;
+                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -116,9 +112,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput == null
-                           ? double.NaN
-                           : data.HydraulicBoundaryLocation.DesignWaterLevelOutput.CalculatedProbability;
+                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -131,9 +125,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput == null
-                           ? RoundedDouble.NaN
-                           : data.HydraulicBoundaryLocation.DesignWaterLevelOutput.CalculatedReliability;
+                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -145,9 +137,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelOutput == null
-                                                                          ? CalculationConvergence.NotCalculated
-                                                                          : data.HydraulicBoundaryLocation.DesignWaterLevelOutput.CalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.CalculationConvergence ?? CalculationConvergence.NotCalculated).DisplayName;
             }
         }
     }

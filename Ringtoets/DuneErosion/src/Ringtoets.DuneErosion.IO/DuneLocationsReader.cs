@@ -74,7 +74,7 @@ namespace Ringtoets.DuneErosion.IO
                 Point2D location = locationData.MapGeometries.First().PointCollections.First().First();
 
                 object nameValue = locationData.MetaData[nameKey];
-                string name = nameValue != null ? nameValue.ToString() : string.Empty;
+                string name = nameValue?.ToString() ?? string.Empty;
 
                 int coastalAreaId = Convert.ToInt32(locationData.MetaData[coastalAreaIdKey]);
                 double offset = Convert.ToDouble(locationData.MetaData[offsetKey]);

@@ -77,9 +77,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return DesignWaterLevelOutput == null
-                           ? RoundedDouble.NaN
-                           : DesignWaterLevelOutput.Result;
+                return DesignWaterLevelOutput?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -90,9 +88,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return DesignWaterLevelOutput == null
-                           ? CalculationConvergence.NotCalculated
-                           : DesignWaterLevelOutput.CalculationConvergence;
+                return DesignWaterLevelOutput?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
             }
         }
 
@@ -108,9 +104,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return WaveHeightOutput == null
-                           ? RoundedDouble.NaN
-                           : WaveHeightOutput.Result;
+                return WaveHeightOutput?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -121,9 +115,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return WaveHeightOutput == null
-                           ? CalculationConvergence.NotCalculated
-                           : WaveHeightOutput.CalculationConvergence;
+                return WaveHeightOutput?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
             }
         }
 

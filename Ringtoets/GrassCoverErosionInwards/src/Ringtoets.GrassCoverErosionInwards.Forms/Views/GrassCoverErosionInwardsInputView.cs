@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 data = value as GrassCoverErosionInwardsCalculation;
 
                 calculationObserver.Observable = data;
-                calculationInputObserver.Observable = data != null ? data.InputParameters : null;
+                calculationInputObserver.Observable = data?.InputParameters;
 
                 if (data == null)
                 {

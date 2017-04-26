@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.Data
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
             RoundedDouble exitPointL = input.ExitPointL;
 
-            if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
+            if (stochasticSoilProfile?.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
                 var thicknessTopAquiferLayer = new RoundedDouble(GetNumberOfDecimals(thicknessAquiferLayer),
                                                                  GetThicknessTopAquiferLayer(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Data
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
             RoundedDouble exitPointL = input.ExitPointL;
 
-            if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
+            if (stochasticSoilProfile?.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
                 var weightedMean = new RoundedDouble(GetNumberOfDecimals(thicknessCoverageLayerDistribution),
                                                      GetThicknessCoverageLayers(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateEffectiveThicknessCoverageLayerMean(LogNormalDistribution effectiveThicknessCoverageLayerDistribution)
         {
-            if (input.SurfaceLine != null && input.StochasticSoilProfile != null && input.StochasticSoilProfile.SoilProfile != null && !double.IsNaN(input.ExitPointL))
+            if (input.SurfaceLine != null && input.StochasticSoilProfile?.SoilProfile != null && !double.IsNaN(input.ExitPointL))
             {
                 var weightedMean = new RoundedDouble(GetNumberOfDecimals(effectiveThicknessCoverageLayerDistribution),
                                                      InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
@@ -470,7 +470,7 @@ namespace Ringtoets.Piping.Data
         private PipingSoilLayer[] GetConsecutiveAquiferLayers()
         {
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
-            PipingSoilProfile soilProfile = input.StochasticSoilProfile != null ? input.StochasticSoilProfile.SoilProfile : null;
+            PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
             RoundedDouble exitPointL = input.ExitPointL;
 
             if (surfaceLine != null && soilProfile != null && !double.IsNaN(exitPointL))
@@ -484,7 +484,7 @@ namespace Ringtoets.Piping.Data
         private PipingSoilLayer[] GetConsecutiveCoverageLayers()
         {
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
-            PipingSoilProfile soilProfile = input.StochasticSoilProfile != null ? input.StochasticSoilProfile.SoilProfile : null;
+            PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
             RoundedDouble exitPointL = input.ExitPointL;
 
             if (surfaceLine != null && soilProfile != null && !double.IsNaN(exitPointL))

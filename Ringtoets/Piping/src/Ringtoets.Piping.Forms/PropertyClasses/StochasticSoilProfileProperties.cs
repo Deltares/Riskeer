@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile != null ? data.SoilProfile.Layers.Select(l => l.Top).ToArray() : new double[0];
+                return data.SoilProfile?.Layers.Select(l => l.Top).ToArray() ?? new double[0];
             }
         }
 
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile != null ? data.SoilProfile.Bottom : double.NaN;
+                return data.SoilProfile?.Bottom ?? double.NaN;
             }
         }
 

@@ -69,7 +69,7 @@ namespace Core.Common.Gui.Commands
                                                   .SelectMany(r => r.GetAppenders())
                                                   .OfType<FileAppender>()
                                                   .FirstOrDefault();
-            if (fileAppender == null || string.IsNullOrWhiteSpace(fileAppender.File))
+            if (string.IsNullOrWhiteSpace(fileAppender?.File))
             {
                 return;
             }

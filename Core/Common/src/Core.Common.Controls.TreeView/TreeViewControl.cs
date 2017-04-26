@@ -168,7 +168,7 @@ namespace Core.Common.Controls.TreeView
         {
             get
             {
-                return treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
+                return treeView.SelectedNode?.Tag;
             }
         }
 
@@ -337,7 +337,7 @@ namespace Core.Common.Controls.TreeView
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
 
-            return treeNode != null ? treeNode.FullPath : null;
+            return treeNode?.FullPath;
         }
 
         private bool CanRename(TreeNode treeNode)
@@ -548,9 +548,7 @@ namespace Core.Common.Controls.TreeView
                 treeNode.Text = "";
             }
 
-            treeNode.ForeColor = treeNodeInfo.ForeColor != null
-                                     ? treeNodeInfo.ForeColor(treeNode.Tag)
-                                     : Color.FromKnownColor(KnownColor.ControlText);
+            treeNode.ForeColor = treeNodeInfo.ForeColor?.Invoke(treeNode.Tag) ?? Color.FromKnownColor(KnownColor.ControlText);
             SetTreeNodeImageKey(treeNode, treeNodeInfo);
 
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag) &&
@@ -675,7 +673,7 @@ namespace Core.Common.Controls.TreeView
 
         private static object GetParentTag(TreeNode treeNode)
         {
-            return treeNode.Parent != null ? treeNode.Parent.Tag : null;
+            return treeNode.Parent?.Tag;
         }
 
         private static Image CreateCheckBoxGlyph(CheckBoxState state)
@@ -900,9 +898,7 @@ namespace Core.Common.Controls.TreeView
         private void UpdateContextMenuStrip(TreeNode node, TreeNodeInfo treeNodeInfo, object parentTag)
         {
             node.ContextMenuStrip?.Dispose();
-            node.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                        ? treeNodeInfo.ContextMenuStrip(node.Tag, parentTag, this)
-                                        : null;
+            node.ContextMenuStrip = treeNodeInfo.ContextMenuStrip?.Invoke(node.Tag, parentTag, this);
         }
 
         private bool IsOnCheckBox(Point point)

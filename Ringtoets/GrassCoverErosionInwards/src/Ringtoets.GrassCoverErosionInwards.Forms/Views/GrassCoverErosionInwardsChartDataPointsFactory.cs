@@ -40,9 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <returns>An array of points in 2D space or an empty array when <paramref name="dikeProfile"/> is <c>null</c>.</returns>
         public static Point2D[] CreateDikeGeometryPoints(DikeProfile dikeProfile)
         {
-            return dikeProfile != null
-                       ? dikeProfile.DikeGeometry.Select(dg => dg.Point).ToArray()
-                       : new Point2D[0];
+            return dikeProfile?.DikeGeometry.Select(dg => dg.Point).ToArray() ?? new Point2D[0];
         }
 
         /// <summary>
@@ -58,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </returns>
         public static Point2D[] CreateForeshoreGeometryPoints(GrassCoverErosionInwardsInput input)
         {
-            return input != null && input.DikeProfile != null && input.UseForeshore
+            return input?.DikeProfile != null && input.UseForeshore
                        ? input.DikeProfile.ForeshoreGeometry.ToArray()
                        : new Point2D[0];
         }
@@ -77,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </returns>
         public static Point2D[] CreateDikeHeightPoints(GrassCoverErosionInwardsInput input)
         {
-            if (input == null || input.DikeProfile == null || double.IsNaN(input.DikeHeight) || input.DikeProfile.DikeGeometry.Length < 2)
+            if (input?.DikeProfile == null || double.IsNaN(input.DikeHeight) || input.DikeProfile.DikeGeometry.Length < 2)
             {
                 return new Point2D[0];
             }

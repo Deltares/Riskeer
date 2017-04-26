@@ -74,9 +74,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 base.FailureMechanism = value;
 
                 var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism != null
-                                                       ? calculatableFailureMechanism.CalculationsGroup
-                                                       : null;
+                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
 
                 calculationInputObserver.Observable = observableGroup;
                 calculationOutputObserver.Observable = observableGroup;

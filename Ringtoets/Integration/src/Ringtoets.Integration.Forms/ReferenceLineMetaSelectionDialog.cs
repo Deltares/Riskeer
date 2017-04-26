@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms
         private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()
         {
             DataGridViewRow selectedRow = ReferenceLineMetaDataGridViewControl.CurrentRow;
-            return selectedRow == null ? null : (ReferenceLineMetaSelectionRow) selectedRow.DataBoundItem;
+            return (ReferenceLineMetaSelectionRow) selectedRow?.DataBoundItem;
         }
 
         private void CancelButtonOnClick(object sender, EventArgs e)

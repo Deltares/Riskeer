@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </remarks>
         public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, GrassCoverErosionInwardsInput input)
         {
-            chartData.Name = input != null && input.DikeProfile != null && input.UseForeshore
+            chartData.Name = input?.DikeProfile != null && input.UseForeshore
                                  ? string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  input.DikeProfile.Name,
                                                  RingtoetsCommonFormsResources.Foreshore_DisplayName)

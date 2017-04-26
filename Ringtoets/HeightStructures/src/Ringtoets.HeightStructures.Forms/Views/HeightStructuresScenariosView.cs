@@ -120,7 +120,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (FailureMechanism == null || FailureMechanism.SectionResults == null || data == null || data.Children == null)
+            if (FailureMechanism?.SectionResults == null || data?.Children == null)
             {
                 scenarioSelectionControl.ClearDataSource();
             }

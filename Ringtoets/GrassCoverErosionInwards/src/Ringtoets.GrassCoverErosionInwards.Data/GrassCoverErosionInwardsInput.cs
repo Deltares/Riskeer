@@ -118,9 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return dikeProfile != null
-                           ? dikeProfile.DikeGeometry.ToArray()
-                           : new RoughnessPoint[0];
+                return dikeProfile?.DikeGeometry.ToArray() ?? new RoughnessPoint[0];
             }
         }
 

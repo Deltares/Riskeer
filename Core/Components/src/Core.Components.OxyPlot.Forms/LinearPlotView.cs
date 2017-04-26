@@ -77,7 +77,7 @@ namespace Core.Components.OxyPlot.Forms
             get
             {
                 Axis axis = GetAxisOnPosition(AxisPosition.Bottom);
-                return axis != null ? axis.Title : null;
+                return axis?.Title;
             }
             set
             {
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Forms
             get
             {
                 Axis axis = GetAxisOnPosition(AxisPosition.Left);
-                return axis != null ? axis.Title : null;
+                return axis?.Title;
             }
             set
             {

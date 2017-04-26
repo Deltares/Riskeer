@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         public override int GetHashCode()
         {
-            return Contents.Cast<object>().Aggregate(Name != null ? Name.GetHashCode() : 0, (current, content) => current ^ content.GetHashCode());
+            return Contents.Cast<object>().Aggregate(Name?.GetHashCode() ?? 0, (current, content) => current ^ content.GetHashCode());
         }
 
         private bool Equals(CategoryTreeFolder other)
