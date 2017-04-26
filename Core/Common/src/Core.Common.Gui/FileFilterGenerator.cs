@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Properties;
 
 namespace Core.Common.Gui
@@ -43,8 +44,14 @@ namespace Core.Common.Gui
         /// a specified file extension.
         /// </summary>
         /// <param name="typeExtension">The extension of the files to filter on.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeExtension"/>
+        /// is <c>null</c>.</exception>
         public FileFilterGenerator(string typeExtension)
         {
+            if (string.IsNullOrEmpty(typeExtension))
+            {
+                throw new ArgumentException($@"Value required for the '{nameof(typeExtension)}'.", nameof(typeExtension));
+            }
             extension = typeExtension;
             description = string.Format(Resources.FileFilterGenerator_Files_of_type_0_, typeExtension.ToUpperInvariant());
         }
@@ -56,8 +63,18 @@ namespace Core.Common.Gui
         /// <param name="typeExtension">The extension of the files to filter on.</param>
         /// <param name="typeDescription">The description of files which have 
         /// <paramref name="typeExtension"/> as their extension.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeExtension"/>
+        /// or <paramref name="typeDescription"/> is <c>null</c>.</exception>
         public FileFilterGenerator(string typeExtension, string typeDescription)
         {
+            if (string.IsNullOrEmpty(typeExtension))
+            {
+                throw new ArgumentException($@"Value required for the '{nameof(typeExtension)}'.", nameof(typeExtension));
+            }
+            if (string.IsNullOrEmpty(typeDescription))
+            {
+                throw new ArgumentException($@"Value required for the '{nameof(typeDescription)}'.", nameof(typeDescription));
+            }
             description = typeDescription;
             extension = typeExtension;
         }

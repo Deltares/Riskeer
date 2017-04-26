@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Call
             bool areEqualOne = profile.Equals(otherProfile);
-            bool areEqualTwo = profile.Equals(otherProfile);
+            bool areEqualTwo = otherProfile.Equals(profile);
 
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);

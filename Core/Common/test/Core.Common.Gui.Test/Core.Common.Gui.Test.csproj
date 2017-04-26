@@ -99,6 +99,7 @@
     <Compile Include="Converters\PngToIconConverterTest.cs" />
     <Compile Include="ExceptionDialogTest.cs" />
     <Compile Include="ExpectedFileTest.cs" />
+    <Compile Include="FileFilterGeneratorTest.cs" />
     <Compile Include="Forms\MainWindow\MainWindowTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialogTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
