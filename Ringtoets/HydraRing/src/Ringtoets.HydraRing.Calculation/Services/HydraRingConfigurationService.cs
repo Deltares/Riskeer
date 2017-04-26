@@ -357,7 +357,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "DsStartMethod", numericsSetting.DsStartMethod
                         },
                         {
-                            "DsIterationmethod", 1 // Fixed: not relevant
+                            "DsIterationmethod", 3 // Fixed: not relevant
                         },
                         {
                             "DsMinNumberOfIterations", numericsSetting.DsMinNumberOfIterations

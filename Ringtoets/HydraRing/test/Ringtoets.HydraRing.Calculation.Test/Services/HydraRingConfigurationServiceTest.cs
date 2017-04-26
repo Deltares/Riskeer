@@ -117,7 +117,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 6.6, 7.7, 1.1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 1, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 3, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
@@ -251,9 +251,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [DesignTables] VALUES (3, 1, 1, 1, 4, 5, 0, 0, 0, 0, 10.1, 11.11, 1.1);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 1, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 108, 109, 110, 111.11, 112.12, 113.13, 114.14, 115, 1, 116, 117, 118.18, 119.19, 120.2, 121);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 208, 209, 210, 211.11, 212.12, 213.13, 214.14, 215, 1, 216, 217, 218.18, 219.19, 220.2, 221);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 3, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 108, 109, 110, 111.11, 112.12, 113.13, 114.14, 115, 3, 116, 117, 118.18, 119.19, 120.2, 121);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 208, 209, 210, 211.11, 212.12, 213.13, 214.14, 215, 3, 216, 217, 218.18, 219.19, 220.2, 221);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 1.1, 0, 2.2, 3.3, 4.4, 5.5, 1, 6.6, 300);" + Environment.NewLine +
