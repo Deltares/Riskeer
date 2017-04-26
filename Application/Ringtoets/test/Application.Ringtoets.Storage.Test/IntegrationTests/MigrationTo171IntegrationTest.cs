@@ -59,8 +59,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Then
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
+                    AssertTablesContentMigrated(reader, sourceFilePath);
+
                     AssertDuneErosionFailureMechanism(reader);
-                    AssertClosingStructuresFailureMechanism(reader);
+                    AssertClosingStructuresFailureMechanism(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsFailureMechanism(reader);
                     AssertGrassCoverErosionOutwardsFailureMechanism(reader);
                     AssertHeightStructuresFailureMechanism(reader);
@@ -82,6 +84,73 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 }
 
                 AssertLogDatabase(logFilePath);
+            }
+        }
+
+        private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            var tables = new[]
+            {
+                "AssessmentSectionEntity",
+                "CalculationGroupEntity",
+                "CharacteristicPointEntity",
+                "ClosingStructureEntity",
+                "ClosingStructuresCalculationEntity",
+                "ClosingStructuresSectionResultEntity",
+                "DikeProfileEntity",
+                "DuneErosionSectionResultEntity",
+                "FailureMechanismEntity",
+                "FailureMechanismSectionEntity",
+                "ForeshoreProfileEntity",
+                "GrassCoverErosionInwardsCalculationEntity",
+                "GrassCoverErosionInwardsFailureMechanismMetaEntity",
+                "GrassCoverErosionInwardsSectionResultEntity",
+                "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
+                "GrassCoverErosionOutwardsHydraulicLocationEntity",
+                "GrassCoverErosionOutwardsSectionResultEntity",
+                "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
+                "GrassCoverSlipOffInwardsSectionResultEntity",
+                "GrassCoverSlipOffOutwardsSectionResultEntity",
+                "HeightStructureEntity",
+                "HeightStructuresCalculationEntity",
+                "HeightStructuresFailureMechanismMetaEntity",
+                "HeightStructuresSectionResultEntity",
+                "HydraulicLocationEntity",
+                "MacrostabilityInwardsSectionResultEntity",
+                "MacrostabilityOutwardsSectionResultEntity",
+                "MicrostabilitySectionResultEntity",
+                "PipingCalculationEntity",
+                "PipingFailureMechanismMetaEntity",
+                "PipingSectionResultEntity",
+                "PipingStructureSectionResultEntity",
+                "ProjectEntity",
+                "SoilLayerEntity",
+                "SoilProfileEntity",
+                "StabilityPointStructureEntity",
+                "StabilityPointStructuresCalculationEntity",
+                "StabilityPointStructuresFailureMechanismMetaEntity",
+                "StabilityPointStructuresSectionResultEntity",
+                "StabilityStoneCoverSectionResultEntity",
+                "StabilityStoneCoverWaveConditionsCalculationEntity",
+                "StochasticSoilModelEntity",
+                "StochasticSoilProfileEntity",
+                "StrengthStabilityLengthwiseConstructionSectionResultEntity",
+                "SurfaceLineEntity",
+                "TechnicalInnovationSectionResultEntity",
+                "VersionEntity",
+                "WaterPressureAsphaltCoverSectionResultEntity",
+                "WaveImpactAsphaltCoverSectionResultEntity",
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
+            };
+
+            foreach (string table in tables)
+            {
+                string validateMigratedTable =
+                    $"ATTACH DATABASE[{sourceFilePath}] AS SOURCEPROJECT; " +
+                    $"SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].{table}) " +
+                    $"FROM {table};" +
+                    "DETACH SOURCEPROJECT;";
+                reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
         }
 
@@ -117,7 +186,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             const string validateStochasticSoilProfiles =
                 "SELECT " +
-                "(SELECT COUNT() != 0 FROM StochasticSoilProfileEntity WHERE [Type] = 1) " +
+                "(SELECT COUNT() = (SELECT COUNT() FROM StochasticSoilProfileEntity WHERE [Type] = 1) FROM StochasticSoilProfileEntity) " +
                 "AND " +
                 "(SELECT COUNT() = 0 FROM StochasticSoilProfileEntity WHERE [Probability] NOT BETWEEN 0 AND 1 OR [Probability] IS NULL);";
             reader.AssertReturnedDataIsValid(validateStochasticSoilProfiles);
@@ -206,8 +275,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expected.Message, actual.Message);
         }
 
-        private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader)
+        private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
         {
+            string validateFailureMechanisms =
+                $"ATTACH DATABASE[{sourceFilePath}] AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructureFailureMechanismMetaEntity) " +
+                "FROM ClosingStructuresFailureMechanismMetaEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
+
             const string validateCalculationOutputs =
                 "SELECT COUNT() = 0 " +
                 "FROM ClosingStructuresOutputEntity";
