@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
@@ -60,6 +59,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Then
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
+                    AssertDuneErosionFailureMechanism(reader);
                     AssertClosingStructuresFailureMechanism(reader);
                     AssertGrassCoverErosionInwardsFailureMechanism(reader);
                     AssertGrassCoverErosionOutwardsFailureMechanism(reader);
@@ -74,8 +74,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertForeshoreProfiles(reader);
                     AssertStochasticSoilModels(reader);
                     AssertSurfaceLines(reader);
+                    AssertBackgroundData(reader);
 
                     AssertVersions(reader);
+                    AssertDatabase(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -93,10 +95,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertForeshoreProfiles(MigratedDatabaseReader reader)
         {
-            const string validateDikeProfiles =
+            const string validateForeshoreProfiles =
                 "SELECT COUNT() = 0 " +
-                "FROM ForeshoreProfileEntity WHERE Id != Name;";
-            reader.AssertReturnedDataIsValid(validateDikeProfiles);
+                "FROM ForeshoreProfileEntity " +
+                "WHERE Id != Name;";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfiles);
         }
 
         private static void AssertStochasticSoilModels(MigratedDatabaseReader reader)
@@ -129,11 +132,43 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertVersions(MigratedDatabaseReader reader)
         {
-            const string validateSurfaceLines =
-                "SELECT COUNT() != 0 " +
+            const string validateVersion =
+                "SELECT COUNT() = 1 " +
                 "FROM VersionEntity " +
                 "WHERE [Version] = \"17.1\";";
-            reader.AssertReturnedDataIsValid(validateSurfaceLines);
+            reader.AssertReturnedDataIsValid(validateVersion);
+        }
+
+        private static void AssertDatabase(MigratedDatabaseReader reader)
+        {
+            const string validateForeignKeys =
+                "PRAGMA foreign_keys;";
+            reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertBackgroundData(MigratedDatabaseReader reader)
+        {
+            const string validateBackgroundData =
+                "SELECT COUNT() = " +
+                "(SELECT COUNT() FROM AssessmentSectionEntity) " +
+                "FROM BackgroundDataEntity " +
+                "WHERE [Name] = \"Bing Maps - Satelliet\" " +
+                "AND [IsVisible] = 1 " +
+                "AND [Transparency] = 0.0 " +
+                "AND [BackgroundDataType] = 2 " +
+                "AND [AssessmentSectionEntityId] IN " +
+                "(SELECT [AssessmentSectionEntityId] FROM AssessmentSectionEntity);";
+            reader.AssertReturnedDataIsValid(validateBackgroundData);
+
+            const string validateBackgroundMetaData =
+                "SELECT COUNT() = " +
+                "(SELECT COUNT() FROM BackgroundDataEntity) " +
+                "FROM BackgroundDataMetaEntity " +
+                "WHERE [Key] = \"WellKnownTileSource\" " +
+                "AND [Value] = \"2\" " +
+                "AND [BackgroundDataEntityId] IN " +
+                "(SELECT BackgroundDataEntityId FROM BackgroundDataEntity);";
+            reader.AssertReturnedDataIsValid(validateBackgroundMetaData);
         }
 
         private static void AssertLogDatabase(string logFilePath)
@@ -157,10 +192,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string getClosingStructuresCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM ClosingStructuresOutputEntity";
-            reader.AssertNoDataToBeRead(getClosingStructuresCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
+        }
+
+        private static void AssertDuneErosionFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateFailureMechanisms =
+                "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 8) " +
+                "FROM DuneErosionFailureMechanismMetaEntity " +
+                "WHERE N = 2.0 " +
+                "AND FailureMechanismEntityId IN " +
+                "(SELECT FailureMechanismEntityId FROM FailureMechanismEntity WHERE FailureMechanismType = 8);";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanism(MigratedDatabaseReader reader)
@@ -177,36 +223,36 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE [OvertoppingRateCalculationType] != 1;";
             reader.AssertReturnedDataIsValid(validateCalculations);
 
-            const string getGrassCoverErosionInwardsCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity] " +
                 "JOIN [GrassCoverErosionInwardsOutputEntity];";
-            reader.AssertNoDataToBeRead(getGrassCoverErosionInwardsCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string getGrassCoverErosionOutwardsCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
                 "JOIN GrassCoverErosionOutwardsWaveConditionsOutputEntity";
-            reader.AssertNoDataToBeRead(getGrassCoverErosionOutwardsCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertHeightStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string getHeightStructuresCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM HeightStructuresOutputEntity";
-            reader.AssertNoDataToBeRead(getHeightStructuresCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader)
         {
-            const string getHydraulicBoundaryLocationsOutput =
-                "SELECT 'x' " +
+            const string validateOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM HydraulicLocationOutputEntity";
-            reader.AssertNoDataToBeRead(getHydraulicBoundaryLocationsOutput);
+            reader.AssertReturnedDataIsValid(validateOutputs);
         }
 
         private static void AssertPipingFailureMechanism(MigratedDatabaseReader reader)
@@ -218,36 +264,36 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "OR [SurfacelineSourcePath] != \"Onbekend\";";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);
 
-            const string getPipingCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM PipingCalculationOutputEntity " +
                 "JOIN PipingSemiProbabilisticOutputEntity";
-            reader.AssertNoDataToBeRead(getPipingCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertStabilityPointStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string getStabilityPointStructuresCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM StabilityPointStructuresOutputEntity";
-            reader.AssertNoDataToBeRead(getStabilityPointStructuresCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string getStabilityStoneCoverWaveConditionsCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM StabilityStoneCoverWaveConditionsOutputEntity";
-            reader.AssertNoDataToBeRead(getStabilityStoneCoverWaveConditionsCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string getWaveImpactAsphaltCoverCalculationOutput =
-                "SELECT 'x' " +
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
                 "FROM WaveImpactAsphaltCoverWaveConditionsOutputEntity";
 
-            reader.AssertNoDataToBeRead(getWaveImpactAsphaltCoverCalculationOutput);
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         /// <summary>
@@ -269,21 +315,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             public MigratedDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
             /// <summary>
-            /// Asserts that the <paramref name="queryString"/> result is empty.
-            /// </summary>
-            /// <param name="queryString">The query to execute.</param>
-            /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> 
-            /// failed.</exception>
-            public void AssertNoDataToBeRead(string queryString)
-            {
-                using (IDataReader dataReader = CreateDataReader(queryString))
-                {
-                    Assert.IsFalse(dataReader.Read(), "Result should be empty when using query " +
-                                                      $"'{queryString}'.");
-                }
-            }
-
-            /// <summary>
             /// Asserts that the <paramref name="queryString"/> results in one field with the value <c>true</c>.
             /// </summary>
             /// <param name="queryString">The query to execute.</param>
@@ -297,7 +328,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                      $"when using query '{queryString}'.");
                     Assert.AreEqual(1, dataReader.FieldCount, $"Expected one field, was {dataReader.FieldCount} " +
                                                               $"fields when using query '{queryString}'.");
-                    Assert.IsTrue(Convert.ToBoolean(dataReader[0]));
+                    Assert.AreEqual(1, dataReader[0], $"Result should be 1 when using query '{queryString}'.");
                 }
             }
         }
