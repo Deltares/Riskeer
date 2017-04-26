@@ -29,15 +29,15 @@ namespace Core.Common.TestUtil
     /// specified at https://msdn.microsoft.com/en-us/library/ms229064(v=vs.100).aspx.
     /// </summary>
     [TestFixture]
-    public abstract class CustomExceptionDesignGuidelinesTestFixture<TCustomExceptionType, TBaseExceptionType> where TCustomExceptionType : Exception
-                                                                                                               where TBaseExceptionType : Exception
+    public abstract class CustomExceptionDesignGuidelinesTestFixture<TCustomException, TBaseException> where TCustomException : Exception
+                                                                                                               where TBaseException : Exception
     {
         [Test]
         [SetCulture("en-US")]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            TCustomExceptionType exception = CallDefaultConstructor();
+            TCustomException exception = CallDefaultConstructor();
 
             // Assert
             AssertDefaultConstructedInstance(exception);
@@ -50,7 +50,7 @@ namespace Core.Common.TestUtil
             const string messageText = "<insert exception message>";
 
             // Call
-            TCustomExceptionType exception = CallMessageConstructor(messageText);
+            TCustomException exception = CallMessageConstructor(messageText);
 
             // Assert
             AssertMessageConstructedInstance(exception, messageText);
@@ -64,7 +64,7 @@ namespace Core.Common.TestUtil
             const string messageText = "<insert exception message>";
 
             // Call
-            TCustomExceptionType exception = CallMessageAndInnerExceptionConstructor(messageText, innerException);
+            TCustomException exception = CallMessageAndInnerExceptionConstructor(messageText, innerException);
 
             // Assert
             AssertMessageAndInnerExceptionConstructedInstance(exception, messageText, innerException);
@@ -74,23 +74,23 @@ namespace Core.Common.TestUtil
         public void Constructor_SerializationRoundTrip_ExceptionProperlyInitialized()
         {
             // Setup
-            TCustomExceptionType originalException = CreateFullyConfiguredException();
+            TCustomException originalException = CreateFullyConfiguredException();
 
             // Precondition
             Assert.IsNotNull(originalException.InnerException);
             Assert.IsNull(originalException.InnerException.InnerException);
 
             // Call
-            TCustomExceptionType persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
+            TCustomException persistedException = SerializationTestHelper.SerializeAndDeserializeException(originalException);
 
             // Assert
             AssertRoundTripResult(originalException, persistedException);
         }
 
-        protected virtual void AssertDefaultConstructedInstance(TCustomExceptionType exception)
+        protected virtual void AssertDefaultConstructedInstance(TCustomException exception)
         {
-            Assert.IsInstanceOf<TBaseExceptionType>(exception);
-            string expectedMessage = $"Exception of type '{typeof(TCustomExceptionType)}' was thrown.";
+            Assert.IsInstanceOf<TBaseException>(exception);
+            string expectedMessage = $"Exception of type '{typeof(TCustomException)}' was thrown.";
             Assert.AreEqual(expectedMessage, exception.Message);
             CollectionAssert.IsEmpty(exception.Data);
             Assert.IsNull(exception.HelpLink);
@@ -100,10 +100,10 @@ namespace Core.Common.TestUtil
             Assert.IsNull(exception.TargetSite);
         }
 
-        protected virtual void AssertMessageConstructedInstance(TCustomExceptionType exception, string messageText,
+        protected virtual void AssertMessageConstructedInstance(TCustomException exception, string messageText,
                                                                 bool assertData = true)
         {
-            Assert.IsInstanceOf<TBaseExceptionType>(exception);
+            Assert.IsInstanceOf<TBaseException>(exception);
             Assert.AreEqual(messageText, exception.Message);
             Assert.IsNull(exception.HelpLink);
             Assert.IsNull(exception.InnerException);
@@ -117,10 +117,10 @@ namespace Core.Common.TestUtil
             }
         }
 
-        protected virtual void AssertMessageAndInnerExceptionConstructedInstance(TCustomExceptionType exception, string messageText,
+        protected virtual void AssertMessageAndInnerExceptionConstructedInstance(TCustomException exception, string messageText,
                                                                                  Exception innerException, bool assertData = true)
         {
-            Assert.IsInstanceOf<TBaseExceptionType>(exception);
+            Assert.IsInstanceOf<TBaseException>(exception);
             Assert.AreEqual(messageText, exception.Message);
             Assert.IsNull(exception.HelpLink);
             Assert.AreEqual(innerException, exception.InnerException);
@@ -134,7 +134,7 @@ namespace Core.Common.TestUtil
             }
         }
 
-        protected virtual void AssertRoundTripResult(TCustomExceptionType originalException, TCustomExceptionType persistedException)
+        protected virtual void AssertRoundTripResult(TCustomException originalException, TCustomException persistedException)
         {
             Assert.AreEqual(originalException.Message, persistedException.Message);
             Assert.IsNotNull(persistedException.InnerException);
@@ -143,25 +143,25 @@ namespace Core.Common.TestUtil
             Assert.IsNull(persistedException.InnerException.InnerException);
         }
 
-        protected virtual TCustomExceptionType CreateFullyConfiguredException()
+        protected virtual TCustomException CreateFullyConfiguredException()
         {
             var originalInnerException = new Exception("inner");
             return CallMessageAndInnerExceptionConstructor("outer", originalInnerException);
         }
 
-        private static TCustomExceptionType CallDefaultConstructor()
+        private static TCustomException CallDefaultConstructor()
         {
-            return (TCustomExceptionType) Activator.CreateInstance(typeof(TCustomExceptionType));
+            return (TCustomException) Activator.CreateInstance(typeof(TCustomException));
         }
 
-        private static TCustomExceptionType CallMessageConstructor(string message)
+        private static TCustomException CallMessageConstructor(string message)
         {
-            return (TCustomExceptionType) Activator.CreateInstance(typeof(TCustomExceptionType), message);
+            return (TCustomException) Activator.CreateInstance(typeof(TCustomException), message);
         }
 
-        private static TCustomExceptionType CallMessageAndInnerExceptionConstructor(string message, Exception innerException)
+        private static TCustomException CallMessageAndInnerExceptionConstructor(string message, Exception innerException)
         {
-            return (TCustomExceptionType) Activator.CreateInstance(typeof(TCustomExceptionType), message, innerException);
+            return (TCustomException) Activator.CreateInstance(typeof(TCustomException), message, innerException);
         }
     }
 }

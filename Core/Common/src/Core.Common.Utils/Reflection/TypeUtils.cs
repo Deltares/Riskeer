@@ -38,18 +38,18 @@ namespace Core.Common.Utils.Reflection
         /// Gets the string representation of an enum value, taking <see cref="ResourcesDisplayNameAttribute"/>
         /// into account.
         /// </summary>
-        /// <typeparam name="TEnumType">The type of the enum.</typeparam>
+        /// <typeparam name="TEnum">The type of the enum.</typeparam>
         /// <param name="enumValue">The value of the enum.</param>
         /// <returns>The display name of the enum value.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="enumValue"/>
-        /// is an invalid value for <typeparamref name="TEnumType"/>.</exception>
-        public static string GetDisplayName<TEnumType>(TEnumType enumValue) where TEnumType : IConvertible
+        /// is an invalid value for <typeparamref name="TEnum"/>.</exception>
+        public static string GetDisplayName<TEnum>(TEnum enumValue) where TEnum : IConvertible
         {
             string valueString = enumValue.ToString(CultureInfo.InvariantCulture);
-            FieldInfo fieldInfo = typeof(TEnumType).GetField(valueString);
+            FieldInfo fieldInfo = typeof(TEnum).GetField(valueString);
             if (fieldInfo == null)
             {
-                throw new InvalidEnumArgumentException(nameof(enumValue), Convert.ToInt32(enumValue), typeof(TEnumType));
+                throw new InvalidEnumArgumentException(nameof(enumValue), Convert.ToInt32(enumValue), typeof(TEnum));
             }
             var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
             return resourcesDisplayNameAttribute != null ?

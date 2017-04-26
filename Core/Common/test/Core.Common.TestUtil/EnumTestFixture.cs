@@ -28,16 +28,16 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil
 {
     [TestFixture]
-    public abstract class EnumTestFixture<TEnumType>
+    public abstract class EnumTestFixture<TEnum>
     {
-        protected abstract IDictionary<TEnumType, string> ExpectedDisplayNameForEnumValues { get; }
-        protected abstract IDictionary<TEnumType, byte> ExpectedValueForEnumValues { get; }
+        protected abstract IDictionary<TEnum, string> ExpectedDisplayNameForEnumValues { get; }
+        protected abstract IDictionary<TEnum, byte> ExpectedValueForEnumValues { get; }
 
         [Test]
         public void DisplayName_Always_ReturnExpectedValues()
         {
             // Setup
-            foreach (TEnumType value in Enum.GetValues(typeof(TEnumType)))
+            foreach (TEnum value in Enum.GetValues(typeof(TEnum)))
             {
                 // Call
                 string displayName = GetDisplayName(value);
@@ -52,7 +52,7 @@ namespace Core.Common.TestUtil
         public void ConvertToByte_Always_ReturnExpectedValues()
         {
             // Setup
-            foreach (TEnumType value in Enum.GetValues(typeof(TEnumType)))
+            foreach (TEnum value in Enum.GetValues(typeof(TEnum)))
             {
                 // Call
                 int actualValue = Convert.ToInt32(value);
@@ -63,9 +63,9 @@ namespace Core.Common.TestUtil
             }
         }
 
-        private static string GetDisplayName(TEnumType value)
+        private static string GetDisplayName(TEnum value)
         {
-            Type type = typeof(TEnumType);
+            Type type = typeof(TEnum);
             MemberInfo[] memInfo = type.GetMember(value.ToString());
             object[] attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
             if (attributes.Length > 0)
