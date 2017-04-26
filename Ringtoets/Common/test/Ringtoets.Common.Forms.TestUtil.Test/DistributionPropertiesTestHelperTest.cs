@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         #region Test case data
 
-        private static IEnumerable<TestCaseData> DistributionTestCases 
+        private static IEnumerable<TestCaseData> DistributionTestCases
         {
             get
             {
