@@ -74,6 +74,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertForeshoreProfiles(reader);
                     AssertStochasticSoilModels(reader);
                     AssertSurfaceLines(reader);
+                    AssertSoilLayers(reader, sourceFilePath);
                     AssertBackgroundData(reader);
 
                     AssertVersions(reader);
@@ -118,8 +119,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT " +
                 "(SELECT COUNT() != 0 FROM StochasticSoilProfileEntity WHERE [Type] = 1) " +
                 "AND " +
-                "(SELECT COUNT() = 0 FROM StochasticSoilProfileEntity WHERE [Probability] NOT BETWEEN 0 AND 1 OR[Probability] IS NULL);";
+                "(SELECT COUNT() = 0 FROM StochasticSoilProfileEntity WHERE [Probability] NOT BETWEEN 0 AND 1 OR [Probability] IS NULL);";
             reader.AssertReturnedDataIsValid(validateStochasticSoilProfiles);
+        }
+
+        private static void AssertSoilLayers(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilLayers =
+                $"ATTACH DATABASE[{sourceFilePath}] AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM[SOURCEPROJECT].SoilLayerEntity) " +
+                "FROM SoilLayerEntity AS NEW " +
+                "LEFT JOIN [SOURCEPROJECT].SoilLayerEntity AS OLD ON NEW.[SoilLayerEntityId] = OLD.[SoilLayerEntityId] " +
+                "WHERE ((NEW.[DiameterD70CoefficientOfVariation] IS NULL AND OLD.[DiameterD70Deviation] IS NULL) " +
+                "OR NEW.[DiameterD70CoefficientOfVariation] = ROUND(OLD.[DiameterD70Deviation] / OLD.[DiameterD70Mean], 6)) " +
+                "AND ((NEW.[PermeabilityCoefficientOfVariation] IS NULL AND OLD.[PermeabilityDeviation] IS NULL) " +
+                "OR NEW.[PermeabilityCoefficientOfVariation] = ROUND(OLD.[PermeabilityDeviation] / OLD.[PermeabilityMean], 6)); " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilLayers);
         }
 
         private static void AssertSurfaceLines(MigratedDatabaseReader reader)
