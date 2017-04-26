@@ -263,10 +263,7 @@ namespace Core.Common.Gui.Plugin
                 CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
                 AfterCreate = (v, o) =>
                 {
-                    if (viewInfo.AfterCreate != null)
-                    {
-                        viewInfo.AfterCreate((TView) v, (TData) o);
-                    }
+                    viewInfo.AfterCreate?.Invoke((TView) v, (TData) o);
                 },
                 GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView) v, (TViewData) o) : null,
                 CreateInstance = () => viewInfo.CreateInstance()

@@ -384,10 +384,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             finally
             {
                 // Call
-                if (hydraulicBoundarySqLiteDatabaseReader != null)
-                {
-                    hydraulicBoundarySqLiteDatabaseReader.Dispose();
-                }
+                hydraulicBoundarySqLiteDatabaseReader?.Dispose();
             }
 
             // Assert

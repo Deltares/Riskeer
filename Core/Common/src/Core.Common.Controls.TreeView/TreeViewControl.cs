@@ -724,10 +724,7 @@ namespace Core.Common.Controls.TreeView
 
         private void OnNodeDataDeleted(TreeNode node)
         {
-            if (DataDeleted != null)
-            {
-                DataDeleted(this, new EventArgs<object>(node.Tag));
-            }
+            DataDeleted?.Invoke(this, new EventArgs<object>(node.Tag));
         }
 
         #region Nested types
@@ -743,19 +740,13 @@ namespace Core.Common.Controls.TreeView
                 this.treeViewControl = treeViewControl;
 
                 var observable = treeNode.Tag as IObservable;
-                if (observable != null)
-                {
-                    observable.Attach(this);
-                }
+                observable?.Attach(this);
             }
 
             public void Dispose()
             {
                 var observable = treeNode.Tag as IObservable;
-                if (observable != null)
-                {
-                    observable.Detach(this);
-                }
+                observable?.Detach(this);
             }
 
             public void UpdateObserver()
@@ -785,10 +776,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(e.Node.Tag);
-            if (treeNodeInfo.OnNodeRenamed != null)
-            {
-                treeNodeInfo.OnNodeRenamed(e.Node.Tag, e.Label);
-            }
+            treeNodeInfo.OnNodeRenamed?.Invoke(e.Node.Tag, e.Label);
         }
 
         private void TreeViewAfterCheck(object sender, TreeViewEventArgs e)
@@ -911,10 +899,7 @@ namespace Core.Common.Controls.TreeView
 
         private void UpdateContextMenuStrip(TreeNode node, TreeNodeInfo treeNodeInfo, object parentTag)
         {
-            if (node.ContextMenuStrip != null)
-            {
-                node.ContextMenuStrip.Dispose();
-            }
+            node.ContextMenuStrip?.Dispose();
             node.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
                                         ? treeNodeInfo.ContextMenuStrip(node.Tag, parentTag, this)
                                         : null;
@@ -932,10 +917,7 @@ namespace Core.Common.Controls.TreeView
 
         private void OnDataDoubleClick()
         {
-            if (DataDoubleClick != null)
-            {
-                DataDoubleClick(treeView.SelectedNode, EventArgs.Empty);
-            }
+            DataDoubleClick?.Invoke(treeView.SelectedNode, EventArgs.Empty);
         }
 
         private void TreeViewDragDrop(object sender, DragEventArgs e)
@@ -965,10 +947,7 @@ namespace Core.Common.Controls.TreeView
 
         private void OnSelectedDataChanged()
         {
-            if (SelectedDataChanged != null)
-            {
-                SelectedDataChanged(this, EventArgs.Empty);
-            }
+            SelectedDataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

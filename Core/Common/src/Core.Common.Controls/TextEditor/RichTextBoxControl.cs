@@ -95,10 +95,7 @@ namespace Core.Common.Controls.TextEditor
 
         private void OnTextBoxValueChanged(EventArgs e)
         {
-            if (TextBoxValueChanged != null)
-            {
-                TextBoxValueChanged(this, e);
-            }
+            TextBoxValueChanged?.Invoke(this, e);
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

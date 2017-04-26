@@ -222,10 +222,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 
         private void CloseDataReader()
         {
-            if (sqliteDataReader != null)
-            {
-                sqliteDataReader.Dispose();
-            }
+            sqliteDataReader?.Dispose();
         }
     }
 }

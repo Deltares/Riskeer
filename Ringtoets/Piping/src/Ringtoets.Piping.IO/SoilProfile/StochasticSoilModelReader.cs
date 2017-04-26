@@ -99,10 +99,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         public override void Dispose()
         {
-            if (dataReader != null)
-            {
-                dataReader.Dispose();
-            }
+            dataReader?.Dispose();
             base.Dispose();
         }
 

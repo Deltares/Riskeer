@@ -579,10 +579,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             finally
             {
                 // Call
-                if (pipingSoilProfilesReader != null)
-                {
-                    pipingSoilProfilesReader.Dispose();
-                }
+                pipingSoilProfilesReader?.Dispose();
             }
 
             // Assert

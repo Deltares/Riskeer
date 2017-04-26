@@ -98,20 +98,12 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 
         private static DikeProfile GetDikeProfileValue(DikeProfileEntity dikeProfileEntity, ReadConversionCollector collector)
         {
-            if (dikeProfileEntity != null)
-            {
-                return dikeProfileEntity.Read(collector);
-            }
-            return null;
+            return dikeProfileEntity?.Read(collector);
         }
 
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(HydraulicLocationEntity hydraulicLocationEntity, ReadConversionCollector collector)
         {
-            if (hydraulicLocationEntity != null)
-            {
-                return hydraulicLocationEntity.Read(collector);
-            }
-            return null;
+            return hydraulicLocationEntity?.Read(collector);
         }
     }
 }

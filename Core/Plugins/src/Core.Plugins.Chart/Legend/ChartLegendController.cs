@@ -105,10 +105,7 @@ namespace Core.Plugins.Chart.Legend
             viewController.ViewHost.AddToolView(legendView, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(legendView, Resources.ChartIcon);
 
-            if (OnOpenLegend != null)
-            {
-                OnOpenLegend(this, EventArgs.Empty);
-            }
+            OnOpenLegend?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

@@ -54,17 +54,11 @@ namespace Core.Common.Base
             }
             set
             {
-                if (observable != null)
-                {
-                    observable.Detach(this);
-                }
+                observable?.Detach(this);
 
                 observable = value;
 
-                if (observable != null)
-                {
-                    observable.Attach(this);
-                }
+                observable?.Attach(this);
             }
         }
 

@@ -273,42 +273,27 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnActiveDocumentViewChangingEvent()
         {
-            if (ActiveDocumentViewChanging != null)
-            {
-                ActiveDocumentViewChanging(this, new EventArgs());
-            }
+            ActiveDocumentViewChanging?.Invoke(this, new EventArgs());
         }
 
         private void OnActiveDocumentViewChangedEvent()
         {
-            if (ActiveDocumentViewChanged != null)
-            {
-                ActiveDocumentViewChanged(this, new EventArgs());
-            }
+            ActiveDocumentViewChanged?.Invoke(this, new EventArgs());
         }
 
         private void OnActiveViewChangedEvent()
         {
-            if (ActiveViewChanged != null)
-            {
-                ActiveViewChanged(this, new ViewChangeEventArgs(GetView(DockingManager.ActiveContent)));
-            }
+            ActiveViewChanged?.Invoke(this, new ViewChangeEventArgs(GetView(DockingManager.ActiveContent)));
         }
 
         private void OnViewOpenedEvent(IView view)
         {
-            if (ViewOpened != null)
-            {
-                ViewOpened(this, new ViewChangeEventArgs(view));
-            }
+            ViewOpened?.Invoke(this, new ViewChangeEventArgs(view));
         }
 
         private void OnViewClosedEvent(IView view)
         {
-            if (ViewClosed != null)
-            {
-                ViewClosed(this, new ViewChangeEventArgs(view));
-            }
+            ViewClosed?.Invoke(this, new ViewChangeEventArgs(view));
         }
 
         private void OnActiveContentChanged(object sender, EventArgs eventArgs)

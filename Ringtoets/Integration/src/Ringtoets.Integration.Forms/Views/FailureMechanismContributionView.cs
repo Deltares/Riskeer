@@ -122,10 +122,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (disposing)
             {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
+                components?.Dispose();
                 UnsubscribeEvents();
                 DetachFromFailureMechanisms();
             }
@@ -203,18 +200,12 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void AttachToData()
         {
-            if (data != null)
-            {
-                data.Attach(this);
-            }
+            data?.Attach(this);
         }
 
         private void DetachFromData()
         {
-            if (data != null)
-            {
-                data.Detach(this);
-            }
+            data?.Detach(this);
         }
 
         private void SetReturnPeriodText()

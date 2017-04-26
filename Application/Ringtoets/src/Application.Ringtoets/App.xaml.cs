@@ -101,10 +101,7 @@ namespace Application.Ringtoets
 
         protected override void OnExit(ExitEventArgs e)
         {
-            if (singleInstanceMutex != null)
-            {
-                singleInstanceMutex.ReleaseMutex();
-            }
+            singleInstanceMutex?.ReleaseMutex();
             base.OnExit(e);
         }
 
@@ -332,10 +329,7 @@ namespace Application.Ringtoets
                 {
                     OpenLogClicked = () =>
                     {
-                        if (gui.ApplicationCommands != null)
-                        {
-                            gui.ApplicationCommands.OpenLogFileExternal();
-                        }
+                        gui.ApplicationCommands?.OpenLogFileExternal();
                     }
                 })
                 {

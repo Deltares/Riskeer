@@ -121,14 +121,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             FailureMechanism = null;
             FailureMechanismSectionResult = null;
-            if (failureMechanismObserver != null)
-            {
-                failureMechanismObserver.Dispose();
-            }
+            failureMechanismObserver?.Dispose();
 
-            if (disposing && components != null)
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
             }
             base.Dispose(disposing);
         }

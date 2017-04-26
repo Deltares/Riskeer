@@ -106,10 +106,7 @@ namespace Core.Components.Gis.IO.Readers
 
         public void Dispose()
         {
-            if (ShapeFile != null)
-            {
-                ShapeFile.Close();
-            }
+            ShapeFile?.Close();
         }
 
         /// <summary>

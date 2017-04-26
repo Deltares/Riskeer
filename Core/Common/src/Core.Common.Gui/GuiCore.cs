@@ -246,10 +246,7 @@ namespace Core.Common.Gui
 
                 isExiting = true;
 
-                if (mainWindow != null)
-                {
-                    mainWindow.UnsubscribeFromGui();
-                }
+                mainWindow?.UnsubscribeFromGui();
 
                 Selection = null;
 
@@ -294,61 +291,40 @@ namespace Core.Common.Gui
                                                                                       BindingFlags.Static |
                                                                                       BindingFlags.NonPublic);
             var propertyCache = (Hashtable) propertyCacheInfo.GetValue(null);
-            if (propertyCache != null)
-            {
-                propertyCache.Clear();
-            }
+            propertyCache?.Clear();
 
             FieldInfo extendedPropertyCacheInfo = reflectTypeDescriptionProviderType.GetField(
                 "_extendedPropertyCache", BindingFlags.Static | BindingFlags.NonPublic);
             var extendedPropertyCache = extendedPropertyCacheInfo.GetValue(null) as Hashtable;
-            if (extendedPropertyCache != null)
-            {
-                extendedPropertyCache.Clear();
-            }
+            extendedPropertyCache?.Clear();
 
             FieldInfo eventCacheInfo = reflectTypeDescriptionProviderType.GetField("_eventCache",
                                                                                    BindingFlags.Static |
                                                                                    BindingFlags.NonPublic);
             var eventCache = eventCacheInfo.GetValue(null) as Hashtable;
-            if (eventCache != null)
-            {
-                eventCache.Clear();
-            }
+            eventCache?.Clear();
 
             FieldInfo attributeCacheInfo = reflectTypeDescriptionProviderType.GetField("_attributeCache",
                                                                                        BindingFlags.Static |
                                                                                        BindingFlags.NonPublic);
             var attributeCache = attributeCacheInfo.GetValue(null) as Hashtable;
-            if (attributeCache != null)
-            {
-                attributeCache.Clear();
-            }
+            attributeCache?.Clear();
 
             Type typeDescriptorType = systemAssembly.GetType("System.ComponentModel.TypeDescriptor");
             FieldInfo providerTableInfo = typeDescriptorType.GetField("_providerTable",
                                                                       BindingFlags.Static | BindingFlags.NonPublic);
             var providerTable = providerTableInfo.GetValue(null) as Hashtable;
-            if (providerTable != null)
-            {
-                providerTable.Clear();
-            }
+            providerTable?.Clear();
 
             FieldInfo providerTypeTableInfo = typeDescriptorType.GetField("_providerTypeTable",
                                                                           BindingFlags.Static | BindingFlags.NonPublic);
             var providerTypeTable = providerTypeTableInfo.GetValue(null) as Hashtable;
-            if (providerTypeTable != null)
-            {
-                providerTypeTable.Clear();
-            }
+            providerTypeTable?.Clear();
 
             FieldInfo defaultProvidersInfo = typeDescriptorType.GetField("_defaultProviders",
                                                                          BindingFlags.Static | BindingFlags.NonPublic);
             var defaultProviders = defaultProvidersInfo.GetValue(null) as Hashtable;
-            if (defaultProviders != null)
-            {
-                defaultProviders.Clear();
-            }
+            defaultProviders?.Clear();
 
             #endregion
 
@@ -385,10 +361,7 @@ namespace Core.Common.Gui
 
         private void ApplicationProjectOpened(IProject newProject)
         {
-            if (mainWindow != null)
-            {
-                mainWindow.ValidateItems();
-            }
+            mainWindow?.ValidateItems();
 
             projectObserver.Observable = newProject;
             UpdateTitle();
@@ -636,18 +609,12 @@ namespace Core.Common.Gui
 
         private void OnBeforeProjectOpened()
         {
-            if (BeforeProjectOpened != null)
-            {
-                BeforeProjectOpened(project);
-            }
+            BeforeProjectOpened?.Invoke(project);
         }
 
         private void OnProjectOpened()
         {
-            if (ProjectOpened != null)
-            {
-                ProjectOpened(project);
-            }
+            ProjectOpened?.Invoke(project);
         }
 
         public void SetProject(IProject newProject, string projectPath)

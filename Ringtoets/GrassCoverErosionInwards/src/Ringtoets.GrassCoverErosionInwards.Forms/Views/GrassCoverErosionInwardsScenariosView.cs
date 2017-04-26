@@ -103,16 +103,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (failureMechanismObserver != null)
-            {
-                failureMechanismObserver.Dispose();
-            }
+            failureMechanismObserver?.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
-            if (disposing && components != null)
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
             }
 
             base.Dispose(disposing);

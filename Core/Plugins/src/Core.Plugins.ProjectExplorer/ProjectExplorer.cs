@@ -112,10 +112,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
         {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
 
         private void TreeViewControlDataDoubleClick(object sender, EventArgs e)

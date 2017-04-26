@@ -1551,10 +1551,7 @@ namespace Core.Common.Gui.Test
             {
                 Selection = new object();
 
-                if (SelectionChanged != null)
-                {
-                    SelectionChanged(this, new EventArgs());
-                }
+                SelectionChanged?.Invoke(this, new EventArgs());
             }
         }
 

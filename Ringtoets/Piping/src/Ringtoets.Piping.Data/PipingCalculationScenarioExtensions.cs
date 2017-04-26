@@ -41,12 +41,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
         public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this PipingCalculationScenario pipingCalculationScenario, IEnumerable<Segment2D> lineSegments)
         {
-            if (pipingCalculationScenario == null)
-            {
-                return false;
-            }
-
-            RingtoetsPipingSurfaceLine surfaceLine = pipingCalculationScenario.InputParameters.SurfaceLine;
+            RingtoetsPipingSurfaceLine surfaceLine = pipingCalculationScenario?.InputParameters.SurfaceLine;
             if (surfaceLine == null)
             {
                 return false;

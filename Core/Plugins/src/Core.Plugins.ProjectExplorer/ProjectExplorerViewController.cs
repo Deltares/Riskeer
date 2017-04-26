@@ -138,10 +138,7 @@ namespace Core.Plugins.ProjectExplorer
             viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(projectExplorer, Resources.ProjectExplorerIcon);
 
-            if (OnOpenView != null)
-            {
-                OnOpenView(this, EventArgs.Empty);
-            }
+            OnOpenView?.Invoke(this, EventArgs.Empty);
         }
 
         private void CloseProjectExplorer()

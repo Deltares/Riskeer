@@ -93,10 +93,7 @@ namespace Core.Components.Gis.IO.Writers
 
         public void Dispose()
         {
-            if (ShapeFile != null)
-            {
-                ShapeFile.Close();
-            }
+            ShapeFile?.Close();
         }
 
         /// <summary>

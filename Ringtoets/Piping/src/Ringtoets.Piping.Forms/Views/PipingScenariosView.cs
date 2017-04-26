@@ -116,9 +116,9 @@ namespace Ringtoets.Piping.Forms.Views
             pipingCalculationObserver.Dispose();
             pipingCalculationGroupObserver.Dispose();
 
-            if (disposing && components != null)
+            if (disposing)
             {
-                components.Dispose();
+                components?.Dispose();
             }
 
             base.Dispose(disposing);

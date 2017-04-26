@@ -111,20 +111,12 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
         {
-            if (foreshoreProfileEntity != null)
-            {
-                return foreshoreProfileEntity.Read(collector);
-            }
-            return null;
+            return foreshoreProfileEntity?.Read(collector);
         }
 
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(HydraulicLocationEntity hydraulicLocationEntity, ReadConversionCollector collector)
         {
-            if (hydraulicLocationEntity != null)
-            {
-                return hydraulicLocationEntity.Read(collector);
-            }
-            return null;
+            return hydraulicLocationEntity?.Read(collector);
         }
     }
 }

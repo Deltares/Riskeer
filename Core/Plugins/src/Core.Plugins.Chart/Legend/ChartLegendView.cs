@@ -99,10 +99,7 @@ namespace Core.Plugins.Chart.Legend
             chartData.NotifyObservers();
 
             var observableParent = Data as IObservable;
-            if (observableParent != null)
-            {
-                observableParent.NotifyObservers();
-            }
+            observableParent?.NotifyObservers();
         }
 
         #region ChartDataContext

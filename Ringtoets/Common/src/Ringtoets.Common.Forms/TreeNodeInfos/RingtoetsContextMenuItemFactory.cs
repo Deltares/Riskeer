@@ -358,10 +358,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 checkboxImage,
                 (sender, args) =>
                 {
-                    if (onChangeAction != null)
-                    {
-                        onChangeAction(failureMechanismContext);
-                    }
+                    onChangeAction?.Invoke(failureMechanismContext);
 
                     failureMechanismContext.WrappedData.IsRelevant = !isRelevant;
                     failureMechanismContext.WrappedData.NotifyObservers();

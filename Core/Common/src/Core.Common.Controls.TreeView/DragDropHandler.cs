@@ -85,10 +85,7 @@ namespace Core.Common.Controls.TreeView
             // Restore any lost selection
             treeView.SelectedNode = draggedNode;
 
-            if (treeNodeInfo.OnDrop != null)
-            {
-                treeNodeInfo.OnDrop(draggedNode.Tag, draggedNode.Parent.Tag, formerParentNode.Tag, dropAtLocation, treeViewControl);
-            }
+            treeNodeInfo.OnDrop?.Invoke(draggedNode.Tag, draggedNode.Parent.Tag, formerParentNode.Tag, dropAtLocation, treeViewControl);
         }
 
         /// <summary>
@@ -264,19 +261,13 @@ namespace Core.Common.Controls.TreeView
             if (delta < halfTreeViewHeight && delta > 0)
             {
                 TreeNode nextVisibleNode = nodeOver.NextVisibleNode;
-                if (nextVisibleNode != null)
-                {
-                    nextVisibleNode.EnsureVisible();
-                }
+                nextVisibleNode?.EnsureVisible();
             }
 
             if (delta > halfTreeViewHeight && delta < treeView.Height)
             {
                 TreeNode previousVisibleNode = nodeOver.PrevVisibleNode;
-                if (previousVisibleNode != null)
-                {
-                    previousVisibleNode.EnsureVisible();
-                }
+                previousVisibleNode?.EnsureVisible();
             }
         }
 

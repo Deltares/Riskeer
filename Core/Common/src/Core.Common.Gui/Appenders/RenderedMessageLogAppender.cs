@@ -68,10 +68,7 @@ namespace Core.Common.Gui.Appenders
 
         protected override void Append(LoggingEvent loggingEvent)
         {
-            if (AppendMessageLineAction != null)
-            {
-                AppendMessageLineAction(loggingEvent.RenderedMessage);
-            }
+            AppendMessageLineAction?.Invoke(loggingEvent.RenderedMessage);
         }
     }
 }
