@@ -214,7 +214,7 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Obtains the <see cref="StochasticSoilProfile"/> which was read for the given
-        /// <see name="StochasticSoilProfileEntity"/>.
+        /// <see cref="StochasticSoilProfileEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> for which
         /// a read operation has been registered.</param>
