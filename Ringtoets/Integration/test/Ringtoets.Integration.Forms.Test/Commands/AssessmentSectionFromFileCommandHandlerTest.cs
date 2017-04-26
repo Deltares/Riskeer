@@ -397,7 +397,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action call = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = @"Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
+            const string expectedMessage = "Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
@@ -437,7 +437,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action call = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = @"Het importeren van de referentielijn is mislukt.";
+            const string expectedMessage = "Het importeren van de referentielijn is mislukt.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);

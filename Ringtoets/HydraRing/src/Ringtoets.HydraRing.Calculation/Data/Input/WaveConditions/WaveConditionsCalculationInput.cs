@@ -58,13 +58,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
                                                  double b)
             : base(hydraulicBoundaryLocationId)
         {
+            Section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
             Beta = StatisticsConverter.ProbabilityToReliability(norm);
             ForelandsPoints = forelandPoints;
             BreakWater = breakWater;
+
             this.waterLevel = waterLevel;
             this.a = a;
             this.b = b;
-            Section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType

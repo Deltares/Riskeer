@@ -94,6 +94,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             : base(hydraulicBoundaryLocationId, norm)
         {
             Section = new HydraRingSection(1, double.NaN, sectionNormal);
+            ProfilePoints = profilePoints;
+            ForelandsPoints = forelandPoints;
+            BreakWater = breakWater;
+
             this.modelFactorCriticalOvertopping = modelFactorCriticalOvertopping;
             this.factorFbMean = factorFbMean;
             this.factorFbStandardDeviation = factorFbStandardDeviation;
@@ -112,9 +116,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             this.exponentModelFactorShallowStandardDeviation = exponentModelFactorShallowStandardDeviation;
             this.exponentModelFactorShallowLowerBoundary = exponentModelFactorShallowLowerBoundary;
             this.exponentModelFactorShallowUpperBoundary = exponentModelFactorShallowUpperBoundary;
-            ProfilePoints = profilePoints;
-            ForelandsPoints = forelandPoints;
-            BreakWater = breakWater;
         }
 
         public override HydraRingSection Section { get; }

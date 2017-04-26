@@ -72,7 +72,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             const string groupName = "testName";
@@ -110,7 +109,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var calculationGroup = new TestCalculationGroupContext(new CalculationGroup(), mocks.Stub<IFailureMechanism>());
-
             mocks.ReplayAll();
 
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -143,7 +141,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationGroupMock = mocks.StrictMock<CalculationGroup>();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(calculationGroupMock, failureMechanismMock);
@@ -176,10 +173,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             observerMock.Expect(o => o.UpdateObserver());
-
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             const string newName = "new name";
@@ -204,7 +199,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
@@ -225,7 +219,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
@@ -245,7 +238,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
@@ -266,7 +258,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
@@ -289,7 +280,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             object draggedItemContext;
@@ -335,7 +325,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var sourceFailureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             var targetFailureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             object draggedItemContext;
@@ -380,11 +369,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             var originalOwnerObserverMock = mocks.StrictMock<IObserver>();
-            var newOwnerObserverMock = mocks.StrictMock<IObserver>();
-
             originalOwnerObserverMock.Expect(o => o.UpdateObserver());
+            var newOwnerObserverMock = mocks.StrictMock<IObserver>();
             newOwnerObserverMock.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             ICalculationBase draggedItem;
@@ -433,11 +420,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             var existingItemMock = mocks.StrictMock<ICalculationBase>();
-            var originalOwnerObserverMock = mocks.StrictMock<IObserver>();
-
             existingItemMock.Stub(ci => ci.Name).Return("");
+            var originalOwnerObserverMock = mocks.StrictMock<IObserver>();
             originalOwnerObserverMock.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             const string name = "Very cool name";
@@ -511,7 +496,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var newOwnerObserver = mocks.StrictMock<IObserver>();
             newOwnerObserver.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             newOwnerGroup.Children.Add(sameNamedItemMock);
@@ -630,7 +614,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             mocks.ReplayAll();
 
             const string calculationName = "calculationName";
@@ -682,10 +665,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
             observerMock.Expect(o => o.UpdateObserver());
-
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation
@@ -832,10 +813,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             failureMechanism.Stub(fm => fm.Name).Return(name);
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
@@ -869,7 +848,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             failureMechanism.IsRelevant = true;
@@ -892,7 +870,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             failureMechanism.IsRelevant = false;
@@ -915,7 +892,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             failureMechanism.IsRelevant = true;
@@ -951,7 +927,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             failureMechanism.IsRelevant = false;
@@ -991,7 +966,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var mocks = new MockRepository();
                 var failureMechanism = mocks.Stub<IFailureMechanism>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-
                 mocks.ReplayAll();
 
                 failureMechanism.IsRelevant = true;
@@ -1038,7 +1012,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var mocks = new MockRepository();
                 var failureMechanism = mocks.Stub<IFailureMechanism>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-
                 mocks.ReplayAll();
 
                 failureMechanism.IsRelevant = false;

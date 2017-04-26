@@ -125,8 +125,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+                
                 // Call
-
                 object[] objects = info.ChildNodeObjects(project);
 
                 // Assert

@@ -36,41 +36,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
     [TestFixture]
     public class StructuresCalculationStochastAssignerTest
     {
-        private static IEnumerable<TestCaseData> SetInvalidBaseStochastParameters
-        {
-            get
-            {
-                yield return new TestCaseData(
-                        new Action<StructuresCalculationConfiguration>(c => c.StormDuration = new StochastConfiguration
-                        {
-                            StandardDeviation = 3.2
-                        }),
-                        "stormduur")
-                    .SetName("Assign_SetStormDurationStandardDeviation");
-                yield return new TestCaseData(
-                        new Action<StructuresCalculationConfiguration>(c => c.StormDuration = new StochastConfiguration
-                        {
-                            VariationCoefficient = 3.2
-                        }),
-                        "stormduur")
-                    .SetName("Assign_SetStormDurationVariationCoefficient");
-                yield return new TestCaseData(
-                        new Action<StructuresCalculationConfiguration>(c => c.ModelFactorSuperCriticalFlow = new StochastConfiguration
-                        {
-                            StandardDeviation = 3.2
-                        }),
-                        "modelfactoroverloopdebiet")
-                    .SetName("Assign_SetModelFactorSuperCriticalFlowStandardDeviation");
-                yield return new TestCaseData(
-                        new Action<StructuresCalculationConfiguration>(c => c.ModelFactorSuperCriticalFlow = new StochastConfiguration
-                        {
-                            VariationCoefficient = 3.2
-                        }),
-                        "modelfactoroverloopdebiet")
-                    .SetName("Assign_SetModelFactorSuperCriticalFlowVariationCoefficient");
-            }
-        }
-
         [Test]
         public void Constructor_WithoutConfiguration_ThrowsArgumentNullException()
         {
@@ -359,10 +324,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                 VariationCoefficient = criticalOvertoppingDischargeCoefficientOfVariation
             };
 
-            StructuresCalculationStochastAssigner<
-                StructuresCalculationConfiguration,
-                SimpleStructuresInput,
-                StructureBase>.StandardDeviationDefinition definitionA =
+            var definitionA =
                 new StructuresCalculationStochastAssigner<
                     StructuresCalculationConfiguration,
                     SimpleStructuresInput,
@@ -371,10 +333,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                                                                input => input.AllowedLevelIncreaseStorage,
                                                                (input, distribution) => { input.AllowedLevelIncreaseStorage = (LogNormalDistribution) distribution; });
 
-            StructuresCalculationStochastAssigner<
-                StructuresCalculationConfiguration,
-                SimpleStructuresInput,
-                StructureBase>.VariationCoefficientDefinition definitionB =
+            var definitionB =
                 new StructuresCalculationStochastAssigner<
                     StructuresCalculationConfiguration,
                     SimpleStructuresInput,
@@ -418,31 +377,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
                                 calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.GetAccuracy());
             }
             mocks.VerifyAll();
-        }
-
-        private static IEnumerable<TestCaseData> GetSetStochastParameterActions(string testNameFormat)
-        {
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
-                    new Action<StochastConfiguration>(c => { }),
-                    "stochastA")
-                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastMeanSet"));
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => c.StandardDeviation = 3.2),
-                    new Action<StochastConfiguration>(c => { }),
-                    "stochastB")
-                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastStandardDeviationSet"));
-
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => { }),
-                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
-                    "stochastD")
-                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastMeanSet"));
-            yield return new TestCaseData(
-                    new Action<StochastConfiguration>(c => { }),
-                    new Action<StochastConfiguration>(c => c.VariationCoefficient = 3.2),
-                    "stochastF")
-                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastVariationCoefficientSet"));
         }
 
         #region StandardDeviationDefinition
@@ -521,7 +455,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var setter = new Action<SimpleStructuresInput, IDistribution>((i, d) => { });
 
             // Call
-            StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition definition =
+            var definition =
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                     .StandardDeviationDefinition(stochastName,
                                                  configuration,
@@ -615,7 +549,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var setter = new Action<SimpleStructuresInput, IVariationCoefficientDistribution>((i, d) => { });
 
             // Call
-            StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition definition =
+            var definition =
                 new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>
                     .VariationCoefficientDefinition(stochastName,
                                                     configuration,
@@ -628,6 +562,70 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreEqual(configuration, definition.Configuration);
             Assert.AreEqual(getter, definition.Getter);
             Assert.AreEqual(setter, definition.Setter);
+        }
+
+        #endregion
+
+        #region Test data
+
+        private static IEnumerable<TestCaseData> SetInvalidBaseStochastParameters
+        {
+            get
+            {
+                yield return new TestCaseData(
+                        new Action<StructuresCalculationConfiguration>(c => c.StormDuration = new StochastConfiguration
+                        {
+                            StandardDeviation = 3.2
+                        }),
+                        "stormduur")
+                    .SetName("Assign_SetStormDurationStandardDeviation");
+                yield return new TestCaseData(
+                        new Action<StructuresCalculationConfiguration>(c => c.StormDuration = new StochastConfiguration
+                        {
+                            VariationCoefficient = 3.2
+                        }),
+                        "stormduur")
+                    .SetName("Assign_SetStormDurationVariationCoefficient");
+                yield return new TestCaseData(
+                        new Action<StructuresCalculationConfiguration>(c => c.ModelFactorSuperCriticalFlow = new StochastConfiguration
+                        {
+                            StandardDeviation = 3.2
+                        }),
+                        "modelfactoroverloopdebiet")
+                    .SetName("Assign_SetModelFactorSuperCriticalFlowStandardDeviation");
+                yield return new TestCaseData(
+                        new Action<StructuresCalculationConfiguration>(c => c.ModelFactorSuperCriticalFlow = new StochastConfiguration
+                        {
+                            VariationCoefficient = 3.2
+                        }),
+                        "modelfactoroverloopdebiet")
+                    .SetName("Assign_SetModelFactorSuperCriticalFlowVariationCoefficient");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GetSetStochastParameterActions(string testNameFormat)
+        {
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
+                    new Action<StochastConfiguration>(c => { }),
+                    "stochastA")
+                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastMeanSet"));
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => c.StandardDeviation = 3.2),
+                    new Action<StochastConfiguration>(c => { }),
+                    "stochastB")
+                .SetName(string.Format(testNameFormat, "WithStructureAndStandardDeviationStochastStandardDeviationSet"));
+
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => { }),
+                    new Action<StochastConfiguration>(c => c.Mean = 3.2),
+                    "stochastD")
+                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastMeanSet"));
+            yield return new TestCaseData(
+                    new Action<StochastConfiguration>(c => { }),
+                    new Action<StochastConfiguration>(c => c.VariationCoefficient = 3.2),
+                    "stochastF")
+                .SetName(string.Format(testNameFormat, "WithStructureAndVariationCoefficientStochastVariationCoefficientSet"));
         }
 
         #endregion
