@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data.Properties;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -481,7 +480,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             // Assert
-            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
+            const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -553,7 +552,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
 
             // Assert
-            string expectedMessage = "De bovengrens van de waterstanden moet boven de ondergrens liggen.";
+            const string expectedMessage = "De bovengrens van de waterstanden moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -625,7 +624,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryWaterLevels;
 
             // Assert
-            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
+            const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -716,7 +715,7 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCaseSource("WaterLevels")]
+        [TestCaseSource(nameof(WaterLevels))]
         public void WaterLevels_ValidInput_ReturnsWaterLevels(WaveConditionsInputStepSize stepSize, double lowerBoundaryRevetment, double upperBoundaryRevetment,
                                                               double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels,
                                                               double designWaterLevel, IEnumerable<RoundedDouble> expectedWaterLevels)
