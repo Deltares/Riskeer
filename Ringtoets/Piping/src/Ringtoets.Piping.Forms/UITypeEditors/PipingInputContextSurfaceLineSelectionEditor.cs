@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// </summary>
         public PipingInputContextSurfaceLineSelectionEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<RingtoetsPipingSurfaceLine>(sl => sl.Name);
+            DisplayMember = nameof(RingtoetsPipingSurfaceLine.Name);
         }
 
         protected override IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableOptions(ITypeDescriptorContext context)

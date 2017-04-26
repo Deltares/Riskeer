@@ -134,35 +134,35 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert ||
                 data.WrappedData.InflowModelType == ClosingStructureInflowModelType.LowSill)
             {
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel))
+                if (propertyName == nameof(InsideWaterLevel))
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.VerticalWall;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow))
+                if (propertyName == nameof(ModelFactorSuperCriticalFlow))
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient))
+                if (propertyName == nameof(DrainCoefficient))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation))
+                if (propertyName == nameof(StructureNormalOrientation))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ThresholdHeightOpenWeir))
+                if (propertyName == nameof(ThresholdHeightOpenWeir))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.LowSill;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.AreaFlowApertures))
+                if (propertyName == nameof(AreaFlowApertures))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.LevelCrestStructureNotClosing))
+                if (propertyName == nameof(LevelCrestStructureNotClosing))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
                 }
-                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.WidthFlowApertures))
+                if (propertyName == nameof(WidthFlowApertures))
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
                 }

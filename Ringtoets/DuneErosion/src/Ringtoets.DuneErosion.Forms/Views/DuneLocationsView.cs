@@ -121,23 +121,23 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.Name),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Name),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.Id),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Id),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.Location),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Location),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.CoastalAreaId),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.CoastalAreaId),
                                                  Resources.DuneLocation_CoastalAreaId_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.Offset),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Offset),
                                                  Resources.DuneLocation_Offset_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.WaterLevel),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.WaterLevel),
                                                  Resources.DuneLocation_WaterLevel_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.WaveHeight),
                                                  Resources.DuneLocation_WaveHeight_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.WavePeriod),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.WavePeriod),
                                                  Resources.DuneLocation_WavePeriod_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DuneLocationRow>(row => row.D50),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.D50),
                                                  Resources.DuneLocation_D50_DisplayName);
         }
 

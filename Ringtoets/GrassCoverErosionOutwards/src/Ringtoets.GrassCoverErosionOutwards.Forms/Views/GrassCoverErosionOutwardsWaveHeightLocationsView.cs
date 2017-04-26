@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationRow>(row => row.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(nameof(WaveHeightLocationRow.WaveHeight),
                                                  Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName);
         }
 

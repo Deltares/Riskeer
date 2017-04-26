@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -61,9 +62,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<TestFailureMechanismSectionResultRow,
+            TestHelper.AssertTypeConverter<TestFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                              r => r.AssessmentLayerThree));
+                              nameof(TestFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

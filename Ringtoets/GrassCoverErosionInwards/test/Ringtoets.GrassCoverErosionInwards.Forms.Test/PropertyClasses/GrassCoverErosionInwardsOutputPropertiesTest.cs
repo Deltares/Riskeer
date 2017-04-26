@@ -127,17 +127,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(dikeHeight, properties.DikeHeight, properties.DikeHeight.GetAccuracy());
             Assert.AreEqual(dikeHeightTargetProbability, properties.DikeHeightTargetProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoProbabilityValueDoubleConverter>(p => p.DikeHeightTargetProbability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoProbabilityValueDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightTargetProbability));
             Assert.AreEqual(dikeHeightTargetReliability, properties.DikeHeightTargetReliability, properties.DikeHeightTargetReliability.GetAccuracy());
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoValueRoundedDoubleConverter>(p => p.DikeHeightTargetReliability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoValueRoundedDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightTargetReliability));
             Assert.AreEqual(dikeHeightCalculatedProbability, properties.DikeHeightCalculatedProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoProbabilityValueDoubleConverter>(p => p.DikeHeightCalculatedProbability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoProbabilityValueDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightCalculatedProbability));
             Assert.AreEqual(dikeHeightCalculatedReliability, properties.DikeHeightCalculatedReliability, properties.DikeHeightCalculatedReliability.GetAccuracy());
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoValueRoundedDoubleConverter>(p => p.DikeHeightCalculatedReliability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoValueRoundedDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightCalculatedReliability));
 
             string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
@@ -145,17 +145,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.OvertoppingRate.NumberOfDecimalPlaces);
             Assert.AreEqual(overtoppingRate * 1000, properties.OvertoppingRate, properties.OvertoppingRate.GetAccuracy());
             Assert.AreEqual(overtoppingRateTargetProbability, properties.OvertoppingRateTargetProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoProbabilityValueDoubleConverter>(p => p.OvertoppingRateTargetProbability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoProbabilityValueDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.OvertoppingRateTargetProbability));
             Assert.AreEqual(overtoppingRateTargetReliability, properties.OvertoppingRateTargetReliability, properties.OvertoppingRateTargetReliability.GetAccuracy());
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoValueRoundedDoubleConverter>(p => p.OvertoppingRateTargetReliability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoValueRoundedDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.OvertoppingRateTargetReliability));
             Assert.AreEqual(overtoppingRateCalculatedProbability, properties.OvertoppingRateCalculatedProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoProbabilityValueDoubleConverter>(p => p.OvertoppingRateCalculatedProbability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoProbabilityValueDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.OvertoppingRateCalculatedProbability));
             Assert.AreEqual(overtoppingRateCalculatedReliability, properties.OvertoppingRateCalculatedReliability, properties.OvertoppingRateCalculatedReliability.GetAccuracy());
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsOutputProperties,
-                              NoValueRoundedDoubleConverter>(p => p.OvertoppingRateCalculatedReliability));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties,NoValueRoundedDoubleConverter>(
+                nameof(GrassCoverErosionInwardsOutputProperties.OvertoppingRateCalculatedReliability));
 
             string overtoppingRateConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(overtoppingRateConvergence).DisplayName;
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);

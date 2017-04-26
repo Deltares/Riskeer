@@ -21,11 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using log4net.Appender;
 using log4net.Config;
@@ -155,7 +157,7 @@ namespace Core.Common.TestUtil
         public static string ToUncPath(string rootedPath)
         {
             string root = Path.GetPathRoot(rootedPath);
-            if (string.IsNullOrEmpty(root))
+            if (String.IsNullOrEmpty(root))
             {
                 throw new ArgumentException("Must be a rooted path.", nameof(rootedPath));
             }
@@ -316,7 +318,7 @@ namespace Core.Common.TestUtil
                 }, StringSplitOptions.None).ToList();
                 customMessageParts.RemoveAt(customMessageParts.Count - 1);
 
-                message = string.Join(Environment.NewLine, customMessageParts.ToArray());
+                message = String.Join(Environment.NewLine, customMessageParts.ToArray());
             }
             Assert.AreEqual(expectedCustomMessage, message);
             return exception;
@@ -359,6 +361,34 @@ namespace Core.Common.TestUtil
             }
         }
 
+        /// <summary>
+        /// Determines whether a property is decorated with a <see cref="TypeConverterAttribute"/>
+        /// of a given type.
+        /// </summary>
+        /// <typeparam name="TTarget">The type of the target to retrieve the property from.</typeparam>
+        /// <typeparam name="TTypeConverter">The type of <see cref="TypeConverter"/> to check
+        /// for on the property of <typeparamref name="TTarget"/>.</typeparam>
+        /// <param name="expression">The expression that resolves to the property to be checked.</param>
+        /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
+        /// is not an expression with a property, such as an expression calling multiple methods.</exception>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with
+        /// name specified in <paramref name="expression"/>.</exception>
+        /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the property in <paramref name="expression"/>
+        /// belongs to a type that is loaded into the reflection-only context. See How to: 
+        /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
+        public static void AssertTypeConverter<TTarget, TTypeConverter>(string expression) where TTypeConverter : TypeConverter
+        {
+            var typeConverterAttribute = (TypeConverterAttribute) Attribute.GetCustomAttribute(typeof(TTarget).GetProperty(expression),
+                                                                                               typeof(TypeConverterAttribute),
+                                                                                               true);
+            Assert.NotNull(typeConverterAttribute);
+            Assert.IsTrue(typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName);
+        }
+
         private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
         {
             var stopwatch = new Stopwatch();
@@ -382,19 +412,19 @@ namespace Core.Common.TestUtil
                 rank *= machineHddPerformanceRank;
             }
 
-            string userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
+            string userMessage = String.IsNullOrEmpty(message) ? "" : message + ". ";
             if (!rank.Equals(1.0f))
             {
                 Assert.IsTrue(rank * actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
                               maxMilliseconds, actualMillisecond, actualMillisecond * rank);
-                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
+                Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
                                                               maxMilliseconds, actualMillisecond, actualMillisecond * rank));
             }
             else
             {
                 Assert.IsTrue(actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}", maxMilliseconds,
                               actualMillisecond);
-                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
+                Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
             }
         }
 
@@ -446,7 +476,7 @@ namespace Core.Common.TestUtil
 
             if (!File.Exists(Path.Combine(curDir, solutionName)))
             {
-                throw new InvalidOperationException(string.Format("Solution file '{0}' not found in any folder of '{1}'.",
+                throw new InvalidOperationException(String.Format("Solution file '{0}' not found in any folder of '{1}'.",
                                                                   solutionName,
                                                                   Directory.GetCurrentDirectory()));
             }
@@ -457,9 +487,9 @@ namespace Core.Common.TestUtil
         private static float GetMachineHddPerformanceRank()
         {
             string rank = Environment.GetEnvironmentVariable("MACHINE_HDD_PERFORMANCE_RANK");
-            if (!string.IsNullOrEmpty(rank))
+            if (!String.IsNullOrEmpty(rank))
             {
-                return float.Parse(rank);
+                return Single.Parse(rank);
             }
 
             return 1.0f;

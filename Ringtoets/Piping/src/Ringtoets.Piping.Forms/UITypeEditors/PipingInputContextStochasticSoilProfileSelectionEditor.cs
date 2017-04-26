@@ -25,6 +25,7 @@ using Core.Common.Gui.UITypeEditors;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
@@ -39,7 +40,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// </summary>
         public PipingInputContextStochasticSoilProfileSelectionEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<StochasticSoilProfile>(ssp => ssp.SoilProfile.Name);
+            DisplayMember = nameof(PipingSoilProfile.Name);
         }
 
         protected override IEnumerable<StochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)

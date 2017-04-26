@@ -490,8 +490,8 @@ namespace Core.Common.Controls.Test.DataGrid
                     propertyName,
                     headerText,
                     dataSource,
-                    TypeUtils.GetMemberName<EnumDisplayWrapper<TestEnum>>(ds => ds.Value),
-                    TypeUtils.GetMemberName<EnumDisplayWrapper<TestEnum>>(ds => ds.DisplayName)
+                    nameof(EnumDisplayWrapper<TestEnum>.Value),
+                    nameof(EnumDisplayWrapper<TestEnum>.DisplayName)
                 );
 
                 // Assert

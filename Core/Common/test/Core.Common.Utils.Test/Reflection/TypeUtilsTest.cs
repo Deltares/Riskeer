@@ -150,73 +150,6 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetMemberName_ExpressionOfFuncIsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            Expression<Func<TestClass, object>> expression = null;
-            TestDelegate call = () => TypeUtils.GetMemberName(expression);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("expression", paramName);
-        }
-
-        [Test]
-        public void GetMemberName_ExpressionOfActionIsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            Expression<Action<TestClass>> expression = null;
-            TestDelegate call = () => TypeUtils.GetMemberName(expression);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("expression", paramName);
-        }
-
-        [Test]
-        public void GetMemberName_PropertyExpression_ReturnPropertyName()
-        {
-            // Call
-            string memberName = TypeUtils.GetMemberName<TestClass>(t => t.PublicPropertyPrivateSetter);
-
-            // Assert
-            Assert.AreEqual("PublicPropertyPrivateSetter", memberName);
-        }
-
-        [Test]
-        public void GetMemberName_FieldExpression_ReturnFieldName()
-        {
-            // Call
-            var testClass = new TestClass();
-            string memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicField);
-
-            // Assert
-            Assert.AreEqual("PublicField", memberName);
-        }
-
-        [Test]
-        public void GetMemberName_MethodCallExpression_ReturnMethodName()
-        {
-            // Call
-            var testClass = new TestClass();
-            string memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicMethod());
-
-            // Assert
-            Assert.AreEqual("PublicMethod", memberName);
-        }
-
-        [Test]
-        public void GetMemberName_MethodExpressionOfDifferentType_ThrowArgumentException()
-        {
-            // Call
-            TestDelegate call = () => TypeUtils.GetMemberName<TestClass>(t => new object());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'t => new Object()' is geen geldige expressie voor deze methode.", exception.Message);
-        }
-
-        [Test]
         public void GetField_InstanceNull_ThrowArgumentNullException()
         {
             // Call
@@ -582,46 +515,6 @@ namespace Core.Common.Utils.Test.Reflection
             Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
         }
 
-        [Test]
-        public void HasTypeConverter_PropertyWithoutTypeConverterAttribute_ReturnFalse()
-        {
-            // Call
-            bool hasTypeConverter = TypeUtils.HasTypeConverter<TestClass, Int32Converter>(c => c.PublicPropertyPrivateSetter);
-
-            // Assert
-            Assert.IsFalse(hasTypeConverter);
-        }
-
-        [Test]
-        public void HasTypeConverter_PropertyWithDifferentTypeConverterAttribute_ReturnFalse()
-        {
-            // Call
-            bool hasTypeConverter = TypeUtils.HasTypeConverter<TestClass, Int32Converter>(c => c.PropertyWithTypeConverter);
-
-            // Assert
-            Assert.IsFalse(hasTypeConverter);
-        }
-
-        [Test]
-        public void HasTypeConverter_PropertyWithMatchingTypeConverterAttribute_ReturnTrue()
-        {
-            // Call
-            bool hasTypeConverter = TypeUtils.HasTypeConverter<TestClass, DoubleConverter>(c => c.PropertyWithTypeConverter);
-
-            // Assert
-            Assert.IsTrue(hasTypeConverter);
-        }
-
-        [Test]
-        public void HasTypeConverter_TypeConverterAttributeInherited_ReturnTrue()
-        {
-            // Call
-            bool hasTypeConverter = TypeUtils.HasTypeConverter<DerivedTestClass, DoubleConverter>(c => c.PropertyWithTypeConverter);
-
-            // Assert
-            Assert.IsTrue(hasTypeConverter);
-        }
-
         private enum TestEnum
         {
             NoDisplayName,
@@ -651,14 +544,6 @@ namespace Core.Common.Utils.Test.Reflection
 
             public double PublicPropertyPrivateSetter { get; private set; }
 
-            [TypeConverter(typeof(DoubleConverter))]
-            public virtual double PropertyWithTypeConverter { get; private set; }
-
-            public object PublicMethod()
-            {
-                return this;
-            }
-
             /// <summary>
             /// Method used in reflection for tests above
             /// </summary>
@@ -671,14 +556,6 @@ namespace Core.Common.Utils.Test.Reflection
         private class DerivedTestClass : TestClass
         {
             public DerivedTestClass(int privateInt) : base(privateInt) {}
-
-            public override double PropertyWithTypeConverter
-            {
-                get
-                {
-                    return base.PropertyWithTypeConverter;
-                }
-            }
         }
     }
 }

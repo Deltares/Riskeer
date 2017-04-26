@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
@@ -39,7 +38,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// </summary>
         public PipingInputContextStochasticSoilModelSelectionEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<StochasticSoilModel>(ssm => ssm.Name);
+            DisplayMember = nameof(StochasticSoilModel.Name);
         }
 
         protected override IEnumerable<StochasticSoilModel> GetAvailableOptions(ITypeDescriptorContext context)

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -63,9 +64,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(
-                TypeUtils.HasTypeConverter<WaterPressureAsphaltCoverSectionResultRow, NoValueRoundedDoubleConverter>(
-                    r => r.AssessmentLayerThree));
+            TestHelper.AssertTypeConverter<WaterPressureAsphaltCoverSectionResultRow, NoValueRoundedDoubleConverter>(
+                    nameof(WaterPressureAsphaltCoverSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

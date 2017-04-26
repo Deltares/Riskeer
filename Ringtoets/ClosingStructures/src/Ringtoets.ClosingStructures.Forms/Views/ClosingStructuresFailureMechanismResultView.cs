@@ -104,10 +104,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             base.AddDataGridColumns();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<ClosingStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<ClosingStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

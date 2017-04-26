@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Forms.Views
         protected virtual void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<FailureMechanismSectionResultRow<T>>(sr => sr.Name),
+                nameof(FailureMechanismSectionResultRow<T>.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
 
@@ -184,11 +184,11 @@ namespace Ringtoets.Common.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<FailureMechanismSectionResultRow<T>>(sr => sr.AssessmentLayerOne),
+                nameof(FailureMechanismSectionResultRow<T>.AssessmentLayerOne),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
                 oneStateDataSource,
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerOneState>>(edw => edw.Value),
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerOneState>>(edw => edw.DisplayName));
+                nameof(EnumDisplayWrapper<AssessmentLayerOneState>.Value),
+                nameof(EnumDisplayWrapper<AssessmentLayerOneState>.DisplayName));
         }
 
         private IEnumerable<T> FailureMechanismSectionResult

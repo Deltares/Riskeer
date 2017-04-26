@@ -166,11 +166,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsInputContextProperties,
-                              EnumTypeConverter>(p => p.DikeHeightCalculationType));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
+                              nameof(GrassCoverErosionInwardsInputContextProperties.DikeHeightCalculationType));
             Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionInwardsInputContextProperties,
-                              EnumTypeConverter>(p => p.OvertoppingRateCalculationType));
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
+                              nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }

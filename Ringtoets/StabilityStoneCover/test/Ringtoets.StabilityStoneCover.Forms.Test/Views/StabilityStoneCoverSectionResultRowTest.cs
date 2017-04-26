@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -64,9 +65,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityStoneCoverSectionResultRow,
+            TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                              r => r.AssessmentLayerThree));
+                              nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

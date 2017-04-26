@@ -104,10 +104,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             base.AddDataGridColumns();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

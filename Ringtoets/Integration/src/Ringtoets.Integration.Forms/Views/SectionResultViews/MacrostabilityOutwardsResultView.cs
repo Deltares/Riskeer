@@ -58,10 +58,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             base.AddDataGridColumns();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<MacrostabilityOutwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(MacrostabilityOutwardsSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<MacrostabilityOutwardsSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(MacrostabilityOutwardsSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

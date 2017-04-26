@@ -82,8 +82,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationsContextProperties,
-                              ExpandableArrayConverter>(p => p.Locations));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationsContextProperties,
+                              ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsContextProperties.Locations));
 
             DesignWaterLevelLocationContextProperties designWaterLevelLocationProperties = properties.Locations.First();
             Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);

@@ -22,10 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Reflection
 {
@@ -86,42 +84,6 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentNullException(nameof(type));
             }
             return type.IsAssignableFrom(thisType);
-        }
-
-        /// <summary>
-        /// Gets the name of the member.
-        /// </summary>
-        /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
-        /// <param name="expression">The expression.</param>
-        /// <returns>The string name of the member.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
-        /// is not an expression with a member, such as an expression calling multiple methods.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
-        public static string GetMemberName<T>(Expression<Func<T, object>> expression)
-        {
-            if (expression == null)
-            {
-                throw new ArgumentNullException(nameof(expression));
-            }
-            return GetMemberName(expression, expression.Body);
-        }
-
-        /// <summary>
-        /// Gets the name of the member.
-        /// </summary>
-        /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
-        /// <param name="expression">The expression.</param>
-        /// <returns>The string name of the member.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
-        /// is not an expression with a member, such as an expression calling multiple methods.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
-        public static string GetMemberName<T>(Expression<Action<T>> expression)
-        {
-            if (expression == null)
-            {
-                throw new ArgumentNullException(nameof(expression));
-            }
-            return GetMemberName(expression, expression.Body);
         }
 
         /// <summary>
@@ -278,94 +240,6 @@ namespace Core.Common.Utils.Reflection
             }
 
             propertyInfo.SetValue(instance, value, null);
-        }
-
-        /// <summary>
-        /// Determines whether a property is decorated with a <see cref="TypeConverterAttribute"/>
-        /// of a given type.
-        /// </summary>
-        /// <typeparam name="TTarget">The type of the target to retrieve the property from.</typeparam>
-        /// <typeparam name="TTypeConverter">The type of <see cref="TypeConverter"/> to check
-        /// for on the property of <typeparamref name="TTarget"/>.</typeparam>
-        /// <param name="expression">The expression that resolves to the property to be checked.</param>
-        /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
-        /// <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
-        /// is not an expression with a property, such as an expression calling multiple methods.</exception>
-        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with
-        /// name specified in <paramref name="expression"/>.</exception>
-        /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the property in <paramref name="expression"/>
-        /// belongs to a type that is loaded into the reflection-only context. See How to: 
-        /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
-        public static bool HasTypeConverter<TTarget, TTypeConverter>(Expression<Func<TTarget, object>> expression) where TTypeConverter : TypeConverter
-        {
-            var typeConverterAttribute = (TypeConverterAttribute) Attribute.GetCustomAttribute(typeof(TTarget).GetProperty(GetMemberName(expression)),
-                                                                                               typeof(TypeConverterAttribute),
-                                                                                               true);
-            if (typeConverterAttribute == null)
-            {
-                return false;
-            }
-            return typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName;
-        }
-
-        /// <summary>
-        /// Gets the name of the member.
-        /// </summary>
-        /// <param name="originalExpression">The expression.</param>
-        /// <param name="expressionBody">The body of the expression.</param>
-        /// <returns>The string name of the member.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="expressionBody"/>
-        /// is not an expression with a member, such as an expression calling multiple methods.</exception>
-        private static string GetMemberName(Expression originalExpression, Expression expressionBody)
-        {
-            try
-            {
-                return GetMemberNameFromExpression(expressionBody);
-            }
-            catch (NotSupportedException)
-            {
-                string message = string.Format(CultureInfo.CurrentCulture,
-                                               Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
-                                               originalExpression);
-                throw new ArgumentException(message);
-            }
-        }
-
-        /// <summary>
-        /// Returns the member name from the given <paramref name="expression"/>.
-        /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        /// <exception cref="NotSupportedException">Thrown when the expression is not any of the following:
-        /// <list type="bullet">
-        /// <item><see cref="MemberExpression"/></item>
-        /// <item><see cref="MethodCallExpression"/></item>
-        /// <item><see cref="UnaryExpression"/> with a <see cref="UnaryExpression.Operand"/> of type
-        /// <see cref="MemberExpression"/> or <see cref="MethodCallExpression"/>.</item>
-        /// </list></exception>
-        private static string GetMemberNameFromExpression(Expression expression)
-        {
-            var member = expression as MemberExpression;
-            if (member != null)
-            {
-                return member.Member.Name;
-            }
-
-            var method = expression as MethodCallExpression;
-            if (method != null)
-            {
-                return method.Method.Name;
-            }
-
-            var unary = expression as UnaryExpression;
-            if (unary != null)
-            {
-                return GetMemberNameFromExpression(unary.Operand);
-            }
-            throw new NotSupportedException();
         }
 
         /// <summary>

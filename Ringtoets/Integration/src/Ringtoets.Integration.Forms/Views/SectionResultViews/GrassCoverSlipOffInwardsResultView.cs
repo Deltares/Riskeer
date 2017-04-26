@@ -68,13 +68,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverSlipOffInwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
+                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
+                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverSlipOffInwardsSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

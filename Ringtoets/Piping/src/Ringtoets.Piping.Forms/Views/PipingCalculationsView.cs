@@ -203,54 +203,54 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.Name),
+                nameof(PipingCalculationRow.Name),
                 Resources.PipingCalculation_Name_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<StochasticSoilModel>>(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilModel),
+                nameof(PipingCalculationRow.StochasticSoilModel),
                 Resources.PipingInput_StochasticSoilModel_DisplayName,
                 null,
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<StochasticSoilModel>>(wrapper => wrapper.This),
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<StochasticSoilModel>>(wrapper => wrapper.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<StochasticSoilModel>.This),
+                nameof(DataGridViewComboBoxItemWrapper<StochasticSoilModel>.DisplayName));
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>>(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilProfile),
+                nameof(PipingCalculationRow.StochasticSoilProfile),
                 Resources.PipingInput_StochasticSoilProfile_DisplayName,
                 null,
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>>(wrapper => wrapper.This),
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>>(wrapper => wrapper.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<StochasticSoilProfile>.This),
+                nameof(DataGridViewComboBoxItemWrapper<StochasticSoilProfile>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.StochasticSoilProfileProbability),
+                nameof(PipingCalculationRow.StochasticSoilProfileProbability),
                 Resources.PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.SelectableHydraulicBoundaryLocation),
+                nameof(PipingCalculationRow.SelectableHydraulicBoundaryLocation),
                 Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
                 null,
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(wrapper => wrapper.This),
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(wrapper => wrapper.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
+                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
 
             string dampingFactorExitHeader = Resources.PipingInput_DampingFactorExit_DisplayName;
             dampingFactorExitHeader = char.ToLowerInvariant(dampingFactorExitHeader[0]) + dampingFactorExitHeader.Substring(1);
 
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.DampingFactorExitMean),
+                nameof(PipingCalculationRow.DampingFactorExitMean),
                 $"{Resources.Probabilistics_Mean_Symbol} {dampingFactorExitHeader}");
 
             string phreaticLevelExitHeader = Resources.PipingInput_PhreaticLevelExit_DisplayName;
             phreaticLevelExitHeader = char.ToLowerInvariant(phreaticLevelExitHeader[0]) + phreaticLevelExitHeader.Substring(1);
 
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(row => row.PhreaticLevelExitMean),
+                nameof(PipingCalculationRow.PhreaticLevelExitMean),
                 $"{Resources.Probabilistics_Mean_Symbol} {phreaticLevelExitHeader}");
 
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.EntryPointL),
+                nameof(PipingCalculationRow.EntryPointL),
                 Resources.PipingInput_EntryPointL_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingCalculationRow>(pcs => pcs.ExitPointL),
+                nameof(PipingCalculationRow.ExitPointL),
                 Resources.PipingInput_ExitPointL_DisplayName);
 
             UpdateStochasticSoilModelColumn();
@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void InitializeListBox()
         {
-            listBox.DisplayMember = TypeUtils.GetMemberName<FailureMechanismSection>(s => s.Name);
+            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 

@@ -67,13 +67,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
+                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
+                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

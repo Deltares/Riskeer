@@ -82,22 +82,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, properties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
             Assert.IsNaN(properties.DesignWaterLevel);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(p => p.DesignWaterLevel));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationContextProperties, NoValueRoundedDoubleConverter>(
+                              nameof(DesignWaterLevelLocationContextProperties.DesignWaterLevel));
             Assert.AreEqual(double.NaN, properties.TargetProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              NoProbabilityValueDoubleConverter>(
-                              p => p.TargetProbability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationContextProperties, NoProbabilityValueDoubleConverter>(
+                              nameof(DesignWaterLevelLocationContextProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(p => p.TargetReliability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationContextProperties, NoValueRoundedDoubleConverter>(
+                              nameof(DesignWaterLevelLocationContextProperties.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              NoProbabilityValueDoubleConverter>(
-                              p => p.CalculatedProbability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationContextProperties, NoProbabilityValueDoubleConverter>(
+                              nameof(DesignWaterLevelLocationContextProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationContextProperties, NoValueRoundedDoubleConverter>(
+                              nameof(DesignWaterLevelLocationContextProperties.CalculatedReliability));
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 

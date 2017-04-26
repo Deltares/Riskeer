@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -94,8 +95,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties,
-                              ExpandableArrayConverter>(p => p.Locations));
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties, ExpandableArrayConverter>(
+                              nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties.Locations));
             GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
             Assert.AreEqual(location.Name, locationProperties.Name);
             Assert.AreEqual(location.Id, locationProperties.Id);

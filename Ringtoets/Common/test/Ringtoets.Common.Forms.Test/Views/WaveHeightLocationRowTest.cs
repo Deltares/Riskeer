@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -59,8 +60,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ShouldCalculate);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationRow,
-                              NoValueRoundedDoubleConverter>(r => r.WaveHeight));
+            TestHelper.AssertTypeConverter<WaveHeightLocationRow, NoValueRoundedDoubleConverter>(
+                              nameof(WaveHeightLocationRow.WaveHeight));
         }
 
         [Test]

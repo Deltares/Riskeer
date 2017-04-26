@@ -82,8 +82,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationsContextProperties,
-                              ExpandableArrayConverter>(p => p.Locations));
+            TestHelper.AssertTypeConverter<WaveHeightLocationsContextProperties,
+                              ExpandableArrayConverter>(nameof(WaveHeightLocationsContextProperties.Locations));
 
             WaveHeightLocationContextProperties waveHeightLocationProperties = properties.Locations.First();
             Assert.AreEqual(location.Name, waveHeightLocationProperties.Name);

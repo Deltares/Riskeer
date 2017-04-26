@@ -67,13 +67,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(DuneErosionSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
+                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
+                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(DuneErosionSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

@@ -86,18 +86,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.WavePeriod);
 
             Assert.IsNaN(properties.TargetProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
-                              NoProbabilityValueDoubleConverter>(p => p.TargetProbability));
+            TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoProbabilityValueDoubleConverter>(
+                              nameof(DuneLocationContextProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(p => p.TargetReliability));
+            TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoValueRoundedDoubleConverter>(
+                              nameof(DuneLocationContextProperties.TargetReliability));
 
             Assert.IsNaN(properties.CalculatedProbability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
-                              NoProbabilityValueDoubleConverter>(p => p.CalculatedProbability));
+            TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoProbabilityValueDoubleConverter>(
+                              nameof(DuneLocationContextProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(p => p.CalculatedReliability));
+            TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoValueRoundedDoubleConverter>(
+                              nameof(DuneLocationContextProperties.CalculatedReliability));
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(CalculationConvergence.NotCalculated).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);

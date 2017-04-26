@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -64,12 +65,12 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityOutwardsSectionResultRow,
+            TestHelper.AssertTypeConverter<MacrostabilityOutwardsSectionResultRow,
                               NoProbabilityValueDoubleConverter>(
-                              r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityOutwardsSectionResultRow,
+                              nameof(MacrostabilityOutwardsSectionResultRow.AssessmentLayerTwoA));
+            TestHelper.AssertTypeConverter<MacrostabilityOutwardsSectionResultRow,
                               NoValueRoundedDoubleConverter>(
-                              r => r.AssessmentLayerThree));
+                              nameof(MacrostabilityOutwardsSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

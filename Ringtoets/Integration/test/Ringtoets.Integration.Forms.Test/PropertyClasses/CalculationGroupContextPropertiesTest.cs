@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Data = new TestCalculationGroupContext(calculationGroup, failureMechanismMock)
             };
 
-            string propertyName = TypeUtils.GetMemberName<CalculationGroupContextProperties>(p => p.Name);
+            string propertyName = nameof(CalculationGroupContextProperties.Name);
             PropertyInfo nameProperty = properties.GetType().GetProperty(propertyName);
 
             // Call

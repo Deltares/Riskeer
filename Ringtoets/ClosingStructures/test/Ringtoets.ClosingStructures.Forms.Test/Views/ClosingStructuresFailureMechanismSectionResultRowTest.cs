@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
@@ -49,9 +50,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.IsTrue(
-                TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    r => r.AssessmentLayerTwoA));
+            TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
         }
 
         [Test]

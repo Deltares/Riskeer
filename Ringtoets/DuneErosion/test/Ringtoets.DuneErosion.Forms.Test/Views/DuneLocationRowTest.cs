@@ -21,6 +21,7 @@
 
 using System.Globalization;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -71,12 +72,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.Output.WaveHeight, row.WaveHeight);
             Assert.AreEqual(location.Output.WavePeriod, row.WavePeriod);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationRow,
-                              NoValueRoundedDoubleConverter>(r => r.WaterLevel));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationRow,
-                              NoValueRoundedDoubleConverter>(r => r.WaveHeight));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationRow,
-                              NoValueRoundedDoubleConverter>(r => r.WavePeriod));
+            TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
+                              nameof(DuneLocationRow.WaterLevel));
+            TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
+                              nameof(DuneLocationRow.WaveHeight));
+            TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
+                              nameof(DuneLocationRow.WavePeriod));
         }
 
         [Test]

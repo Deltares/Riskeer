@@ -227,8 +227,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Delegate actual test
             MethodInfo method = GetType().GetMethod(
-                TypeUtils.GetMemberName<FailureMechanismContextTreeNodeInfoTest>(
-                    s => s.ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<FailureMechanismSectionResult>()),
+                nameof(ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded),
                 BindingFlags.NonPublic | BindingFlags.Instance);
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             genericMethod.Invoke(this, null);

@@ -109,11 +109,11 @@ namespace Ringtoets.Piping.Forms.Views
             base.AddDataGridColumns();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 true);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

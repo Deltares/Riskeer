@@ -61,8 +61,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DuneLocationsContextProperties,
-                              ExpandableArrayConverter>(p => p.Locations));
+            TestHelper.AssertTypeConverter<DuneLocationsContextProperties, ExpandableArrayConverter>(
+                              nameof(DuneLocationsContextProperties.Locations));
 
             DuneLocationContextProperties duneLocationContextProperties = properties.Locations.First();
             Assert.AreEqual(location.Id, duneLocationContextProperties.Id);

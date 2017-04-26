@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationRow>(row => row.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(nameof(WaveHeightLocationRow.WaveHeight),
                                                  Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
         }
 

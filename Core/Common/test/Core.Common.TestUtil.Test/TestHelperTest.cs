@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Security.AccessControl;
@@ -657,6 +658,46 @@ namespace Core.Common.TestUtil.Test
             Assert.AreSame(argumentException, exception);
         }
 
+        [Test]
+        public void HasTypeConverter_PropertyWithoutTypeConverterAttribute_ReturnFalse()
+        {
+            // Call
+            TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithoutTypeConverter));
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void HasTypeConverter_PropertyWithDifferentTypeConverterAttribute_ReturnFalse()
+        {
+            // Call
+            TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithTypeConverter));
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void HasTypeConverter_PropertyWithMatchingTypeConverterAttribute_ReturnTrue()
+        {
+            // Call
+            TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, DoubleConverter>(nameof(TestClass.PropertyWithTypeConverter));
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void HasTypeConverter_TypeConverterAttributeInherited_ReturnTrue()
+        {
+            // Call
+            TestDelegate test = () => TestHelper.AssertTypeConverter<DerivedTestClass, DoubleConverter>(nameof(DerivedTestClass.PropertyWithTypeConverter));
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
         private static ToolStripMenuItem CreateContextMenuItem()
         {
             return new ToolStripMenuItem
@@ -668,5 +709,24 @@ namespace Core.Common.TestUtil.Test
         }
 
         private class TestToolStripDropDownItem : ToolStripDropDownItem {}
+
+        private class TestClass
+        {
+            public double PropertyWithoutTypeConverter { get; private set; }
+
+            [TypeConverter(typeof(DoubleConverter))]
+            public virtual double PropertyWithTypeConverter { get; private set; }
+        }
+
+        private class DerivedTestClass : TestClass
+        {
+            public override double PropertyWithTypeConverter
+            {
+                get
+                {
+                    return base.PropertyWithTypeConverter;
+                }
+            }
+        }
     }
 }

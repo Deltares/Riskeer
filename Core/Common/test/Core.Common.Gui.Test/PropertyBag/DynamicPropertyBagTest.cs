@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using CategoryAttribute = System.ComponentModel.CategoryAttribute;
 
@@ -263,7 +262,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             });
 
             // When
-            string dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
+            const string dynamicallyVisiblePropertyName = nameof(TestProperties.Name);
             PropertyDescriptor namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
             // Then
@@ -287,7 +286,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             });
 
             // Call
-            string dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
+            const string dynamicallyVisiblePropertyName = nameof(TestProperties.Name);
             PropertyDescriptor namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
             // Assert

@@ -88,9 +88,9 @@ namespace Ringtoets.Common.Forms
         /// </summary>
         protected void InitializeDataGridView(string nameColumnHeader)
         {
-            DataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<SelectableRow<T>>(row => row.Selected),
+            DataGridViewControl.AddCheckBoxColumn(nameof(SelectableRow<T>.Selected),
                                                   Resources.SelectionDialogBase_ColumnSelect_DisplayName);
-            DataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<SelectableRow<T>>(row => row.Name),
+            DataGridViewControl.AddTextBoxColumn(nameof(SelectableRow<T>.Name),
                                                  nameColumnHeader, true, DataGridViewAutoSizeColumnMode.Fill);
         }
 

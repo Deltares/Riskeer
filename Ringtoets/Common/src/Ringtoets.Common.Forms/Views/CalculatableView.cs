@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<CalculatableRow<T>>(row => row.ShouldCalculate),
+            dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableRow<T>.ShouldCalculate),
                                                   Resources.CalculatableView_Calculate);
         }
 

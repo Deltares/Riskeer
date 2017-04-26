@@ -127,38 +127,38 @@ namespace Ringtoets.Piping.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.IsRelevant),
+                nameof(PipingScenarioRow.IsRelevant),
                 Resources.PipingCalculationsView_InitializeDataGridView_In_final_rating
             );
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.Contribution),
+                nameof(PipingScenarioRow.Contribution),
                 Resources.PipingCalculationsView_InitializeDataGridView_Contribution
             );
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.Name),
+                nameof(PipingScenarioRow.Name),
                 Resources.PipingCalculation_Name_DisplayName
             );
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityPiping),
+                nameof(PipingScenarioRow.FailureProbabilityPiping),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping
             );
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityUplift),
+                nameof(PipingScenarioRow.FailureProbabilityUplift),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift
             );
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityHeave),
+                nameof(PipingScenarioRow.FailureProbabilityHeave),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave
             );
             dataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilitySellmeijer),
+                nameof(PipingScenarioRow.FailureProbabilitySellmeijer),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer
             );
         }
 
         private void InitializeListBox()
         {
-            listBox.DisplayMember = TypeUtils.GetMemberName<FailureMechanismSection>(s => s.Name);
+            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 

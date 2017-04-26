@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors
         /// </summary>
         public GrassCoverErosionInwardsInputContextDikeProfileEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<DikeProfile>(dp => dp.Name);
+            DisplayMember = nameof(DikeProfile.Name);
         }
 
         protected override IEnumerable<DikeProfile> GetAvailableOptions(ITypeDescriptorContext context)

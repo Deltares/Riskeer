@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationRow>(row => row.DesignWaterLevel),
+            dataGridViewControl.AddTextBoxColumn(nameof(DesignWaterLevelLocationRow.DesignWaterLevel),
                                                  Resources.HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName);
         }
 

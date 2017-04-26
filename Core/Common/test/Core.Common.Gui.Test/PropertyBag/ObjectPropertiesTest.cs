@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Setup
             var properties = new ObjectProperties<string>();
 
-            string dataPropertyName = TypeUtils.GetMemberName<ObjectProperties<string>>(p => p.Data);
+            const string dataPropertyName = nameof(ObjectProperties<string>.Data);
             PropertyInfo propertyInfo = properties.GetType().GetProperty(dataPropertyName);
 
             // Call

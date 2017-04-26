@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.UITypeEditors
         /// </summary>
         public StructureEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<T>(s => s.Name);
+            DisplayMember = nameof(StructureBase.Name);
         }
 
         protected override IEnumerable<T> GetAvailableOptions(ITypeDescriptorContext context)

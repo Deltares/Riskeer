@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             base.AddDataGridColumns();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<WaterPressureAsphaltCoverSectionResultRow>(sr => sr.AssessmentLayerThree),
+                nameof(WaterPressureAsphaltCoverSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

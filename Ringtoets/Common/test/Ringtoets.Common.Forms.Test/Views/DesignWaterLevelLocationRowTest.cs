@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -50,8 +51,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(hydraulicBoundaryLocation.Location, row.Location);
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ShouldCalculate);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationRow,
-                              NoValueRoundedDoubleConverter>(r => r.DesignWaterLevel));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationRow, NoValueRoundedDoubleConverter>(
+                              nameof(DesignWaterLevelLocationRow.DesignWaterLevel));
         }
 
         [Test]

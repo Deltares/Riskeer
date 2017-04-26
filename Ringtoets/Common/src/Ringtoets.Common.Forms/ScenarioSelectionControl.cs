@@ -111,16 +111,16 @@ namespace Ringtoets.Common.Forms
 
         private void AddDataGridColumns()
         {
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<IScenarioRow<ICalculation>>(sr => sr.Name),
+            dataGridViewControl.AddTextBoxColumn(nameof(IScenarioRow<ICalculation>.Name),
                                                  RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                                                  true);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ICalculation>>(
-                TypeUtils.GetMemberName<IScenarioRow<ICalculation>>(sr => sr.Calculation),
+                nameof(IScenarioRow<ICalculation>.Calculation),
                 RingtoetsCommonDataResources.ICalculation_DisplayName,
                 null,
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<ICalculation>>(wrapper => wrapper.WrappedObject),
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<ICalculation>>(wrapper => wrapper.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<ICalculation>.WrappedObject),
+                nameof(DataGridViewComboBoxItemWrapper<ICalculation>.DisplayName));
         }
 
         private void FillAvailableCalculationsList(DataGridViewRow dataGridViewRow, Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
