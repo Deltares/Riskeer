@@ -26,6 +26,7 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
@@ -48,37 +49,51 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Calculate_WithCustomParser_ParsersExecutedAndOutputSet()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator("");
+            var parser = new TestParser();
+            var calculator = new TestHydraRingCalculator("", parser);
 
             // Call
             calculator.PublicCalculate();
 
             // Assert
-            Assert.That(!string.IsNullOrEmpty(calculator.OutputDirectory));
-            Assert.IsTrue(calculator.Output);
+            Assert.IsTrue(!string.IsNullOrEmpty(calculator.OutputDirectory));
+            Assert.IsTrue(parser.Parsed);
+        }
+
+        [Test]
+        public void Calculate_WithCustomParserThrowingException_HydraRingCalculationExceptionThrown()
+        {
+            // Setup
+            var parser = new TestParser(true);
+            var calculator = new TestHydraRingCalculator("", parser);
+
+            // Call
+            TestDelegate test = () => calculator.PublicCalculate();
+
+            // Assert
+            var exception = Assert.Throws<HydraRingCalculationException>(test);
+            const string expectedMessage = "Er is een kritieke fout opgetreden bij het uitvoeren van de berekening.";
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
     }
 
     internal class TestHydraRingCalculator : HydraRingCalculatorBase
     {
-        private readonly TestParser parser;
+        private readonly IHydraRingFileParser parser;
 
-        public TestHydraRingCalculator(string hlcdDirectory) : base(hlcdDirectory)
+        public TestHydraRingCalculator(string hlcdDirectory) : base(hlcdDirectory) {}
+
+        public TestHydraRingCalculator(string hlcdDirectory, IHydraRingFileParser parser) : base(hlcdDirectory)
         {
-            parser = new TestParser();
+            this.parser = parser;
         }
-
-        public bool Output { get; private set; }
 
         public void PublicCalculate()
         {
             Calculate(HydraRingUncertaintiesType.All, new TestHydraRingCalculationInput());
         }
 
-        protected override void SetOutputs()
-        {
-            Output = parser.Parsed;
-        }
+        protected override void SetOutputs() {}
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
         {
@@ -129,10 +144,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
     internal class TestParser : IHydraRingFileParser
     {
+        private readonly bool throwParseException;
+
+        public TestParser(bool throwParseException = false)
+        {
+            this.throwParseException = throwParseException;
+        }
+
         public bool Parsed { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {
+            if (throwParseException)
+            {
+                throw new HydraRingFileParserException();
+            }
             Parsed = true;
         }
     }
