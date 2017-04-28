@@ -70,9 +70,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuValidateAllIndexNestedGroup = 7;
-        private const int contextMenuCalculateAllIndexNestedGroup = 8;
-        private const int contextMenuClearOutputIndexNestedGroup = 10;
+        private const int contextMenuValidateAllIndexNestedGroup = 8;
+        private const int contextMenuCalculateAllIndexNestedGroup = 9;
+        private const int contextMenuClearOutputIndexNestedGroup = 11;
 
         private const string expectedTextExpandAll = "Alles ui&tklappen";
         private const string expectedTextExpandAllToolTip = "Klap dit element en alle onderliggende elementen uit.";
@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(17, menu.Items.Count);
+                Assert.AreEqual(18, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                               "&Importeren...",
@@ -304,21 +304,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
                                                               expectedTextDelete,
                                                               expectedTextDeleteToolTip,
                                                               CoreCommonGuiResources.DeleteIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
                                                               expectedTextCollapseAll,
                                                               expectedTextCollapseAllToolTip,
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
                                                               expectedTextExpandAll,
                                                               expectedTextExpandAllToolTip,
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 16,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 17,
                                                               expectedTextProperties,
                                                               expectedTextPropertiesToolTip,
                                                               CoreCommonGuiResources.PropertiesHS,
@@ -328,9 +328,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[2],
                     menu.Items[5],
-                    menu.Items[9],
-                    menu.Items[12],
-                    menu.Items[15]
+                    menu.Items[7],
+                    menu.Items[10],
+                    menu.Items[13],
+                    menu.Items[16]
                 }, typeof(ToolStripSeparator));
             }
         }

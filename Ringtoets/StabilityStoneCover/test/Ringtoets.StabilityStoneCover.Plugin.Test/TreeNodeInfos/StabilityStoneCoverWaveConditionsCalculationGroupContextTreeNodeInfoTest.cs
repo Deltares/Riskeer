@@ -70,9 +70,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuValidateAllIndexNestedGroup = 7;
-        private const int contextMenuCalculateAllIndexNestedGroup = 8;
-        private const int contextMenuClearOutputIndexNestedGroup = 10;
+        private const int contextMenuValidateAllIndexNestedGroup = 8;
+        private const int contextMenuCalculateAllIndexNestedGroup = 9;
+        private const int contextMenuClearOutputIndexNestedGroup = 11;
 
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
@@ -258,7 +258,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(17, menu.Items.Count);
+                Assert.AreEqual(18, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                               "&Importeren...",
@@ -298,23 +298,23 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
                                                               CoreCommonGuiResources.DeleteIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
                                                               "Alles i&nklappen",
                                                               "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
                                                               "Alles ui&tklappen",
                                                               "Klap dit element en alle onderliggende elementen uit.",
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 16,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 17,
                                                               "Ei&genschappen",
                                                               "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                               CoreCommonGuiResources.PropertiesHS,
@@ -324,9 +324,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[2],
                     menu.Items[5],
-                    menu.Items[9],
-                    menu.Items[12],
-                    menu.Items[15]
+                    menu.Items[7],
+                    menu.Items[10],
+                    menu.Items[13],
+                    menu.Items[16]
                 }, typeof(ToolStripSeparator));
             }
         }

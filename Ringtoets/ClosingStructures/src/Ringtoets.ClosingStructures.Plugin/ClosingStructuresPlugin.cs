@@ -487,7 +487,8 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
+                builder.AddRenameItem()
+                       .AddSeparator();
             }
             builder.AddValidateAllCalculationsInGroupItem(
                        context,
@@ -646,6 +647,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
                               ValidateAll,

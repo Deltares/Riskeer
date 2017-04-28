@@ -584,6 +584,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddCustomItem(updateDikeProfileItem)
+                   .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
                        ValidateAll,
@@ -785,6 +786,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddRenameItem()
                           .AddCustomItem(updateDikeProfile)
+                          .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
                               Validate,

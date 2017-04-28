@@ -55,9 +55,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuUpdateEntryAndExitPointIndex = 3;
 
-        private const int contextMenuValidateIndex = 4;
-        private const int contextMenuCalculateIndex = 5;
-        private const int contextMenuClearIndex = 7;
+        private const int contextMenuValidateIndex = 5;
+        private const int contextMenuCalculateIndex = 6;
+        private const int contextMenuClearIndex = 8;
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -365,6 +365,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);

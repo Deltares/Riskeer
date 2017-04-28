@@ -55,9 +55,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuValidateIndex = 3;
-        private const int contextMenuCalculateIndex = 4;
-        private const int contextMenuClearIndex = 6;
+        private const int contextMenuValidateIndex = 4;
+        private const int contextMenuCalculateIndex = 5;
+        private const int contextMenuClearIndex = 7;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui gui;
@@ -196,6 +196,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -254,7 +255,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(13, menu.Items.Count);
+                    Assert.AreEqual(14, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   "&Valideren",

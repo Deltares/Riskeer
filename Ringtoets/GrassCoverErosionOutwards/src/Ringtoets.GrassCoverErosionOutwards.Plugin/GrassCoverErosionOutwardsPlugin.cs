@@ -680,7 +680,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
+                builder.AddRenameItem()
+                       .AddSeparator();
             }
 
             builder.AddValidateAllCalculationsInGroupItem(
@@ -867,6 +868,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddExportItem()
                 .AddSeparator()
                 .AddRenameItem()
+                .AddSeparator()
                 .AddValidateCalculationItem(
                     nodeData,
                     Validate,

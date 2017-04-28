@@ -53,9 +53,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int validateMenuItemIndex = 3;
-        private const int calculateMenuItemIndex = 4;
-        private const int clearOutputMenuItemIndex = 6;
+        private const int validateMenuItemIndex = 4;
+        private const int calculateMenuItemIndex = 5;
+        private const int clearOutputMenuItemIndex = 7;
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -424,6 +424,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);

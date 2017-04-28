@@ -516,7 +516,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
+                builder.AddRenameItem()
+                       .AddSeparator();
             }
 
             builder.AddValidateAllCalculationsInGroupItem(
@@ -677,6 +678,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
                               Validate,

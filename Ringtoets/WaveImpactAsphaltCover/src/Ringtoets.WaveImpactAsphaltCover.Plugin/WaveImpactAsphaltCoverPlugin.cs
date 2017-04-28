@@ -388,7 +388,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
+                builder.AddRenameItem()
+                       .AddSeparator();
             }
 
             builder.AddValidateAllCalculationsInGroupItem(nodeData,
@@ -568,6 +569,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddSeparator()
                           .AddValidateCalculationItem(nodeData,
                                                       Validate,
                                                       ValidateAllDataAvailableAndGetErrorMessageForCalculation)

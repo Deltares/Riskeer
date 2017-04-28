@@ -510,7 +510,8 @@ namespace Ringtoets.HeightStructures.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
+                builder.AddRenameItem()
+                       .AddSeparator();
             }
 
             builder.AddValidateAllCalculationsInGroupItem(
@@ -670,6 +671,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
                               Validate,

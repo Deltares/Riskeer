@@ -71,13 +71,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
         private const int contextMenuRenameCalculationGroundIndexNestedGroup = 6;
-        private const int contextMenuValidateAllIndexNestedGroup = 7;
-        private const int contextMenuCalculateAllIndexNestedGroup = 8;
-        private const int contextMenuClearOutputIndexNestedGroup = 10;
-        private const int contextMenuRemoveElementIndexNestedGroup = 11;
-        private const int contextMenuCollapseAllIndexNestedGroup = 13;
-        private const int contextMenuExpandAllIndexNestedGroup = 14;
-        private const int contextMenuPropertiesIndexNestedGroup = 16;
+        private const int contextMenuValidateAllIndexNestedGroup = 8;
+        private const int contextMenuCalculateAllIndexNestedGroup = 9;
+        private const int contextMenuClearOutputIndexNestedGroup = 11;
+        private const int contextMenuRemoveElementIndexNestedGroup = 12;
+        private const int contextMenuCollapseAllIndexNestedGroup = 14;
+        private const int contextMenuExpandAllIndexNestedGroup = 15;
+        private const int contextMenuPropertiesIndexNestedGroup = 17;
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -264,7 +264,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(17, menu.Items.Count);
+                Assert.AreEqual(18, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                               "&Importeren...",
@@ -330,9 +330,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[2],
                     menu.Items[5],
-                    menu.Items[9],
-                    menu.Items[12],
-                    menu.Items[15]
+                    menu.Items[7],
+                    menu.Items[10],
+                    menu.Items[13],
+                    menu.Items[16]
                 }, typeof(ToolStripSeparator));
             }
         }

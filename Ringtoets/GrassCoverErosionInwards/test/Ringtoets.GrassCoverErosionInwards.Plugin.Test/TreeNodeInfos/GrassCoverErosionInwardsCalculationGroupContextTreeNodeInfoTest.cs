@@ -63,16 +63,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
         private const int contextMenuAddCalculationIndexRootGroup = 6;
         private const int contextMenuUpdateDikeProfileAllIndexRootGroup = 8;
-        private const int contextMenuValidateAllIndexRootGroup = 9;
-        private const int contextMenuCalculateAllIndexRootGroup = 10;
-        private const int contextMenuClearAllIndexRootGroup = 12;
+        private const int contextMenuValidateAllIndexRootGroup = 10;
+        private const int contextMenuCalculateAllIndexRootGroup = 11;
+        private const int contextMenuClearAllIndexRootGroup = 13;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
         private const int contextMenuUpdateDikeProfileAllIndexNestedGroup = 7;
-        private const int contextMenuValidateAllIndexNestedGroup = 8;
-        private const int contextMenuCalculateAllIndexNestedGroup = 9;
-        private const int contextMenuClearAllIndexNestedGroup = 11;
+        private const int contextMenuValidateAllIndexNestedGroup = 9;
+        private const int contextMenuCalculateAllIndexNestedGroup = 10;
+        private const int contextMenuClearAllIndexNestedGroup = 12;
 
         private const string dikeProfileCollectionPath = "some/arbitrary/path";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
@@ -201,6 +201,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -251,7 +252,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(19, menu.Items.Count);
+                    Assert.AreEqual(20, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -313,6 +314,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -362,7 +364,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(19, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",

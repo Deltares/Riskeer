@@ -383,7 +383,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
+                builder.AddRenameItem()
+                       .AddSeparator();
             }
 
             builder.AddValidateAllCalculationsInGroupItem(nodeData,
@@ -563,6 +564,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 .AddExportItem()
                 .AddSeparator()
                 .AddRenameItem()
+                .AddSeparator()
                 .AddValidateCalculationItem(nodeData,
                                             Validate,
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
