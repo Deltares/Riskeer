@@ -74,6 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             var exception = Assert.Throws<HydraRingCalculationException>(test);
             const string expectedMessage = "Er is een kritieke fout opgetreden bij het uitvoeren van de berekening.";
             Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<HydraRingFileParserException>(exception.InnerException);
         }
     }
 
