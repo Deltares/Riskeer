@@ -886,6 +886,7 @@ namespace Ringtoets.Integration.Plugin
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(mapDataItem)
+                      .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
         }
