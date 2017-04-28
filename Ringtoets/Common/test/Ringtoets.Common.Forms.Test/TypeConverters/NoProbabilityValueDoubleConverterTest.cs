@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
-using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.TypeConverters
 {

@@ -26,7 +26,6 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
-using CoreCommonResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {

@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 {

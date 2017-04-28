@@ -24,8 +24,6 @@ using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.StabilityStoneCover.Data;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {

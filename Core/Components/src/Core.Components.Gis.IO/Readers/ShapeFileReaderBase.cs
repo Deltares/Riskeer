@@ -31,7 +31,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
-using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Readers
 {

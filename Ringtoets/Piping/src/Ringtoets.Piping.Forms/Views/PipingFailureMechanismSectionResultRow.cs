@@ -27,7 +27,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
-using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {

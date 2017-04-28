@@ -26,7 +26,6 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
-using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
