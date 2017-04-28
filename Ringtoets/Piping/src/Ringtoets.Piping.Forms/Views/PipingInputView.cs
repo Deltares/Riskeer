@@ -64,7 +64,6 @@ namespace Ringtoets.Piping.Forms.Views
         public PipingInputView()
         {
             InitializeComponent();
-            InitializeChartControl();
 
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateViewData);
@@ -142,12 +141,6 @@ namespace Ringtoets.Piping.Forms.Views
                 components?.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void InitializeChartControl()
-        {
-            chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
-            chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
         }
 
         private void UpdateChartTitle()
