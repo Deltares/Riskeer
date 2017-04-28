@@ -67,11 +67,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// outdated Ringtoets projects.</returns>
         public static IEnumerable<string> GetAllOutdatedSupportedProjectFilePaths()
         {
-            const string projectFileName = "FullTestProject164.rtd";
-            return new[]
-            {
-                TestHelper.GetTestDataPath(testDataPath, projectFileName)
-            };
+            yield return TestHelper.GetTestDataPath(testDataPath, GetTestProjectFileName("164"));
+            yield return TestHelper.GetTestDataPath(testDataPath, GetTestProjectFileName("171"));
         }
 
         /// <summary>
@@ -84,6 +81,11 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             const string projectFileName = "UnsupportedVersion8.rtd";
             return TestHelper.GetTestDataPath(testDataPath, projectFileName);
+        }
+
+        private static string GetTestProjectFileName(string versionNumber)
+        {
+            return string.Format("FullTestProject{0}.rtd", versionNumber);
         }
     }
 }
