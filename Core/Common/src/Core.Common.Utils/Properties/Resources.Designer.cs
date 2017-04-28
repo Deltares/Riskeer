@@ -208,6 +208,33 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle bestanden.
+        /// </summary>
+        public static string FileFilterGenerator_All_Files {
+            get {
+                return ResourceManager.GetString("FileFilterGenerator_All_Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (*.{1})|*.{1}.
+        /// </summary>
+        public static string FileFilterGenerator_File_filter_format {
+            get {
+                return ResourceManager.GetString("FileFilterGenerator_File_filter_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}-bestanden.
+        /// </summary>
+        public static string FileFilterGenerator_Files_of_type_0_ {
+            get {
+                return ResourceManager.GetString("FileFilterGenerator_Files_of_type_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout bij het lezen van bestand &apos;{0}&apos;{1}{2}: {3}.
         /// </summary>
         public static string FileReaderErrorMessageBuilder_Build_Error_while_reading_file_0_location_1_subject_2_errorMessage_3 {

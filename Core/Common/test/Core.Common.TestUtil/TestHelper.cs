@@ -157,7 +157,7 @@ namespace Core.Common.TestUtil
         public static string ToUncPath(string rootedPath)
         {
             string root = Path.GetPathRoot(rootedPath);
-            if (String.IsNullOrEmpty(root))
+            if (string.IsNullOrEmpty(root))
             {
                 throw new ArgumentException("Must be a rooted path.", nameof(rootedPath));
             }
@@ -318,7 +318,7 @@ namespace Core.Common.TestUtil
                 }, StringSplitOptions.None).ToList();
                 customMessageParts.RemoveAt(customMessageParts.Count - 1);
 
-                message = String.Join(Environment.NewLine, customMessageParts.ToArray());
+                message = string.Join(Environment.NewLine, customMessageParts.ToArray());
             }
             Assert.AreEqual(expectedCustomMessage, message);
             return exception;
@@ -369,8 +369,9 @@ namespace Core.Common.TestUtil
         /// <typeparam name="TTypeConverter">The type of <see cref="TypeConverter"/> to check
         /// for on the property of <typeparamref name="TTarget"/>.</typeparam>
         /// <param name="expression">The expression that resolves to the property to be checked.</param>
-        /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
-        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="AssertionException">Thrown when the <paramref name="expression"/>
+        /// wasn't decorated with a <see cref="TypeConverter"/> or with a different <see cref="TypeConverter"/>
+        /// than <typeparamref name="TTypeConverter"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a property, such as an expression calling multiple methods.</exception>
@@ -412,19 +413,19 @@ namespace Core.Common.TestUtil
                 rank *= machineHddPerformanceRank;
             }
 
-            string userMessage = String.IsNullOrEmpty(message) ? "" : message + ". ";
+            string userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
             if (!rank.Equals(1.0f))
             {
                 Assert.IsTrue(rank * actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
                               maxMilliseconds, actualMillisecond, actualMillisecond * rank);
-                Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
+                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
                                                               maxMilliseconds, actualMillisecond, actualMillisecond * rank));
             }
             else
             {
                 Assert.IsTrue(actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}", maxMilliseconds,
                               actualMillisecond);
-                Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
+                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
             }
         }
 
@@ -476,7 +477,7 @@ namespace Core.Common.TestUtil
 
             if (!File.Exists(Path.Combine(curDir, solutionName)))
             {
-                throw new InvalidOperationException(String.Format("Solution file '{0}' not found in any folder of '{1}'.",
+                throw new InvalidOperationException(string.Format("Solution file '{0}' not found in any folder of '{1}'.",
                                                                   solutionName,
                                                                   Directory.GetCurrentDirectory()));
             }
@@ -487,9 +488,9 @@ namespace Core.Common.TestUtil
         private static float GetMachineHddPerformanceRank()
         {
             string rank = Environment.GetEnvironmentVariable("MACHINE_HDD_PERFORMANCE_RANK");
-            if (!String.IsNullOrEmpty(rank))
+            if (!string.IsNullOrEmpty(rank))
             {
-                return Single.Parse(rank);
+                return float.Parse(rank);
             }
 
             return 1.0f;

@@ -183,4 +183,13 @@
   <data name="ColorAccess_Create_Accessible_area_outside_image_bounds_error" xml:space="preserve">
     <value>Toegankelijk gebied moet geheel binnen de afbeelding vallen.</value>
   </data>
+  <data name="FileFilterGenerator_All_Files" xml:space="preserve">
+    <value>Alle bestanden</value>
+  </data>
+  <data name="FileFilterGenerator_Files_of_type_0_" xml:space="preserve">
+    <value>{0}-bestanden</value>
+  </data>
+  <data name="FileFilterGenerator_File_filter_format" xml:space="preserve">
+    <value>{0} (*.{1})|*.{1}</value>
+  </data>
 </root>

@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
+using Core.Common.Utils;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Gui

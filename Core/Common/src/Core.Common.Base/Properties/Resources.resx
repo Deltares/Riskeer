@@ -177,15 +177,6 @@
   <data name="FileImporterBase_LogUncancelableMessage_Import_cannot_be_canceled_and_continued" xml:space="preserve">
     <value>Huidige actie was niet meer te annuleren en is daarom voortgezet.</value>
   </data>
-  <data name="FileFilterGenerator_All_Files" xml:space="preserve">
-    <value>Alle bestanden</value>
-  </data>
-  <data name="FileFilterGenerator_Files_of_type_0_" xml:space="preserve">
-    <value>{0}-bestanden</value>
-  </data>
-  <data name="FileFilterGenerator_File_filter_format" xml:space="preserve">
-    <value>{0} (*.{1})|*.{2}</value>
-  </data>
   <data name="ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2" xml:space="preserve">
     <value>{0} moeten een unieke {1} hebben. Gevonden dubbele elementen: {2}.</value>
   </data>

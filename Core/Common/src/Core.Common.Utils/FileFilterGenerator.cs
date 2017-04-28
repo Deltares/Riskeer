@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Properties;
+using Core.Common.Utils.Properties;
 
-namespace Core.Common.Gui
+namespace Core.Common.Utils
 {
     /// <summary>
     /// Class which produces a file filter based on the expected extension. If no specific
@@ -44,8 +44,8 @@ namespace Core.Common.Gui
         /// a specified file extension.
         /// </summary>
         /// <param name="typeExtension">The extension of the files to filter on.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeExtension"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="typeExtension"/>
+        /// is <c>null</c> or empty.</exception>
         public FileFilterGenerator(string typeExtension)
         {
             if (string.IsNullOrEmpty(typeExtension))
@@ -63,8 +63,8 @@ namespace Core.Common.Gui
         /// <param name="typeExtension">The extension of the files to filter on.</param>
         /// <param name="typeDescription">The description of files which have 
         /// <paramref name="typeExtension"/> as their extension.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeExtension"/>
-        /// or <paramref name="typeDescription"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="typeExtension"/>
+        /// or <paramref name="typeDescription"/> is <c>null</c> or empty.</exception>
         public FileFilterGenerator(string typeExtension, string typeDescription)
         {
             if (string.IsNullOrEmpty(typeExtension))
@@ -86,7 +86,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return string.Format(Resources.FileFilterGenerator_File_filter_format, description, extension, extension);
+                return string.Format(Resources.FileFilterGenerator_File_filter_format, description, extension);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Core.Common.Gui
         {
             unchecked
             {
-                return ((extension?.GetHashCode() ?? 0) * 397) ^ (description?.GetHashCode() ?? 0);
+                return (extension.GetHashCode() * 397) ^ description.GetHashCode();
             }
         }
 

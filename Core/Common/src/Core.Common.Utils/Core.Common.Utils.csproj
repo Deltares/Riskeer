@@ -104,6 +104,7 @@
     <Compile Include="Extensions\ComparableExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FileFilterGenerator.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="IO\EmbeddedResourceFileWriter.cs" />
     <Compile Include="NullableEnumConverter.cs" />

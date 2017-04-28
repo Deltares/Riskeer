@@ -136,33 +136,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle bestanden.
-        /// </summary>
-        public static string FileFilterGenerator_All_Files {
-            get {
-                return ResourceManager.GetString("FileFilterGenerator_All_Files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} (*.{1})|*.{2}.
-        /// </summary>
-        public static string FileFilterGenerator_File_filter_format {
-            get {
-                return ResourceManager.GetString("FileFilterGenerator_File_filter_format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}-bestanden.
-        /// </summary>
-        public static string FileFilterGenerator_Files_of_type_0_ {
-            get {
-                return ResourceManager.GetString("FileFilterGenerator_Files_of_type_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stap {0} van {1}  |  {2}.
         /// </summary>
         public static string FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2 {

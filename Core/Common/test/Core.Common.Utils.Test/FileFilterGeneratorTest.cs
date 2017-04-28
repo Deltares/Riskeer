@@ -23,7 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Test
+namespace Core.Common.Utils.Test
 {
     [TestFixture]
     public class FileFilterGeneratorTest
@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_WithoutExtensionWithDescription_ThrowArgumentNullException(string extension)
+        public void Constructor_WithoutExtensionWithDescription_ThrowArgumentException(string extension)
         {
             // Call
             TestDelegate test = () => new FileFilterGenerator(extension, "description");
@@ -73,7 +73,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_WithExtensionWithoutDescription_ThrowArgumentNullException(string description)
+        public void Constructor_WithExtensionWithoutDescription_ThrowArgumentException(string description)
         {
             // Call
             TestDelegate test = () => new FileFilterGenerator("txt", description);
@@ -136,7 +136,7 @@ namespace Core.Common.Gui.Test
             var generator = new FileFilterGenerator("txt", "descriptionA");
 
             // Call
-            bool result = generator.Equals("descriptionA (*.*)|*.*");
+            bool result = generator.Equals(new object());
 
             // Assert
             Assert.IsFalse(result);
@@ -144,7 +144,9 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [TestCaseSource(nameof(GeneratorCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(FileFilterGenerator generator, FileFilterGenerator otherGenerator, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(FileFilterGenerator generator,
+                                                                    FileFilterGenerator otherGenerator,
+                                                                    bool expectedEqual)
         {
             // Call
             bool areEqualOne = generator.Equals(otherGenerator);

@@ -659,7 +659,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_PropertyWithoutTypeConverterAttribute_ReturnFalse()
+        public void HasTypeConverter_PropertyWithoutTypeConverterAttribute_ThrowsAssertionException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithoutTypeConverter));
@@ -669,7 +669,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_PropertyWithDifferentTypeConverterAttribute_ReturnFalse()
+        public void HasTypeConverter_PropertyWithDifferentTypeConverterAttribute_ThrowsAssertionException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithTypeConverter));
@@ -679,7 +679,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_PropertyWithMatchingTypeConverterAttribute_ReturnTrue()
+        public void HasTypeConverter_PropertyWithMatchingTypeConverterAttribute_DoesNotThrowException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, DoubleConverter>(nameof(TestClass.PropertyWithTypeConverter));

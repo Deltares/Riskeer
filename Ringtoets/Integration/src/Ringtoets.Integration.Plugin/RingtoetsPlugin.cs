@@ -35,6 +35,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Common.Utils;
 using Core.Common.Utils.Extensions;
 using Core.Components.Gis.Data;
 using log4net;

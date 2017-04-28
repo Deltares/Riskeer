@@ -29,6 +29,7 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Common.Utils.TestUtil.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;
