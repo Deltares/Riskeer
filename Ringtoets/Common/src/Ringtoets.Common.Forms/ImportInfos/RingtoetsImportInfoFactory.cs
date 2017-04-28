@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Common.Gui;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.Calculation;
