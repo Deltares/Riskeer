@@ -577,9 +577,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
             var calculationGroup = new CalculationGroup();
 
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            grassCoverErosionInwardsFailureMechanism.AddSection(new FailureMechanismSection("name", new[]
+            failureMechanism.AddSection(new FailureMechanismSection("name", new[]
             {
                 new Point2D(0,0), new Point2D(10,10)
             }));
@@ -591,7 +591,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                     DikeProfile = new TestDikeProfile(new Point2D(5,5))
                 }
             };
-            grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children.Add(
+            failureMechanism.CalculationsGroup.Children.Add(
                 calculation);
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -599,17 +599,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>(),
-                grassCoverErosionInwardsFailureMechanism);
+                failureMechanism);
 
             // Preconditions
-            Assert.AreEqual(1, grassCoverErosionInwardsFailureMechanism.SectionResults.Count());
-            Assert.IsNull(grassCoverErosionInwardsFailureMechanism.SectionResults.ElementAt(0).Calculation);
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
 
             // Call
             importer.DoPostImport();
 
             // Assert
-            Assert.AreSame(calculation, grassCoverErosionInwardsFailureMechanism.SectionResults.ElementAt(0).Calculation);
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)

@@ -87,6 +87,11 @@
       <Name>Ringtoets.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>

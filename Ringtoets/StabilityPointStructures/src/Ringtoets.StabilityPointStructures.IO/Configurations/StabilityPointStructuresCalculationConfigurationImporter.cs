@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -29,6 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.Common.Utils;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 using Ringtoets.StabilityPointStructures.IO.Properties;
@@ -48,6 +50,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
         private readonly IEnumerable<StabilityPointStructure> availableStructures;
+        private readonly StabilityPointStructuresFailureMechanism failureMechanism;
 
         /// <summary>
         /// Create new instance of <see cref="StabilityPointStructuresCalculationConfigurationImporter"/>
@@ -60,13 +63,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         /// the imported objects contain the right foreshore profile.</param>
         /// <param name="structures">The structures used to check if
         /// the imported objects contain the right structure.</param>
+        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
-            IEnumerable<StabilityPointStructure> structures)
+            IEnumerable<StabilityPointStructure> structures,
+            StabilityPointStructuresFailureMechanism failureMechanism)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -81,9 +86,23 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(structures));
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
+            this.failureMechanism = failureMechanism;
+        }
+
+        protected override void DoPostImportUpdates()
+        {
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+
+            base.DoPostImportUpdates();
         }
 
         protected override StabilityPointStructuresCalculationConfigurationReader CreateCalculationConfigurationReader(

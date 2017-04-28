@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -159,7 +160,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                                                                 new CalculationGroup(),
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>());
+                                                                                Enumerable.Empty<HeightStructure>(),
+                                                                                new HeightStructuresFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<HeightStructuresCalculationConfigurationReader, HeightStructuresCalculationConfiguration>>(importer);
@@ -173,7 +175,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                                                                            new CalculationGroup(),
                                                                                            null,
                                                                                            Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           Enumerable.Empty<HeightStructure>());
+                                                                                           Enumerable.Empty<HeightStructure>(),
+                                                                                           new HeightStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -188,7 +191,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                                                                            new CalculationGroup(),
                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                            null,
-                                                                                           Enumerable.Empty<HeightStructure>());
+                                                                                           Enumerable.Empty<HeightStructure>(),
+                                                                                           new HeightStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -203,11 +207,28 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                                                                            new CalculationGroup(),
                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                            Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           null);
+                                                                                           null,
+                                                                                           new HeightStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("structures", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
+                                                                                           new CalculationGroup(),
+                                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                           Enumerable.Empty<ForeshoreProfile>(),
+                                                                                           Enumerable.Empty<HeightStructure>(),
+                                                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -232,7 +253,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                                                                 new HeightStructure[]
                                                                                 {
                                                                                     structure
-                                                                                });
+                                                                                },
+                                                                                new HeightStructuresFailureMechanism());
             var successful = false;
 
             // Call
@@ -261,7 +283,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<HeightStructure>());
+                Enumerable.Empty<HeightStructure>(),
+                new HeightStructuresFailureMechanism());
 
             var successful = false;
 
@@ -302,7 +325,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new HeightStructuresFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -387,7 +411,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new HeightStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
             {
@@ -455,7 +480,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new HeightStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
             {
@@ -519,7 +545,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new HeightStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
             {
@@ -552,7 +579,8 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                                                                 calculationGroup,
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>());
+                                                                                Enumerable.Empty<HeightStructure>(),
+                                                                                new HeightStructuresFailureMechanism());
             var successful = false;
 
             // Call
@@ -563,6 +591,50 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void DoPostImport_WithNewSectionResults_AssignsCalculationToSectionResult()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
+            var calculationGroup = new CalculationGroup();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 10)
+            }));
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestHeightStructure(new Point2D(5, 5))
+                }
+            };
+            failureMechanism.CalculationsGroup.Children.Add(
+                calculation);
+
+            var importer = new HeightStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<HeightStructure>(),
+                failureMechanism);
+
+            // Preconditions
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)

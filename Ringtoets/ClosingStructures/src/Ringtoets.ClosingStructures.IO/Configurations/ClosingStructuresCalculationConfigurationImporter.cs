@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
@@ -31,6 +32,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.Common.Utils;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.IO.Configurations
@@ -45,6 +47,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
         private readonly IEnumerable<ClosingStructure> availableStructures;
+        private readonly ClosingStructuresFailureMechanism failureMechanism;
 
         /// <summary>
         /// Create new instance of <see cref="ClosingStructuresCalculationConfigurationImporter"/>
@@ -57,13 +60,15 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// the imported objects contain the right foreshore profile.</param>
         /// <param name="structures">The structures used to check if
         /// the imported objects contain the right structure.</param>
+        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
-            IEnumerable<ClosingStructure> structures)
+            IEnumerable<ClosingStructure> structures,
+            ClosingStructuresFailureMechanism failureMechanism)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -78,9 +83,23 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(structures));
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
+            this.failureMechanism = failureMechanism;
+        }
+
+        protected override void DoPostImportUpdates()
+        {
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+
+            base.DoPostImportUpdates();
         }
 
         protected override ClosingStructuresCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

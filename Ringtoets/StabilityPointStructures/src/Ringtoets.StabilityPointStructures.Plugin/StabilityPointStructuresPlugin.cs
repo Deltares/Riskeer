@@ -204,7 +204,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                     context.WrappedData,
                     context.AvailableHydraulicBoundaryLocations,
                     context.AvailableForeshoreProfiles,
-                    context.AvailableStructures));
+                    context.AvailableStructures,
+                    context.FailureMechanism));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()

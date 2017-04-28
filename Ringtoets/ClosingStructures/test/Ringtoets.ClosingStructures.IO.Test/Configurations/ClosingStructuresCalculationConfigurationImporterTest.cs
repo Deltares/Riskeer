@@ -32,6 +32,7 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -215,7 +216,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                  new CalculationGroup(),
                                                                                  Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                  Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>());
+                                                                                 Enumerable.Empty<ClosingStructure>(),
+                                                                                 new ClosingStructuresFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
@@ -229,7 +231,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                             new CalculationGroup(),
                                                                                             null,
                                                                                             Enumerable.Empty<ForeshoreProfile>(),
-                                                                                            Enumerable.Empty<ClosingStructure>());
+                                                                                            Enumerable.Empty<ClosingStructure>(),
+                                                                                            new ClosingStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -244,7 +247,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                             new CalculationGroup(),
                                                                                             Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                             null,
-                                                                                            Enumerable.Empty<ClosingStructure>());
+                                                                                            Enumerable.Empty<ClosingStructure>(),
+                                                                                            new ClosingStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -259,11 +263,28 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                             new CalculationGroup(),
                                                                                             Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                             Enumerable.Empty<ForeshoreProfile>(),
-                                                                                            null);
+                                                                                            null,
+                                                                                            new ClosingStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("structures", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new ClosingStructuresCalculationConfigurationImporter("",
+                                                                                            new CalculationGroup(),
+                                                                                            Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                            Enumerable.Empty<ForeshoreProfile>(),
+                                                                                            Enumerable.Empty<ClosingStructure>(),
+                                                                                            null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -288,7 +309,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                  new ClosingStructure[]
                                                                                  {
                                                                                      structure
-                                                                                 });
+                                                                                 },
+                                                                                 new ClosingStructuresFailureMechanism());
             var successful = false;
 
             // Call
@@ -317,7 +339,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<ClosingStructure>());
+                Enumerable.Empty<ClosingStructure>(),
+                new ClosingStructuresFailureMechanism());
 
             var successful = false;
 
@@ -358,7 +381,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new ClosingStructuresFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -468,7 +492,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new ClosingStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -552,7 +577,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new ClosingStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -628,7 +654,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new ClosingStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -661,7 +688,8 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                  calculationGroup,
                                                                                  Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                  Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>());
+                                                                                 Enumerable.Empty<ClosingStructure>(),
+                                                                                 new ClosingStructuresFailureMechanism());
             var successful = false;
 
             // Call
@@ -672,6 +700,50 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void DoPostImport_WithNewSectionResults_AssignsCalculationToSectionResult()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
+            var calculationGroup = new CalculationGroup();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 10)
+            }));
+
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure(new Point2D(5, 5))
+                }
+            };
+            failureMechanism.CalculationsGroup.Children.Add(
+                calculation);
+
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<ClosingStructure>(),
+                failureMechanism);
+
+            // Preconditions
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(StructuresCalculation<ClosingStructuresInput> expectedCalculation, StructuresCalculation<ClosingStructuresInput> actualCalculation)

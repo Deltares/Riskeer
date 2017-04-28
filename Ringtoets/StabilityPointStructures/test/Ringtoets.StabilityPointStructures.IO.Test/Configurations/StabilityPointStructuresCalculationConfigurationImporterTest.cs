@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -478,7 +479,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                                                                                         new CalculationGroup(),
                                                                                         Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                         Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>());
+                                                                                        Enumerable.Empty<StabilityPointStructure>(),
+                                                                                        new StabilityPointStructuresFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<StabilityPointStructuresCalculationConfigurationReader,
@@ -493,7 +495,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                                                                                                    new CalculationGroup(),
                                                                                                    null,
                                                                                                    Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                   Enumerable.Empty<StabilityPointStructure>());
+                                                                                                   Enumerable.Empty<StabilityPointStructure>(),
+                                                                                                   new StabilityPointStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -508,7 +511,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                                                                                                    new CalculationGroup(),
                                                                                                    Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                                    null,
-                                                                                                   Enumerable.Empty<StabilityPointStructure>());
+                                                                                                   Enumerable.Empty<StabilityPointStructure>(),
+                                                                                                   new StabilityPointStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -523,11 +527,28 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                                                                                                    new CalculationGroup(),
                                                                                                    Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                                    Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                   null);
+                                                                                                   null,
+                                                                                                   new StabilityPointStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("structures", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new StabilityPointStructuresCalculationConfigurationImporter("",
+                                                                                                   new CalculationGroup(),
+                                                                                                   Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                                   Enumerable.Empty<ForeshoreProfile>(),
+                                                                                                   Enumerable.Empty<StabilityPointStructure>(),
+                                                                                                   null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -553,7 +574,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new StabilityPointStructure[]
                 {
                     structure
-                });
+                },
+                new StabilityPointStructuresFailureMechanism());
             var successful = false;
 
             // Call
@@ -582,7 +604,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<StabilityPointStructure>());
+                Enumerable.Empty<StabilityPointStructure>(),
+                new StabilityPointStructuresFailureMechanism());
 
             var successful = false;
 
@@ -614,7 +637,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     structure,
                     new TestStabilityPointStructure("other structure")
-                });
+                },
+                new StabilityPointStructuresFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -739,7 +763,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     structure,
                     new TestStabilityPointStructure("other structure")
-                });
+                },
+                new StabilityPointStructuresFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -851,7 +876,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new StabilityPointStructuresFailureMechanism());
 
             var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
@@ -897,7 +923,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     structure,
                     new TestStabilityPointStructure("other structure")
-                });
+                },
+                new StabilityPointStructuresFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -1059,7 +1086,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                });
+                },
+                new StabilityPointStructuresFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -1093,7 +1121,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                                                                                         calculationGroup,
                                                                                         Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                         Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>());
+                                                                                        Enumerable.Empty<StabilityPointStructure>(),
+                                                                                        new StabilityPointStructuresFailureMechanism());
             var successful = false;
 
             // Call
@@ -1104,6 +1133,50 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void DoPostImport_WithNewSectionResults_AssignsCalculationToSectionResult()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
+            var calculationGroup = new CalculationGroup();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 10)
+            }));
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure(new Point2D(5, 5))
+                }
+            };
+            failureMechanism.CalculationsGroup.Children.Add(
+                calculation);
+
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<StabilityPointStructure>(),
+                failureMechanism);
+
+            // Preconditions
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(StructuresCalculation<StabilityPointStructuresInput> expectedCalculation,
