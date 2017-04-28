@@ -46,6 +46,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestWaveConditionsCalculation.cs" />
     <Compile Include="TestWaveConditionsOutput.cs" />
   </ItemGroup>
   <ItemGroup>

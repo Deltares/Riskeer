@@ -72,7 +72,6 @@
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityStoneCoverFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityStoneCoverResultViewInfoTest.cs" />

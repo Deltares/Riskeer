@@ -143,15 +143,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsInputContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()

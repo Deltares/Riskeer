@@ -25,9 +25,9 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
 {
@@ -62,7 +62,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
 
         private class TestWaveConditionsInputContext : WaveConditionsInputContext
         {
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData, new TestCalculation()) {}
+            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData, new TestWaveConditionsCalculation()) {}
 
             public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
             {

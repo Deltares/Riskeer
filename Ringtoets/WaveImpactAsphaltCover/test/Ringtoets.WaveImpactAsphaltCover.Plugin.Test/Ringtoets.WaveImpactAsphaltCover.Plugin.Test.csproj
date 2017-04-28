@@ -70,7 +70,6 @@
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />

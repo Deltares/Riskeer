@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 {
@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 null,
                 assessmentSection);
 
@@ -162,7 +162,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 null);
 
@@ -184,7 +184,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 

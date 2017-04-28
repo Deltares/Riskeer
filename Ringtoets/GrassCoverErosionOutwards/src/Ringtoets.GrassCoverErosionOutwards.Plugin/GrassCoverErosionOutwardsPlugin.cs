@@ -243,15 +243,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsInputContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()

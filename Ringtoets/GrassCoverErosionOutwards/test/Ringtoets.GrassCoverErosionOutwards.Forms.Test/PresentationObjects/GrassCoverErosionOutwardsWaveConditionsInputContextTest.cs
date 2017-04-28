@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
-using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 null,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 failureMechanism);
 
             // Assert
@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 null);
 
             // Assert

@@ -25,12 +25,12 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call

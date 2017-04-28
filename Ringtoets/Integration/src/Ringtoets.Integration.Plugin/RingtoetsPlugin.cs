@@ -83,6 +83,7 @@ using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -690,6 +691,15 @@ namespace Ringtoets.Integration.Plugin
                               .AddPropertiesItem()
                               .Build();
                 }
+            };
+
+            yield return new TreeNodeInfo<WaveConditionsInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
         }
 

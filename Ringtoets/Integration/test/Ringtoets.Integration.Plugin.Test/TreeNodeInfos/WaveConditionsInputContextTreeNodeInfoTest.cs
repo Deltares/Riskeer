@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -27,35 +29,23 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.TestUtil;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest
+    public class WaveConditionsInputContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -85,19 +75,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var context = new TestWaveConditionsInputContext(new WaveConditionsInput());
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                calculation.InputParameters,
-                calculation,
-                failureMechanism.ForeshoreProfiles,
-                assessmentSection);
-
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -113,19 +93,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnOutputIcon()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                calculation.InputParameters,
-                calculation,
-                failureMechanism.ForeshoreProfiles,
-                assessmentSection);
-
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            var context = new TestWaveConditionsInputContext(new WaveConditionsInput());
+            using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
                 // Call
@@ -140,19 +109,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
+
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                mocks.ReplayAll();
-
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-                var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-                var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                    calculation.InputParameters,
-                    calculation,
-                    failureMechanism.ForeshoreProfiles,
-                    assessmentSection);
+                var context = new TestWaveConditionsInputContext(new WaveConditionsInput());
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -167,7 +128,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
 
-                using (var plugin = new WaveImpactAsphaltCoverPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -178,12 +139,33 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
+        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsInputContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveConditionsInputContext));
+        }
+
+        private class TestWaveConditionsInputContext : WaveConditionsInputContext
+        {
+            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData, new TestWaveConditionsCalculation()) { }
+
+            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
     }
 }

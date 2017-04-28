@@ -32,7 +32,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -43,7 +42,7 @@ using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
-using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 {
@@ -593,7 +592,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 ForeshoreProfile = new TestForeshoreProfile(string.Empty)
             };
 
-            var calculation = new TestCalculation();
+            var calculation = new TestWaveConditionsCalculation();
             var inputContext = new TestWaveConditionsInputContext(input, calculation, new ForeshoreProfile[0], locations);
 
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
@@ -649,7 +648,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculation = new TestCalculation();
+            var calculation = new TestWaveConditionsCalculation();
             var input = new WaveConditionsInput();
             input.ForeshoreProfile = new TestForeshoreProfile();
 
@@ -678,10 +677,10 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                   IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                                   IEnumerable<HydraulicBoundaryLocation> locations)
-                : this(wrappedData, new TestCalculation(), foreshoreProfiles, locations) {}
+                : this(wrappedData, new TestWaveConditionsCalculation(), foreshoreProfiles, locations) {}
 
             public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                  ICalculation calculation,
+                                                  IWaveConditionsCalculation calculation,
                                                   IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                                   IEnumerable<HydraulicBoundaryLocation> locations)
                 : base(wrappedData, calculation)

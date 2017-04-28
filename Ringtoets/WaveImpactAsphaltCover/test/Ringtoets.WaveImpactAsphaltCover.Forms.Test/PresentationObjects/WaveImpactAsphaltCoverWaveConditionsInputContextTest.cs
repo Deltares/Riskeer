@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {
@@ -93,7 +93,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 null,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 
@@ -138,7 +138,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 null,
                 assessmentSection);
 
@@ -158,7 +158,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 null);
 
@@ -180,7 +180,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 input,
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 failureMechanism.ForeshoreProfiles,
                 assessmentSection);
 

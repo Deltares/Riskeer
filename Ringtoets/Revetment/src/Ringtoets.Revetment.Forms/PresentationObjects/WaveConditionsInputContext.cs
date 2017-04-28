@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
@@ -40,7 +39,7 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        protected WaveConditionsInputContext(WaveConditionsInput wrappedData, ICalculation calculation)
+        protected WaveConditionsInputContext(WaveConditionsInput wrappedData, IWaveConditionsCalculation calculation)
             : base(wrappedData)
         {
             if (calculation == null)
@@ -53,7 +52,7 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation containing the wrapped <see cref="WaveConditionsInput"/>.
         /// </summary>
-        public ICalculation Calculation { get; private set; }
+        public IWaveConditionsCalculation Calculation { get; private set; }
 
         /// <summary>
         /// Gets the hydraulic boundary locations.

@@ -26,9 +26,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
@@ -64,7 +64,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 new WaveConditionsInput(),
-                new TestCalculation(),
+                new TestWaveConditionsCalculation(),
                 Enumerable.Empty<ForeshoreProfile>(),
                 assessmentSection);
 
