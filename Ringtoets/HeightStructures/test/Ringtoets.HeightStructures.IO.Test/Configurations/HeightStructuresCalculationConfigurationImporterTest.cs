@@ -594,7 +594,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void DoPostImport_WithNewSectionResults_AssignsCalculationToSectionResult()
+        public void DoPostImport_CalculationWithStructureInSection_AssignsCalculationToSectionResult()
         {
             // Setup
             string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");

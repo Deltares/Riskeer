@@ -571,7 +571,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
         }
 
         [Test]
-        public void DoPostImport_WithNewSectionResults_AssignsCalculationToSectionResult()
+        public void DoPostImport_CalculationWithDikeProfileInSection_AssignsCalculationToSectionResult()
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
