@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;

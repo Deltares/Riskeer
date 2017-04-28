@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -80,19 +79,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
             Assert.IsNaN(properties.WaveHeight);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.WaveHeight));
+                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.WaveHeight));
             Assert.AreEqual(double.NaN, properties.TargetProbability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.TargetProbability));
+                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.TargetReliability));
+                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedProbability));
+                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedReliability));
+                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedReliability));
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 

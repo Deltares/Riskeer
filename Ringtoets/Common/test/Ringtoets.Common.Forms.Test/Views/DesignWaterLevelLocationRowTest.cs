@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -52,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ShouldCalculate);
             TestHelper.AssertTypeConverter<DesignWaterLevelLocationRow, NoValueRoundedDoubleConverter>(
-                              nameof(DesignWaterLevelLocationRow.DesignWaterLevel));
+                nameof(DesignWaterLevelLocationRow.DesignWaterLevel));
         }
 
         [Test]

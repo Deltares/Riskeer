@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -82,24 +81,24 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
             Assert.IsNaN(properties.WaveHeight);
             TestHelper.AssertTypeConverter<WaveHeightLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(
-                              nameof(WaveHeightLocationContextProperties.WaveHeight));
+                NoValueRoundedDoubleConverter>(
+                nameof(WaveHeightLocationContextProperties.WaveHeight));
             Assert.AreEqual(double.NaN, properties.TargetProbability);
             TestHelper.AssertTypeConverter<WaveHeightLocationContextProperties,
-                              NoProbabilityValueDoubleConverter>(
-                              nameof(WaveHeightLocationContextProperties.TargetProbability));
+                NoProbabilityValueDoubleConverter>(
+                nameof(WaveHeightLocationContextProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             TestHelper.AssertTypeConverter<WaveHeightLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(
-                              nameof(WaveHeightLocationContextProperties.TargetReliability));
+                NoValueRoundedDoubleConverter>(
+                nameof(WaveHeightLocationContextProperties.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
             TestHelper.AssertTypeConverter<WaveHeightLocationContextProperties,
-                              NoProbabilityValueDoubleConverter>(
-                              nameof(WaveHeightLocationContextProperties.CalculatedProbability));
+                NoProbabilityValueDoubleConverter>(
+                nameof(WaveHeightLocationContextProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
             TestHelper.AssertTypeConverter<WaveHeightLocationContextProperties,
-                              NoValueRoundedDoubleConverter>(
-                              nameof(WaveHeightLocationContextProperties.CalculatedReliability));
+                NoValueRoundedDoubleConverter>(
+                nameof(WaveHeightLocationContextProperties.CalculatedReliability));
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 

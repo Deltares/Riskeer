@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -62,7 +61,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
             TestHelper.AssertTypeConverter<DuneLocationsContextProperties, ExpandableArrayConverter>(
-                              nameof(DuneLocationsContextProperties.Locations));
+                nameof(DuneLocationsContextProperties.Locations));
 
             DuneLocationContextProperties duneLocationContextProperties = properties.Locations.First();
             Assert.AreEqual(location.Id, duneLocationContextProperties.Id);

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Attributes;
@@ -544,9 +543,7 @@ namespace Core.Common.Utils.Test.Reflection
 
             public double PublicPropertyPrivateSetter { get; private set; }
 
-            /// <summary>
-            /// Method used in reflection for tests above
-            /// </summary>
+            // ReSharper disable once UnusedMember.Local
             private int PrivateMethod(int i)
             {
                 return i * 2;

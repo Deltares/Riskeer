@@ -21,7 +21,6 @@
 
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -51,7 +50,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
         }
 
         [Test]

@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -83,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
             TestHelper.AssertTypeConverter<DesignWaterLevelLocationsContextProperties,
-                              ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsContextProperties.Locations));
+                ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsContextProperties.Locations));
 
             DesignWaterLevelLocationContextProperties designWaterLevelLocationProperties = properties.Locations.First();
             Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);

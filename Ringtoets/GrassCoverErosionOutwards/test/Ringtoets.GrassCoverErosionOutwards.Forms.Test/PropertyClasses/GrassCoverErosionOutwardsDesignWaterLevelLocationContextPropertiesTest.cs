@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -83,16 +82,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.DesignWaterLevel));
             Assert.AreEqual(double.NaN, properties.TargetProbability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.TargetProbability));
+                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, NoValueRoundedDoubleConverter>
-                              (nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.TargetReliability));
+                (nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.CalculatedProbability));
+                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, NoValueRoundedDoubleConverter>(
-                              nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.CalculatedReliability));
+                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.CalculatedReliability));
             Assert.AreEqual(string.Empty, properties.Convergence);
         }
 

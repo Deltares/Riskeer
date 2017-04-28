@@ -21,7 +21,6 @@
 
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;

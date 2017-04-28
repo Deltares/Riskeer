@@ -24,7 +24,6 @@ using System.Reflection;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;

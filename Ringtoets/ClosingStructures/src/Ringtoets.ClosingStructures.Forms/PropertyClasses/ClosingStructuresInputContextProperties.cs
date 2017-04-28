@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;

@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -65,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<StrengthStabilityLengthwiseConstructionSectionResultRow, NoValueRoundedDoubleConverter>(
-                    nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.AssessmentLayerThree));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

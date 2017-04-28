@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -87,17 +86,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             Assert.IsNaN(properties.TargetProbability);
             TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                              nameof(DuneLocationContextProperties.TargetProbability));
+                nameof(DuneLocationContextProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoValueRoundedDoubleConverter>(
-                              nameof(DuneLocationContextProperties.TargetReliability));
+                nameof(DuneLocationContextProperties.TargetReliability));
 
             Assert.IsNaN(properties.CalculatedProbability);
             TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                              nameof(DuneLocationContextProperties.CalculatedProbability));
+                nameof(DuneLocationContextProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
             TestHelper.AssertTypeConverter<DuneLocationContextProperties, NoValueRoundedDoubleConverter>(
-                              nameof(DuneLocationContextProperties.CalculatedReliability));
+                nameof(DuneLocationContextProperties.CalculatedReliability));
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(CalculationConvergence.NotCalculated).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);

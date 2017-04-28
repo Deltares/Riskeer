@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;

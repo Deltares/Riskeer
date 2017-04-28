@@ -29,7 +29,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -167,10 +166,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
-                              nameof(GrassCoverErosionInwardsInputContextProperties.DikeHeightCalculationType));
+                nameof(GrassCoverErosionInwardsInputContextProperties.DikeHeightCalculationType));
             Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
-                              nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
+                nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
             Assert.IsNull(properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }

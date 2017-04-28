@@ -27,11 +27,8 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
-using CoreCommonResources = Core.Common.Base.Properties.Resources;
-using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views
 {

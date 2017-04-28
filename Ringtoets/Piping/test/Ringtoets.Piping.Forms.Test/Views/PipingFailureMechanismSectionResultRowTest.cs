@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -33,7 +32,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -54,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
         }
 
         [Test]

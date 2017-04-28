@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;

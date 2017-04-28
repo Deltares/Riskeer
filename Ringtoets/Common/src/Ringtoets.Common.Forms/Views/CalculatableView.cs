@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views

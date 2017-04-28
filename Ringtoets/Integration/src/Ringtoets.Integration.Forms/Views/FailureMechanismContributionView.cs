@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Utils;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;

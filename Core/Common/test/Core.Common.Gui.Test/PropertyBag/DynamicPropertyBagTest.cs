@@ -549,6 +549,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             public string Name { get; set; }
 
             [Browsable(true)]
+            // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
             public bool IsNameReadOnly { get; set; }
 
             [Browsable(false)]

@@ -33,7 +33,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;

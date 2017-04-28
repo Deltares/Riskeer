@@ -22,7 +22,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils.Reflection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;

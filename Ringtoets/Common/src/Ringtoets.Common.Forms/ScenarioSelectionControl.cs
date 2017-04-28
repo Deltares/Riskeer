@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
