@@ -173,7 +173,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static string GetAddVersionRowCommandText(string databaseVersion)
         {
             return "INSERT INTO VersionEntity (Version, Timestamp, FingerPrint) "
-                   + $"VALUES ({databaseVersion}, '2016-08-10 10:55:48', 'QWERTY')";
+                   + $"VALUES (\"{databaseVersion}\", '2016-08-10 10:55:48', 'QWERTY')";
         }
     }
 }

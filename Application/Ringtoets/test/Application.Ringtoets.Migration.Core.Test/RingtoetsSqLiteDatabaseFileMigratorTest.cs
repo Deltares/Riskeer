@@ -33,6 +33,12 @@ namespace Application.Ringtoets.Migration.Core.Test
     [TestFixture]
     public class RingtoetsSqLiteDatabaseFileMigratorTest
     {
+        private static TestCaseData[] ValidFromVersions => new[]
+        {
+            new TestCaseData("5"),
+            new TestCaseData("17.1")
+        };
+
         [Test]
         public void Constructor_ReturnsExpectedValues()
         {
@@ -44,13 +50,14 @@ namespace Application.Ringtoets.Migration.Core.Test
         }
 
         [Test]
-        public void IsVersionSupported_SupportedVersion_ReturnsTrue()
+        [TestCaseSource(nameof(ValidFromVersions))]
+        public void IsVersionSupported_SupportedVersion_ReturnsTrue(string fromVersion)
         {
             // Setup
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
             // Call
-            bool isSupported = migrator.IsVersionSupported("5");
+            bool isSupported = migrator.IsVersionSupported(fromVersion);
 
             // Assert
             Assert.IsTrue(isSupported);
@@ -58,7 +65,7 @@ namespace Application.Ringtoets.Migration.Core.Test
 
         [Test]
         [TestCase("16.4")]
-        [TestCase("17.1")]
+        [TestCase("17.2")]
         public void IsVersionSupported_UnsupportedVersion_ReturnsFalse(string fromVersion)
         {
             // Setup
