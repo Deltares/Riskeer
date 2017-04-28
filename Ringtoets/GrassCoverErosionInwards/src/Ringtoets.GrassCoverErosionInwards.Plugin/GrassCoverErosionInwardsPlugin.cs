@@ -97,7 +97,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     filePath,
                     context.WrappedData,
                     context.AvailableHydraulicBoundaryLocations,
-                    context.AvailableDikeProfiles));
+                    context.AvailableDikeProfiles,
+                    context.FailureMechanism));
 
             yield return new ImportInfo<DikeProfilesContext>
             {

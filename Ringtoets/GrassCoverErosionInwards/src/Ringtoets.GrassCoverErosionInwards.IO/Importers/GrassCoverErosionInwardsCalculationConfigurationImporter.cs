@@ -32,6 +32,7 @@ using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 using Ringtoets.GrassCoverErosionInwards.IO.Readers;
+using Ringtoets.GrassCoverErosionInwards.Utils;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
 {
@@ -40,6 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<DikeProfile> availableDikeProfiles;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationImporter"/>.
@@ -50,13 +52,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="dikeProfiles">The dike profiles used to check if
         /// the imported objects contain the right profile.</param>
+        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-            IEnumerable<DikeProfile> dikeProfiles)
+            IEnumerable<DikeProfile> dikeProfiles,
+            GrassCoverErosionInwardsFailureMechanism failureMechanism)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -67,8 +71,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
             {
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableDikeProfiles = dikeProfiles;
+            this.failureMechanism = failureMechanism;
+        }
+
+        protected override void DoPostImportUpdates()
+        {
+            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
+
+            base.DoPostImportUpdates();
         }
 
         protected override GrassCoverErosionInwardsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

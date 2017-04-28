@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
@@ -52,7 +53,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<
@@ -69,7 +71,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 "",
                 new CalculationGroup(),
                 null,
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -84,11 +87,28 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                null);
+                null,
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("dikeProfiles", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                "",
+                new CalculationGroup(),
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -106,7 +126,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 new[]
                 {
                     new TestDikeProfile("Dijkprofiel")
-                });
+                },
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -132,7 +153,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -159,7 +181,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -185,7 +208,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -209,7 +233,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -233,7 +258,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -257,7 +283,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -281,7 +308,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -309,7 +337,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 new[]
                 {
                     dikeProfile
-                });
+                },
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             var successful = false;
@@ -342,7 +371,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 new[]
                 {
                     dikeProfile
-                });
+                },
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -375,7 +405,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -411,7 +442,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -440,7 +472,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>());
+                Enumerable.Empty<DikeProfile>(),
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -499,7 +532,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 new[]
                 {
                     dikeProfile
-                });
+                },
+                new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
             bool successful = importer.Import();
@@ -534,6 +568,48 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
             AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void DoPostImport_WithNewSectionResults_AssignsCalculationToSectionResult()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
+            var calculationGroup = new CalculationGroup();
+
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            grassCoverErosionInwardsFailureMechanism.AddSection(new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0,0), new Point2D(10,10)
+            }));
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new TestDikeProfile(new Point2D(5,5))
+                }
+            };
+            grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children.Add(
+                calculation);
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>(),
+                grassCoverErosionInwardsFailureMechanism);
+
+            // Preconditions
+            Assert.AreEqual(1, grassCoverErosionInwardsFailureMechanism.SectionResults.Count());
+            Assert.IsNull(grassCoverErosionInwardsFailureMechanism.SectionResults.ElementAt(0).Calculation);
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            Assert.AreSame(calculation, grassCoverErosionInwardsFailureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
