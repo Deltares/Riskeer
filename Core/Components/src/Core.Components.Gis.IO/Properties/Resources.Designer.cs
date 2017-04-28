@@ -82,10 +82,8 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///
-        ///&lt;!--
-        ///Copyright (C) Stichting Deltares 2016. All rights reserved.
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
         ///This file is part of Ringtoets.
         ///
@@ -95,7 +93,7 @@ namespace Core.Components.Gis.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied  [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warr [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string defaultWmtsConnectionInfo {
             get {

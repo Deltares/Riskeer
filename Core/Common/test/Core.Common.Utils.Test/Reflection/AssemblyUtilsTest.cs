@@ -70,7 +70,7 @@ namespace Core.Common.Utils.Test.Reflection
 
             // Assert
             Assert.AreEqual("Deltares", assemblyInfo.Company);
-            Assert.AreEqual("Copyright © Deltares 2016", assemblyInfo.Copyright);
+            Assert.AreEqual("Copyright © Deltares 2017", assemblyInfo.Copyright);
             Assert.IsEmpty(assemblyInfo.Description);
             Assert.AreEqual("Core.Common.Utils.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Utils.Test", assemblyInfo.Title);
