@@ -166,10 +166,10 @@
     <value>Modelfactor Frunup [-]</value>
   </data>
   <data name="CriticalFlowRate_Description" xml:space="preserve">
-    <value>Kritisch overslagdebiet per strekkende meter.</value>
+    <value>Kritiek overslagdebiet per strekkende meter.</value>
   </data>
   <data name="CriticalFlowRate_DisplayName" xml:space="preserve">
-    <value>Kritisch overslagdebiet [m³/s/m]</value>
+    <value>Kritiek overslagdebiet [m³/s/m]</value>
   </data>
   <data name="DikeProfile_Description" xml:space="preserve">
     <value>De schematisatie van het dijkprofiel.</value>

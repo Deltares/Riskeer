@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een kritische fout opgetreden bij het uitvoeren van de berekening..
+        ///   Looks up a localized string similar to Er is een kritieke fout opgetreden bij het uitvoeren van de berekening..
         /// </summary>
         internal static string HydraRingCalculatorBase_Calculate_Critical_error_during_calculation {
             get {

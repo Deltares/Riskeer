@@ -657,8 +657,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalFlowRateProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalFlowRateProperty,
                                                                             "Toetseisen",
-                                                                            "Kritisch overslagdebiet [m³/s/m]",
-                                                                            "Kritisch overslagdebiet per strekkende meter.",
+                                                                            "Kritiek overslagdebiet [m³/s/m]",
+                                                                            "Kritiek overslagdebiet per strekkende meter.",
                                                                             true);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];

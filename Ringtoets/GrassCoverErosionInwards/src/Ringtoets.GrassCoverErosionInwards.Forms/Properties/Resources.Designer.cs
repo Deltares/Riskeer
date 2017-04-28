@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritisch overslagdebiet per strekkende meter..
+        ///   Looks up a localized string similar to Kritiek overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalFlowRate_Description {
             get {
@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritisch overslagdebiet [m³/s/m].
+        ///   Looks up a localized string similar to Kritiek overslagdebiet [m³/s/m].
         /// </summary>
         public static string CriticalFlowRate_DisplayName {
             get {
