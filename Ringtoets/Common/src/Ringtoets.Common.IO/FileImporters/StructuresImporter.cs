@@ -256,10 +256,16 @@ namespace Ringtoets.Common.IO.FileImporters
                 catch (LineParseException exception)
                 {
                     string message = string.Format(
-                        Resources.StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_The_Structure_is_skipped,
+                        Resources.StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_,
                         i + 1,
                         exception.Message);
-                    log.Warn(message);
+                    log.Error(message, exception);
+                    return new ReadResult<StructureLocation>(true);
+                }
+                catch (CriticalFileReadException exception)
+                {
+                    log.Error(exception.Message);
+                    return new ReadResult<StructureLocation>(true);
                 }
             }
             return new ReadResult<StructureLocation>(false)
@@ -275,7 +281,10 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="structureLocationReader">Reader reading <see cref="StructureLocation"/> objects from a shapefile.</param>
         /// <param name="structureLocations">Collection of <see cref="StructureLocation"/> objects
         /// to which the new <see cref="StructureLocation"/> is to be added.</param>
-        /// <exception cref="LineParseException"><list type="bullet">
+        /// <exception cref="CriticalFileReadException">Thrown when the <paramref name="structureLocationReader"/>
+        /// reads multiple structures for a structure.</exception>
+        /// <exception cref="LineParseException">Thrown when either:
+        /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
@@ -290,7 +299,8 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             if (structureLocations.Any(dpl => dpl.Id.Equals(structureLocation.Id)))
             {
-                log.WarnFormat(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
+                string message = string.Format(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
+                throw new CriticalFileReadException(message);
             }
             structureLocations.Add(structureLocation);
         }

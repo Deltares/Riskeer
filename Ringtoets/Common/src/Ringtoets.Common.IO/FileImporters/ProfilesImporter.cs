@@ -219,7 +219,10 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="profileLocationReader">Reader reading <see cref="ProfileLocation"/> objects from a shapefile.</param>
         /// <param name="profileLocations">Collection of <see cref="ProfileLocation"/> objects
         /// to which the new <see cref="ProfileLocation"/> is to be added.</param>
-        /// <exception cref="LineParseException"><list type="bullet">
+        /// <exception cref="CriticalFileReadException">Thrown when the <paramref name="profileLocationReader"/> reads 
+        /// multiple locations for a profile.</exception>
+        /// <exception cref="LineParseException">Thrown when either:
+        /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// <item>The read <see cref="ProfileLocation"/> is outside the reference line.</item>

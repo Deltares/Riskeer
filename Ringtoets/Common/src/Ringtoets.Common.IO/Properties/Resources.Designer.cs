@@ -1630,12 +1630,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het lezen van kunstwerk op regel {0}. {1} Dit kunstwerk wordt overgeslagen..
+        ///   Looks up a localized string similar to Fout bij het lezen van kunstwerk op regel {0}. {1}.
         /// </summary>
-        public static string StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_The_Structure_is_skipped {
+        public static string StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_ {
             get {
                 return ResourceManager.GetString("StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNum" +
-                        "ber_0_Error_1_The_Structure_is_skipped", resourceCulture);
+                        "ber_0_Error_1_", resourceCulture);
             }
         }
         

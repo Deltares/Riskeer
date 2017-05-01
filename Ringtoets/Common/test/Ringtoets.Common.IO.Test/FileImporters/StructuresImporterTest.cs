@@ -225,7 +225,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsFalse(importResult);
         }
-        
+
         [Test]
         public void Import_CancelOfImportWhenReadingLocations_CancelsImportAndLogs()
         {
@@ -409,7 +409,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_DuplicateLocation_LogWarningAndReturnTrue()
+        public void Import_DuplicateLocation_LogErrorAndReturnFalse()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -434,8 +434,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             const string expectedMessage = "Kunstwerklocatie met KWKIDENT 'KUNST3' is opnieuw ingelezen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsTrue(importResult);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
@@ -463,15 +463,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            string[] expectedMessages =
-            {
-                "Fout bij het lezen van kunstwerk op regel 1. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
-                "Fout bij het lezen van kunstwerk op regel 2. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
-                "Fout bij het lezen van kunstwerk op regel 3. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
-                "Fout bij het lezen van kunstwerk op regel 4. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
-                "Fout bij het lezen van kunstwerk op regel 5. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen."
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            const string expectedMessages = "Fout bij het lezen van kunstwerk op regel 1. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessages, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
         }
 
