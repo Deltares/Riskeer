@@ -109,15 +109,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedCalculationInputContext_ReturnsTrue()
+        [TestCaseSource(nameof(GetCalculationContextDatas),
+            new object[]
+            {
+                "CloseForData_CorrespondingToCalculationContext_ReturnTrue({0})"
+            })]
+        public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue(
+            ICalculationContext<IWaveConditionsCalculation, IFailureMechanism> context,
+            IWaveConditionsCalculation calculation)
         {
             // Setup
-            var input = new WaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation();
-            var context = new TestWaveConditionsInputContext(input, calculation,
-                                                             new ForeshoreProfile[0],
-                                                             new HydraulicBoundaryLocation[0]);
-
             using (var view = new WaveConditionsInputView
             {
                 Data = calculation
@@ -132,19 +133,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedCalculationInputContext_ReturnsFalse()
+        [TestCaseSource(nameof(GetCalculationContextDatas),
+            new object[]
+            {
+                "CloseForData_NotCorrespondingToCalculationContext_ReturnFalse({0})"
+            })]
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse(
+            ICalculationContext<IWaveConditionsCalculation, IFailureMechanism> context,
+            IWaveConditionsCalculation calculation)
         {
             // Setup
-            var input = new WaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation();
             var calculationToRemove = new TestWaveConditionsCalculation();
-            var context = new TestWaveConditionsInputContext(input, calculationToRemove,
-                                                             new ForeshoreProfile[0],
-                                                             new HydraulicBoundaryLocation[0]);
 
             using (var view = new WaveConditionsInputView
             {
-                Data = calculation
+                Data = calculationToRemove
             })
             {
                 // Call
@@ -460,6 +463,39 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         #region TestCaseData
+
+        private static IEnumerable<TestCaseData> GetCalculationContextDatas(string testNameFormat)
+        {
+            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            yield return new TestCaseData(
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
+                        grassCoverErosionOutwardsWaveConditionsCalculation,
+                        new GrassCoverErosionOutwardsFailureMechanism(),
+                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                    grassCoverErosionOutwardsWaveConditionsCalculation)
+                .SetName(string.Format(testNameFormat,
+                                       nameof(GrassCoverErosionOutwardsWaveConditionsCalculation)));
+
+            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            yield return new TestCaseData(
+                    new StabilityStoneCoverWaveConditionsCalculationContext(
+                        stabilityStoneCoverWaveConditionsCalculation,
+                        new StabilityStoneCoverFailureMechanism(),
+                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                    stabilityStoneCoverWaveConditionsCalculation)
+                .SetName(string.Format(testNameFormat,
+                                       nameof(StabilityStoneCoverWaveConditionsCalculation)));
+
+            var waveImpactAsphaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            yield return new TestCaseData(
+                    new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
+                        waveImpactAsphaltCoverWaveConditionsCalculation,
+                        new WaveImpactAsphaltCoverFailureMechanism(),
+                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                    waveImpactAsphaltCoverWaveConditionsCalculation)
+                .SetName(string.Format(testNameFormat,
+                                       nameof(WaveImpactAsphaltCoverWaveConditionsCalculation)));
+        }
 
         private static IEnumerable<TestCaseData> GetfailureMechanismDatas(string testNameFormat)
         {

@@ -708,6 +708,8 @@ namespace Ringtoets.Integration.Plugin
                 Text = context => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -958,10 +960,10 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseWaveConditionsInputViewForData(WaveConditionsInputView view, object o)
         {
-            var context = o as WaveConditionsInputContext;
+            var context = o as ICalculationContext<IWaveConditionsCalculation, IFailureMechanism>;
             if (context != null)
             {
-                return ReferenceEquals(view.Data, context.Calculation);
+                return ReferenceEquals(view.Data, context.WrappedData);
             }
             var calculation = o as IWaveConditionsCalculation;
             if (calculation != null)

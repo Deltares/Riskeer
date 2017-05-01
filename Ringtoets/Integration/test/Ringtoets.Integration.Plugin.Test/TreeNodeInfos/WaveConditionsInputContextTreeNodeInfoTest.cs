@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -29,13 +27,10 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.TestUtil;
-using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -119,6 +114,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
+                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
