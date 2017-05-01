@@ -88,7 +88,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                                      failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(heightStructuresContext);
@@ -109,7 +110,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                                      failureMechanism, assessmentSection);
 
             // Call
             Image image = info.Image(heightStructuresContext);
@@ -127,18 +129,17 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
             {
-                HeightStructures =
-                {
-                    new TestHeightStructure()
-                }
-            };
+                new TestHeightStructure("TestHeightStructure", "id")
+            }, "some path");
 
             // Precondition
-            CollectionAssert.IsNotEmpty(failureMechanism.HeightStructures);
+            CollectionAssert.IsNotEmpty(failureMechanism.HeightStructuresCollection);
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, asssessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                                      failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(heightStructuresContext);
@@ -156,24 +157,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            HeightStructure heightStructure1 = new TestHeightStructure();
-            HeightStructure heightStructure2 = new TestHeightStructure();
-            var failureMechanism = new HeightStructuresFailureMechanism
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
             {
-                HeightStructures =
-                {
-                    heightStructure1,
-                    heightStructure2
-                }
-            };
+                new TestHeightStructure("TestHeightStructure 1", "first id"),
+                new TestHeightStructure("TestHeightStructure 2", "second id")
+            }, "some path");
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                                      failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(heightStructuresContext);
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.HeightStructures, children);
+            CollectionAssert.AreEqual(failureMechanism.HeightStructuresCollection, children);
             mocks.VerifyAll();
         }
 
@@ -190,7 +188,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, asssessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                                      failureMechanism, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(heightStructuresContext);

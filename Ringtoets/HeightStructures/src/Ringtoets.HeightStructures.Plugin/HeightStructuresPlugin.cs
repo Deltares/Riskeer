@@ -30,6 +30,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -369,7 +370,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
+                new HeightStructuresContext(failureMechanism.HeightStructuresCollection, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }
@@ -546,7 +547,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private StrictContextMenuItem CreateGenerateHeightStructuresCalculationsItem(HeightStructuresCalculationGroupContext nodeData)
         {
-            ObservableList<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructures;
+            StructureCollection<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructuresCollection;
             bool structuresAvailable = heightStructures.Any();
 
             string heightStructuresCalculationGroupContextToolTip = structuresAvailable
@@ -564,7 +565,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void ShowHeightStructuresSelectionDialog(HeightStructuresCalculationGroupContext nodeData)
         {
-            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructures))
+            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructuresCollection))
             {
                 dialog.ShowDialog();
 

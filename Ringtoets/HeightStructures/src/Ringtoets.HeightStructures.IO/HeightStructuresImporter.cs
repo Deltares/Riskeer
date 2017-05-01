@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.IO
     /// Imports point shapefiles containing height structure locations
     /// and csv files containing height structure schematizations.
     /// </summary>
-    public class HeightStructuresImporter : StructuresImporter<ObservableList<HeightStructure>>
+    public class HeightStructuresImporter : StructuresImporter<StructureCollection<HeightStructure>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresImporter"/>.
@@ -46,18 +46,18 @@ namespace Ringtoets.HeightStructures.IO
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public HeightStructuresImporter(ObservableList<HeightStructure> importTarget,
+        public HeightStructuresImporter(StructureCollection<HeightStructure> importTarget,
                                         ReferenceLine referenceLine, string filePath)
             : base(importTarget, referenceLine, filePath) {}
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            IEnumerable<HeightStructure> importedHeightStructures = CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows);
+            HeightStructure[] importedHeightStructures = CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray();
 
-            foreach (HeightStructure heightStructure in importedHeightStructures)
+            if (importedHeightStructures.Any())
             {
-                ImportTarget.Add(heightStructure);
+                ImportTarget.AddRange(importedHeightStructures, FilePath);
             }
         }
 

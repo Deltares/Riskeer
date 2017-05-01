@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.IO.Test
     [TestFixture]
     public class HeightStructuresImporterTest
     {
-        private readonly ObservableList<HeightStructure> testImportTarget = new ObservableList<HeightStructure>();
+        private readonly StructureCollection<HeightStructure> testImportTarget = new StructureCollection<HeightStructure>();
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
@@ -48,7 +48,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             var importer = new HeightStructuresImporter(testImportTarget, testReferenceLine, testFilePath);
 
             // Assert
-            Assert.IsInstanceOf<StructuresImporter<ObservableList<HeightStructure>>>(importer);
+            Assert.IsInstanceOf<StructuresImporter<StructureCollection<HeightStructure>>>(importer);
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<HeightStructure>();
+            var importTarget = new StructureCollection<HeightStructure>();
             var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
@@ -84,6 +84,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         [Test]
@@ -95,7 +96,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<HeightStructure>();
+            var importTarget = new StructureCollection<HeightStructure>();
             var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
@@ -122,6 +123,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         [Test]
@@ -134,7 +136,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<HeightStructure>();
+            var importTarget = new StructureCollection<HeightStructure>();
             var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
@@ -164,6 +166,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, importTarget.Count);
+            Assert.IsNull(importTarget.SourcePath);
         }
 
         [Test]
@@ -175,7 +178,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<HeightStructure>();
+            var importTarget = new StructureCollection<HeightStructure>();
             var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
@@ -207,6 +210,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.AreEqual(defaultStructure.StructureNormalOrientation, importedStructure.StructureNormalOrientation);
             DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, importedStructure.FlowWidthAtBottomProtection);
             Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, importedStructure.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         [Test]
@@ -225,7 +229,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<HeightStructure>();
+            var importTarget = new StructureCollection<HeightStructure>();
             var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
@@ -234,6 +238,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, importTarget.Count);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         private static ReferenceLine CreateReferenceLine()

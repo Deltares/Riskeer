@@ -49,7 +49,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var importTarget = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var importTarget = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                           failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -139,7 +140,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var context = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                      failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -165,7 +167,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var context = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                      failureMechanism, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {

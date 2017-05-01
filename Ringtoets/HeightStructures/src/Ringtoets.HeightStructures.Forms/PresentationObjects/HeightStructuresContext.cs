@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 
@@ -30,7 +31,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="HeightStructure"/>.
     /// </summary>
-    public class HeightStructuresContext : ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>
+    public class HeightStructuresContext : ObservableWrappedObjectContextBase<StructureCollection<HeightStructure>>
     {
         /// <summary>
         /// Creates an instance of <see cref="HeightStructuresContext"/>.
@@ -43,7 +44,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments
         /// are <c>null</c>.</exception>
-        public HeightStructuresContext(ObservableList<HeightStructure> heightStructures,
+        public HeightStructuresContext(StructureCollection<HeightStructure> heightStructures,
                                        HeightStructuresFailureMechanism failureMechanism,
                                        IAssessmentSection assessmentSection)
             : base(heightStructures)

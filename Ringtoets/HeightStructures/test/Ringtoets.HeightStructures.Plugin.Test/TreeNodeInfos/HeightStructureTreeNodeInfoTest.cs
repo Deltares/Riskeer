@@ -125,7 +125,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var parentData = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                         failureMechanism, assessmentSection);
 
             // Call
             bool canRemove = info.CanRemove(null, parentData);
@@ -222,7 +223,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.SectionResults.ElementAt(0).Calculation = calculation1;
             failureMechanism.SectionResults.ElementAt(1).Calculation = calculation3;
 
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection);
+            var parentData = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                         failureMechanism, assessmentSection);
 
             // Call
             info.OnNodeRemoved(nodeData, parentData);

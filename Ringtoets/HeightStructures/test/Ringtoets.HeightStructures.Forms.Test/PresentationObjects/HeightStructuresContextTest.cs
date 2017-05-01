@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -44,12 +45,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSectionStub);
+            var context = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                      failureMechanism, assessmentSectionStub);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StructureCollection<HeightStructure>>>(context);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(failureMechanism.HeightStructures, context.WrappedData);
+            Assert.AreSame(failureMechanism.HeightStructuresCollection, context.WrappedData);
             Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             mocks.VerifyAll();
         }
@@ -62,7 +64,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var heightStructures = new ObservableList<HeightStructure>();
+            var heightStructures = new StructureCollection<HeightStructure>();
 
             // Call
             TestDelegate test = () => new HeightStructuresContext(heightStructures, null, assessmentSection);
@@ -80,7 +82,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, null);
+            TestDelegate test = () => new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+                                                                  failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

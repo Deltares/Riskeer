@@ -284,7 +284,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructures.Add(new TestHeightStructure());
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            {
+                new TestHeightStructure()
+            }, "some path");
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
@@ -1039,18 +1043,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                HeightStructure structure1 = new TestHeightStructure("Structure 1");
-                HeightStructure structure2 = new TestHeightStructure("Structure 2");
+                HeightStructure structure1 = new TestHeightStructure("Structure 1", "Structure Id");
 
                 var existingCalculationGroup = new CalculationGroup();
                 var existingCalculation = new StructuresCalculation<HeightStructuresInput>();
                 var failureMechanism = new HeightStructuresFailureMechanism
                 {
-                    HeightStructures =
-                    {
-                        structure1,
-                        structure2
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -1060,6 +1058,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.HeightStructuresCollection.AddRange(new[]
+                {
+                    structure1,
+                    new TestHeightStructure()
+                }, "some path");
 
                 var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
@@ -1109,18 +1112,15 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanism = new HeightStructuresFailureMechanism();
 
-                HeightStructure structure1 = new TestHeightStructure("Structure 1");
-                HeightStructure structure2 = new TestHeightStructure("Structure 2");
-
-                var failureMechanism = new HeightStructuresFailureMechanism
-                {
-                    HeightStructures =
+                failureMechanism.HeightStructuresCollection.AddRange(
+                    new[]
                     {
-                        structure1,
-                        structure2
-                    }
-                };
+                        new TestHeightStructure("Structure 1", "1"),
+                        new TestHeightStructure("Structure 2", "2")
+                    }, "some path"
+                );
 
                 var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
@@ -1167,14 +1167,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 const string existingCalculationName = "Height structure";
-                HeightStructure heightStructure = new TestHeightStructure(existingCalculationName);
+                HeightStructure heightStructure = new TestHeightStructure(existingCalculationName, "heightStructureId");
 
                 var failureMechanism = new HeightStructuresFailureMechanism
                 {
-                    HeightStructures =
-                    {
-                        heightStructure
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -1186,6 +1182,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.HeightStructuresCollection.AddRange(new[]
+                {
+                    heightStructure,
+                    new TestHeightStructure()
+                }, "some path");
 
                 var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,

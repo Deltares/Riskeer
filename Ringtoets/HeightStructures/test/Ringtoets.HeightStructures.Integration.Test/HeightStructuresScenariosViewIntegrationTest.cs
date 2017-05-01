@@ -95,7 +95,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
-                new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
+                new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructuresCollection,
                                              assessmentSection.ReferenceLine,
                                              filePath)
                     .Import();
@@ -112,7 +112,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructuresCollection)
                 {
                     calculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
@@ -143,7 +143,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
-                new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
+                new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructuresCollection,
                                              assessmentSection.ReferenceLine,
                                              filePath)
                     .Import();
@@ -159,7 +159,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructuresCollection)
                 {
                     calculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
@@ -197,7 +197,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
-                new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
+                new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructuresCollection,
                                              assessmentSection.ReferenceLine,
                                              filePath)
                     .Import();
@@ -212,7 +212,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructuresCollection)
                 {
                     assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
