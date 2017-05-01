@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Forms.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
 {
@@ -58,27 +55,6 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(input, context.WrappedData);
-        }
-
-        private class TestWaveConditionsInputContext : WaveConditionsInputContext
-        {
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData, new TestWaveConditionsCalculation()) {}
-
-            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
     }
 }

@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.Forms.TestUtil;
 using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
@@ -670,28 +671,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(customHandler.Called);
             mocks.VerifyAll();
-        }
-
-        private class TestWaveConditionsInputContext : WaveConditionsInputContext
-        {
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                  IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                  IEnumerable<HydraulicBoundaryLocation> locations)
-                : this(wrappedData, new TestWaveConditionsCalculation(), foreshoreProfiles, locations) {}
-
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                  IWaveConditionsCalculation calculation,
-                                                  IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                  IEnumerable<HydraulicBoundaryLocation> locations)
-                : base(wrappedData, calculation)
-            {
-                ForeshoreProfiles = foreshoreProfiles;
-                HydraulicBoundaryLocations = locations;
-            }
-
-            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
-
-            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
         }
 
         private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>

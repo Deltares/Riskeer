@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.TestUtil;
 using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
@@ -145,27 +146,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveConditionsInputContext));
-        }
-
-        private class TestWaveConditionsInputContext : WaveConditionsInputContext
-        {
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData, new TestWaveConditionsCalculation()) { }
-
-            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
     }
 }
