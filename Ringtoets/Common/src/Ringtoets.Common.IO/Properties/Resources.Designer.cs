@@ -1179,12 +1179,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het lezen van profiellocatie {0}. {1} Dit profiel wordt overgeslagen..
+        ///   Looks up a localized string similar to Fout bij het lezen van profiellocatie {0}. {1}.
         /// </summary>
-        public static string ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped {
+        public static string ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1 {
             get {
                 return ResourceManager.GetString("ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_" +
-                        "Error_1_The_Profile_is_skipped", resourceCulture);
+                        "Error_1", resourceCulture);
             }
         }
         

@@ -230,7 +230,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             referenceLine.SetGeometry(referencePoints);
 
             var updateDataStrategy = new TestDikeProfileUpdateStrategy();
-            var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
+            var dikeProfiles = new DikeProfileCollection();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath, updateDataStrategy, messageProvider);
 
             var importResult = false;
 
@@ -239,14 +240,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             const string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
-                                           "ID 'profiel005' ligt niet op de referentielijn. " +
-                                           "Dit profiel wordt overgeslagen.";
-            var expectedLogMessage = new Tuple<string, LogLevelConstant>(expectedMessage,
-                                                                         LogLevelConstant.Error);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsTrue(importResult);
-            Assert.IsTrue(updateDataStrategy.Updated);
-            Assert.AreEqual(4, updateDataStrategy.ReadDikeProfiles.Length);
+                                           "ID 'profiel005' ligt niet op de referentielijn.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
+            Assert.IsEmpty(dikeProfiles);
         }
 
         [Test]

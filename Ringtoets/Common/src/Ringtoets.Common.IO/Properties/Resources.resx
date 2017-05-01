@@ -397,8 +397,8 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read" xml:space="preserve">
     <value>Profiellocatie met ID '{0}' is opnieuw ingelezen.</value>
   </data>
-  <data name="ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped" xml:space="preserve">
-    <value>Fout bij het lezen van profiellocatie {0}. {1} Dit profiel wordt overgeslagen.</value>
+  <data name="ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1" xml:space="preserve">
+    <value>Fout bij het lezen van profiellocatie {0}. {1}</value>
   </data>
   <data name="ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation" xml:space="preserve">
     <value>Inlezen van profiellocatie.</value>

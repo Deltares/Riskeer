@@ -183,10 +183,11 @@ namespace Ringtoets.Common.IO.FileImporters
                 catch (LineParseException exception)
                 {
                     string message = string.Format(
-                        Resources.ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped,
+                        Resources.ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1,
                         i + 1,
                         exception.Message);
                     Log.Error(message, exception);
+                    return new ReadResult<ProfileLocation>(true);
                 }
                 catch (CriticalFileReadException exception)
                 {
