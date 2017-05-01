@@ -222,7 +222,8 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             if (profileLocations.Any(dpl => dpl.Id.Equals(profileLocation.Id)))
             {
-                Log.WarnFormat(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read, profileLocation.Id);
+                string message = string.Format(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read, profileLocation.Id);
+                throw new CriticalFileReadException(message);
             }
             profileLocations.Add(profileLocation);
         }
@@ -268,18 +269,20 @@ namespace Ringtoets.Common.IO.FileImporters
 
                     if (dikeProfileData.Any(d => d.Id.Equals(data.Id)))
                     {
-                        LogDuplicate(data, prflFilePath);
+                        string errorMessage = string.Format(
+                            Resources.ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped,
+                            data.Id,
+                            prflFilePath);
+                        throw new CriticalFileReadException(errorMessage);
                     }
-                    else
-                    {
-                        dikeProfileData.Add(data);
-                    }
+
+                    dikeProfileData.Add(data);
                 }
                 // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     Log.Error(exception.Message);
-                    errorOccured = true;
+                    return new ReadResult<DikeProfileData>(true);
                 }
                 catch (CriticalFileValidationException)
                 {
@@ -287,17 +290,10 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
             }
 
-            return errorOccured && !dikeProfileData.Any()
-                       ? new ReadResult<DikeProfileData>(true)
-                       : new ReadResult<DikeProfileData>(false)
-                       {
-                           Items = dikeProfileData
-                       };
-        }
-
-        private void LogDuplicate(DikeProfileData data, string prflFilePath)
-        {
-            Log.WarnFormat(Resources.ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped, data.Id, prflFilePath);
+            return new ReadResult<DikeProfileData>(false)
+            {
+                Items = dikeProfileData
+            };
         }
 
         private double GetDistanceToReferenceLine(Point2D point)

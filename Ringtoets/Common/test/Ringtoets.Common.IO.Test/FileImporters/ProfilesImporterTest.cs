@@ -424,8 +424,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                         Path.Combine("DikeProfiles", "InvalidDamType", "Voorlanden 12-2.shp"));
+            string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "InvalidDamType"));
+            string filePath = Path.Combine(testFileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath, messageProvider);
@@ -435,13 +436,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            Action<IEnumerable<string>> asserts = messages =>
-            {
-                bool found = messages.Any(message => message.EndsWith(": het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn."));
-                Assert.IsTrue(found);
-            };
-            TestHelper.AssertLogMessages(call, asserts);
-            Assert.IsTrue(importResult);
+            string erroneousProfileFile = Path.Combine(testFileDirectory, "profiel005 - Ringtoets.prfl");
+            string expectedMessage = $"Fout bij het lezen van bestand '{erroneousProfileFile}' op regel 6: het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
@@ -451,8 +449,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                         Path.Combine("DikeProfiles", "TwoPrflWithSameId", "profiel001.shp"));
+            string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "TwoPrflWithSameId"));
+            string filePath = Path.Combine(testFileDirectory, "profiel001.shp");
 
             var referencePoints = new List<Point2D>
             {
@@ -468,19 +467,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            Action<IEnumerable<string>> asserts = messages =>
-            {
-                const string start = "Meerdere definities gevonden voor profiel 'profiel001'. Bestand '";
-                const string end = "' wordt overgeslagen.";
-                bool found = messages.Any(m => m.StartsWith(start) && m.EndsWith(end));
-                Assert.IsTrue(found);
-            };
-            TestHelper.AssertLogMessages(call, asserts);
-            Assert.IsTrue(importResult);
+            string erroneousProfileFile = Path.Combine(testFileDirectory, "profiel001_2.prfl");
+            string expectedMessage = $"Meerdere definities gevonden voor profiel 'profiel001'. Bestand '{erroneousProfileFile}' wordt overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
-        public void Import_FromFileWithDupplicateId_TrueAndLogWarnings()
+        public void Import_FromFileWithDuplicateId_FalseAndLogErrors()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -497,18 +491,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                const string expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
-                Assert.AreEqual(expectedMessage, messageArray[0]);
-                Assert.AreEqual(expectedMessage, messageArray[1]);
-            });
-            Assert.IsTrue(importResult);
+            const string expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
-        public void Import_PrflWithProfileNotZero_TrueAndErrorLog()
+        public void Import_PrflWithProfileNotZero_FalseAndErrorLog()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
