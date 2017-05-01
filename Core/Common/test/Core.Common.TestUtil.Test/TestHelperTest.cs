@@ -211,8 +211,6 @@ namespace Core.Common.TestUtil.Test
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service);
             Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin);
-            Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO);
             Assert.IsTrue(Directory.Exists(path));

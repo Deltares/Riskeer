@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_FromFileWithUnmatchableId_TrueAndLogError()
+        public void Import_FromFileWithUnmatchableId_FalseAndLogError()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -122,15 +122,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 const string expectedMessage = "Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID 'unmatchable'.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
-            Assert.IsTrue(importResult);
+            Assert.IsFalse(importResult);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Import_FiveForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarningAndTwoForeshoreProfiles()
+        public void Import_TwoForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarning()
         {
             // Setup
-            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "NoDamsAndNoForeshoreGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
@@ -145,13 +145,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             string[] expectedMessages =
             {
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl"))
+                $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
+                $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(5, foreshoreProfiles.Count);
         }
 
         [Test]

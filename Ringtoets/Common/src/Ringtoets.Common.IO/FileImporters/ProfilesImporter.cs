@@ -91,7 +91,16 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             NotifyProgress(MessageProvider.GetAddDataToModelProgressText(), 1, 1);
-            CreateProfiles(importDikeProfilesResult, importDikeProfileDataResult);
+
+            try
+            {
+                CreateProfiles(importDikeProfilesResult, importDikeProfileDataResult);
+            }
+            catch (CriticalFileReadException e)
+            {
+                Log.Error(e.Message);
+                return false;
+            }
 
             return true;
         }
@@ -101,6 +110,8 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="importProfileLocationResult">The read profile locations.</param>
         /// <param name="importDikeProfileDataResult">The read dike profile geometries.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="importDikeProfileDataResult"/>
+        /// does not contain data for a location in <paramref name="importProfileLocationResult"/>.</exception>
         protected abstract void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult);
 
@@ -279,7 +290,6 @@ namespace Ringtoets.Common.IO.FileImporters
 
                     dikeProfileData.Add(data);
                 }
-                // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     Log.Error(exception.Message);

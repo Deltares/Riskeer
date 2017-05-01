@@ -165,17 +165,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             const string expectedMessage = "Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID 'unmatchable'.";
             var expectedLogMessage = new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsTrue(importResult);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
-        public void Import_FiveDikeProfilesWithoutGeometries_TrueAndLogWarningAndNoDikeProfiles()
+        public void Import_TwoDikeProfilesWithoutGeometries_TrueAndLogWarning()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
@@ -191,25 +191,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")}' wordt overgeslagen.",
-                             LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")}' wordt overgeslagen.",
-                             LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl")}' wordt overgeslagen.",
-                             LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(importResult);
             Assert.IsTrue(updateStrategy.Updated);
-            Assert.AreEqual(0, updateStrategy.ReadDikeProfiles.Length);
+            Assert.AreEqual(5, updateStrategy.ReadDikeProfiles.Length);
         }
 
         [Test]
-        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourDikeProfiles()
+        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_FalseAndLogErrorAndFourDikeProfiles()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();

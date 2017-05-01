@@ -225,25 +225,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsFalse(importResult);
         }
-
-        [Test]
-        public void Import_CancelOfImportToValidTargetWithValidFile_ReturnsFalse()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
-
-            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, filePath);
-
-            testStructuresImporter.Cancel();
-
-            // Call
-            bool importResult = testStructuresImporter.Import();
-
-            // Assert
-            Assert.IsFalse(importResult);
-        }
-
+        
         [Test]
         public void Import_CancelOfImportWhenReadingLocations_CancelsImportAndLogs()
         {

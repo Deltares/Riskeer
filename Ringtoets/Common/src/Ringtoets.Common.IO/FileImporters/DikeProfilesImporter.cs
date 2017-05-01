@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -103,8 +104,8 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
-        private IEnumerable<DikeProfile> CreateDikeProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
-                                                            ICollection<DikeProfileData> dikeProfileDataCollection)
+        private static IEnumerable<DikeProfile> CreateDikeProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
+                                                                   ICollection<DikeProfileData> dikeProfileDataCollection)
         {
             var dikeProfiles = new List<DikeProfile>();
             foreach (ProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
@@ -114,13 +115,11 @@ namespace Ringtoets.Common.IO.FileImporters
                 DikeProfileData dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
                 if (dikeProfileData == null)
                 {
-                    Log.ErrorFormat(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id);
+                    string message = string.Format(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id);
+                    throw new CriticalFileReadException(message);
                 }
-                else
-                {
-                    DikeProfile dikeProfile = CreateDikeProfile(dikeProfileLocation, dikeProfileData);
-                    dikeProfiles.Add(dikeProfile);
-                }
+                DikeProfile dikeProfile = CreateDikeProfile(dikeProfileLocation, dikeProfileData);
+                dikeProfiles.Add(dikeProfile);
             }
             return dikeProfiles;
         }

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -72,8 +73,8 @@ namespace Ringtoets.Common.IO.FileImporters
             return false;
         }
 
-        private IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(ICollection<ProfileLocation> dikeProfileLocationCollection,
-                                                                      ICollection<DikeProfileData> dikeProfileDataCollection)
+        private static IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
+                                                                             ICollection<DikeProfileData> dikeProfileDataCollection)
         {
             var foreshoreProfiles = new List<ForeshoreProfile>();
             foreach (ProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
@@ -83,13 +84,11 @@ namespace Ringtoets.Common.IO.FileImporters
                 DikeProfileData dikeProfileData = GetMatchingDikeProfileData(dikeProfileDataCollection, id);
                 if (dikeProfileData == null)
                 {
-                    Log.ErrorFormat(Resources.ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_, id);
+                    string message = string.Format(Resources.ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_, id);
+                    throw new CriticalFileReadException(message);
                 }
-                else
-                {
-                    ForeshoreProfile foreshoreProfile = CreateForeshoreProfile(dikeProfileLocation, dikeProfileData);
-                    foreshoreProfiles.Add(foreshoreProfile);
-                }
+                ForeshoreProfile foreshoreProfile = CreateForeshoreProfile(dikeProfileLocation, dikeProfileData);
+                foreshoreProfiles.Add(foreshoreProfile);
             }
             return foreshoreProfiles;
         }

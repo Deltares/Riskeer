@@ -1,5 +1,5 @@
 VERSIE	4.0
-ID	profiel004
+ID	profiel005
 
 RICHTING	330
 
@@ -13,10 +13,14 @@ VOORLAND	3
 
 DAMWAND	0
 KRUINHOOGTE	6
-DIJK	0
+DIJK	4
+-18.000	-6.000	1.000
+-2.000	-0.100	0.500
+2.000	0.100	1.000
+18.000	6.000	1.000
 
 MEMO
 Verkenning prfl format:
-geen dam
+dam: havendam
 voorland
 talud met (ruwe) berm

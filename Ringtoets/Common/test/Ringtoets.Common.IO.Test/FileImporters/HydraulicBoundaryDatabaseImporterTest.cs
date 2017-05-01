@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabaseImporter));
         private HydraulicBoundaryDatabaseImporter importer;
 
         [SetUp]
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            string expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", filePath);
+            string expectedExceptionMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.";
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "/");
-            string expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
+            string expectedExceptionMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
@@ -204,9 +204,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(string.Format(
-                                                                                                "Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                                                                HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)));
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build($"Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)}': het bestand bestaat niet.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -245,11 +243,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                              "completeWithLocationsToBeFilteredOut.sqlite");
+            string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+            Assert.IsTrue(File.Exists(validFilePath), $"Precodition failed. File does not exist: {validFilePath}");
 
             // Call
             var importResult = false;
@@ -278,13 +275,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Twice();
             mocks.ReplayAll();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                              "completeWithLocationsToBeFilteredOut.sqlite");
-            string copyValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                                  "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
+            string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
+            string copyValidFilePath = Path.Combine(testDataPath, "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+            Assert.IsTrue(File.Exists(validFilePath), $"Precodition failed. File does not exist: {validFilePath}");
 
             importer.Import(assessmentSection, validFilePath);
 
@@ -310,11 +305,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                              "completeWithLocationsToBeFilteredOut.sqlite");
+            string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+            Assert.IsTrue(File.Exists(validFilePath), $"Precodition failed. File does not exist: {validFilePath}");
 
             importer.Import(assessmentSection, validFilePath);
 
@@ -341,7 +335,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
+            string expectedLogMessage = $"Fout bij het lezen van bestand '{corruptPath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.";
 
             var importResult = true;
 
