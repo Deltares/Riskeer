@@ -103,7 +103,7 @@ namespace Ringtoets.HeightStructures.Service
                                                       .Concat(failureMechanism.SectionResults)
                                                       .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                       .Concat(failureMechanism.ForeshoreProfiles)
-                                                      .Concat(failureMechanism.HeightStructures)
+                                                      .Concat(failureMechanism.HeightStructuresCollection)
                                                       .ToArray();
 
             failureMechanism.ClearAllSections();
@@ -115,8 +115,8 @@ namespace Ringtoets.HeightStructures.Service
             failureMechanism.ForeshoreProfiles.Clear();
             changedObjects.Add(failureMechanism.ForeshoreProfiles);
 
-            failureMechanism.HeightStructures.Clear();
-            changedObjects.Add(failureMechanism.HeightStructures);
+            failureMechanism.HeightStructuresCollection.Clear();
+            changedObjects.Add(failureMechanism.HeightStructuresCollection);
 
             return new ClearResults(changedObjects, removedObjects);
         }
@@ -155,8 +155,8 @@ namespace Ringtoets.HeightStructures.Service
                 changedObservables.Add(result);
             }
 
-            failureMechanism.HeightStructures.Remove(structure);
-            changedObservables.Add(failureMechanism.HeightStructures);
+            failureMechanism.HeightStructuresCollection.Remove(structure);
+            changedObservables.Add(failureMechanism.HeightStructuresCollection);
 
             return changedObservables;
         }

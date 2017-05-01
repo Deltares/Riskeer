@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HeightStructures.Data;
 
@@ -43,7 +44,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
-            AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
+            AddEntitiesForHeightStructures(mechanism.HeightStructuresCollection, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
@@ -76,7 +77,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         }
 
         private static void AddEntitiesForHeightStructures(
-            IList<HeightStructure> structures,
+            StructureCollection<HeightStructure> structures,
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {

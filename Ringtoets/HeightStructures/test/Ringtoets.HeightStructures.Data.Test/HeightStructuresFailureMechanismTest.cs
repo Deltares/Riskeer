@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructuresCollection);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
         }

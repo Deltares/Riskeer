@@ -39,7 +39,56 @@ INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FR
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
-INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
+INSERT INTO HeightStructureEntity ( 
+	[HeightStructureEntityId],
+	[FailureMechanismEntityId],
+	[Order],
+	[Name],
+	[Id],
+	[X],
+	[Y],
+	[StructureNormalOrientation],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[FailureProbabilityStructureWithErosion],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation])
+SELECT 
+	[HeightStructureEntityId],
+	[FailureMechanismEntityId],
+	[Order],
+	[Name],
+	CASE WHEN Suffix THEN [Id] || '(' || Suffix || ')' ELSE [Id] END as [Id],
+	[X],
+	[Y],
+	[StructureNormalOrientation],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[FailureProbabilityStructureWithErosion],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation]
+	FROM (SELECT *, (SELECT count(*)
+                     FROM [SOURCEPROJECT].HeightStructureEntity
+                     WHERE HS.[HeightStructureEntityId] > [HeightStructureEntityId]
+                     AND HS.[Name] IS [Name]
+                     AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
+	FROM [SOURCEPROJECT].HeightStructureEntity HS);
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;

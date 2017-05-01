@@ -35,6 +35,7 @@ using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -247,7 +248,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
-            entity.ReadHeightStructures(failureMechanism.HeightStructures, collector);
+            entity.ReadHeightStructures(failureMechanism.HeightStructuresCollection, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -265,9 +266,10 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadHeightStructures(this FailureMechanismEntity entity, ObservableList<HeightStructure> heightStructures, ReadConversionCollector collector)
+        private static void ReadHeightStructures(this FailureMechanismEntity entity, StructureCollection<HeightStructure> heightStructures, ReadConversionCollector collector)
         {
-            heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
+            heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)),
+                                      "TODO: To be determined");
         }
 
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)

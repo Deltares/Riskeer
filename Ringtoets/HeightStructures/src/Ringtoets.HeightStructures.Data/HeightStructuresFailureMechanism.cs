@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -48,6 +49,7 @@ namespace Ringtoets.HeightStructures.Data
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new ObservableList<HeightStructure>();
+            HeightStructuresCollection = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
         }
 
@@ -68,6 +70,11 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the available height structure of this instance.
         /// </summary>
         public ObservableList<HeightStructure> HeightStructures { get; private set; }
+
+        /// <summary>
+        /// Gets the available height structures of this instance.
+        /// </summary>
+        public StructureCollection<HeightStructure> HeightStructuresCollection { get; private set; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.

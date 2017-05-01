@@ -159,9 +159,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new TestHeightStructure(new Point2D(1, 0));
-            var otherProfile1 = new TestHeightStructure(new Point2D(2, 0));
-            var otherProfile2 = new TestHeightStructure(new Point2D(6, 0));
+            var nodeData = new TestHeightStructure(new Point2D(1, 0), "Id1");
+            var otherProfile1 = new TestHeightStructure(new Point2D(2, 0), "Id2");
+            var otherProfile2 = new TestHeightStructure(new Point2D(6, 0), "Id6");
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
@@ -190,12 +190,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism
             {
-                HeightStructures =
-                {
-                    nodeData,
-                    otherProfile1,
-                    otherProfile2
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -206,6 +200,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            {
+                nodeData,
+                otherProfile1,
+                otherProfile2
+            }, "some location");
+
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
@@ -216,7 +218,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(4, 0),
                 new Point2D(9, 0)
             }));
-            failureMechanism.HeightStructures.Attach(observer);
+            failureMechanism.HeightStructuresCollection.Attach(observer);
             failureMechanism.SectionResults.ElementAt(0).Calculation = calculation1;
             failureMechanism.SectionResults.ElementAt(1).Calculation = calculation3;
 

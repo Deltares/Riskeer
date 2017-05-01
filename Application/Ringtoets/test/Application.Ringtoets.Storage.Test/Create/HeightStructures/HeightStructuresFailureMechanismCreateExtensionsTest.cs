@@ -186,7 +186,10 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             HeightStructure structure = new TestHeightStructure();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructures.Add(structure);
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            {
+                structure
+            }, "some path");
 
             var persistenceRegistry = new PersistenceRegistry();
 

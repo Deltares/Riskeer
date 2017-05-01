@@ -40,25 +40,42 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// </summary>
         /// <param name="name">The name of the structure.</param>
         public TestHeightStructure(string name)
-            : this(name, new Point2D(0.0, 0.0)) {}
+            : this(name, "Id", new Point2D(0.0, 0.0)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        public TestHeightStructure(string name, string id)
+            : this(name, id, new Point2D(0.0, 0.0)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
         /// <param name="location">The location of the structure.</param>
         public TestHeightStructure(Point2D location)
-            : this("Test", location) {}
+            : this("Test", "Id", location) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="location">The location of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        public TestHeightStructure(Point2D location, string id)
+            : this("Test", id, location) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
         /// <param name="location">The location of the structure.</param>
-        public TestHeightStructure(string name, Point2D location)
+        public TestHeightStructure(string name, string id, Point2D location)
             : base(new ConstructionProperties
             {
                 Name = name,
-                Id = "Id",
+                Id = id,
                 Location = location,
                 StructureNormalOrientation = (RoundedDouble) 0.12345,
                 LevelCrestStructure =
