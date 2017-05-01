@@ -83,7 +83,9 @@ using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -397,6 +399,14 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
+            };
+
+            yield return new ViewInfo<WaveConditionsInputContext, IWaveConditionsCalculation, WaveConditionsInputView>
+            {
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewData = context => context.Calculation,
+                CloseForData = CloseWaveConditionsInputViewForData
             };
         }
 
@@ -770,6 +780,30 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        private class FailureMechanismContextAssociation
+        {
+            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
+            private readonly Type failureMechanismType;
+
+            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
+            {
+                this.createFailureMechanismContext = createFailureMechanismContext;
+                this.failureMechanismType = failureMechanismType;
+            }
+
+            public bool Match(IFailureMechanism failureMechanism)
+            {
+                return failureMechanism.GetType() == failureMechanismType;
+            }
+
+            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            {
+                return createFailureMechanismContext(failureMechanism, assessmentSection);
+            }
+        }
+
+        #region ViewInfos
+
         #region FailureMechanismView ViewInfo
 
         private static bool CloseFailureMechanismViewForData(FailureMechanismView<IFailureMechanism> view, object o)
@@ -851,6 +885,193 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        #region Comment ViewInfo
+
+        private static bool CloseCommentViewForData(CommentView commentView, object o)
+        {
+            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            if (calculationGroupContext != null)
+            {
+                return GetCommentElements(calculationGroupContext.WrappedData)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
+            }
+
+            var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            var calculation = calculationContext?.WrappedData as ICalculation;
+            if (calculation != null)
+            {
+                return ReferenceEquals(commentView.Data, calculation.Comments);
+            }
+
+            var failureMechanism = o as IFailureMechanism;
+
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (failureMechanism != null)
+            {
+                return GetCommentElements(failureMechanism)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
+            }
+
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                return GetCommentElements(assessmentSection)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
+            }
+
+            return false;
+        }
+
+        private static IEnumerable<Comment> GetCommentElements(CalculationGroup calculationGroup)
+        {
+            return calculationGroup.GetCalculations().Select(c => c.Comments);
+        }
+
+        private static IEnumerable<Comment> GetCommentElements(IAssessmentSection assessmentSection)
+        {
+            yield return assessmentSection.Comments;
+            foreach (Comment comment in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentElements))
+            {
+                yield return comment;
+            }
+        }
+
+        private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
+        {
+            yield return failureMechanism.InputComments;
+            yield return failureMechanism.OutputComments;
+            yield return failureMechanism.NotRelevantComments;
+            foreach (ICalculation calculation in failureMechanism.Calculations)
+            {
+                yield return calculation.Comments;
+            }
+        }
+
+        #endregion
+
+        #region WaveConditionsInputViewInfo
+
+        private static bool CloseWaveConditionsInputViewForData(WaveConditionsInputView view, object o)
+        {
+            var context = o as WaveConditionsInputContext;
+            if (context != null)
+            {
+                return ReferenceEquals(view.Data, context.Calculation);
+            }
+            var calculation = o as IWaveConditionsCalculation;
+            if (calculation != null)
+            {
+                return ReferenceEquals(view.Data, calculation);
+            }
+
+            IEnumerable<IWaveConditionsCalculation> calculations = GetCalculationsFromCalculationGroupContexts(o);
+
+            IEnumerable<IWaveConditionsCalculation> failureMechanismCalculations = GetCalculationsFromFailureMechanisms(o);
+            if (failureMechanismCalculations != null)
+            {
+                calculations = failureMechanismCalculations;
+            }
+
+            return calculations != null && calculations.Any(c => ReferenceEquals(view.Data, c));
+        }
+
+        private static IEnumerable<IWaveConditionsCalculation> GetCalculationsFromFailureMechanisms(object o)
+        {
+            IEnumerable<IWaveConditionsCalculation> grassCoverErosionOutwardsCalculations = GetCalculationsFromFailureMechanism<
+                GrassCoverErosionOutwardsFailureMechanismContext,
+                GrassCoverErosionOutwardsFailureMechanism>(o);
+
+            if (grassCoverErosionOutwardsCalculations != null && grassCoverErosionOutwardsCalculations.Any())
+            {
+                return grassCoverErosionOutwardsCalculations;
+            }
+
+            IEnumerable<IWaveConditionsCalculation> stabilityStoneCoverCalculations = GetCalculationsFromFailureMechanism<
+                StabilityStoneCoverFailureMechanismContext,
+                StabilityStoneCoverFailureMechanism>(o);
+
+            if (stabilityStoneCoverCalculations != null && stabilityStoneCoverCalculations.Any())
+            {
+                return stabilityStoneCoverCalculations;
+            }
+
+            IEnumerable<IWaveConditionsCalculation> waveImpactAsphaltCoverCalculations = GetCalculationsFromFailureMechanism<
+                WaveImpactAsphaltCoverFailureMechanismContext,
+                WaveImpactAsphaltCoverFailureMechanism>(o);
+
+            return waveImpactAsphaltCoverCalculations;
+        }
+
+        private static IEnumerable<IWaveConditionsCalculation> GetCalculationsFromFailureMechanism<TContext, TFailureMechanism>(object o)
+            where TContext : class, IFailureMechanismContext<TFailureMechanism>
+            where TFailureMechanism : class, IFailureMechanism
+        {
+            IEnumerable<IWaveConditionsCalculation> calculations = null;
+
+            var failureMechanism = o as TFailureMechanism;
+
+            var context = o as TContext;
+            if (context != null)
+            {
+                failureMechanism = context.WrappedData;
+            }
+
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<TFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            if (failureMechanism != null)
+            {
+                calculations = (IEnumerable<IWaveConditionsCalculation>)failureMechanism.Calculations;
+            }
+
+            return calculations;
+        }
+
+        private static IEnumerable<IWaveConditionsCalculation> GetCalculationsFromCalculationGroupContexts(object o)
+        {
+            IEnumerable<IWaveConditionsCalculation> calculations = null;
+
+            var grassCoverErosionOutwardsCalculationGroupContext = o as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
+            if (grassCoverErosionOutwardsCalculationGroupContext != null)
+            {
+                calculations = grassCoverErosionOutwardsCalculationGroupContext.WrappedData
+                                                                               .GetCalculations()
+                                                                               .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+            }
+            var stabilityStoneCoverCalculationGroupContext = o as StabilityStoneCoverWaveConditionsCalculationGroupContext;
+            if (stabilityStoneCoverCalculationGroupContext != null)
+            {
+                calculations = stabilityStoneCoverCalculationGroupContext.WrappedData
+                                                                         .GetCalculations()
+                                                                         .OfType<StabilityStoneCoverWaveConditionsCalculation>();
+            }
+            var waveImpactAsphaltCoverCalculationGroupContext = o as WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
+            if (waveImpactAsphaltCoverCalculationGroupContext != null)
+            {
+                calculations = waveImpactAsphaltCoverCalculationGroupContext.WrappedData
+                                                                            .GetCalculations()
+                                                                            .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+            }
+
+            return calculations;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region TreeNodeInfos
+
         #region FailureMechanismSectionsContext TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -861,28 +1082,6 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
-
-        private class FailureMechanismContextAssociation
-        {
-            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
-            private readonly Type failureMechanismType;
-
-            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
-            {
-                this.createFailureMechanismContext = createFailureMechanismContext;
-                this.failureMechanismType = failureMechanismType;
-            }
-
-            public bool Match(IFailureMechanism failureMechanism)
-            {
-                return failureMechanism.GetType() == failureMechanismType;
-            }
-
-            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            {
-                return createFailureMechanismContext(failureMechanism, assessmentSection);
-            }
-        }
 
         #region BackgroundData treeNodeInfo
 
@@ -1005,75 +1204,6 @@ namespace Ringtoets.Integration.Plugin
                 {
                     affectedObservable.NotifyObservers();
                 }
-            }
-        }
-
-        #endregion
-
-        #region Comment ViewInfo
-
-        private static bool CloseCommentViewForData(CommentView commentView, object o)
-        {
-            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            if (calculationGroupContext != null)
-            {
-                return GetCommentElements(calculationGroupContext.WrappedData)
-                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
-            }
-
-            var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
-            var calculation = calculationContext?.WrappedData as ICalculation;
-            if (calculation != null)
-            {
-                return ReferenceEquals(commentView.Data, calculation.Comments);
-            }
-
-            var failureMechanism = o as IFailureMechanism;
-
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (failureMechanism != null)
-            {
-                return GetCommentElements(failureMechanism)
-                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
-            }
-
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
-            {
-                return GetCommentElements(assessmentSection)
-                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
-            }
-
-            return false;
-        }
-
-        private static IEnumerable<Comment> GetCommentElements(CalculationGroup calculationGroup)
-        {
-            return calculationGroup.GetCalculations().Select(c => c.Comments);
-        }
-
-        private static IEnumerable<Comment> GetCommentElements(IAssessmentSection assessmentSection)
-        {
-            yield return assessmentSection.Comments;
-            foreach (Comment comment in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentElements))
-            {
-                yield return comment;
-            }
-        }
-
-        private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
-        {
-            yield return failureMechanism.InputComments;
-            yield return failureMechanism.OutputComments;
-            yield return failureMechanism.NotRelevantComments;
-            foreach (ICalculation calculation in failureMechanism.Calculations)
-            {
-                yield return calculation.Comments;
             }
         }
 
@@ -1532,6 +1662,8 @@ namespace Ringtoets.Integration.Plugin
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
         }
+
+        #endregion
 
         #endregion
     }

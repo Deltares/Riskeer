@@ -38,6 +38,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Rhino.Mocks.Constraints;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -55,7 +56,9 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.Views;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -302,7 +305,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(15, viewInfos.Length);
+                Assert.AreEqual(16, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -390,6 +393,12 @@ namespace Ringtoets.Integration.Plugin.Test
                     viewInfos,
                     typeof(Comment),
                     typeof(CommentView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaveConditionsInputContext),
+                    typeof(IWaveConditionsCalculation),
+                    typeof(WaveConditionsInputView));
             }
         }
 
