@@ -174,13 +174,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    foreshoreProfile
-                }
-            };
+                foreshoreProfile
+            }, "path");
+
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
@@ -231,13 +230,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    foreshoreProfile
-                }
-            };
+                foreshoreProfile
+            }, "path");
+
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
                                                                                   assessmentSection);

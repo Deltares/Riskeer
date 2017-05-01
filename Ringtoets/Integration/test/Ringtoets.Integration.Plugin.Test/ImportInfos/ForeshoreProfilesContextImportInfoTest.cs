@@ -51,9 +51,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             assessmentSection.ReferenceLine = new ReferenceLine();
 
-            var list = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
 
-            var importTarget = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
+            var importTarget = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 IFileImporter importer = importInfo.CreateFileImporter(importTarget, "test");
 
                 // Assert
-                Assert.IsInstanceOf<ProfilesImporter<ObservableList<ForeshoreProfile>>>(importer);
+                Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
             }
             mocks.VerifyAll();
         }
@@ -126,9 +126,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
 
-            var context = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
+            var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -153,9 +153,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
 
-            var context = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
+            var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {

@@ -232,13 +232,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    new TestForeshoreProfile()
-                }
-            };
+                new TestForeshoreProfile()
+            }, "path");
+
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
                                                                 calculation,

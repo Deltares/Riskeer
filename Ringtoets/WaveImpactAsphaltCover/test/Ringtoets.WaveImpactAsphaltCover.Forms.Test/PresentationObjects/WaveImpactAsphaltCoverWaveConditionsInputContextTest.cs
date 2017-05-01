@@ -55,13 +55,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    new TestForeshoreProfile()
-                }
-            };
+                new TestForeshoreProfile()
+            }, "path");
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 

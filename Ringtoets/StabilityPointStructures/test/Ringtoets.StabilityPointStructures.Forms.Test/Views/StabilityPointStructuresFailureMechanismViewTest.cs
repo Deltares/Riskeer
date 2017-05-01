@@ -252,16 +252,22 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                var profile1 = new TestForeshoreProfile(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }));
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                }, "profile1 ID");
+                var profile2 = new TestForeshoreProfile(new[]
                 {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
-                }));
+                }, "profile2 ID");
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                {
+                    profile1,
+                    profile2
+                }, "path");
+
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -509,11 +515,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }));
+                    new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, "originalProfile ID")
+                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -523,11 +532,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
                 // Call
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                }));
+                    new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(2, 2),
+                        new Point2D(3, 3)
+                    }, "newProfile ID")
+                }, "path");
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
@@ -546,7 +558,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                {
+                    new TestForeshoreProfile()
+                }, "path");
 
                 view.Data = failureMechanismContext;
 

@@ -514,13 +514,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    new TestForeshoreProfile()
-                }
-            };
+                new TestForeshoreProfile()
+            }, "path");
+
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
                                                                  calculation,

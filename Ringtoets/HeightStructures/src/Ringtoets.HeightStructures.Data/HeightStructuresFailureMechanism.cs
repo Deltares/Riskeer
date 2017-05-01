@@ -50,7 +50,7 @@ namespace Ringtoets.HeightStructures.Data
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new ObservableList<HeightStructure>();
             HeightStructuresCollection = new StructureCollection<HeightStructure>();
-            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
+            ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -79,7 +79,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
 
         /// <summary>
         /// Gets the container of all calculations.

@@ -167,8 +167,12 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Setup
             var profile = new TestForeshoreProfile();
 
+            // TODO: WTI - 1112 Add file path location to storage    
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.ForeshoreProfiles.Add(profile);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile
+            }, "path");
 
             var persistenceRegistry = new PersistenceRegistry();
 

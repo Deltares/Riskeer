@@ -418,10 +418,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     structure1,
                     structure2
                 },
-                ForeshoreProfiles =
-                {
-                    profile
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -438,6 +434,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile
+            }, "path");
 
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);

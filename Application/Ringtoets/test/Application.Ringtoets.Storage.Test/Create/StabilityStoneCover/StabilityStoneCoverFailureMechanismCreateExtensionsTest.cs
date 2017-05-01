@@ -169,8 +169,13 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
         {
             // Setup
+            // TODO: WTI - 1112 Add file path location to storage
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+                                                        {
+                                                            new TestForeshoreProfile()
+                                                        },
+                                                        "path");
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

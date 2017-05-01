@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -35,7 +34,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// <summary>
     /// Imports point shapefiles containing foreshore locations and text file containing the foreshore schematizations.
     /// </summary>
-    public class ForeshoreProfilesImporter : ProfilesImporter<ObservableList<ForeshoreProfile>>
+    public class ForeshoreProfilesImporter : ProfilesImporter<ForeshoreProfileCollection>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ForeshoreProfilesImporter"/>.
@@ -46,7 +45,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ForeshoreProfilesImporter(ObservableList<ForeshoreProfile> importTarget, ReferenceLine referenceLine, string filePath)
+        public ForeshoreProfilesImporter(ForeshoreProfileCollection importTarget, ReferenceLine referenceLine, string filePath)
             : base(referenceLine, filePath, importTarget, new ImportMessageProvider()) {}
 
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
@@ -55,10 +54,7 @@ namespace Ringtoets.Common.IO.FileImporters
             IEnumerable<ForeshoreProfile> importedForeshoreProfiles =
                 CreateForeshoreProfiles(importProfileLocationResult.Items, importDikeProfileDataResult.Items);
 
-            foreach (ForeshoreProfile foreshoreProfile in importedForeshoreProfiles)
-            {
-                ImportTarget.Add(foreshoreProfile);
-            }
+            ImportTarget.AddRange(importedForeshoreProfiles, FilePath);
         }
 
         protected override void LogImportCanceledMessage()

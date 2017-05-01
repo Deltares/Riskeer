@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithNameAndId_ReturnExpectedForeshoreProfileProperties()
+        public void Constructor_WithNameAndId_ReturnsExpectedForeshoreProfileProperties()
         {
             // Setup
             const string name = "test";
@@ -163,6 +163,31 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.AreEqual(geometry, profile.Geometry);
             Assert.AreEqual("id", profile.Id);
             Assert.AreEqual("id", profile.Name);
+            Assert.IsFalse(profile.HasBreakWater);
+            Assert.AreEqual(0.0, profile.X0);
+            Assert.AreEqual(0.0, profile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
+        }
+        
+        [Test]
+        public void Constructor_WithGeometryAndId_ReturnsExpectedForeshoreProfileProperties()
+        {
+            // Setup
+            var geometry = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            };
+
+            const string id = "Dike Profile ID";
+
+            // Call
+            ForeshoreProfile profile = new TestForeshoreProfile(geometry, id);
+
+            // Assert
+            CollectionAssert.AreEqual(geometry, profile.Geometry);
+            Assert.AreEqual(id, profile.Id);
+            Assert.AreEqual(id, profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);

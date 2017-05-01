@@ -55,13 +55,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    new TestForeshoreProfile()
-                }
-            };
+                new TestForeshoreProfile()
+            }, "path");
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 

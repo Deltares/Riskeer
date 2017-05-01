@@ -415,10 +415,6 @@ namespace Ringtoets.HeightStructures.Service.Test
             };
             var failureMechanism = new HeightStructuresFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    profile
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -435,6 +431,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile
+            }, "path");
 
             failureMechanism.HeightStructuresCollection.AddRange(new[]
             {

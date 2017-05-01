@@ -322,15 +322,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    foreshoreProfile
-                },
                 HydraulicBoundaryLocations =
                 {
                     location
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, "path");
+
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
@@ -382,15 +383,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    foreshoreProfile
-                },
                 HydraulicBoundaryLocations =
                 {
                     location
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, "path");
+
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         failureMechanism,
                                                                                         assessmentSection);

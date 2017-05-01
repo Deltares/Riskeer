@@ -170,8 +170,12 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
         {
             // Setup
+            // TODO: WTI 1112: add file location persistency as part of storage
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                new TestForeshoreProfile()
+            }, "path");
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

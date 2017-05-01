@@ -274,25 +274,33 @@ namespace Application.Ringtoets.Storage.TestUtil
             }));
         }
 
-        private static void AddForeshoreProfiles(ObservableList<ForeshoreProfile> foreshoreProfiles)
+        private static void AddForeshoreProfiles(ForeshoreProfileCollection foreshoreProfiles)
         {
-            foreshoreProfiles.Add(new ForeshoreProfile(
-                                      new Point2D(2, 5), new[]
-                                      {
-                                          new Point2D(1, 6),
-                                          new Point2D(8, 5)
-                                      }, new BreakWater(BreakWaterType.Caisson, 2.5), new ForeshoreProfile.ConstructionProperties
-                                      {
-                                          Id = "fpid",
-                                          Name = "FP",
-                                          Orientation = 95.5,
-                                          X0 = 22.1
-                                      }));
-            foreshoreProfiles.Add(new ForeshoreProfile(
-                                      new Point2D(2, 5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
-                                      {
-                                          Id = "fpid"
-                                      }));
+            var foreshoreProfile1 = new ForeshoreProfile(
+                new Point2D(2, 5), new[]
+                {
+                    new Point2D(1, 6),
+                    new Point2D(8, 5)
+                }, new BreakWater(BreakWaterType.Caisson, 2.5),
+                new ForeshoreProfile.ConstructionProperties
+                {
+                    Id = "fpid",
+                    Name = "FP",
+                    Orientation = 95.5,
+                    X0 = 22.1
+                });
+            var foreshoreProfile2 = new ForeshoreProfile(
+                new Point2D(2, 5), Enumerable.Empty<Point2D>(), null,
+                new ForeshoreProfile.ConstructionProperties
+                {
+                    Id = "fpid2"
+                });
+
+            foreshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile1,
+                foreshoreProfile2
+            }, "some/path/to/foreshoreprofile");
         }
 
         private static ReferenceLine GetReferenceLine()

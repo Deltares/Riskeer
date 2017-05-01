@@ -49,7 +49,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new ObservableList<StabilityPointStructure>();
             sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();
-            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
+            ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -73,7 +73,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; }
 

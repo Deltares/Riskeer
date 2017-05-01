@@ -812,13 +812,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedDikeProfile.DikeHeight, actualDikeProfile.DikeHeight);
         }
 
-        private static void AssertForeshoreProfiles(IList<ForeshoreProfile> expectedForeshoreProfiles,
-                                                    IList<ForeshoreProfile> actualDikeProfiles)
+        private static void AssertForeshoreProfiles(ForeshoreProfileCollection expectedForeshoreProfiles,
+                                                    ForeshoreProfileCollection actualForeshoreProfiles)
         {
-            Assert.AreEqual(expectedForeshoreProfiles.Count, actualDikeProfiles.Count);
+            Assert.AreEqual(expectedForeshoreProfiles.Count, actualForeshoreProfiles.Count);
             for (var i = 0; i < expectedForeshoreProfiles.Count; i++)
             {
-                AssertForeshoreProfile(expectedForeshoreProfiles[i], actualDikeProfiles[i]);
+                AssertForeshoreProfile(expectedForeshoreProfiles[i], actualForeshoreProfiles[i]);
             }
         }
 

@@ -450,8 +450,12 @@ namespace Ringtoets.Integration.TestUtils
                                                     X0 = 10
                                                 });
 
-            failureMechanism.ForeshoreProfiles.Add(profile1);
-            failureMechanism.ForeshoreProfiles.Add(profile2);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
+
             SetConfiguredStructuresCalculations<HeightStructuresInput, HeightStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
@@ -485,8 +489,11 @@ namespace Ringtoets.Integration.TestUtils
                                                     X0 = 10
                                                 });
 
-            failureMechanism.ForeshoreProfiles.Add(profile1);
-            failureMechanism.ForeshoreProfiles.Add(profile2);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "some/path/to/foreshoreprofiles");
             SetConfiguredStructuresCalculations<ClosingStructuresInput, ClosingStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
@@ -520,8 +527,11 @@ namespace Ringtoets.Integration.TestUtils
                                                     X0 = 10
                                                 });
 
-            failureMechanism.ForeshoreProfiles.Add(profile1);
-            failureMechanism.ForeshoreProfiles.Add(profile2);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "some/path/to/foreshoreprofiles");
             SetConfiguredStructuresCalculations<StabilityPointStructuresInput, StabilityPointStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
@@ -649,8 +659,11 @@ namespace Ringtoets.Integration.TestUtils
                                                     X0 = 10
                                                 });
 
-            failureMechanism.ForeshoreProfiles.Add(profile1);
-            failureMechanism.ForeshoreProfiles.Add(profile2);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var calculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -771,8 +784,11 @@ namespace Ringtoets.Integration.TestUtils
                                                     X0 = 10
                                                 });
 
-            failureMechanism.ForeshoreProfiles.Add(profile1);
-            failureMechanism.ForeshoreProfiles.Add(profile2);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var calculationWithOutputAndHydraulicBoundaryLocation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -903,8 +919,11 @@ namespace Ringtoets.Integration.TestUtils
                                                     X0 = 10
                                                 });
 
-            failureMechanism.ForeshoreProfiles.Add(profile1);
-            failureMechanism.ForeshoreProfiles.Add(profile2);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation

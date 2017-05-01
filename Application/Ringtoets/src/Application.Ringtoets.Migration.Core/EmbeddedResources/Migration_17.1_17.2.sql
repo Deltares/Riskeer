@@ -24,7 +24,38 @@ INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
 INSERT INTO DuneLocationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationOutputEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
-INSERT INTO ForeshoreProfileEntity SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
+INSERT INTO ForeshoreProfileEntity(
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Id],
+	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order]
+	FROM (SELECT *, (SELECT count(*)
+                     FROM [SOURCEPROJECT].ForeshoreProfileEntity
+                     WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
+                     AND FS.Name IS Name
+                     AND FS.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
+	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS); SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;

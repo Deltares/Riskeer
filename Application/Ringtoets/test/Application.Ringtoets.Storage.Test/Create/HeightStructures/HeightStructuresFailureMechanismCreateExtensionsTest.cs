@@ -166,8 +166,12 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Setup
             var profile = new TestForeshoreProfile();
 
+            // TODO: WTI-1112: add persistency as part of storage
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.ForeshoreProfiles.Add(profile);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile
+            }, "path");
 
             var persistenceRegistry = new PersistenceRegistry();
 

@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -111,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var emptyCollection = new ObservableList<ForeshoreProfile>();
+            var emptyCollection = new ForeshoreProfileCollection();
             var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
             // Call
@@ -131,11 +130,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var emptyCollection = new ObservableList<ForeshoreProfile>
+            var collection = new ForeshoreProfileCollection();
+            collection.AddRange(new[]
             {
                 new TestForeshoreProfile()
-            };
-            var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
+            }, "path");
+
+            var context = new ForeshoreProfilesContext(collection, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -154,16 +155,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var profile1 = new TestForeshoreProfile(new Point2D(0, 0));
-            var profile2 = new TestForeshoreProfile(new Point2D(1, 1));
-            var profile3 = new TestForeshoreProfile(new Point2D(2, 2));
-            var emptyCollection = new ObservableList<ForeshoreProfile>
+            ForeshoreProfile profile1 = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile profile2 = new TestForeshoreProfile("B", "ID B");
+            ForeshoreProfile profile3 = new TestForeshoreProfile("C", "ID C");
+            var collection = new ForeshoreProfileCollection();
+            collection.AddRange(new[]
             {
                 profile1,
                 profile2,
                 profile3
-            };
-            var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
+            }, "path");
+
+            var context = new ForeshoreProfilesContext(collection, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context);
@@ -189,7 +192,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = mocks.Stub<IFailureMechanism>();
 
-                var emptyCollection = new ObservableList<ForeshoreProfile>();
+                var emptyCollection = new ForeshoreProfileCollection();
                 var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
                 var contextMenuBuilder = mocks.Stub<IContextMenuBuilder>();

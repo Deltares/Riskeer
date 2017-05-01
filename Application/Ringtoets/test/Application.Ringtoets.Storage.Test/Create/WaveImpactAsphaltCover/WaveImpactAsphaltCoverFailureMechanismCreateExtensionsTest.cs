@@ -169,8 +169,12 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
         {
             // Setup
+            // TODO: WTI-1112: Add path location as part of storage
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                new TestForeshoreProfile()
+            }, "path");
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

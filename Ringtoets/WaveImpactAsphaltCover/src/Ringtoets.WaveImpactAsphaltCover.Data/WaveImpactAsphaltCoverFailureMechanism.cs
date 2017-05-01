@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -47,7 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
-            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
+            ForeshoreProfiles = new ForeshoreProfileCollection();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
         }
 
@@ -62,7 +61,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
 
         /// <summary>
         /// Gets the general wave conditions input parameters that apply to each calculation.

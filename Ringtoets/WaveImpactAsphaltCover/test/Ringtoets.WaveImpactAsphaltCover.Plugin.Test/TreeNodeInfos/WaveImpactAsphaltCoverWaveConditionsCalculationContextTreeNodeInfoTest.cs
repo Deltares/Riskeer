@@ -176,13 +176,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
 
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    foreshoreProfile
-                }
-            };
+                foreshoreProfile
+            }, "path");
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
@@ -231,13 +229,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                ForeshoreProfiles =
-                {
-                    foreshoreProfile
-                }
-            };
+                foreshoreProfile
+            }, "path");
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
                                                                                      assessmentSection);

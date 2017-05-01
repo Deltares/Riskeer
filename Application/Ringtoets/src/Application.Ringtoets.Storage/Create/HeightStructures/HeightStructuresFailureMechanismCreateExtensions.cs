@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         }
 
         private static void AddEntitiesForForeshoreProfiles(
-            IList<ForeshoreProfile> foreshoreProfiles,
+            ForeshoreProfileCollection foreshoreProfiles,
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {

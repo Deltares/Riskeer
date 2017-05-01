@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// This is a presentation object for <see cref="ObservableList{T}"/> for elements
     /// of type <see cref="ForeshoreProfile"/>.
     /// </summary>
-    public class ForeshoreProfilesContext : ObservableWrappedObjectContextBase<ObservableList<ForeshoreProfile>>
+    public class ForeshoreProfilesContext : ObservableWrappedObjectContextBase<ForeshoreProfileCollection>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ForeshoreProfilesContext"/> class.
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="parentFailureMechanism">The parent failure mechanism</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ForeshoreProfilesContext(ObservableList<ForeshoreProfile> foreshoreProfiles, IFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection)
+        public ForeshoreProfilesContext(ForeshoreProfileCollection foreshoreProfiles, IFailureMechanism parentFailureMechanism, IAssessmentSection parentAssessmentSection)
             : base(foreshoreProfiles)
         {
             if (parentAssessmentSection == null)

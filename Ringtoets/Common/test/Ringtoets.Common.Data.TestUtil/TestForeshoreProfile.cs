@@ -90,6 +90,16 @@ namespace Ringtoets.Common.Data.TestUtil
             : this("id", null, new Point2D(0, 0), null, geometry) {}
 
         /// <summary>
+        /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified geometry and id.
+        /// </summary>
+        /// <param name="geometry">The geometry of the profile.</param>
+        /// <param name="id">The id of the foreshore profile.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/>
+        /// is null, empty or whitespaces.</exception>
+        public TestForeshoreProfile(IEnumerable<Point2D> geometry, string id) :
+            this(id, null, new Point2D(0, 0), null, geometry) {}
+
+        /// <summary>
         /// Instantiates a <see cref="TestForeshoreProfile"/> with given properties.
         /// </summary>
         /// <param name="id">The id of the foreshore profile.</param>

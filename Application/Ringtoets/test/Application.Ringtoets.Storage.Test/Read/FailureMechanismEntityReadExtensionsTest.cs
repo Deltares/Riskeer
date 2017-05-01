@@ -859,6 +859,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStabilityStoneCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewStabilityStoneCoverFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            // TODO: WTI-1112 Add file location as part of storage
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -943,6 +944,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            // TODO: WTI-1112 Add file location as part of storage
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -987,6 +989,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             const int generalInputN = 7;
+
+            // TODO: WTI-1112 Add file location as part of storage
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -1085,6 +1089,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsClosingStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            // TODO: WTI-1112 Add file location as part of storage
             const int generalInputN2A = 3;
 
             var entity = new FailureMechanismEntity
@@ -1230,6 +1235,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStabilityPointStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            // TODO: WTI-1112 Add file location as part of storage
             const int generalInputN = 5;
 
             var entity = new FailureMechanismEntity

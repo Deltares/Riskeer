@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -47,7 +46,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
             GeneralInput = new GeneralStabilityStoneCoverWaveConditionsInput();
-            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
+            ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -71,7 +70,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
 
         public IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {

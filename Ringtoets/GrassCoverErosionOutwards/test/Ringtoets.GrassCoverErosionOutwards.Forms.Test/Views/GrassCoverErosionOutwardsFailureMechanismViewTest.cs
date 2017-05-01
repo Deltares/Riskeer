@@ -234,16 +234,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                var profile1 = new TestForeshoreProfile(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }));
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                }, "profile1 ID");
+                var profile2 = new TestForeshoreProfile(new[]
                 {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
-                }));
+                }, "profile2 ID");
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                {
+                    profile1,
+                    profile2
+                }, "path");
+
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
                 failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
@@ -393,11 +399,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }));
+                    new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, "originalProfile ID")
+                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -407,11 +416,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
                 // Call
-                failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile(new[]
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                }));
+                    new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(2, 2),
+                        new Point2D(3, 3)
+                    }, "newProfile ID")
+                }, "path");
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert

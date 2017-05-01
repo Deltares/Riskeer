@@ -49,21 +49,21 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var importTarget = new ObservableList<ForeshoreProfile>();
+            var importTarget = new ForeshoreProfileCollection();
             var referenceLine = new ReferenceLine();
 
             // Call
             var importer = new ForeshoreProfilesImporter(importTarget, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<ProfilesImporter<ObservableList<ForeshoreProfile>>>(importer);
+            Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
         }
 
         [Test]
-        public void ParameterdConstructor_ImportTargetNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "");
@@ -74,10 +74,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_ReferenceLineNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ObservableList<ForeshoreProfile>(), null, "");
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ObservableList<ForeshoreProfile>(), new ReferenceLine(), null);
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             // Call
@@ -176,7 +176,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             // Call
@@ -204,7 +204,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -304,7 +304,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
@@ -349,7 +349,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
@@ -382,7 +382,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
@@ -415,7 +415,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => foreshoreProfilesImporter.Cancel());
 

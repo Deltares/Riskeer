@@ -241,9 +241,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
 
-            var parentData = new ForeshoreProfilesContext(list, failureMechanism, assessmentSection);
+            var parentData = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
             // Call
             bool canRemove = info.CanRemove(null, parentData);
@@ -269,8 +269,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
-            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B", "ID B");
 
             var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -299,11 +299,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
                 WaveConditionsCalculationGroup =
                 {
                     Children =
@@ -320,6 +315,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                nodeData,
+                otherProfile
+            }, "path");
             failureMechanism.ForeshoreProfiles.Attach(observer);
 
             var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
@@ -352,8 +352,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
-            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B", "ID B");
 
             var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -382,11 +382,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
                 WaveConditionsCalculationGroup =
                 {
                     Children =
@@ -403,6 +398,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                nodeData,
+                otherProfile
+            }, "path");
             failureMechanism.ForeshoreProfiles.Attach(observer);
 
             var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
@@ -435,8 +435,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
-            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B", "ID B");
 
             var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -465,11 +465,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
                 WaveConditionsCalculationGroup =
                 {
                     Children =
@@ -486,6 +481,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                nodeData,
+                otherProfile
+            }, "path");
             failureMechanism.ForeshoreProfiles.Attach(observer);
 
             var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
@@ -518,8 +518,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
-            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B", "ID B");
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
@@ -548,11 +548,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -569,6 +564,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                nodeData,
+                otherProfile
+            }, "path");
             failureMechanism.ForeshoreProfiles.Attach(observer);
 
             var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
@@ -601,8 +601,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
-            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B", "ID B");
 
             var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -631,11 +631,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -652,6 +647,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                nodeData,
+                otherProfile
+            }, "path");
             failureMechanism.ForeshoreProfiles.Attach(observer);
 
             var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);
@@ -684,8 +684,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            ForeshoreProfile nodeData = new TestForeshoreProfile("A");
-            ForeshoreProfile otherProfile = new TestForeshoreProfile("B");
+            ForeshoreProfile nodeData = new TestForeshoreProfile("A", "ID A");
+            ForeshoreProfile otherProfile = new TestForeshoreProfile("B", "ID B");
 
             var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
             {
@@ -714,11 +714,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                ForeshoreProfiles =
-                {
-                    nodeData,
-                    otherProfile
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -735,6 +730,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                nodeData,
+                otherProfile
+            }, "path");
             failureMechanism.ForeshoreProfiles.Attach(observer);
 
             var parentData = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection);

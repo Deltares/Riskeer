@@ -43,7 +43,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, "path");
             failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();

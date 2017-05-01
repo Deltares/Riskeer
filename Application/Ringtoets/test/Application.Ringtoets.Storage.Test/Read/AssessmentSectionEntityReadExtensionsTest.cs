@@ -25,7 +25,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -680,7 +679,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            ObservableList<ForeshoreProfile> foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
+            ForeshoreProfileCollection foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
             CollectionAssert.AreEqual(new[]
             {
                 profileBId,
@@ -800,7 +799,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            ObservableList<ForeshoreProfile> foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
+            ForeshoreProfileCollection foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
             CollectionAssert.AreEqual(new[]
             {
                 profileBId,
@@ -880,7 +879,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            ObservableList<ForeshoreProfile> foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
+            ForeshoreProfileCollection foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
             CollectionAssert.AreEqual(new[]
             {
                 profileBId,

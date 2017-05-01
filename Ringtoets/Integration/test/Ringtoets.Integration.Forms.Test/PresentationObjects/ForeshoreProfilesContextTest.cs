@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -59,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var foreshores = new ObservableList<ForeshoreProfile>();
+            var foreshores = new ForeshoreProfileCollection();
 
             // Call
             TestDelegate call = () => new ForeshoreProfilesContext(foreshores, null, assessmentSection);
@@ -78,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var foreshores = new ObservableList<ForeshoreProfile>();
+            var foreshores = new ForeshoreProfileCollection();
 
             // Call
             TestDelegate call = () => new ForeshoreProfilesContext(foreshores, failureMechanism, null);
@@ -98,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var foreshores = new ObservableList<ForeshoreProfile>();
+            var foreshores = new ForeshoreProfileCollection();
 
             // Call
             var context = new ForeshoreProfilesContext(foreshores, failureMechanism, assessmentSection);

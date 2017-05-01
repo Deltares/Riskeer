@@ -43,13 +43,13 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var foreshoresList = new ObservableList<ForeshoreProfile>();
+            var foreshoresList = new ForeshoreProfileCollection();
 
             // Call
             var context = new ForeshoreProfilesContext(foreshoresList, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<ObservableList<ForeshoreProfile>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<ForeshoreProfileCollection>>(context);
             Assert.AreSame(foreshoresList, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(new ObservableList<ForeshoreProfile>(), null, assessmentSection);
+            TestDelegate call = () => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesContext(new ObservableList<ForeshoreProfile>(), failureMechanism, null);
+            TestDelegate call = () => new ForeshoreProfilesContext(new ForeshoreProfileCollection(), failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

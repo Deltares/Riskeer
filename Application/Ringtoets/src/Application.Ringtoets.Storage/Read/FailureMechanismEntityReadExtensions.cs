@@ -803,10 +803,14 @@ namespace Application.Ringtoets.Storage.Read
             ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
 
-        private static void ReadForeshoreProfiles(this FailureMechanismEntity entity, ObservableList<ForeshoreProfile> foreshoreProfiles,
+        private static void ReadForeshoreProfiles(this FailureMechanismEntity entity, ForeshoreProfileCollection foreshoreProfiles,
                                                   ReadConversionCollector collector)
         {
-            foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities.OrderBy(fpe => fpe.Order).Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector)));
+            // TODO: WTI-1112 Add file path location to storage
+            foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities
+                                             .OrderBy(fpe => fpe.Order)
+                                             .Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector)),
+                                       "path");
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity,
