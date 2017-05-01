@@ -20,88 +20,61 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionTest
+    public class StochasticSoilModelCollectionTest :
+        CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
+            ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>, StochasticSoilModel>
     {
-        [Test]
-        public void DefaultConstructor_ReturnsCollectionWithPath()
+        protected override ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> CreateCollection()
         {
-            // Call
-            var collection = new StochasticSoilModelCollection();
-
-            // Assert
-            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>>(collection);
+            return new StochasticSoilModelCollection();
         }
 
-        [Test]
-        public void AddRange_StochasticSoilModelsWithDifferentNames_AddsSoilModels()
+        protected override IEnumerable<StochasticSoilModel> UniqueElements()
         {
-            // Setup
-            var stochasticSoilModelsToAdd = new[]
-            {
-                new StochasticSoilModel(5, "Model A", "segmentA"),
-                new StochasticSoilModel(6, "Model B", "segmentA")
-            };
-
-            var collection = new StochasticSoilModelCollection();
-            const string expectedFilePath = "other/path";
-
-            // Call
-            collection.AddRange(stochasticSoilModelsToAdd, expectedFilePath);
-
-            // Assert
-            Assert.AreEqual(expectedFilePath, collection.SourcePath);
-            CollectionAssert.AreEqual(stochasticSoilModelsToAdd, collection);
+            yield return new StochasticSoilModel(5, "Model A", "segmentA");
+            yield return new StochasticSoilModel(6, "Model B", "segmentA");
         }
 
-        [Test]
-        public void AddRange_WithStochasticSoilModelsWithEqualNames_ThrowsArgumentException()
+        protected override IEnumerable<StochasticSoilModel> SingleNonUniqueElements()
         {
-            // Setup
-            var collection = new StochasticSoilModelCollection();
             const string someName = "Soil model";
-            var modelsToAdd = new[]
-            {
-                new StochasticSoilModel(5, someName, "segmentA"),
-                new StochasticSoilModel(6, someName, "segmentB")
-            };
-
-            // Call
-            TestDelegate call = () => collection.AddRange(modelsToAdd, "valid/file/path");
-
-            // Assert
-            string message = $"Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: {someName}.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+            yield return new StochasticSoilModel(5, someName, "segmentA");
+            yield return new StochasticSoilModel(6, someName, "segmentB");
         }
 
-        [Test]
-        public void AddRange_WithMultipleStochasticSoilModelsWithEqualNames_ThrowsArgumentException()
+        protected override IEnumerable<StochasticSoilModel> MultipleNonUniqueElements()
         {
-            // Setup
-            var collection = new StochasticSoilModelCollection();
             const string someName = "Soil model";
             const string someOtherName = "Other soil model";
-            var modelsToAdd = new[]
-            {
-                new StochasticSoilModel(5, someName, "segmentA"),
-                new StochasticSoilModel(6, someName, "segmentB"),
-                new StochasticSoilModel(7, someOtherName, "segmentC"),
-                new StochasticSoilModel(8, someOtherName, "segmentD"),
-                new StochasticSoilModel(9, someOtherName, "segmentE")
-            };
+            yield return new StochasticSoilModel(5, someName, "segmentA");
+            yield return new StochasticSoilModel(6, someName, "segmentB");
+            yield return new StochasticSoilModel(7, someOtherName, "segmentC");
+            yield return new StochasticSoilModel(8, someOtherName, "segmentD");
+            yield return new StochasticSoilModel(9, someOtherName, "segmentE");
+        }
 
-            // Call
-            TestDelegate call = () => collection.AddRange(modelsToAdd, "valid/file/path");
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<StochasticSoilModel> itemsToAdd)
+        {
+            string someName = itemsToAdd.First().Name;
+            Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
+                            $"Gevonden dubbele elementen: {someName}.", exception.Message);
+        }
 
-            // Assert
-            string message = $"Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: {someName}, {someOtherName}.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<StochasticSoilModel> itemsToAdd)
+        {
+            string someName = itemsToAdd.First().Name;
+            string someOtherName = itemsToAdd.First(i => i.Name != someName).Name;
+            Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
+                            $"Gevonden dubbele elementen: {someName}, {someOtherName}.", exception.Message);
         }
     }
 }

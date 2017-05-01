@@ -20,80 +20,21 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineCollectionTest
+    public class RingtoetsPipingSurfaceLineCollectionTest :
+        CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
+            ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>, RingtoetsPipingSurfaceLine>
     {
-        [Test]
-        public void DefaultConstructor_DefaultValues()
-        {
-            // Call
-            var collection = new RingtoetsPipingSurfaceLineCollection();
-
-            // Assert
-            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>>(collection);
-        }
-
-        [Test]
-        public void AddRange_SurfaceLinesWithDifferentNames_AddsSurfaceLines()
-        {
-            // Setup
-            var surfaceLinesToAdd = new[]
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Name A"
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = "Name B"
-                }
-            };
-
-            var collection = new RingtoetsPipingSurfaceLineCollection();
-            const string expectedFilePath = "other/path";
-
-            // Call
-            collection.AddRange(surfaceLinesToAdd, expectedFilePath);
-
-            // Assert
-            Assert.AreEqual(expectedFilePath, collection.SourcePath);
-            CollectionAssert.AreEqual(surfaceLinesToAdd, collection);
-        }
-
-        [Test]
-        public void AddRange_SurfaceLinesWithSameNames_ThrowsArgumentException()
-        {
-            // Setup
-            const string duplicateName = "Duplicate name it is";
-            var surfaceLinesToAdd = new[]
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateName
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateName
-                }
-            };
-
-            var collection = new RingtoetsPipingSurfaceLineCollection();
-
-            // Call
-            TestDelegate call = () => collection.AddRange(surfaceLinesToAdd, "path");
-
-            // Assert
-            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-        }
-
         [Test]
         public void AddRange_MultipleSurfaceLinesWithSameNames_ThrowsArgumentException()
         {
@@ -126,8 +67,78 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => collection.AddRange(surfaceLinesToAdd, "path");
 
             // Assert
-            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateNameOne}, {duplicateNameTwo}.";
+            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateNameOne}, " +
+                             $"{duplicateNameTwo}.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        protected override ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> CreateCollection()
+        {
+            return new RingtoetsPipingSurfaceLineCollection();
+        }
+
+        protected override IEnumerable<RingtoetsPipingSurfaceLine> UniqueElements()
+        {
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name A"
+            };
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = "Name B"
+            };
+        }
+
+        protected override IEnumerable<RingtoetsPipingSurfaceLine> SingleNonUniqueElements()
+        {
+            const string duplicateName = "Duplicate name it is";
+
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateName
+            };
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateName
+            };
+        }
+
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<RingtoetsPipingSurfaceLine> itemsToAdd)
+        {
+            string duplicateName = itemsToAdd.First().Name;
+            Assert.AreEqual($"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.",
+                            exception.Message);
+        }
+
+        protected override IEnumerable<RingtoetsPipingSurfaceLine> MultipleNonUniqueElements()
+        {
+            const string duplicateNameOne = "Duplicate name it is";
+            const string duplicateNameTwo = "Duplicate name again";
+            yield return
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name = duplicateNameOne
+                };
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateNameOne
+            };
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateNameTwo
+            };
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateNameTwo
+            };
+        }
+
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<RingtoetsPipingSurfaceLine> itemsToAdd)
+        {
+            string duplicateNameOne = itemsToAdd.First().Name;
+            string duplicateNameTwo = itemsToAdd.First(i => i.Name != duplicateNameOne).Name;
+            Assert.AreEqual("Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: " +
+                            $"{duplicateNameOne}, {duplicateNameTwo}.", exception.Message);
         }
     }
 }
