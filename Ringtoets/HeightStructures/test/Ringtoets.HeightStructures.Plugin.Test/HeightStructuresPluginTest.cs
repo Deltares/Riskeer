@@ -58,7 +58,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -69,6 +69,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                     propertyInfos,
                     typeof(HeightStructure),
                     typeof(HeightStructureProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(HeightStructuresContext),
+                    typeof(HeightStructureCollectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

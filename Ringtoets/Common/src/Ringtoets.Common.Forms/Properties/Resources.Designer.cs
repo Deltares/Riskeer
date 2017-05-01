@@ -2267,6 +2267,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de kunstwerken zijn geïmporteerd..
+        /// </summary>
+        public static string StructureCollection_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("StructureCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken.
         /// </summary>
         public static string StructuresCollection_DisplayName {

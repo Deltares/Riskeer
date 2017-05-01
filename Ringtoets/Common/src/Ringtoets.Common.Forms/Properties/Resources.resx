@@ -932,4 +932,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip" xml:space="preserve">
     <value>Er zijn geen berekeningen om bij te werken.</value>
   </data>
+  <data name="StructureCollection_SourcePath_Description" xml:space="preserve">
+    <value>De locatie van het bestand waaruit de kunstwerken zijn geïmporteerd.</value>
+  </data>
 </root>
