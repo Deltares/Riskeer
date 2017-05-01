@@ -288,7 +288,10 @@
   <data name="DikeProfileCollection_TypeDescriptor" xml:space="preserve">
     <value>Dijkprofielen</value>
   </data>
-  <data name="DikeProfileCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
+  <data name="ForeshoreProfileCollection_TypeDescriptor" xml:space="preserve">
+    <value>Voorlandprofielen</value>
+  </data>
+  <data name="ProfileCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
     <value>id</value>
   </data>
 </root>

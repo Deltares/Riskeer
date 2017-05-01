@@ -25,16 +25,16 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
-    /// A collection of <see cref="DikeProfile"/>. The ids of the <see cref="DikeProfile"/>
+    /// A collection of <see cref="ForeshoreProfile"/>. The ids of the <see cref="ForeshoreProfile"/>
     /// are unique within the collection.
     /// </summary>
-    public class DikeProfileCollection : ObservableUniqueItemCollectionWithSourcePath<DikeProfile>
+    public class ForeshoreProfileCollection : ObservableUniqueItemCollectionWithSourcePath<ForeshoreProfile>
     {
         /// <summary>
-        /// Instantiates a <see cref="DikeProfileCollection"/>.
+        /// Instantiates a <see cref="ForeshoreProfileCollection"/>.
         /// </summary>
-        public DikeProfileCollection() : base(profile => profile.Id,
-                                              Resources.DikeProfileCollection_TypeDescriptor,
-                                              Resources.ProfileCollection_UniqueFeature_id_FeatureDescription) {}
+        public ForeshoreProfileCollection() : base(prf => prf.Id,
+                                                   Resources.ForeshoreProfileCollection_TypeDescriptor,
+                                                   Resources.ProfileCollection_UniqueFeature_id_FeatureDescription) {}
     }
 }

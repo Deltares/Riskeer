@@ -83,6 +83,26 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        public void Constructor_WithNameAndId_ReturnExpectedForeshoreProfileProperties()
+        {
+            // Setup
+            const string name = "test";
+            const string id = "Just an ID";
+
+            // Call
+            ForeshoreProfile profile = new TestForeshoreProfile(name, id);
+
+            // Assert
+            Assert.IsEmpty(profile.Geometry);
+            Assert.AreEqual(id, profile.Id);
+            Assert.AreEqual(name, profile.Name);
+            Assert.IsFalse(profile.HasBreakWater);
+            Assert.AreEqual(0.0, profile.X0);
+            Assert.AreEqual(0.0, profile.Orientation.Value);
+            Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
+        }
+
+        [Test]
         public void Constructor_WithNameAndGeometry_ReturnForeshoreProfileWithGivenNameAndGeometry()
         {
             // Setup

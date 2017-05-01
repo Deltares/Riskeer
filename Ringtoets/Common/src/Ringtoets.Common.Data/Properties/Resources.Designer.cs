@@ -344,15 +344,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to id.
-        /// </summary>
-        public static string DikeProfileCollection_UniqueFeature_id_FeatureDescription {
-            get {
-                return ResourceManager.GetString("DikeProfileCollection_UniqueFeature_id_FeatureDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekeningen.
         /// </summary>
         public static string FailureMechanism_Calculations_DisplayName {
@@ -405,6 +396,15 @@ namespace Ringtoets.Common.Data.Properties {
         public static string ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null {
             get {
                 return ResourceManager.GetString("ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorlandprofielen.
+        /// </summary>
+        public static string ForeshoreProfileCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("ForeshoreProfileCollection_TypeDescriptor", resourceCulture);
             }
         }
         
@@ -486,6 +486,15 @@ namespace Ringtoets.Common.Data.Properties {
         public static string Probability_Must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("Probability_Must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to id.
+        /// </summary>
+        public static string ProfileCollection_UniqueFeature_id_FeatureDescription {
+            get {
+                return ResourceManager.GetString("ProfileCollection_UniqueFeature_id_FeatureDescription", resourceCulture);
             }
         }
         

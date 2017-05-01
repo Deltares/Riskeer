@@ -68,6 +68,7 @@
     <Compile Include="DikeProfiles\BreakWaterTypeTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileCollectionTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileTest.cs" />
+    <Compile Include="DikeProfiles\ForeshoreProfileCollectionTest.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfileTest.cs" />
     <Compile Include="Exceptions\DikeProfileUpdateExceptionTest.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneStateTest.cs" />
