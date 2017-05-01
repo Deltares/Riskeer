@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
@@ -29,82 +30,52 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
-    public class DikeProfileCollectionTest
+    public class DikeProfileCollectionTest :
+        CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
+            ObservableUniqueItemCollectionWithSourcePath<DikeProfile>, DikeProfile>
     {
-        [Test]
-        public void DefaultConstructor_ReturnsCollectionWithPath()
+        protected override ObservableUniqueItemCollectionWithSourcePath<DikeProfile> CreateCollection()
         {
-            // Call
-            var collection = new DikeProfileCollection();
-
-            // Assert
-            Assert.IsInstanceOf<ObservableUniqueItemCollectionWithSourcePath<DikeProfile>>(collection);
+            return new DikeProfileCollection();
         }
 
-        [Test]
-        public void AddRange_DikeProfilesWithDifferentIds_AddsDikeProfiles()
+        protected override IEnumerable<DikeProfile> UniqueElements()
         {
-            // Setup
-            var dikeProfilesToAdd = new[]
-            {
-                new TestDikeProfile(string.Empty, "Dike ID A"),
-                new TestDikeProfile(string.Empty, "Dike ID B")
-            };
-
-            var collection = new DikeProfileCollection();
-            const string expectedFilePath = "other/path";
-
-            // Call
-            collection.AddRange(dikeProfilesToAdd, expectedFilePath);
-
-            // Assert
-            Assert.AreEqual(expectedFilePath, collection.SourcePath);
-            CollectionAssert.AreEqual(dikeProfilesToAdd, collection);
+            yield return new TestDikeProfile(string.Empty, "Dike ID A");
+            yield return new TestDikeProfile(string.Empty, "Dike ID B");
         }
 
-        [Test]
-        public void AddRange_WithDikeProfilesWithEqualIds_ThrowsArgumentException()
+        protected override IEnumerable<DikeProfile> SingleNonUniqueElements()
         {
-            // Setup
-            var collection = new DikeProfileCollection();
             const string someId = "Dike profile";
             const string name = "Standard Dike Profile Name";
-            var modelsToAdd = new[]
-            {
-                new TestDikeProfile(name, someId),
-                new TestDikeProfile(name, someId)
-            };
-
-            // Call
-            TestDelegate call = () => collection.AddRange(modelsToAdd, "valid/file/path");
-
-            // Assert
-            string message = $"Dijkprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {someId}.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+            yield return new TestDikeProfile(name, someId);
+            yield return new TestDikeProfile(name, someId);
         }
 
-        [Test]
-        public void AddRange_WithMultipleDikeProfilesWithEqualIds_ThrowsArgumentException()
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<DikeProfile> itemsToAdd)
         {
-            // Setup
-            var collection = new DikeProfileCollection();
+            string someId = itemsToAdd.First().Id;
+            Assert.AreEqual($"Dijkprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {someId}.", exception.Message);
+        }
+
+        protected override IEnumerable<DikeProfile> MultipleNonUniqueElements()
+        {
             const string someId = "Dike profile";
             const string someotherId = "Other dike profile";
             const string name = "Some Dike profile Name";
-            var modelsToAdd = new[]
-            {
-                new TestDikeProfile(name, someId),
-                new TestDikeProfile(name, someId),
-                new TestDikeProfile(name, someotherId),
-                new TestDikeProfile(name, someotherId)
-            };
 
-            // Call
-            TestDelegate call = () => collection.AddRange(modelsToAdd, "valid/file/path");
+            yield return new TestDikeProfile(name, someId);
+            yield return new TestDikeProfile(name, someId);
+            yield return new TestDikeProfile(name, someotherId);
+            yield return new TestDikeProfile(name, someotherId);
+        }
 
-            // Assert
-            string message = $"Dijkprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {someId}, {someotherId}.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<DikeProfile> itemsToAdd)
+        {
+            string someId = itemsToAdd.First().Id;
+            string someotherId = itemsToAdd.First(i => i.Id != someId).Id;
+            Assert.AreEqual($"Dijkprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {someId}, {someotherId}.", exception.Message);
         }
     }
 }
