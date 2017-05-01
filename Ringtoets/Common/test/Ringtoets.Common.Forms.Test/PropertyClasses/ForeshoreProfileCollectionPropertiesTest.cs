@@ -25,20 +25,19 @@ using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionPropertiesTest
+    public class ForeshoreProfileCollectionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionProperties(null);
+            TestDelegate test = () => new ForeshoreProfileCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,14 +49,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string someFilePath = "location/to/a/file";
-            var collection = new StochasticSoilModelCollection();
-            collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
+            var collection = new ForeshoreProfileCollection();
+            collection.AddRange(Enumerable.Empty<ForeshoreProfile>(), someFilePath);
 
             // Call
-            var properties = new StochasticSoilModelCollectionProperties(collection);
+            var properties = new ForeshoreProfileCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StochasticSoilModelCollection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ForeshoreProfileCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,23 +65,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new ForeshoreProfileCollection();
 
             // Call
-            var properties = new StochasticSoilModelCollectionProperties(collection);
+            var properties = new ForeshoreProfileCollectionProperties(collection);
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            PropertyDescriptorCollection dynamicProperties =
+                PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptor stochasticSoilModelSourcePathProperty = dynamicProperties[0];
-            Assert.IsNotNull(stochasticSoilModelSourcePathProperty);
-            Assert.IsTrue(stochasticSoilModelSourcePathProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", stochasticSoilModelSourcePathProperty.Category);
-            Assert.AreEqual("Bronlocatie", stochasticSoilModelSourcePathProperty.DisplayName);
+            PropertyDescriptor sourcePathProperty = dynamicProperties[0];
+            Assert.IsNotNull(sourcePathProperty);
+            Assert.IsTrue(sourcePathProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", sourcePathProperty.Category);
+            Assert.AreEqual("Bronlocatie", sourcePathProperty.DisplayName);
             Assert.AreEqual(
-                "De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.",
-                stochasticSoilModelSourcePathProperty.Description);
+                "De locatie van het bestand waaruit de voorlandprofielen zijn geïmporteerd.",
+                sourcePathProperty.Description);
         }
     }
 }

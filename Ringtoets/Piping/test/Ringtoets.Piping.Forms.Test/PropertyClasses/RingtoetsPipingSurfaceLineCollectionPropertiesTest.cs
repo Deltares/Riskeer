@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     public class RingtoetsPipingSurfaceLineCollectionPropertiesTest
     {
         [Test]
-        public void Constructor_WithoutColleciton_ThrowsArgumentNullException()
+        public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new RingtoetsPipingSurfaceLineCollectionProperties(null);

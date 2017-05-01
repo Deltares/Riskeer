@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     public class DikeProfileCollectionPropertiesTest
     {
         [Test]
-        public void Constructor_WithoutColleciton_ThrowsArgumentNullException()
+        public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new DikeProfileCollectionProperties(null);

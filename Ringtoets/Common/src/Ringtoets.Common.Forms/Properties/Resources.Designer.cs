@@ -1209,6 +1209,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de voorlandprofielen zijn geïmporteerd..
+        /// </summary>
+        public static string ForeshoreProfileCollectionProperties_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("ForeshoreProfileCollectionProperties_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voorlandprofielen.
         /// </summary>
         public static string ForeshoreProfiles_DisplayName {

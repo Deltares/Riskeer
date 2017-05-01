@@ -935,4 +935,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="StructureCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de kunstwerken zijn geïmporteerd.</value>
   </data>
+  <data name="ForeshoreProfileCollectionProperties_SourcePath_Description" xml:space="preserve">
+    <value>De locatie van het bestand waaruit de voorlandprofielen zijn geïmporteerd.</value>
+  </data>
 </root>
