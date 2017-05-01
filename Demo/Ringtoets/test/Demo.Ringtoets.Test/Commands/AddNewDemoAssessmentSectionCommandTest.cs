@@ -276,8 +276,8 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertHeightStructuresFailureMechanism(AssessmentSection demoAssessmentSection)
         {
-            Assert.AreEqual(1, demoAssessmentSection.HeightStructures.HeightStructures.Count);
-            AssertExpectedHeightStructureValues(demoAssessmentSection.HeightStructures.HeightStructures[0]);
+            Assert.AreEqual(1, demoAssessmentSection.HeightStructures.HeightStructuresCollection.Count);
+            AssertExpectedHeightStructureValues(demoAssessmentSection.HeightStructures.HeightStructuresCollection[0]);
 
             Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
             StructuresCalculation<HeightStructuresInput> calculation = demoAssessmentSection.HeightStructures

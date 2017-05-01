@@ -221,8 +221,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructures);
-            CollectionAssert.Contains(observables, heightStructuresFailureMechanism.HeightStructures);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructuresCollection);
+            CollectionAssert.Contains(observables, heightStructuresFailureMechanism.HeightStructuresCollection);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);

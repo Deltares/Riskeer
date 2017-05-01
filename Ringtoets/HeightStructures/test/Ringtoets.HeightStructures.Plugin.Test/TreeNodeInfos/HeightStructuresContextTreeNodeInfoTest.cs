@@ -186,7 +186,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructuresCollection);
 
             var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
                                                                       failureMechanism, asssessmentSection);

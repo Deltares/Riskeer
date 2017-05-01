@@ -48,7 +48,6 @@ namespace Ringtoets.HeightStructures.Data
             sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralHeightStructuresInput();
-            HeightStructures = new ObservableList<HeightStructure>();
             HeightStructuresCollection = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
@@ -65,11 +64,6 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the height structures calculation input parameters that apply to each calculation.
         /// </summary>
         public GeneralHeightStructuresInput GeneralInput { get; private set; }
-
-        /// <summary>
-        /// Gets the available height structure of this instance.
-        /// </summary>
-        public ObservableList<HeightStructure> HeightStructures { get; private set; }
 
         /// <summary>
         /// Gets the available height structures of this instance.

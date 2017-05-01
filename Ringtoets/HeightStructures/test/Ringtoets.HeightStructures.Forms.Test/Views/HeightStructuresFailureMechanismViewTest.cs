@@ -325,21 +325,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
                 };
 
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
+                                                                                          assessmentSection);
 
                 view.Data = failureMechanismContext;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations,
+                                                                          hydraulicBoundaryLocationsMapData);
 
                 // Call
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations,
+                                                                          hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -364,21 +367,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 };
 
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
+                                                                                          assessmentSection);
 
                 view.Data = failureMechanismContext;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations,
+                                                                          hydraulicBoundaryLocationsMapData);
 
                 // Call
                 hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
                 hydraulicBoundaryDatabase.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations,
+                                                                          hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -410,12 +416,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
                 };
 
-                view.Data = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
+                view.Data = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
+                                                                        assessmentSection);
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations,
+                                                                          hydraulicBoundaryLocationsMapData);
 
                 // When
                 assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
@@ -424,7 +432,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 newHydraulicBoundaryDatabase.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations,
+                                                                          hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -454,21 +463,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 };
                 assessmentSection.ReferenceLine.SetGeometry(points1);
 
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
+                                                                                          assessmentSection);
 
                 view.Data = failureMechanismContext;
 
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine,
+                                                             referenceLineMapData);
 
                 // Call
                 assessmentSection.ReferenceLine.SetGeometry(points2);
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine,
+                                                             referenceLineMapData);
             }
         }
 
@@ -481,7 +493,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -513,7 +526,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
 
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
@@ -529,7 +543,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles,
+                                                                 foreshoreProfileData);
 
                 // Call
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
@@ -543,7 +558,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
                 // Assert
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles,
+                                                                 foreshoreProfileData);
             }
         }
 
@@ -556,7 +572,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
 
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
@@ -568,14 +585,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
-                AssertStructures(failureMechanism.HeightStructures, structuresData);
+                AssertStructures(failureMechanism.HeightStructuresCollection, structuresData);
 
                 // Call
-                failureMechanism.HeightStructures.Add(new TestHeightStructure());
-                failureMechanism.HeightStructures.NotifyObservers();
+                failureMechanism.HeightStructuresCollection.AddRange(new[]
+                {
+                    new TestHeightStructure()
+                }, "some path");
+                failureMechanism.HeightStructuresCollection.NotifyObservers();
 
                 // Assert
-                AssertStructures(failureMechanism.HeightStructures, structuresData);
+                AssertStructures(failureMechanism.HeightStructuresCollection, structuresData);
             }
         }
 
@@ -588,7 +608,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
 
                 var calculationLocationA = new Point2D(1.2, 2.3);
                 var calculationLocationB = new Point2D(2.7, 2.0);
@@ -626,7 +647,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
                 // Assert
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                                          calculationMapData);
             }
         }
 
@@ -639,7 +661,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
 
                 var calculationLocationA = new Point2D(1.2, 2.3);
                 var calculationLocationB = new Point2D(2.7, 2.0);
@@ -665,7 +688,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 calculationA.InputParameters.NotifyObservers();
 
                 // Assert
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                                          calculationMapData);
             }
         }
 
@@ -678,7 +702,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
 
                 var calculationLocationA = new Point2D(1.2, 2.3);
 
@@ -703,7 +728,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 calculationA.NotifyObservers();
 
                 // Assert
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                                          calculationMapData);
             }
         }
 
@@ -816,8 +842,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(3, 4)
             });
 
-            var oldHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), oldAssessmentSection);
-            var newHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), newAssessmentSection);
+            var oldHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(
+                new HeightStructuresFailureMechanism(), oldAssessmentSection);
+            var newHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(
+                new HeightStructuresFailureMechanism(), newAssessmentSection);
             using (var view = new HeightStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;

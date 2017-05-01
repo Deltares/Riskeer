@@ -388,7 +388,10 @@ namespace Demo.Ringtoets.Commands
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
             HeightStructure heightStructure = CreateDemoHeightStructure();
-            failureMechanism.HeightStructures.Add(heightStructure);
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            {
+                heightStructure
+            }, "heightStructurePath");
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
@@ -402,7 +405,8 @@ namespace Demo.Ringtoets.Commands
             return new HeightStructure(
                 new HeightStructure.ConstructionProperties
                 {
-                    Id = "KUNST1", Name = "KUNST1",
+                    Id = "KUNST1",
+                    Name = "KUNST1",
                     Location = new Point2D(12345.56789, 9876.54321),
                     StructureNormalOrientation = (RoundedDouble) 10.0,
                     LevelCrestStructure =
@@ -461,7 +465,8 @@ namespace Demo.Ringtoets.Commands
             return new ClosingStructure(
                 new ClosingStructure.ConstructionProperties
                 {
-                    Name = "KUNST1", Id = "KUNST1",
+                    Name = "KUNST1",
+                    Id = "KUNST1",
                     Location = new Point2D(12345.56789, 9876.54321),
                     StorageStructureArea =
                     {
@@ -587,7 +592,9 @@ namespace Demo.Ringtoets.Commands
             return new StabilityPointStructure(
                 new StabilityPointStructure.ConstructionProperties
                 {
-                    Name = "Kunstwerk", Id = "Kunstwerk id", Location = new Point2D(131470.777221421, 548329.82912364),
+                    Name = "Kunstwerk",
+                    Id = "Kunstwerk id",
+                    Location = new Point2D(131470.777221421, 548329.82912364),
                     StructureNormalOrientation = (RoundedDouble) 10,
                     StorageStructureArea =
                     {

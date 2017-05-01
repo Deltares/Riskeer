@@ -140,7 +140,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     assessmentSectionObserver.Observable = data.Parent;
                     hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
-                    structuresObserver.Observable = data.WrappedData.HeightStructures;
+                    structuresObserver.Observable = data.WrappedData.HeightStructuresCollection;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -199,7 +199,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
             IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
-            IEnumerable<HeightStructure> structures = data.WrappedData.HeightStructures;
+            IEnumerable<HeightStructure> structures = data.WrappedData.HeightStructuresCollection;
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations =
                 data.WrappedData.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
 

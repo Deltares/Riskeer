@@ -586,7 +586,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 heightStructure,
                 new TestHeightStructure("Structure B", "IdB")
-            }, @"C:\Folder");
+            }, @"TODO: To be determined");
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup

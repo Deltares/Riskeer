@@ -230,7 +230,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             info.OnNodeRemoved(nodeData, parentData);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, nodeData);
+            CollectionAssert.DoesNotContain(failureMechanism.HeightStructuresCollection, nodeData);
 
             Assert.IsNull(calculation1.InputParameters.Structure);
             Assert.IsNotNull(calculation2.InputParameters.Structure);

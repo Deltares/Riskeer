@@ -1248,7 +1248,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
+            AssertHeightStructures(expectedFailureMechanism.HeightStructuresCollection, actualFailureMechanism.HeightStructuresCollection);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
             AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
@@ -1281,14 +1281,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertHeightStructures(ObservableList<HeightStructure> expectedHeightStructures,
-                                                   ObservableList<HeightStructure> actualHeightStructures)
+        private static void AssertHeightStructures(StructureCollection<HeightStructure> expectedHeightStructures,
+                                                   StructureCollection<HeightStructure> actualHeightStructures)
         {
             Assert.AreEqual(expectedHeightStructures.Count, actualHeightStructures.Count);
             for (var i = 0; i < expectedHeightStructures.Count; i++)
             {
                 AssertHeightStructure(expectedHeightStructures[i], actualHeightStructures[i]);
             }
+            Assert.AreEqual(expectedHeightStructures.SourcePath, actualHeightStructures.SourcePath);
         }
 
         private static void AssertHeightStructure(HeightStructure expectedHeightStructure,

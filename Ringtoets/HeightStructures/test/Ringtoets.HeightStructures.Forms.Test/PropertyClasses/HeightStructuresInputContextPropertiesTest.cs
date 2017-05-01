@@ -260,13 +260,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructuresCollection.AddRange(new[]
             {
-                HeightStructures =
-                {
-                    new TestHeightStructure()
-                }
-            };
+                new TestHeightStructure()
+            }, "some folder");
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
                                                                 calculation,
@@ -278,7 +276,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             IEnumerable<HeightStructure> availableStructures = properties.GetAvailableStructures();
 
             // Assert
-            Assert.AreSame(failureMechanism.HeightStructures, availableStructures);
+            Assert.AreSame(failureMechanism.HeightStructuresCollection, availableStructures);
             mockRepository.VerifyAll();
         }
 
