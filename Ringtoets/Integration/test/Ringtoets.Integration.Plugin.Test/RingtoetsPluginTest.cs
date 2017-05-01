@@ -38,7 +38,6 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -205,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(14, propertyInfos.Length);
+                Assert.AreEqual(15, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -276,6 +275,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(ForeshoreProfile),
                     typeof(ForeshoreProfileProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ForeshoreProfilesContext),
+                    typeof(ForeshoreProfileCollectionProperties));
             }
         }
 

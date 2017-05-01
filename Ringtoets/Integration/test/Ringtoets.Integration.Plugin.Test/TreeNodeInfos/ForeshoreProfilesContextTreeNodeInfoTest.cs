@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -204,6 +203,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.AddCollapseAllItem()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.AddExpandAllItem()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
+                    contextMenuBuilder.Expect(b => b.AddPropertiesItem()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.Build()).Return(null);
                 }
 

@@ -308,6 +308,10 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
+            yield return new PropertyInfo<ForeshoreProfilesContext, ForeshoreProfileCollectionProperties>
+            {
+                CreateInstance = context => new ForeshoreProfileCollectionProperties(context.WrappedData)
+            };
         }
 
         /// <summary>
@@ -621,6 +625,8 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
