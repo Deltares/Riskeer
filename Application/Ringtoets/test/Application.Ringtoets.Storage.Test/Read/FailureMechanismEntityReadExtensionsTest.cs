@@ -1072,12 +1072,12 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.HeightStructuresCollection.Count);
+            Assert.AreEqual(2, failureMechanism.HeightStructures.Count);
 
-            HeightStructure child1 = failureMechanism.HeightStructuresCollection[0];
+            HeightStructure child1 = failureMechanism.HeightStructures[0];
             Assert.AreEqual("Child2", child1.Name);
 
-            HeightStructure child2 = failureMechanism.HeightStructuresCollection[1];
+            HeightStructure child2 = failureMechanism.HeightStructures[1];
             Assert.AreEqual("Child1", child2.Name);
         }
 

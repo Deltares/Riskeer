@@ -66,7 +66,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         {
             get
             {
-                return FailureMechanism.HeightStructuresCollection;
+                return FailureMechanism.HeightStructures;
             }
         }
     }

@@ -116,7 +116,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         public override IEnumerable<HeightStructure> GetAvailableStructures()
         {
-            return data.FailureMechanism.HeightStructuresCollection;
+            return data.FailureMechanism.HeightStructures;
         }
 
         protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)

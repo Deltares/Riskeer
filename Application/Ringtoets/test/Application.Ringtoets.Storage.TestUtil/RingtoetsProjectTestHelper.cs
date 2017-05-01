@@ -582,7 +582,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
             var heightStructure = new TestHeightStructure();
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 heightStructure,
                 new TestHeightStructure("Structure B", "IdB")

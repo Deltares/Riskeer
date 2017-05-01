@@ -48,7 +48,7 @@ namespace Ringtoets.HeightStructures.Data
             sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralHeightStructuresInput();
-            HeightStructuresCollection = new StructureCollection<HeightStructure>();
+            HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the available height structures of this instance.
         /// </summary>
-        public StructureCollection<HeightStructure> HeightStructuresCollection { get; private set; }
+        public StructureCollection<HeightStructure> HeightStructures { get; private set; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.

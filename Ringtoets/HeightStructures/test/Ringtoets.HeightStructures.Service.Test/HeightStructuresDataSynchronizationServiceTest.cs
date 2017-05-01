@@ -282,7 +282,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                               .Concat(failureMechanism.SectionResults)
                                                               .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
-                                                              .Concat(failureMechanism.HeightStructuresCollection)
+                                                              .Concat(failureMechanism.HeightStructures)
                                                               .ToArray();
 
             // Call
@@ -295,14 +295,14 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(failureMechanism.HeightStructuresCollection);
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
             IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(array, failureMechanism.HeightStructuresCollection);
+            CollectionAssert.Contains(array, failureMechanism.HeightStructures);
 
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
         }
@@ -312,7 +312,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            HeightStructure structure = failureMechanism.HeightStructuresCollection[0];
+            HeightStructure structure = failureMechanism.HeightStructures[0];
             StructuresCalculation<HeightStructuresInput>[] calculationsWithStructure = failureMechanism.Calculations
                                                                                                        .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                                                                        .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
@@ -339,7 +339,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.DoesNotContain(failureMechanism.HeightStructuresCollection, structure);
+            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, structure);
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithStructure)
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
@@ -356,7 +356,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IObservable[] array = affectedObjects.ToArray();
             Assert.AreEqual(1 + calculationsWithOutput.Length + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
                             array.Length);
-            CollectionAssert.Contains(array, failureMechanism.HeightStructuresCollection);
+            CollectionAssert.Contains(array, failureMechanism.HeightStructures);
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithStructure)
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
@@ -436,7 +436,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 structure1,
                 structure2

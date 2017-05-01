@@ -125,7 +125,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                          failureMechanism, assessmentSection);
 
             // Call
@@ -202,7 +202,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 nodeData,
                 otherProfile1,
@@ -219,18 +219,18 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(4, 0),
                 new Point2D(9, 0)
             }));
-            failureMechanism.HeightStructuresCollection.Attach(observer);
+            failureMechanism.HeightStructures.Attach(observer);
             failureMechanism.SectionResults.ElementAt(0).Calculation = calculation1;
             failureMechanism.SectionResults.ElementAt(1).Calculation = calculation3;
 
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                          failureMechanism, assessmentSection);
 
             // Call
             info.OnNodeRemoved(nodeData, parentData);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.HeightStructuresCollection, nodeData);
+            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, nodeData);
 
             Assert.IsNull(calculation1.InputParameters.Structure);
             Assert.IsNotNull(calculation2.InputParameters.Structure);

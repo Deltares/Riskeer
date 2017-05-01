@@ -541,7 +541,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructuresCollection);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructures);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);
@@ -644,7 +644,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.HeightStructuresCollection);
+            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.HeightStructures);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism);
@@ -741,7 +741,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.ForeshoreProfiles);
-            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.HeightStructuresCollection);
+            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.HeightStructures);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism);
@@ -1442,7 +1442,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 yield return profile;
             }
-            foreach (HeightStructure structure in failureMechanism.HeightStructuresCollection)
+            foreach (HeightStructure structure in failureMechanism.HeightStructures)
             {
                 yield return structure;
             }

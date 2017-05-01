@@ -370,7 +370,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                new HeightStructuresContext(failureMechanism.HeightStructuresCollection, failureMechanism, assessmentSection),
+                new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }
@@ -547,7 +547,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private StrictContextMenuItem CreateGenerateHeightStructuresCalculationsItem(HeightStructuresCalculationGroupContext nodeData)
         {
-            StructureCollection<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructuresCollection;
+            StructureCollection<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructures;
             bool structuresAvailable = heightStructures.Any();
 
             string heightStructuresCalculationGroupContextToolTip = structuresAvailable
@@ -565,7 +565,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void ShowHeightStructuresSelectionDialog(HeightStructuresCalculationGroupContext nodeData)
         {
-            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructuresCollection))
+            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructures))
             {
                 dialog.ShowDialog();
 

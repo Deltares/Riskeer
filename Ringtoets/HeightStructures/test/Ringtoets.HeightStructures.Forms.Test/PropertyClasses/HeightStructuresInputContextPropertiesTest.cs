@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 new TestHeightStructure()
             }, "some folder");
@@ -276,7 +276,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             IEnumerable<HeightStructure> availableStructures = properties.GetAvailableStructures();
 
             // Assert
-            Assert.AreSame(failureMechanism.HeightStructuresCollection, availableStructures);
+            Assert.AreSame(failureMechanism.HeightStructures, availableStructures);
             mockRepository.VerifyAll();
         }
 

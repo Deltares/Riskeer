@@ -1248,7 +1248,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertHeightStructures(expectedFailureMechanism.HeightStructuresCollection, actualFailureMechanism.HeightStructuresCollection);
+            AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
             AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);

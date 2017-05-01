@@ -248,7 +248,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
-            entity.ReadHeightStructures(failureMechanism.HeightStructuresCollection, collector);
+            entity.ReadHeightStructures(failureMechanism.HeightStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }

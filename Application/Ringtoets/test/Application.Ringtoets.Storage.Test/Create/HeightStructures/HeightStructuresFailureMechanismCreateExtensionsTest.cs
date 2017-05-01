@@ -190,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             HeightStructure structure = new TestHeightStructure();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 structure
             }, "some path");

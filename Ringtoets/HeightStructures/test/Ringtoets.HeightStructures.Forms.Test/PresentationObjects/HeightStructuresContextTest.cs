@@ -45,13 +45,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var context = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                       failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StructureCollection<HeightStructure>>>(context);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(failureMechanism.HeightStructuresCollection, context.WrappedData);
+            Assert.AreSame(failureMechanism.HeightStructures, context.WrappedData);
             Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             mocks.VerifyAll();
         }
@@ -82,7 +82,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            TestDelegate test = () => new HeightStructuresContext(failureMechanism.HeightStructures,
                                                                   failureMechanism, null);
 
             // Assert

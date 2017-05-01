@@ -585,17 +585,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
-                AssertStructures(failureMechanism.HeightStructuresCollection, structuresData);
+                AssertStructures(failureMechanism.HeightStructures, structuresData);
 
                 // Call
-                failureMechanism.HeightStructuresCollection.AddRange(new[]
+                failureMechanism.HeightStructures.AddRange(new[]
                 {
                     new TestHeightStructure()
                 }, "some path");
-                failureMechanism.HeightStructuresCollection.NotifyObservers();
+                failureMechanism.HeightStructures.NotifyObservers();
 
                 // Assert
-                AssertStructures(failureMechanism.HeightStructuresCollection, structuresData);
+                AssertStructures(failureMechanism.HeightStructures, structuresData);
             }
         }
 

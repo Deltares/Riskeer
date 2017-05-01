@@ -388,7 +388,7 @@ namespace Demo.Ringtoets.Commands
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
             HeightStructure heightStructure = CreateDemoHeightStructure();
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 heightStructure
             }, "heightStructurePath");

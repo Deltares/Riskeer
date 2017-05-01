@@ -88,7 +88,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                                       failureMechanism, assessmentSection);
 
             // Call
@@ -110,7 +110,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                                       failureMechanism, assessmentSection);
 
             // Call
@@ -130,15 +130,15 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 new TestHeightStructure("TestHeightStructure", "id")
             }, "some path");
 
             // Precondition
-            CollectionAssert.IsNotEmpty(failureMechanism.HeightStructuresCollection);
+            CollectionAssert.IsNotEmpty(failureMechanism.HeightStructures);
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                                       failureMechanism, asssessmentSection);
 
             // Call
@@ -158,20 +158,20 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructuresCollection.AddRange(new[]
+            failureMechanism.HeightStructures.AddRange(new[]
             {
                 new TestHeightStructure("TestHeightStructure 1", "first id"),
                 new TestHeightStructure("TestHeightStructure 2", "second id")
             }, "some path");
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                                       failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(heightStructuresContext);
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.HeightStructuresCollection, children);
+            CollectionAssert.AreEqual(failureMechanism.HeightStructures, children);
             mocks.VerifyAll();
         }
 
@@ -186,9 +186,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.HeightStructuresCollection);
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
-            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructuresCollection,
+            var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
                                                                       failureMechanism, asssessmentSection);
 
             // Call
