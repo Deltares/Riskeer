@@ -589,6 +589,24 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken.
+        /// </summary>
+        public static string StructureCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("StructureCollection_TypeDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to id.
+        /// </summary>
+        public static string StructureCollection_UniqueFeature_id_FeatureDescription {
+            get {
+                return ResourceManager.GetString("StructureCollection_UniqueFeature_id_FeatureDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verdronken koker.
         /// </summary>
         public static string StructureInflowModelType_FloodedCulvert_DisplayName {

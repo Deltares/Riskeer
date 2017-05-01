@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="DikeProfiles\RoughnessPoint.cs" />
     <Compile Include="StructureBase.cs" />
+    <Compile Include="StructureCollection.cs" />
     <Compile Include="Structures\IStructuresCalculationInput.cs" />
     <Compile Include="Structures\StructuresCalculation.cs" />
     <Compile Include="Structures\StructuresFailureMechanismSectionResult.cs" />

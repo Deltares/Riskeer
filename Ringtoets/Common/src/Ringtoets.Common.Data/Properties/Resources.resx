@@ -294,4 +294,10 @@
   <data name="ProfileCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
     <value>id</value>
   </data>
+  <data name="StructureCollection_TypeDescriptor" xml:space="preserve">
+    <value>Kunstwerken</value>
+  </data>
+  <data name="StructureCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
+    <value>id</value>
+  </data>
 </root>
