@@ -284,7 +284,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        StochasticSoilModelSourcePath = stochasticSoilModelSourcePath
+                        StochasticSoilModelCollectionSourcePath = stochasticSoilModelSourcePath
                     }
                 }
             };
@@ -330,7 +330,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        SurfaceLineSourcePath = surfaceLineSourcePath
+                        SurfaceLineCollectionSourcePath = surfaceLineSourcePath
                     }
                 }
             };

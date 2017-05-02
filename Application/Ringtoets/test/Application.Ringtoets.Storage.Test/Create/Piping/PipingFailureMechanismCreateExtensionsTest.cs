@@ -98,7 +98,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingFailureMechanismMetaEntity failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
-            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelSourcePath);
+            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
+            Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }
 
         [Test]
@@ -161,7 +162,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
             Assert.AreEqual(1, entity.PipingFailureMechanismMetaEntities.Count);
-            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().StochasticSoilModelSourcePath);
+            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().StochasticSoilModelCollectionSourcePath);
         }
 
         [Test]
@@ -202,7 +203,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(failureMechanism.SurfaceLines.Count, entity.SurfaceLineEntities.Count);
-            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().SurfaceLineSourcePath);
+            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().SurfaceLineCollectionSourcePath);
         }
 
         [Test]

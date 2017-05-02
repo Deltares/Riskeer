@@ -124,7 +124,7 @@ namespace Application.Ringtoets.Storage.Read
                 failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
                                                                      .OrderBy(ssm => ssm.Order)
                                                                      .Select(e => e.Read(collector)),
-                                                               metaEntity.StochasticSoilModelSourcePath);
+                                                               metaEntity.StochasticSoilModelCollectionSourcePath);
             }
 
             if (entity.SurfaceLineEntities.Any())
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Read
                 failureMechanism.SurfaceLines.AddRange(entity.SurfaceLineEntities
                                                              .OrderBy(sl => sl.Order)
                                                              .Select(e => e.Read(collector)),
-                                                       metaEntity.SurfaceLineSourcePath);
+                                                       metaEntity.SurfaceLineCollectionSourcePath);
             }
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);

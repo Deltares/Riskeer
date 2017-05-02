@@ -30,14 +30,11 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class PipingFailureMechanismMetaEntity
+    public class WaveImpactAsphaltCoverFailureMechanismMetaEntity
     {
-        public long PipingFailureMechanismMetaEntityId { get; set; }
+        public long WaveImpactAsphaltCoverFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public double A { get; set; }
-        public double WaterVolumetricWeight { get; set; }
-        public string StochasticSoilModelCollectionSourcePath { get; set; }
-        public string SurfaceLineCollectionSourcePath { get; set; }
+        public string ForeshoreProfileCollectionSourcePath { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

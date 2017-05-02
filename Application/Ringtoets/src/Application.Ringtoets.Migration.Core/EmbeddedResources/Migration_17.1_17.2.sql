@@ -14,7 +14,20 @@ INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGrou
 INSERT INTO CharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].CharacteristicPointEntity;
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
-INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
+INSERT INTO ClosingStructuresFailureMechanismMetaEntity (
+	[ClosingStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N2A],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT 
+	[ClosingStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N2A],
+	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
+	FROM (SELECT *, (SELECT COUNT()
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		WHERE CSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
+	FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity CSFM);
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
@@ -55,14 +68,27 @@ SELECT
                      WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
                      AND FS.Name IS Name
                      AND FS.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
-	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS); SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
+	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS);
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsOvertoppingRateOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
-INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
+INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity (
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT 
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
+	FROM (SELECT *, (SELECT COUNT()
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		WHERE GCEOFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity GCEOFM);
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
@@ -121,19 +147,24 @@ SELECT
                      AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
 	FROM [SOURCEPROJECT].HeightStructureEntity HS);
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
-INSERT INTO HeightStructuresFailureMechanismMetaEntity  (
+INSERT INTO HeightStructuresFailureMechanismMetaEntity (
 	[HeightStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	[HeightStructureCollectionSourcePath])
+	[HeightStructureCollectionSourcePath],
+	[ForeshoreProfileCollectionSourcePath])
 SELECT 
 	[HeightStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN HasStructures THEN "Onbekend" ELSE NULL END
+	CASE WHEN HasStructures THEN "Onbekend" ELSE NULL END,
+	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
 	FROM (SELECT *, (SELECT COUNT()
 		FROM [SOURCEPROJECT].HeightStructureEntity
-		WHERE HSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasStructures
+		WHERE HSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasStructures,
+	(SELECT COUNT()
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		WHERE HSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
 	FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity HSFM);
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
@@ -144,7 +175,21 @@ INSERT INTO MacrostabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
 INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
-INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
+INSERT INTO PipingFailureMechanismMetaEntity (
+	[PipingFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[A],
+	[WaterVolumetricWeight],
+	[StochasticSoilModelCollectionSourcePath],
+	[SurfacelineCollectionSourcePath]) 
+SELECT 
+	[PipingFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[A],
+	[WaterVolumetricWeight], 
+	[StochasticSoilModelSourcePath],
+	[SurfacelineSourcePath] 
+	FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
@@ -153,12 +198,35 @@ INSERT INTO SoilLayerEntity SELECT * FROM [SOURCEPROJECT].SoilLayerEntity;
 INSERT INTO SoilProfileEntity SELECT * FROM [SOURCEPROJECT].SoilProfileEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
-INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
+INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity (
+	[StabilityPointStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT 
+	[StrengthStabilityPointConstructionFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
+	FROM (SELECT *, (SELECT COUNT()
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		WHERE SPSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
+	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity SPSFM);
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
+	[FailureMechanismEntityId],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT 
+	[FailureMechanismEntityId],
+	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
+	FROM (SELECT *, (SELECT COUNT()
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		WHERE SSCFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
+	FROM [SOURCEPROJECT].FailureMechanismEntity SSCFM WHERE FailureMechanismType = 7);
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
@@ -178,7 +246,16 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPR
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
-
+INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity  (
+	[FailureMechanismEntityId],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT 
+	[FailureMechanismEntityId],
+	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
+	FROM (SELECT *, (SELECT COUNT()
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		WHERE WIACFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
+	FROM [SOURCEPROJECT].FailureMechanismEntity WIACFM WHERE FailureMechanismType = 3);
 /*
 Insert new data
 */

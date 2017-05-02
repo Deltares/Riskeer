@@ -293,8 +293,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight.Value);
 
-            Assert.IsNull(pipingFailureMechanismMetaEntity.StochasticSoilModelSourcePath);
-            Assert.IsNull(pipingFailureMechanismMetaEntity.SurfaceLineSourcePath);
+            Assert.IsNull(pipingFailureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
+            Assert.IsNull(pipingFailureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }
 
         [Test]
@@ -325,7 +325,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        StochasticSoilModelSourcePath = sourcePath
+                        StochasticSoilModelCollectionSourcePath = sourcePath
                     }
                 }
             };
@@ -373,7 +373,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        SurfaceLineSourcePath = sourcePath
+                        SurfaceLineCollectionSourcePath = sourcePath
                     }
                 }
             };

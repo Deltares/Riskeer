@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(generalinput.N, entity.N);
 
             Assert.IsNull(entity.FailureMechanismEntity);
-            Assert.AreEqual(0, entity.StrengthStabilityPointConstructionFailureMechanismMetaEntityId);
+            Assert.AreEqual(0, entity.StabilityPointStructuresFailureMechanismMetaEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
         }
     }
