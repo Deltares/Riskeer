@@ -166,7 +166,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, importTarget.Count);
-            Assert.IsNull(importTarget.SourcePath);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         [Test]

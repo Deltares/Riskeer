@@ -53,12 +53,8 @@ namespace Ringtoets.HeightStructures.IO
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            HeightStructure[] importedHeightStructures = CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray();
-
-            if (importedHeightStructures.Any())
-            {
-                ImportTarget.AddRange(importedHeightStructures, FilePath);
-            }
+            ImportTarget.AddRange(CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray(),
+                                  FilePath);
         }
 
         private IEnumerable<HeightStructure> CreateHeightStructures(IEnumerable<StructureLocation> structureLocations,
