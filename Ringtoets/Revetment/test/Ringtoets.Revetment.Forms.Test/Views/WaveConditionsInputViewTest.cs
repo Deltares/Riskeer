@@ -21,9 +21,16 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.Views
 {
@@ -52,14 +59,95 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             using (var view = new WaveConditionsInputView())
             {
                 // Assert
-                var chartControl = (IChartControl)view.Controls.Find("chartControl", true).First();
+                var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
                 Assert.IsInstanceOf<Control>(chartControl);
                 Assert.AreSame(chartControl, chartControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)chartControl).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
                 Assert.IsNull(chartControl.Data);
             }
+        }
+
+        [Test]
+        public void Data_IWaveConditionsCalculation_DataSet()
+        {
+            // Setup
+            using (var view = new WaveConditionsInputView())
+            {
+                var calculation = new TestWaveConditionsCalculation();
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_OtherThanIWwaveCondittionsCalculation_DataNull()
+        {
+            // Setup
+            using (var view = new WaveConditionsInputView())
+            {
+                var calculation = new object();
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_SetChartData_ChartDataSet()
+        {
+            // Setup
+            const string calculationName = "Calculation name";
+
+            using (var view = new WaveConditionsInputView())
+            {
+                var calculation = new TestWaveConditionsCalculation
+                {
+                    Name = calculationName,
+                    InputParameters = new WaveConditionsInput
+                    {
+                        ForeshoreProfile = new TestForeshoreProfile(new[]
+                        {
+                            new Point2D(0.0, 0.0),
+                            new Point2D(1.0, 1.0),
+                            new Point2D(2.0, 2.0)
+                        })
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+                Assert.AreEqual(calculationName, view.Chart.ChartTitle);
+
+                ChartDataCollection chartData = view.Chart.Data;
+                Assert.IsInstanceOf<ChartDataCollection>(chartData);
+                Assert.AreEqual(1, chartData.Collection.Count());
+                AssertForeshoreChartData(calculation.InputParameters.ForeshoreProfile, chartData.Collection.ElementAt(0));
+            }
+        }
+
+        private static void AssertForeshoreChartData(ForeshoreProfile foreshoreProfile, ChartData chartData)
+        {
+            Assert.IsInstanceOf<ChartLineData>(chartData);
+            var foreshoreChartData = (ChartLineData) chartData;
+
+            RoundedPoint2DCollection foreshoreGeometry = foreshoreProfile.Geometry;
+            Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Length);
+            CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
+
+            string expectedName = $"{foreshoreProfile.Name} - Voorlandprofiel";
+            Assert.AreEqual(expectedName, chartData.Name);
         }
     }
 }

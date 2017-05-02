@@ -122,6 +122,7 @@
     <Compile Include="Views\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
+    <Compile Include="Views\RingtoetsChartDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapControlTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFeaturesFactoryTest.cs" />
@@ -161,6 +162,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
       <Project>{e02482c7-f12b-42f0-bb2b-c7ec17503a72}</Project>
       <Name>Core.Components.BruTile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Charting</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>

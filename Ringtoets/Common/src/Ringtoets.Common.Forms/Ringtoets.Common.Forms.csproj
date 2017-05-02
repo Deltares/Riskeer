@@ -146,6 +146,7 @@
       <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
+    <Compile Include="Views\RingtoetsChartDataFactory.cs" />
     <Compile Include="Views\RingtoetsMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -233,6 +234,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Charting</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">

@@ -626,6 +626,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - {1}.
+        /// </summary>
+        public static string ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_ {
+            get {
+                return ResourceManager.GetString("ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Checkbox_empty {

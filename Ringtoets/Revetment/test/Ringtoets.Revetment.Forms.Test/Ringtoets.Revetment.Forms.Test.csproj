@@ -60,6 +60,8 @@
     <Compile Include="PropertyClasses\WaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveConditionsInputForeshoreProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveConditionsOutputPropertiesTest.cs" />
+    <Compile Include="Views\WaveConditionsChartDataFactoryTest.cs" />
+    <Compile Include="Views\WaveConditionsChartDataPointsFactoryTest.cs" />
     <Compile Include="Views\WaveConditionsInputViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// Factory for creating <see cref="FeatureBasedMapData"/> for data used as input in the piping failure mechanism.
     /// </summary>
-    public static class PipingMapDataFactory
+    internal static class PipingMapDataFactory
     {
         /// <summary>
         /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="RingtoetsPipingSurfaceLine"/>.

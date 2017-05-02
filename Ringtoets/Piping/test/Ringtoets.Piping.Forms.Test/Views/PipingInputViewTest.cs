@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_WithoutSurfaceLine_NoMapDataSet()
+        public void Data_WithoutSurfaceLine_NoChartDataSet()
         {
             // Setup
             using (var view = new PipingInputView())

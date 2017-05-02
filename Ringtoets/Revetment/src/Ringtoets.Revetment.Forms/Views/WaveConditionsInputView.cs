@@ -21,18 +21,65 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Ringtoets.Common.Forms.Views;
+using Ringtoets.Revetment.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Revetment.Forms.Views
 {
+    /// <summary>
+    /// This class is a view to show the wave conditions input.
+    /// </summary>
     public partial class WaveConditionsInputView : UserControl, IChartView
     {
+        private readonly ChartDataCollection chartDataCollection;
+        private readonly ChartLineData foreshoreChartData;
+
+        private IWaveConditionsCalculation data;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
+        /// </summary>
         public WaveConditionsInputView()
         {
             InitializeComponent();
+
+            chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
+            foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
+
+            chartDataCollection.Add(foreshoreChartData);
         }
-        
-        public object Data { get; set; }
+
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value as IWaveConditionsCalculation;
+
+                if (data != null)
+                {
+                    SetChartData();
+
+                    chartControl.Data = chartDataCollection;
+                    chartControl.ChartTitle = data.Name;
+                }
+            }
+        }
+
+        private void SetChartData()
+        {
+            WaveConditionsInput input = data.InputParameters;
+
+            WaveConditionsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
+
+            foreshoreChartData.Points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+        }
 
         public IChartControl Chart
         {

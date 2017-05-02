@@ -244,16 +244,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - {1}.
-        /// </summary>
-        public static string GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayN" +
-                        "ame_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer dijkprofielen.
         /// </summary>
         public static string GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles {

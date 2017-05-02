@@ -59,6 +59,8 @@
     <Compile Include="Views\WaveConditionsInputView.Designer.cs">
       <DependentUpon>WaveConditionsInputView.cs</DependentUpon>
     </Compile>
+    <Compile Include="WaveConditionsChartDataFactory.cs" />
+    <Compile Include="WaveConditionsChartDataPointsFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

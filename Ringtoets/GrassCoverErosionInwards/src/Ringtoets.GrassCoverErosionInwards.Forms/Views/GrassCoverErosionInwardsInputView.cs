@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -55,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationInputObserver = new Observer(UpdateChartData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
-            foreshoreChartData = GrassCoverErosionInwardsChartDataFactory.CreateForeshoreGeometryChartData();
+            foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
             dikeGeometryChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
             dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 

@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>
     /// (created via <see cref="GrassCoverErosionInwardsChartDataFactory"/>).
     /// </summary>
-    public static class GrassCoverErosionInwardsChartDataPointsFactory
+    internal static class GrassCoverErosionInwardsChartDataPointsFactory
     {
         /// <summary>
         /// Create dike geometry points in 2D space based on the provided <paramref name="dikeProfile"/>.

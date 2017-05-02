@@ -938,4 +938,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="ForeshoreProfileCollectionProperties_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de voorlandprofielen zijn geïmporteerd.</value>
   </data>
+  <data name="ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
 </root>

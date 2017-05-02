@@ -35,7 +35,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// Factory for creating arrays of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
     /// to use in <see cref="FeatureBasedMapData"/> (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
-    public static class DuneErosionMapDataFeaturesFactory
+    internal static class DuneErosionMapDataFeaturesFactory
     {
         /// <summary>
         /// Create dune location features based on the provided <paramref name="duneLocations"/>.

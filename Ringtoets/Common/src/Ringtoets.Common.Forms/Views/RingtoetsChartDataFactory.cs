@@ -19,43 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-using Ringtoets.Common.Data;
-using Ringtoets.Revetment.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Revetment.TestUtil
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Creates a simple <see cref="IWaveConditionsCalculation"/> implementation, which
-    /// can have an object set as output.
+    /// Factory for creating <see cref="ChartData"/> based on information used as input.
     /// </summary>
-    public class TestWaveConditionsCalculation : Observable, IWaveConditionsCalculation
+    public static class RingtoetsChartDataFactory
     {
         /// <summary>
-        /// Gets or sets an object that represents some output of this calculation.
+        /// Create <see cref="ChartLineData"/> with default styling for a foreshore geometry.
         /// </summary>
-        public object Output { get; set; }
-
-        public WaveConditionsInput InputParameters { get; set; }
-
-        public bool HasOutput
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateForeshoreGeometryChartData()
         {
-            get
+            return new ChartLineData(Resources.Foreshore_DisplayName)
             {
-                return Output != null;
-            }
+                Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
+            };
         }
-
-        public void ClearOutput()
-        {
-            Output = null;
-        }
-
-        #region Irrelevant for test
-
-        public string Name { get; set; }
-        public Comment Comments { get; }
-
-        #endregion
     }
 }

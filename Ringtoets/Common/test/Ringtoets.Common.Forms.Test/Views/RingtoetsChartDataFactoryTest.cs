@@ -19,43 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-using Ringtoets.Common.Data;
-using Ringtoets.Revetment.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
+using NUnit.Framework;
+using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Revetment.TestUtil
+namespace Ringtoets.Common.Forms.Test.Views
 {
-    /// <summary>
-    /// Creates a simple <see cref="IWaveConditionsCalculation"/> implementation, which
-    /// can have an object set as output.
-    /// </summary>
-    public class TestWaveConditionsCalculation : Observable, IWaveConditionsCalculation
+    [TestFixture]
+    public class RingtoetsChartDataFactoryTest
     {
-        /// <summary>
-        /// Gets or sets an object that represents some output of this calculation.
-        /// </summary>
-        public object Output { get; set; }
-
-        public WaveConditionsInput InputParameters { get; set; }
-
-        public bool HasOutput
+        [Test]
+        public void CreateForeshoreGeometryChartData_ReturnsChartDataWithDefaultStyling()
         {
-            get
-            {
-                return Output != null;
-            }
+            // Call
+            ChartLineData data = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
+
+            // Assert
+            Assert.AreEqual("Voorlandprofiel", data.Name);
+            AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
         }
 
-        public void ClearOutput()
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
         {
-            Output = null;
+            Assert.AreEqual(color, lineStyle.Color);
+            Assert.AreEqual(width, lineStyle.Width);
+            Assert.AreEqual(style, lineStyle.Style);
         }
-
-        #region Irrelevant for test
-
-        public string Name { get; set; }
-        public Comment Comments { get; }
-
-        #endregion
     }
 }

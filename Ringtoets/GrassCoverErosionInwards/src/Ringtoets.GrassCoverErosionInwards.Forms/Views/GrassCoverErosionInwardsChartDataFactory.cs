@@ -24,6 +24,7 @@ using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -34,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// Factory for creating <see cref="ChartData"/> based on information used as input
     /// in the grass cover erosion inwards failure mechanism.
     /// </summary>
-    public static class GrassCoverErosionInwardsChartDataFactory
+    internal static class GrassCoverErosionInwardsChartDataFactory
     {
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for a dike geometry.
@@ -45,18 +46,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             return new ChartLineData(Resources.DikeProfile_DisplayName)
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
-            };
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for a foreshore geometry.
-        /// </summary>
-        /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateForeshoreGeometryChartData()
-        {
-            return new ChartLineData(RingtoetsCommonFormsResources.Foreshore_DisplayName)
-            {
-                Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
         }
 
@@ -81,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         public static void UpdateDikeGeometryChartDataName(ChartLineData chartData, DikeProfile dikeProfile)
         {
             chartData.Name = dikeProfile != null
-                                 ? string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  dikeProfile.Name,
                                                  Resources.DikeProfile_DisplayName)
                                  : Resources.DikeProfile_DisplayName;
@@ -92,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="CreateForeshoreGeometryChartData"/>) when:
+        /// <remarks>A default name is set (the same as in <see cref="RingtoetsChartDataFactory.CreateForeshoreGeometryChartData"/>) when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the dike profile in <paramref name="input"/> is <c>null</c>;</item>
@@ -102,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, GrassCoverErosionInwardsInput input)
         {
             chartData.Name = input?.DikeProfile != null && input.UseForeshore
-                                 ? string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  input.DikeProfile.Name,
                                                  RingtoetsCommonFormsResources.Foreshore_DisplayName)
                                  : RingtoetsCommonFormsResources.Foreshore_DisplayName;

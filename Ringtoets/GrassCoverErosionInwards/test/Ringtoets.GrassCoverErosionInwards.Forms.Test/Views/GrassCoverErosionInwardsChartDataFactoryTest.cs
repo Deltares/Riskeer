@@ -27,9 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 {
@@ -43,19 +41,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
 
             // Assert
-            Assert.AreEqual(string.Format(Resources.DikeProfile_DisplayName), data.Name);
+            Assert.AreEqual("Dijkprofiel", data.Name);
             AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
-        }
-
-        [Test]
-        public void CreateForeshoreGeometryChartData_ReturnsChartDataWithDefaultStyling()
-        {
-            // Call
-            ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateForeshoreGeometryChartData();
-
-            // Assert
-            Assert.AreEqual(string.Format(RingtoetsCommonFormsResources.Foreshore_DisplayName), data.Name);
-            AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
         }
 
         [Test]
@@ -65,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 
             // Assert
-            Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);
+            Assert.AreEqual("Dijkhoogte", data.Name);
             AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, DashStyle.Dash);
         }
 
@@ -79,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, null);
 
             // Assert
-            Assert.AreEqual(Resources.DikeProfile_DisplayName, chartData.Name);
+            Assert.AreEqual("Dijkprofiel", chartData.Name);
         }
 
         [Test]
@@ -93,9 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, dikeProfile);
 
             // Assert
-            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                dikeProfile.Name,
-                                                Resources.DikeProfile_DisplayName);
+            string expectedName = $"{dikeProfile.Name} - Dijkprofiel";
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
@@ -109,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, null);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, chartData.Name);
+            Assert.AreEqual("Voorlandprofiel", chartData.Name);
         }
 
         [Test]
@@ -126,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, chartData.Name);
+            Assert.AreEqual("Voorlandprofiel", chartData.Name);
         }
 
         [Test]
@@ -144,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, chartData.Name);
+            Assert.AreEqual("Voorlandprofiel", chartData.Name);
         }
 
         [Test]
@@ -162,9 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
 
             // Assert
-            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                input.DikeProfile.Name,
-                                                RingtoetsCommonFormsResources.Foreshore_DisplayName);
+            string expectedName = $"{input.DikeProfile.Name} - Voorlandprofiel";
             Assert.AreEqual(expectedName, chartData.Name);
         }
 

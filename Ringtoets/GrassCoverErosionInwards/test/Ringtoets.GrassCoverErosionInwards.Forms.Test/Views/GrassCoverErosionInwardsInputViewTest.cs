@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_EmptyGrassCoverErosionInwardsCalculation_NoMapDataSet()
+        public void Data_EmptyGrassCoverErosionInwardsCalculation_NoChartDataSet()
         {
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
@@ -380,14 +380,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 var actualDikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
-                string expectedDikeProfileName = string.Format("{0} - {1}",
-                                                               dikeProfile.Name, "Dijkprofiel");
+                string expectedDikeProfileName = $"{dikeProfile.Name} - Dijkprofiel";
                 Assert.AreEqual(expectedDikeProfileName, actualDikeProfileChartData.Name);
 
                 var actualForeshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
-                string expectedForeshoreName = string.Format("{0} - {1}",
-                                                             dikeProfile.Name,
-                                                             "Voorlandprofiel");
+                string expectedForeshoreName = $"{dikeProfile.Name} - Voorlandprofiel";
                 Assert.AreEqual(expectedForeshoreName, actualForeshoreChartData.Name);
 
                 var actualDikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
@@ -508,9 +505,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(dikeGeometry.Length, dikeProfileChartData.Points.Length);
             CollectionAssert.AreEqual(dikeGeometry.Select(dg => dg.Point), dikeProfileChartData.Points);
 
-            string expectedName = string.Format("{0} - {1}",
-                                                dikeProfile.Name,
-                                                "Dijkprofiel");
+            string expectedName = $"{dikeProfile.Name} - Dijkprofiel";
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
@@ -523,9 +518,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Length);
             CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
 
-            string expectedName = string.Format("{0} - {1}",
-                                                dikeProfile.Name,
-                                                "Voorlandprofiel");
+            string expectedName = $"{dikeProfile.Name} - Voorlandprofiel";
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
