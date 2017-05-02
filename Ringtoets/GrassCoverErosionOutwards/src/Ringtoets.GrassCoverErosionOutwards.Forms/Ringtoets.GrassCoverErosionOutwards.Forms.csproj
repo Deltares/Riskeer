@@ -85,7 +85,7 @@
     <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\GrassCoverErosionOutwardsMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

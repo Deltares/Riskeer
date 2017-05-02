@@ -73,7 +73,7 @@
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelperTest.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputPropertiesTest.cs" />
-    <Compile Include="Views\StabilityStoneCoverMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\StabilityStoneCoverMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\StabilityStoneCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />

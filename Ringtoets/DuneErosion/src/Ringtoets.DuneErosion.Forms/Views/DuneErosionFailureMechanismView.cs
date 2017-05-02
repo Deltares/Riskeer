@@ -26,8 +26,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Forms.Factories;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Forms.Factories;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 

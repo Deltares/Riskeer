@@ -27,6 +27,7 @@ using Core.Common.Utils.Extensions;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

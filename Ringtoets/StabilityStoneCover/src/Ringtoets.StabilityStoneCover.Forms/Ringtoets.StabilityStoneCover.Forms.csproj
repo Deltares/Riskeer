@@ -63,7 +63,7 @@
     <Compile Include="Views\StabilityStoneCoverFailureMechanismView.Designer.cs">
       <DependentUpon>StabilityStoneCoverFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\StabilityStoneCoverMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\StabilityStoneCoverMapDataFeaturesFactory.cs" />
     <Compile Include="Views\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

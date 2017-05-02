@@ -45,7 +45,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PropertyClasses\DikeProfileCollectionProperties.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsMapDataFeatureFactory.cs" />
+    <Compile Include="Factories\GrassCoverErosionInwardsMapDataFeatureFactory.cs" />
     <Compile Include="PresentationObjects\DikeProfilesContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsContext.cs" />
@@ -67,8 +67,8 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditor.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsChartDataFactory.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsChartDataPointsFactory.cs" />
+    <Compile Include="Factories\GrassCoverErosionInwardsChartDataFactory.cs" />
+    <Compile Include="Factories\GrassCoverErosionInwardsChartDataPointsFactory.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -23,8 +23,10 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Factories;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Revetment.Forms.Views

@@ -88,8 +88,8 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
-    <Compile Include="Views\PipingChartDataPointsFactory.cs" />
-    <Compile Include="Views\PipingMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\PipingChartDataPointsFactory.cs" />
+    <Compile Include="Factories\PipingMapDataFeaturesFactory.cs" />
     <Compile Include="Views\PipingScenarioRow.cs" />
     <Compile Include="Views\PipingScenariosView.cs">
       <SubType>UserControl</SubType>
@@ -97,7 +97,7 @@
     <Compile Include="Views\PipingScenariosView.Designer.cs">
       <DependentUpon>PipingScenariosView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PipingChartDataFactory.cs" />
+    <Compile Include="Factories\PipingChartDataFactory.cs" />
     <Compile Include="Views\PipingInputView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,7 +121,7 @@
     <Compile Include="Views\PipingFailureMechanismView.Designer.cs">
       <DependentUpon>PipingFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PipingMapDataFactory.cs" />
+    <Compile Include="Factories\PipingMapDataFactory.cs" />
     <Compile Include="Views\PipingSoilLayerTable.cs">
       <SubType>UserControl</SubType>
     </Compile>

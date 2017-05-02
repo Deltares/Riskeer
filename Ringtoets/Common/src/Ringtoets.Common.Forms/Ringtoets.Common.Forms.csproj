@@ -146,14 +146,14 @@
       <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
-    <Compile Include="Views\RingtoetsChartDataFactory.cs" />
+    <Compile Include="Factories\RingtoetsChartDataFactory.cs" />
     <Compile Include="Views\RingtoetsMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\RingtoetsMapControl.Designer.cs">
       <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\RingtoetsMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\RingtoetsMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Views\FailureMechanismResultView.Designer.cs">
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\RingtoetsMapDataFactory.cs" />
+    <Compile Include="Factories\RingtoetsMapDataFactory.cs" />
     <Compile Include="Views\SelectableRow.cs" />
     <Compile Include="Views\WaveHeightLocationRow.cs" />
   </ItemGroup>

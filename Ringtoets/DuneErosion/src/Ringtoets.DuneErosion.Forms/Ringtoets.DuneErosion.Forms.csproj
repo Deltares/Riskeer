@@ -64,7 +64,7 @@
     <Compile Include="Views\DuneErosionFailureMechanismView.Designer.cs">
       <DependentUpon>DuneErosionFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DuneErosionMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\DuneErosionMapDataFeaturesFactory.cs" />
     <Compile Include="Views\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\DuneLocationRow.cs" />
     <Compile Include="Views\DuneLocationsView.cs">

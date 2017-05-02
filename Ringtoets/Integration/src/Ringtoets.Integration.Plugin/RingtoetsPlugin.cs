@@ -410,7 +410,8 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
-                CloseForData = CloseWaveConditionsInputViewForData
+                CloseForData = CloseWaveConditionsInputViewForData,
+                CreateInstance = () => new WaveConditionsInputView()
             };
         }
 

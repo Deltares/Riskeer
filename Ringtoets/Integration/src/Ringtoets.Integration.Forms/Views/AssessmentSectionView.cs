@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views

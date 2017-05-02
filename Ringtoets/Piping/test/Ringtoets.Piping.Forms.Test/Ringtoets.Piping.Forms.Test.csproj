@@ -91,17 +91,17 @@
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
     <Compile Include="Views\PipingCalculationRowTest.cs" />
-    <Compile Include="Views\PipingChartDataPointsFactoryTest.cs" />
-    <Compile Include="Views\PipingMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\PipingChartDataPointsFactoryTest.cs" />
+    <Compile Include="Factories\PipingMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\PipingScenariosViewTest.cs" />
-    <Compile Include="Views\PipingChartDataFactoryTest.cs" />
+    <Compile Include="Factories\PipingChartDataFactoryTest.cs" />
     <Compile Include="Views\PipingInputViewTest.cs" />
     <Compile Include="Views\PipingScenarioRowTest.cs" />
     <Compile Include="Views\PipingFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\PipingCalculationsViewTest.cs" />
     <Compile Include="Views\PipingFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\PipingFailureMechanismViewTest.cs" />
-    <Compile Include="Views\PipingMapDataFactoryTest.cs" />
+    <Compile Include="Factories\PipingMapDataFactoryTest.cs" />
     <Compile Include="Views\PipingSoilLayerTableTest.cs" />
   </ItemGroup>
   <ItemGroup>

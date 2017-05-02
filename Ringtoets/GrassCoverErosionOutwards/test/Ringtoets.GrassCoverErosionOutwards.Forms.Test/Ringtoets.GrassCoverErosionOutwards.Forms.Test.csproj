@@ -84,7 +84,7 @@
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsViewTest.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
