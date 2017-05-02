@@ -60,6 +60,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertTablesContentMigrated(reader, sourceFilePath);
 
+                    AssertHeightStructuresFailureMechanism(reader);
+
                     AssertVersions(reader);
                     AssertDatabase(reader);
                 }
@@ -133,6 +135,31 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
+        }
+
+        private static void AssertHeightStructuresFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateSourcePathNull =
+                "SELECT COUNT() = 0 FROM ( " +
+                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
+                "FROM HeightStructuresFailureMechanismMetaEntity WHERE [HeightStructureCollectionSourcePath] IS NULL " +
+                "EXCEPT " +
+                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
+                "FROM HeightStructuresFailureMechanismMetaEntity HSFM " +
+                "WHERE HSFM.[FailureMechanismEntityId] NOT IN (SELECT FailureMechanismEntityId FROM HeightStructureEntity HS) " +
+                "); ";
+            reader.AssertReturnedDataIsValid(validateSourcePathNull);
+
+            const string validateSourcePathSet =
+                "SELECT COUNT() = 0 FROM ( " +
+                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
+                "FROM HeightStructuresFailureMechanismMetaEntity WHERE [HeightStructureCollectionSourcePath] = \"Onbekend\" " +
+                "EXCEPT " +
+                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
+                "FROM HeightStructuresFailureMechanismMetaEntity HSFM " +
+                "WHERE HSFM.[FailureMechanismEntityId] IN(SELECT FailureMechanismEntityId FROM HeightStructureEntity HS) " +
+                "); ";
+            reader.AssertReturnedDataIsValid(validateSourcePathSet);
         }
 
         private static void AssertLogDatabase(string logFilePath)
