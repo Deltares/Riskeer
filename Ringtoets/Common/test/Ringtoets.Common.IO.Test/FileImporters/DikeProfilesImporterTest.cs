@@ -194,7 +194,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
                 Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
-                             LogLevelConstant.Warn),
+                             LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(importResult);

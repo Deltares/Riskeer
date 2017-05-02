@@ -143,12 +143,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            string[] expectedMessages =
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
-                $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
-                $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
+                Tuple.Create(
+                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
+                    LogLevelConstant.Warn),
+                Tuple.Create(
+                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
+                    LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(importResult);
             Assert.AreEqual(5, foreshoreProfiles.Count);
         }

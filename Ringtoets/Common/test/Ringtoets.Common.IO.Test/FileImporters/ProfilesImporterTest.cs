@@ -28,14 +28,12 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
