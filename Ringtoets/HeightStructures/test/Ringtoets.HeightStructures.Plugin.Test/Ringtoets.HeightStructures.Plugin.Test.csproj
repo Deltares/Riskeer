@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="ExportInfos\HeightStructuresCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\HeightStructuresCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="FileImporters\HeightStructureReplaceDataStrategyTest.cs" />
     <Compile Include="ImportInfos\HeightStructuresCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructureCollectionPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresFailureMechanismContextPropertyInfoTest.cs" />

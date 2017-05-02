@@ -373,6 +373,70 @@ namespace Ringtoets.HeightStructures.Service.Test
                             "Other section results with a different calculation/structure should still have their association.");
         }
 
+        [Test]
+        public void RemoveAllStructures_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresDataSynchronizationService.RemoveAllStructures(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_FullyConfiguredFailureMechanism_RemoveAllHeightStructuresAndClearDependentData()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
+            StructuresCalculation<HeightStructuresInput>[] calculationsWithStructure = failureMechanism.Calculations
+                                                                                                       .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                       .Where(calc => calc.InputParameters.Structure != null)
+                                                                                                       .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
+                                                                                                             .ToArray();
+
+            HeightStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
+                                                                                                          .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                                          .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithStructure);
+
+            // Call
+            IEnumerable<IObservable> observables = HeightStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithStructure)
+            {
+                Assert.IsNull(calculation.InputParameters.Structure);
+            }
+
+            IObservable[] affectedObjectsArray = observables.ToArray();
+            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStructure.Length +
+                                              sectionResultsWithStructure.Length;
+            Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
+
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithOutput)
+            {
+                Assert.IsFalse(calculation.HasOutput);
+            }
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithStructure.Select(calc => calc.InputParameters)
+                                         .Cast<IObservable>()
+                                         .Concat(calculationsWithOutput)
+                                         .Concat(sectionResultsWithStructure)
+                                         .Concat(new IObservable[]
+                                         {
+                                             failureMechanism.HeightStructures
+                                         });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
+        }
+
         private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
             var section1 = new FailureMechanismSection("A", new[]

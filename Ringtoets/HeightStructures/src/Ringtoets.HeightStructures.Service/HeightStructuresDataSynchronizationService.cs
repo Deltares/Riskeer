@@ -123,20 +123,67 @@ namespace Ringtoets.HeightStructures.Service
 
         /// <summary>
         /// Removes the given height structure and all dependent data, either directly or indirectly,
-        /// from the failure mechanism.
+        /// from the <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="structure"/>.</param>
         /// <param name="structure">The structure to be removed.</param>
         /// <returns>All objects affected by the removal.</returns>
         public static IEnumerable<IObservable> RemoveStructure(HeightStructuresFailureMechanism failureMechanism, HeightStructure structure)
         {
-            var changedObservables = new HashSet<IObservable>();
             StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = failureMechanism.Calculations
                                                                                                          .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                                                                          .ToArray();
             StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
+
+            HashSet<IObservable> changedObservables = RemoveStructureDependentData(failureMechanism,
+                                                                                   calculationWithRemovedHeightStructure,
+                                                                                   heightStructureCalculations);
+
+            failureMechanism.HeightStructures.Remove(structure);
+            changedObservables.Add(failureMechanism.HeightStructures);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes all height structures from the <paramref name="failureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <returns>All objects that are affected by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllStructures(HeightStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations = failureMechanism.Calculations
+                                                                                                         .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                         .ToArray();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure = heightStructureCalculations
+                .Where(c => c.InputParameters.Structure != null)
+                .ToArray();
+
+            HashSet<IObservable> changedObservables = RemoveStructureDependentData(failureMechanism,
+                                                                                   calculationWithRemovedHeightStructure,
+                                                                                   heightStructureCalculations);
+
+            failureMechanism.HeightStructures.Clear();
+            changedObservables.Add(failureMechanism.HeightStructures);
+
+            return changedObservables;
+        }
+
+        private static HashSet<IObservable> RemoveStructureDependentData(HeightStructuresFailureMechanism failureMechanism,
+                                                                         StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedHeightStructure,
+                                                                         StructuresCalculation<HeightStructuresInput>[] heightStructureCalculations)
+        {
+            var changedObservables = new HashSet<IObservable>();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedHeightStructure)
             {
                 foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
@@ -154,10 +201,6 @@ namespace Ringtoets.HeightStructures.Service
             {
                 changedObservables.Add(result);
             }
-
-            failureMechanism.HeightStructures.Remove(structure);
-            changedObservables.Add(failureMechanism.HeightStructures);
-
             return changedObservables;
         }
 

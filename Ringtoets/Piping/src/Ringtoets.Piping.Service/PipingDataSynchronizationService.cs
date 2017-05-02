@@ -161,18 +161,12 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
 
-            var changedObservables = new List<IObservable>();
-
             IEnumerable<PipingCalculation> pipingCalculationScenarios =
                 failureMechanism.Calculations
                                 .Cast<PipingCalculation>()
                                 .Where(pcs => ReferenceEquals(pcs.InputParameters.SurfaceLine, surfaceLine));
 
-            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
-            {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
-                changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
-            }
+            IList<IObservable> changedObservables = RemoveSurfaceLineDependentData(pipingCalculationScenarios).ToList();
 
             failureMechanism.SurfaceLines.Remove(surfaceLine);
             changedObservables.Add(failureMechanism.SurfaceLines);
@@ -200,12 +194,7 @@ namespace Ringtoets.Piping.Service
                                 .Cast<PipingCalculation>()
                                 .Where(calc => calc.InputParameters.SurfaceLine != null).ToArray();
 
-            var affectedObjects = new List<IObservable>();
-            foreach (PipingCalculation calculation in affectedCalculationScenarios)
-            {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-                affectedObjects.AddRange(ClearSurfaceLine(calculation.InputParameters));
-            }
+            List<IObservable> affectedObjects = RemoveSurfaceLineDependentData(affectedCalculationScenarios).ToList();
 
             failureMechanism.SurfaceLines.Clear();
             affectedObjects.Add(failureMechanism.SurfaceLines);
@@ -345,6 +334,17 @@ namespace Ringtoets.Piping.Service
                 changedObservables.Add(calculation.InputParameters);
             }
 
+            return changedObservables;
+        }
+
+        private static IEnumerable<IObservable> RemoveSurfaceLineDependentData(IEnumerable<PipingCalculation> pipingCalculationScenarios)
+        {
+            var changedObservables = new List<IObservable>();
+            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
+            {
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
+            }
             return changedObservables;
         }
 

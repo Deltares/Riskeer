@@ -73,6 +73,7 @@
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
+    <Compile Include="Exceptions\StructureUpdateException.cs" />
     <Compile Include="FileImporters\DikeProfilesImporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Configurations\Export\SchemaCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
+    <Compile Include="Structures\IStructureUpdateStrategy.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
     <Compile Include="Structures\StructureLocation.cs" />
