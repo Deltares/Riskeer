@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -122,6 +123,23 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Chart.Data);
                 Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void Data_EmptyCalculation_NoChartDataSet()
+        {
+            // Setup
+            using (var view = new WaveConditionsInputView())
+            {
+                var calculation = new TestWaveConditionsCalculation();
+                calculation.InputParameters.ForeshoreProfile = null;
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                AssertEmptyChartData(view.Chart.Data);
             }
         }
 
@@ -231,10 +249,10 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(0);
                 foreshoreChartData.Attach(observer);
-                ForeshoreProfile profile2 = new TestForeshoreProfile(new []
+                ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
                 {
-                    new Point2D(0, 0), 
-                    new Point2D(3, 3), 
+                    new Point2D(0, 0),
+                    new Point2D(3, 3),
                     new Point2D(8, 8)
                 });
 
@@ -283,6 +301,21 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreEqual(calculation1, view.Data);
                 mocks.VerifyAll(); // no update observer expected
             }
+        }
+
+        private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
+        {
+            Assert.AreEqual("Invoer", chartDataCollection.Name);
+
+            List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
+
+            Assert.AreEqual(1, chartDatasList.Count);
+
+            var foreshoreData = (ChartLineData) chartDatasList[0];
+
+            CollectionAssert.IsEmpty(foreshoreData.Points);
+
+            Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
         }
 
         private static void AssertForeshoreChartData(ForeshoreProfile foreshoreProfile, ChartData chartData)
