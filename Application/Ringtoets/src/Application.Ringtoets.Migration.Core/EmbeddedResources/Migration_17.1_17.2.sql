@@ -121,7 +121,20 @@ SELECT
                      AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
 	FROM [SOURCEPROJECT].HeightStructureEntity HS);
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
-INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
+INSERT INTO HeightStructuresFailureMechanismMetaEntity  (
+	[HeightStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[HeightStructureCollectionSourcePath])
+SELECT 
+	[HeightStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	CASE WHEN HasStructures THEN "Onbekend" ELSE NULL END
+	FROM (SELECT *, (SELECT COUNT()
+		FROM [SOURCEPROJECT].HeightStructureEntity
+		WHERE HSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasStructures
+	FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity HSFM);
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
