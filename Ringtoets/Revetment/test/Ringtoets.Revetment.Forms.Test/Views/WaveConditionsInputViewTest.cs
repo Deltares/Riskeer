@@ -102,6 +102,29 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
+        public void Data_SetToNull_ChartDataCleared()
+        {
+            // Setup
+            using (var view = new WaveConditionsInputView
+            {
+                Data = new TestWaveConditionsCalculation()
+            })
+            {
+                // Precondition
+                Assert.AreEqual(1, view.Chart.Data.Collection.Count());
+                Assert.AreEqual("Nieuwe berekening", view.Chart.ChartTitle);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.Chart.Data);
+                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
         public void Data_SetChartData_ChartDataSet()
         {
             // Setup
@@ -111,16 +134,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             {
                 var calculation = new TestWaveConditionsCalculation
                 {
-                    Name = calculationName,
-                    InputParameters = new WaveConditionsInput
-                    {
-                        ForeshoreProfile = new TestForeshoreProfile(new[]
-                        {
-                            new Point2D(0.0, 0.0),
-                            new Point2D(1.0, 1.0),
-                            new Point2D(2.0, 2.0)
-                        })
-                    }
+                    Name = calculationName
                 };
 
                 // Call

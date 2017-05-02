@@ -106,12 +106,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Data_SetToNull_ChartDataCleared()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsInputView())
+            using (var view = new GrassCoverErosionInwardsInputView
             {
-                view.Data = new GrassCoverErosionInwardsCalculation();
-
+                Data = new GrassCoverErosionInwardsCalculation()
+            })
+            {
                 // Precondition
                 Assert.AreEqual(3, view.Chart.Data.Collection.Count());
+                Assert.AreEqual("Nieuwe berekening", view.Chart.ChartTitle);
 
                 // Call
                 view.Data = null;
@@ -119,6 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Chart.Data);
+                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
             }
         }
 

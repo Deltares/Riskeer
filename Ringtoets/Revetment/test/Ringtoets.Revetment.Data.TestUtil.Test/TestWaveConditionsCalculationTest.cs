@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 
@@ -37,9 +38,17 @@ namespace Ringtoets.Revetment.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNull(calculation.Output);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNull(calculation.InputParameters);
+            Assert.IsNotNull(calculation.InputParameters);
+            Assert.IsNotNull(calculation.InputParameters.ForeshoreProfile);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(2.0, 2.0)
+            }, calculation.InputParameters.ForeshoreGeometry);
         }
     }
 }

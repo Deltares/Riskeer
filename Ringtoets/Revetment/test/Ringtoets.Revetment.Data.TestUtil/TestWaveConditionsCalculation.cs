@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.TestUtil
 {
@@ -32,11 +35,28 @@ namespace Ringtoets.Revetment.TestUtil
     public class TestWaveConditionsCalculation : Observable, IWaveConditionsCalculation
     {
         /// <summary>
+        /// Creates a new instance of <see cref="TestWaveConditionsCalculation"/>.
+        /// </summary>
+        public TestWaveConditionsCalculation()
+        {
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            InputParameters = new WaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(1.0, 1.0),
+                    new Point2D(2.0, 2.0)
+                })
+            };
+        }
+
+        /// <summary>
         /// Gets or sets an object that represents some output of this calculation.
         /// </summary>
         public object Output { get; set; }
 
-        public WaveConditionsInput InputParameters { get; set; }
+        public WaveConditionsInput InputParameters { get; }
 
         public bool HasOutput
         {

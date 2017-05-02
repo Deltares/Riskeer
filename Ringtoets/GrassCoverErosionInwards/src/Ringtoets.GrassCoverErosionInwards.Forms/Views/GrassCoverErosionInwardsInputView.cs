@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 if (data == null)
                 {
                     chartControl.Data = null;
-                    chartControl.Name = string.Empty;
+                    chartControl.ChartTitle = string.Empty;
                 }
                 else
                 {

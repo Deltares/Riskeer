@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
@@ -62,13 +61,26 @@ namespace Ringtoets.Revetment.Forms.Views
             {
                 data = value as IWaveConditionsCalculation;
 
-                if (data != null)
+                if (data == null)
+                {
+                    chartControl.Data = null;
+                    chartControl.ChartTitle = string.Empty;
+                }
+                else
                 {
                     SetChartData();
 
                     chartControl.Data = chartDataCollection;
                     chartControl.ChartTitle = data.Name;
                 }
+            }
+        }
+
+        public IChartControl Chart
+        {
+            get
+            {
+                return chartControl;
             }
         }
 
@@ -79,14 +91,6 @@ namespace Ringtoets.Revetment.Forms.Views
             WaveConditionsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
 
             foreshoreChartData.Points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
-        }
-
-        public IChartControl Chart
-        {
-            get
-            {
-                return chartControl;
-            }
         }
     }
 }

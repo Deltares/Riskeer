@@ -128,12 +128,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_ChartDataCleared()
         {
             // Setup
-            using (var view = new PipingInputView())
+            using (var view = new PipingInputView
             {
-                view.Data = new PipingCalculationScenario(new GeneralPipingInput());
-
+                Data = new PipingCalculationScenario(new GeneralPipingInput())
+            })
+            {
                 // Precondition
                 Assert.AreEqual(10, view.Chart.Data.Collection.Count());
+                Assert.AreEqual("Nieuwe berekening", view.Chart.ChartTitle);
 
                 // Call
                 view.Data = null;
@@ -141,6 +143,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Chart.Data);
+                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
             }
         }
 
@@ -148,11 +151,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_TableDataCleared()
         {
             // Setup
-            using (var view = new PipingInputView())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
+                InputParameters =
                     {
                         StochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
                         {
@@ -169,9 +170,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                 1)
                         }
                     }
-                };
+            };
 
-                view.Data = calculation;
+            using (var view = new PipingInputView
+            {
+                Data = calculation
+            })
+            {
                 var tableControl = view.Controls.Find("pipingSoilLayerTable", true).First() as PipingSoilLayerTable;
 
                 // Precondition
