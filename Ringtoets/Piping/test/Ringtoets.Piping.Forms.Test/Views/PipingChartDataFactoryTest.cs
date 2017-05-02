@@ -27,10 +27,8 @@ using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -45,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, data.Name);
+            Assert.AreEqual("Profielschematisatie", data.Name);
             AssertEqualStyle(data.Style, Color.Sienna, 2, DashStyle.Solid);
         }
 
@@ -57,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(Resources.PipingInput_EntryPointL_DisplayName, data.Name);
+            Assert.AreEqual("Intredepunt", data.Name);
             AssertEqualStyle(data.Style, Color.Gold, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
         }
 
@@ -69,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(Resources.PipingInput_ExitPointL_DisplayName, data.Name);
+            Assert.AreEqual("Uittredepunt", data.Name);
             AssertEqualStyle(data.Style, Color.Tomato, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
         }
 
@@ -81,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchPolderSide, data.Name);
+            Assert.AreEqual("Insteek sloot polderzijde", data.Name);
             AssertEqualStyle(data.Style, Color.IndianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
@@ -93,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, data.Name);
+            Assert.AreEqual("Slootbodem polderzijde", data.Name);
             AssertEqualStyle(data.Style, Color.Teal, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
@@ -105,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, data.Name);
+            Assert.AreEqual("Slootbodem dijkzijde", data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
@@ -117,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DitchDikeSide, data.Name);
+            Assert.AreEqual("Insteek sloot dijkzijde", data.Name);
             AssertEqualStyle(data.Style, Color.MediumPurple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
@@ -129,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtRiver, data.Name);
+            Assert.AreEqual("Teen dijk buitenwaarts", data.Name);
             AssertEqualStyle(data.Style, Color.DarkBlue, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
@@ -141,7 +139,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual(PipingDataResources.CharacteristicPoint_DikeToeAtPolder, data.Name);
+            Assert.AreEqual("Teen dijk binnenwaarts", data.Name);
             AssertEqualStyle(data.Style, Color.SlateGray, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
 
@@ -153,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Collection);
-            Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, data.Name);
+            Assert.AreEqual("Ondergrondschematisatie", data.Name);
         }
 
         [Test]
@@ -198,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Areas);
-            Assert.AreEqual(string.Format("{0} {1}", soilLayerIndex + 1, name), data.Name);
+            Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
             AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
         }
 
@@ -212,7 +210,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingChartDataFactory.UpdateSurfaceLineChartDataName(chartData, null);
 
             // Assert
-            Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_DisplayName, chartData.Name);
+            Assert.AreEqual("Profielschematisatie", chartData.Name);
         }
 
         [Test]
@@ -242,7 +240,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingChartDataFactory.UpdateSoilProfileChartDataName(chartData, null);
 
             // Assert
-            Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, chartData.Name);
+            Assert.AreEqual("Ondergrondschematisatie", chartData.Name);
         }
 
         [Test]

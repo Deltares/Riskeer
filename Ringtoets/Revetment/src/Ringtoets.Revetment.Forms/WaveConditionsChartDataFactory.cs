@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Revetment.Forms
@@ -32,6 +36,42 @@ namespace Ringtoets.Revetment.Forms
     /// </summary>
     internal static class WaveConditionsChartDataFactory
     {
+        /// <summary>
+        /// Create <see cref="ChartLineData"/> with default styling for lower boundary revetment.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateLowerRevetmentBoundaryChartData()
+        {
+            return new ChartLineData(Resources.WaveConditionsChartDataFactory_LowerBoundaryRevetment_DisplayName)
+            {
+                Style = GetRevetmentBoundaryStyle()
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartLineData"/> with default styling for upper boundary revetment.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateUpperRevetmentBoundaryChartData()
+        {
+            return new ChartLineData(Resources.WaveConditionsChartDataFactory_UpperBoundaryRevetment_DisplayName)
+            {
+                Style = GetRevetmentBoundaryStyle()
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartLineData"/> with default styling for revetment.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateRevetmentChartData()
+        {
+            return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName)
+            {
+                Style = GetRevetmentBoundaryStyle()
+            };
+        }
+
         /// <summary>
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="input"/>.
         /// </summary>
@@ -51,6 +91,11 @@ namespace Ringtoets.Revetment.Forms
                                                  input.ForeshoreProfile.Name,
                                                  RingtoetsCommonFormsResources.Foreshore_DisplayName)
                                  : RingtoetsCommonFormsResources.Foreshore_DisplayName;
+        }
+
+        private static ChartLineStyle GetRevetmentBoundaryStyle()
+        {
+            return new ChartLineStyle(Color.Gray, 2, DashStyle.Solid);
         }
     }
 }

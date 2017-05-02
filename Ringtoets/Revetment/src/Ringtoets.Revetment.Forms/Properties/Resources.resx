@@ -249,4 +249,13 @@
   <data name="WaveConditionsOutput_WavePeakPeriod_DisplayName" xml:space="preserve">
     <value>Golfperiode (Tp) [s]</value>
   </data>
+  <data name="WaveConditionsChartDataFactory_LowerBoundaryRevetment_DisplayName" xml:space="preserve">
+    <value>Ondergrens bekleding</value>
+  </data>
+  <data name="WaveConditionsChartDataFactory_UpperBoundaryRevetment_DisplayName" xml:space="preserve">
+    <value>Bovengrens bekleding</value>
+  </data>
+  <data name="WaveConditionsChartDataFactory_Revetment_DisplayName" xml:space="preserve">
+    <value>Bekleding</value>
+  </data>
 </root>

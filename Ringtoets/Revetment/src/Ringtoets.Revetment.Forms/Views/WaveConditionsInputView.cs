@@ -39,6 +39,9 @@ namespace Ringtoets.Revetment.Forms.Views
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartLineData foreshoreChartData;
+        private readonly ChartLineData lowerBoundaryRevetmentChartData;
+        private readonly ChartLineData upperBoundaryRevetmentChartData;
+        private readonly ChartLineData revetmentChartData;
 
         private IWaveConditionsCalculation data;
 
@@ -54,8 +57,14 @@ namespace Ringtoets.Revetment.Forms.Views
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
+            lowerBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData();
+            upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData();
+            revetmentChartData = WaveConditionsChartDataFactory.CreateRevetmentChartData();
 
             chartDataCollection.Add(foreshoreChartData);
+            chartDataCollection.Add(lowerBoundaryRevetmentChartData);
+            chartDataCollection.Add(upperBoundaryRevetmentChartData);
+            chartDataCollection.Add(revetmentChartData);
         }
 
         public object Data

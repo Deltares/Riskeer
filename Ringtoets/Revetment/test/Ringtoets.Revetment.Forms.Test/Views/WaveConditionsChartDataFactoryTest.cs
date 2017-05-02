@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
@@ -29,6 +32,42 @@ namespace Ringtoets.Revetment.Forms.Test.Views
     [TestFixture]
     public class WaveConditionsChartDataFactoryTest
     {
+        [Test]
+        public void CreateLowerRevetmentBoundaryChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData();
+
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Ondergrens bekleding", data.Name);
+            AssertEqualStyle(data.Style, Color.Gray, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateUpperRevetmentBoundaryChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData();
+
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Bovengrens bekleding", data.Name);
+            AssertEqualStyle(data.Style, Color.Gray, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateRevetmentChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateRevetmentChartData();
+
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Bekleding", data.Name);
+            AssertEqualStyle(data.Style, Color.Gray, 2, DashStyle.Solid);
+        }
+
         [Test]
         public void UpdateForeshoreGeometryChartDataName_InputNull_NameSetToDefaultName()
         {
@@ -94,6 +133,13 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             // Assert
             string expectedName = $"{input.ForeshoreProfile.Name} - Voorlandprofiel";
             Assert.AreEqual(expectedName, chartData.Name);
+        }
+
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
+        {
+            Assert.AreEqual(color, lineStyle.Color);
+            Assert.AreEqual(width, lineStyle.Width);
+            Assert.AreEqual(style, lineStyle.Style);
         }
     }
 }

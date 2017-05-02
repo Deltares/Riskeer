@@ -39,6 +39,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
     [TestFixture]
     public class WaveConditionsInputViewTest
     {
+        private const int foreShoreChartDataIndex = 0;
+        private const int lowerBoundaryRevetmentChartDataIndex = 1;
+        private const int upperBoundaryRevetmentChartDataIndex = 2;
+        private const int revetmentChartDataIndex = 3;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -113,7 +118,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             })
             {
                 // Precondition
-                Assert.AreEqual(1, view.Chart.Data.Collection.Count());
+                Assert.AreEqual(4, view.Chart.Data.Collection.Count());
                 Assert.AreEqual("Nieuwe berekening", view.Chart.ChartTitle);
 
                 // Call
@@ -165,8 +170,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
-                Assert.AreEqual(1, chartData.Collection.Count());
-                AssertForeshoreChartData(calculation.InputParameters.ForeshoreProfile, chartData.Collection.ElementAt(0));
+                Assert.AreEqual(4, chartData.Collection.Count());
+                AssertForeshoreChartData(calculation.InputParameters.ForeshoreProfile, chartData.Collection.ElementAt(foreShoreChartDataIndex));
             }
         }
 
@@ -247,7 +252,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Data = calculation
             })
             {
-                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(0);
+                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 foreshoreChartData.Attach(observer);
                 ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
                 {
@@ -262,7 +267,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(0));
+                Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex));
                 AssertForeshoreChartData(profile2, foreshoreChartData);
                 mocks.VerifyAll();
             }
@@ -282,7 +287,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Data = calculation1
             })
             {
-                ((ChartLineData) view.Chart.Data.Collection.ElementAt(0)).Attach(observer);
+                ((ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex)).Attach(observer);
 
                 var calculation2 = new TestWaveConditionsCalculation();
                 ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
@@ -309,13 +314,22 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
 
-            Assert.AreEqual(1, chartDatasList.Count);
+            Assert.AreEqual(4, chartDatasList.Count);
 
-            var foreshoreData = (ChartLineData) chartDatasList[0];
+            var foreshoreData = (ChartLineData) chartDatasList[foreShoreChartDataIndex];
+            var lowerBoundaryRevetmentData = (ChartLineData) chartDatasList[lowerBoundaryRevetmentChartDataIndex];
+            var upperBoundaryRevetmentData = (ChartLineData) chartDatasList[upperBoundaryRevetmentChartDataIndex];
+            var revetmentData = (ChartLineData) chartDatasList[revetmentChartDataIndex];
 
             CollectionAssert.IsEmpty(foreshoreData.Points);
+            CollectionAssert.IsEmpty(lowerBoundaryRevetmentData.Points);
+            CollectionAssert.IsEmpty(upperBoundaryRevetmentData.Points);
+            CollectionAssert.IsEmpty(revetmentData.Points);
 
             Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
+            Assert.AreEqual("Ondergrens bekleding", lowerBoundaryRevetmentData.Name);
+            Assert.AreEqual("Bovengrens bekleding", upperBoundaryRevetmentData.Name);
+            Assert.AreEqual("Bekleding", revetmentData.Name);
         }
 
         private static void AssertForeshoreChartData(ForeshoreProfile foreshoreProfile, ChartData chartData)
