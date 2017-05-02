@@ -21,14 +21,15 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.TestUtil;
 
@@ -148,6 +149,139 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(1, chartData.Collection.Count());
                 AssertForeshoreChartData(calculation.InputParameters.ForeshoreProfile, chartData.Collection.ElementAt(0));
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
+        {
+            // Setup
+            using (var view = new WaveConditionsInputView())
+            {
+                const string initialName = "Initial name";
+                const string updatedName = "Updated name";
+
+                var calculation = new TestWaveConditionsCalculation
+                {
+                    Name = initialName
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+
+                calculation.Name = updatedName;
+
+                // Call
+                calculation.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(updatedName, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_OtherCalculationNameUpdated_ChartTitleNotUpdated()
+        {
+            // Setup
+            using (var view = new WaveConditionsInputView())
+            {
+                const string initialName = "Initial name";
+                const string updatedName = "Updated name";
+
+                var calculation1 = new TestWaveConditionsCalculation
+                {
+                    Name = initialName
+                };
+                var calculation2 = new TestWaveConditionsCalculation
+                {
+                    Name = initialName
+                };
+
+                view.Data = calculation1;
+
+                // Precondition
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+
+                calculation2.Name = updatedName;
+
+                // Call
+                calculation1.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_ForeshoreProfileUpdated_ChartDataUpdatedAndObserversNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new TestWaveConditionsCalculation();
+            using (var view = new WaveConditionsInputView
+            {
+                Data = calculation
+            })
+            {
+                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(0);
+                foreshoreChartData.Attach(observer);
+                ForeshoreProfile profile2 = new TestForeshoreProfile(new []
+                {
+                    new Point2D(0, 0), 
+                    new Point2D(3, 3), 
+                    new Point2D(8, 8)
+                });
+
+                calculation.InputParameters.ForeshoreProfile = profile2;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(0));
+                AssertForeshoreChartData(profile2, foreshoreChartData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var calculation1 = new TestWaveConditionsCalculation();
+            using (var view = new WaveConditionsInputView
+            {
+                Data = calculation1
+            })
+            {
+                ((ChartLineData) view.Chart.Data.Collection.ElementAt(0)).Attach(observer);
+
+                var calculation2 = new TestWaveConditionsCalculation();
+                ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(3, 3),
+                    new Point2D(8, 8)
+                });
+
+                calculation2.InputParameters.ForeshoreProfile = profile2;
+
+                // Call
+                calculation2.InputParameters.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(calculation1, view.Data);
+                mocks.VerifyAll(); // no update observer expected
             }
         }
 

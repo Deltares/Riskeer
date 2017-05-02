@@ -22,11 +22,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -274,6 +276,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_CalculationDikeProfileUpdated_SetNewChartData()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
+            mocks.ReplayAll();
+
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
@@ -292,6 +299,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreshoreIndex);
                 var dikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeHeightIndex);
 
+                dikeProfileChartData.Attach(observer);
+                foreshoreChartData.Attach(observer);
+                dikeHeightChartData.Attach(observer);
+
                 DikeProfile dikeProfile2 = GetSecondDikeProfileWithGeometry();
 
                 calculation.InputParameters.DikeProfile = dikeProfile2;
@@ -306,6 +317,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssertForeshoreChartData(dikeProfile2, foreshoreChartData);
                 Assert.AreSame(dikeHeightChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeHeightIndex));
                 AssertDikeHeightChartData(dikeProfile2, dikeHeightChartData);
+                mocks.VerifyAll();
             }
         }
 
@@ -313,6 +325,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void UpdateObserver_OtherGrassCoverErosionInwardsCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
@@ -334,6 +350,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 view.Data = calculation1;
 
+                var dikeProfileChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(dikeProfileIndex);
+                var foreshoreChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(foreshoreIndex);
+                var dikeHeightChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(dikeHeightIndex);
+
+                dikeProfileChartData.Attach(observer);
+                foreshoreChartData.Attach(observer);
+                dikeHeightChartData.Attach(observer);
+
                 DikeProfile dikeProfile2 = GetSecondDikeProfileWithGeometry();
 
                 calculation2.InputParameters.DikeProfile = dikeProfile2;
@@ -343,6 +367,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(calculation1, view.Data);
+                mocks.VerifyAll(); // no update observer expected
             }
         }
 

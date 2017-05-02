@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Forms.Views
                     SetChartData();
 
                     chartControl.Data = chartDataCollection;
-                    chartControl.ChartTitle = data.Name;
+                    UpdateChartTitle();
                 }
                 UpdateTableData();
             }

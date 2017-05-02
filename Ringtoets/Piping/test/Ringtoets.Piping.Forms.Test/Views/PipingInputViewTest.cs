@@ -22,10 +22,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
@@ -414,6 +416,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void UpdateObserver_CalculationSurfaceLineUpdated_ChartDataUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(9);
+            mocks.ReplayAll();
+
             using (var view = new PipingInputView())
             {
                 var characteristicPoint = new Point3D(1.2, 2.3, 4.0);
@@ -447,6 +454,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dikeToeAtPolderData = (ChartPointData) chartDataList[dikeToeAtPolderIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartDataList[dikeToeAtRiverIndex];
 
+                surfaceLineChartData.Attach(observer);
+                entryPointChartData.Attach(observer);
+                exitPointChartData.Attach(observer);
+                ditchDikeSideData.Attach(observer);
+                bottomDitchDikeSideData.Attach(observer);
+                ditchPolderSideData.Attach(observer);
+                bottomDitchPolderSideData.Attach(observer);
+                dikeToeAtPolderData.Attach(observer);
+                dikeToeAtRiverData.Attach(observer);
+
                 var characteristicPoint2 = new Point3D(3.5, 2.3, 8.0);
                 RingtoetsPipingSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
@@ -479,6 +496,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 AssertEntryPointLPointchartData(calculation.InputParameters, surfaceLine2, entryPointChartData);
                 AssertExitPointLPointchartData(calculation.InputParameters, surfaceLine2, exitPointChartData);
                 AssertCharacteristicPoints(surfaceLine2, chartDataList);
+                mocks.VerifyAll();
             }
         }
 
@@ -486,6 +504,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void UpdateObserver_StochasticSoilProfileUpdated_ChartDataUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             using (var view = new PipingInputView())
             {
                 RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
@@ -512,6 +535,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 view.Data = calculation;
 
                 var soilProfileData = (ChartDataCollection) view.Chart.Data.Collection.ElementAt(soilProfileIndex);
+                soilProfileData.Attach(observer);
 
                 calculation.InputParameters.StochasticSoilProfile = soilProfile2;
 
@@ -521,6 +545,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreSame(soilProfileData, (ChartDataCollection) view.Chart.Data.Collection.ElementAt(soilProfileIndex));
                 AssertSoilProfileChartData(soilProfile2, soilProfileData, true);
+                mocks.VerifyAll();
             }
         }
 
@@ -613,6 +638,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             using (var view = new PipingInputView())
             {
                 RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
@@ -627,7 +656,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var calculation2 = new PipingCalculationScenario(new GeneralPipingInput());
 
                 view.Data = calculation1;
-                ChartData dataBeforeUpdate = view.Chart.Data;
+                ChartDataCollection dataBeforeUpdate = view.Chart.Data;
+
+                foreach (ChartData chartData in dataBeforeUpdate.Collection)
+                {
+                    chartData.Attach(observer);
+                }
 
                 view.Data = calculation2;
 
@@ -640,6 +674,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
+                mocks.VerifyAll(); // no update observer expected
             }
         }
 

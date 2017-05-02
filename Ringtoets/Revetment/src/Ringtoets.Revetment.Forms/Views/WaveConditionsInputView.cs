@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.Common.Forms.Views;
@@ -33,6 +34,9 @@ namespace Ringtoets.Revetment.Forms.Views
     /// </summary>
     public partial class WaveConditionsInputView : UserControl, IChartView
     {
+        private readonly Observer calculationObserver;
+        private readonly Observer calculationInputObserver;
+
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartLineData foreshoreChartData;
 
@@ -44,6 +48,9 @@ namespace Ringtoets.Revetment.Forms.Views
         public WaveConditionsInputView()
         {
             InitializeComponent();
+
+            calculationObserver = new Observer(UpdateChartTitle);
+            calculationInputObserver = new Observer(UpdateChartData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
@@ -61,6 +68,9 @@ namespace Ringtoets.Revetment.Forms.Views
             {
                 data = value as IWaveConditionsCalculation;
 
+                calculationObserver.Observable = data;
+                calculationInputObserver.Observable = data?.InputParameters;
+
                 if (data == null)
                 {
                     chartControl.Data = null;
@@ -71,7 +81,7 @@ namespace Ringtoets.Revetment.Forms.Views
                     SetChartData();
 
                     chartControl.Data = chartDataCollection;
-                    chartControl.ChartTitle = data.Name;
+                    UpdateChartTitle();
                 }
             }
         }
@@ -82,6 +92,30 @@ namespace Ringtoets.Revetment.Forms.Views
             {
                 return chartControl;
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            calculationObserver.Dispose();
+            calculationInputObserver.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void UpdateChartData()
+        {
+            SetChartData();
+
+            foreshoreChartData.NotifyObservers();
+        }
+
+        private void UpdateChartTitle()
+        {
+            chartControl.ChartTitle = data.Name;
         }
 
         private void SetChartData()
