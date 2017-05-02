@@ -72,7 +72,6 @@
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
-    <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">

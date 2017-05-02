@@ -1039,6 +1039,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsHeightStructuresFailureMechanism_WithHeightStructures_ReturnFailureMechanismWithHeightStructuresSet()
         {
             // Setup
+            const string sourcePath = "Some path";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -1061,7 +1062,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = 7
+                        N = 7,
+                        HeightStructureCollectionSourcePath = sourcePath
                     }
                 }
             };
@@ -1079,6 +1081,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             HeightStructure child2 = failureMechanism.HeightStructures[1];
             Assert.AreEqual("Child1", child2.Name);
+
+            Assert.AreEqual(sourcePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         #endregion

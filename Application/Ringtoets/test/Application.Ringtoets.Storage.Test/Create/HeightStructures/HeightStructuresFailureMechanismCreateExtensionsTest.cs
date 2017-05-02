@@ -91,6 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
+            Assert.IsNull(metaEntity.HeightStructureCollectionSourcePath);
         }
 
         [Test]
@@ -100,6 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
+            const string originalSourcePath = "Really not relevant";
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 InputComments =
@@ -115,6 +117,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                     Body = originalNotRelevantText
                 }
             };
+            failureMechanism.HeightStructures.AddRange(Enumerable.Empty<HeightStructure>(), originalSourcePath);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -130,6 +133,11 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
+            Assert.AreEqual(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath);
+            Assert.AreNotSame(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
         }
 
         [Test]

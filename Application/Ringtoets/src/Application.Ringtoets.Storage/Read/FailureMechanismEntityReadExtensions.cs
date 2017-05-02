@@ -245,10 +245,11 @@ namespace Application.Ringtoets.Storage.Read
                                                                     HeightStructuresFailureMechanism failureMechanism,
                                                                     ReadConversionCollector collector)
         {
+            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
-            entity.ReadHeightStructures(failureMechanism.HeightStructures, collector);
+            entity.ReadHeightStructures(metaEntity, failureMechanism.HeightStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -266,10 +267,17 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadHeightStructures(this FailureMechanismEntity entity, StructureCollection<HeightStructure> heightStructures, ReadConversionCollector collector)
+        private static void ReadHeightStructures(this FailureMechanismEntity entity,
+                                                 HeightStructuresFailureMechanismMetaEntity metaEntity,
+                                                 StructureCollection<HeightStructure> heightStructures,
+                                                 ReadConversionCollector collector)
         {
-            heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)),
-                                      "TODO: To be determined");
+            if (metaEntity.HeightStructureCollectionSourcePath != null)
+            {
+                heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order)
+                                                .Select(structureEntity => structureEntity.Read(collector)),
+                                          metaEntity.HeightStructureCollectionSourcePath);
+            }
         }
 
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HeightStructures.Data;
@@ -45,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
@@ -88,9 +89,13 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralHeightStructuresInput generalInput, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(HeightStructuresFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.HeightStructuresFailureMechanismMetaEntities.Add(generalInput.Create());
+            entity.HeightStructuresFailureMechanismMetaEntities.Add(new HeightStructuresFailureMechanismMetaEntity
+            {
+                N = mechanism.GeneralInput.N,
+                HeightStructureCollectionSourcePath = mechanism.HeightStructures.SourcePath.DeepClone()
+            });
         }
     }
 }
