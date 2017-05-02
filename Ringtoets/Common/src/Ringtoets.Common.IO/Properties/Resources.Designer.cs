@@ -1590,12 +1590,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een kunstwerklocatie met KWKIDENT &apos;{0}&apos; ligt niet op de referentielijn. Locatie wordt overgeslagen..
+        ///   Looks up a localized string similar to Een kunstwerklocatie met KWKIDENT &apos;{0}&apos; ligt niet op de referentielijn..
         /// </summary>
-        public static string StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline {
+        public static string StructuresImporter_AddNextStructureLocation_Location_0_outside_referenceline {
             get {
-                return ResourceManager.GetString("StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_reference" +
-                        "line", resourceCulture);
+                return ResourceManager.GetString("StructuresImporter_AddNextStructureLocation_Location_0_outside_referenceline", resourceCulture);
             }
         }
         

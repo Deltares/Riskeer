@@ -197,14 +197,10 @@ namespace Ringtoets.Common.IO.FileImporters
                         StructuresParameterRow row = rowsReader.ReadLine();
                         rows.Add(row);
                     }
-                    catch (CriticalFileReadException exception)
+                    catch (Exception exception) when (exception is CriticalFileReadException || exception is LineParseException)
                     {
                         log.Error(exception.Message);
                         return new ReadResult<StructuresParameterRow>(true);
-                    }
-                    catch (LineParseException exception)
-                    {
-                        log.Error(exception.Message);
                     }
                 }
 
@@ -281,8 +277,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="structureLocationReader">Reader reading <see cref="StructureLocation"/> objects from a shapefile.</param>
         /// <param name="structureLocations">Collection of <see cref="StructureLocation"/> objects
         /// to which the new <see cref="StructureLocation"/> is to be added.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the <paramref name="structureLocationReader"/>
-        /// reads multiple structures for a structure.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when either:
+        /// <list type="bullet">
+        /// <item>The <paramref name="structureLocationReader"/> reads multiple structures for a structure.</item>
+        /// <item>A structure read from the <paramref name="structureLocationReader"/> is not on the reference line.</item>
+        /// </list></exception>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
@@ -294,8 +293,8 @@ namespace Ringtoets.Common.IO.FileImporters
             double distanceToReferenceLine = GetDistanceToReferenceLine(structureLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
-                log.ErrorFormat(Resources.StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline, structureLocation.Id);
-                return;
+                string message = string.Format(Resources.StructuresImporter_AddNextStructureLocation_Location_0_outside_referenceline, structureLocation.Id);
+                throw new CriticalFileReadException(message);
             }
             if (structureLocations.Any(dpl => dpl.Id.Equals(structureLocation.Id)))
             {

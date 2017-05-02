@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
     [TestFixture]
     public class StructuresImporterTest
     {
-        private readonly ObservableList<TestStructure> testImportTarget = new ObservableList<TestStructure>();
+        private readonly ObservableList<object> testImportTarget = new ObservableList<object>();
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
@@ -129,10 +129,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                string message = messages.First();
                 string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
                     .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
-                StringAssert.StartsWith(expectedMessage, message);
+                StringAssert.StartsWith(expectedMessage, messages.First());
             });
             Assert.IsFalse(importResult);
         }
@@ -176,9 +175,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = profilesImporter.Import();
 
             // Assert
-            string expectedMessage =
-                string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.", filePath);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': kon geen punten vinden in dit bestand.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
         }
 
@@ -205,18 +203,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("Structures", "CorrectShpIncorrectCsv", "CorrectKunstwerken_IncorrectCsv.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-
+            ReferenceLine referenceLine = CreateReferenceLine();
             var profilesImporter = new TestStructuresImporter(testImportTarget, referenceLine, invalidFilePath);
 
             // Call
@@ -233,18 +220,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<TestStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var importTarget = new ObservableList<object>();
             var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
             testStructuresImporter.SetProgressChanged((description, step, steps) =>
             {
@@ -265,24 +242,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportWhenCreatingStructures_ContinuesImportAndLogs()
+        public void Import_CancelOfImportWhenCreatingStructures_ContinueImportAndLogWarning()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<TestStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var importTarget = new ObservableList<object>();
             var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
             testStructuresImporter.SetProgressChanged((description, step, steps) =>
             {
@@ -298,29 +265,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.");
+            const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
             Assert.IsTrue(importResult);
         }
 
         [Test]
-        public void Import_CancelOfImportWhenReadingStructureData_ReturnsFalse()
+        public void Import_CancelOfImportWhenReadingStructureData_FalseAndLogInfo()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<TestStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var importTarget = new ObservableList<object>();
             var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
             testStructuresImporter.SetProgressChanged((description, step, steps) =>
             {
@@ -336,7 +294,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.");
+            const string expectedMessage = "Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
         }
 
@@ -347,18 +306,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<TestStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var importTarget = new ObservableList<object>();
             var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
             testStructuresImporter.SetProgressChanged((description, step, steps) => testStructuresImporter.Cancel());
 
@@ -376,7 +325,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_LocationOutsideReferenceLine_LogErrorAndReturnTrue()
+        public void Import_LocationOutsideReferenceLine_FalseAndLogError()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -392,41 +341,27 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<TestStructure>(), referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
 
             // Call
             var importResult = true;
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                const string expectedMessage = "Een kunstwerklocatie met KWKIDENT 'KUNST6' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
-                StringAssert.StartsWith(expectedMessage, messageArray[0]);
-            });
-            Assert.IsTrue(importResult);
+            const string expectedMessage = "Een kunstwerklocatie met KWKIDENT 'KUNST6' ligt niet op de referentielijn.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
-        public void Import_DuplicateLocation_LogErrorAndReturnFalse()
+        public void Import_DuplicateLocation_FalseAndLogError()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "DuplicateLocation", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<TestStructure>(), referenceLine, filePath);
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
 
             // Call
             var importResult = true;
@@ -439,24 +374,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_LocationKWKIDENTNull_LogErrorAndReturnFalse()
+        public void Import_LocationKWKIDENTNull_FalseAndLogError()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "StructuresWithNullKWKident", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<TestStructure>(), referenceLine, filePath);
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
 
             // Call
             var importResult = true;
@@ -475,18 +400,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "IllegalCsv", "Kunstwerken.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131144.094, 549979.893),
-                new Point2D(131538.705, 548316.752),
-                new Point2D(135878.442, 532149.859),
-                new Point2D(131225.017, 548395.948),
-                new Point2D(131270.38, 548367.462),
-                new Point2D(131507.119, 548322.951)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<TestStructure>(), referenceLine, filePath);
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
 
             // Call
             bool importResult = testStructuresImporter.Import();
@@ -503,7 +418,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
-            var importTarget = new ObservableList<TestStructure>();
+            var importTarget = new ObservableList<object>();
 
             var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
 
@@ -528,14 +443,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void GetStandardDeviation_RowHasCoefficientOfVariation_ReturnConvertedVarianceValue()
+        public void GetStandardDeviation_RowHasCoefficientOfVariation_LogWarningReturnConvertedVarianceValue()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
-            var importTarget = new ObservableList<TestStructure>();
+            var importTarget = new ObservableList<object>();
 
             var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
 
@@ -557,9 +472,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => standardDeviation = importer.GetStandardDeviation(parameter, structureName);
 
             // Assert
-            string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaardafwijking (regel {3}).",
-                                           structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
-            TestHelper.AssertLogMessageIsGenerated(call, message, 1);
+            string expectedMessage =
+                string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaardafwijking (regel {3}).",
+                              structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
             double expectedStandardDeviation = parameter.VarianceValue * Math.Abs(parameter.NumericalValue);
             Assert.AreEqual(expectedStandardDeviation, standardDeviation, standardDeviation.GetAccuracy());
         }
@@ -572,7 +488,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
-            var importTarget = new ObservableList<TestStructure>();
+            var importTarget = new ObservableList<object>();
 
             var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
 
@@ -597,14 +513,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void GetCoefficientOfVariation_RowHasStandardDeviation_ReturnConvertedVarianceValue()
+        public void GetCoefficientOfVariation_RowHasStandardDeviation_LogWarningReturnConvertedVarianceValue()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
-            var importTarget = new ObservableList<TestStructure>();
+            var importTarget = new ObservableList<object>();
 
             var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
 
@@ -626,16 +542,33 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => coefficientOfVariation = importer.GetCoefficientOfVariation(parameter, structureName);
 
             // Assert
-            string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).",
-                                           structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
-            TestHelper.AssertLogMessageIsGenerated(call, message, 1);
+            string expectedMessage = string.Format(
+                "De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).",
+                structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
             double expectedStandardDeviation = parameter.VarianceValue / Math.Abs(parameter.NumericalValue);
             Assert.AreEqual(expectedStandardDeviation, coefficientOfVariation, coefficientOfVariation.GetAccuracy());
         }
 
-        private class TestStructuresImporter : StructuresImporter<ObservableList<TestStructure>>
+        private static ReferenceLine CreateReferenceLine()
         {
-            public TestStructuresImporter(ObservableList<TestStructure> importTarget, ReferenceLine referenceLine, string filePath)
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            return referenceLine;
+        }
+
+        private class TestStructuresImporter : StructuresImporter<ObservableList<object>>
+        {
+            public TestStructuresImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, string filePath)
                 : base(importTarget, referenceLine, filePath) {}
 
             public new RoundedDouble GetStandardDeviation(StructuresParameterRow parameter, string structureName)
@@ -651,7 +584,5 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                              Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows) {}
         }
-
-        private class TestStructure {}
     }
 }

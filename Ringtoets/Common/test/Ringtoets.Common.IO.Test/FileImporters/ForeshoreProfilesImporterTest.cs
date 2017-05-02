@@ -158,7 +158,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourForeshoreProfiles()
+        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_FalseAndLogError()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             const string expectedMessage = "Fout bij het lezen van profiellocatie 5. De profiellocatie met " +
                                            "ID 'profiel005' ligt niet op de referentielijn.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.IsEmpty(foreshoreProfiles);
         }
@@ -341,7 +341,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImporWhileReadingProfileLocations_CancelsImportAndLogs()
+        public void Import_CancelOfImportWhileReadingProfileLocations_CancelsImportAndLogs()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -368,13 +368,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            const string expectedMessage = "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Import_CancelOfImportWhileReadingDikeProfileData_CancelsImportAndLogs()
+        public void Import_CancelOfImportWhileReadingDikeProfileData_CancelImportAndLogInfo()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -401,7 +402,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            const string expectedMessage = "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mockRepository.VerifyAll();
         }

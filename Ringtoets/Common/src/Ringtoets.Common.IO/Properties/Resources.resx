@@ -330,8 +330,8 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values" xml:space="preserve">
     <value>De waarde voor '{0}' moet '0', '1' of leeg zijn.</value>
   </data>
-  <data name="StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
-    <value>Een kunstwerklocatie met KWKIDENT '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
+  <data name="StructuresImporter_AddNextStructureLocation_Location_0_outside_referenceline" xml:space="preserve">
+    <value>Een kunstwerklocatie met KWKIDENT '{0}' ligt niet op de referentielijn.</value>
   </data>
   <data name="StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read" xml:space="preserve">
     <value>Kunstwerklocatie met KWKIDENT '{0}' is opnieuw ingelezen.</value>

@@ -143,7 +143,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_FromFileWithUnmatchableId_TrueAndLogError()
+        public void Import_FromFileWithUnmatchableId_FalseAndLogError()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_FalseAndLogErrorAndFourDikeProfiles()
+        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_FalseAndLogError()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -386,7 +386,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportWhileReadingProfileLocations_CancelImportAndLogs()
+        public void Import_CancelOfImportWhileReadingProfileLocations_CancelImportAndLogInfo()
         {
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
@@ -425,7 +425,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportWhileReadingDikeProfileData_CancelImportAndLogs()
+        public void Import_CancelOfImportWhileReadingDikeProfileData_CancelImportAndLogInfo()
         {
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";

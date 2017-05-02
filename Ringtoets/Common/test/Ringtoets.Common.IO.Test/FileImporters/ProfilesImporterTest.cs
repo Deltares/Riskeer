@@ -469,7 +469,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportWhileReadingProfileLocations_CancelsImportAndLogs()
+        public void Import_CancelOfImportWhileReadingProfileLocations_ReturnsFalse()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -495,7 +495,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportWhileReadingDikeProfileLocations_CancelsImportAndLogs()
+        public void Import_CancelOfImportWhileReadingDikeProfileLocations_ReturnsFalse()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -522,7 +522,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancelOfImportWhileCreateProfiles_ContinuesImportAndLogs()
+        public void Import_CancelOfImportWhileCreateProfiles_ContinueImportAndLogWarning()
         {
             // Setup
             const string addingDataToModel = "Adding Data to Model";
@@ -549,7 +549,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.");
+            const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
             Assert.IsTrue(importResult);
         }
 
