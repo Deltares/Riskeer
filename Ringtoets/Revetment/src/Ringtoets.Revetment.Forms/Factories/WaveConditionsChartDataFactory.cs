@@ -71,6 +71,17 @@ namespace Ringtoets.Revetment.Forms.Factories
                 Style = GetRevetmentBoundaryStyle()
             };
         }
+        /// <summary>
+        /// Create <see cref="ChartLineData"/> with default styling for revetment.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateRevetmentBaseChartData()
+        {
+            return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName)
+            {
+                Style = new ChartLineStyle(Color.Gray, 2, DashStyle.Dash)
+            };
+        }
 
         /// <summary>
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="input"/>.

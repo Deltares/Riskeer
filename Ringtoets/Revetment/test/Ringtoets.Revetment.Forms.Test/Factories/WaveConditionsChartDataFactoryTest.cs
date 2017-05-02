@@ -70,6 +70,18 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateRevetmentBaseChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData();
+
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Bekleding", data.Name);
+            AssertEqualStyle(data.Style, Color.Gray, 2, DashStyle.Dash);
+        }
+
+        [Test]
         public void UpdateForeshoreGeometryChartDataName_InputNull_NameSetToDefaultName()
         {
             // Setup
