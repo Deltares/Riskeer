@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -188,6 +189,75 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(double.NaN, allowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.1, allowedLevelIncreaseStorage.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructureNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var structure = new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            // Call
+            TestDelegate call = () => structure.CopyProperties(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("fromStructure", paramName);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructure_UpdatesProperties()
+        {
+            // Setup
+            var structure = new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            var otherStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = "otherName",
+                Id = "otherId",
+                Location = new Point2D(1, 1)
+            });
+
+            // Call
+            structure.CopyProperties(otherStructure);
+
+            // Assert
+            Assert.AreNotEqual(structure.Id, otherStructure.Id);
+            Assert.AreEqual(structure.Name, otherStructure.Name);
+            Assert.AreEqual(structure.Location, otherStructure.Location);
+            Assert.AreEqual(structure.StructureNormalOrientation, otherStructure.StructureNormalOrientation);
+
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.Shift, structure.AllowedLevelIncreaseStorage.Shift);
+                            
+            Assert.AreEqual(structure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(structure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
+                            
+            Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+                            
+            Assert.AreEqual(structure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(structure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.AreEqual(structure.FlowWidthAtBottomProtection.Shift, structure.FlowWidthAtBottomProtection.Shift);
+                            
+            Assert.AreEqual(structure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean);
+            Assert.AreEqual(structure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation);
+                            
+            Assert.AreEqual(structure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
+            Assert.AreEqual(structure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
+                            
+            Assert.AreEqual(structure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
+            Assert.AreEqual(structure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
         }
     }
 }

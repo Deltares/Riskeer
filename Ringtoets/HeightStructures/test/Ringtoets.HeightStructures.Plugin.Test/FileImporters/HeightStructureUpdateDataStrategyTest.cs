@@ -20,12 +20,20 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Plugin.FileImporters;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
@@ -34,6 +42,86 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
     public class HeightStructureUpdateDataStrategyTest
     {
         private const string sourceFilePath = "some/path";
+
+        private static IEnumerable<TestCaseData> DifferentHeightStructureWithSameId
+        {
+            get
+            {
+                var random = new Random(532);
+                const string defaultName = "Test";
+                const string defaultId = "Id";
+                var defaultLocation = new Point2D(0, 0);
+
+                yield return new TestCaseData(new TestHeightStructure("Different name"))
+                    .SetName("Different name");
+                yield return new TestCaseData(new TestHeightStructure(new Point2D(1, 1)))
+                    .SetName("Different Location");
+                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                {
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) random.Next(),
+                        Shift = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
+                    }
+                }).SetName("Different AllowedLevelIncreaseStorage");
+                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                {
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) random.Next(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    }
+                }).SetName("Different CriticalOvertoppingDischarge");
+                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                {
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) random.Next(),
+                        Shift = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
+                    }
+                }).SetName("Different FlowWidthAtBottomProtection");
+                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                {
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) random.Next(),
+                        StandardDeviation = random.NextRoundedDouble()
+                    }
+                }).SetName("Different LevelCrestStructure");
+                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                {
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) random.Next(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    }
+                }).SetName("Different StorageStructureArea");
+                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                {
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) random.Next(),
+                        StandardDeviation = random.NextRoundedDouble()
+                    }
+                }).SetName("Different WidthFlowApertures");
+                yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+                {
+                    Name = defaultName,
+                    Id = defaultId,
+                    Location = defaultLocation,
+                    FailureProbabilityStructureWithErosion = random.NextDouble()
+                })).SetName("Different FailureProbabilityStructureWithErosion");
+                yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+                {
+                    Name = defaultName,
+                    Id = defaultId,
+                    Location = defaultLocation,
+                    StructureNormalOrientation = random.NextRoundedDouble()
+                })).SetName("Different StructureNormalOrientation");
+            }
+        }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -105,6 +193,172 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("sourceFilePath", paramName);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
+        {
+            // Setup
+            var targetCollection = new StructureCollection<HeightStructure>();
+            var strategy = new HeightStructureUpdateDataStrategy(new HeightStructuresFailureMechanism());
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetCollection,
+                                                                                                 Enumerable.Empty<HeightStructure>(),
+                                                                                                 sourceFilePath);
+
+            // Assert
+            CollectionAssert.IsEmpty(targetCollection);
+            CollectionAssert.IsEmpty(affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithoutCurrentStructuresAndReadStructuresHaveDuplicateNames_ThrowsStructureUpdateException()
+        {
+            // Setup
+            const string duplicateId = "I am a duplicate id";
+            var readStructures = new[]
+            {
+                new TestHeightStructure("Structure", duplicateId),
+                new TestHeightStructure("Other structure", duplicateId)
+            };
+
+            var targetCollection = new StructureCollection<HeightStructure>();
+            var strategy = new HeightStructureUpdateDataStrategy(new HeightStructuresFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(targetCollection,
+                                                                                readStructures,
+                                                                                sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<StructureUpdateException>(call);
+
+            string expectedMessage = "Het bijwerken van de kunstwerken is mislukt: " +
+                                     $"Kunstwerken moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
+
+            CollectionAssert.IsEmpty(targetCollection);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithoutCurrentStructureAndImportedMultipleStructuresWithSameId_ThrowsStructureUpdateException()
+        {
+            // Setup
+            const string duplicateId = "I am a duplicate id";
+            var expectedStructure = new TestHeightStructure("expectedStructure", duplicateId);
+
+            var expectedCollection = new[]
+            {
+                expectedStructure
+            };
+
+            var targetCollection = new StructureCollection<HeightStructure>();
+            targetCollection.AddRange(expectedCollection, sourceFilePath);
+
+            var readStructures = new[]
+            {
+                new TestHeightStructure("Structure", duplicateId),
+                new TestHeightStructure("Other structure", duplicateId)
+            };
+
+            var strategy = new HeightStructureUpdateDataStrategy(new HeightStructuresFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(targetCollection,
+                                                                                readStructures,
+                                                                                sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<StructureUpdateException>(call);
+            const string expectedMessage = "Het bijwerken van de kunstwerken is mislukt: " +
+                                           "Geïmporteerde data moet unieke elementen bevatten.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
+
+            CollectionAssert.AreEqual(expectedCollection, targetCollection);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedDataEmpty_StructuresRemoved()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
+            structures.AddRange(new[]
+            {
+                new TestHeightStructure("name", "id"),
+                new TestHeightStructure("other name", "other id")
+            }, sourceFilePath);
+
+            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                structures, Enumerable.Empty<HeightStructure>(), sourceFilePath);
+
+            // Assert
+            CollectionAssert.IsEmpty(structures);
+            CollectionAssert.AreEqual(new[]
+            {
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentHeightStructureWithSameId))]
+        public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(HeightStructure readStructure)
+        {
+            // Setup
+            HeightStructure structure = new TestHeightStructure();
+
+            var targetCollection = new StructureCollection<HeightStructure>();
+            targetCollection.AddRange(new[]
+            {
+                structure
+            }, sourceFilePath);
+            var strategy = new HeightStructureUpdateDataStrategy(new HeightStructuresFailureMechanism());
+
+            // Call
+            strategy.UpdateStructuresWithImportedData(targetCollection,
+                                                      new[]
+                                                      {
+                                                          readStructure
+                                                      },
+                                                      sourceFilePath);
+
+            // Assert
+            AssertHeightStructures(readStructure, structure);
+        }
+
+        private static void AssertHeightStructures(HeightStructure readStructure, HeightStructure structure)
+        {
+            Assert.AreEqual(readStructure.Name, structure.Name);
+            Assert.AreEqual(readStructure.Location, structure.Location);
+            Assert.AreEqual(readStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+
+            Assert.AreEqual(readStructure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(readStructure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.AreEqual(readStructure.AllowedLevelIncreaseStorage.Shift, structure.AllowedLevelIncreaseStorage.Shift);
+
+            Assert.AreEqual(readStructure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(readStructure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
+
+            Assert.AreEqual(readStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+
+            Assert.AreEqual(readStructure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(readStructure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.AreEqual(readStructure.FlowWidthAtBottomProtection.Shift, structure.FlowWidthAtBottomProtection.Shift);
+
+            Assert.AreEqual(readStructure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean);
+            Assert.AreEqual(readStructure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation);
+
+            Assert.AreEqual(readStructure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
+            Assert.AreEqual(readStructure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
+
+            Assert.AreEqual(readStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
+            Assert.AreEqual(readStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
         }
     }
 }

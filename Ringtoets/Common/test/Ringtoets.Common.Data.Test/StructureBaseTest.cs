@@ -139,9 +139,61 @@ namespace Ringtoets.Common.Data.Test
             Assert.IsNaN(structure.StructureNormalOrientation);
         }
 
+        [Test]
+        public void CopyProperties_FromStructureNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            // Call
+            TestDelegate call = () => structure.CopyProperties(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("fromStructure", paramName);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructure_UpdatesProperties()
+        {
+            // Setup
+            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            var otherStructure = new TestStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "otherName",
+                Id = "otherId",
+                Location = new Point2D(1, 1)
+            });
+
+            // Call
+            structure.CopyProperties(otherStructure);
+
+            // Assert
+            Assert.AreNotEqual(structure.Id, otherStructure.Id);
+            Assert.AreEqual(structure.Name, otherStructure.Name);
+            Assert.AreEqual(structure.Location, otherStructure.Location);
+            Assert.AreEqual(structure.StructureNormalOrientation, otherStructure.StructureNormalOrientation);
+        }
+
         private class TestStructure : StructureBase
         {
             public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+
+            public void CopyProperties(TestStructure fromStructure)
+            {
+                base.CopyProperties(fromStructure);
+            }
         }
     }
 }

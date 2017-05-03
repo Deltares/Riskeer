@@ -78,25 +78,25 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the crest level of the height structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution LevelCrestStructure { get; private set; }
+        public NormalDistribution LevelCrestStructure { get; }
 
         /// <summary>
         /// Gets the flow width of the height structure at the bottom protection.
         /// [m]
         /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+        public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
         /// <summary>
         /// Gets the critical overtopping discharge per meter of the height structure.
         /// [m^3/s/m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; }
 
         /// <summary>
         /// Gets the flow apertures width of the height structure.
         /// [m]
         /// </summary>
-        public NormalDistribution WidthFlowApertures { get; private set; }
+        public NormalDistribution WidthFlowApertures { get; }
 
         /// <summary>
         /// Gets the failure probability of the height structure, given erosion.
@@ -108,13 +108,48 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the storage area of the height structure.
         /// [m^2]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; }
 
         /// <summary>
         /// Gets the allowed increase of level for storage of the height structure.
         /// [m]
         /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+        public LogNormalDistribution AllowedLevelIncreaseStorage { get; }
+
+        /// <summary>
+        /// Copies the property values of the <paramref name="fromStructure"/> to the 
+        /// <see cref="HeightStructure"/>.
+        /// </summary>
+        /// <param name="fromStructure">The <see cref="HeightStructure"/> to get the property 
+        /// values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromStructure"/>
+        /// is <c>null</c>.</exception>
+        public void CopyProperties(HeightStructure fromStructure)
+        {
+            base.CopyProperties(fromStructure);
+
+            AllowedLevelIncreaseStorage.Mean = fromStructure.AllowedLevelIncreaseStorage.Mean;
+            AllowedLevelIncreaseStorage.StandardDeviation = fromStructure.AllowedLevelIncreaseStorage.StandardDeviation;
+            AllowedLevelIncreaseStorage.Shift = fromStructure.AllowedLevelIncreaseStorage.Shift;
+
+            CriticalOvertoppingDischarge.Mean = fromStructure.CriticalOvertoppingDischarge.Mean;
+            CriticalOvertoppingDischarge.CoefficientOfVariation = fromStructure.CriticalOvertoppingDischarge.CoefficientOfVariation;
+
+            FailureProbabilityStructureWithErosion = fromStructure.FailureProbabilityStructureWithErosion;
+
+            FlowWidthAtBottomProtection.Mean = fromStructure.FlowWidthAtBottomProtection.Mean;
+            FlowWidthAtBottomProtection.StandardDeviation = fromStructure.FlowWidthAtBottomProtection.StandardDeviation;
+            FlowWidthAtBottomProtection.Shift = fromStructure.FlowWidthAtBottomProtection.Shift;
+
+            LevelCrestStructure.Mean = fromStructure.LevelCrestStructure.Mean;
+            LevelCrestStructure.StandardDeviation = fromStructure.LevelCrestStructure.StandardDeviation;
+
+            StorageStructureArea.Mean = fromStructure.StorageStructureArea.Mean;
+            StorageStructureArea.CoefficientOfVariation = fromStructure.StorageStructureArea.CoefficientOfVariation;
+
+            WidthFlowApertures.Mean = fromStructure.WidthFlowApertures.Mean;
+            WidthFlowApertures.StandardDeviation = fromStructure.WidthFlowApertures.StandardDeviation;
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="HeightStructure"/>.

@@ -79,7 +79,14 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(HeightStructure objectToUpdate,
                                                                                  HeightStructure objectToUpdateFrom)
         {
-            throw new NotImplementedException();
+            var affectedObjects = new List<IObservable>();
+
+            if (!objectToUpdate.Equals(objectToUpdateFrom))
+            {
+                objectToUpdate.CopyProperties(objectToUpdateFrom);
+            }
+
+            return affectedObjects;
         }
 
         #endregion

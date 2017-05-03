@@ -329,7 +329,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 
             // Assert
             var exception = Assert.Throws<StructureUpdateException>(call);
-            string expectedMessage = "Het importeren van kunstwerken is mislukt: " +
+            string expectedMessage = "Het importeren van de kunstwerken is mislukt: " +
                                      "Kunstwerken moeten een unieke id hebben. " +
                                      $"Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);

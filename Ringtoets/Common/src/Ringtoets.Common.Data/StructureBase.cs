@@ -62,12 +62,12 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Gets the name of the structure.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets the identifier of the structure.
         /// </summary>
-        public string Id { get; private set; }
+        public string Id { get; }
 
         /// <summary>
         /// Gets the location of the structure.
@@ -79,6 +79,26 @@ namespace Ringtoets.Common.Data
         /// [degrees]
         /// </summary>
         public RoundedDouble StructureNormalOrientation { get; private set; }
+
+        /// <summary>
+        /// Copies the property values of the <paramref name="fromStructure"/> to the 
+        /// <see cref="StructureBase"/>.
+        /// </summary>
+        /// <param name="fromStructure">The <see cref="StructureBase"/>
+        /// to get the property values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromStructure"/>
+        /// is <c>null</c>.</exception>
+        protected void CopyProperties(StructureBase fromStructure)
+        {
+            if (fromStructure == null)
+            {
+                throw new ArgumentNullException(nameof(fromStructure));
+            }
+
+            Name = fromStructure.Name;
+            Location = fromStructure.Location;
+            StructureNormalOrientation = fromStructure.StructureNormalOrientation;
+        }
 
         public override string ToString()
         {

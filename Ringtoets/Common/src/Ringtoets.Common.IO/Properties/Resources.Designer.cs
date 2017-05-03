@@ -1038,7 +1038,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het importeren van kunstwerken is mislukt: {0}.
+        ///   Looks up a localized string similar to Het importeren van de kunstwerken is mislukt: {0}.
         /// </summary>
         public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0 {
             get {
@@ -1048,7 +1048,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van kunstwerken is mislukt: {0}.
+        ///   Looks up a localized string similar to Het bijwerken van de kunstwerken is mislukt: {0}.
         /// </summary>
         public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0 {
             get {
