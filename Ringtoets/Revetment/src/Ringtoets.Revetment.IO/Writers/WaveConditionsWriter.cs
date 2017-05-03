@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.IO.Writers
                 exportableWaveConditions.LocationName,
                 new RoundedDouble(3, exportableWaveConditions.LocationXCoordinate).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(3, exportableWaveConditions.LocationYCoordinate).ToString(null, CultureInfo.InvariantCulture),
-                exportableWaveConditions.ForeshoreName ?? string.Empty,
+                exportableWaveConditions.ForeshoreId ?? string.Empty,
                 exportableWaveConditions.UseBreakWater ? Resources.Yes : Resources.No,
                 exportableWaveConditions.UseForeshore ? Resources.Yes : Resources.No,
                 exportableWaveConditions.CoverType.Name,

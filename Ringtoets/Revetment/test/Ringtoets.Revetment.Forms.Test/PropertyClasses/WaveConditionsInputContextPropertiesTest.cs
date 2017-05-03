@@ -557,7 +557,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var input = new WaveConditionsInput
             {
-                ForeshoreProfile = new TestForeshoreProfile(string.Empty)
+                ForeshoreProfile = new TestForeshoreProfile()
             };
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
 
@@ -590,7 +590,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var input = new WaveConditionsInput
             {
-                ForeshoreProfile = new TestForeshoreProfile(string.Empty)
+                ForeshoreProfile = new TestForeshoreProfile()
             };
 
             var calculation = new TestWaveConditionsCalculation();

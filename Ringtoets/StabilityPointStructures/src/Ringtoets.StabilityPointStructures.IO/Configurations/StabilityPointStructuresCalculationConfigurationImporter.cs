@@ -120,7 +120,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
 
             if (TrySetStructure(readCalculation.StructureName, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
                 && TrySetEvaluationLevel(readCalculation, calculation)
                 && TrySetFailureProbabilityRepairClosure(readCalculation, calculation)
                 && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)

@@ -157,7 +157,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     Mean = 0.09,
                     StandardDeviation = 0.19
                 },
-                ForeshoreProfileName = "profiel1",
+                ForeshoreProfileId = "profiel1",
                 HydraulicBoundaryLocationName = "Locatie1",
                 InflowModelType = ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert,
                 InsideWaterLevel = new StochastConfiguration

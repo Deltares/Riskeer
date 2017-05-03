@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string profileName = "Random profile name";
-            ForeshoreProfile foreshoreProfile = new TestForeshoreProfile(profileName);
+            ForeshoreProfile foreshoreProfile = new TestForeshoreProfile(profileName, "id");
 
             // Call
             string text = info.Text(foreshoreProfile);

@@ -116,7 +116,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
             if (TrySetStructure(readCalculation.StructureName, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
                 && TrySetStochasts(readCalculation, calculation)
                 && TrySetOrientation(readCalculation, calculation)
                 && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)

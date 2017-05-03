@@ -67,7 +67,7 @@ namespace Ringtoets.Revetment.IO
             LocationYCoordinate = waveConditionsInput.HydraulicBoundaryLocation.Location.Y;
             if (waveConditionsInput.ForeshoreProfile != null)
             {
-                ForeshoreName = waveConditionsInput.ForeshoreProfile.Name;
+                ForeshoreId = waveConditionsInput.ForeshoreProfile.Id;
             }
             UseForeshore = waveConditionsInput.UseForeshore;
             UseBreakWater = waveConditionsInput.UseBreakWater;
@@ -110,9 +110,9 @@ namespace Ringtoets.Revetment.IO
         public CoverType CoverType { get; private set; }
 
         /// <summary>
-        /// Gets the name of the foreshore.
+        /// Gets the id of the foreshore.
         /// </summary>
-        public string ForeshoreName { get; private set; }
+        public string ForeshoreId { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether a foreshore profile was used in the calculation.

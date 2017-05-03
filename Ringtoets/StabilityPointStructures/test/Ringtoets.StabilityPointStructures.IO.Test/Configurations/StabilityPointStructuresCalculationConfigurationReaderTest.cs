@@ -415,7 +415,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             Assert.AreEqual(0.0001, calculation.FailureProbabilityStructureWithErosion);
 
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
 
             Assert.AreEqual(15.2, calculation.FlowWidthAtBottomProtection.Mean);
             Assert.AreEqual(0.1, calculation.FlowWidthAtBottomProtection.StandardDeviation);
@@ -496,7 +496,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
 
             Assert.AreEqual(0.01, calculation.FactorStormDurationOpenStructure);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(9.81, calculation.VolumicWeightWater);
             Assert.AreEqual("kunstwerk1", calculation.StructureName);
@@ -590,7 +590,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.FactorStormDurationOpenStructure);
             Assert.IsNull(calculation.FailureProbabilityRepairClosure);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.InflowModelType);
             Assert.IsNull(calculation.LevellingCount);
@@ -668,7 +668,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.FactorStormDurationOpenStructure);
             Assert.IsNull(calculation.FailureProbabilityRepairClosure);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.InflowModelType);
             Assert.IsNull(calculation.LevellingCount);

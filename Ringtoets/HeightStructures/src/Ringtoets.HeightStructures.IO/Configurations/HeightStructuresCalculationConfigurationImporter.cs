@@ -115,7 +115,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
             if (TrySetStructure(readCalculation.StructureName, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
                 && TrySetStochasts(readCalculation, calculation)
                 && TrySetOrientation(readCalculation, calculation)
                 && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
@@ -252,11 +252,11 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return false;
         }
 
-        private bool TrySetForeshoreProfile(string foreshoreProfileName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetForeshoreProfile(string foreshoreProfileId, StructuresCalculation<HeightStructuresInput> calculation)
         {
             ForeshoreProfile foreshoreProfile;
 
-            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            if (TryReadForeshoreProfile(foreshoreProfileId, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
             {
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
                 return true;

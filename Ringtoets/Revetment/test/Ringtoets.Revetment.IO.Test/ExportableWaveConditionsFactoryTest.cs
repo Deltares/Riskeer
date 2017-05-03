@@ -141,7 +141,7 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
             Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
             Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
-            Assert.AreEqual("id", exportableWaveConditions.ForeshoreName);
+            Assert.AreEqual("id", exportableWaveConditions.ForeshoreId);
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
@@ -237,7 +237,7 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
             Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
             Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
-            Assert.AreEqual("id", exportableWaveConditions.ForeshoreName);
+            Assert.AreEqual("id", exportableWaveConditions.ForeshoreId);
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
