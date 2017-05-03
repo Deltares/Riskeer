@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -73,15 +72,13 @@ namespace Ringtoets.Revetment.Forms.Factories
                 return new Point2D[0];
             }
 
-            Point2D baseStartPoint = GetBaseStartPoint(input);
-            double startPointX = ((input.LowerBoundaryRevetment - baseStartPoint.Y) / 3) + baseStartPoint.X;
-
-            RoundedDouble heightDiff = input.UpperBoundaryRevetment - input.LowerBoundaryRevetment;
+            double startPointX = GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment);
+            double endPointX = GetPointXOnRevetmenetLine(input, input.UpperBoundaryRevetment);
 
             return new[]
             {
                 new Point2D(startPointX, input.LowerBoundaryRevetment),
-                new Point2D(heightDiff / 3 + startPointX, input.UpperBoundaryRevetment)
+                new Point2D(endPointX, input.UpperBoundaryRevetment)
             };
         }
 
@@ -105,14 +102,10 @@ namespace Ringtoets.Revetment.Forms.Factories
                 return new Point2D[0];
             }
 
-            Point2D startPoint = GetBaseStartPoint(input);
-
-            double heightDiff = input.LowerBoundaryRevetment - startPoint.Y;
-
             return new[]
             {
-                new Point2D(startPoint.X, startPoint.Y),
-                new Point2D(heightDiff / 3 + startPoint.X, input.LowerBoundaryRevetment)
+                GetBaseStartPoint(input),
+                new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
             };
         }
 
@@ -133,18 +126,49 @@ namespace Ringtoets.Revetment.Forms.Factories
                 return new Point2D[0];
             }
 
-            double startPointX = input.ForeshoreProfile != null && input.UseForeshore
-                                  ? input.ForeshoreGeometry.First().X
-                                  : -10;
+            return new[]
+            {
+                new Point2D(GetForeshoreProfileStartX(input), input.LowerBoundaryRevetment),
+                new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
+            };
+        }
 
-            Point2D baseStartPoint = GetBaseStartPoint(input);
-            double endPointX = (input.LowerBoundaryRevetment - baseStartPoint.Y) / 3;
+        /// <summary>
+        /// Create upper boundary revetment geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the upper boundary revetment geometry points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set;</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateUpperBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
+        {
+            if (input == null || double.IsNaN(input.UpperBoundaryRevetment))
+            {
+                return new Point2D[0];
+            }
 
             return new[]
-           {
-                new Point2D(startPointX, input.LowerBoundaryRevetment),
-                new Point2D(endPointX + baseStartPoint.X, input.LowerBoundaryRevetment)
+            {
+                new Point2D(GetForeshoreProfileStartX(input), input.UpperBoundaryRevetment),
+                new Point2D(GetPointXOnRevetmenetLine(input, input.UpperBoundaryRevetment), input.UpperBoundaryRevetment)
             };
+        }
+
+        private static double GetForeshoreProfileStartX(WaveConditionsInput input)
+        {
+            return input.ForeshoreProfile != null && input.UseForeshore
+                       ? input.ForeshoreGeometry.First().X
+                       : -10;
+        }
+
+        private static double GetPointXOnRevetmenetLine(WaveConditionsInput input, double valueY)
+        {
+            Point2D baseStartPoint = GetBaseStartPoint(input);
+            double endPointX = ((valueY - baseStartPoint.Y) / 3) + baseStartPoint.X;
+            return endPointX;
         }
 
         private static Point2D GetBaseStartPoint(WaveConditionsInput input)

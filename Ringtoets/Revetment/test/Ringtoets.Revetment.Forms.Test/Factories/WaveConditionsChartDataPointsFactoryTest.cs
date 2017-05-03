@@ -192,7 +192,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Setup
             const double lowerBoundaryRevetment = 2;
-            const double upperBoundaryRevetment = 8;
+            const double upperBoundaryRevetment = 9;
 
             var input = new WaveConditionsInput
             {
@@ -208,11 +208,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
 
             double startPointX = ((lowerBoundaryRevetment - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X;
-            const double deltaY = upperBoundaryRevetment - lowerBoundaryRevetment;
+            double endPointX = ((upperBoundaryRevetment - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X;
             var expectedGeometry = new[]
             {
                 new Point2D(startPointX, lowerBoundaryRevetment),
-                new Point2D(deltaY / 3 + startPointX, upperBoundaryRevetment)
+                new Point2D(endPointX, upperBoundaryRevetment)
             };
 
             CollectionAssert.AreEqual(expectedGeometry, points);
@@ -426,6 +426,104 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             {
                 new Point2D(foreshoreProfileGeometry.First().X, 3),
                 new Point2D(endPointX + lastGeometryPoint.X, 3)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        public void CreateUpperBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateUpperBoundaryRevetmentGeometryPoints_UpperBoundaryRevetmentNaN_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateUpperBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryRevetment = (RoundedDouble) 9
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
+
+            // Assert
+            var expectedPoints = new[]
+            {
+                new Point2D(-10, 9),
+                new Point2D(3, 9)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        public void CreateUpperBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryRevetmentGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryRevetment = (RoundedDouble) 9,
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0), 
+                    new Point2D(3, 4)
+                }),
+                UseForeshore = false
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
+
+            // Assert
+            var expectedPoints = new[]
+            {
+                new Point2D(-10, 9),
+                new Point2D(3, 9)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
+        {
+            "CreateUpperBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsArray({0})"
+        })]
+        public void CreateUpperBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsArray(
+            IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryRevetment = (RoundedDouble) 8,
+                ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
+
+            // Assert
+            Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
+            double endPointX = (input.UpperBoundaryRevetment - lastGeometryPoint.Y) / 3;
+
+            var expectedPoints = new[]
+            {
+                new Point2D(foreshoreProfileGeometry.First().X, 8),
+                new Point2D(endPointX + lastGeometryPoint.X, 8)
             };
             CollectionAssert.AreEqual(expectedPoints, points);
         }
