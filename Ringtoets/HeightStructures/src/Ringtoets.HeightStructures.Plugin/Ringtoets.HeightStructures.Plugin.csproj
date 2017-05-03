@@ -42,6 +42,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="FileImporters\HeightStructureReplaceDataStrategy.cs" />
+    <Compile Include="FileImporters\HeightStructureUpdateDataStrategy.cs" />
     <Compile Include="HeightStructuresPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

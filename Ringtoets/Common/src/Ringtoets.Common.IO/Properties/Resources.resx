@@ -646,4 +646,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0" xml:space="preserve">
     <value>Het importeren van kunstwerken is mislukt: {0}</value>
   </data>
+  <data name="IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0" xml:space="preserve">
+    <value>Het bijwerken van kunstwerken is mislukt: {0}</value>
+  </data>
 </root>
