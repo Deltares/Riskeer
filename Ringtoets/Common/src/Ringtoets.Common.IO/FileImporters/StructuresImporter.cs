@@ -90,6 +90,15 @@ namespace Ringtoets.Common.IO.FileImporters
         }
 
         /// <summary>
+        /// Logs a warning for an already existing structure in the import target.
+        /// </summary>
+        /// <param name="structureId">The structure id which already exists.</param>
+        protected void LogStructureExisting(string structureId)
+        {
+            log.WarnFormat(Resources.StructuresImporter_LogStructureExisting_Structure_0_already_imported, structureId);
+        }
+
+        /// <summary>
         /// Create structure objects from location and geometry data.
         /// </summary>
         /// <param name="structureLocations">The read structure locations.</param>

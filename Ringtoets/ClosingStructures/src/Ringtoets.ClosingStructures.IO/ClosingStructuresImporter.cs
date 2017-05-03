@@ -55,9 +55,16 @@ namespace Ringtoets.ClosingStructures.IO
         {
             IEnumerable<ClosingStructure> importedClosingStructures = CreateClosingStructures(structureLocations.ToList(), groupedStructureParameterRows);
 
-            foreach (ClosingStructure closingStructure in importedClosingStructures)
+            foreach (ClosingStructure structure in importedClosingStructures)
             {
-                ImportTarget.Add(closingStructure);
+                if (ImportTarget.Select(s => s.Id).Contains(structure.Id))
+                {
+                    LogStructureExisting(structure.Id);
+                }
+                else
+                {
+                    ImportTarget.Add(structure);
+                }
             }
         }
 

@@ -646,4 +646,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported" xml:space="preserve">
     <value>Voorlandprofiel '{0}' is al geïmporteerd en wordt overgeslagen.</value>
   </data>
+  <data name="StructuresImporter_LogStructureExisting_Structure_0_already_imported" xml:space="preserve">
+    <value>Kunstwerk '{0}' is al geïmporteerd en wordt overgeslagen.</value>
+  </data>
 </root>

@@ -1658,6 +1658,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunstwerk &apos;{0}&apos; is al geïmporteerd en wordt overgeslagen..
+        /// </summary>
+        public static string StructuresImporter_LogStructureExisting_Structure_0_already_imported {
+            get {
+                return ResourceManager.GetString("StructuresImporter_LogStructureExisting_Structure_0_already_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klik op details voor meer informatie.
         ///{0}.
         /// </summary>
