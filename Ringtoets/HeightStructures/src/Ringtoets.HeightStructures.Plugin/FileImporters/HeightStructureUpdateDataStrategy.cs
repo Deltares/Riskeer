@@ -21,13 +21,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
+using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
 
@@ -74,23 +77,6 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
 
         #endregion
 
-        #region Updating Data Functions
-
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(HeightStructure objectToUpdate,
-                                                                                 HeightStructure objectToUpdateFrom)
-        {
-            var affectedObjects = new List<IObservable>();
-
-            if (!objectToUpdate.Equals(objectToUpdateFrom))
-            {
-                objectToUpdate.CopyProperties(objectToUpdateFrom);
-            }
-
-            return affectedObjects;
-        }
-
-        #endregion
-
         /// <summary>
         /// Class for comparing <see cref="HeightStructure"/> by only the id.
         /// </summary>
@@ -106,5 +92,54 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                 return obj.Id.GetHashCode();
             }
         }
+
+        #region Updating Data Functions
+
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(HeightStructure objectToUpdate,
+                                                                                 HeightStructure objectToUpdateFrom)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            if (!objectToUpdate.Equals(objectToUpdateFrom))
+            {
+                objectToUpdate.CopyProperties(objectToUpdateFrom);
+
+                affectedObjects.AddRange(UpdateHeightStructureDependentData(objectToUpdate));
+            }
+
+            return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> UpdateHeightStructureDependentData(HeightStructure structure)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            foreach (StructuresCalculation<HeightStructuresInput> affectedCalculation in GetAffectedCalculationsWithHeightStructure(structure))
+            {
+                affectedObjects.Add(affectedCalculation.InputParameters);
+                if (affectedCalculation.HasOutput)
+                {
+                    affectedObjects.Add(affectedCalculation);
+                }
+            }
+
+            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults,
+                                         FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
+            );
+
+            return affectedObjects;
+        }
+
+        private IEnumerable<StructuresCalculation<HeightStructuresInput>> GetAffectedCalculationsWithHeightStructure(HeightStructure structure)
+        {
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedCalculations =
+                FailureMechanism.Calculations
+                                .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                .Where(calc => ReferenceEquals(calc.InputParameters.Structure, structure));
+            return affectedCalculations;
+        }
+
+        #endregion
     }
 }
