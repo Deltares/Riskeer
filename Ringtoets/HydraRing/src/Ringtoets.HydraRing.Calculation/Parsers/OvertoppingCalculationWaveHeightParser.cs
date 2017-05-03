@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             "(SELECT ClosingSituationId, d.PeriodId, d.OuterIterationId, d.WindDirectionId, d.LevelTypeId " +
             "FROM GoverningWind g " +
             "JOIN DesignBeta d ON d.WindDirectionId = g.WindDirectionId AND d.OuterIterationId = g.OuterIterationId And d.PeriodId = g.PeriodId " +
-            $"WHERE LevelTypeId = 7 AND SectionId = { HydraRingDatabaseConstants.SectionIdParameterName} " +
+            $"WHERE LevelTypeId = 7 AND SectionId = {HydraRingDatabaseConstants.SectionIdParameterName} " +
             "AND SubmechanismId = 102 " +
             "ORDER BY d.OuterIterationId DESC, d.PeriodId, BetaValue " +
             "LIMIT 1) as s on s.WindDirectionId = db.WindDirectionId AND s.OuterIterationId = db.OuterIterationId AND s.PeriodId = db.PeriodId " +
