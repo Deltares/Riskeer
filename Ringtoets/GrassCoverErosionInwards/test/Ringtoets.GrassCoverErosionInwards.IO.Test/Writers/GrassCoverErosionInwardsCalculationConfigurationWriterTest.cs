@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Writers
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
-                    DikeProfile = new TestDikeProfile("dijkProfiel"),
+                    DikeProfile = new TestDikeProfile("dijkProfiel", "id"),
                     Orientation = (RoundedDouble) 67.1,
                     UseForeshore = true,
                     UseBreakWater = true,
