@@ -636,6 +636,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Precondition:
             Assert.Greater(expectedSurfaceLines.Count, 0);
 
+            Assert.AreEqual(expectedSurfaceLines.SourcePath, actualSurfaceLines.SourcePath);
             Assert.AreEqual(expectedSurfaceLines.Count, actualSurfaceLines.Count);
             for (var i = 0; i < expectedSurfaceLines.Count; i++)
             {
@@ -793,6 +794,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertDikeProfiles(DikeProfileCollection expectedDikeProfiles, DikeProfileCollection actualDikeProfiles)
         {
+            Assert.AreEqual(expectedDikeProfiles.SourcePath, actualDikeProfiles.SourcePath);
             Assert.AreEqual(expectedDikeProfiles.Count, actualDikeProfiles.Count);
             for (var i = 0; i < expectedDikeProfiles.Count; i++)
             {
@@ -815,6 +817,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertForeshoreProfiles(ForeshoreProfileCollection expectedForeshoreProfiles,
                                                     ForeshoreProfileCollection actualForeshoreProfiles)
         {
+            Assert.AreEqual(expectedForeshoreProfiles.SourcePath, actualForeshoreProfiles.SourcePath);
             Assert.AreEqual(expectedForeshoreProfiles.Count, actualForeshoreProfiles.Count);
             for (var i = 0; i < expectedForeshoreProfiles.Count; i++)
             {
