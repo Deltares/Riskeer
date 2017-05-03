@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         public string HydraulicBoundaryLocation { get; }
 
         /// <summary>
-        /// Gets the name of the dike profile of the read grass cover erosion inwards calculation.
+        /// Gets the Id of the dike profile of the read grass cover erosion inwards calculation.
         /// </summary>
         public string DikeProfile { get; }
 
