@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            if (TrySetStructure(readCalculation.StructureName, calculation)
+            if (TrySetStructure(readCalculation.StructureId, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
                 && TrySetStochasts(readCalculation, calculation)
@@ -239,11 +239,11 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return false;
         }
 
-        private bool TrySetStructure(string structureName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetStructure(string structureId, StructuresCalculation<HeightStructuresInput> calculation)
         {
             HeightStructure structure;
 
-            if (TryReadStructure(structureName, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;

@@ -128,7 +128,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 ShipVelocity = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName),
                 StabilityLinearLoadModel = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName),
                 StabilityQuadraticLoadModel = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityQuadraticLoadModelStochastName),
-                StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
+                StructureId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
                 StorageStructureArea = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
                 StormDuration = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.StormDurationStochastName),
                 StructureNormalOrientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),

@@ -57,7 +57,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
             if (input.Structure != null)
             {
-                calculationConfiguration.StructureName = input.Structure.Name;
+                calculationConfiguration.StructureId = input.Structure.Id;
                 calculationConfiguration.StructureNormalOrientation = input.StructureNormalOrientation;
 
                 calculationConfiguration.InflowModelType = (ConfigurationClosingStructureInflowModelType?) new ConfigurationClosingStructureInflowModelTypeConverter().ConvertFrom(input.InflowModelType);

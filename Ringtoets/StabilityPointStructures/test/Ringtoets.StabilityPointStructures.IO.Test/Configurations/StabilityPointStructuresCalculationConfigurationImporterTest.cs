@@ -560,7 +560,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
             var foreshoreProfile = new TestForeshoreProfile("profiel 1");
 
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
@@ -627,7 +627,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastMeansOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -753,7 +753,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastStandardDeviationVariationCoefficientOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -867,7 +867,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -905,7 +905,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 new Point2D(0, 3)
             });
-            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -1077,7 +1077,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationUnrounded.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -1108,7 +1108,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.",
+            "Het kunstwerk met ID 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {

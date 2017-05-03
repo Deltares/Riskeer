@@ -216,7 +216,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kunstwerk &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to Het kunstwerk met ID &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist {
             get {

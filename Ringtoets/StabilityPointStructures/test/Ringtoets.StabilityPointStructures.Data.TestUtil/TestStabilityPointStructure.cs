@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -32,30 +33,48 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
         /// </summary>
-        public TestStabilityPointStructure() : this("aName", new Point2D(1.234, 2.3456)) {}
+        public TestStabilityPointStructure() : this("aName", "anId", new Point2D(1.234, 2.3456)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
-        public TestStabilityPointStructure(string name) : this(name, new Point2D(1.234, 2.3456)) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
-        /// </summary>
-        /// <param name="location">The location of the structure.</param>
-        public TestStabilityPointStructure(Point2D location) : this("aName", location) {}
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>, empty or consists of only whitespaces.</exception>
+        public TestStabilityPointStructure(string name) : this(name, "anId", new Point2D(1.234, 2.3456)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        public TestStabilityPointStructure(string name, string id) : this(name, id, new Point2D(1.234, 2.3456)) { }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
+        /// </summary>
         /// <param name="location">The location of the structure.</param>
-        private TestStabilityPointStructure(string name, Point2D location)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
+        /// is <c>null</c>.</exception>
+        public TestStabilityPointStructure(Point2D location) : this("aName", "anId", location) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="id"></param>
+        /// <param name="location">The location of the structure.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        private TestStabilityPointStructure(string name, string id, Point2D location)
             : base(new ConstructionProperties
             {
                 Name = name,
-                Id = "anId",
+                Id = id,
                 Location = location,
                 StructureNormalOrientation = (RoundedDouble) 123.456,
                 StorageStructureArea =

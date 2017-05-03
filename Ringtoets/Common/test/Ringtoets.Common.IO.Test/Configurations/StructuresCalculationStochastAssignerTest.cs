@@ -244,7 +244,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
             mocks.ReplayAll();
 
-            configuration.StructureName = "some name";
+            configuration.StructureId = "some ID";
 
             var calculation = new StructuresCalculation<SimpleStructuresInput>();
 
@@ -303,7 +303,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var configuration = mocks.Stub<StructuresCalculationConfiguration>(calculationName);
             mocks.ReplayAll();
 
-            configuration.StructureName = "some name";
+            configuration.StructureId = "some ID";
 
             var random = new Random(21);
             double allowedLevelIncreaseStorageMean = setStandardDeviationStochastSuccessful ? random.NextDouble() : -1;

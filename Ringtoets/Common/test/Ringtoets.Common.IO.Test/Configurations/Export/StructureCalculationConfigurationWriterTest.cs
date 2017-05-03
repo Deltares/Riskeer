@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     VariationCoefficient = 1.2
                 },
                 StructureNormalOrientation = 5.6,
-                StructureName = "Kunstwerk",
+                StructureId = "Kunstwerk",
                 WaveReduction = new WaveReductionConfiguration
                 {
                     BreakWaterType = ConfigurationBreakWaterType.Caisson,

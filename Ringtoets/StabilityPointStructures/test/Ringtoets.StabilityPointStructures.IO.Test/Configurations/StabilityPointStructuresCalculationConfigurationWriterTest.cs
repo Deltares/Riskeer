@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     Mean = 0.18,
                     VariationCoefficient = 0.28
                 },
-                StructureName = "kunstwerk1",
+                StructureId = "kunstwerk1",
                 StructureNormalOrientation = 6.6,
                 StorageStructureArea = new StochastConfiguration
                 {

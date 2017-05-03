@@ -219,7 +219,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                                                                  Enumerable.Empty<ClosingStructure>(),
                                                                                  new ClosingStructuresFailureMechanism());
 
-            // Assert
+            // AssertTC
             Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
         }
 
@@ -296,7 +296,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestClosingStructure("kunstwerk1");
+            var structure = new TestClosingStructure("kunstwerk1", "kunstwerk1");
             var foreshoreProfile = new TestForeshoreProfile("profiel 1");
 
             var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
@@ -366,7 +366,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 new Point2D(0, 3)
             });
-            var structure = new TestClosingStructure("kunstwerk1");
+            var structure = new TestClosingStructure("kunstwerk1", "kunstwerk1");
             var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -483,7 +483,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastMeansOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestClosingStructure("kunstwerk1");
+            var structure = new TestClosingStructure("kunstwerk1", "kunstwerk1");
             var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -568,7 +568,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastStandardDeviationVariationCoefficientOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestClosingStructure("kunstwerk1");
+            var structure = new TestClosingStructure("kunstwerk1", "kunstwerk1");
             var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -645,7 +645,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestClosingStructure("kunstwerk1");
+            var structure = new TestClosingStructure("kunstwerk1", "kunstwerk1");
             var importer = new ClosingStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -676,7 +676,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
             "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.")]
+            "Het kunstwerk met ID 'unknown' bestaat niet.")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

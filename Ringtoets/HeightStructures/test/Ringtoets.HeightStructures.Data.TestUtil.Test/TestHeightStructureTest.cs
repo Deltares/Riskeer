@@ -40,7 +40,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var heightStructure = new TestHeightStructure();
 
             // Assert
-            AssertTestHeightStructure(heightStructure, expectedName, expectedLocation);
+            AssertTestHeightStructure(heightStructure, expectedName, "Id", expectedLocation);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var heightStructure = new TestHeightStructure(customLocation);
 
             // Assert
-            AssertTestHeightStructure(heightStructure, expectedName, customLocation);
+            AssertTestHeightStructure(heightStructure, expectedName, "Id", customLocation);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var heightStructure = new TestHeightStructure(customName);
 
             // Assert
-            AssertTestHeightStructure(heightStructure, customName, expectedLocation);
+            AssertTestHeightStructure(heightStructure, customName, "Id", expectedLocation);
         }
 
         [Test]
@@ -76,20 +76,22 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
         {
             // Setup
             const string customName = "A different name for structure";
+            const string customId = "an different id for structure";
             var customLocation = new Point2D(10, 20);
 
             // Call
-            var heightStructure = new TestHeightStructure(customName, customLocation);
+            var heightStructure = new TestHeightStructure(customName, customId, customLocation);
 
             // Assert
-            AssertTestHeightStructure(heightStructure, customName, customLocation);
+            AssertTestHeightStructure(heightStructure, customName, customId, customLocation);
         }
 
-        private static void AssertTestHeightStructure(TestHeightStructure heightStructure, string expectedName, Point2D expectedLocation)
+        private static void AssertTestHeightStructure(TestHeightStructure heightStructure, string expectedName,
+                                                      string expectedId, Point2D expectedLocation)
         {
             Assert.IsInstanceOf<HeightStructure>(heightStructure);
             Assert.AreEqual(expectedName, heightStructure.Name);
-            Assert.AreEqual("Id", heightStructure.Id);
+            Assert.AreEqual(expectedId, heightStructure.Id);
             Assert.AreEqual(expectedLocation.X, heightStructure.Location.X);
             Assert.AreEqual(expectedLocation.Y, heightStructure.Location.Y);
 

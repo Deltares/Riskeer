@@ -551,7 +551,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
     <value>De locatie met hydraulische randvoorwaarden '{0}' bestaat niet.</value>
   </data>
   <data name="CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist" xml:space="preserve">
-    <value>Het kunstwerk '{0}' bestaat niet.</value>
+    <value>Het kunstwerk met ID '{0}' bestaat niet.</value>
   </data>
   <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled" xml:space="preserve">
     <value>{0} importeren afgebroken. Geen data ingelezen.</value>

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -39,26 +40,57 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>, empty or consists of only whitespaces.</exception>
         public TestHeightStructure(string name)
-            : this(name, new Point2D(0.0, 0.0)) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestHeightStructure"/>.
-        /// </summary>
-        /// <param name="location">The location of the structure.</param>
-        public TestHeightStructure(Point2D location)
-            : this("Test", location) {}
+            : this(name, "Id", new Point2D(0.0, 0.0)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        public TestHeightStructure(string name, string id)
+            : this(name, id, new Point2D(0.0, 0.0)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
         /// <param name="location">The location of the structure.</param>
-        public TestHeightStructure(string name, Point2D location)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
+        /// is <c>null</c>.</exception>
+        public TestHeightStructure(Point2D location)
+            : this("Test", "Id", location) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="location">The location of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> 
+        /// is <c>null</c>, empty or consists of only whitespaces.</exception>
+        public TestHeightStructure(Point2D location, string id)
+            : this("Test", id, location) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHeightStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        /// <param name="location">The location of the structure.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        public TestHeightStructure(string name, string id, Point2D location)
             : base(new ConstructionProperties
             {
                 Name = name,
-                Id = "Id",
+                Id = id,
                 Location = location,
                 StructureNormalOrientation = (RoundedDouble) 0.12345,
                 LevelCrestStructure =
