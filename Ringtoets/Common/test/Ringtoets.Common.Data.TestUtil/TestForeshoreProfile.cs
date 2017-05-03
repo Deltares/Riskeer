@@ -52,6 +52,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// name and no <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="profileId">Id of the profile.</param>
+        /// <exception cref="ArgumentException">Thrown when 
+        /// <paramref name="profileId"/> is null, empty or whitespaces.</exception>
         public TestForeshoreProfile(string profileId)
             : this(profileId, "name", new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) {}
 
