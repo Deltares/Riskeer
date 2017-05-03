@@ -64,18 +64,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithName_ReturnForeshoreProfileWithGivenNameAndNoBreakWater()
+        public void Constructor_WithId_ReturnForeshoreProfileWithGivenNameAndNoBreakWater()
         {
             // Setup
-            const string name = "test";
+            const string id = "test";
 
             // Call
-            ForeshoreProfile profile = new TestForeshoreProfile(name);
+            ForeshoreProfile profile = new TestForeshoreProfile(id);
 
             // Assert
             Assert.IsEmpty(profile.Geometry);
-            Assert.AreEqual("id", profile.Id);
-            Assert.AreEqual(name, profile.Name);
+            Assert.AreEqual(id, profile.Id);
+            Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
@@ -83,10 +83,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithNameAndGeometry_ReturnForeshoreProfileWithGivenNameAndGeometry()
+        public void Constructor_WithIdAndGeometry_ReturnForeshoreProfileWithGivenNameAndGeometry()
         {
             // Setup
-            const string name = "test";
+            const string id = "test";
             var geometry = new[]
             {
                 new Point2D(0, 0),
@@ -94,12 +94,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             };
 
             // Call
-            ForeshoreProfile profile = new TestForeshoreProfile(name, geometry);
+            ForeshoreProfile profile = new TestForeshoreProfile(id, geometry);
 
             // Assert
             CollectionAssert.AreEqual(geometry, profile.Geometry);
-            Assert.AreEqual("id", profile.Id);
-            Assert.AreEqual(name, profile.Name);
+            Assert.AreEqual(id, profile.Id);
+            Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);

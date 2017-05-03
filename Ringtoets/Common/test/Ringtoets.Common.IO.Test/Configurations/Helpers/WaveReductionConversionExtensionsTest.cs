@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
 
             // Assert
-            Assert.IsNull(configuration.ForeshoreProfileName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.WaveReduction);
         }
 
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
 
             // Assert
-            Assert.AreEqual("profile", configuration.ForeshoreProfileName);
+            Assert.AreEqual("id", configuration.ForeshoreProfileId);
             WaveReductionConfiguration waveReduction = configuration.WaveReduction;
             Assert.AreEqual(structureInput.UseBreakWater, waveReduction.UseBreakWater);
             Assert.AreEqual(structureInput.UseForeshore, waveReduction.UseForeshoreProfile);
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
 
             // Assert
-            Assert.AreEqual(structureInput.ForeshoreProfile.Name, configuration.ForeshoreProfileName);
+            Assert.AreEqual(structureInput.ForeshoreProfile.Name, configuration.ForeshoreProfileId);
             WaveReductionConfiguration waveReduction = configuration.WaveReduction;
             Assert.AreEqual(structureInput.UseBreakWater, waveReduction.UseBreakWater);
             Assert.AreEqual(structureInput.UseForeshore, waveReduction.UseForeshoreProfile);

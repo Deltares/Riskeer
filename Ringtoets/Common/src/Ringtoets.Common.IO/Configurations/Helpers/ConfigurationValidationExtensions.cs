@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 log.LogCalculationConversionError(string.Format(
                                                       Resources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
-                                                      foreshoreProfile.Name),
+                                                      foreshoreProfile.Id),
                                                   calculationName);
 
                 return false;

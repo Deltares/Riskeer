@@ -61,7 +61,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.IsNull(configuration.CriticalOvertoppingDischarge);
             Assert.IsNull(configuration.FailureProbabilityStructureWithErosion);
             Assert.IsNull(configuration.WidthFlowApertures);
-            Assert.IsNull(configuration.ForeshoreProfileName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.WaveReduction);
         }
 
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             configuration.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
             configuration.FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
             configuration.WidthFlowApertures = widthFlowApertures;
-            configuration.ForeshoreProfileName = foreshoreProfileName;
+            configuration.ForeshoreProfileId = foreshoreProfileName;
             configuration.WaveReduction = waveReduction;
 
             // Assert
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreSame(criticalOvertoppingDischarge, configuration.CriticalOvertoppingDischarge);
             Assert.AreEqual(failureProbabilityStructureWithErosion, configuration.FailureProbabilityStructureWithErosion);
             Assert.AreSame(widthFlowApertures, configuration.WidthFlowApertures);
-            Assert.AreEqual(foreshoreProfileName, configuration.ForeshoreProfileName);
+            Assert.AreEqual(foreshoreProfileName, configuration.ForeshoreProfileId);
             Assert.AreSame(waveReduction, configuration.WaveReduction);
         }
 

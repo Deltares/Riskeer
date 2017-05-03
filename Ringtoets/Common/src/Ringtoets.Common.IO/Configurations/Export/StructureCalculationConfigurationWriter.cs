@@ -90,7 +90,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
                                              configuration.FailureProbabilityStructureWithErosion);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement,
-                                             configuration.ForeshoreProfileName);
+                                             configuration.ForeshoreProfileId);
 
             WriteSpecificStructureParameters(configuration, writer);
         }

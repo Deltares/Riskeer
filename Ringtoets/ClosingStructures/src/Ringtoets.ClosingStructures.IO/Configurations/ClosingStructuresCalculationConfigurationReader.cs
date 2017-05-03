@@ -105,7 +105,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 FailureProbabilityReparation = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.FailureProbabilityReparation),
                 ProbabilityOrFrequencyOpenStructureBeforeFlooding = calculationElement.GetDoubleValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.ProbabilityOrFrequencyOpenStructureBeforeFlooding),
                 IdenticalApertures = calculationElement.GetIntegerValueFromDescendantElement(ClosingStructuresConfigurationSchemaIdentifiers.IdenticalApertures),
-                ForeshoreProfileName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
+                ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 StructureName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
                 WaveReduction = GetWaveReductionParameters(calculationElement),

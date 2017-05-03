@@ -307,7 +307,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
 
             Assert.IsNull(calculation.LevelCrestStructureNotClosing);
@@ -341,7 +341,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(67.1, calculation.StructureNormalOrientation);
             Assert.AreEqual("kunstwerk1", calculation.StructureName);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
             Assert.AreEqual(0.002, calculation.FactorStormDurationOpenStructure);
             Assert.AreEqual(0.03, calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(0.22, calculation.FailureProbabilityOpenStructure);
@@ -399,7 +399,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsTrue(double.IsNegativeInfinity(calculation.StructureNormalOrientation.Value));
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsTrue(double.IsPositiveInfinity(calculation.FactorStormDurationOpenStructure.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityOpenStructure.Value));
@@ -455,7 +455,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNaN(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNaN(calculation.FactorStormDurationOpenStructure);
             Assert.IsNaN(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.IsNaN(calculation.FailureProbabilityOpenStructure);
@@ -511,7 +511,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
 
             Assert.IsNull(calculation.FailureProbabilityOpenStructure);
@@ -562,7 +562,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureName);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
 
             Assert.IsNull(calculation.FailureProbabilityOpenStructure);

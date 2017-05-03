@@ -220,20 +220,20 @@ namespace Ringtoets.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Tries to find the foreshore profile with the given <paramref name="foreshoreProfileName"/> 
+        /// Tries to find the foreshore profile with the given <paramref name="foreshoreProfileId"/> 
         /// in the <paramref name="foreshoreProfiles"/>.
         /// </summary>
-        /// <param name="foreshoreProfileName">The name of the foreshore profile to find.</param>
+        /// <param name="foreshoreProfileId">The id of the foreshore profile to find.</param>
         /// <param name="calculationName">Name of the calculation to assign the foreshore profile to.</param>
         /// <param name="foreshoreProfiles">The collection of <see cref="ForeshoreProfile"/> to search in.</param>
         /// <param name="foundForeshoreProfile">The foreshore profile with the name equal to 
-        /// <paramref name="foreshoreProfileName"/> if there was any.</param>
-        /// <returns><c>true</c> if no <paramref name="foreshoreProfileName"/> is given, or when a foreshore profile with 
-        /// the name <paramref name="foreshoreProfileName"/> was found, <c>false</c> otherwise.</returns>
+        /// <paramref name="foreshoreProfileId"/> if there was any.</param>
+        /// <returns><c>true</c> if no <paramref name="foreshoreProfileId"/> is given, or when a foreshore profile with 
+        /// the name <paramref name="foreshoreProfileId"/> was found, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
         /// or <paramref name="foreshoreProfiles"/> is <c>null</c>.</exception>
         protected bool TryReadForeshoreProfile(
-            string foreshoreProfileName,
+            string foreshoreProfileId,
             string calculationName,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
             out ForeshoreProfile foundForeshoreProfile)
@@ -249,15 +249,15 @@ namespace Ringtoets.Common.IO.Configurations.Import
 
             foundForeshoreProfile = null;
 
-            if (foreshoreProfileName != null)
+            if (foreshoreProfileId != null)
             {
-                ForeshoreProfile foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Name == foreshoreProfileName);
+                ForeshoreProfile foreshoreProfile = foreshoreProfiles.FirstOrDefault(fp => fp.Id == foreshoreProfileId);
 
                 if (foreshoreProfile == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist,
-                                                          foreshoreProfileName),
+                                                          foreshoreProfileId),
                                                       calculationName);
 
                     return false;

@@ -102,7 +102,7 @@ namespace Ringtoets.Revetment.IO.Writers
             {
                 writer.WriteElementString(
                     WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile,
-                    foreshoreProfile.Name);
+                    foreshoreProfile.Id);
             }
         }
 

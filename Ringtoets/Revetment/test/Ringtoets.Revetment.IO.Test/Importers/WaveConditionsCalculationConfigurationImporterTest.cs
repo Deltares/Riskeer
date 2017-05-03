@@ -272,8 +272,8 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                 new Point2D(2, 2)
             }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
             {
-                Id = "id",
-                Name = "Voorlandprofiel"
+                Id = "Voorlandprofiel",
+                Name = "VoorlandProfielName"
             });
 
             var importer = new WaveConditionsCalculationConfigurationImporter<SimpleWaveConditionsCalculation>(

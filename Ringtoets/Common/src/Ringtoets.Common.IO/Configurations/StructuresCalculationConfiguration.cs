@@ -101,9 +101,9 @@ namespace Ringtoets.Common.IO.Configurations
         public WaveReductionConfiguration WaveReduction { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the foreshore profile.
+        /// Gets or sets the id of the foreshore profile.
         /// </summary>
-        public string ForeshoreProfileName { get; set; }
+        public string ForeshoreProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the calculation.
