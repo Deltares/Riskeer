@@ -116,6 +116,27 @@ namespace Ringtoets.Revetment.Forms.Factories
             };
         }
 
+        public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
+        {
+            if (input == null || double.IsNaN(input.LowerBoundaryRevetment))
+            {
+                return new Point2D[0];
+            }
+
+            double startPointX = input.ForeshoreProfile != null && input.UseForeshore
+                                  ? input.ForeshoreGeometry.First().X
+                                  : -10;
+
+            Point2D baseStartPoint = GetBaseStartPoint(input);
+            double endPointX = (input.LowerBoundaryRevetment - baseStartPoint.Y) / 3;
+
+            return new[]
+           {
+                new Point2D(startPointX, input.LowerBoundaryRevetment),
+                new Point2D(endPointX + baseStartPoint.X, input.LowerBoundaryRevetment)
+            };
+        }
+
         private static Point2D GetBaseStartPoint(WaveConditionsInput input)
         {
             double startPointX = input.ForeshoreProfile != null && input.UseForeshore

@@ -332,6 +332,104 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             CollectionAssert.AreEqual(expectedGeometry, points);
         }
 
+        [Test]
+        public void CreateLowerBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateLowerBoundaryRevetmentGeometryPoints_LowerBoundaryRevetmentNaN_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateLowerBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) 3
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
+
+            // Assert
+            var expectedPoints = new[]
+            {
+                new Point2D(-10, 3),
+                new Point2D(1, 3)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        public void CreateLowerBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryRevetmentGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) 3,
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0), 
+                    new Point2D(3, 4)
+                }),
+                UseForeshore = false
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
+
+            // Assert
+            var expectedPoints = new[]
+            {
+                new Point2D(-10, 3),
+                new Point2D(1, 3)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
+        {
+            "CreateLowerBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsArray({0})"
+        })]
+        public void CreateLowerBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsArray(
+            IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) 3,
+                ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
+
+            // Assert
+            Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
+            double endPointX = (input.LowerBoundaryRevetment - lastGeometryPoint.Y) / 3;
+
+            var expectedPoints = new[]
+            {
+                new Point2D(foreshoreProfileGeometry.First().X, 3),
+                new Point2D(endPointX + lastGeometryPoint.X, 3)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
         private static IEnumerable<TestCaseData> GetInputWithoutRevetmentBoundaries(string testNameFormat)
         {
             yield return new TestCaseData(new WaveConditionsInput())
