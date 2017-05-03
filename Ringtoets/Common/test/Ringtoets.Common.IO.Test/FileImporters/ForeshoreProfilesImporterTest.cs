@@ -436,6 +436,41 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void Import_ImportingAlreadyExistingForeshoreProfiles_TrueAndLogMessagesAndFiveForeshoreProfiles()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+
+            bool importResult = foreshoreProfilesImporter.Import();
+            foreshoreProfiles.RemoveAt(3);
+
+            // Call
+            Action call = () => importResult = foreshoreProfilesImporter.Import();
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                Tuple.Create("Voorlandprofiel 'profiel001' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Voorlandprofiel 'profiel002' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Voorlandprofiel 'profiel003' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Voorlandprofiel 'profiel005' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn)
+            };
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 4);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(5, foreshoreProfiles.Count);
+            mockRepository.VerifyAll();
+        }
+
         private ReferenceLine CreateMatchingReferenceLine()
         {
             var referenceLine = new ReferenceLine();

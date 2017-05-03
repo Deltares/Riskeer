@@ -57,7 +57,14 @@ namespace Ringtoets.Common.IO.FileImporters
 
             foreach (ForeshoreProfile foreshoreProfile in importedForeshoreProfiles)
             {
-                ImportTarget.Add(foreshoreProfile);
+                if (ImportTarget.Select(fp => fp.Id).Contains(foreshoreProfile.Id))
+                {
+                    Log.WarnFormat(Resources.ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported, foreshoreProfile.Id);
+                }
+                else
+                {
+                    ImportTarget.Add(foreshoreProfile);
+                }
             }
         }
 

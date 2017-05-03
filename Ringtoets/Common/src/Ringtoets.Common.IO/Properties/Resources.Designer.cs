@@ -749,6 +749,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voorlandprofiel &apos;{0}&apos; is al geïmporteerd en wordt overgeslagen..
+        /// </summary>
+        public static string ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported {
+            get {
+                return ResourceManager.GetString("ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID &apos;{0}&apos;..
         /// </summary>
         public static string ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_ {

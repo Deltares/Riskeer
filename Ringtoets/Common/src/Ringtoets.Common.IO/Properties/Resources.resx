@@ -643,4 +643,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0" xml:space="preserve">
     <value>Er is geen kunstwerk opgegeven om de stochast '{0}' aan toe te voegen.</value>
   </data>
+  <data name="ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported" xml:space="preserve">
+    <value>Voorlandprofiel '{0}' is al geïmporteerd en wordt overgeslagen.</value>
+  </data>
 </root>
