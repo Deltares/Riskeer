@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class OvertoppingCalculationWaveHeightParserTest
     {
-        private const string validFile = "ValidFile";
+        private const string validFileOvertoppingDominant = "ValidFileOvertoppingDominant";
 
         private static readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
                                                                     nameof(OvertoppingCalculationWaveHeightParser));
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
-            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
-            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
+            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var parser = new OvertoppingCalculationWaveHeightParser();
-            string workingDirectory = Path.Combine(testDirectory, validFile);
+            string workingDirectory = Path.Combine(testDirectory, validFileOvertoppingDominant);
 
             using (new DirectoryPermissionsRevoker(testDirectory, FileSystemRights.ReadData))
             {
@@ -171,18 +171,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ValidData_OutputSet()
+        [TestCase(validFileOvertoppingDominant, 0.26586599999999999, true)]
+        [TestCase("ValidFileOvertoppingNotDominant", 0.00035540600000000001, false)]
+        public void Parse_ValidData_OutputSet(string file, double expectedWaveHeight, bool expectedOvertoppingDominant)
         {
             // Setup
-            string path = Path.Combine(testDirectory, validFile);
+            string path = Path.Combine(testDirectory, file);
             var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Call
             parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(1.56783, parser.Output.WaveHeight);
-            Assert.IsTrue(parser.Output.IsOvertoppingDominant);
+            Assert.AreEqual(expectedWaveHeight, parser.Output.WaveHeight);
+            Assert.AreEqual(expectedOvertoppingDominant, parser.Output.IsOvertoppingDominant);
         }
     }
 }
