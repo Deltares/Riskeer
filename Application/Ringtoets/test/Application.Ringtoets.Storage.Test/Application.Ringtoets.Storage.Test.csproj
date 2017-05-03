@@ -81,7 +81,6 @@
     <Compile Include="BackgroundDataIdentifiersTest.cs" />
     <Compile Include="Create\BackgroundDataCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensionsTest.cs" />
-    <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensionsTest.cs" />
@@ -95,7 +94,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
@@ -148,7 +146,6 @@
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest.cs" />

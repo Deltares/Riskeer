@@ -63,14 +63,12 @@
     <Compile Include="BackgroundDataIdentifiers.cs" />
     <Compile Include="BackgroundDataType.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
-    <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeHeightOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
@@ -78,7 +76,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
-    <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />

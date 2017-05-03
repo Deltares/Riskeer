@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -44,7 +45,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForStabilityPointStructures(mechanism.StabilityPointStructures, entity, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
@@ -87,9 +88,14 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralStabilityPointStructuresInput generalInput, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(StabilityPointStructuresFailureMechanism generalInput, FailureMechanismEntity entity)
         {
-            entity.StabilityPointStructuresFailureMechanismMetaEntities.Add(generalInput.Create());
+            var metaEntity = new StabilityPointStructuresFailureMechanismMetaEntity
+            {
+                ForeshoreProfileCollectionSourcePath = generalInput.ForeshoreProfiles.SourcePath.DeepClone(),
+                N = generalInput.GeneralInput.N
+            };
+            entity.StabilityPointStructuresFailureMechanismMetaEntities.Add(metaEntity);
         }
     }
 }

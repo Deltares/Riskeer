@@ -90,8 +90,10 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.First();
+            ClosingStructuresFailureMechanismMetaEntity metaEntity = 
+                entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
+            Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
@@ -167,12 +169,12 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Setup
             var profile = new TestForeshoreProfile();
 
-            // TODO: WTI - 1112 Add file path location to storage    
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            const string filePath = "some/file/path/foreshoreProfiles";
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile
-            }, "path");
+            }, filePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -182,6 +184,12 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(profile));
+
+            ClosingStructuresFailureMechanismMetaEntity metaEntity =
+                entity.ClosingStructuresFailureMechanismMetaEntities.Single();
+            string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
+            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]

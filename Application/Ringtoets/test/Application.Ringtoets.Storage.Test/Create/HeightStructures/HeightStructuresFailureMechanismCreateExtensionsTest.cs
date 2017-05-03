@@ -169,17 +169,34 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         }
 
         [Test]
+        public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity =
+                entity.HeightStructuresFailureMechanismMetaEntities.Single();
+            Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
+        }
+
+        [Test]
         public void Create_WithForeshoreProfiles_ForeshoreProfileEntitiesCreated()
         {
             // Setup
             var profile = new TestForeshoreProfile();
 
-            // TODO: WTI-1112: add persistency as part of storage
             var failureMechanism = new HeightStructuresFailureMechanism();
+            const string filePath = "some/path/to/foreshoreProfiles";
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile
-            }, "path");
+            }, filePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -189,6 +206,31 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(profile));
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity =
+                entity.HeightStructuresFailureMechanismMetaEntities.Single();
+            string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
+            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+        }
+
+        [Test]
+        public void Create_WithoutHeightStructures_EmptyHeightStructureEntities()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+           
+            var persistenceRegistry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
+
+            // Assert
+            Assert.AreEqual(0, entity.HeightStructureEntities.Count);
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity =
+              entity.HeightStructuresFailureMechanismMetaEntities.Single();
+            Assert.IsNull(metaEntity.HeightStructureCollectionSourcePath);
         }
 
         [Test]
@@ -198,10 +240,11 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             HeightStructure structure = new TestHeightStructure();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            const string filePath = "some/path/to/structures";
             failureMechanism.HeightStructures.AddRange(new[]
             {
                 structure
-            }, "some path");
+            }, filePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -211,6 +254,12 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Assert
             Assert.AreEqual(1, entity.HeightStructureEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(structure));
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity =
+              entity.HeightStructuresFailureMechanismMetaEntities.Single();
+            string metaEntityHeightStructureCollectionSourcePath = metaEntity.HeightStructureCollectionSourcePath;
+            Assert.AreNotSame(filePath, metaEntityHeightStructureCollectionSourcePath);
+            Assert.AreEqual(filePath, metaEntityHeightStructureCollectionSourcePath);
         }
 
         [Test]

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -45,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForHydraulicBoundaryLocations(mechanism.HydraulicBoundaryLocations, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
@@ -53,7 +54,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             return entity;
         }
 
-        private static void AddEntitiesForHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations, FailureMechanismEntity entity, PersistenceRegistry registry)
+        private static void AddEntitiesForHydraulicBoundaryLocations(
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
         {
             var i = 0;
             foreach (HydraulicBoundaryLocation location in hydraulicBoundaryLocations)
@@ -62,9 +66,16 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralGrassCoverErosionOutwardsInput generalInput, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                               FailureMechanismEntity entity)
         {
-            entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(generalInput.Create());
+            var metaEntity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+            {
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
+                N = failureMechanism.GeneralInput.N
+            };
+
+            entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(metaEntity);
         }
 
         private static void AddEntitiesForSectionResults(

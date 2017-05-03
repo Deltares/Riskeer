@@ -164,24 +164,34 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsEmpty(entity.ForeshoreProfileEntities);
+
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
+                entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
+            Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
         {
             // Setup
-            // TODO: WTI 1112: add file location persistency as part of storage
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            const string filePath = "some/path/to/foreshoreProfiles";
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 new TestForeshoreProfile()
-            }, "path");
+            }, filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
+
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
+               entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
+            string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
+            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
@@ -201,7 +211,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.First().N);
+            Assert.AreEqual(n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

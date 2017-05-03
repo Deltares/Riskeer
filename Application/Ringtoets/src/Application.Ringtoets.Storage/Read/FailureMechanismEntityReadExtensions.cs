@@ -87,6 +87,20 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+        private static void ReadForeshoreProfiles(this FailureMechanismEntity entity,
+                                                  ForeshoreProfileCollection foreshoreProfiles,
+                                                  string foreshoreProfileSourcePath,
+                                                  ReadConversionCollector collector)
+        {
+            if (entity.ForeshoreProfileEntities.Any())
+            {
+                foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities
+                                                 .OrderBy(fpe => fpe.Order)
+                                                 .Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector)),
+                                           foreshoreProfileSourcePath);
+            }
+        }
+
         #region Piping
 
         /// <summary>
@@ -241,6 +255,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="HeightStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>>
         internal static void ReadAsHeightStructuresFailureMechanism(this FailureMechanismEntity entity,
                                                                     HeightStructuresFailureMechanism failureMechanism,
                                                                     ReadConversionCollector collector)
@@ -248,7 +263,7 @@ namespace Application.Ringtoets.Storage.Read
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
-            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
             entity.ReadHeightStructures(metaEntity, failureMechanism.HeightStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
@@ -400,13 +415,20 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="ClosingStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
         internal static void ReadAsClosingStructuresFailureMechanism(this FailureMechanismEntity entity,
                                                                      ClosingStructuresFailureMechanism failureMechanism,
                                                                      ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
-            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+
+            ClosingStructuresFailureMechanismMetaEntity metaEntity =
+                entity.ClosingStructuresFailureMechanismMetaEntities.Single();
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles,
+                                         metaEntity.ForeshoreProfileCollectionSourcePath,
+                                         collector);
+
             entity.ReadClosingStructures(failureMechanism.ClosingStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadClosingStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
@@ -520,13 +542,17 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the expected table entries could not be found.</exception>
         internal static void ReadAsWaveImpactAsphaltCoverFailureMechanism(this FailureMechanismEntity entity,
                                                                           WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                           ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadWaveImpactAsphaltCoverMechanismSectionResults(failureMechanism, collector);
-            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+
+            WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity =
+                entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
 
             ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
@@ -565,6 +591,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsGrassCoverErosionOutwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
@@ -572,7 +599,14 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
-            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
+                entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
+            ReadForeshoreProfiles(entity,
+                                  failureMechanism.ForeshoreProfiles,
+                                  metaEntity.ForeshoreProfileCollectionSourcePath,
+                                  collector);
+
             entity.ReadHydraulicBoundaryLocations(failureMechanism.HydraulicBoundaryLocations, collector);
 
             ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
@@ -800,25 +834,24 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StabilityStoneCoverFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
         internal static void ReadAsStabilityStoneCoverFailureMechanism(this FailureMechanismEntity entity,
                                                                        StabilityStoneCoverFailureMechanism failureMechanism,
                                                                        ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityStoneCoverMechanismSectionResults(failureMechanism, collector);
-            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
 
-            ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
-        }
+            StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
+                entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
+            ReadForeshoreProfiles(entity,
+                                  failureMechanism.ForeshoreProfiles,
+                                  metaEntity.ForeshoreProfileCollectionSourcePath,
+                                  collector);
 
-        private static void ReadForeshoreProfiles(this FailureMechanismEntity entity, ForeshoreProfileCollection foreshoreProfiles,
-                                                  ReadConversionCollector collector)
-        {
-            // TODO: WTI-1112 Add file path location to storage
-            foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities
-                                             .OrderBy(fpe => fpe.Order)
-                                             .Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector)),
-                                       "path");
+            ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity,
+                                                                      failureMechanism.WaveConditionsCalculationGroup,
+                                                                      collector);
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity,
@@ -855,13 +888,20 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StabilityPointStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
         internal static void ReadAsStabilityPointStructuresFailureMechanism(this FailureMechanismEntity entity,
                                                                             StabilityPointStructuresFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityPointStructuresMechanismSectionResults(failureMechanism, collector);
-            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
+                entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles,
+                                         metaEntity.ForeshoreProfileCollectionSourcePath,
+                                         collector);
+
             entity.ReadStabilityPointStructures(failureMechanism.StabilityPointStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadStabilityPointStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);

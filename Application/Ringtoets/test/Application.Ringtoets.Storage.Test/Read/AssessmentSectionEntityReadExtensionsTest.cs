@@ -643,6 +643,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             const string profileAId = "profileA";
             const string profileBId = "profileB";
+            const string fileLocation = "some/location";
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
@@ -650,7 +651,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = 2
+                        N = 2,
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -680,6 +682,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             ForeshoreProfileCollection foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
                 profileBId,
@@ -705,7 +708,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsRelevant = Convert.ToByte(isRelevant),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments
+                NotRelevantComments = notRelevantComments,
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
+                }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
@@ -744,6 +751,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                             Order = 1
                         }
                     }
+                },
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -769,6 +780,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             const string profileAId = "profileA";
             const string profileBId = "profileB";
+            const string fileLocation = "some/file/location";
+
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
@@ -788,6 +801,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     }
                 },
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation
+                    }
+                },
                 IsRelevant = Convert.ToByte(isRelevant)
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -800,6 +820,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             ForeshoreProfileCollection foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
                 profileBId,
@@ -825,7 +846,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsRelevant = Convert.ToByte(isRelevant),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments
+                NotRelevantComments = notRelevantComments,
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities = 
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
@@ -850,6 +875,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             const string profileAId = "profileA";
             const string profileBId = "profileB";
+            const string fileLocation = "some/location";
+
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
@@ -868,6 +895,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Id = profileBId,
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
                     }
+                },
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -880,6 +914,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             ForeshoreProfileCollection foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
                 profileBId,
@@ -909,6 +944,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                             Order = 1
                         }
                     }
+                },
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);

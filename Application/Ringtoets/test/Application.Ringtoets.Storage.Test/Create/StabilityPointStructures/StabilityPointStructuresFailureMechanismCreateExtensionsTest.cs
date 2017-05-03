@@ -162,17 +162,34 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         }
 
         [Test]
+        public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
+                entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
+            Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
+        }
+
+        [Test]
         public void Create_WithForeshoreProfiles_ForeshoreProfileEntitiesCreated()
         {
             // Setup
             var profile = new TestForeshoreProfile();
 
-            // TODO: WTI - 1112 Add file path location to storage
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            const string filePath = "some/path/to/foreshoreProfiles";
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile
-            }, "path");
+            }, filePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -182,6 +199,12 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(profile));
+
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
+                entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
+            string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
+            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -43,6 +44,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
@@ -59,6 +61,17 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                               FailureMechanismEntity entity)
+        {
+            var metaEntity = new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+            {
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone()
+            };
+
+            entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Add(metaEntity);
         }
 
         private static void AddEntitiesForForeshoreProfiles(

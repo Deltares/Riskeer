@@ -163,25 +163,35 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.IsEmpty(entity.ForeshoreProfileEntities);
+
+            StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
+              entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
+            Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
         {
             // Setup
-            // TODO: WTI - 1112 Add file path location to storage
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            const string filePath = "some/path/to/foreshoreProfiles";
             failureMechanism.ForeshoreProfiles.AddRange(new[]
                                                         {
                                                             new TestForeshoreProfile()
                                                         },
-                                                        "path");
+                                                        filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
+
+            StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
+               entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
+            string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
+            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]

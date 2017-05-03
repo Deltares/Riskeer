@@ -681,6 +681,58 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
+            Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithForeshoreProfiles_ReturnsNeGrassCoverErosionOutwardsFailureMechanismWithForeshoreProfilesSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Id = "Child1",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 1
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Id = "Child2",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 0
+                    }
+                },
+                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+
+            ForeshoreProfile child1 = foreshoreProfiles[0];
+            Assert.AreEqual("Child2", child1.Id);
+
+            ForeshoreProfile child2 = foreshoreProfiles[1];
+            Assert.AreEqual("Child1", child2.Id);
         }
 
         [Test]
@@ -815,6 +867,41 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Stability Stone Cover
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithCollector_ReturnsNewStabilityStoneCoverFailureMechanismWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            Assert.IsEmpty(failureMechanism.Sections);
+
+            Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
         public void ReadAsStabilityStoneCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewStabilityStoneCoverFailureMechanismWithCalculationGroupSet()
         {
             // Setup
@@ -837,6 +924,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                             Order = 0
                         }
                     }
+                },
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -859,7 +950,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStabilityStoneCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewStabilityStoneCoverFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            // TODO: WTI-1112 Add file location as part of storage
+            const string fileLocation = "some/path/to/foreshoreProfiles";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -877,6 +968,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
+                },
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -886,18 +984,55 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
 
-            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            ForeshoreProfile child1 = foreshoreProfiles[0];
             Assert.AreEqual("Child2", child1.Id);
 
-            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
         }
 
         #endregion
 
         #region Wave Impact Asphalt Cover
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCollector_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            Assert.IsEmpty(failureMechanism.Sections);
+
+            Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
 
         [Test]
         public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithCalculationGroupSet()
@@ -922,6 +1057,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                             Order = 0
                         }
                     }
+                },
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -944,7 +1083,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            // TODO: WTI-1112 Add file location as part of storage
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -962,6 +1102,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
+                },
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -971,12 +1118,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
 
-            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            ForeshoreProfile child1 = foreshoreProfiles[0];
             Assert.AreEqual("Child2", child1.Id);
 
-            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
         }
 
@@ -985,12 +1134,50 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Height Structures
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsHeightStructuresFailureMechanism_WithCollector_ReturnsNewHeightStructuresFailureMechanismWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            Assert.IsEmpty(failureMechanism.Sections);
+
+            Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
         public void ReadAsHeightStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
             const int generalInputN = 7;
+            const string fileLocation = "some/location/to/foreshoreProfiles";
 
-            // TODO: WTI-1112 Add file location as part of storage
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -1013,7 +1200,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = generalInputN
+                        N = generalInputN,
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -1024,12 +1212,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
 
-            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            ForeshoreProfile child1 = foreshoreProfiles[0];
             Assert.AreEqual("Child2", child1.Id);
 
-            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
@@ -1090,11 +1280,46 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Closing Structures
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsClosingStructuresFailureMechanism_WithCollector_ReturnsNewClosingStructuresFailureMechanismWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ClosingStructuresFailureMechanismMetaEntities =
+                {
+                    new ClosingStructuresFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            Assert.IsEmpty(failureMechanism.Sections);
+
+            Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
         public void ReadAsClosingStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            // TODO: WTI-1112 Add file location as part of storage
             const int generalInputN2A = 3;
+            const string fileLocation = "some/location/to/foreshoreprofiles";
 
             var entity = new FailureMechanismEntity
             {
@@ -1118,7 +1343,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
                     {
-                        N2A = generalInputN2A
+                        N2A = generalInputN2A,
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -1129,12 +1355,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
 
-            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            ForeshoreProfile child1 = foreshoreProfiles[0];
             Assert.AreEqual("Child2", child1.Id);
 
-            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
@@ -1236,11 +1464,49 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Stability Point Structures
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithCollector_ReturnsNewStabilityPointStructuresFailureMechanismWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            Assert.IsEmpty(failureMechanism.Sections);
+
+            Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
         public void ReadAsStabilityPointStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            // TODO: WTI-1112 Add file location as part of storage
             const int generalInputN = 5;
+            const string fileLocation = "some/location/to/foreshoreprofiles";
 
             var entity = new FailureMechanismEntity
             {
@@ -1264,7 +1530,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = generalInputN
+                        N = generalInputN,
+                        ForeshoreProfileCollectionSourcePath = fileLocation
                     }
                 }
             };
@@ -1275,12 +1542,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
 
-            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            ForeshoreProfile child1 = foreshoreProfiles[0];
             Assert.AreEqual("Child2", child1.Id);
 
-            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);

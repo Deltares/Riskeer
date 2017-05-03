@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 
@@ -44,7 +45,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
@@ -87,9 +88,15 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralClosingStructuresInput generalInput, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(ClosingStructuresFailureMechanism failureMechanism,
+                                                               FailureMechanismEntity entity)
         {
-            entity.ClosingStructuresFailureMechanismMetaEntities.Add(generalInput.Create());
+            var metaEntity = new ClosingStructuresFailureMechanismMetaEntity
+            {
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
+                N2A = failureMechanism.GeneralInput.N2A
+            };
+            entity.ClosingStructuresFailureMechanismMetaEntities.Add(metaEntity);
         }
     }
 }
