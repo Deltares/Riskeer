@@ -82,6 +82,28 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateLowerWaterLevelBoundaryChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartdata();
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Ondergrens waterstanden", data.Name);
+            AssertEqualStyle(data.Style, Color.Blue, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateUpperWaterLevelBoundaryChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartdata();
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Bovengrens waterstanden", data.Name);
+            AssertEqualStyle(data.Style, Color.Blue, 2, DashStyle.Solid);
+        }
+
+        [Test]
         public void UpdateForeshoreGeometryChartDataName_InputNull_NameSetToDefaultName()
         {
             // Setup

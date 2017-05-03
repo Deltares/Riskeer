@@ -258,4 +258,10 @@
   <data name="WaveConditionsChartDataFactory_Revetment_DisplayName" xml:space="preserve">
     <value>Bekleding</value>
   </data>
+  <data name="WaveConditionsChartDataFactory_LowerBoundaryWaterLevels_DisplayName" xml:space="preserve">
+    <value>Ondergrens waterstanden</value>
+  </data>
+  <data name="WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName" xml:space="preserve">
+    <value>Bovengrens waterstanden</value>
+  </data>
 </root>
