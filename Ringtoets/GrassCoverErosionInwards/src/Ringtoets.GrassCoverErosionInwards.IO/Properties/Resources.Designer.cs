@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het dijkprofiel &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to Het dijkprofiel met ID &apos;{0}&apos; bestaat niet..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist {
             get {

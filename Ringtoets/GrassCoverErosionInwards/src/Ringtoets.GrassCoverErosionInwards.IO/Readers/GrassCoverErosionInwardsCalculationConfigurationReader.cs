@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             {
                 Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
                 HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
-                DikeProfile = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
+                DikeProfileId = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),
                 DikeHeightCalculationType = (ReadHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadHydraulicLoadsCalculationTypeConverter>(

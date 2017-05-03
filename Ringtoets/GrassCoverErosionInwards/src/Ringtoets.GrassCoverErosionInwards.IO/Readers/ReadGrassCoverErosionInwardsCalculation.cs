@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
 
             Name = constructionProperties.Name;
             HydraulicBoundaryLocation = constructionProperties.HydraulicBoundaryLocation;
-            DikeProfile = constructionProperties.DikeProfile;
+            DikeProfileId = constructionProperties.DikeProfileId;
             Orientation = constructionProperties.Orientation;
             DikeHeight = constructionProperties.DikeHeight;
             DikeHeightCalculationType = constructionProperties.DikeHeightCalculationType;
@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
         /// <summary>
         /// Gets the Id of the dike profile of the read grass cover erosion inwards calculation.
         /// </summary>
-        public string DikeProfile { get; }
+        public string DikeProfileId { get; }
 
         /// <summary>
         /// Gets the orientation of the grass cover erosion inwards calculation.
@@ -144,9 +144,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
             public string HydraulicBoundaryLocation { get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeProfile"/>.
+            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeProfileId"/>.
             /// </summary>
-            public string DikeProfile { get; set; }
+            public string DikeProfileId { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.Orientation"/>.

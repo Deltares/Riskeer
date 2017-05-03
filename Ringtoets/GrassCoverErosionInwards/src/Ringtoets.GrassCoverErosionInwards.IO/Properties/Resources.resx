@@ -131,7 +131,7 @@
     <value>doorsnede</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist" xml:space="preserve">
-    <value>Het dijkprofiel '{0}' bestaat niet.</value>
+    <value>Het dijkprofiel met ID '{0}' bestaat niet.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ReadOrientation_Orientation_0_invalid" xml:space="preserve">
     <value>Een waarde van '{0}' als oriëntatie is ongeldig.</value>
