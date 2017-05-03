@@ -127,6 +127,7 @@ namespace Ringtoets.Revetment.Forms.Views
             foreshoreChartData.NotifyObservers();
             revetmentBaseChartData.NotifyObservers();
             revetmentChartData.NotifyObservers();
+            lowerBoundaryRevetmentChartData.NotifyObservers();
         }
 
         private void UpdateChartTitle()
@@ -144,6 +145,7 @@ namespace Ringtoets.Revetment.Forms.Views
 
             revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
             revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+            lowerBoundaryRevetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
         }
     }
 }

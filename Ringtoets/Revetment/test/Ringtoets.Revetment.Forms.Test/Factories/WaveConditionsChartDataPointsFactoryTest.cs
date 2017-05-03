@@ -207,11 +207,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
 
-            double startPointX = (lowerBoundaryRevetment - lastGeometryPoint.Y) / 3;
+            double startPointX = ((lowerBoundaryRevetment - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X;
             const double deltaY = upperBoundaryRevetment - lowerBoundaryRevetment;
             var expectedGeometry = new[]
             {
-                new Point2D(startPointX + lastGeometryPoint.X, lowerBoundaryRevetment),
+                new Point2D(startPointX, lowerBoundaryRevetment),
                 new Point2D(deltaY / 3 + startPointX, upperBoundaryRevetment)
             };
 

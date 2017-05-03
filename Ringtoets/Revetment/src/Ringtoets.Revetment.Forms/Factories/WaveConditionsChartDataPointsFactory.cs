@@ -74,13 +74,13 @@ namespace Ringtoets.Revetment.Forms.Factories
             }
 
             Point2D baseStartPoint = GetBaseStartPoint(input);
+            double startPointX = ((input.LowerBoundaryRevetment - baseStartPoint.Y) / 3) + baseStartPoint.X;
 
-            double startPointX = (input.LowerBoundaryRevetment - baseStartPoint.Y) / 3;
             RoundedDouble heightDiff = input.UpperBoundaryRevetment - input.LowerBoundaryRevetment;
 
             return new[]
             {
-                new Point2D(startPointX + baseStartPoint.X, input.LowerBoundaryRevetment),
+                new Point2D(startPointX, input.LowerBoundaryRevetment),
                 new Point2D(heightDiff / 3 + startPointX, input.UpperBoundaryRevetment)
             };
         }
@@ -116,6 +116,16 @@ namespace Ringtoets.Revetment.Forms.Factories
             };
         }
 
+        /// <summary>
+        /// Create lower boundary revetment geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the lower boundary revetment geometry points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set;</item>
+        /// </list>
+        /// </returns>
         public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
             if (input == null || double.IsNaN(input.LowerBoundaryRevetment))

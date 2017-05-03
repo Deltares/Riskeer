@@ -190,6 +190,9 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertRevetmentBaseChartData(calculation.InputParameters.ForeshoreGeometry.Last(),
                                              calculation.InputParameters.LowerBoundaryRevetment,
                                              chartData.Collection.ElementAt(revetmentBaseChartDataIndex));
+                AssertLowerBoundaryRevetmentChartData(calculation.InputParameters.ForeshoreGeometry,
+                                                      calculation.InputParameters.LowerBoundaryRevetment,
+                                                      chartData.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex));
             }
         }
 
@@ -261,7 +264,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(4);
             mocks.ReplayAll();
 
             var calculation = new TestWaveConditionsCalculation
@@ -287,10 +290,12 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
+                var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
 
                 foreshoreChartData.Attach(observer);
                 revetmentChartData.Attach(observer);
                 revetmentBaseChartData.Attach(observer);
+                lowerBoundaryRevetmentChartData.Attach(observer);
 
                 ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
                 {
@@ -312,7 +317,12 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertForeshoreChartData(profile2, foreshoreChartData);
                 AssertRevetmentChartData(profile2.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
-                AssertRevetmentBaseChartData(profile2.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment, revetmentBaseChartData);
+                AssertRevetmentBaseChartData(profile2.Geometry.Last(),
+                                             calculation.InputParameters.LowerBoundaryRevetment,
+                                             revetmentBaseChartData);
+                AssertLowerBoundaryRevetmentChartData(calculation.InputParameters.ForeshoreGeometry,
+                                                      calculation.InputParameters.LowerBoundaryRevetment,
+                                                      lowerBoundaryRevetmentChartData);
                 mocks.VerifyAll();
             }
         }
@@ -400,11 +410,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(chartData);
             var revetmentChartData = (ChartLineData) chartData;
 
-            double startPointX = (lowerBoundaryRevetment - lastForeshorePoint.Y) / 3;
+            double startPointX = ((lowerBoundaryRevetment - lastForeshorePoint.Y) / 3) + lastForeshorePoint.X;
             double deltaY = upperBoundaryRevetment - lowerBoundaryRevetment;
             var expectedGeometry = new[]
             {
-                new Point2D(startPointX + lastForeshorePoint.X, lowerBoundaryRevetment),
+                new Point2D(startPointX, lowerBoundaryRevetment),
                 new Point2D(deltaY / 3 + startPointX, upperBoundaryRevetment)
             };
 
@@ -431,6 +441,27 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             CollectionAssert.AreEqual(expectedGeometry, revetmentChartData.Points);
 
             Assert.AreEqual("Bekleding", revetmentChartData.Name);
+        }
+
+        private static void AssertLowerBoundaryRevetmentChartData(RoundedPoint2DCollection foreshorePoints,
+                                                                  double lowerBoundaryRevetment,
+                                                                  ChartData chartData)
+        {
+            Assert.IsInstanceOf<ChartLineData>(chartData);
+            var revetmentChartData = (ChartLineData)chartData;
+
+            Point2D lastForeshorePoint = foreshorePoints.Last();
+            double endPointX = (lowerBoundaryRevetment - lastForeshorePoint.Y) / 3;
+
+            var expectedGeometry = new[]
+          {
+                new Point2D(foreshorePoints.First().X, lowerBoundaryRevetment),
+                new Point2D(endPointX + lastForeshorePoint.X, lowerBoundaryRevetment)
+            };
+
+            CollectionAssert.AreEqual(expectedGeometry, revetmentChartData.Points);
+
+            Assert.AreEqual("Ondergrens bekleding", revetmentChartData.Name);
         }
     }
 }
