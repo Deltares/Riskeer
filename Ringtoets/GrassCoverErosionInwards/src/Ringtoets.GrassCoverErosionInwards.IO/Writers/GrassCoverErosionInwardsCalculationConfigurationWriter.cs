@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
             WriteHydraulicBoundaryLocation(input, writer);
 
-            WriteDikeProfileName(input, writer);
+            WriteDikeProfileId(input, writer);
 
             WriteOrientation(input, writer);
 
@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
                 input.HydraulicBoundaryLocation.Name);
         }
 
-        private static void WriteDikeProfileName(GrassCoverErosionInwardsInput input, XmlWriter writer)
+        private static void WriteDikeProfileId(GrassCoverErosionInwardsInput input, XmlWriter writer)
         {
             if (input.DikeProfile == null)
             {
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
 
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
-                input.DikeProfile.Name);
+                input.DikeProfile.Id);
         }
 
         private static void WriteOrientation(GrassCoverErosionInwardsInput input, XmlWriter writer)

@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <hrlocatie>Locatie1</hrlocatie>
-    <dijkprofiel>dijkProfiel</dijkprofiel>
+    <dijkprofiel>id</dijkprofiel>
     <orientatie>67.1</orientatie>
     <dijkhoogte>0</dijkhoogte>
     <hbnberekenen>niet</hbnberekenen>
