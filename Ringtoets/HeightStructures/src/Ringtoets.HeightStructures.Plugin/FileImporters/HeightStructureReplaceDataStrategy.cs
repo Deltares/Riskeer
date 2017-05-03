@@ -26,6 +26,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
@@ -48,7 +49,8 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             : base(failureMechanism) {}
 
         public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<HeightStructure> targetDataCollection,
-                                                                         IEnumerable<HeightStructure> readStructures, string sourceFilePath)
+                                                                         IEnumerable<HeightStructure> readStructures,
+                                                                         string sourceFilePath)
         {
             try
             {
@@ -56,7 +58,8 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             }
             catch (UpdateDataException e)
             {
-                string message = string.Format("Het importeren van kunstwerken is mislukt: {0}", e.Message);
+                string message = string.Format(Resources.IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0,
+                                               e.Message);
                 throw new StructureUpdateException(message, e);
             }
         }

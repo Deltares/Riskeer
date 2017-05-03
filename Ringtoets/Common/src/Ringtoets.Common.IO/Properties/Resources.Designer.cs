@@ -1038,6 +1038,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het importeren van kunstwerken is mislukt: {0}.
+        /// </summary>
+        public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0 {
+            get {
+                return ResourceManager.GetString("IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_fa" +
+                        "iled_Reason_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een gemiddelde van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
         /// </summary>
         public static string IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_ {
