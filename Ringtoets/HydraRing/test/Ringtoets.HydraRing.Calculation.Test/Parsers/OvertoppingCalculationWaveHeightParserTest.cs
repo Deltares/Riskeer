@@ -171,7 +171,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        [TestCase(validFileOvertoppingDominant, 0.265865, true)]
+        [TestCase(validFileOvertoppingDominant, 0.265866, true)]
         [TestCase("ValidFileOvertoppingNotDominant", 0.000355406, false)]
         public void Parse_ValidData_OutputSet(string file, double expectedWaveHeight, bool expectedOvertoppingDominant)
         {
@@ -183,7 +183,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             parser.Parse(path, 1);
 
             // Assert
-            Assert.AreEqual(expectedWaveHeight, parser.Output.WaveHeight, 1e-6);
+            Assert.AreEqual(expectedWaveHeight, parser.Output.WaveHeight, 1e-11);
             Assert.AreEqual(expectedOvertoppingDominant, parser.Output.IsOvertoppingDominant);
         }
     }
