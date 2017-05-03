@@ -44,6 +44,7 @@ namespace Ringtoets.Revetment.Forms.Views
         private readonly ChartLineData lowerBoundaryRevetmentChartData;
         private readonly ChartLineData upperBoundaryRevetmentChartData;
         private readonly ChartLineData revetmentChartData;
+        private readonly ChartLineData revetmentBaseChartData;
 
         private IWaveConditionsCalculation data;
 
@@ -62,11 +63,13 @@ namespace Ringtoets.Revetment.Forms.Views
             lowerBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData();
             upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData();
             revetmentChartData = WaveConditionsChartDataFactory.CreateRevetmentChartData();
+            revetmentBaseChartData = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData();
 
             chartDataCollection.Add(foreshoreChartData);
             chartDataCollection.Add(lowerBoundaryRevetmentChartData);
             chartDataCollection.Add(upperBoundaryRevetmentChartData);
             chartDataCollection.Add(revetmentChartData);
+            chartDataCollection.Add(revetmentBaseChartData);
         }
 
         public object Data
@@ -122,6 +125,8 @@ namespace Ringtoets.Revetment.Forms.Views
             SetChartData();
 
             foreshoreChartData.NotifyObservers();
+            revetmentBaseChartData.NotifyObservers();
+            revetmentChartData.NotifyObservers();
         }
 
         private void UpdateChartTitle()
@@ -136,6 +141,9 @@ namespace Ringtoets.Revetment.Forms.Views
             WaveConditionsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
 
             foreshoreChartData.Points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+
+            revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+            revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
         }
     }
 }

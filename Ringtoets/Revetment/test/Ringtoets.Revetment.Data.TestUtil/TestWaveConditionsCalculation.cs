@@ -40,15 +40,7 @@ namespace Ringtoets.Revetment.TestUtil
         public TestWaveConditionsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = new WaveConditionsInput
-            {
-                ForeshoreProfile = new TestForeshoreProfile(new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(1.0, 1.0),
-                    new Point2D(2.0, 2.0)
-                })
-            };
+            InputParameters = new WaveConditionsInput();
         }
 
         /// <summary>
