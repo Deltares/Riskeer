@@ -1108,7 +1108,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.",
+            "Het kunstwerk met ID 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {

@@ -93,7 +93,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Setup
             var configuration = new ClosingStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
             modify(configuration);
 
@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Setup
             var configuration = new ClosingStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
             configuration.DrainCoefficient = new StochastConfiguration();
             configuration.DrainCoefficient.Mean = 8.1;
@@ -154,7 +154,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Setup
             var configuration = new ClosingStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure",
+                StructureId = "some structure",
                 LevelCrestStructureNotClosing = new StochastConfiguration
                 {
                     Mean = 1.1,

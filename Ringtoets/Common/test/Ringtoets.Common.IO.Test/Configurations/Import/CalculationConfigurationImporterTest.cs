@@ -661,14 +661,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             StructureBase profile = null;
             var valid = true;
 
-            const string structureName = "someName";
+            const string structureId = "someAwesomeId";
             const string calculationName = "name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadStructure(structureName, calculationName, Enumerable.Empty<StructureBase>(), out profile);
+            Action validate = () => valid = importer.PublicTryReadStructure(structureId, calculationName, Enumerable.Empty<StructureBase>(), out profile);
 
             // Assert
-            string expectedMessage = $"Het kunstwerk '{structureName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het kunstwerk met ID '{structureId}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);

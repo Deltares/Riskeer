@@ -108,7 +108,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             return new ClosingStructuresCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
-                StructureName = "kunstwerk1",
+                StructureId = "kunstwerk1",
                 ForeshoreProfileId = "profiel1",
                 FailureProbabilityStructureWithErosion = 1e-4,
                 StructureNormalOrientation = 67.1,

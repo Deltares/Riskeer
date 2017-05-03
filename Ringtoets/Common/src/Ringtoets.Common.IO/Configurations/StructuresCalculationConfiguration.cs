@@ -41,9 +41,9 @@ namespace Ringtoets.Common.IO.Configurations
         }
 
         /// <summary>
-        /// Gets or sets the name of the structure.
+        /// Gets or sets the Id of the structure.
         /// </summary>
-        public string StructureName { get; set; }
+        public string StructureId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the hydraulic boundary location.

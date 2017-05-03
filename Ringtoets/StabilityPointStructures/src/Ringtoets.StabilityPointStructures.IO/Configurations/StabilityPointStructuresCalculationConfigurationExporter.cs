@@ -120,7 +120,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             calculationConfiguration.StabilityLinearLoadModel = input.StabilityLinearLoadModel.ToStochastConfiguration();
             calculationConfiguration.StabilityQuadraticLoadModel = input.StabilityQuadraticLoadModel.ToStochastConfiguration();
             calculationConfiguration.StorageStructureArea = input.StorageStructureArea.ToStochastConfiguration();
-            calculationConfiguration.StructureName = input.Structure.Name;
+            calculationConfiguration.StructureId = input.Structure.Id;
 
             calculationConfiguration.StructureNormalOrientation = input.StructureNormalOrientation;
             calculationConfiguration.ThresholdHeightOpenWeir = input.ThresholdHeightOpenWeir.ToStochastConfiguration();

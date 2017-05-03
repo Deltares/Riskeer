@@ -676,7 +676,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
             "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk 'unknown' bestaat niet.")]
+            "Het kunstwerk met ID 'unknown' bestaat niet.")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

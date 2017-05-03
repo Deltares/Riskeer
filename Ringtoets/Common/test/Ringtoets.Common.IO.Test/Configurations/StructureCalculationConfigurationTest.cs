@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.IsInstanceOf<IConfigurationItem>(configuration);
             Assert.AreEqual(name, configuration.Name);
             Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
-            Assert.IsNull(configuration.StructureName);
+            Assert.IsNull(configuration.StructureId);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
             Assert.IsNull(configuration.StormDuration);
             Assert.IsNull(configuration.StructureNormalOrientation);
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             const string configurationName = "some name";
             var configuration = new SimpleStructuresCalculationConfiguration(configurationName);
 
-            const string structureName = "some structure";
+            const string structureId = "some structure";
             const string hydraulicBoundaryLocationName = "some hydraulic boundary location";
             const string foreshoreProfileName = "some foreshore profile";
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             configuration.Name = configurationName;
             configuration.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
             configuration.StormDuration = stormDuration;
-            configuration.StructureName = structureName;
+            configuration.StructureId = structureId;
             configuration.HydraulicBoundaryLocationName = hydraulicBoundaryLocationName;
             configuration.StructureNormalOrientation = structureNormalOrientation;
             configuration.AllowedLevelIncreaseStorage = allowedLevelIncreaseStorage;
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreEqual(configurationName, configuration.Name);
             Assert.AreSame(modelFactorSuperCriticalFlow, configuration.ModelFactorSuperCriticalFlow);
             Assert.AreSame(stormDuration, configuration.StormDuration);
-            Assert.AreEqual(structureName, configuration.StructureName);
+            Assert.AreEqual(structureId, configuration.StructureId);
             Assert.AreEqual(hydraulicBoundaryLocationName, configuration.HydraulicBoundaryLocationName);
             Assert.AreEqual(structureNormalOrientation, configuration.StructureNormalOrientation);
             Assert.AreSame(allowedLevelIncreaseStorage, configuration.AllowedLevelIncreaseStorage);

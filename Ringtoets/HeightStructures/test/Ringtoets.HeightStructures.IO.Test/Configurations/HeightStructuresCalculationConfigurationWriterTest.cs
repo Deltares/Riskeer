@@ -108,7 +108,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             return new HeightStructuresCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
-                StructureName = "kunstwerk1",
+                StructureId = "kunstwerk1",
                 ForeshoreProfileId = "profiel1",
                 FailureProbabilityStructureWithErosion = 1e-6,
                 StructureNormalOrientation = 67.1,
