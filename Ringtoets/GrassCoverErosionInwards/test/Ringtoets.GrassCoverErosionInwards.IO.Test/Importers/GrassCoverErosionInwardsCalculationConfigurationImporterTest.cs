@@ -241,7 +241,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Het dijkprofiel 'Dijkprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
+            const string expectedMessage = "Het dijkprofiel met ID 'Dijkprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);

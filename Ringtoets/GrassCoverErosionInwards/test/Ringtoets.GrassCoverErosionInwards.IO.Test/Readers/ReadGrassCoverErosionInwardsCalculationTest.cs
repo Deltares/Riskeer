@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.IsNull(readCalculation.Name);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
-            Assert.IsNull(readCalculation.DikeProfile);
+            Assert.IsNull(readCalculation.DikeProfileId);
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.DikeHeight);
             Assert.IsNull(readCalculation.DikeHeightCalculationType);
@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             // Setup
             const string calculationName = "Name of the calculation";
             const string hydraulicBoundaryLocationName = "name of the hydraulic boundary location";
-            const string dikeProfileName = "name of the dike profile";
+            const string dikeProfileId = "id of the dike profile";
             const double orientation = 1.1;
             const double dikeHeight = 2.2;
             const ReadHydraulicLoadsCalculationType dikeHeightCalculationType = ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             {
                 Name = calculationName,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocationName,
-                DikeProfile = dikeProfileName,
+                DikeProfileId = dikeProfileId,
                 Orientation = orientation,
                 DikeHeight = dikeHeight,
                 DikeHeightCalculationType = dikeHeightCalculationType,
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             // Assert
             Assert.AreEqual(calculationName, readCalculation.Name);
             Assert.AreEqual(hydraulicBoundaryLocationName, readCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(dikeProfileName, constructionProperties.DikeProfile);
+            Assert.AreEqual(dikeProfileId, constructionProperties.DikeProfileId);
             Assert.AreEqual(orientation, readCalculation.Orientation);
             Assert.AreEqual(dikeHeight, readCalculation.DikeHeight);
             Assert.AreEqual(dikeHeightCalculationType, readCalculation.DikeHeightCalculationType);
