@@ -867,10 +867,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name) : base(new ConstructionProperties
+            public TestStructure(string Id) : base(new ConstructionProperties
             {
-                Name = name,
-                Id = "Id",
+                Name = "Name",
+                Id = Id,
                 Location = new Point2D(0, 0),
                 StructureNormalOrientation = (RoundedDouble) 2
             }) {}

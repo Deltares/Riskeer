@@ -170,21 +170,21 @@ namespace Ringtoets.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Tries to find the structure with the given <paramref name="structureName"/> 
+        /// Tries to find the structure with the given <paramref name="structureId"/> 
         /// in the <paramref name="structures"/>.
         /// </summary>
         /// <typeparam name="T">The type of the <see cref="StructureBase"/> to read.</typeparam>
-        /// <param name="structureName">The name of the structure to find.</param>
+        /// <param name="structureId">The id of the structure to find.</param>
         /// <param name="calculationName">Name of the calculation to assign the structure to.</param>
         /// <param name="structures">The collection of <typeparamref name="T"/> to search in.</param>
-        /// <param name="foundStructure">The structure with the name equal to <paramref name="structureName"/>
+        /// <param name="foundStructure">The structure with the name equal to <paramref name="structureId"/>
         /// if there was any.</param>
-        /// <returns><c>true</c> if no <paramref name="structureName"/> is given, or when a structure with 
-        /// the name <paramref name="structureName"/> was found, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if no <paramref name="structureId"/> is given, or when a structure with 
+        /// the name <paramref name="structureId"/> was found, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationName"/>
         /// or <paramref name="structures"/> is <c>null</c>.</exception>
         protected bool TryReadStructure<T>(
-            string structureName,
+            string structureId,
             string calculationName,
             IEnumerable<T> structures,
             out T foundStructure)
@@ -199,15 +199,15 @@ namespace Ringtoets.Common.IO.Configurations.Import
                 throw new ArgumentNullException(nameof(structures));
             }
             foundStructure = null;
-            if (structureName != null)
+            if (structureId != null)
             {
-                T structure = structures.FirstOrDefault(l => l.Name == structureName);
+                T structure = structures.FirstOrDefault(l => l.Id == structureId);
 
                 if (structure == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist,
-                                                          structureName),
+                                                          structureId),
                                                       calculationName);
 
                     return false;

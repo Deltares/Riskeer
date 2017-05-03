@@ -40,74 +40,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual("aName", structure.Name);
             Assert.AreEqual("anId", structure.Id);
             Assert.AreEqual(new Point2D(1.234, 2.3456), structure.Location);
-            AssertAreEqual(123.456, structure.StructureNormalOrientation);
-
-            AssertAreEqual(234.567, structure.StorageStructureArea.Mean);
-            AssertAreEqual(0.234, structure.StorageStructureArea.CoefficientOfVariation);
-
-            AssertAreEqual(345.678, structure.AllowedLevelIncreaseStorage.Mean);
-            AssertAreEqual(0.35, structure.AllowedLevelIncreaseStorage.StandardDeviation);
-
-            AssertAreEqual(456.789, structure.WidthFlowApertures.Mean);
-            AssertAreEqual(0.456, structure.WidthFlowApertures.StandardDeviation);
-
-            AssertAreEqual(567.890, structure.InsideWaterLevel.Mean);
-            AssertAreEqual(0.567, structure.InsideWaterLevel.StandardDeviation);
-
-            AssertAreEqual(678.901, structure.ThresholdHeightOpenWeir.Mean);
-            AssertAreEqual(0.678, structure.ThresholdHeightOpenWeir.StandardDeviation);
-
-            AssertAreEqual(789.012, structure.CriticalOvertoppingDischarge.Mean);
-            AssertAreEqual(0.789, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
-
-            AssertAreEqual(890.123, structure.FlowWidthAtBottomProtection.Mean);
-            AssertAreEqual(0.890, structure.FlowWidthAtBottomProtection.StandardDeviation);
-
-            AssertAreEqual(901.234, structure.ConstructiveStrengthLinearLoadModel.Mean);
-            AssertAreEqual(0.901, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(123.456, structure.ConstructiveStrengthQuadraticLoadModel.Mean);
-            AssertAreEqual(0.123, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(234.567, structure.BankWidth.Mean);
-            AssertAreEqual(0.234, structure.BankWidth.StandardDeviation);
-
-            AssertAreEqual(345.678, structure.InsideWaterLevelFailureConstruction.Mean);
-            AssertAreEqual(0.35, structure.InsideWaterLevelFailureConstruction.StandardDeviation);
-
-            AssertAreEqual(555.555, structure.EvaluationLevel);
-
-            AssertAreEqual(456.789, structure.LevelCrestStructure.Mean);
-            AssertAreEqual(0.456, structure.LevelCrestStructure.StandardDeviation);
-
-            AssertAreEqual(555.55, structure.VerticalDistance);
-            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure);
-
-            AssertAreEqual(567.890, structure.FailureCollisionEnergy.Mean);
-            AssertAreEqual(0.567, structure.FailureCollisionEnergy.CoefficientOfVariation);
-
-            AssertAreEqual(7777777.777, structure.ShipMass.Mean);
-            AssertAreEqual(0.777, structure.ShipMass.CoefficientOfVariation);
-
-            AssertAreEqual(567.890, structure.ShipVelocity.Mean);
-            AssertAreEqual(0.567, structure.ShipVelocity.CoefficientOfVariation);
-
-            Assert.AreEqual(42, structure.LevellingCount);
-            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
-
-            AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
-            AssertAreEqual(0.2, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
-
-            AssertAreEqual(789.012, structure.StabilityLinearLoadModel.Mean);
-            AssertAreEqual(0.789, structure.StabilityLinearLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(890.123, structure.StabilityQuadraticLoadModel.Mean);
-            AssertAreEqual(0.890, structure.StabilityQuadraticLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(901.234, structure.AreaFlowApertures.Mean);
-            AssertAreEqual(0.901, structure.AreaFlowApertures.StandardDeviation);
-
-            Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
+            AssertStabilityPointStructuresDefault(structure);
         }
 
         [Test]
@@ -124,74 +57,25 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual(name, structure.Name);
             Assert.AreEqual("anId", structure.Id);
             Assert.AreEqual(new Point2D(1.234, 2.3456), structure.Location);
-            AssertAreEqual(123.456, structure.StructureNormalOrientation);
+            AssertStabilityPointStructuresDefault(structure);
+        }
 
-            AssertAreEqual(234.567, structure.StorageStructureArea.Mean);
-            AssertAreEqual(0.234, structure.StorageStructureArea.CoefficientOfVariation);
+        [Test]
+        public void Constructor_WithNameAndId_ExpectedValues()
+        {
+            // Setup
+            const string name = "cool name!";
+            const string id = "and a cool Id too!";
 
-            AssertAreEqual(345.678, structure.AllowedLevelIncreaseStorage.Mean);
-            AssertAreEqual(0.35, structure.AllowedLevelIncreaseStorage.StandardDeviation);
+            // Call
+            var structure = new TestStabilityPointStructure(name, id);
 
-            AssertAreEqual(456.789, structure.WidthFlowApertures.Mean);
-            AssertAreEqual(0.456, structure.WidthFlowApertures.StandardDeviation);
-
-            AssertAreEqual(567.890, structure.InsideWaterLevel.Mean);
-            AssertAreEqual(0.567, structure.InsideWaterLevel.StandardDeviation);
-
-            AssertAreEqual(678.901, structure.ThresholdHeightOpenWeir.Mean);
-            AssertAreEqual(0.678, structure.ThresholdHeightOpenWeir.StandardDeviation);
-
-            AssertAreEqual(789.012, structure.CriticalOvertoppingDischarge.Mean);
-            AssertAreEqual(0.789, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
-
-            AssertAreEqual(890.123, structure.FlowWidthAtBottomProtection.Mean);
-            AssertAreEqual(0.890, structure.FlowWidthAtBottomProtection.StandardDeviation);
-
-            AssertAreEqual(901.234, structure.ConstructiveStrengthLinearLoadModel.Mean);
-            AssertAreEqual(0.901, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(123.456, structure.ConstructiveStrengthQuadraticLoadModel.Mean);
-            AssertAreEqual(0.123, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(234.567, structure.BankWidth.Mean);
-            AssertAreEqual(0.234, structure.BankWidth.StandardDeviation);
-
-            AssertAreEqual(345.678, structure.InsideWaterLevelFailureConstruction.Mean);
-            AssertAreEqual(0.35, structure.InsideWaterLevelFailureConstruction.StandardDeviation);
-
-            AssertAreEqual(555.555, structure.EvaluationLevel);
-
-            AssertAreEqual(456.789, structure.LevelCrestStructure.Mean);
-            AssertAreEqual(0.456, structure.LevelCrestStructure.StandardDeviation);
-
-            AssertAreEqual(555.55, structure.VerticalDistance);
-            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure);
-
-            AssertAreEqual(567.890, structure.FailureCollisionEnergy.Mean);
-            AssertAreEqual(0.567, structure.FailureCollisionEnergy.CoefficientOfVariation);
-
-            AssertAreEqual(7777777.777, structure.ShipMass.Mean);
-            AssertAreEqual(0.777, structure.ShipMass.CoefficientOfVariation);
-
-            AssertAreEqual(567.890, structure.ShipVelocity.Mean);
-            AssertAreEqual(0.567, structure.ShipVelocity.CoefficientOfVariation);
-
-            Assert.AreEqual(42, structure.LevellingCount);
-            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
-
-            AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
-            AssertAreEqual(0.2, structure.FlowVelocityStructureClosable.CoefficientOfVariation);
-
-            AssertAreEqual(789.012, structure.StabilityLinearLoadModel.Mean);
-            AssertAreEqual(0.789, structure.StabilityLinearLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(890.123, structure.StabilityQuadraticLoadModel.Mean);
-            AssertAreEqual(0.890, structure.StabilityQuadraticLoadModel.CoefficientOfVariation);
-
-            AssertAreEqual(901.234, structure.AreaFlowApertures.Mean);
-            AssertAreEqual(0.901, structure.AreaFlowApertures.StandardDeviation);
-
-            Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
+            // Assert
+            Assert.IsInstanceOf<StabilityPointStructure>(structure);
+            Assert.AreEqual(name, structure.Name);
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(new Point2D(1.234, 2.3456), structure.Location);
+            AssertStabilityPointStructuresDefault(structure);
         }
 
         [Test]
@@ -208,6 +92,11 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual("aName", structure.Name);
             Assert.AreEqual("anId", structure.Id);
             Assert.AreEqual(point, structure.Location);
+            AssertStabilityPointStructuresDefault(structure);
+        }
+
+        private static void AssertStabilityPointStructuresDefault(TestStabilityPointStructure structure)
+        {
             AssertAreEqual(123.456, structure.StructureNormalOrientation);
 
             AssertAreEqual(234.567, structure.StorageStructureArea.Mean);

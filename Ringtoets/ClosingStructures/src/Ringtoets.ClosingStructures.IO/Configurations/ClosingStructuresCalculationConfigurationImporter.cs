@@ -444,11 +444,11 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             return false;
         }
 
-        private bool TrySetStructure(string structureName, StructuresCalculation<ClosingStructuresInput> calculation)
+        private bool TrySetStructure(string structureId, StructuresCalculation<ClosingStructuresInput> calculation)
         {
             ClosingStructure structure;
 
-            if (TryReadStructure(structureName, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;

@@ -495,11 +495,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             return false;
         }
 
-        private bool TrySetStructure(string structureName, StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private bool TrySetStructure(string structureId, StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             StabilityPointStructure structure;
 
-            if (TryReadStructure(structureName, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;

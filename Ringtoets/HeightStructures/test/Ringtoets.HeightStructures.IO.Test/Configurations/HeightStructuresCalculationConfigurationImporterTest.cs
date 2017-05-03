@@ -240,7 +240,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
+            var structure = new TestHeightStructure("kunstwerk1", "kunstwerk1");
             var foreshoreProfile = new TestForeshoreProfile("profiel 1");
 
             var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
@@ -310,7 +310,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 new Point2D(0, 3)
             });
-            var structure = new TestHeightStructure("kunstwerk1");
+            var structure = new TestHeightStructure("kunstwerk1", "kunstwerk1");
             var importer = new HeightStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -402,7 +402,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastMeansOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
+            var structure = new TestHeightStructure("kunstwerk1", "kunstwerk1");
             var importer = new HeightStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -471,7 +471,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastStandardDeviationVariationCoefficientOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
+            var structure = new TestHeightStructure("kunstwerk1", "kunstwerk1");
             var importer = new HeightStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -536,7 +536,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestHeightStructure("kunstwerk1");
+            var structure = new TestHeightStructure("kunstwerk1", "kunstwerk1");
             var importer = new HeightStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
