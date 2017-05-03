@@ -118,11 +118,11 @@ namespace Ringtoets.Revetment.Forms.Factories
 
         private static Point2D GetBaseStartPoint(WaveConditionsInput input)
         {
-            double startPointX = input.ForeshoreProfile != null
+            double startPointX = input.ForeshoreProfile != null && input.UseForeshore
                                      ? input.ForeshoreGeometry.Last().X
                                      : 0;
 
-            double startPointY = input.ForeshoreProfile != null
+            double startPointY = input.ForeshoreProfile != null && input.UseForeshore
                                      ? input.ForeshoreGeometry.Last().Y
                                      : 0;
 

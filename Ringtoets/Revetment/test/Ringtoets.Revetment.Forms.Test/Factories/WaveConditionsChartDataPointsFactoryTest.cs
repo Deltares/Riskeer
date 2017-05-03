@@ -1,4 +1,5 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -151,6 +152,37 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateRevetmentGeometryPoints_InputUseForeshoreProfileFalse_ReturnRevetmentGeometryPointsArray()
+        {
+            // Setup
+            const double lowerBoundaryRevetment = 2;
+            const double upperBoundaryRevetment = 8;
+
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(3, 5),
+                    new Point2D(10, 7)
+                }),
+                UseForeshore = false
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(lowerBoundaryRevetment / 3, 2),
+                new Point2D(upperBoundaryRevetment / 3, 8)
+            }, points);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
             "CreateRevetmentGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentGeometryPointsArray({0})"
@@ -234,6 +266,36 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             }, points);
         }
 
+        [Test]
+        public void CreateRevetmentBaseGeometryPoints_InputUseForeshoreProfileFalse_ReturnRevetmentBaseGeometryPointsArray()
+        {
+            // Setup
+            const double lowerBoundaryRevetment = 2;
+            const double upperBoundaryRevetment = 8;
+
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment,
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(3, 5),
+                    new Point2D(10, 7)
+                }),
+                UseForeshore = false
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(lowerBoundaryRevetment / 3, 2)
+            }, points);
+        }
 
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
