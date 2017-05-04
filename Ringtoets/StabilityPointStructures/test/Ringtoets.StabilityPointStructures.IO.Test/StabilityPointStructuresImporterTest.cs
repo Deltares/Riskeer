@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
-        public void Import_ValidIncompleteFile_LogAndTrue()
+        public void Import_ValidIncompleteFile_LogAndFalse()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -68,21 +68,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
+            string message = CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", new[]
             {
                 "Geen geldige parameter definities gevonden."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
+            });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
+            Assert.IsFalse(importResult);
+            Assert.AreEqual(0, importTarget.Count);
         }
 
         [Test]
@@ -165,26 +157,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
-            {
-                "Geen geldige parameter definities gevonden."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
-                                           new[]
-                                           {
-                                               "Parameter 'KW_STERSTAB9' komt meerdere keren voor.",
-                                               "De waarde voor parameter 'KW_STERSTAB10' op regel 37, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
+            string message = CreateExpectedErrorMessage(
+                csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
+                new[]
+                {
+                    "Parameter 'KW_STERSTAB9' komt meerdere keren voor.",
+                    "De waarde voor parameter 'KW_STERSTAB10' op regel 37, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0."
+                });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
         }
 

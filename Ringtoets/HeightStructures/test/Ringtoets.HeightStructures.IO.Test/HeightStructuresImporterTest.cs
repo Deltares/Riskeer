@@ -69,7 +69,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         }
 
         [Test]
-        public void Import_ValidIncompleteFile_LogAndTrue()
+        public void Import_ValidIncompleteFile_LogAndFalse()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -89,22 +89,14 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
+            string message = CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", new[]
             {
                 "Geen geldige parameter definities gevonden."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(1, failureMechanism.HeightStructures.Count);
-            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
+            });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
+            Assert.IsFalse(importResult);
+            Assert.AreEqual(0, failureMechanism.HeightStructures.Count);
+            Assert.IsNull(failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -152,7 +144,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Import_InvalidCsvFile_LogAndTrue()
+        public void Import_InvalidCsvFile_LogAndFalse()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -171,28 +163,17 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
-            string[] expectedSubMessages =
-            {
-                "Geen geldige parameter definities gevonden."
-            };
-            string[] expectedMessages =
-            {
-                CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
-                                           new[]
-                                           {
-                                               "De waarde voor parameter 'KW_HOOGTE1' op regel 2, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
-                                               "Parameter 'KW_HOOGTE2' komt meerdere keren voor."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-            Assert.IsTrue(importResult);
+            string message = CreateExpectedErrorMessage(
+                csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
+                new[]
+                {
+                    "De waarde voor parameter 'KW_HOOGTE1' op regel 2, kolom 'Numeriekewaarde', moet in het bereik [0,0, 360,0] liggen.",
+                    "Parameter 'KW_HOOGTE2' komt meerdere keren voor."
+                });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
             Assert.AreEqual(0, failureMechanism.HeightStructures.Count);
-            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
+            Assert.IsNull(failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]

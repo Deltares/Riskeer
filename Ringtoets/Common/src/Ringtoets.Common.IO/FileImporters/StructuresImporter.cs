@@ -32,6 +32,7 @@ using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 
@@ -81,7 +82,15 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 1, 1);
-            CreateStructures(importStructureLocationsResult, importStructureParameterRowsDataResult);
+            try
+            {
+                CreateStructures(importStructureLocationsResult, importStructureParameterRowsDataResult);
+            }
+            catch (CriticalFileValidationException e)
+            {
+                log.Error(e.Message);
+                return false;
+            }
             return true;
         }
 
@@ -120,14 +129,15 @@ namespace Ringtoets.Common.IO.FileImporters
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
-        protected void LogValidationErrorForStructure(string structureName, string structureId, IEnumerable<string> validationErrors)
+        protected void ThrowValidationErrorForStructure(string structureName, string structureId, IEnumerable<string> validationErrors)
         {
             string shortMessage = new FileReaderErrorMessageBuilder(GetStructureDataCsvFilePath())
                 .WithSubject(string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_, structureName, structureId))
                 .Build(Resources.StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_);
             string messageRemainder = string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
                                                     string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg)));
-            log.ErrorFormat(shortMessage, messageRemainder);
+            string message = string.Format(shortMessage, messageRemainder);
+            throw new CriticalFileValidationException(message);
         }
 
         protected void TrySetConstructionProperty(Action<IDictionary<string, StructuresParameterRow>, string> setPropertyAction,
