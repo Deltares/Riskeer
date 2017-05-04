@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
@@ -96,9 +97,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 IsEnabled = IsHeightStructuresImporterEnabled,
                 FileFilterGenerator = HeightStructureFileFilter(),
-                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(context,
-                                                                                           filePath,
-                                                                                           new ImportMessageProvider())
+                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
+                    context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism))
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
@@ -120,9 +120,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 IsEnabled = IsHeightStructuresImporterEnabled,
                 FileFilterGenerator = HeightStructureFileFilter(),
-                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(context,
-                                                                                           filePath,
-                                                                                           new UpdateMessageProvider()),
+                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
+                    context, filePath, new UpdateMessageProvider(), new HeightStructureUpdateDataStrategy(context.FailureMechanism)),
                 CurrentPath = context => context.WrappedData.SourcePath
             };
         }
@@ -766,10 +765,11 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region HeightStructuresImporter
 
-        private static IFileImporter CreateHeightStructuresImporter(HeightStructuresContext context, string filePath, IImporterMessageProvider messageProvider)
+        private static IFileImporter CreateHeightStructuresImporter(HeightStructuresContext context, string filePath,
+                                                                    IImporterMessageProvider messageProvider, IStructureUpdateStrategy<HeightStructure> strategy)
         {
             return new HeightStructuresImporter(context.WrappedData, context.AssessmentSection.ReferenceLine,
-                                                filePath, messageProvider, new HeightStructureUpdateDataStrategy(context.FailureMechanism));
+                                                filePath, messageProvider, strategy);
         }
 
         private static bool IsHeightStructuresImporterEnabled(HeightStructuresContext context)
