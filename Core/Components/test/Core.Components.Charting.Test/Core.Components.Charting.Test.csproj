@@ -57,6 +57,7 @@
     <Compile Include="Data\ChartDataTest.cs" />
     <Compile Include="Data\ChartLineDataTest.cs" />
     <Compile Include="Data\ChartMultipleAreaDataTest.cs" />
+    <Compile Include="Data\ChartMultipleLineDataTest.cs" />
     <Compile Include="Data\ItemBasedChartDataTest.cs" />
     <Compile Include="Data\PointBasedChartDataTest.cs" />
     <Compile Include="Data\ChartPointDataTest.cs" />
