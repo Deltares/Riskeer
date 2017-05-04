@@ -49,6 +49,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -192,7 +193,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 CreateFileImporter = (context, filePath) => new ClosingStructuresImporter(context.WrappedData,
                                                                                           context.AssessmentSection.ReferenceLine,
-                                                                                          filePath),
+                                                                                          filePath,
+                                                                                          new ImportMessageProvider()),
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,

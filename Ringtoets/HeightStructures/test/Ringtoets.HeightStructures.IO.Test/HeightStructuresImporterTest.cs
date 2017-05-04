@@ -77,23 +77,6 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("structureUpdateStrategy", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ImporterMessageProviderNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            mocks.ReplayAll();
-            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
-
-            // Call
-            TestDelegate call = () => new HeightStructuresImporter(testImportTarget, testReferenceLine,
-                                                                   testFilePath, null, replaceDataStrategy);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("messageProvider", paramName);
         }
 
         [Test]
@@ -387,7 +370,9 @@ namespace Ringtoets.HeightStructures.IO.Test
         public void Import_CancelOfImportWhenAddingDataToModel_ImportCompletedSuccessfullyNonetheless()
         {
             // Setup
+            const string progressText = "ProgressText";
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(progressText);
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -402,7 +387,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                                                         validFilePath, messageProvider, strategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                if (description.Contains(progressText))
                 {
                     importer.Cancel();
                 }

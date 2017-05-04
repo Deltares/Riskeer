@@ -30,9 +30,11 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -45,11 +47,29 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
+        private MockRepository mocks;
+
+        [SetUp]
+        public void Setup()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Constructor_Always_ExpectedValues()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            var importer = new TestStructuresImporter(testImportTarget, testReferenceLine, testFilePath);
+            var importer = new TestStructuresImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider);
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
@@ -58,8 +78,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new TestStructuresImporter(null, testReferenceLine, testFilePath);
+            TestDelegate call = () => new TestStructuresImporter(null, testReferenceLine, testFilePath, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,8 +93,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new TestStructuresImporter(testImportTarget, null, testFilePath);
+            TestDelegate call = () => new TestStructuresImporter(testImportTarget, null, testFilePath, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,12 +108,31 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new TestStructuresImporter(testImportTarget, testReferenceLine, null);
+            TestDelegate call = () => new TestStructuresImporter(testImportTarget, testReferenceLine, null, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ImporterMessageProviderNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new TestStructuresImporter(testImportTarget, testReferenceLine,
+                                                                   testFilePath, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("messageProvider", paramName);
         }
 
         [Test]
@@ -94,7 +141,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromInvalidEmptyPath_FalseAndLogError(string filePath)
         {
             // Setup
-            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, filePath);
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -115,12 +165,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromPathContainingInvalidPathCharacters_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             const string filePath = "c:\\Invalid_Characters.shp";
 
             char[] invalidPathChars = Path.GetInvalidPathChars();
             string invalidPath = filePath.Replace('_', invalidPathChars[0]);
 
-            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, invalidPath);
+            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, invalidPath, messageProvider);
 
             // Call
             var importResult = true;
@@ -140,9 +193,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromDirectoryPath_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string folderPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO) + Path.DirectorySeparatorChar;
 
-            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, folderPath);
+            var testStructuresImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, folderPath, messageProvider);
 
             // Call
             var importResult = true;
@@ -165,10 +221,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_FromFileWithNonPointFeatures_FalseAndLogError(string shapeFileName)
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          shapeFileName);
 
-            var profilesImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, filePath);
+            var profilesImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -184,10 +243,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidShapefile_ReturnsFalse()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
-            var profilesImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, invalidFilePath);
+            var profilesImporter = new TestStructuresImporter(testImportTarget, testReferenceLine, invalidFilePath, messageProvider);
 
             // Call
             bool importResult = profilesImporter.Import();
@@ -200,11 +262,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_InvalidCsvFile_ReturnsFalse()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("Structures", "CorrectShpIncorrectCsv", "CorrectKunstwerken_IncorrectCsv.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var profilesImporter = new TestStructuresImporter(testImportTarget, referenceLine, invalidFilePath);
+            var profilesImporter = new TestStructuresImporter(testImportTarget, referenceLine, invalidFilePath, messageProvider);
 
             // Call
             bool importResult = profilesImporter.Import();
@@ -217,12 +282,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhenReadingLocations_CancelsImportAndLogs()
         {
             // Setup
+            const string messageText = "importeren is afgebroken";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp=>mp.GetCancelledLogMessageText("Kunstwerken")).Return(messageText);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<object>();
-            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
             testStructuresImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van kunstwerklocaties uit een shapebestand."))
@@ -237,7 +307,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.");
+            TestHelper.AssertLogMessageIsGenerated(call, messageText);
             Assert.IsFalse(importResult);
         }
 
@@ -245,15 +315,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhenCreatingStructures_ContinueImportAndLogWarning()
         {
             // Setup
+            const string addDataToModelProgressText = "addDataToModelProgressText";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(addDataToModelProgressText);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<object>();
-            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
             testStructuresImporter.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                if (description.Contains(addDataToModelProgressText))
                 {
                     testStructuresImporter.Cancel();
                 }
@@ -274,12 +349,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhenReadingStructureData_FalseAndLogInfo()
         {
             // Setup
+            const string messageText = "importeren is afgebroken";
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Kunstwerken")).Return(messageText);
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<object>();
-            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
             testStructuresImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van kunstwerkgegevens uit een kommagescheiden bestand."))
@@ -294,8 +374,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            const string expectedMessage = "Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(messageText, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
         }
 
@@ -303,12 +382,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_ReturnsTrue()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<object>();
-            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
             testStructuresImporter.SetProgressChanged((description, step, steps) => testStructuresImporter.Cancel());
 
             bool importResult = testStructuresImporter.Import();
@@ -328,6 +410,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_LocationOutsideReferenceLine_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
@@ -341,7 +426,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -357,11 +442,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_DuplicateLocation_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "DuplicateLocation", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -377,11 +465,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_LocationKWKIDENTNull_FalseAndLogError()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "StructuresWithNullKWKident", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = true;
@@ -397,11 +488,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_IllegalCsvFile_ReturnsFalse()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "IllegalCsv", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath);
+            var testStructuresImporter = new TestStructuresImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider);
 
             // Call
             bool importResult = testStructuresImporter.Import();
@@ -414,13 +508,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void GetStandardDeviation_RowHasStandardDeviation_ReturnVarianceValue()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
             var importTarget = new ObservableList<object>();
 
-            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             var parameter = new StructuresParameterRow
             {
@@ -446,13 +543,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void GetStandardDeviation_RowHasCoefficientOfVariation_LogWarningReturnConvertedVarianceValue()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
             var importTarget = new ObservableList<object>();
 
-            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             var parameter = new StructuresParameterRow
             {
@@ -484,13 +584,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void GetCoefficientOfVariation_RowHasCoefficientOfVariation_ReturnVarianceValue()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
             var importTarget = new ObservableList<object>();
 
-            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             var parameter = new StructuresParameterRow
             {
@@ -516,13 +619,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void GetCoefficientOfVariation_RowHasStandardDeviation_LogWarningReturnConvertedVarianceValue()
         {
             // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
             var importTarget = new ObservableList<object>();
 
-            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             var parameter = new StructuresParameterRow
             {
@@ -568,8 +674,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestStructuresImporter : StructuresImporter<ObservableList<object>>
         {
-            public TestStructuresImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, string filePath)
-                : base(importTarget, referenceLine, filePath) {}
+            public TestStructuresImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, 
+                string filePath, IImporterMessageProvider messageProvider)
+                : base(importTarget, referenceLine, filePath, messageProvider) {}
 
             public new RoundedDouble GetStandardDeviation(StructuresParameterRow parameter, string structureName)
             {

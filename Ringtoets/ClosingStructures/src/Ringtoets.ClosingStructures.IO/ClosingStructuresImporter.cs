@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 
 namespace Ringtoets.ClosingStructures.IO
@@ -44,11 +45,11 @@ namespace Ringtoets.ClosingStructures.IO
         /// <param name="referenceLine">The reference line used to check if the <see cref="ClosingStructure"/>
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/>, or <paramref name="importTarget"/> is <c>null</c>.</exception>
+        /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public ClosingStructuresImporter(ObservableList<ClosingStructure> importTarget,
-                                         ReferenceLine referenceLine, string filePath)
-            : base(importTarget, referenceLine, filePath) {}
+                                         ReferenceLine referenceLine, string filePath, IImporterMessageProvider messageProvider)
+            : base(importTarget, referenceLine, filePath, messageProvider) {}
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)

@@ -27,25 +27,49 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 
 namespace Ringtoets.ClosingStructures.IO.Test
 {
     [TestFixture]
     public class ClosingStructuresImporterTest
     {
+        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Structures");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
+
         private readonly ObservableList<ClosingStructure> testImportTarget = new ObservableList<ClosingStructure>();
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
+        private MockRepository mocks;
+
+        [SetUp]
+        public void Setup()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Constructor_Always_ExpectedValues()
         {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             // Call
-            var importer = new ClosingStructuresImporter(testImportTarget, testReferenceLine, testFilePath);
+            var importer = new ClosingStructuresImporter(testImportTarget, testReferenceLine, testFilePath,
+                                                         messageProvider);
 
             // Assert
             Assert.IsInstanceOf<StructuresImporter<ObservableList<ClosingStructure>>>(importer);
@@ -55,16 +79,19 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_ValidIncompleteFile_LogAndFalse()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+            var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
+                                                         messageProvider);
 
             // Call
             var importResult = false;
-            Action call = () => importResult = structuresImporter.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
@@ -81,17 +108,21 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_VarianceValuesNeedConversion_WarnUserAboutConversion()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
-                                                         Path.Combine("StructuresVarianceValueConversion", "Kunstwerken.shp"));
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(testDataPath, "StructuresVarianceValueConversion",
+                                           "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
             var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+            var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
+                                                         messageProvider);
 
             // Call
             var importResult = false;
-            Action call = () => importResult = structuresImporter.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             string[] expectedMessages =
@@ -127,12 +158,14 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_InvalidCsvFile_LogAndTrue()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpIncompleteCsv", "Kunstwerken.shp"));
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+            string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv",
+                                           "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = false;
@@ -157,8 +190,10 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_ParameterIdsWithVaryingCase_TrueAndImportTargetUpdated()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpRandomCaseHeaderCsv", "Kunstwerken.shp"));
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+            string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv",
+                                           "Kunstwerken.shp");
 
             var referencePoints = new List<Point2D>
             {
@@ -170,7 +205,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
             var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
             bool importResult = structuresImporter.Import();
@@ -184,13 +219,14 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
-                                                         Path.Combine(nameof(ClosingStructuresImporter), "Kunstwerken.shp"));
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+            string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter), "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
             var importTarget = new ObservableList<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
             var importResult = false;

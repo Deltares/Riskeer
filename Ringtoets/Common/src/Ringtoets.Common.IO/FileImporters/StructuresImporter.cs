@@ -30,10 +30,13 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
@@ -41,28 +44,35 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Abstract class for structure importers, providing an implementation of importing point shapefiles 
     /// containing structure locations and csv files containing structure schematizations.
     /// </summary>
-    /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
-    public abstract class StructuresImporter<T> : FileImporterBase<T>
+    /// <typeparam name="TCollection">Object type that is the target for this importer.</typeparam>
+    public abstract class StructuresImporter<TCollection> : FileImporterBase<TCollection> 
     {
         private readonly ReferenceLine referenceLine;
+        private readonly IImporterMessageProvider messageProvider;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="StructuresImporter{T}"/>.
+        /// Initializes a new instance of <see cref="StructuresImporter{TCollection}"/>.
         /// </summary>
         /// <param name="importTarget">The import target.</param>
         /// <param name="referenceLine">The reference line used to check if the imported structures are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        protected StructuresImporter(T importTarget, ReferenceLine referenceLine, string filePath)
+        /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        protected StructuresImporter(TCollection importTarget, ReferenceLine referenceLine, string filePath,
+                                     IImporterMessageProvider messageProvider)
             : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
 
             this.referenceLine = referenceLine;
+            this.messageProvider = messageProvider;
         }
 
         protected override bool OnImport()
@@ -79,7 +89,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 1, 1);
+            NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
             try
             {
                 CreateStructures(importStructureLocationsResult, importStructureParameterRowsDataResult);
@@ -94,7 +104,8 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.StructuresImporter_User_canceled);
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.StructureCollection_TypeDescriptor);
+            Log.Info(message);
         }
 
         /// <summary>
@@ -102,6 +113,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="structureLocations">The read structure locations.</param>
         /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
+        /// <returns>The created structures.</returns>
         protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
