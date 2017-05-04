@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
-            const string originalSourcePath = "Really not relevant";
+            const string originalSourcePath = "some output path";
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 InputComments =
@@ -231,6 +231,27 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             HeightStructuresFailureMechanismMetaEntity metaEntity =
               entity.HeightStructuresFailureMechanismMetaEntities.Single();
             Assert.IsNull(metaEntity.HeightStructureCollectionSourcePath);
+        }
+
+        [Test]
+        public void Create_WithoutHeightStructuresWithSourcePath_EmptyHeightStructureEntitiesWithSourcePath()
+        {
+            // Setup
+            const string originalSourcePath = "some output path";
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructures.AddRange(Enumerable.Empty<HeightStructure>(), originalSourcePath);
+
+            var persistenceRegistry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
+
+            // Assert
+            Assert.AreEqual(0, entity.HeightStructureEntities.Count);
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity =
+              entity.HeightStructuresFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath);
         }
 
         [Test]

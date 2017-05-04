@@ -264,7 +264,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
-            entity.ReadHeightStructures(metaEntity, failureMechanism.HeightStructures, collector);
+            entity.ReadHeightStructures(metaEntity.HeightStructureCollectionSourcePath, failureMechanism.HeightStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -283,15 +283,15 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadHeightStructures(this FailureMechanismEntity entity,
-                                                 HeightStructuresFailureMechanismMetaEntity metaEntity,
+                                                 string sourcePath,
                                                  StructureCollection<HeightStructure> heightStructures,
                                                  ReadConversionCollector collector)
         {
-            if (metaEntity.HeightStructureCollectionSourcePath != null)
+            if (sourcePath != null)
             {
                 heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order)
                                                 .Select(structureEntity => structureEntity.Read(collector)),
-                                          metaEntity.HeightStructureCollectionSourcePath);
+                                          sourcePath);
             }
         }
 

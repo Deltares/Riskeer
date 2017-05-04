@@ -1275,6 +1275,33 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(sourcePath, failureMechanism.HeightStructures.SourcePath);
         }
 
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_WithoutStructuresWithPath_ReturnFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string sourcePath = "Some path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = 7,
+                        HeightStructureCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.HeightStructures.SourcePath);
+        }
+
         #endregion
 
         #region Closing Structures
