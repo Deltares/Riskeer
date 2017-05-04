@@ -48,6 +48,7 @@ namespace Ringtoets.Revetment.Forms.Views
 
         private readonly ChartLineData lowerBoundaryWaterLevelsChartData;
         private readonly ChartLineData upperBoundaryWaterLevelsChartData;
+        private readonly ChartLineData designWaterLevelChartData;
 
         private IWaveConditionsCalculation data;
 
@@ -70,6 +71,7 @@ namespace Ringtoets.Revetment.Forms.Views
 
             lowerBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartdata();
             upperBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartdata();
+            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartdata();
 
             chartDataCollection.Add(foreshoreChartData);
             chartDataCollection.Add(lowerBoundaryRevetmentChartData);
@@ -78,6 +80,7 @@ namespace Ringtoets.Revetment.Forms.Views
             chartDataCollection.Add(revetmentBaseChartData);
             chartDataCollection.Add(lowerBoundaryWaterLevelsChartData);
             chartDataCollection.Add(upperBoundaryWaterLevelsChartData);
+            chartDataCollection.Add(designWaterLevelChartData);
         }
 
         public object Data
@@ -139,6 +142,7 @@ namespace Ringtoets.Revetment.Forms.Views
             upperBoundaryRevetmentChartData.NotifyObservers();
             lowerBoundaryWaterLevelsChartData.NotifyObservers();
             upperBoundaryWaterLevelsChartData.NotifyObservers();
+            designWaterLevelChartData.NotifyObservers();
         }
 
         private void UpdateChartTitle()
@@ -161,6 +165,8 @@ namespace Ringtoets.Revetment.Forms.Views
 
             lowerBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
             upperBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
+
+            designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
         }
     }
 }

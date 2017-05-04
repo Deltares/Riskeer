@@ -85,27 +85,6 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Updates the name of <paramref name="chartData"/> based on <paramref name="input"/>.
-        /// </summary>
-        /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
-        /// <param name="input">The <see cref="WaveConditionsInput"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="RingtoetsChartDataFactory.CreateForeshoreGeometryChartData"/>) when:
-        /// <list type="bullet">
-        /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>the foreshore profile in <paramref name="input"/> is <c>null</c>;</item>
-        /// <item>the foreshore profile should not be used.</item>
-        /// </list>
-        /// </remarks>
-        public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, WaveConditionsInput input)
-        {
-            chartData.Name = input?.ForeshoreProfile != null && input.UseForeshore
-                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                 input.ForeshoreProfile.Name,
-                                                 RingtoetsCommonFormsResources.Foreshore_DisplayName)
-                                 : RingtoetsCommonFormsResources.Foreshore_DisplayName;
-        }
-
-        /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for lower boundary water levels.
         /// </summary>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
@@ -127,6 +106,39 @@ namespace Ringtoets.Revetment.Forms.Factories
             {
                 Style = GetWaterLevelBoundaryStyle()
             };
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartLineData"/> with default styling for design water level.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateDesignWaterLevelChartdata()
+        {
+            return new ChartLineData("Toetspeil")
+            {
+                Style = new ChartLineStyle(Color.Red, 2, DashStyle.Solid)
+            };
+        }
+
+        /// <summary>
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="input"/>.
+        /// </summary>
+        /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> used for obtaining the name.</param>
+        /// <remarks>A default name is set (the same as in <see cref="RingtoetsChartDataFactory.CreateForeshoreGeometryChartData"/>) when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the foreshore profile in <paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the foreshore profile should not be used.</item>
+        /// </list>
+        /// </remarks>
+        public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, WaveConditionsInput input)
+        {
+            chartData.Name = input?.ForeshoreProfile != null && input.UseForeshore
+                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                 input.ForeshoreProfile.Name,
+                                                 RingtoetsCommonFormsResources.Foreshore_DisplayName)
+                                 : RingtoetsCommonFormsResources.Foreshore_DisplayName;
         }
 
         private static ChartLineStyle GetRevetmentBoundaryStyle()

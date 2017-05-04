@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 
@@ -122,7 +123,9 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
-            return CreateGeometryPoints(input, () => input.LowerBoundaryRevetment);
+            return input != null                       
+                       ? CreateGeometryPoints(input, () => input.LowerBoundaryRevetment)
+                       : new Point2D[0];
         }
 
         /// <summary>
@@ -137,7 +140,9 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateUpperBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
-            return CreateGeometryPoints(input, () => input.UpperBoundaryRevetment);
+            return input != null
+                       ? CreateGeometryPoints(input, () => input.UpperBoundaryRevetment)
+                       : new Point2D[0];
         }
 
         /// <summary>
@@ -152,7 +157,9 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateLowerBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
-            return CreateGeometryPoints(input, () => input.LowerBoundaryWaterLevels);
+            return input != null
+                       ? CreateGeometryPoints(input, () => input.LowerBoundaryWaterLevels)
+                       : new Point2D[0];
         }
 
         /// <summary>
@@ -167,16 +174,31 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateUpperBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
-            return CreateGeometryPoints(input, () => input.UpperBoundaryWaterLevels);
+            return input != null
+                       ? CreateGeometryPoints(input, () => input.UpperBoundaryWaterLevels)
+                       : new Point2D[0];
+        }
+
+        /// <summary>
+        /// Create design water level geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the design water level geometry points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> is <c>null</c>;</item>
+        /// <item>the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> is not set;</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDesignWaterLevelGeometryPoints(WaveConditionsInput input)
+        {
+            return input?.HydraulicBoundaryLocation != null
+                       ? CreateGeometryPoints(input, () => input.HydraulicBoundaryLocation.DesignWaterLevel)
+                       : new Point2D[0];
         }
 
         private static Point2D[] CreateGeometryPoints(WaveConditionsInput input, Func<double> getValueFunc)
         {
-            if (input == null)
-            {
-                return new Point2D[0];
-            }
-
             double value = getValueFunc();
 
             return double.IsNaN(value)

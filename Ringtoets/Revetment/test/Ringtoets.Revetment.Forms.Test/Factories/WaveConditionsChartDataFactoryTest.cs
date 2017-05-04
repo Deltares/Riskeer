@@ -104,6 +104,17 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateDesignwaterLevelChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartdata();
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Toetspeil", data.Name);
+            AssertEqualStyle(data.Style, Color.Red, 2, DashStyle.Solid);
+        }
+
+        [Test]
         public void UpdateForeshoreGeometryChartDataName_InputNull_NameSetToDefaultName()
         {
             // Setup

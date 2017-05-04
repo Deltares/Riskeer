@@ -46,6 +46,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int revetmentBaseChartDataIndex = 4;
         private const int lowerBoundaryWaterLevelsChartDataIndex = 5;
         private const int upperBoundaryWaterLevelsChartDataIndex = 6;
+        private const int designWaterLevelChartDataIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -121,7 +122,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             })
             {
                 // Precondition
-                Assert.AreEqual(7, view.Chart.Data.Collection.Count());
+                Assert.AreEqual(8, view.Chart.Data.Collection.Count());
                 Assert.AreEqual("Nieuwe berekening", view.Chart.ChartTitle);
 
                 // Call
@@ -172,7 +173,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                         LowerBoundaryRevetment = (RoundedDouble) 5,
                         UpperBoundaryRevetment = (RoundedDouble) 8,
                         LowerBoundaryWaterLevels = (RoundedDouble) 3,
-                        UpperBoundaryWaterLevels = (RoundedDouble) 9
+                        UpperBoundaryWaterLevels = (RoundedDouble) 9,
+                        HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6)
                     }
                 };
 
@@ -185,7 +187,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
-                Assert.AreEqual(7, chartData.Collection.Count());
+                Assert.AreEqual(8, chartData.Collection.Count());
 
                 AssertForeshoreChartData(calculation.InputParameters.ForeshoreProfile, chartData.Collection.ElementAt(foreShoreChartDataIndex));
                 AssertRevetmentChartData(calculation.InputParameters.ForeshoreGeometry.Last(),
@@ -208,6 +210,10 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertUpperBoundaryWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                                         calculation.InputParameters.UpperBoundaryWaterLevels,
                                                         chartData.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
+
+                AssertDesignWaterLevelChartData(calculation.InputParameters.ForeshoreGeometry,
+                                               calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel,
+                                               chartData.Collection.ElementAt(designWaterLevelChartDataIndex));
             }
         }
 
@@ -279,7 +285,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(7);
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(8);
             mocks.ReplayAll();
 
             var calculation = new TestWaveConditionsCalculation
@@ -295,7 +301,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                     LowerBoundaryRevetment = (RoundedDouble) 5,
                     UpperBoundaryRevetment = (RoundedDouble) 8,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 7
+                    UpperBoundaryWaterLevels = (RoundedDouble) 7,
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6)
                 }
             };
 
@@ -311,6 +318,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
                 var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
                 var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
+                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
 
                 foreshoreChartData.Attach(observer);
                 revetmentChartData.Attach(observer);
@@ -319,6 +327,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 upperBoundaryRevetmentChartData.Attach(observer);
                 lowerBoundaryWaterLevelsChartData.Attach(observer);
                 upperBoundaryWaterLevelsChartData.Attach(observer);
+                designWaterLevelChartData.Attach(observer);
 
                 ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
                 {
@@ -340,6 +349,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
                 Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
+                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
 
                 AssertForeshoreChartData(profile2, foreshoreChartData);
                 AssertRevetmentChartData(profile2.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
@@ -360,6 +370,10 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertUpperBoundaryWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                                         calculation.InputParameters.UpperBoundaryWaterLevels,
                                                         upperBoundaryWaterLevelsChartData);
+
+                AssertDesignWaterLevelChartData(calculation.InputParameters.ForeshoreGeometry,
+                                                calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel,
+                                                designWaterLevelChartData);
                 mocks.VerifyAll();
             }
         }
@@ -405,7 +419,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
 
-            Assert.AreEqual(7, chartDatasList.Count);
+            Assert.AreEqual(8, chartDatasList.Count);
 
             var foreshoreData = (ChartLineData) chartDatasList[foreShoreChartDataIndex];
             var lowerBoundaryRevetmentData = (ChartLineData) chartDatasList[lowerBoundaryRevetmentChartDataIndex];
@@ -414,6 +428,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             var revetmentBaseData = (ChartLineData) chartDatasList[revetmentBaseChartDataIndex];
             var lowerBoundaryWaterLevelsData = (ChartLineData) chartDatasList[lowerBoundaryWaterLevelsChartDataIndex];
             var upperBoundaryWaterLevelsData = (ChartLineData) chartDatasList[upperBoundaryWaterLevelsChartDataIndex];
+            var designWaterLevelData = (ChartLineData) chartDatasList[designWaterLevelChartDataIndex];
 
             CollectionAssert.IsEmpty(foreshoreData.Points);
             CollectionAssert.IsEmpty(lowerBoundaryRevetmentData.Points);
@@ -422,6 +437,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             CollectionAssert.IsEmpty(revetmentBaseData.Points);
             CollectionAssert.IsEmpty(lowerBoundaryWaterLevelsData.Points);
             CollectionAssert.IsEmpty(upperBoundaryWaterLevelsData.Points);
+            CollectionAssert.IsEmpty(designWaterLevelData.Points);
 
             Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
             Assert.AreEqual("Ondergrens bekleding", lowerBoundaryRevetmentData.Name);
@@ -430,6 +446,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             Assert.AreEqual("Bekleding", revetmentBaseData.Name);
             Assert.AreEqual("Ondergrens waterstanden", lowerBoundaryWaterLevelsData.Name);
             Assert.AreEqual("Bovengrens waterstanden", upperBoundaryWaterLevelsData.Name);
+            Assert.AreEqual("Toetspeil", designWaterLevelData.Name);
         }
 
         private static void AssertForeshoreChartData(ForeshoreProfile foreshoreProfile, ChartData chartData)
@@ -552,6 +569,24 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             CollectionAssert.AreEqual(expectedGeometry, waterLevelsChartData.Points);
 
             Assert.AreEqual("Bovengrens waterstanden", waterLevelsChartData.Name);
+        }
+
+        private static void AssertDesignWaterLevelChartData(RoundedPoint2DCollection foreshorePoints,
+                                                                    double designWaterLevel,
+                                                                    ChartData chartData)
+        {
+            Assert.IsInstanceOf<ChartLineData>(chartData);
+            var waterLevelsChartData = (ChartLineData) chartData;
+
+            var expectedGeometry = new[]
+            {
+                new Point2D(foreshorePoints.First().X, designWaterLevel),
+                new Point2D(GetPointX(designWaterLevel, foreshorePoints.Last()), designWaterLevel)
+            };
+
+            CollectionAssert.AreEqual(expectedGeometry, waterLevelsChartData.Points);
+
+            Assert.AreEqual("Toetspeil", waterLevelsChartData.Name);
         }
 
         private static double GetPointX(double pointY, Point2D lastForeshorePoint)

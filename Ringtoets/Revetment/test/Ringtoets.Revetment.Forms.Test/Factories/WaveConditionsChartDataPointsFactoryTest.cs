@@ -699,7 +699,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             "CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUppserBoundaryWaterLevelsGeometryPointsArray({0})"
         })]
-        public void CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUppserBoundaryWaterLevelsGeometryPointsArray(
+        public void CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsArray(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -720,6 +720,120 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             {
                 new Point2D(foreshoreProfileGeometry.First().X, 9),
                 new Point2D(endPointX + lastGeometryPoint.X, 9)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        public void CreateDesignWaterLevelGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDesignWaterLevelGeometryPoints_HydraulicBoundaryLocationNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(new WaveConditionsInput());
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDesignWaterLevelGeometryPoints_DesignWaterLevelNaN_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDesignWaterLevelGeometryPoints_NoForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6)
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+
+            // Assert
+            var expectedPoints = new[]
+            {
+                new Point2D(-10, 6),
+                new Point2D(2, 6)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        public void CreateDesignWaterLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsDesignWaterLevelGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6),
+                ForeshoreProfile = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(3, 4)
+                }),
+                UseForeshore = false
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+
+            // Assert
+            var expectedPoints = new[]
+            {
+                new Point2D(-10, 6),
+                new Point2D(2, 6)
+            };
+            CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
+        {
+            "CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsArray({0})"
+        })]
+        public void CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsArray(
+            IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6),
+                ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+
+            // Assert
+            Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
+            double endPointX = (input.HydraulicBoundaryLocation.DesignWaterLevel - lastGeometryPoint.Y) / 3;
+
+            var expectedPoints = new[]
+            {
+                new Point2D(foreshoreProfileGeometry.First().X, 6),
+                new Point2D(endPointX + lastGeometryPoint.X, 6)
             };
             CollectionAssert.AreEqual(expectedPoints, points);
         }
