@@ -53,7 +53,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
         /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
         public TestClosingStructure(string name, string id)
-            : this(name, id, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) { }
+            : this(name, id, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestClosingStructure"/>.

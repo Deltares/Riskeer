@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentException">Thrown when 
         /// <paramref name="id"/> is null, empty or whitespaces.</exception>
         public TestForeshoreProfile(string profileName, string id)
-            : this(id, profileName, new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) { }
+            : this(id, profileName, new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given

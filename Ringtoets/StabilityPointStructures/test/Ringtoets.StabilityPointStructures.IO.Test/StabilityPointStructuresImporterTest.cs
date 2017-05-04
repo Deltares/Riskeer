@@ -294,7 +294,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             {
                 Tuple.Create("Kunstwerk met ID 'KWK_1' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
                 Tuple.Create("Kunstwerk met ID 'KWK_2' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
-                Tuple.Create("Kunstwerk met ID 'KWK_4' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_4' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsTrue(importResult);

@@ -30,7 +30,7 @@ namespace Core.Common.TestUtil
     /// </summary>
     [TestFixture]
     public abstract class CustomExceptionDesignGuidelinesTestFixture<TCustomException, TBaseException> where TCustomException : Exception
-                                                                                                               where TBaseException : Exception
+                                                                                                       where TBaseException : Exception
     {
         [Test]
         [SetCulture("en-US")]
