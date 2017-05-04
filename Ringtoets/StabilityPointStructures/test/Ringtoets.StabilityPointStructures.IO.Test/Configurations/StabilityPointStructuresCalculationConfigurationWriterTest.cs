@@ -157,7 +157,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     Mean = 0.09,
                     StandardDeviation = 0.19
                 },
-                ForeshoreProfileName = "profiel1",
+                ForeshoreProfileId = "profiel1",
                 HydraulicBoundaryLocationName = "Locatie1",
                 InflowModelType = ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert,
                 InsideWaterLevel = new StochastConfiguration
@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     Mean = 0.18,
                     VariationCoefficient = 0.28
                 },
-                StructureName = "kunstwerk1",
+                StructureId = "kunstwerk1",
                 StructureNormalOrientation = 6.6,
                 StorageStructureArea = new StochastConfiguration
                 {

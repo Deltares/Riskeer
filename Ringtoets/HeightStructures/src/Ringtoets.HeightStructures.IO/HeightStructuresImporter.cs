@@ -55,9 +55,16 @@ namespace Ringtoets.HeightStructures.IO
         {
             IEnumerable<HeightStructure> importedHeightStructures = CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows);
 
-            foreach (HeightStructure heightStructure in importedHeightStructures)
+            foreach (HeightStructure structure in importedHeightStructures)
             {
-                ImportTarget.Add(heightStructure);
+                if (ImportTarget.Select(s => s.Id).Contains(structure.Id))
+                {
+                    LogStructureExisting(structure.Id);
+                }
+                else
+                {
+                    ImportTarget.Add(structure);
+                }
             }
         }
 

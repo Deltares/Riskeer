@@ -55,9 +55,16 @@ namespace Ringtoets.StabilityPointStructures.IO
         {
             IEnumerable<StabilityPointStructure> importedStabilityPointStructures = CreateStabilityPointStructures(structureLocations.ToList(), groupedStructureParameterRows);
 
-            foreach (StabilityPointStructure stabilityPointStructure in importedStabilityPointStructures)
+            foreach (StabilityPointStructure structure in importedStabilityPointStructures)
             {
-                ImportTarget.Add(stabilityPointStructure);
+                if (ImportTarget.Select(s => s.Id).Contains(structure.Id))
+                {
+                    LogStructureExisting(structure.Id);
+                }
+                else
+                {
+                    ImportTarget.Add(structure);
+                }
             }
         }
 

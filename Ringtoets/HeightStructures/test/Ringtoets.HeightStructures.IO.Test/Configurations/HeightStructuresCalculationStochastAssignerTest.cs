@@ -92,7 +92,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Setup
             var configuration = new HeightStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
             modify(configuration);
 
@@ -115,7 +115,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Setup
             var configuration = new HeightStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure",
+                StructureId = "some structure",
                 LevelCrestStructure = new StochastConfiguration
                 {
                     Mean = 1.1,

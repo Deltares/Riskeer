@@ -125,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 new[]
                 {
-                    new TestDikeProfile("Dijkprofiel")
+                    new TestDikeProfile("Dijkprofiel", "Dijkprofiel ID")
                 },
                 new GrassCoverErosionInwardsFailureMechanism());
 
@@ -241,7 +241,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Het dijkprofiel 'Dijkprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
+            const string expectedMessage = "Het dijkprofiel met ID 'Dijkprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -329,7 +329,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             string filePath = Path.Combine(path, "validConfigurationCalculationUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
-            var dikeProfile = new TestDikeProfile("Dijkprofiel");
+            var dikeProfile = new TestDikeProfile("Dijkprofiel", "Dijkprofiel ID");
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -345,7 +345,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Het opgegeven dijkprofiel 'Dijkprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
+            const string expectedMessage = "Het opgegeven dijkprofiel 'Dijkprofiel ID' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -359,7 +359,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var dikeProfile = new TestDikeProfile("Dijkprofiel");
+            var dikeProfile = new TestDikeProfile("Dijkprofiel", "Dijkprofiel ID");
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
@@ -517,7 +517,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
                 new Point2D(6, 5)
             }, new BreakWater(BreakWaterType.Caisson, 0), new DikeProfile.ConstructionProperties
             {
-                Id = "id",
+                Id = "Dijkprofiel ID",
                 Name = "Dijkprofiel",
                 DikeHeight = 3.45
             });
@@ -581,14 +581,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
 
             failureMechanism.AddSection(new FailureMechanismSection("name", new[]
             {
-                new Point2D(0,0), new Point2D(10,10)
+                new Point2D(0, 0),
+                new Point2D(10, 10)
             }));
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    DikeProfile = new TestDikeProfile(new Point2D(5,5))
+                    DikeProfile = new TestDikeProfile(new Point2D(5, 5))
                 }
             };
             failureMechanism.CalculationsGroup.Children.Add(

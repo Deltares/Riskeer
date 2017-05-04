@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 return;
             }
 
-            configuration.ForeshoreProfileName = input.ForeshoreProfile?.Name;
+            configuration.ForeshoreProfileId = input.ForeshoreProfile?.Id;
             configuration.WaveReduction = new WaveReductionConfiguration
             {
                 UseForeshoreProfile = input.UseForeshore,

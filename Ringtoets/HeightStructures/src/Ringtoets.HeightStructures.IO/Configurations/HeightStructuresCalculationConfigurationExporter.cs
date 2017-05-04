@@ -55,7 +55,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
             if (input.Structure != null)
             {
-                calculationConfiguration.StructureName = input.Structure.Name;
+                calculationConfiguration.StructureId = input.Structure.Name;
                 calculationConfiguration.StructureNormalOrientation = input.StructureNormalOrientation;
                 calculationConfiguration.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 

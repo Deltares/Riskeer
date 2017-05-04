@@ -119,7 +119,7 @@ namespace Ringtoets.Common.IO.Configurations
         {
             return ValidateBaseStochasts()
                    && ValidateSpecificStochasts()
-                   && (Configuration.StructureName != null || GetStochastsForParameterValidation().All(ValidateNoParametersDefined));
+                   && (Configuration.StructureId != null || GetStochastsForParameterValidation().All(ValidateNoParametersDefined));
         }
 
         private bool SetVariationCoefficientStochast(VariationCoefficientDefinition definition)

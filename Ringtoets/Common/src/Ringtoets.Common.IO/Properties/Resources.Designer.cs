@@ -196,7 +196,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het voorlandprofiel &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to Het voorlandprofiel met ID &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist {
             get {
@@ -216,7 +216,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kunstwerk &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to Het kunstwerk met ID &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist {
             get {
@@ -745,6 +745,15 @@ namespace Ringtoets.Common.IO.Properties {
         public static string FailureMechanismSectionsImporter_ReadFile_File_is_empty {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_ReadFile_File_is_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorlandprofiel met ID &apos;{0}&apos; is al geïmporteerd en wordt overgeslagen..
+        /// </summary>
+        public static string ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported {
+            get {
+                return ResourceManager.GetString("ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported", resourceCulture);
             }
         }
         
@@ -1645,6 +1654,15 @@ namespace Ringtoets.Common.IO.Properties {
         public static string StructuresImporter_GetStructureLocationReadResult_reading_structurelocation {
             get {
                 return ResourceManager.GetString("StructuresImporter_GetStructureLocationReadResult_reading_structurelocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerk met ID &apos;{0}&apos; is al geïmporteerd en wordt overgeslagen..
+        /// </summary>
+        public static string StructuresImporter_LogStructureExisting_Structure_0_already_imported {
+            get {
+                return ResourceManager.GetString("StructuresImporter_LogStructureExisting_Structure_0_already_imported", resourceCulture);
             }
         }
         

@@ -29,7 +29,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DesignVariable{TDistributionType}"/> of <see cref="LogNormalDistribution"/> for properties panel.
+    /// ViewModel of <see cref="DesignVariable{TDistribution}"/> of <see cref="LogNormalDistribution"/> for properties panel.
     /// </summary>
     public class LogNormalDistributionDesignVariableProperties : DesignVariableProperties<LogNormalDistribution>
     {

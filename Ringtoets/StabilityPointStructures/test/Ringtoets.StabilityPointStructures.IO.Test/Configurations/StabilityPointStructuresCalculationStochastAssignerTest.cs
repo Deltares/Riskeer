@@ -58,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             // Setup
             var configuration = new StabilityPointStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
             configuration.DrainCoefficient = new StochastConfiguration();
             configuration.DrainCoefficient.Mean = 8.1;
@@ -96,7 +96,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             // Setup
             var configuration = new StabilityPointStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
             configuration.FlowVelocityStructureClosable = new StochastConfiguration();
             configuration.FlowVelocityStructureClosable.Mean = 8.1;
@@ -238,7 +238,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     Mean = 11
                 },
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -268,7 +268,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             // Setup
             var configuration = new StabilityPointStructuresCalculationConfiguration("name")
             {
-                StructureName = "some structure"
+                StructureId = "some structure"
             };
             updateConfiguration(configuration);
 

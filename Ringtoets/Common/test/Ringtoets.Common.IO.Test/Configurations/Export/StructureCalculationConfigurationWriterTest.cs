@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     Mean = 5.4,
                     StandardDeviation = 1.1
                 },
-                ForeshoreProfileName = "Voorland",
+                ForeshoreProfileId = "Voorland",
                 HydraulicBoundaryLocationName = "Randvoorwaardelocatie",
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     VariationCoefficient = 1.2
                 },
                 StructureNormalOrientation = 5.6,
-                StructureName = "Kunstwerk",
+                StructureId = "Kunstwerk",
                 WaveReduction = new WaveReductionConfiguration
                 {
                     BreakWaterType = ConfigurationBreakWaterType.Caisson,

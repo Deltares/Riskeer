@@ -47,11 +47,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     [TestFixture]
     public class PipingSurfaceLinesCsvImporterTest
     {
-        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
-        private readonly string pluginSurfaceLinesTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
-
         private const string krpFormat = "{0}.krp.csv";
         private const string surfaceLineFormat = "{0}.csv";
+        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
+        private readonly string pluginSurfaceLinesTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
 
         private MockRepository mocks;
 

@@ -31,7 +31,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DesignVariable{TDistributionType}"/> of <see cref="LogNormalDistribution"/> 
+    /// ViewModel of <see cref="DesignVariable{TDistribution}"/> of <see cref="LogNormalDistribution"/> 
     /// including the shift for properties panel.
     /// </summary>
     public class ShiftedLogNormalDistributionDesignVariableProperties : LogNormalDistributionDesignVariableProperties

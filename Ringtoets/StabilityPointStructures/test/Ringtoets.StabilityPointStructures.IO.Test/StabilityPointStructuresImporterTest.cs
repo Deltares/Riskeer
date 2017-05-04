@@ -220,7 +220,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
-                                                         Path.Combine(nameof(StabilityPointStructuresImporter), "Kunstwerken.shp"));
+                                                         Path.Combine(nameof(StabilityPointStructuresImporter), "MissingParameters", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -260,6 +260,45 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
             Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
             DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+        }
+
+        [Test]
+        public void Import_ImportingAlreadyExistingStructures_LogAndTrue()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
+                                                         Path.Combine(nameof(StabilityPointStructuresImporter), "SeveralStructures", "kunstwerken_12_2_punt.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(136097.939, 534563.258),
+                new Point2D(136196.307, 540654.202),
+                new Point2D(133749.164, 545531.441),
+                new Point2D(131415.385, 548340.305)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importTarget = new ObservableList<StabilityPointStructure>();
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
+            structuresImporter.Import();
+            importTarget.RemoveAt(2);
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                Tuple.Create("Kunstwerk met ID 'KWK_1' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_2' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_4' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn)
+            };
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(4, importTarget.Count);
         }
 
         private static ReferenceLine CreateReferenceLine()

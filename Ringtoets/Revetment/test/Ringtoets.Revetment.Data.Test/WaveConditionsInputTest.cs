@@ -408,7 +408,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
-            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
+            const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 

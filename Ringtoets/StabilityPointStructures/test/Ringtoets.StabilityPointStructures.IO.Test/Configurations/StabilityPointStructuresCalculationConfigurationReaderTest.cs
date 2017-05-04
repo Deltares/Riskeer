@@ -415,7 +415,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             Assert.AreEqual(0.0001, calculation.FailureProbabilityStructureWithErosion);
 
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
 
             Assert.AreEqual(15.2, calculation.FlowWidthAtBottomProtection.Mean);
             Assert.AreEqual(0.1, calculation.FlowWidthAtBottomProtection.StandardDeviation);
@@ -464,7 +464,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             Assert.AreEqual(7, calculation.StructureNormalOrientation);
 
-            Assert.AreEqual("kunstwerk1", calculation.StructureName);
+            Assert.AreEqual("kunstwerk1", calculation.StructureId);
 
             Assert.AreEqual(1.2, calculation.ThresholdHeightOpenWeir.Mean);
             Assert.AreEqual(0.1, calculation.ThresholdHeightOpenWeir.StandardDeviation);
@@ -496,10 +496,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
 
             Assert.AreEqual(0.01, calculation.FactorStormDurationOpenStructure);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(9.81, calculation.VolumicWeightWater);
-            Assert.AreEqual("kunstwerk1", calculation.StructureName);
+            Assert.AreEqual("kunstwerk1", calculation.StructureId);
             Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
             Assert.AreEqual(1.23, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
@@ -590,7 +590,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.FactorStormDurationOpenStructure);
             Assert.IsNull(calculation.FailureProbabilityRepairClosure);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.InflowModelType);
             Assert.IsNull(calculation.LevellingCount);
@@ -598,7 +598,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.ProbabilityCollisionSecondaryStructure);
             Assert.IsNull(calculation.VolumicWeightWater);
             Assert.IsNull(calculation.StructureNormalOrientation);
-            Assert.IsNull(calculation.StructureName);
+            Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.VerticalDistance);
 
             Assert.IsNull(calculation.WaveReduction);
@@ -668,7 +668,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.FactorStormDurationOpenStructure);
             Assert.IsNull(calculation.FailureProbabilityRepairClosure);
             Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
-            Assert.IsNull(calculation.ForeshoreProfileName);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.InflowModelType);
             Assert.IsNull(calculation.LevellingCount);
@@ -676,7 +676,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.ProbabilityCollisionSecondaryStructure);
             Assert.IsNull(calculation.VolumicWeightWater);
             Assert.IsNull(calculation.StructureNormalOrientation);
-            Assert.IsNull(calculation.StructureName);
+            Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.VerticalDistance);
 
             Assert.IsNull(calculation.WaveReduction);

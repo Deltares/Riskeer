@@ -218,7 +218,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation.DikeProfile);
+            Assert.IsNull(calculation.DikeProfileId);
             Assert.IsNull(calculation.Orientation);
             Assert.IsNull(calculation.DikeHeight);
             Assert.IsNull(calculation.DikeHeightCalculationType);
@@ -322,7 +322,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.AreEqual("Some_hydraulic_boundary_location", calculation.HydraulicBoundaryLocation);
-            Assert.AreEqual("some_dike_profile", calculation.DikeProfile);
+            Assert.AreEqual("some_dike_profile", calculation.DikeProfileId);
             Assert.AreEqual(67.1, calculation.Orientation);
             Assert.AreEqual(3.45, calculation.DikeHeight);
             Assert.AreEqual(ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
@@ -352,7 +352,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Partial calculation 2", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
-            Assert.AreEqual("name_of_dikeprofile", calculation.DikeProfile);
+            Assert.AreEqual("id_of_dikeprofile", calculation.DikeProfileId);
             Assert.IsNull(calculation.Orientation);
             Assert.AreEqual(-1.2, calculation.DikeHeight);
             Assert.IsNull(calculation.DikeHeightCalculationType);

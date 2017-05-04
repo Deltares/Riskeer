@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -39,33 +40,52 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// Creates a new instance of <see cref="TestClosingStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>, empty or consists of only whitespaces.</exception>
         public TestClosingStructure(string name)
-            : this(name, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) {}
+            : this(name, "id", new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestClosingStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        public TestClosingStructure(string name, string id)
+            : this(name, id, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestClosingStructure"/>.
         /// </summary>
         /// <param name="location">The location of the structure.</param>
-        public TestClosingStructure(Point2D location) : this("test", location, ClosingStructureInflowModelType.VerticalWall) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
+        /// is <c>null</c>.</exception>
+        public TestClosingStructure(Point2D location) : this("test", "id", location, ClosingStructureInflowModelType.VerticalWall) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestClosingStructure"/>.
         /// </summary>
         /// <param name="type">The inflow model type of the structure.</param>
         public TestClosingStructure(ClosingStructureInflowModelType type)
-            : this("test", new Point2D(12345.56789, 9876.54321), type) {}
+            : this("test", "id", new Point2D(12345.56789, 9876.54321), type) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestClosingStructure"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The id of the structure</param>
         /// <param name="location">The location of the structure.</param>
         /// <param name="type">The inflow model type of the structure.</param>
-        private TestClosingStructure(string name, Point2D location, ClosingStructureInflowModelType type)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        private TestClosingStructure(string name, string id, Point2D location, ClosingStructureInflowModelType type)
             : base(new ConstructionProperties
             {
                 Name = name,
-                Id = "id",
+                Id = id,
                 Location = location,
                 StorageStructureArea =
                 {

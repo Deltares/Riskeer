@@ -113,9 +113,9 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            if (TrySetStructure(readCalculation.StructureName, calculation)
+            if (TrySetStructure(readCalculation.StructureId, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
                 && TrySetStochasts(readCalculation, calculation)
                 && TrySetOrientation(readCalculation, calculation)
                 && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
@@ -239,11 +239,11 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return false;
         }
 
-        private bool TrySetStructure(string structureName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetStructure(string structureId, StructuresCalculation<HeightStructuresInput> calculation)
         {
             HeightStructure structure;
 
-            if (TryReadStructure(structureName, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;
@@ -252,11 +252,11 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return false;
         }
 
-        private bool TrySetForeshoreProfile(string foreshoreProfileName, StructuresCalculation<HeightStructuresInput> calculation)
+        private bool TrySetForeshoreProfile(string foreshoreProfileId, StructuresCalculation<HeightStructuresInput> calculation)
         {
             ForeshoreProfile foreshoreProfile;
 
-            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            if (TryReadForeshoreProfile(foreshoreProfileId, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
             {
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
                 return true;

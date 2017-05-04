@@ -203,7 +203,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
-                                                         Path.Combine(nameof(ClosingStructuresImporter), "Kunstwerken.shp"));
+                                                         Path.Combine(nameof(ClosingStructuresImporter), "MissingParameters", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -242,6 +242,45 @@ namespace Ringtoets.ClosingStructures.IO.Test
             DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
             DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
             Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
+        }
+
+        [Test]
+        public void Import_ImportingAlreadyExistingStructures_LogAndTrue()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
+                                                         Path.Combine(nameof(ClosingStructuresImporter), "SeveralStructures", "kunstwerken_12_2_sluiting.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(136274.908, 536499.510),
+                new Point2D(135070.069, 542897.615),
+                new Point2D(132918.827, 547187.001),
+                new Point2D(131522.536, 548951.128)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importTarget = new ObservableList<ClosingStructure>();
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+            structuresImporter.Import();
+            importTarget.RemoveAt(2);
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            var expectedMessages = new[]
+            {
+                Tuple.Create("Kunstwerk met ID 'KWK_1' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_2' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_4' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn)
+            };
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(4, importTarget.Count);
         }
 
         private static ReferenceLine CreateReferenceLine()

@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
                                              configuration.HydraulicBoundaryLocationName);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.StructureElement,
-                                             configuration.StructureName);
+                                             configuration.StructureId);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.Orientation,
                                              configuration.StructureNormalOrientation);
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
                                              configuration.FailureProbabilityStructureWithErosion);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement,
-                                             configuration.ForeshoreProfileName);
+                                             configuration.ForeshoreProfileId);
 
             WriteSpecificStructureParameters(configuration, writer);
         }

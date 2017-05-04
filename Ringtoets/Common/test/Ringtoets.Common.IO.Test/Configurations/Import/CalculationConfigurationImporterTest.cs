@@ -545,7 +545,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             Action validate = () => valid = importer.PublicTryReadForeshoreProfile(profileName, calculationName, Enumerable.Empty<ForeshoreProfile>(), out profile);
 
             // Assert
-            string expectedMessage = $"Het voorlandprofiel '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het voorlandprofiel met ID '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);
@@ -661,14 +661,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             StructureBase profile = null;
             var valid = true;
 
-            const string structureName = "someName";
+            const string structureId = "someAwesomeId";
             const string calculationName = "name";
 
             // Call
-            Action validate = () => valid = importer.PublicTryReadStructure(structureName, calculationName, Enumerable.Empty<StructureBase>(), out profile);
+            Action validate = () => valid = importer.PublicTryReadStructure(structureId, calculationName, Enumerable.Empty<StructureBase>(), out profile);
 
             // Assert
-            string expectedMessage = $"Het kunstwerk '{structureName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het kunstwerk met ID '{structureId}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);
@@ -867,10 +867,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name) : base(new ConstructionProperties
+            public TestStructure(string Id) : base(new ConstructionProperties
             {
-                Name = name,
-                Id = "Id",
+                Name = "Name",
+                Id = Id,
                 Location = new Point2D(0, 0),
                 StructureNormalOrientation = (RoundedDouble) 2
             }) {}
