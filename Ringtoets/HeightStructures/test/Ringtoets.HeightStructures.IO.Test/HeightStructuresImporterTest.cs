@@ -239,9 +239,9 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Kunstwerk 'KWK_1' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
-                Tuple.Create("Kunstwerk 'KWK_2' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
-                Tuple.Create("Kunstwerk 'KWK_4' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_1' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_2' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Kunstwerk met ID 'KWK_4' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsTrue(importResult);
