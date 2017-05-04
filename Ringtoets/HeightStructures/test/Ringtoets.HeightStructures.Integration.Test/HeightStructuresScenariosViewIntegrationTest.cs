@@ -34,6 +34,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
+using Ringtoets.HeightStructures.Plugin.FileImporters;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtils;
 
@@ -93,10 +94,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
+                                             new HeightStructureReplaceDataStrategy(failureMechanism),
                                              filePath)
                     .Import();
 
@@ -141,10 +143,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
+                                             new HeightStructureReplaceDataStrategy(failureMechanism),
                                              filePath)
                     .Import();
 
@@ -195,10 +198,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
+                                             new HeightStructureReplaceDataStrategy(failureMechanism),
                                              filePath)
                     .Import();
 

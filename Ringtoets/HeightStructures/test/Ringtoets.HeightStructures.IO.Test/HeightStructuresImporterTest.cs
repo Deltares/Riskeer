@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Plugin.FileImporters;
 
 namespace Ringtoets.HeightStructures.IO.Test
 {
@@ -42,10 +43,26 @@ namespace Ringtoets.HeightStructures.IO.Test
         private readonly string testFilePath = string.Empty;
 
         [Test]
-        public void Constructor_Always_ExpectedValues()
+        public void Constructor_StructureUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            var importer = new HeightStructuresImporter(testImportTarget, testReferenceLine, testFilePath);
+            TestDelegate call = () => new HeightStructuresImporter(testImportTarget, testReferenceLine,
+                                                                   null, testFilePath);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structureUpdateStrategy", paramName);
+        }
+
+        [Test]
+        public void Constructor_Always_ExpectedValues()
+        {
+            // Setup
+            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
+
+            // Call
+            var importer = new HeightStructuresImporter(testImportTarget, testReferenceLine,
+                                                        replaceDataStrategy, testFilePath);
 
             // Assert
             Assert.IsInstanceOf<StructuresImporter<StructureCollection<HeightStructure>>>(importer);
@@ -56,12 +73,15 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+                                                         Path.Combine("Structures", "CorrectFiles",
+                                                                      "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
-            var importTarget = new StructureCollection<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
+            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+                                                                  referenceLine, replaceDataStrategy, filePath);
 
             // Call
             var importResult = false;
@@ -83,8 +103,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
+            Assert.AreEqual(1, failureMechanism.HeightStructures.Count);
+            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -92,12 +112,16 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
-                                                         Path.Combine("HeightStructuresVarianceConvert", "StructureNeedVarianceValueConversion.shp"));
+                                                         Path.Combine("HeightStructuresVarianceConvert",
+                                                                      "StructureNeedVarianceValueConversion.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new StructureCollection<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
+
+            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+                                                                  referenceLine, replaceDataStrategy, filePath);
 
             // Call
             var importResult = false;
@@ -115,15 +139,15 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-            HeightStructure structure = importTarget[0];
+            Assert.AreEqual(1, failureMechanism.HeightStructures.Count);
+            HeightStructure structure = failureMechanism.HeightStructures[0];
             Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
             Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
             Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
+            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -132,12 +156,14 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpIncompleteCsv", "Kunstwerken.shp"));
+                                                         Path.Combine("Structures", "CorrectShpIncompleteCsv",
+                                                                      "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
-
-            var importTarget = new StructureCollection<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
+            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+                                                                  referenceLine, replaceDataStrategy, filePath);
 
             // Call
             var importResult = false;
@@ -165,8 +191,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(0, importTarget.Count);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
+            Assert.AreEqual(0, failureMechanism.HeightStructures.Count);
+            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -174,12 +200,15 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
-                                                         Path.Combine(nameof(HeightStructuresImporter), "Kunstwerken.shp"));
+                                                         Path.Combine(nameof(HeightStructuresImporter),
+                                                                      "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new StructureCollection<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
+            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+                                                                  referenceLine, replaceDataStrategy, filePath);
 
             // Call
             var importResult = false;
@@ -199,8 +228,8 @@ namespace Ringtoets.HeightStructures.IO.Test
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-            HeightStructure importedStructure = importTarget.First();
+            Assert.AreEqual(1, failureMechanism.HeightStructures.Count);
+            HeightStructure importedStructure = failureMechanism.HeightStructures.First();
             var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
             {
                 Name = "test",
@@ -210,7 +239,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.AreEqual(defaultStructure.StructureNormalOrientation, importedStructure.StructureNormalOrientation);
             DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, importedStructure.FlowWidthAtBottomProtection);
             Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, importedStructure.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
+            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -218,7 +247,8 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpRandomCaseHeaderCsv", "Kunstwerken.shp"));
+                                                         Path.Combine("Structures", "CorrectShpRandomCaseHeaderCsv",
+                                                                      "Kunstwerken.shp"));
 
             var referencePoints = new List<Point2D>
             {
@@ -229,16 +259,19 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new StructureCollection<HeightStructure>();
-            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
+            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+                                                                  referenceLine, replaceDataStrategy, filePath);
 
             // Call
             bool importResult = structuresImporter.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, importTarget.Count);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
+            Assert.AreEqual(4, failureMechanism.HeightStructures.Count);
+            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         private static ReferenceLine CreateReferenceLine()

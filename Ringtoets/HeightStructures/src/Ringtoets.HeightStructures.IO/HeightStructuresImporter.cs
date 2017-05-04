@@ -37,24 +37,37 @@ namespace Ringtoets.HeightStructures.IO
     /// </summary>
     public class HeightStructuresImporter : StructuresImporter<StructureCollection<HeightStructure>>
     {
+        private readonly IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy;
+
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresImporter"/>.
         /// </summary>
         /// <param name="importTarget">The height structures to import on.</param>
         /// <param name="referenceLine">The reference line used to check if the <see cref="HeightStructure"/>
         /// objects found in the file are intersecting it.</param>
+        /// <param name="structureUpdateStrategy">The strategy to update the structures with imported data.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public HeightStructuresImporter(StructureCollection<HeightStructure> importTarget,
-                                        ReferenceLine referenceLine, string filePath)
-            : base(importTarget, referenceLine, filePath) {}
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        public HeightStructuresImporter(StructureCollection<HeightStructure> importTarget, ReferenceLine referenceLine,
+                                        IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy,
+                                        string filePath)
+            : base(importTarget, referenceLine, filePath)
+        {
+            if (structureUpdateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(structureUpdateStrategy));
+            }
+
+            this.structureUpdateStrategy = structureUpdateStrategy;
+        }
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            ImportTarget.AddRange(CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray(),
-                                  FilePath);
+            structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
+                                                                     CreateHeightStructures(structureLocations.ToList(),
+                                                                                            groupedStructureParameterRows).ToArray(),
+                                                                     FilePath);
         }
 
         private IEnumerable<HeightStructure> CreateHeightStructures(IEnumerable<StructureLocation> structureLocations,

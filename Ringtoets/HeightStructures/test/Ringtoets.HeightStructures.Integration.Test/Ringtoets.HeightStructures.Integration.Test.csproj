@@ -119,6 +119,10 @@
       <Project>{D63FCFEC-34E8-4C68-8B4F-99338D2447AC}</Project>
       <Name>Ringtoets.HeightStructures.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Plugin\Ringtoets.HeightStructures.Plugin.csproj">
+      <Project>{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}</Project>
+      <Name>Ringtoets.HeightStructures.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Service\Ringtoets.HeightStructures.Service.csproj">
       <Project>{20DD96D3-001E-407A-AE2E-432887088F1F}</Project>
       <Name>Ringtoets.HeightStructures.Service</Name>

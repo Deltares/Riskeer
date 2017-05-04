@@ -51,6 +51,7 @@ using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.IO.Configurations;
+using Ringtoets.HeightStructures.Plugin.FileImporters;
 using Ringtoets.HeightStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -90,6 +91,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 CreateFileImporter = (context, filePath) => new HeightStructuresImporter(context.WrappedData,
                                                                                          context.AssessmentSection.ReferenceLine,
+                                                                                         new HeightStructureReplaceDataStrategy(context.FailureMechanism),
                                                                                          filePath),
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,

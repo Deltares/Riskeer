@@ -41,6 +41,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Abstract class for structure importers, providing an implementation of importing point shapefiles 
     /// containing structure locations and csv files containing structure schematizations.
     /// </summary>
+    /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
     public abstract class StructuresImporter<T> : FileImporterBase<T>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StructuresImporter<T>));
