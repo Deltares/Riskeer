@@ -68,6 +68,12 @@ namespace Core.Components.OxyPlot.DataSeries
                 return new ChartMultipleAreaDataSeries(chartMultipleAreaData);
             }
 
+            var chartMultipleLineData = data as ChartMultipleLineData;
+            if (chartMultipleLineData != null)
+            {
+                return new ChartMultipleLineDataSeries(chartMultipleLineData);
+            }
+
             throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, "ItemBasedChartData of type {0} is not supported.", data.GetType().Name));
         }
     }

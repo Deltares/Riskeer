@@ -53,10 +53,13 @@
     <Compile Include="Converter\ChartDataHelper.cs" />
     <Compile Include="Converter\ChartMultipleAreaDataConverter.cs" />
     <Compile Include="Converter\ChartLineDataConverter.cs" />
+    <Compile Include="Converter\ChartMultipleLineDataConverter.cs" />
     <Compile Include="Converter\ChartPointDataConverter.cs" />
+    <Compile Include="CustomSeries\MultipleLineSeries.cs" />
     <Compile Include="DataSeries\ChartAreaDataSeries.cs" />
     <Compile Include="DataSeries\ChartLineDataSeries.cs" />
     <Compile Include="DataSeries\ChartMultipleAreaDataSeries.cs" />
+    <Compile Include="DataSeries\ChartMultipleLineDataSeries.cs" />
     <Compile Include="DataSeries\IItemBasedChartDataSeries.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
     <Compile Include="DynamicPlotController.cs" />

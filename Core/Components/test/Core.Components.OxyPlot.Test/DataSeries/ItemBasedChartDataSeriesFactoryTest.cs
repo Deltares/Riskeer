@@ -70,6 +70,16 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         }
 
         [Test]
+        public void Create_ChartMultipleLineData_ReturnChartMultipleLineDataSeries()
+        {
+            // Call
+            IItemBasedChartDataSeries series = ItemBasedChartDataSeriesFactory.Create(new ChartMultipleLineData("test data"));
+
+            // Assert
+            Assert.IsInstanceOf<ChartMultipleLineDataSeries>(series);
+        }
+
+        [Test]
         public void Create_OtherData_ThrowsNotSupportedException()
         {
             // Setup

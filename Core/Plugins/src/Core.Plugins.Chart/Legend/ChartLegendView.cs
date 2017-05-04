@@ -111,7 +111,7 @@ namespace Core.Plugins.Chart.Legend
                 return ChartResources.PointsIcon;
             }
 
-            if (context.WrappedData is ChartLineData)
+            if (context.WrappedData is ChartLineData || context.WrappedData is ChartMultipleLineData)
             {
                 return ChartResources.LineIcon;
             }

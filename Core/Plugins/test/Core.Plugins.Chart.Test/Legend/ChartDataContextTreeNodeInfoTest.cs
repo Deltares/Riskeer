@@ -52,6 +52,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 yield return new TestCaseData(new ChartLineData("test"), Resources.LineIcon);
                 yield return new TestCaseData(new ChartAreaData("test"), Resources.AreaIcon);
                 yield return new TestCaseData(new ChartMultipleAreaData("test data"), Resources.AreaIcon);
+                yield return new TestCaseData(new ChartMultipleLineData("test data"), Resources.LineIcon);
                 yield return new TestCaseData(new ChartDataCollection("test"), GuiResources.folder);
             }
         }
@@ -65,6 +66,7 @@ namespace Core.Plugins.Chart.Test.Legend
                     new ChartPointData("test"),
                     new ChartLineData("test"),
                     new ChartAreaData("Test"),
+                    new ChartMultipleLineData("Test"), 
                     new ChartDataCollection("test")
                 };
             }
@@ -79,7 +81,8 @@ namespace Core.Plugins.Chart.Test.Legend
                     new ChartPointData("test"),
                     new ChartLineData("test"),
                     new ChartAreaData("Test"),
-                    new ChartMultipleAreaData("test data")
+                    new ChartMultipleAreaData("test data"),
+                    new ChartMultipleLineData("Test")
                 };
             }
         }
@@ -96,6 +99,8 @@ namespace Core.Plugins.Chart.Test.Legend
                 yield return new TestCaseData(new ChartAreaData("test"), true);
                 yield return new TestCaseData(new ChartMultipleAreaData("test data"), false);
                 yield return new TestCaseData(new ChartMultipleAreaData("test data"), true);
+                yield return new TestCaseData(new ChartMultipleLineData("test data"), false);
+                yield return new TestCaseData(new ChartMultipleLineData("test data"), true);
             }
         }
 
@@ -154,7 +159,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        [TestCaseSource("ChartDataLegendImages")]
+        [TestCaseSource(nameof(ChartDataLegendImages))]
         public void Image_WrappedDataChartPointData_ReturnPointsIcon(ChartData chartData, Image expectedImage)
         {
             // Setup            
@@ -196,7 +201,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        [TestCaseSource("NoChartDataCollection")]
+        [TestCaseSource(nameof(NoChartDataCollection))]
         public void ChildNodeObjects_OtherThanChartDataCollection_ReturnsEmptyArray(ChartData chartData)
         {
             // Setup
@@ -224,7 +229,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        [TestCaseSource("DragChartData")]
+        [TestCaseSource(nameof(DragChartData))]
         public void CanDrag_WrappedDataOtherThanChartMultipleAreaData_ReturnsTrue(ChartData chartData)
         {
             // Setup
@@ -251,7 +256,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        [TestCaseSource("NoChartDataCollection")]
+        [TestCaseSource(nameof(NoChartDataCollection))]
         public void CanCheck_WrappedDataOtherThanChartDataCollection_ReturnsTrue(ChartData chartData)
         {
             // Setup
@@ -265,7 +270,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        [TestCaseSource("IsCheckedChartData")]
+        [TestCaseSource(nameof(IsCheckedChartData))]
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfChartData(ChartData chartData, bool isVisible)
         {
             // Setup
@@ -280,7 +285,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        [TestCaseSource("IsCheckedChartData")]
+        [TestCaseSource(nameof(IsCheckedChartData))]
         public void OnNodeChecked_Always_SetsPointDataVisibilityAndNotifiesParentObservers(ChartData chartData, bool initialVisibleState)
         {
             // Setup

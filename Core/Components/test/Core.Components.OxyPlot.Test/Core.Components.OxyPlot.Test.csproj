@@ -60,12 +60,15 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converter\ChartAreaDataConverterTest.cs" />
+    <Compile Include="Converter\ChartMultipleLineDataConverterTest.cs" />
     <Compile Include="Converter\ItemBasedChartDataConverterTest.cs" />
     <Compile Include="Converter\ChartDataHelperTest.cs" />
     <Compile Include="Converter\ChartLineDataConverterTest.cs" />
     <Compile Include="Converter\ChartMultipleAreaDataConverterTest.cs" />
     <Compile Include="Converter\ChartPointDataConverterTest.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeriesTest.cs" />
+    <Compile Include="CustomSeries\MultipleLineSeriesTest.cs" />
+    <Compile Include="DataSeries\ChartMultipleLineDataSeriesTest.cs" />
     <Compile Include="DataSeries\ChartPointDataSeriesTest.cs" />
     <Compile Include="DataSeries\ChartLineDataSeriesTest.cs" />
     <Compile Include="DataSeries\ChartAreaDataSeriesTest.cs" />
