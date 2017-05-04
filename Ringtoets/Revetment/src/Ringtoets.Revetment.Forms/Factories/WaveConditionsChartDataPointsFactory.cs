@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -121,16 +122,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
-            if (input == null || double.IsNaN(input.LowerBoundaryRevetment))
-            {
-                return new Point2D[0];
-            }
-
-            return new[]
-            {
-                new Point2D(GetForeshoreProfileStartX(input), input.LowerBoundaryRevetment),
-                new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
-            };
+            return CreateGeometryPoints(input, () => input.LowerBoundaryRevetment);
         }
 
         /// <summary>
@@ -145,16 +137,55 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateUpperBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
-            if (input == null || double.IsNaN(input.UpperBoundaryRevetment))
+            return CreateGeometryPoints(input, () => input.UpperBoundaryRevetment);
+        }
+
+        /// <summary>
+        /// Create lower boundary water levels geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the lower boundary water levels geometry points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the <see cref="WaveConditionsInput.LowerBoundaryWaterLevels"/> is not set;</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateLowerBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
+        {
+            return CreateGeometryPoints(input, () => input.LowerBoundaryWaterLevels);
+        }
+
+        /// <summary>
+        /// Create upper boundary water levels geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the upper boundary water levels geometry points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryWaterLevels"/> is not set;</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateUpperBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
+        {
+            return CreateGeometryPoints(input, () => input.UpperBoundaryWaterLevels);
+        }
+
+        private static Point2D[] CreateGeometryPoints(WaveConditionsInput input, Func<double> getValueFunc)
+        {
+            if (input == null)
             {
                 return new Point2D[0];
             }
 
-            return new[]
-            {
-                new Point2D(GetForeshoreProfileStartX(input), input.UpperBoundaryRevetment),
-                new Point2D(GetPointXOnRevetmenetLine(input, input.UpperBoundaryRevetment), input.UpperBoundaryRevetment)
-            };
+            double value = getValueFunc();
+
+            return double.IsNaN(value)
+                       ? new Point2D[0]
+                       : new[]
+                       {
+                           new Point2D(GetForeshoreProfileStartX(input), value),
+                           new Point2D(GetPointXOnRevetmenetLine(input, value), value)
+                       };
         }
 
         private static double GetForeshoreProfileStartX(WaveConditionsInput input)
