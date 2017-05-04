@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -43,6 +44,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
@@ -89,16 +91,14 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             yield return new ImportInfo<HeightStructuresContext>
             {
-                CreateFileImporter = (context, filePath) => new HeightStructuresImporter(context.WrappedData,
-                                                                                         context.AssessmentSection.ReferenceLine,
-                                                                                         new HeightStructureReplaceDataStrategy(context.FailureMechanism),
-                                                                                         filePath),
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
+                IsEnabled = IsHeightStructuresImporterEnabled,
+                FileFilterGenerator = HeightStructureFileFilter(),
+                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(context,
+                                                                                           filePath,
+                                                                                           new ImportMessageProvider())
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
@@ -109,6 +109,22 @@ namespace Ringtoets.HeightStructures.Plugin
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures,
                     context.FailureMechanism));
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return new UpdateInfo<HeightStructuresContext>
+            {
+                Name = RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                IsEnabled = IsHeightStructuresImporterEnabled,
+                FileFilterGenerator = HeightStructureFileFilter(),
+                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(context,
+                                                                                           filePath,
+                                                                                           new UpdateMessageProvider()),
+                CurrentPath = context => context.WrappedData.SourcePath
+            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -194,16 +210,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = HeightStructuresContextContextMenuStrip
             };
 
             yield return new TreeNodeInfo<HeightStructure>
@@ -355,6 +362,24 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 observable.NotifyObservers();
             }
+        }
+
+        #endregion
+
+        #region HeightStructuresContext TreeNodeInfo
+
+        private ContextMenuStrip HeightStructuresContextContextMenuStrip(HeightStructuresContext nodeData,
+                                                                         object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .AddUpdateItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         #endregion
@@ -731,6 +756,31 @@ namespace Ringtoets.HeightStructures.Plugin
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Importers
+
+        #region HeightStructuresImporter
+
+        private static IFileImporter CreateHeightStructuresImporter(HeightStructuresContext context, string filePath, IImporterMessageProvider messageProvider)
+        {
+            return new HeightStructuresImporter(context.WrappedData, context.AssessmentSection.ReferenceLine,
+                                                filePath, messageProvider, new HeightStructureUpdateDataStrategy(context.FailureMechanism));
+        }
+
+        private static bool IsHeightStructuresImporterEnabled(HeightStructuresContext context)
+        {
+            return context.AssessmentSection.ReferenceLine != null;
+        }
+
+        private static FileFilterGenerator HeightStructureFileFilter()
+        {
+            return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                                           RingtoetsCommonIOResources.Shape_file_filter_Description);
         }
 
         #endregion

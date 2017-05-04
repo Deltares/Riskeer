@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -45,8 +44,6 @@ namespace Ringtoets.Common.IO.Configurations.Import
         where TCalculationConfigurationReader : CalculationConfigurationReader<TReadCalculation>
         where TReadCalculation : class, IConfigurationItem
     {
-        protected readonly ILog Log = LogManager.GetLogger(typeof(CalculationConfigurationImporter<TCalculationConfigurationReader, TReadCalculation>));
-
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationImporter{TCalculationConfigurationReader,TReadCalculation}"/>.
         /// </summary>

@@ -26,11 +26,13 @@ using System.Windows.Forms;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
@@ -90,6 +92,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
         public void ScenariosView_GenerateCalculations_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
+            var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -98,8 +104,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
-                                             new HeightStructureReplaceDataStrategy(failureMechanism),
-                                             filePath)
+                                             filePath, messageProvider, new HeightStructureReplaceDataStrategy(failureMechanism))
                     .Import();
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
@@ -133,12 +138,17 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("Eerste kunstwerk 6-3", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ScenariosView_RenameCalculations_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
+            var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -147,8 +157,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
-                                             new HeightStructureReplaceDataStrategy(failureMechanism),
-                                             filePath)
+                                             filePath, messageProvider, new HeightStructureReplaceDataStrategy(failureMechanism))
                     .Import();
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
@@ -188,12 +197,18 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("Eerste kunstwerk 6-3_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ScenariosView_ChangeStructureOfCalculation_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
+            var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -202,8 +217,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
-                                             new HeightStructureReplaceDataStrategy(failureMechanism),
-                                             filePath)
+                                             filePath, messageProvider, new HeightStructureReplaceDataStrategy(failureMechanism))
                     .Import();
 
                 var view = new HeightStructuresScenariosView
@@ -245,6 +259,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items[0].ToString());
             }
+
+            mocks.VerifyAll();
         }
     }
 }

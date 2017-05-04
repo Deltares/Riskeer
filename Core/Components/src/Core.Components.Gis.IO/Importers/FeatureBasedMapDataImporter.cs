@@ -30,8 +30,6 @@ using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
 using DotSpatial.Topology;
-using log4net;
-using ILog = log4net.ILog;
 
 namespace Core.Components.Gis.IO.Importers
 {
@@ -41,8 +39,6 @@ namespace Core.Components.Gis.IO.Importers
     /// </summary>
     public class FeatureBasedMapDataImporter : FileImporterBase<MapDataCollection>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(FeatureBasedMapDataImporter));
-
         /// <summary>
         /// Creates a new instance of <see cref="FeatureBasedMapDataImporter"/>.
         /// </summary>
@@ -68,7 +64,7 @@ namespace Core.Components.Gis.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read);
+            Log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read);
         }
 
         private void AddFeatureBasedMapDataToMapDataCollection(FeatureBasedMapData importedMapData)
@@ -146,7 +142,7 @@ namespace Core.Components.Gis.IO.Importers
         {
             string errorMessage = string.Format(Resources.FeatureBasedMapDataImporter_HandleCriticalFileReadError_Error_0_no_maplayer_imported,
                                                 new FileReaderErrorMessageBuilder(FilePath).Build(message));
-            log.Error(errorMessage);
+            Log.Error(errorMessage);
             return new ReadResult<FeatureBasedMapData>(true);
         }
     }

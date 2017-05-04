@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.Properties;
@@ -47,8 +46,6 @@ namespace Ringtoets.Common.IO.FileImporters
         /// The length tolerance between the reference line and the imported FailureMechanismSections in meters.
         /// </summary>
         private const double lengthDifferenceTolerance = 1;
-
-        private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismSectionsImporter));
 
         private readonly ReferenceLine referenceLine;
 
@@ -104,7 +101,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(Resources.FailureMechanismSectionsImporter_Import_canceled_no_data_read);
+            Log.Info(Resources.FailureMechanismSectionsImporter_Import_canceled_no_data_read);
         }
 
         private ReadResult<FailureMechanismSection> ReadFailureMechanismSections()
@@ -175,7 +172,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             string errorMessage = string.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
                                                 message);
-            log.Error(errorMessage);
+            Log.Error(errorMessage);
         }
 
         private static bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)

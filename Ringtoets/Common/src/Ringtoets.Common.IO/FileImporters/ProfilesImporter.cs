@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
@@ -45,7 +44,6 @@ namespace Ringtoets.Common.IO.FileImporters
     /// <seealso cref="FileImporterBase{T}"/>
     public abstract class ProfilesImporter<T> : FileImporterBase<T>
     {
-        protected readonly ILog Log = LogManager.GetLogger(typeof(ProfilesImporter<T>));
         protected readonly IImporterMessageProvider MessageProvider;
         private readonly ReferenceLine referenceLine;
 

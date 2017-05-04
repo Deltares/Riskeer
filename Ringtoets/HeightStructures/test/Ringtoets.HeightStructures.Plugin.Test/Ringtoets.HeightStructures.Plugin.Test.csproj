@@ -75,6 +75,7 @@
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructureTreeNodeInfoTest.cs" />
+    <Compile Include="UpdateInfos\HeightStructuresContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\HeightStructuresFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\HeightStructuresScenariosViewInfoTest.cs" />
     <Compile Include="HeightStructuresPluginTest.cs" />

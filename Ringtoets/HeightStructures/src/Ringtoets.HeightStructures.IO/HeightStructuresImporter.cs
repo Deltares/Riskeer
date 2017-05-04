@@ -26,8 +26,10 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.IO
 {
@@ -37,6 +39,7 @@ namespace Ringtoets.HeightStructures.IO
     /// </summary>
     public class HeightStructuresImporter : StructuresImporter<StructureCollection<HeightStructure>>
     {
+        private readonly IImporterMessageProvider messageProvider;
         private readonly IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy;
 
         /// <summary>
@@ -44,20 +47,26 @@ namespace Ringtoets.HeightStructures.IO
         /// </summary>
         /// <param name="importTarget">The height structures to import on.</param>
         /// <param name="referenceLine">The reference line used to check if the <see cref="HeightStructure"/>
-        /// objects found in the file are intersecting it.</param>
-        /// <param name="structureUpdateStrategy">The strategy to update the structures with imported data.</param>
+        ///     objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
+        /// <param name="structureUpdateStrategy">The strategy to update the structures with imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public HeightStructuresImporter(StructureCollection<HeightStructure> importTarget, ReferenceLine referenceLine,
-                                        IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy,
-                                        string filePath)
+                                        string filePath, IImporterMessageProvider messageProvider,
+                                        IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy)
             : base(importTarget, referenceLine, filePath)
         {
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
             if (structureUpdateStrategy == null)
             {
                 throw new ArgumentNullException(nameof(structureUpdateStrategy));
             }
 
+            this.messageProvider = messageProvider;
             this.structureUpdateStrategy = structureUpdateStrategy;
         }
 
@@ -68,6 +77,12 @@ namespace Ringtoets.HeightStructures.IO
                                                                      CreateHeightStructures(structureLocations.ToList(),
                                                                                             groupedStructureParameterRows).ToArray(),
                                                                      FilePath);
+        }
+
+        protected override void LogImportCanceledMessage()
+        {
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.StructureCollection_TypeDescriptor);
+            Log.Info(message);
         }
 
         private IEnumerable<HeightStructure> CreateHeightStructures(IEnumerable<StructureLocation> structureLocations,

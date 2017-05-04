@@ -33,7 +33,7 @@ namespace Core.Common.Base.IO
     /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
     public abstract class FileImporterBase<T> : IFileImporter
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(FileImporterBase<T>));
+        protected readonly ILog Log = LogManager.GetLogger(typeof(FileImporterBase<T>));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileImporterBase{T}"/> class.
@@ -110,7 +110,7 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// Gets the path to the file to import from.
         /// </summary>
-        protected string FilePath { get; private set; }
+        protected string FilePath { get; }
 
         /// <summary>
         /// Gets the value indicating if a cancel request has been made. When true, no 
@@ -146,7 +146,7 @@ namespace Core.Common.Base.IO
 
         private void LogImportUncancelableMessage()
         {
-            log.Warn(Resources.FileImporterBase_LogUncancelableMessage_Import_cannot_be_canceled_and_continued);
+            Log.Warn(Resources.FileImporterBase_LogUncancelableMessage_Import_cannot_be_canceled_and_continued);
         }
     }
 }

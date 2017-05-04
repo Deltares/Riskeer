@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -37,8 +36,6 @@ namespace Ringtoets.Common.IO.ReferenceLines
     /// </summary>
     public class ReferenceLineImporter : FileImporterBase<IAssessmentSection>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
-
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IReferenceLineReplaceHandler replacementHandler;
 
@@ -83,7 +80,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         protected override void LogImportCanceledMessage()
         {
-            log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_canceled_no_data_read);
+            Log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_canceled_no_data_read);
         }
 
         protected override void DoPostImportUpdates()
@@ -138,11 +135,11 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
         }
 
-        private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
+        private ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
             string errorMessage = string.Format(RingtoetsCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                                 e.Message);
-            log.Error(errorMessage);
+            Log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);
         }
 

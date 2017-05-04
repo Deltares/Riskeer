@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using log4net;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
@@ -43,7 +42,6 @@ namespace Ringtoets.Piping.IO.Importers
     /// </summary>
     public class StochasticSoilModelImporter : FileImporterBase<StochasticSoilModelCollection>
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelImporter));
         private readonly IImporterMessageProvider messageProvider;
         private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
         private IEnumerable<IObservable> updatedInstances;
@@ -119,7 +117,7 @@ namespace Ringtoets.Piping.IO.Importers
         protected override void LogImportCanceledMessage()
         {
             string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.StochasticSoilModelCollection_TypeDescriptor);
-            log.Info(message);
+            Log.Info(message);
         }
 
         /// <summary>
@@ -133,19 +131,19 @@ namespace Ringtoets.Piping.IO.Importers
         {
             if (!stochasticSoilModel.StochasticSoilProfiles.Any())
             {
-                log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0,
+                Log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0,
                                stochasticSoilModel.Name);
                 return false;
             }
             if (stochasticSoilModel.StochasticSoilProfiles.Any(ssp => ssp.SoilProfile == null))
             {
-                log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile,
+                Log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile,
                                stochasticSoilModel.Name);
                 return false;
             }
             if (!IsSumOfAllProbabilitiesEqualToOne(stochasticSoilModel))
             {
-                log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
+                Log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
                                stochasticSoilModel.Name);
             }
             return true;
@@ -206,7 +204,7 @@ namespace Ringtoets.Piping.IO.Importers
                     if (currentProfile.SoilProfileId == previousProfile.SoilProfileId &&
                         currentProfile.SoilProfileType == previousProfile.SoilProfileType)
                     {
-                        log.Warn(string.Format(Resources.StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added,
+                        Log.Warn(string.Format(Resources.StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added,
                                                previousProfile.SoilProfile.Name,
                                                stochasticSoilModel.Name));
 
@@ -222,7 +220,7 @@ namespace Ringtoets.Piping.IO.Importers
             NotifyProgress(Resources.StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles, 1, 1);
             foreach (PipingSoilProfile soilProfile in soilProfiles.Where(soilProfile => !PipingSoilProfileIsUsed(soilProfile, stochasticSoilModels)))
             {
-                log.WarnFormat(Resources.StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model, soilProfile.Name);
+                Log.WarnFormat(Resources.StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model, soilProfile.Name);
             }
         }
 
@@ -238,7 +236,7 @@ namespace Ringtoets.Piping.IO.Importers
         {
             string message = string.Format(Resources.StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped,
                                            e.Message);
-            log.Error(message);
+            Log.Error(message);
         }
 
         #region read stochastic soil models
@@ -280,7 +278,7 @@ namespace Ringtoets.Piping.IO.Importers
                 catch (StochasticSoilProfileReadException e)
                 {
                     string message = string.Format(Resources.StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped, e.Message);
-                    log.Error(message);
+                    Log.Error(message);
                 }
             }
             return new ReadResult<StochasticSoilModel>(false)
@@ -331,13 +329,13 @@ namespace Ringtoets.Piping.IO.Importers
                 {
                     string message = string.Format(Resources.StochasticSoilModelImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
                                                    e.Message);
-                    log.Error(message);
+                    Log.Error(message);
                 }
                 catch (CriticalFileReadException e)
                 {
                     string message = string.Format(Resources.StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped,
                                                    FilePath, e.Message);
-                    log.Error(message);
+                    Log.Error(message);
                     return new ReadResult<PipingSoilProfile>(true);
                 }
             }
