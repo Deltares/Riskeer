@@ -545,7 +545,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             Action validate = () => valid = importer.PublicTryReadForeshoreProfile(profileName, calculationName, Enumerable.Empty<ForeshoreProfile>(), out profile);
 
             // Assert
-            string expectedMessage = $"Het voorlandprofiel '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"Het voorlandprofiel met ID '{profileName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(profile);
