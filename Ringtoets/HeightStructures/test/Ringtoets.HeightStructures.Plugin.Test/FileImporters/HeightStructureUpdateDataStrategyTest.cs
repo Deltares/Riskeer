@@ -453,13 +453,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             // Assert
             AssertHeightStructures(readStructure, structure);
 
-            var expectedAffectedObjects = new List<IObservable>
+            CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
                 calculation.InputParameters
-            };
-            expectedAffectedObjects.AddRange(failureMechanism.SectionResults);
-            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
+            }, affectedObjects);
 
             sectionResults = failureMechanism.SectionResults.ToArray();
             Assert.AreEqual(2, sectionResults.Length);

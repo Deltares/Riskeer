@@ -123,10 +123,9 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                 }
             }
 
-            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
-            );
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                FailureMechanism.SectionResults,
+                FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
 
             return affectedObjects;
         }
