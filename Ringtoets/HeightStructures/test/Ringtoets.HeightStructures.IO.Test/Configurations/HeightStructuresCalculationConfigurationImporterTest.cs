@@ -563,7 +563,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel 'unknown' bestaat niet.")]
+            "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
             "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownStructure.xml",

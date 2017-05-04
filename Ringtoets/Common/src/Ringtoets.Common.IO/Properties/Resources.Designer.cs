@@ -196,7 +196,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het voorlandprofiel &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to Het voorlandprofiel met ID &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist {
             get {
@@ -749,7 +749,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorlandprofiel &apos;{0}&apos; is al geïmporteerd en wordt overgeslagen..
+        ///   Looks up a localized string similar to Voorlandprofiel met ID &apos;{0}&apos; is al geïmporteerd en wordt overgeslagen..
         /// </summary>
         public static string ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported {
             get {

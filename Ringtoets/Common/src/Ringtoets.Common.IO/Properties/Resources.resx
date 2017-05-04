@@ -590,7 +590,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
     <value>oriëntatie</value>
   </data>
   <data name="CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist" xml:space="preserve">
-    <value>Het voorlandprofiel '{0}' bestaat niet.</value>
+    <value>Het voorlandprofiel met ID '{0}' bestaat niet.</value>
   </data>
   <data name="CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided" xml:space="preserve">
     <value>Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
@@ -644,7 +644,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
     <value>Er is geen kunstwerk opgegeven om de stochast '{0}' aan toe te voegen.</value>
   </data>
   <data name="ForeshoreProfilesImporter_CreateProfiles_ForeshoreProfile_0_already_imported" xml:space="preserve">
-    <value>Voorlandprofiel '{0}' is al geïmporteerd en wordt overgeslagen.</value>
+    <value>Voorlandprofiel met ID '{0}' is al geïmporteerd en wordt overgeslagen.</value>
   </data>
   <data name="StructuresImporter_LogStructureExisting_Structure_0_already_imported" xml:space="preserve">
     <value>Kunstwerk met ID '{0}' is al geïmporteerd en wordt overgeslagen.</value>

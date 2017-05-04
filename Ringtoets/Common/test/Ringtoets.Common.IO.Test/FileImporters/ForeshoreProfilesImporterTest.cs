@@ -460,10 +460,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Voorlandprofiel 'profiel001' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
-                Tuple.Create("Voorlandprofiel 'profiel002' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
-                Tuple.Create("Voorlandprofiel 'profiel003' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
-                Tuple.Create("Voorlandprofiel 'profiel005' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn)
+                Tuple.Create("Voorlandprofiel met ID 'profiel001' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Voorlandprofiel met ID 'profiel002' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Voorlandprofiel met ID 'profiel003' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn),
+                Tuple.Create("Voorlandprofiel met ID 'profiel005' is al geïmporteerd en wordt overgeslagen.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 4);
             Assert.IsTrue(importResult);
