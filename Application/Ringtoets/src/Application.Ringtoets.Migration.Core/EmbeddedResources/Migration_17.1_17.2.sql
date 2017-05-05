@@ -12,7 +12,76 @@ INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEnt
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
 INSERT INTO CharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].CharacteristicPointEntity;
-INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
+INSERT INTO ClosingStructureEntity (
+	[ClosingStructureEntityId],
+	[FailureMechanismEntityId],
+	[Order],
+	[Name],
+	[Id],
+	[X],
+	[Y],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOrFrequencyOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType])
+SELECT 
+	[ClosingStructureEntityId],
+	[FailureMechanismEntityId],
+	[Order],
+	[Name],
+	CASE WHEN Suffix THEN [Id] || '(' || Suffix || ')' ELSE [Id] END as [Id],
+	[X],
+	[Y],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOrFrequencyOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType]
+	FROM (SELECT *, (SELECT count(*)
+                     FROM [SOURCEPROJECT].ClosingStructureEntity
+                     WHERE HS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
+                     AND HS.[Name] IS [Name]
+                     AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
+	FROM [SOURCEPROJECT].ClosingStructureEntity HS);
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity (
 	[ClosingStructuresFailureMechanismMetaEntityId],
