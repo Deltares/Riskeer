@@ -48,7 +48,6 @@
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\HeightStructureCollectionProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructureProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextProperties.cs" />

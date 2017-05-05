@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -95,6 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
                 entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
             Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
+            Assert.IsNull(metaEntity.ClosingStructureCollectionSourcePath);
         }
 
         [Test]
@@ -104,6 +106,8 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
+            const string originalForeshoreProfilesSourcePath = "foreshoreProfiles/file/path";
+            const string originalStructuresSourcePath = "structures/file/path";
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InputComments =
@@ -119,6 +123,8 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
                     Body = originalNotRelevantText
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(Enumerable.Empty<ForeshoreProfile>(), originalForeshoreProfilesSourcePath);
+            failureMechanism.ClosingStructures.AddRange(Enumerable.Empty<ClosingStructure>(), originalStructuresSourcePath);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -134,6 +140,14 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.First();
+            Assert.AreNotSame(originalForeshoreProfilesSourcePath, metaEntity.ForeshoreProfileCollectionSourcePath,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalForeshoreProfilesSourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);
+            Assert.AreNotSame(originalStructuresSourcePath, metaEntity.ClosingStructureCollectionSourcePath,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalStructuresSourcePath, metaEntity.ClosingStructureCollectionSourcePath);
         }
 
         [Test]

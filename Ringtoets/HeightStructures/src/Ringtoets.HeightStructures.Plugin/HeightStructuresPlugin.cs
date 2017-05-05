@@ -43,6 +43,7 @@ using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
@@ -76,9 +77,9 @@ namespace Ringtoets.HeightStructures.Plugin
                     new FailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>())
             };
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
-            yield return new PropertyInfo<HeightStructuresContext, HeightStructureCollectionProperties>
+            yield return new PropertyInfo<HeightStructuresContext, StructureCollectionProperties<HeightStructure>>
             {
-                CreateInstance = context => new HeightStructureCollectionProperties(context.WrappedData)
+                CreateInstance = context => new StructureCollectionProperties<HeightStructure>(context.WrappedData)
             };
             yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>
             {

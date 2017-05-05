@@ -77,6 +77,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\StructureCollectionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\IObservablePropertyChangeHandler.cs" />

@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test
 {
@@ -58,7 +59,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -69,6 +70,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                     propertyInfos,
                     typeof(ClosingStructure),
                     typeof(ClosingStructureProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ClosingStructuresContext),
+                    typeof(StructureCollectionProperties<ClosingStructure>));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

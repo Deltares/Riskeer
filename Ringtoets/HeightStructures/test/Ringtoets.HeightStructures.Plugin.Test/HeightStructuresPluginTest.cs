@@ -27,6 +27,7 @@ using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
@@ -73,7 +74,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresContext),
-                    typeof(HeightStructureCollectionProperties));
+                    typeof(StructureCollectionProperties<HeightStructure>));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

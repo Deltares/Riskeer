@@ -23,23 +23,23 @@ using System;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data;
-using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StructureCollection{HeightStructure}"/> for properties panel.
+    /// ViewModel of <see cref="StructureCollection{TStructure}"/> for properties panel.
     /// </summary>
-    public class HeightStructureCollectionProperties : ObjectProperties<StructureCollection<HeightStructure>>
+    public class StructureCollectionProperties<TStructure> : ObjectProperties<StructureCollection<TStructure>>
+        where TStructure : StructureBase
     {
         /// <summary>
-        /// Instantiates a <see cref="HeightStructureCollectionProperties"/>.
+        /// Instantiates a <see cref="StructureCollectionProperties{TStructure}"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public HeightStructureCollectionProperties(StructureCollection<HeightStructure> collection)
+        public StructureCollectionProperties(StructureCollection<TStructure> collection)
         {
             if (collection == null)
             {

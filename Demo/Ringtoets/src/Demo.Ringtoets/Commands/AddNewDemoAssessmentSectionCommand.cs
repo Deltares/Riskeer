@@ -406,7 +406,7 @@ namespace Demo.Ringtoets.Commands
                 new HeightStructure.ConstructionProperties
                 {
                     Id = "KUNST1",
-                    Name = "KUNST1",
+                    Name = "Kunstwerk 1",
                     Location = new Point2D(12345.56789, 9876.54321),
                     StructureNormalOrientation = (RoundedDouble) 10.0,
                     LevelCrestStructure =
@@ -468,8 +468,8 @@ namespace Demo.Ringtoets.Commands
             return new ClosingStructure(
                 new ClosingStructure.ConstructionProperties
                 {
-                    Name = "KUNST1",
                     Id = "KUNST1",
+                    Name = "Kunstwerk 1",
                     Location = new Point2D(12345.56789, 9876.54321),
                     StorageStructureArea =
                     {

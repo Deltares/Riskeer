@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -26,19 +26,18 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HeightStructureCollectionPropertiesTest
+    public class StructureCollectionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructureCollectionProperties(null);
+            TestDelegate test = () => new StructureCollectionProperties<StructureBase>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,14 +49,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             const string someFilePath = "location/to/a/file";
-            var collection = new StructureCollection<HeightStructure>();
-            collection.AddRange(Enumerable.Empty<HeightStructure>(), someFilePath);
+            var collection = new StructureCollection<StructureBase>();
+            collection.AddRange(Enumerable.Empty<StructureBase>(), someFilePath);
 
             // Call
-            var properties = new HeightStructureCollectionProperties(collection);
+            var properties = new StructureCollectionProperties<StructureBase>(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StructureCollection<HeightStructure>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<StructureCollection<StructureBase>>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,22 +65,22 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new StructureCollection<HeightStructure>();
+            var collection = new StructureCollection<StructureBase>();
 
             // Call
-            var properties = new HeightStructureCollectionProperties(collection);
+            var properties = new StructureCollectionProperties<StructureBase>(collection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptor heightStructureCollectionSourcePathProperty = dynamicProperties[0];
-            Assert.IsNotNull(heightStructureCollectionSourcePathProperty);
-            Assert.IsTrue(heightStructureCollectionSourcePathProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", heightStructureCollectionSourcePathProperty.Category);
-            Assert.AreEqual("Bronlocatie", heightStructureCollectionSourcePathProperty.DisplayName);
-            Assert.AreEqual("De locatie van het bestand waaruit de kunstwerken zijn geïmporteerd.",
-                            heightStructureCollectionSourcePathProperty.Description);
+            PropertyDescriptor structureCollectionSourcePathProperty = dynamicProperties[0];
+            Assert.IsNotNull(structureCollectionSourcePathProperty);
+            Assert.IsTrue(structureCollectionSourcePathProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", structureCollectionSourcePathProperty.Category);
+            Assert.AreEqual("Bronlocatie", structureCollectionSourcePathProperty.DisplayName);
+            Assert.AreEqual("De locatie van het bestand waaruit de kunstwerken zijn ge�mporteerd.",
+                            structureCollectionSourcePathProperty.Description);
         }
     }
 }

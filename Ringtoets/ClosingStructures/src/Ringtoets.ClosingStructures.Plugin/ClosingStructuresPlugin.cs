@@ -48,6 +48,7 @@ using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
@@ -72,6 +73,10 @@ namespace Ringtoets.ClosingStructures.Plugin
                     new FailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>())
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
+            yield return new PropertyInfo<ClosingStructuresContext, StructureCollectionProperties<ClosingStructure>>
+            {
+                CreateInstance = context => new StructureCollectionProperties<ClosingStructure>(context.WrappedData)
+            };
             yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>
             {
                 CreateInstance = context => new ClosingStructuresInputContextProperties(
@@ -152,6 +157,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 

@@ -289,7 +289,7 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertExpectedHeightStructureValues(HeightStructure heightStructure)
         {
-            Assert.AreEqual("KUNST1", heightStructure.Name);
+            Assert.AreEqual("Kunstwerk 1", heightStructure.Name);
             Assert.AreEqual("KUNST1", heightStructure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), heightStructure.Location);
             Assert.AreEqual(10.0, heightStructure.StructureNormalOrientation.Value);
@@ -333,7 +333,7 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertExpectedClosingStructureValues(ClosingStructure closingStructure)
         {
-            Assert.AreEqual("KUNST1", closingStructure.Name);
+            Assert.AreEqual("Kunstwerk 1", closingStructure.Name);
             Assert.AreEqual("KUNST1", closingStructure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), closingStructure.Location);
             Assert.AreEqual(20000.0, closingStructure.StorageStructureArea.Mean.Value);

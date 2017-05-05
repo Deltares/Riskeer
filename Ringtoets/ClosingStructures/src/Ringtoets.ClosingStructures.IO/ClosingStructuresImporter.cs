@@ -55,8 +55,7 @@ namespace Ringtoets.ClosingStructures.IO
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            IEnumerable<ClosingStructure> importedClosingStructures = CreateClosingStructures(structureLocations.ToList(), groupedStructureParameterRows);
-            ImportTarget.AddRange(importedClosingStructures, FilePath);
+            ImportTarget.AddRange(CreateClosingStructures(structureLocations.ToList(), groupedStructureParameterRows), FilePath);
         }
 
         private IEnumerable<ClosingStructure> CreateClosingStructures(IEnumerable<StructureLocation> structureLocations,

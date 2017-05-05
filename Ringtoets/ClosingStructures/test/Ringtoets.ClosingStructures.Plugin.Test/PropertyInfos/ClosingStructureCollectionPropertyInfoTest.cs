@@ -27,22 +27,22 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
+namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class HeightStructureCollectionPropertyInfoTest
+    public class ClosingStructureCollectionPropertyInfoTest
     {
-        private HeightStructuresPlugin plugin;
+        private ClosingStructuresPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new HeightStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StructureCollectionProperties<HeightStructure>));
+            plugin = new ClosingStructuresPlugin();
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StructureCollectionProperties<ClosingStructure>));
         }
 
         [TearDown]
@@ -55,8 +55,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresContext), info.DataType);
-            Assert.AreEqual(typeof(StructureCollectionProperties<HeightStructure>), info.PropertyObjectType);
+            Assert.AreEqual(typeof(ClosingStructuresContext), info.DataType);
+            Assert.AreEqual(typeof(StructureCollectionProperties<ClosingStructure>), info.PropertyObjectType);
         }
 
         [Test]
@@ -67,16 +67,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var collection = new StructureCollection<HeightStructure>();
-            var context = new HeightStructuresContext(collection, failureMechanism, assessmentSection);
+            var collection = new StructureCollection<ClosingStructure>();
+            var context = new ClosingStructuresContext(collection, failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StructureCollectionProperties<HeightStructure>>(objectProperties);
+            Assert.IsInstanceOf<StructureCollectionProperties<ClosingStructure>>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
 
             mocks.VerifyAll();
