@@ -1,5 +1,4 @@
-﻿
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -251,8 +250,8 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
 
             var input = new WaveConditionsInput
             {
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment,
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
 
             // Call
@@ -275,8 +274,8 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
 
             var input = new WaveConditionsInput
             {
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment,
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment,
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
                     new Point2D(1, 1),
@@ -311,8 +310,8 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
 
             var input = new WaveConditionsInput
             {
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment,
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment,
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
             };
 
@@ -382,7 +381,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
-                    new Point2D(0, 0), 
+                    new Point2D(0, 0),
                     new Point2D(3, 4)
                 }),
                 UseForeshore = false
@@ -480,7 +479,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
                 UpperBoundaryRevetment = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
-                    new Point2D(0, 0), 
+                    new Point2D(0, 0),
                     new Point2D(3, 4)
                 }),
                 UseForeshore = false
@@ -575,10 +574,10 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Call
             var input = new WaveConditionsInput
             {
-                LowerBoundaryWaterLevels= (RoundedDouble) 3,
+                LowerBoundaryWaterLevels = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
-                    new Point2D(0, 0), 
+                    new Point2D(0, 0),
                     new Point2D(3, 4)
                 }),
                 UseForeshore = false
@@ -676,7 +675,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
                 UpperBoundaryWaterLevels = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
-                    new Point2D(0, 0), 
+                    new Point2D(0, 0),
                     new Point2D(3, 4)
                 }),
                 UseForeshore = false
@@ -836,6 +835,120 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
                 new Point2D(endPointX + lastGeometryPoint.X, 6)
             };
             CollectionAssert.AreEqual(expectedPoints, points);
+        }
+
+        [Test]
+        public void CreateWaterLevelsGeometryPoints_InputNull_ReturnsEmptyLinesList()
+        {
+            // Call
+            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(lines);
+        }
+
+        [Test]
+        public void CreateWaterLevelsGeometryPoints_NoWaterLevels_ReturnsEmptyLinesList()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+
+            // Assert
+            CollectionAssert.IsEmpty(lines);
+        }
+
+        [Test]
+        public void CreateWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsWaterLevelsGeometryPointsArray()
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6.01),
+                LowerBoundaryRevetment = (RoundedDouble) 5,
+                UpperBoundaryRevetment = (RoundedDouble) 7,
+                StepSize = WaveConditionsInputStepSize.One
+            };
+
+            // Call
+            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+
+            // Assert
+            var expectedLines = new[]
+            {
+                new[]
+                {
+                    new Point2D(-10, 6),
+                    new Point2D(2, 6)
+                },
+                new[]
+                {
+                    new Point2D(-10, 5),
+                    new Point2D(1.666667, 5)
+                }
+            };
+
+            AssertWaterLevelGeometries(expectedLines, lines);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
+        {
+            "CreateWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsWaterLevelsGeometryPointsArray({0})"
+        })]
+        public void CreateWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsWaterLevelsGeometryPointsArray(
+            IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            // Call
+            var input = new WaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6.01),
+                LowerBoundaryRevetment = (RoundedDouble) 5,
+                UpperBoundaryRevetment = (RoundedDouble) 7,
+                StepSize = WaveConditionsInputStepSize.One
+            };
+
+            // Call
+            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+
+            // Assert
+            Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
+
+            var expectedLines = new[]
+            {
+                new[]
+                {
+                    new Point2D(foreshoreProfileGeometry.First().X, 6),
+                    new Point2D(((input.WaterLevels.ElementAt(0) - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X, 6)
+                },
+                new[]
+                {
+                    new Point2D(foreshoreProfileGeometry.First().X, 5),
+                    new Point2D(((input.WaterLevels.ElementAt(1) - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X, 5)
+                }
+            };
+
+            AssertWaterLevelGeometries(expectedLines, lines);
+        }
+
+        private static void AssertWaterLevelGeometries(IList<Point2D[]> expectedLines, IList<Point2D[]> lines)
+        {
+            Assert.AreEqual(expectedLines.Count, lines.Count);
+            for (var i = 0; i < expectedLines.Count; i++)
+            {
+                Assert.AreEqual(expectedLines[i].Length, lines[i].Length);
+                for (var j = 0; j < expectedLines[i].Length; j++)
+                {
+                    Point2D expectedPoint = expectedLines[i][j];
+                    Point2D actualPoint = lines[i][j];
+
+                    Assert.AreEqual(expectedPoint.X, actualPoint.X, 1e-6);
+                    Assert.AreEqual(actualPoint.X, actualPoint.X, 1e-6);
+                }
+            }
         }
 
         private static IEnumerable<TestCaseData> GetInputWithoutRevetmentBoundaries(string testNameFormat)

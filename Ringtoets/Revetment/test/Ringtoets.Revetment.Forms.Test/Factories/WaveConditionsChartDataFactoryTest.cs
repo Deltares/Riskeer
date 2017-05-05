@@ -86,6 +86,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Call
             ChartLineData data = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartdata();
+            
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens waterstanden", data.Name);
@@ -97,6 +98,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Call
             ChartLineData data = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartdata();
+           
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens waterstanden", data.Name);
@@ -108,10 +110,23 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Call
             ChartLineData data = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartdata();
+            
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Toetspeil", data.Name);
             AssertEqualStyle(data.Style, Color.Red, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateWaterLevelsChartData_ReturnsEmptyChartMultipleLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartMultipleLineData data = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
+            
+            // Assert
+            Assert.IsEmpty(data.Lines);
+            Assert.AreEqual("Waterstanden", data.Name);
+            AssertEqualStyle(data.Style, Color.Blue, 2, DashStyle.Dash);
         }
 
         [Test]

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -195,6 +196,23 @@ namespace Ringtoets.Revetment.Forms.Factories
             return input?.HydraulicBoundaryLocation != null
                        ? CreateGeometryPoints(input, () => input.HydraulicBoundaryLocation.DesignWaterLevel)
                        : new Point2D[0];
+        }
+
+        /// <summary>
+        /// Create water levels geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the water levels geometry points for.</param>
+        /// <returns>A list with arrays of points in 2D space or an empty list when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>there are no <see cref="WaveConditionsInput.WaterLevels"/>;</item>
+        /// </list>
+        /// </returns>
+        public static List<Point2D[]> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
+        {
+            return input?.WaterLevels
+                        .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
+                        .ToList() ?? new List<Point2D[]>();
         }
 
         private static Point2D[] CreateGeometryPoints(WaveConditionsInput input, Func<double> getValueFunc)

@@ -121,6 +121,18 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
+        /// Create <see cref="ChartMultipleLineData"/> with default styling for water levels.
+        /// </summary>
+        /// <returns>The created <see cref="ChartMultipleLineData"/>.</returns>
+        public static ChartMultipleLineData CreateWaterLevelsChartData()
+        {
+            return new ChartMultipleLineData("Waterstanden")
+            {
+                Style = new ChartLineStyle(Color.Blue, 2, DashStyle.Dash)
+            };
+        }
+
+        /// <summary>
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="input"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
