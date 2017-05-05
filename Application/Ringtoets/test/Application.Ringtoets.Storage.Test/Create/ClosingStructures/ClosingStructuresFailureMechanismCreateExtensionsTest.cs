@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.ClosingStructures;
@@ -199,10 +200,11 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             ClosingStructure structure = new TestClosingStructure();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            var path = "some path";
             failureMechanism.ClosingStructures.AddRange(new []
             {
               structure
-            }, "some path");
+            }, path);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -212,6 +214,12 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Assert
             Assert.AreEqual(1, entity.ClosingStructureEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(structure));
+
+            ClosingStructuresFailureMechanismMetaEntity metaEntity = 
+                entity.ClosingStructuresFailureMechanismMetaEntities.Single();
+            string entitySourcePath = metaEntity.ClosingStructureCollectionSourcePath;
+            Assert.AreEqual(path, entitySourcePath);
+            Assert.AreNotSame(path, entitySourcePath);
         }
 
         [Test]

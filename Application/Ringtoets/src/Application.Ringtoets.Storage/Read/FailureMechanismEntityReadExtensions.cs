@@ -264,7 +264,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
-            entity.ReadHeightStructures(metaEntity.HeightStructureCollectionSourcePath, failureMechanism.HeightStructures, collector);
+            entity.ReadHeightStructures(failureMechanism.HeightStructures, metaEntity.HeightStructureCollectionSourcePath, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -283,8 +283,8 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadHeightStructures(this FailureMechanismEntity entity,
-                                                 string sourcePath,
                                                  StructureCollection<HeightStructure> heightStructures,
+                                                 string sourcePath,
                                                  ReadConversionCollector collector)
         {
             if (sourcePath != null)
@@ -425,11 +425,13 @@ namespace Application.Ringtoets.Storage.Read
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity =
                 entity.ClosingStructuresFailureMechanismMetaEntities.Single();
+
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles,
                                          metaEntity.ForeshoreProfileCollectionSourcePath,
                                          collector);
+            entity.ReadClosingStructures(failureMechanism.ClosingStructures,
+                                         metaEntity.ClosingStructureCollectionSourcePath, collector);
 
-            entity.ReadClosingStructures(failureMechanism.ClosingStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadClosingStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -453,12 +455,17 @@ namespace Application.Ringtoets.Storage.Read
             generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 
-        private static void ReadClosingStructures(this FailureMechanismEntity entity, StructureCollection<ClosingStructure> closingStructures,
+        private static void ReadClosingStructures(this FailureMechanismEntity entity,
+                                                  StructureCollection<ClosingStructure> closingStructures,
+                                                  string sourcePath,
                                                   ReadConversionCollector collector)
         {
-            closingStructures.AddRange(
-                entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)),
-                "TODO coolpath"); // TODO
+            if (sourcePath != null)
+            {
+                closingStructures.AddRange(entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order)
+                                                 .Select(structureEntity => structureEntity.Read(collector)),
+                                           sourcePath);
+            }
         }
 
         private static void ReadClosingStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,

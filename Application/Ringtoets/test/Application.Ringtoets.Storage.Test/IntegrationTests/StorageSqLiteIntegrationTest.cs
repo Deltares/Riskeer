@@ -1092,6 +1092,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 AssertClosingStructure(expectedClosingStructures[i], actualClosingStructures[i]);
             }
+            Assert.AreEqual(expectedClosingStructures.SourcePath, actualClosingStructures.SourcePath);
         }
 
         private static void AssertClosingStructure(ClosingStructure expectedClosingStructure,

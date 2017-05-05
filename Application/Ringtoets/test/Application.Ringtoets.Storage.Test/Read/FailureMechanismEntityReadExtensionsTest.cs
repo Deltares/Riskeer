@@ -28,6 +28,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -1399,6 +1400,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsClosingStructuresFailureMechanism_WithClosingStructures_ReturnFailureMechanismWithClosingStructuresSet()
         {
             // Setup
+            const string sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -1419,7 +1421,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
-                    new ClosingStructuresFailureMechanismMetaEntity()
+                    new ClosingStructuresFailureMechanismMetaEntity
+                    {
+                        ClosingStructureCollectionSourcePath = sourcePath
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1429,12 +1434,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.ClosingStructures.Count);
+            StructureCollection<ClosingStructure> closingStructures = failureMechanism.ClosingStructures;
+            Assert.AreEqual(2, closingStructures.Count);
+            Assert.AreEqual(sourcePath, closingStructures.SourcePath);
 
-            ClosingStructure child1 = failureMechanism.ClosingStructures[0];
+            ClosingStructure child1 = closingStructures[0];
             Assert.AreEqual("Child2", child1.Name);
 
-            ClosingStructure child2 = failureMechanism.ClosingStructures[1];
+            ClosingStructure child2 = closingStructures[1];
             Assert.AreEqual("Child1", child2.Name);
         }
 

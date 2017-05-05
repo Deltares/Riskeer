@@ -21,9 +21,7 @@
 
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
-using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,7 +58,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertTablesContentMigrated(reader, sourceFilePath);
 
+                    AssertGrassCoverErosionOutwardsFailureMechanism(reader);
+                    AssertStabilityStoneCoverFailureMechanism(reader);
+                    AssertWaveImpactAsphaltCoverFailureMechanism(reader);
                     AssertHeightStructuresFailureMechanism(reader);
+                    AssertClosingStructuresFailureMechanism(reader);
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
@@ -137,29 +139,115 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
+        private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM(" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM[GrassCoverErosionOutwardsFailureMechanismMetaEntity] " +
+                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY[FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+        }
+
+        private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM(" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM[StabilityStoneCoverFailureMechanismMetaEntity] " +
+                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY[FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM(" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM[WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
+                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY[FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+        }
+
         private static void AssertHeightStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validateSourcePathNull =
-                "SELECT COUNT() = 0 FROM ( " +
-                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
-                "FROM HeightStructuresFailureMechanismMetaEntity WHERE [HeightStructureCollectionSourcePath] IS NULL " +
-                "EXCEPT " +
-                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
-                "FROM HeightStructuresFailureMechanismMetaEntity HSFM " +
-                "WHERE HSFM.[FailureMechanismEntityId] NOT IN (SELECT FailureMechanismEntityId FROM HeightStructureEntity HS) " +
-                "); ";
-            reader.AssertReturnedDataIsValid(validateSourcePathNull);
+            const string validateStructuresCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM (SELECT " +
+                "CASE WHEN " +
+                "COUNT([HeightStructureEntityId]) AND [HeightStructureCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[HeightStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([HeightStructureEntityId]) " +
+                "THEN 1 ELSE 0 END AS [IsInvalid] " +
+                "FROM [HeightStructuresFailureMechanismMetaEntity] " +
+                "LEFT JOIN [HeightStructureEntity] USING ([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
 
-            const string validateSourcePathSet =
-                "SELECT COUNT() = 0 FROM ( " +
-                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
-                "FROM HeightStructuresFailureMechanismMetaEntity WHERE [HeightStructureCollectionSourcePath] = \"Onbekend\" " +
-                "EXCEPT " +
-                "SELECT[HeightStructuresFailureMechanismMetaEntityId] " +
-                "FROM HeightStructuresFailureMechanismMetaEntity HSFM " +
-                "WHERE HSFM.[FailureMechanismEntityId] IN(SELECT FailureMechanismEntityId FROM HeightStructureEntity HS) " +
-                "); ";
-            reader.AssertReturnedDataIsValid(validateSourcePathSet);
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM(" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM[HeightStructuresFailureMechanismMetaEntity] " +
+                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY[FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+        }
+
+        private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateStructuresCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM (SELECT " +
+                "CASE WHEN " +
+                "COUNT([ClosingStructureEntityId]) AND [ClosingStructureCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ClosingStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([ClosingStructureEntityId]) " +
+                "THEN 1 ELSE 0 END AS [IsInvalid] " +
+                "FROM [ClosingStructuresFailureMechanismMetaEntity] " +
+                "LEFT JOIN [ClosingStructureEntity] USING ([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
+
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM(" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM[ClosingStructuresFailureMechanismMetaEntity] " +
+                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY[FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
         }
 
         private static void AssertLogDatabase(string logFilePath)

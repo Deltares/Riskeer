@@ -87,16 +87,18 @@ INSERT INTO ClosingStructuresFailureMechanismMetaEntity (
 	[ClosingStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N2A],
+	[ClosingStructureCollectionSourcePath],
 	[ForeshoreProfileCollectionSourcePath])
 SELECT 
 	[ClosingStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N2A],
-	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
-	FROM (SELECT *, (SELECT COUNT()
-		FROM [SOURCEPROJECT].ForeshoreProfileEntity
-		WHERE CSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
-	FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity CSFM);
+	CASE WHEN COUNT([ClosingStructureEntityId]) THEN "Onbekend" ELSE NULL END,
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity
+	LEFT JOIN [SOURCEPROJECT].ClosingStructureEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	GROUP BY FailureMechanismEntityID;
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
@@ -153,11 +155,10 @@ SELECT
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
-	FROM (SELECT *, (SELECT COUNT()
-		FROM [SOURCEPROJECT].ForeshoreProfileEntity
-		WHERE GCEOFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
-	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity GCEOFM);
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	GROUP BY FailureMechanismEntityID;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
@@ -226,15 +227,12 @@ SELECT
 	[HeightStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN HasStructures THEN "Onbekend" ELSE NULL END,
-	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
-	FROM (SELECT *, (SELECT COUNT()
-		FROM [SOURCEPROJECT].HeightStructureEntity
-		WHERE HSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasStructures,
-	(SELECT COUNT()
-		FROM [SOURCEPROJECT].ForeshoreProfileEntity
-		WHERE HSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
-	FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity HSFM);
+	CASE WHEN COUNT([HeightStructureEntityId]) THEN "Onbekend" ELSE NULL END,
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity
+	LEFT JOIN [SOURCEPROJECT].HeightStructureEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	GROUP BY FailureMechanismEntityID;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
@@ -276,11 +274,10 @@ SELECT
 	[StrengthStabilityPointConstructionFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
-	FROM (SELECT *, (SELECT COUNT()
-		FROM [SOURCEPROJECT].ForeshoreProfileEntity
-		WHERE SPSFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
-	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity SPSFM);
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	GROUP BY FailureMechanismEntityId;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
@@ -291,11 +288,11 @@ INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
 	[ForeshoreProfileCollectionSourcePath])
 SELECT 
 	[FailureMechanismEntityId],
-	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
-	FROM (SELECT *, (SELECT COUNT()
-		FROM [SOURCEPROJECT].ForeshoreProfileEntity
-		WHERE SSCFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
-	FROM [SOURCEPROJECT].FailureMechanismEntity SSCFM WHERE FailureMechanismType = 7);
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	FROM [SOURCEPROJECT].FailureMechanismEntity
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
+	WHERE FailureMechanismType = 7
+	GROUP BY FailureMechanismEntityID;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
@@ -320,11 +317,11 @@ INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity  (
 	[ForeshoreProfileCollectionSourcePath])
 SELECT 
 	[FailureMechanismEntityId],
-	CASE WHEN HasForeshoreProfiles THEN "Onbekend" ELSE NULL END
-	FROM (SELECT *, (SELECT COUNT()
-		FROM [SOURCEPROJECT].ForeshoreProfileEntity
-		WHERE WIACFM.[FailureMechanismEntityId] = [FailureMechanismEntityId]) as HasForeshoreProfiles
-	FROM [SOURCEPROJECT].FailureMechanismEntity WIACFM WHERE FailureMechanismType = 3);
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	FROM [SOURCEPROJECT].FailureMechanismEntity
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
+	WHERE FailureMechanismType = 3
+	GROUP BY FailureMechanismEntityID;
 /*
 Insert new data
 */

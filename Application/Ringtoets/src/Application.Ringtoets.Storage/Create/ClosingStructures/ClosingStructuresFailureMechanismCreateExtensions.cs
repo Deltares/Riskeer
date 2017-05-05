@@ -94,8 +94,9 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         {
             var metaEntity = new ClosingStructuresFailureMechanismMetaEntity
             {
-                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
-                N2A = failureMechanism.GeneralInput.N2A
+                N2A = failureMechanism.GeneralInput.N2A,
+                ClosingStructureCollectionSourcePath = failureMechanism.ClosingStructures.SourcePath.DeepClone(),
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone()
             };
             entity.ClosingStructuresFailureMechanismMetaEntities.Add(metaEntity);
         }
