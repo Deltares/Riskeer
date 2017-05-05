@@ -932,4 +932,13 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip" xml:space="preserve">
     <value>Er zijn geen berekeningen om bij te werken.</value>
   </data>
+  <data name="ForeshoreProfile_Id_Description" xml:space="preserve">
+    <value>ID van het voorlandprofiel.</value>
+  </data>
+  <data name="Id_DisplayName" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Structure_Id_Description" xml:space="preserve">
+    <value>ID van het kunstwerk.</value>
+  </data>
 </root>

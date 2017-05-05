@@ -37,16 +37,29 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// </summary>
     public class HeightStructureProperties : ObjectProperties<HeightStructure>
     {
-        private const int namePropertyIndex = 1;
-        private const int locationPropertyIndex = 2;
-        private const int structureNormalOrientationPropertyIndex = 3;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
-        private const int widthFlowAperturesPropertyIndex = 5;
-        private const int storageStructureAreaPropertyIndex = 6;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 7;
-        private const int levelCrestStructurePropertyIndex = 8;
-        private const int criticalOvertoppingDischargePropertyIndex = 9;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
+        private const int idPropertyIndex = 1;
+        private const int namePropertyIndex = 2;
+        private const int locationPropertyIndex = 3;
+        private const int structureNormalOrientationPropertyIndex = 4;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 5;
+        private const int widthFlowAperturesPropertyIndex = 6;
+        private const int storageStructureAreaPropertyIndex = 7;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 8;
+        private const int levelCrestStructurePropertyIndex = 9;
+        private const int criticalOvertoppingDischargePropertyIndex = 10;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 11;
+
+        [PropertyOrder(idPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Id_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Id_Description))]
+        public string Id
+        {
+            get
+            {
+                return data.Id;
+            }
+        }
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]

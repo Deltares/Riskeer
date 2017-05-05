@@ -39,23 +39,36 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// </summary>
     public class ClosingStructureProperties : ObjectProperties<ClosingStructure>
     {
-        private const int namePropertyIndex = 1;
-        private const int locationPropertyIndex = 2;
-        private const int structureNormalOrientationPropertyIndex = 3;
-        private const int inflowModelTypePropertyIndex = 4;
-        private const int widthFlowAperturesPropertyIndex = 5;
-        private const int areaFlowAperturesPropertyIndex = 6;
-        private const int identicalAperturesPropertyIndex = 7;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int storageStructureAreaPropertyIndex = 9;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int levelCrestStructureNotClosingPropertyIndex = 11;
-        private const int thresholdHeightOpenWeirPropertyIndex = 12;
-        private const int insideWaterLevelPropertyIndex = 13;
-        private const int criticalOvertoppingDischargePropertyIndex = 14;
-        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 15;
-        private const int failureProbabilityOpenStructurePropertyIndex = 16;
-        private const int failureProbabilityReparationPropertyIndex = 17;
+        private const int idPropertyIndex = 1;
+        private const int namePropertyIndex = 2;
+        private const int locationPropertyIndex = 3;
+        private const int structureNormalOrientationPropertyIndex = 4;
+        private const int inflowModelTypePropertyIndex = 5;
+        private const int widthFlowAperturesPropertyIndex = 6;
+        private const int areaFlowAperturesPropertyIndex = 7;
+        private const int identicalAperturesPropertyIndex = 8;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
+        private const int storageStructureAreaPropertyIndex = 10;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
+        private const int levelCrestStructureNotClosingPropertyIndex = 12;
+        private const int thresholdHeightOpenWeirPropertyIndex = 13;
+        private const int insideWaterLevelPropertyIndex = 14;
+        private const int criticalOvertoppingDischargePropertyIndex = 15;
+        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 16;
+        private const int failureProbabilityOpenStructurePropertyIndex = 17;
+        private const int failureProbabilityReparationPropertyIndex = 18;
+
+        [PropertyOrder(idPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Id_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Id_Description))]
+        public string Id
+        {
+            get
+            {
+                return data.Id;
+            }
+        }
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]

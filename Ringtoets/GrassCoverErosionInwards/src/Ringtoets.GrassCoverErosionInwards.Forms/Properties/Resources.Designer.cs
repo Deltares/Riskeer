@@ -226,6 +226,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID van het dijkprofiel..
+        /// </summary>
+        public static string DikeProfile_Id_Description {
+            get {
+                return ResourceManager.GetString("DikeProfile_Id_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van het dijkprofiel..
         /// </summary>
         public static string DikeProfile_Name_Description {

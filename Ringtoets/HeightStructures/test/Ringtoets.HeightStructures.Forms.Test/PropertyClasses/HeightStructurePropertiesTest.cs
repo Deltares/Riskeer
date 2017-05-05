@@ -33,16 +33,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class HeightStructurePropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int locationPropertyIndex = 1;
-        private const int structureNormalOrientationPropertyIndex = 2;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 3;
-        private const int widthFlowAperturesPropertyIndex = 4;
-        private const int storageStructureAreaPropertyIndex = 5;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 6;
-        private const int levelCrestStructurePropertyIndex = 7;
-        private const int criticalOvertoppingDischargePropertyIndex = 8;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 9;
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int locationPropertyIndex = 2;
+        private const int structureNormalOrientationPropertyIndex = 3;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
+        private const int widthFlowAperturesPropertyIndex = 5;
+        private const int storageStructureAreaPropertyIndex = 6;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 7;
+        private const int levelCrestStructurePropertyIndex = 8;
+        private const int criticalOvertoppingDischargePropertyIndex = 9;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -66,6 +67,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = structure;
 
             // Assert
+            Assert.AreEqual(structure.Id, properties.Id);
             Assert.AreEqual(structure.Name, properties.Name);
             Assert.AreEqual(structure.Location, properties.Location);
             Assert.AreEqual(structure.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -117,10 +119,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
             const string generalCategory = "Algemeen";
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            Assert.IsTrue(idProperty.IsReadOnly);
+            Assert.AreEqual(generalCategory, idProperty.Category);
+            Assert.AreEqual("ID", idProperty.DisplayName);
+            Assert.AreEqual("ID van het kunstwerk.", idProperty.Description);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsTrue(nameProperty.IsReadOnly);

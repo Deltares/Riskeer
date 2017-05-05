@@ -35,36 +35,37 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityPointStructurePropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int locationPropertyIndex = 1;
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int locationPropertyIndex = 2;
 
-        private const int insideWaterLevelPropertyIndex = 2;
-        private const int insideWaterLevelFailureConstructionPropertyIndex = 3;
+        private const int insideWaterLevelPropertyIndex = 3;
+        private const int insideWaterLevelFailureConstructionPropertyIndex = 4;
 
-        private const int structureNormalOrientationPropertyIndex = 4;
-        private const int stabilityPointStructureInflowModelTypePropertyIndex = 5;
-        private const int widthFlowAperturesPropertyIndex = 6;
-        private const int areaFlowAperturesPropertyIndex = 7;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int storageStructureAreaPropertyIndex = 9;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int levelCrestStructurePropertyIndex = 11;
-        private const int thresholdHeightOpenWeirPropertyIndex = 12;
-        private const int criticalOvertoppingDischargePropertyIndex = 13;
-        private const int flowVelocityStructureClosablePropertyIndex = 14;
-        private const int constructiveStrengthLinearLoadModelPropertyIndex = 15;
-        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 16;
-        private const int bankWidthPropertyIndex = 17;
-        private const int evaluationLevelPropertyIndex = 18;
-        private const int verticalDistancePropertyIndex = 19;
-        private const int failureProbabilityRepairClosurePropertyIndex = 20;
-        private const int failureCollisionEnergyPropertyIndex = 21;
-        private const int shipMassPropertyIndex = 22;
-        private const int shipVelocityPropertyIndex = 23;
-        private const int levellingCountPropertyIndex = 24;
-        private const int probabilityCollisionSecondaryStructurePropertyIndex = 25;
-        private const int stabilityLinearLoadModelPropertyIndex = 26;
-        private const int stabilityQuadraticLoadModelPropertyIndex = 27;
+        private const int structureNormalOrientationPropertyIndex = 5;
+        private const int stabilityPointStructureInflowModelTypePropertyIndex = 6;
+        private const int widthFlowAperturesPropertyIndex = 7;
+        private const int areaFlowAperturesPropertyIndex = 8;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
+        private const int storageStructureAreaPropertyIndex = 10;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
+        private const int levelCrestStructurePropertyIndex = 12;
+        private const int thresholdHeightOpenWeirPropertyIndex = 13;
+        private const int criticalOvertoppingDischargePropertyIndex = 14;
+        private const int flowVelocityStructureClosablePropertyIndex = 15;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 16;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 17;
+        private const int bankWidthPropertyIndex = 18;
+        private const int evaluationLevelPropertyIndex = 19;
+        private const int verticalDistancePropertyIndex = 20;
+        private const int failureProbabilityRepairClosurePropertyIndex = 21;
+        private const int failureCollisionEnergyPropertyIndex = 22;
+        private const int shipMassPropertyIndex = 23;
+        private const int shipVelocityPropertyIndex = 24;
+        private const int levellingCountPropertyIndex = 25;
+        private const int probabilityCollisionSecondaryStructurePropertyIndex = 26;
+        private const int stabilityLinearLoadModelPropertyIndex = 27;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 28;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -88,6 +89,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             properties.Data = structure;
 
             // Assert
+            Assert.AreEqual(structure.Id, properties.Id);
             Assert.AreEqual(structure.Name, properties.Name);
             var expectedLocation = new Point2D(new RoundedDouble(0, structure.Location.X),
                                                new RoundedDouble(0, structure.Location.Y));
@@ -215,11 +217,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(28, dynamicProperties.Count);
+            Assert.AreEqual(29, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string generalCategory = "Algemeen";
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            Assert.IsTrue(idProperty.IsReadOnly);
+            Assert.AreEqual(generalCategory, idProperty.Category);
+            Assert.AreEqual("ID", idProperty.DisplayName);
+            Assert.AreEqual("ID van het kunstwerk.", idProperty.Description);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsTrue(nameProperty.IsReadOnly);

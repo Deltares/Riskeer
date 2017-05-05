@@ -35,11 +35,24 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public class ForeshoreProfileProperties : ObjectProperties<ForeshoreProfile>
     {
-        private const int namePropertyIndex = 1;
-        private const int worldReferencePointPropertyIndex = 2;
-        private const int orientationPropertyIndex = 3;
-        private const int breakWaterPropertyIndex = 4;
-        private const int foreshorePropertyIndex = 5;
+        private const int idPropertyIndex = 1;
+        private const int namePropertyIndex = 2;
+        private const int worldReferencePointPropertyIndex = 3;
+        private const int orientationPropertyIndex = 4;
+        private const int breakWaterPropertyIndex = 5;
+        private const int foreshorePropertyIndex = 6;
+
+        [PropertyOrder(idPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Id_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProfile_Id_Description))]
+        public string Id
+        {
+            get
+            {
+                return data.Id;
+            }
+        }
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
