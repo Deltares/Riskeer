@@ -876,8 +876,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                StabilityPointStructure structure1 = new TestStabilityPointStructure("Structure 1");
-                StabilityPointStructure structure2 = new TestStabilityPointStructure("Structure 2");
+                StabilityPointStructure structure1 = new TestStabilityPointStructure();
+                StabilityPointStructure structure2 = new TestStabilityPointStructure();
 
                 var existingCalculationGroup = new CalculationGroup();
                 var existingCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -947,8 +947,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                StabilityPointStructure structure1 = new TestStabilityPointStructure("Structure 1");
-                StabilityPointStructure structure2 = new TestStabilityPointStructure("Structure 2");
+                StabilityPointStructure structure1 = new TestStabilityPointStructure();
+                StabilityPointStructure structure2 = new TestStabilityPointStructure();
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {
@@ -1004,7 +1004,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 const string existingCalculationName = "StabilityPoint structure";
-                StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure(existingCalculationName);
+                StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure(existingCalculationName, "id");
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {

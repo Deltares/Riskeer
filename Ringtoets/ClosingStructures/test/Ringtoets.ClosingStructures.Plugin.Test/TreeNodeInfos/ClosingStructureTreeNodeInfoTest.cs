@@ -94,7 +94,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
             const string name = "very nice name!";
-            ClosingStructure structure = new TestClosingStructure(name, "id");
+            ClosingStructure structure = new TestClosingStructure("id", name);
 
             // Call
             string text = info.Text(structure);

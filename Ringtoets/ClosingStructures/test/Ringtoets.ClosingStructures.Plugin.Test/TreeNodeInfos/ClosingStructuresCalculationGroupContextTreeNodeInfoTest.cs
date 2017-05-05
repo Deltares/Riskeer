@@ -1014,7 +1014,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 const string existingCalculationName = "Closing structure";
-                ClosingStructure closingStructure = new TestClosingStructure(existingCalculationName, "id");
+                ClosingStructure closingStructure = new TestClosingStructure("id", existingCalculationName);
 
                 var failureMechanism = new ClosingStructuresFailureMechanism
                 {

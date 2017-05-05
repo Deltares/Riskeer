@@ -61,14 +61,14 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithStructureNameAndId_ExpectedValues()
+        public void Constructor_WithStructureIdAndName_ExpectedValues()
         {
             // Setup
-            const string name = "<some name>";
             const string id = "<some id>";
+            const string name = "<some name>";
 
             // Call
-            var structure = new TestClosingStructure(name, id);
+            var structure = new TestClosingStructure(id, name);
 
             // Assert
             Assert.IsInstanceOf<ClosingStructure>(structure);

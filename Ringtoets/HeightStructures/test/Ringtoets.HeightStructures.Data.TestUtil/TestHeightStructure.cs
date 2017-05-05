@@ -34,25 +34,25 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
         public TestHeightStructure()
-            : this("Test") {}
+            : this("id") {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
-        /// <param name="name">The name of the structure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// <param name="id">The name of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/>
         /// is <c>null</c>, empty or consists of only whitespaces.</exception>
-        public TestHeightStructure(string name)
-            : this(name, "Id", new Point2D(0.0, 0.0)) {}
+        public TestHeightStructure(string id)
+            : this("name", id, new Point2D(0.0, 0.0)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
         /// </summary>
-        /// <param name="name">The name of the structure.</param>
         /// <param name="id">The id of the structure.</param>
+        /// <param name="name">The name of the structure.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
         /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
-        public TestHeightStructure(string name, string id)
+        public TestHeightStructure(string id, string name)
             : this(name, id, new Point2D(0.0, 0.0)) {}
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
         /// is <c>null</c>.</exception>
         public TestHeightStructure(Point2D location)
-            : this("Test", "Id", location) {}
+            : this("name", "id", location) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.
@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> 
         /// is <c>null</c>, empty or consists of only whitespaces.</exception>
         public TestHeightStructure(Point2D location, string id)
-            : this("Test", id, location) {}
+            : this("name", id, location) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHeightStructure"/>.

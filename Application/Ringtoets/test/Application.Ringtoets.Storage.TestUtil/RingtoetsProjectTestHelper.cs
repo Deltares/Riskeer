@@ -588,7 +588,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.HeightStructures.AddRange(new[]
             {
                 heightStructure,
-                new TestHeightStructure("Structure B", "IdB")
+                new TestHeightStructure("IdB", "Structure B")
             }, @"/temp/structures");
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];

@@ -33,15 +33,15 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
         /// </summary>
-        public TestStabilityPointStructure() : this("aName", "anId", new Point2D(1.234, 2.3456)) {}
+        public TestStabilityPointStructure() : this("name", "id", new Point2D(1.234, 2.3456)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
         /// </summary>
-        /// <param name="name">The name of the structure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
+        /// <param name="id">The name of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/>
         /// is <c>null</c>, empty or consists of only whitespaces.</exception>
-        public TestStabilityPointStructure(string name) : this(name, "anId", new Point2D(1.234, 2.3456)) {}
+        public TestStabilityPointStructure(string id) : this("name", id, new Point2D(1.234, 2.3456)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.
@@ -58,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// <param name="location">The location of the structure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
         /// is <c>null</c>.</exception>
-        public TestStabilityPointStructure(Point2D location) : this("aName", "anId", location) {}
+        public TestStabilityPointStructure(Point2D location) : this("name", "id", location) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStabilityPointStructure"/>.

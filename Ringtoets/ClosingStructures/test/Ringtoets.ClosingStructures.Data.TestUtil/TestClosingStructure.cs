@@ -48,11 +48,11 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestClosingStructure"/>.
         /// </summary>
-        /// <param name="name">The name of the structure.</param>
         /// <param name="id">The id of the structure.</param>
+        /// <param name="name">The name of the structure.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/>
         /// or <paramref name="id"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
-        public TestClosingStructure(string name, string id)
+        public TestClosingStructure(string id, string name)
             : this(name, id, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) { }
 
         /// <summary>

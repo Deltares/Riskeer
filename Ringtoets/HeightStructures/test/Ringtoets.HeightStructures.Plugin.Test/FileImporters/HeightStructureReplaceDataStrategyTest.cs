@@ -174,10 +174,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.HeightStructures.AddRange(new[]
             {
-                new TestHeightStructure("Original", "id")
+                new TestHeightStructure("id", "Original")
             }, sourceFilePath);
 
-            var importedStructure = new TestHeightStructure("Imported", "Different id");
+            var importedStructure = new TestHeightStructure("Different id", "Imported");
 
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
@@ -315,8 +315,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             const string duplicateId = "I am a duplicate id";
             HeightStructure[] importedHeightStructures =
             {
-                new TestHeightStructure("name", duplicateId),
-                new TestHeightStructure("Other name", duplicateId)
+                new TestHeightStructure(duplicateId, "name"),
+                new TestHeightStructure(duplicateId, "Other name")
             };
 
             var targetCollection = new StructureCollection<HeightStructure>();

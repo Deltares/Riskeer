@@ -94,7 +94,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
             const string name = "very nice name!";
-            HeightStructure structure = new TestHeightStructure(name);
+            HeightStructure structure = new TestHeightStructure("id", name);
 
             // Call
             string text = info.Text(structure);
@@ -254,7 +254,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                HeightStructure nodeData = new TestHeightStructure("A");
+                HeightStructure nodeData = new TestHeightStructure();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);

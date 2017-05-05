@@ -627,7 +627,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastMeansOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -753,7 +753,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationStochastStandardDeviationVariationCoefficientOnly.xml");
 
             var calculationGroup = new CalculationGroup();
-            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -905,7 +905,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 new Point2D(0, 3)
             });
-            var structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1");
+            var structure = new TestStabilityPointStructure("kunstwerk1");
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,

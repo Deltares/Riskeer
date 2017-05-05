@@ -1043,7 +1043,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                HeightStructure structure1 = new TestHeightStructure("Structure 1", "Structure Id");
+                HeightStructure structure1 = new TestHeightStructure("Structure Id", "Structure 1");
 
                 var existingCalculationGroup = new CalculationGroup();
                 var existingCalculation = new StructuresCalculation<HeightStructuresInput>();
@@ -1117,8 +1117,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 failureMechanism.HeightStructures.AddRange(
                     new[]
                     {
-                        new TestHeightStructure("Structure 1", "1"),
-                        new TestHeightStructure("Structure 2", "2")
+                        new TestHeightStructure("1", "Structure 1"),
+                        new TestHeightStructure("2", "Structure 2")
                     }, "some path"
                 );
 
@@ -1167,7 +1167,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 const string existingCalculationName = "Height structure";
-                HeightStructure heightStructure = new TestHeightStructure(existingCalculationName, "heightStructureId");
+                HeightStructure heightStructure = new TestHeightStructure("heightStructureId", existingCalculationName);
 
                 var failureMechanism = new HeightStructuresFailureMechanism
                 {

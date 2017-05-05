@@ -51,15 +51,15 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             get
             {
                 var random = new Random(532);
-                const string defaultName = "Test";
-                const string defaultId = "Id";
+                const string defaultId = "id";
+                const string defaultName = "name";
                 var defaultLocation = new Point2D(0, 0);
 
-                yield return new TestCaseData(new TestHeightStructure("Different name"))
+                yield return new TestCaseData(new TestHeightStructure(defaultId, "Different name"))
                     .SetName("Different name");
-                yield return new TestCaseData(new TestHeightStructure(new Point2D(1, 1)))
+                yield return new TestCaseData(new TestHeightStructure(new Point2D(1, 1), defaultId))
                     .SetName("Different Location");
-                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                yield return new TestCaseData(new TestHeightStructure
                 {
                     AllowedLevelIncreaseStorage =
                     {
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                         StandardDeviation = random.NextRoundedDouble()
                     }
                 }).SetName("Different AllowedLevelIncreaseStorage");
-                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                yield return new TestCaseData(new TestHeightStructure
                 {
                     CriticalOvertoppingDischarge =
                     {
@@ -76,7 +76,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                         CoefficientOfVariation = random.NextRoundedDouble()
                     }
                 }).SetName("Different CriticalOvertoppingDischarge");
-                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                yield return new TestCaseData(new TestHeightStructure
                 {
                     FlowWidthAtBottomProtection =
                     {
@@ -85,7 +85,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                         StandardDeviation = random.NextRoundedDouble()
                     }
                 }).SetName("Different FlowWidthAtBottomProtection");
-                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                yield return new TestCaseData(new TestHeightStructure
                 {
                     LevelCrestStructure =
                     {
@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                         StandardDeviation = random.NextRoundedDouble()
                     }
                 }).SetName("Different LevelCrestStructure");
-                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                yield return new TestCaseData(new TestHeightStructure
                 {
                     StorageStructureArea =
                     {
@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                         CoefficientOfVariation = random.NextRoundedDouble()
                     }
                 }).SetName("Different StorageStructureArea");
-                yield return new TestCaseData(new TestHeightStructure(defaultName)
+                yield return new TestCaseData(new TestHeightStructure
                 {
                     WidthFlowApertures =
                     {
@@ -222,8 +222,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             const string duplicateId = "I am a duplicate id";
             var readStructures = new[]
             {
-                new TestHeightStructure("Structure", duplicateId),
-                new TestHeightStructure("Other structure", duplicateId)
+                new TestHeightStructure(duplicateId, "Structure"),
+                new TestHeightStructure(duplicateId, "Other structure")
             };
 
             var targetCollection = new StructureCollection<HeightStructure>();
@@ -250,7 +250,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         {
             // Setup
             const string duplicateId = "I am a duplicate id";
-            var expectedStructure = new TestHeightStructure("expectedStructure", duplicateId);
+            var expectedStructure = new TestHeightStructure(duplicateId, "expectedStructure");
 
             var expectedCollection = new[]
             {
@@ -262,8 +262,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 
             var readStructures = new[]
             {
-                new TestHeightStructure("Structure", duplicateId),
-                new TestHeightStructure("Other structure", duplicateId)
+                new TestHeightStructure(duplicateId, "Structure"),
+                new TestHeightStructure(duplicateId, "Other structure")
             };
 
             var strategy = new HeightStructureUpdateDataStrategy(new HeightStructuresFailureMechanism());
@@ -291,8 +291,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
             structures.AddRange(new[]
             {
-                new TestHeightStructure("name", "id"),
-                new TestHeightStructure("other name", "other id")
+                new TestHeightStructure("id", "name"),
+                new TestHeightStructure("other id", "other name")
             }, sourceFilePath);
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
@@ -344,8 +344,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         {
             // Setup
             const string sameId = "sameId";
-            HeightStructure readStructure = new TestHeightStructure("new structure", sameId);
-            HeightStructure structure = new TestHeightStructure("original structure", sameId);
+            HeightStructure readStructure = new TestHeightStructure(sameId, "new structure");
+            HeightStructure structure = new TestHeightStructure(sameId, "original structure");
 
             var calculation = new TestHeightStructuresCalculation
             {

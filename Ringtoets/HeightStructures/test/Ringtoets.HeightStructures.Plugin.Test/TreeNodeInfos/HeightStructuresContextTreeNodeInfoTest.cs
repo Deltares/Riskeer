@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.HeightStructures.AddRange(new[]
             {
-                new TestHeightStructure("TestHeightStructure", "id")
+                new TestHeightStructure("id", "TestHeightStructure")
             }, "some path");
 
             // Precondition
@@ -160,8 +160,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.HeightStructures.AddRange(new[]
             {
-                new TestHeightStructure("TestHeightStructure 1", "first id"),
-                new TestHeightStructure("TestHeightStructure 2", "second id")
+                new TestHeightStructure("first id", "TestHeightStructure 1"),
+                new TestHeightStructure("second id", "TestHeightStructure 2")
             }, "some path");
 
             var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,

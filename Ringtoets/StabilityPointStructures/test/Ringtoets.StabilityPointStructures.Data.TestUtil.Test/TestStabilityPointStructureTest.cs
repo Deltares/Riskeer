@@ -37,25 +37,25 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructure>(structure);
-            Assert.AreEqual("aName", structure.Name);
-            Assert.AreEqual("anId", structure.Id);
+            Assert.AreEqual("id", structure.Id);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(new Point2D(1.234, 2.3456), structure.Location);
             AssertStabilityPointStructuresDefault(structure);
         }
 
         [Test]
-        public void Constructor_WithName_ExpectedValues()
+        public void Constructor_WithId_ExpectedValues()
         {
             // Setup
-            const string name = "cool name!";
+            const string id = "cool id";
 
             // Call
-            var structure = new TestStabilityPointStructure(name);
+            var structure = new TestStabilityPointStructure(id);
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructure>(structure);
-            Assert.AreEqual(name, structure.Name);
-            Assert.AreEqual("anId", structure.Id);
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(new Point2D(1.234, 2.3456), structure.Location);
             AssertStabilityPointStructuresDefault(structure);
         }
@@ -64,16 +64,16 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
         public void Constructor_WithNameAndId_ExpectedValues()
         {
             // Setup
-            const string name = "cool name!";
-            const string id = "and a cool Id too!";
+            const string id = "cool Id!";
+            const string name = "cool name too!";
 
             // Call
             var structure = new TestStabilityPointStructure(name, id);
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructure>(structure);
-            Assert.AreEqual(name, structure.Name);
             Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(name, structure.Name);
             Assert.AreEqual(new Point2D(1.234, 2.3456), structure.Location);
             AssertStabilityPointStructuresDefault(structure);
         }
@@ -89,8 +89,8 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructure>(structure);
-            Assert.AreEqual("aName", structure.Name);
-            Assert.AreEqual("anId", structure.Id);
+            Assert.AreEqual("id", structure.Id);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(point, structure.Location);
             AssertStabilityPointStructuresDefault(structure);
         }
