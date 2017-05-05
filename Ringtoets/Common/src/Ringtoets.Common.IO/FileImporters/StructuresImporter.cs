@@ -114,6 +114,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="structureLocations">The read structure locations.</param>
         /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
         /// <returns>The created structures.</returns>
+        /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
         protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
@@ -172,6 +173,12 @@ namespace Ringtoets.Common.IO.FileImporters
             return Path.ChangeExtension(FilePath, ".csv");
         }
 
+        /// <summary>
+        /// Creates the structures from the read data.
+        /// </summary>
+        /// <param name="importStructureLocationsResult">The read structure locations.</param>
+        /// <param name="importStructureParameterRowsDataResult">The read structure properties.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
         private void CreateStructures(ReadResult<StructureLocation> importStructureLocationsResult,
                                       ReadResult<StructuresParameterRow> importStructureParameterRowsDataResult)
         {
