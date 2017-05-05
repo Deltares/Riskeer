@@ -1084,8 +1084,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertClosingStructures(ObservableList<ClosingStructure> expectedClosingStructures,
-                                                    ObservableList<ClosingStructure> actualClosingStructures)
+        private static void AssertClosingStructures(StructureCollection<ClosingStructure> expectedClosingStructures,
+                                                    StructureCollection<ClosingStructure> actualClosingStructures)
         {
             Assert.AreEqual(expectedClosingStructures.Count, actualClosingStructures.Count);
             for (var i = 0; i < expectedClosingStructures.Count; i++)

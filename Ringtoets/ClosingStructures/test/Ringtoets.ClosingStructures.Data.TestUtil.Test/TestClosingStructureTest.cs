@@ -35,7 +35,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<ClosingStructure>(structure);
-            Assert.AreEqual("test", structure.Name);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual("id", structure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
@@ -43,18 +43,18 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithStructureName_ExpectedValues()
+        public void Constructor_WithStructureId_ExpectedValues()
         {
             // Setup
-            const string name = "<some name>";
+            const string id = "<some id>";
 
             // Call
-            var structure = new TestClosingStructure(name);
+            var structure = new TestClosingStructure(id);
 
             // Assert
             Assert.IsInstanceOf<ClosingStructure>(structure);
-            Assert.AreEqual(name, structure.Name);
-            Assert.AreEqual("id", structure.Id);
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
             AssertTestClosingStructureDefaults(structure);
@@ -65,7 +65,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         {
             // Setup
             const string name = "<some name>";
-            const string id = "<some id";
+            const string id = "<some id>";
 
             // Call
             var structure = new TestClosingStructure(name, id);
@@ -75,6 +75,25 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(name, structure.Name);
             Assert.AreEqual(id, structure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
+            Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
+            AssertTestClosingStructureDefaults(structure);
+        }
+
+        [Test]
+        public void Constructor_WithLocationAndId_ExpectedValues()
+        {
+            // Setup
+            var location = new Point2D(1234.5, 5678.9);
+            const string id = "<some id>";
+
+            // Call
+            var structure = new TestClosingStructure(location, id);
+
+            // Assert
+            Assert.IsInstanceOf<ClosingStructure>(structure);
+            Assert.AreEqual("name", structure.Name);
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(location, structure.Location);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
             AssertTestClosingStructureDefaults(structure);
         }
@@ -90,7 +109,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<ClosingStructure>(structure);
-            Assert.AreEqual("test", structure.Name);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual("id", structure.Id);
             Assert.AreEqual(location, structure.Location);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
@@ -101,14 +120,14 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         [TestCase(ClosingStructureInflowModelType.VerticalWall)]
         [TestCase(ClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
-        public void Constructor_WithLocationName_ExpectedValues(ClosingStructureInflowModelType type)
+        public void Constructor_WithInflowModelType_ExpectedValues(ClosingStructureInflowModelType type)
         {
             // Call
             var structure = new TestClosingStructure(type);
 
             // Assert
             Assert.IsInstanceOf<ClosingStructure>(structure);
-            Assert.AreEqual("test", structure.Name);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual("id", structure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
             Assert.AreEqual(type, structure.InflowModelType);

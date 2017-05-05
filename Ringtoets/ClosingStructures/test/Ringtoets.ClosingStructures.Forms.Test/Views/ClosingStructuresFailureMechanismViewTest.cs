@@ -572,7 +572,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssertStructures(failureMechanism.ClosingStructures, structuresData);
 
                 // Call
-                failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+                failureMechanism.ClosingStructures.AddRange(new[]
+                {
+                    new TestClosingStructure()
+                }, "some path");
                 failureMechanism.ClosingStructures.NotifyObservers();
 
                 // Assert

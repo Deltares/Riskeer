@@ -453,10 +453,12 @@ namespace Application.Ringtoets.Storage.Read
             generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 
-        private static void ReadClosingStructures(this FailureMechanismEntity entity, ObservableList<ClosingStructure> closingStructures,
+        private static void ReadClosingStructures(this FailureMechanismEntity entity, StructureCollection<ClosingStructure> closingStructures,
                                                   ReadConversionCollector collector)
         {
-            closingStructures.AddRange(entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
+            closingStructures.AddRange(
+                entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)),
+                "TODO coolpath"); // TODO
         }
 
         private static void ReadClosingStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,

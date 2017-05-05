@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
@@ -30,7 +31,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="ClosingStructure"/>.
     /// </summary>
-    public class ClosingStructuresContext : ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>
+    public class ClosingStructuresContext : ObservableWrappedObjectContextBase<StructureCollection<ClosingStructure>>
     {
         /// <summary>
         /// Creates an instance of <see cref="ClosingStructuresContext"/>.
@@ -39,7 +40,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the closing structures belong to.</param>
         /// <param name="assessmentSection">The assessment section which the closing structures belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
-        public ClosingStructuresContext(ObservableList<ClosingStructure> closingStructures,
+        public ClosingStructuresContext(StructureCollection<ClosingStructure> closingStructures,
                                         ClosingStructuresFailureMechanism failureMechanism,
                                         IAssessmentSection assessmentSection)
             : base(closingStructures)

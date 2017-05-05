@@ -451,7 +451,10 @@ namespace Demo.Ringtoets.Commands
         {
             ClosingStructuresFailureMechanism failureMechanism = demoAssessmentSection.ClosingStructures;
             ClosingStructure closingStructure = CreateDemoClosingStructure();
-            failureMechanism.ClosingStructures.Add(closingStructure);
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                closingStructure
+            }, "closingStructurePath");
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);

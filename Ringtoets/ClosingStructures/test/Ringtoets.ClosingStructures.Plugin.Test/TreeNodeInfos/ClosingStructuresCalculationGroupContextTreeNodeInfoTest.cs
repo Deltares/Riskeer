@@ -293,7 +293,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                new TestClosingStructure()
+            }, "some path");
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
@@ -892,11 +895,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var existingCalculation = new StructuresCalculation<ClosingStructuresInput>();
                 var failureMechanism = new ClosingStructuresFailureMechanism
                 {
-                    ClosingStructures =
-                    {
-                        structure1,
-                        structure2
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -906,6 +904,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.ClosingStructures.AddRange(new[]
+                {
+                    structure1,
+                    structure2
+                }, "some path");
 
                 var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             failureMechanism,
@@ -959,14 +962,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 ClosingStructure structure1 = new TestClosingStructure("Structure 1");
                 ClosingStructure structure2 = new TestClosingStructure("Structure 2");
 
-                var failureMechanism = new ClosingStructuresFailureMechanism
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+                failureMechanism.ClosingStructures.AddRange(new[]
                 {
-                    ClosingStructures =
-                    {
-                        structure1,
-                        structure2
-                    }
-                };
+                    structure1,
+                    structure2
+                }, "some path");
 
                 var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             failureMechanism,
@@ -1013,14 +1014,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 const string existingCalculationName = "Closing structure";
-                ClosingStructure closingStructure = new TestClosingStructure(existingCalculationName);
+                ClosingStructure closingStructure = new TestClosingStructure(existingCalculationName, "id");
 
                 var failureMechanism = new ClosingStructuresFailureMechanism
                 {
-                    ClosingStructures =
-                    {
-                        closingStructure
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -1032,6 +1029,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.ClosingStructures.AddRange(new[]
+                {
+                    closingStructure,
+                }, "some path");
 
                 var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             failureMechanism,

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
@@ -77,7 +78,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         }
 
         private static void AddEntitiesForClosingStructures(
-            IList<ClosingStructure> structures,
+            StructureCollection<ClosingStructure> structures,
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data.Properties;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -47,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralClosingStructuresInput();
-            ClosingStructures = new ObservableList<ClosingStructure>();
+            ClosingStructures = new StructureCollection<ClosingStructure>();
             sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
@@ -66,9 +67,9 @@ namespace Ringtoets.ClosingStructures.Data
         public GeneralClosingStructuresInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Gets the available closing structures  for this instance.
+        /// Gets the available closing structures for this instance.
         /// </summary>
-        public ObservableList<ClosingStructure> ClosingStructures { get; private set; }
+        public StructureCollection<ClosingStructure> ClosingStructures { get; private set; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.

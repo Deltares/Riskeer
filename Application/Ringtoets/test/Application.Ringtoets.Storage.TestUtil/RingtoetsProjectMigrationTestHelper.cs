@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static string GetTestProjectFileName(string versionNumber)
         {
-            return string.Format("FullTestProject{0}.rtd", versionNumber);
+            return $"FullTestProject{versionNumber}.rtd";
         }
     }
 }

@@ -127,13 +127,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var asssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.AddRange(new[]
             {
-                ClosingStructures =
-                {
-                    new TestClosingStructure()
-                }
-            };
+                new TestClosingStructure()
+            }, "some path");
 
             // Precondition
             CollectionAssert.IsNotEmpty(failureMechanism.ClosingStructures);
@@ -156,16 +154,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            ClosingStructure closingStructure1 = new TestClosingStructure();
-            ClosingStructure closingStructure2 = new TestClosingStructure();
-            var failureMechanism = new ClosingStructuresFailureMechanism
+            ClosingStructure closingStructure1 = new TestClosingStructure("structure1");
+            ClosingStructure closingStructure2 = new TestClosingStructure("structure2");
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.AddRange(new[]
             {
-                ClosingStructures =
-                {
-                    closingStructure1,
-                    closingStructure2
-                }
-            };
+                closingStructure1,
+                closingStructure2
+            }, "some path");
 
             var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 

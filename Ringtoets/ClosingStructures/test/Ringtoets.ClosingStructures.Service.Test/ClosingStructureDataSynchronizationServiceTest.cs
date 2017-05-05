@@ -383,8 +383,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(2, 0),
                 new Point2D(4, 0)
             });
-            var structure1 = new TestClosingStructure(new Point2D(1, 0));
-            var structure2 = new TestClosingStructure(new Point2D(3, 0));
+            var structure1 = new TestClosingStructure(new Point2D(1, 0), "structure1");
+            var structure2 = new TestClosingStructure(new Point2D(3, 0), "structure2");
             var profile = new TestForeshoreProfile();
             StructuresCalculation<ClosingStructuresInput> calculation1 = new TestClosingStructuresCalculation
             {
@@ -413,11 +413,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             };
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                ClosingStructures =
-                {
-                    structure1,
-                    structure2
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -434,6 +429,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     }
                 }
             };
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                structure1,
+                structure2
+            }, "some path");
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile

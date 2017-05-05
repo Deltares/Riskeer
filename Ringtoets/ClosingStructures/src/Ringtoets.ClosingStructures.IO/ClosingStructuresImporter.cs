@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -36,7 +37,7 @@ namespace Ringtoets.ClosingStructures.IO
     /// Imports point shapefiles containing closing structure locations
     /// and csv files containing closing structure schematizations.
     /// </summary>
-    public class ClosingStructuresImporter : StructuresImporter<ObservableList<ClosingStructure>>
+    public class ClosingStructuresImporter : StructuresImporter<StructureCollection<ClosingStructure>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresImporter"/>.
@@ -47,7 +48,7 @@ namespace Ringtoets.ClosingStructures.IO
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public ClosingStructuresImporter(ObservableList<ClosingStructure> importTarget,
+        public ClosingStructuresImporter(StructureCollection<ClosingStructure> importTarget,
                                          ReferenceLine referenceLine, string filePath, IImporterMessageProvider messageProvider)
             : base(importTarget, referenceLine, filePath, messageProvider) {}
 
@@ -55,11 +56,7 @@ namespace Ringtoets.ClosingStructures.IO
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             IEnumerable<ClosingStructure> importedClosingStructures = CreateClosingStructures(structureLocations.ToList(), groupedStructureParameterRows);
-
-            foreach (ClosingStructure closingStructure in importedClosingStructures)
-            {
-                ImportTarget.Add(closingStructure);
-            }
+            ImportTarget.AddRange(importedClosingStructures, FilePath);
         }
 
         private IEnumerable<ClosingStructure> CreateClosingStructures(IEnumerable<StructureLocation> structureLocations,

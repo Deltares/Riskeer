@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -41,10 +41,6 @@ namespace Ringtoets.ClosingStructures.IO.Test
     {
         private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Structures");
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
-
-        private readonly ObservableList<ClosingStructure> testImportTarget = new ObservableList<ClosingStructure>();
-        private readonly ReferenceLine testReferenceLine = new ReferenceLine();
-        private readonly string testFilePath = string.Empty;
 
         private MockRepository mocks;
 
@@ -68,11 +64,14 @@ namespace Ringtoets.ClosingStructures.IO.Test
             mocks.ReplayAll();
 
             // Call
-            var importer = new ClosingStructuresImporter(testImportTarget, testReferenceLine, testFilePath,
-                                                         messageProvider);
+            var importer = new ClosingStructuresImporter(
+                new StructureCollection<ClosingStructure>(), 
+                new ReferenceLine(), 
+                string.Empty,
+                messageProvider);
 
             // Assert
-            Assert.IsInstanceOf<StructuresImporter<ObservableList<ClosingStructure>>>(importer);
+            Assert.IsInstanceOf<StructuresImporter<StructureCollection<ClosingStructure>>>(importer);
         }
 
         [Test]
@@ -85,7 +84,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var importTarget = new ObservableList<ClosingStructure>();
+            var importTarget = new StructureCollection<ClosingStructure>();
             var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
                                                          messageProvider);
 
@@ -102,6 +101,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
+            Assert.IsNull(importTarget.SourcePath);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<ClosingStructure>();
+            var importTarget = new StructureCollection<ClosingStructure>();
             var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
                                                          messageProvider);
 
@@ -141,6 +141,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Assert.IsTrue(importResult);
 
             Assert.AreEqual(1, importTarget.Count);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
             ClosingStructure structure = importTarget[0];
             Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
@@ -155,7 +156,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Import_InvalidCsvFile_LogAndTrue()
+        public void Import_InvalidCsvFile_LogAndFalse()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -164,7 +165,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                                            "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var importTarget = new ObservableList<ClosingStructure>();
+            var importTarget = new StructureCollection<ClosingStructure>();
             var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -184,6 +185,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             );
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
+            Assert.IsNull(importTarget.SourcePath);
         }
 
         [Test]
@@ -204,7 +206,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<ClosingStructure>();
+            var importTarget = new StructureCollection<ClosingStructure>();
             var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -213,6 +215,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(4, importTarget.Count);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         [Test]
@@ -225,7 +228,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<ClosingStructure>();
+            var importTarget = new StructureCollection<ClosingStructure>();
             var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -248,6 +251,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             });
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
+            Assert.AreEqual(filePath, importTarget.SourcePath);
 
             var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
             {

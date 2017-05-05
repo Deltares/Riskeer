@@ -94,7 +94,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
             const string name = "very nice name!";
-            ClosingStructure structure = new TestClosingStructure(name);
+            ClosingStructure structure = new TestClosingStructure(name, "id");
 
             // Call
             string text = info.Text(structure);
@@ -159,9 +159,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mocks.ReplayAll();
 
-            var nodeData = new TestClosingStructure(new Point2D(0, 0));
-            var otherProfile1 = new TestClosingStructure(new Point2D(1, 0));
-            var otherProfile2 = new TestClosingStructure(new Point2D(5, 0));
+            var nodeData = new TestClosingStructure(new Point2D(0, 0), "first");
+            var otherStructure1 = new TestClosingStructure(new Point2D(1, 0), "second");
+            var otherStructure2 = new TestClosingStructure(new Point2D(5, 0), "thrid");
 
             var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -175,7 +175,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    Structure = otherProfile1
+                    Structure = otherStructure1
                 }
             };
             calculation2.InputParameters.Attach(calculation2Observer);
@@ -183,19 +183,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    Structure = otherProfile2
+                    Structure = otherStructure2
                 }
             };
             calculation3.InputParameters.Attach(calculation3Observer);
 
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                ClosingStructures =
-                {
-                    nodeData,
-                    otherProfile1,
-                    otherProfile2
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -206,6 +200,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                nodeData,
+                otherStructure1,
+                otherStructure2
+            }, "some path");
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),

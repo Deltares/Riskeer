@@ -199,7 +199,10 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             ClosingStructure structure = new TestClosingStructure();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.ClosingStructures.Add(structure);
+            failureMechanism.ClosingStructures.AddRange(new []
+            {
+              structure
+            }, "some path");
 
             var persistenceRegistry = new PersistenceRegistry();
 

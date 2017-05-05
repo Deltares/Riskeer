@@ -542,13 +542,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.AddRange(new[]
             {
-                ClosingStructures =
-                {
-                    new TestClosingStructure()
-                }
-            };
+                new TestClosingStructure()
+            }, "some path");
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
                                                                  calculation,

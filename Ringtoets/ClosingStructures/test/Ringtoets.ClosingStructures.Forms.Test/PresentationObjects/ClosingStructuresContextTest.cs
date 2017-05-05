@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
@@ -47,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StructureCollection<ClosingStructure>>>(context);
             Assert.AreSame(failureMechanism, failureMechanism);
             Assert.AreSame(failureMechanism.ClosingStructures, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
@@ -62,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<ClosingStructure>();
+            var closingStructures = new StructureCollection<ClosingStructure>();
 
             // Call
             TestDelegate test = () => new ClosingStructuresContext(closingStructures, null, assessmentSection);

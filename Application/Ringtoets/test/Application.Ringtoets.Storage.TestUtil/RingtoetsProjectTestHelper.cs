@@ -441,9 +441,12 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N2A = 6;
 
-            ClosingStructure closingStructure = new TestClosingStructure();
-            failureMechanism.ClosingStructures.Add(closingStructure);
-            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+            ClosingStructure closingStructure = new TestClosingStructure("structureA");
+            failureMechanism.ClosingStructures.AddRange(new []
+            {
+                closingStructure,
+                new TestClosingStructure("structureB")
+            }, @"C:\Folder" );
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydroLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
