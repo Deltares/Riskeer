@@ -310,7 +310,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 new Point2D(0, 3)
             });
-            var structure = new TestHeightStructure("kunstwerk1", "kunstwerk1");
+            var structure = new TestHeightStructure("kunstwerk1");
             var importer = new HeightStructuresCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
