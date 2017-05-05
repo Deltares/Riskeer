@@ -37,13 +37,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class DikeProfileProperties : ObjectProperties<DikeProfile>
     {
-        private const int namePropertyIndex = 1;
-        private const int worldReferencePointPropertyIndex = 2;
-        private const int orientationPropertyIndex = 3;
-        private const int breakWaterPropertyIndex = 4;
-        private const int foreshorePropertyIndex = 5;
-        private const int dikeGeometryPropertyIndex = 6;
-        private const int dikeHeightPropertyIndex = 7;
+        private const int idPropertyIndex = 1;
+        private const int namePropertyIndex = 2;
+        private const int worldReferencePointPropertyIndex = 3;
+        private const int orientationPropertyIndex = 4;
+        private const int breakWaterPropertyIndex = 5;
+        private const int foreshorePropertyIndex = 6;
+        private const int dikeGeometryPropertyIndex = 7;
+        private const int dikeHeightPropertyIndex = 8;
+
+        [PropertyOrder(idPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Id_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeProfile_Id_Description))]
+        public string Id
+        {
+            get
+            {
+                return data.Id;
+            }
+        }
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]

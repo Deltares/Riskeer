@@ -39,36 +39,49 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     /// </summary>
     public class StabilityPointStructureProperties : ObjectProperties<StabilityPointStructure>
     {
-        private const int namePropertyIndex = 1;
-        private const int locationPropertyIndex = 2;
-        private const int insideWaterLevelPropertyIndex = 3;
-        private const int insideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int structureNormalOrientationPropertyIndex = 5;
-        private const int stabilityPointStructureInflowModelTypePropertyIndex = 6;
-        private const int widthFlowAperturesPropertyIndex = 7;
-        private const int areaFlowAperturesPropertyIndex = 8;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
-        private const int storageStructureAreaPropertyIndex = 10;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
-        private const int levelCrestStructurePropertyIndex = 12;
-        private const int thresholdHeightOpenWeirPropertyIndex = 13;
-        private const int criticalOvertoppingDischargePropertyIndex = 14;
-        private const int flowVelocityStructureClosablePropertyIndex = 15;
-        private const int constructiveStrengthLinearLoadModelPropertyIndex = 16;
-        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 17;
-        private const int bankWidthPropertyIndex = 18;
-        private const int evaluationLevelPropertyIndex = 19;
-        private const int verticalDistancePropertyIndex = 20;
-        private const int failureProbabilityRepairClosurePropertyIndex = 21;
-        private const int failureCollisionEnergyPropertyIndex = 22;
-        private const int shipMassPropertyIndex = 23;
-        private const int shipVelocityPropertyIndex = 24;
-        private const int levellingCountPropertyIndex = 25;
-        private const int probabilityCollisionSecondaryStructurePropertyIndex = 26;
-        private const int stabilityLinearLoadModelPropertyIndex = 27;
-        private const int stabilityQuadraticLoadModelPropertyIndex = 28;
+        private const int idPropertyIndex = 1;
+        private const int namePropertyIndex = 2;
+        private const int locationPropertyIndex = 3;
+        private const int insideWaterLevelPropertyIndex = 4;
+        private const int insideWaterLevelFailureConstructionPropertyIndex = 5;
+        private const int structureNormalOrientationPropertyIndex = 6;
+        private const int stabilityPointStructureInflowModelTypePropertyIndex = 7;
+        private const int widthFlowAperturesPropertyIndex = 8;
+        private const int areaFlowAperturesPropertyIndex = 9;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 10;
+        private const int storageStructureAreaPropertyIndex = 11;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 12;
+        private const int levelCrestStructurePropertyIndex = 13;
+        private const int thresholdHeightOpenWeirPropertyIndex = 14;
+        private const int criticalOvertoppingDischargePropertyIndex = 15;
+        private const int flowVelocityStructureClosablePropertyIndex = 16;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 17;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 18;
+        private const int bankWidthPropertyIndex = 19;
+        private const int evaluationLevelPropertyIndex = 20;
+        private const int verticalDistancePropertyIndex = 21;
+        private const int failureProbabilityRepairClosurePropertyIndex = 22;
+        private const int failureCollisionEnergyPropertyIndex = 23;
+        private const int shipMassPropertyIndex = 24;
+        private const int shipVelocityPropertyIndex = 25;
+        private const int levellingCountPropertyIndex = 26;
+        private const int probabilityCollisionSecondaryStructurePropertyIndex = 27;
+        private const int stabilityLinearLoadModelPropertyIndex = 28;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 29;
 
         #region General
+
+        [PropertyOrder(idPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Id_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_Id_Description))]
+        public string Id
+        {
+            get
+            {
+                return data.Id;
+            }
+        }
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]

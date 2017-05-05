@@ -33,11 +33,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class ForeshoreProfilePropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int worldReferencePointPropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshoreGeometryPropertyIndex = 4;
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int worldReferencePointPropertyIndex = 2;
+        private const int orientationPropertyIndex = 3;
+        private const int breakWaterPropertyIndex = 4;
+        private const int foreshoreGeometryPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -54,11 +55,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Data_SetNewForeshoreProfileInstance_ReturnCorrectPropertyValues()
         {
             // Setup
+            const string id = "VP";
             const string name = "Voorlandprofiel";
             var foreshoreProfile = new ForeshoreProfile(new Point2D(12.34, 56.78), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {
-                                                            Id = "id",
+                                                            Id = id,
                                                             Name = name
                                                         });
 
@@ -70,6 +72,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
+            Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.Orientation.Value);
@@ -91,14 +94,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            "Algemeen",
+                                                                            "ID",
+                                                                            "ID van het voorlandprofiel.",
+                                                                            true);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("Naam van het voorlandprofiel.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Naam",
+                                                                            "Naam van het voorlandprofiel.",
+                                                                            true);
 
             PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(worldReferencePointProperty,
