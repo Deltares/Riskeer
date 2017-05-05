@@ -127,7 +127,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 Name = "with LoadSchematizationType set to Linear and InflowModelType to FloodedCulvert",
                 InputParameters =
                 {
-                    Structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1"),
+                    Structure = new TestStabilityPointStructure("name", "kunstwerk1"),
                     LoadSchematizationType = LoadSchematizationType.Linear,
                     InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert
                 }
@@ -141,7 +141,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 Name = "with LoadSchematizationType set to Qadratic and InflowModelType to LowSil",
                 InputParameters =
                 {
-                    Structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1"),
+                    Structure = new TestStabilityPointStructure("name", "kunstwerk1"),
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill
                 }
@@ -155,7 +155,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 Name = "with structure",
                 InputParameters =
                 {
-                    Structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1")
+                    Structure = new TestStabilityPointStructure("name", "kunstwerk1")
                 }
             };
         }
@@ -207,7 +207,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 InputParameters =
                 {
                     ForeshoreProfile = new TestForeshoreProfile("profiel1"),
-                    Structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1"),
+                    Structure = new TestStabilityPointStructure("name", "kunstwerk1"),
                     AllowedLevelIncreaseStorage = new LogNormalDistribution
                     {
                         Mean = (RoundedDouble) 0.2,

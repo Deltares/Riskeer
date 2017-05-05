@@ -125,7 +125,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
-                    Structure = new TestHeightStructure("kunstwerk1"),
+                    Structure = new TestHeightStructure("name", "kunstwerk1"),
                     ForeshoreProfile = new TestForeshoreProfile("profiel1"),
                     FailureProbabilityStructureWithErosion = 1e-6,
                     StructureNormalOrientation = (RoundedDouble) 67.1,
@@ -219,7 +219,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 Name = "with structure",
                 InputParameters =
                 {
-                    Structure = new TestHeightStructure("kunstwerk1")
+                    Structure = new TestHeightStructure("name", "kunstwerk1")
                 }
             };
         }
