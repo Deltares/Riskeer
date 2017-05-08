@@ -40,20 +40,20 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="worldReferencePoint"/> is <c>null</c>.</exception>
         public TestForeshoreProfile(Point2D worldReferencePoint)
-            : this("id", null, worldReferencePoint, null, Enumerable.Empty<Point2D>()) {}
+            : this("id", "name", worldReferencePoint, null, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/>.
         /// </summary>
         /// <param name="useBreakWater">If <c>true</c>, create the ForeshoreProfile with a default <see cref="BreakWater"/>.</param>
         public TestForeshoreProfile(bool useBreakWater = false)
-            : this("id", null, new Point2D(0, 0), useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null, Enumerable.Empty<Point2D>()) {}
+            : this("id", "name", new Point2D(0, 0), useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
         /// name and no <see cref="BreakWater"/>.
         /// </summary>
-        /// <param name="profileId">Id of the profile.</param>
+        /// <param name="profileId">The id of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when 
         /// <paramref name="profileId"/> is null, empty or whitespaces.</exception>
         public TestForeshoreProfile(string profileId)
@@ -63,32 +63,20 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
         /// name and id and no <see cref="BreakWater"/>.
         /// </summary>
-        /// <param name="profileName">Name of the profile.</param>
+        /// <param name="profileName">The name of the profile.</param>
         /// <param name="id">The id of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when 
         /// <paramref name="id"/> is null, empty or whitespaces.</exception>
         public TestForeshoreProfile(string profileName, string id)
             : this(id, profileName, new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) {}
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
-        /// name and geometry.
-        /// </summary>
-        /// <param name="profileId">Name of the profile.</param>
-        /// <param name="geometry">The geometry of the profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <paramref name="geometry"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when 
-        /// <paramref name="geometry"/> contains <c>null</c> elements.</exception>
-        public TestForeshoreProfile(string profileId, IEnumerable<Point2D> geometry)
-            : this(profileId, "name", new Point2D(0, 0), null, geometry) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="breakWater">The <see cref="BreakWater"/> which needs to be set on the <see cref="ForeshoreProfile"/>.</param>
         public TestForeshoreProfile(BreakWater breakWater)
-            : this("id", null, new Point2D(0, 0), breakWater, Enumerable.Empty<Point2D>()) {}
+            : this("id", "name", new Point2D(0, 0), breakWater, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified geometry.
@@ -97,24 +85,25 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
-        /// <paramref name="geometry"/> contains <c>null</c> elements.</exception>
+        /// any element of <paramref name="geometry"/> is <c>null</c>.</exception>
         public TestForeshoreProfile(IEnumerable<Point2D> geometry)
-            : this("id", null, new Point2D(0, 0), null, geometry) {}
+            : this("id", "name", new Point2D(0, 0), null, geometry) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified geometry and id.
+        /// Creates a new instance of the <see cref="TestForeshoreProfile"/> with a given
+        /// name and geometry.
         /// </summary>
+        /// <param name="profileId">The id of the profile.</param>
         /// <param name="geometry">The geometry of the profile.</param>
-        /// <param name="id">The id of the foreshore profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="id"/> is null, empty or whitespaces.</item>
-        /// <item><paramref name="geometry"/> contains <c>null</c> elements.</item>
+        /// <item>Any element of <paramref name="geometry"/> is <c>null</c>.</item>
+        /// <item><paramref name="profileId"/> is null, empty or whitespaces.</item>
         /// </list></exception>
-        public TestForeshoreProfile(IEnumerable<Point2D> geometry, string id) :
-            this(id, null, new Point2D(0, 0), null, geometry) {}
+        public TestForeshoreProfile(string profileId, IEnumerable<Point2D> geometry)
+            : this(profileId, "name", new Point2D(0, 0), null, geometry) { }
 
         /// <summary>
         /// Instantiates a <see cref="TestForeshoreProfile"/> with given properties.

@@ -252,16 +252,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                var profile1 = new TestForeshoreProfile(new[]
+                var profile1 = new TestForeshoreProfile("profile1 ID", new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, "profile1 ID");
-                var profile2 = new TestForeshoreProfile(new[]
+                });
+                var profile2 = new TestForeshoreProfile("profile2 ID", new[]
                 {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
-                }, "profile2 ID");
+                });
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
                     profile1,
@@ -517,11 +517,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
-                    new TestForeshoreProfile(new[]
+                    new TestForeshoreProfile("originalProfile ID", new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
-                    }, "originalProfile ID")
+                    })
                 }, "path");
 
                 view.Data = failureMechanismContext;
@@ -534,11 +534,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Call
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
-                    new TestForeshoreProfile(new[]
+                    new TestForeshoreProfile("newProfile ID", new[]
                     {
                         new Point2D(2, 2),
                         new Point2D(3, 3)
-                    }, "newProfile ID")
+                    })
                 }, "path");
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 

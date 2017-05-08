@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
 
             // Assert
-            Assert.AreEqual(structureInput.ForeshoreProfile.Name, configuration.ForeshoreProfileId);
+            Assert.AreEqual(structureInput.ForeshoreProfile.Id, configuration.ForeshoreProfileId);
             WaveReductionConfiguration waveReduction = configuration.WaveReduction;
             Assert.AreEqual(structureInput.UseBreakWater, waveReduction.UseBreakWater);
             Assert.AreEqual(structureInput.UseForeshore, waveReduction.UseForeshoreProfile);

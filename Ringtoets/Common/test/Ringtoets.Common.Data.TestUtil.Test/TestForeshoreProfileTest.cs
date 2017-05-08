@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsEmpty(profile.Geometry);
             Assert.AreEqual("id", profile.Id);
-            Assert.AreEqual("id", profile.Name);
+            Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsEmpty(profile.Geometry);
             Assert.AreEqual("id", profile.Id);
-            Assert.AreEqual("id", profile.Name);
+            Assert.AreEqual("name", profile.Name);
             Assert.IsTrue(profile.HasBreakWater);
             Assert.IsNotNull(profile.BreakWater);
             Assert.AreEqual(BreakWaterType.Dam, profile.BreakWater.Type);
@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsEmpty(profile.Geometry);
             Assert.AreEqual("id", profile.Id);
-            Assert.AreEqual("id", profile.Name);
+            Assert.AreEqual("name", profile.Name);
             Assert.AreSame(breakWater, profile.BreakWater);
             Assert.IsTrue(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             CollectionAssert.AreEqual(geometry, profile.Geometry);
             Assert.AreEqual("id", profile.Id);
-            Assert.AreEqual("id", profile.Name);
+            Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
@@ -182,12 +182,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             const string id = "Dike Profile ID";
 
             // Call
-            ForeshoreProfile profile = new TestForeshoreProfile(geometry, id);
+            ForeshoreProfile profile = new TestForeshoreProfile(id, geometry);
 
             // Assert
             CollectionAssert.AreEqual(geometry, profile.Geometry);
             Assert.AreEqual(id, profile.Id);
-            Assert.AreEqual(id, profile.Name);
+            Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
