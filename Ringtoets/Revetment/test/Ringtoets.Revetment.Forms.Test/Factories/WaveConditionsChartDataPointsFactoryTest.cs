@@ -332,6 +332,44 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
+        [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
+        {
+            "CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfileAndLowerBoundaryWaterLevelsBelowForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray({0})"
+        })]
+        public void CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfileAndLowerBoundaryWaterLevelsBelowForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray(
+            IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            // Setup
+            const double lowerBoundaryRevetment = 2;
+            const double upperBoundaryRevetment = 8;
+            const double lowerBoundaryWaterLevels = -3;
+
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
+                ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
+            };
+
+            // Call
+            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+
+            // Assert
+            Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
+            double deltaY = input.LowerBoundaryRevetment - lastGeometryPoint.Y;
+
+            var expectedGeometry = new[]
+            {
+                new Point2D((lowerBoundaryWaterLevels - lastGeometryPoint.Y) / 3 + lastGeometryPoint.X, lowerBoundaryWaterLevels),
+                new Point2D(lastGeometryPoint.X, lastGeometryPoint.Y),
+                new Point2D((lowerBoundaryRevetment - lastGeometryPoint.Y) / 3 + lastGeometryPoint.X, lowerBoundaryRevetment)
+            };
+
+            CollectionAssert.AreEqual(expectedGeometry, points);
+        }
+
+        [Test]
         public void CreateLowerBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsArray()
         {
             // Call

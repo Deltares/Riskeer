@@ -212,6 +212,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                          chartData.Collection.ElementAt(revetmentChartDataIndex));
                 AssertRevetmentBaseChartData(calculation.InputParameters.ForeshoreGeometry.Last(),
                                              calculation.InputParameters.LowerBoundaryRevetment,
+                                             calculation.InputParameters.LowerBoundaryWaterLevels,
                                              chartData.Collection.ElementAt(revetmentBaseChartDataIndex));
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.LowerBoundaryRevetment,
@@ -375,6 +376,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
                 AssertRevetmentBaseChartData(profile2.Geometry.Last(),
                                              calculation.InputParameters.LowerBoundaryRevetment,
+                                             calculation.InputParameters.LowerBoundaryWaterLevels,
                                              revetmentBaseChartData);
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.LowerBoundaryRevetment,
@@ -505,16 +507,24 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
         private static void AssertRevetmentBaseChartData(Point2D lastForeshorePoint,
                                                          double lowerBoundaryRevetment,
+                                                         double lowerBoundaryWaterLevels,
                                                          ChartData chartData)
         {
             Assert.IsInstanceOf<ChartLineData>(chartData);
             var revetmentChartData = (ChartLineData) chartData;
 
-            var expectedGeometry = new[]
+            var expectedGeometry = new List<Point2D>();
+
+            if (lowerBoundaryWaterLevels < lastForeshorePoint.Y)
+            {
+                expectedGeometry.Add(new Point2D(GetPointX(lowerBoundaryWaterLevels, lastForeshorePoint), lowerBoundaryWaterLevels));
+            }
+
+            expectedGeometry.AddRange(new[]
             {
                 new Point2D(lastForeshorePoint.X, lastForeshorePoint.Y),
                 new Point2D(GetPointX(lowerBoundaryRevetment, lastForeshorePoint), lowerBoundaryRevetment)
-            };
+            });
 
             CollectionAssert.AreEqual(expectedGeometry, revetmentChartData.Points);
 

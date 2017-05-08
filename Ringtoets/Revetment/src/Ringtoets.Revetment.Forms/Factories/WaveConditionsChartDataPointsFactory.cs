@@ -105,11 +105,18 @@ namespace Ringtoets.Revetment.Forms.Factories
                 return new Point2D[0];
             }
 
-            return new[]
+            var points = new List<Point2D>
             {
                 GetBaseStartPoint(input),
                 new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
             };
+
+            if (input.LowerBoundaryWaterLevels < points.First().Y)
+            {
+                points.Insert(0, new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryWaterLevels), input.LowerBoundaryWaterLevels));
+            }
+
+            return points.ToArray();
         }
 
         /// <summary>
