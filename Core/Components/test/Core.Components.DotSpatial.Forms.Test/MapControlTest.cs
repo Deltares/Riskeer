@@ -2173,12 +2173,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 Assert.AreEqual(3, mapView.Layers.Count);
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                var pointsLayer = mapView.Layers[1] as FeatureLayer;
-                Assert.IsNotNull(pointsLayer);
-                Assert.AreEqual("Points", pointsLayer.Name);
-                var polygonsLayer = mapView.Layers[2] as FeatureLayer;
-                Assert.IsNotNull(polygonsLayer);
-                Assert.AreEqual("Polygons", polygonsLayer.Name);
+                AssertFeatureLayer(mapView.Layers[1], "Points");
+                AssertFeatureLayer(mapView.Layers[2], "Polygons");
                 Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
             }
         }
@@ -2222,18 +2218,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 Assert.AreEqual(5, mapView.Layers.Count);
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                var pointsLayer = mapView.Layers[1] as FeatureLayer;
-                Assert.IsNotNull(pointsLayer);
-                Assert.AreEqual("Points", pointsLayer.Name);
-                var additionalPolygonsLayer = mapView.Layers[2] as FeatureLayer;
-                Assert.IsNotNull(additionalPolygonsLayer);
-                Assert.AreEqual("Additional polygons", additionalPolygonsLayer.Name);
-                var linesLayer = mapView.Layers[3] as FeatureLayer;
-                Assert.IsNotNull(linesLayer);
-                Assert.AreEqual("Lines", linesLayer.Name);
-                var polygonsLayer = mapView.Layers[4] as FeatureLayer;
-                Assert.IsNotNull(polygonsLayer);
-                Assert.AreEqual("Polygons", polygonsLayer.Name);
+                AssertFeatureLayer(mapView.Layers[1], "Points");
+                AssertFeatureLayer(mapView.Layers[2], "Additional polygons");
+                AssertFeatureLayer(mapView.Layers[3], "Lines");
+                AssertFeatureLayer(mapView.Layers[4], "Polygons");
                 Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
             }
         }
@@ -2264,15 +2252,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Precondition
                 Assert.AreEqual(4, mapView.Layers.Count);
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                var pointsLayer = mapView.Layers[1] as FeatureLayer;
-                Assert.IsNotNull(pointsLayer);
-                Assert.AreEqual("Points", pointsLayer.Name);
-                var linesLayer = mapView.Layers[2] as FeatureLayer;
-                Assert.IsNotNull(linesLayer);
-                Assert.AreEqual("Lines", linesLayer.Name);
-                var polygonsLayer = mapView.Layers[3] as FeatureLayer;
-                Assert.IsNotNull(polygonsLayer);
-                Assert.AreEqual("Polygons", polygonsLayer.Name);
+                AssertFeatureLayer(mapView.Layers[1], "Points");
+                AssertFeatureLayer(mapView.Layers[2], "Lines");
+                AssertFeatureLayer(mapView.Layers[3], "Polygons");
 
                 // When
                 mapDataCollection.Remove(mapPointData);
@@ -2282,16 +2264,17 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 Assert.AreEqual(4, mapView.Layers.Count);
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                linesLayer = mapView.Layers[1] as FeatureLayer;
-                Assert.IsNotNull(linesLayer);
-                Assert.AreEqual("Lines", linesLayer.Name);
-                polygonsLayer = mapView.Layers[2] as FeatureLayer;
-                Assert.IsNotNull(polygonsLayer);
-                Assert.AreEqual("Polygons", polygonsLayer.Name);
-                pointsLayer = mapView.Layers[3] as FeatureLayer;
-                Assert.IsNotNull(pointsLayer);
-                Assert.AreEqual("Points", pointsLayer.Name);
+                AssertFeatureLayer(mapView.Layers[1], "Lines");
+                AssertFeatureLayer(mapView.Layers[2], "Polygons");
+                AssertFeatureLayer(mapView.Layers[3], "Points");
             }
+        }
+
+        private static void AssertFeatureLayer(ILayer layer, string layerName)
+        {
+            var featureLayer = layer as FeatureLayer;
+            Assert.IsNotNull(featureLayer);
+            Assert.AreEqual(layerName, featureLayer.Name);
         }
 
         #endregion
