@@ -82,28 +82,28 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the ID of the foreshore profile.
         /// </summary>
-        public string Id { get; }
+        public string Id { get; private set; }
 
         /// <summary>
         /// Gets the name of the foreshore profile.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
         /// </summary>
-        public Point2D WorldReferencePoint { get; }
+        public Point2D WorldReferencePoint { get; private set; }
 
         /// <summary>
         /// Gets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
         /// </summary>
-        public double X0 { get; }
+        public double X0 { get; private set; }
 
         /// <summary>
         /// Gets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        public RoundedDouble Orientation { get; }
+        public RoundedDouble Orientation { get; private set; }
 
         /// <summary>
         /// Gets a value indicating if there is a break water object available.
@@ -119,12 +119,37 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the break water object of the foreshore profile, if any.
         /// </summary>
-        public BreakWater BreakWater { get; }
+        public BreakWater BreakWater { get; private set; }
 
         /// <summary>
         /// Gets the geometry of the foreshore profile.
         /// </summary>
         public RoundedPoint2DCollection Geometry { get; private set; }
+
+        /// <summary>
+        /// Copies all the properties of <paramref name="fromForeshoreProfile"/>
+        /// to the current instance.
+        /// </summary>
+        /// <param name="fromForeshoreProfile">The foreshore profile to copy the
+        /// properties from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="fromForeshoreProfile"/> is <c>null</c>.</exception>
+        public void CopyProperties(ForeshoreProfile fromForeshoreProfile)
+        {
+            if (fromForeshoreProfile == null)
+            {
+                throw new ArgumentNullException(nameof(fromForeshoreProfile));
+            }
+
+            Id = fromForeshoreProfile.Id;
+            Name = fromForeshoreProfile.Name;
+            X0 = fromForeshoreProfile.X0;
+            Orientation = fromForeshoreProfile.Orientation;
+
+            BreakWater = fromForeshoreProfile.BreakWater;
+            WorldReferencePoint = fromForeshoreProfile.WorldReferencePoint;
+            SetGeometry(fromForeshoreProfile.Geometry);
+        }
 
         public override string ToString()
         {
@@ -178,6 +203,13 @@ namespace Ringtoets.Common.Data.DikeProfiles
                    && EqualGeometry(other.Geometry.ToArray());
         }
 
+        /// <summary>
+        /// Sets the geometry of the foreshore profile.
+        /// </summary>
+        /// <param name="points">The points corresponding to the geometry of 
+        /// the foreshore profile.</param>
+        /// <exception cref="ArgumentException">Thrown when an element in 
+        /// <paramref name="points"/> is <c>null</c>.</exception>
         private void SetGeometry(IEnumerable<Point2D> points)
         {
             Point2D[] foreshorePoints = points.ToArray();

@@ -594,6 +594,71 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
         }
 
+        [Test]
+        public void CopyProperties_FromForeshoreProfileNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            ForeshoreProfile foreshoreProfile = CreateFullyDefinedForeshoreProfile();
+
+            // Call
+            TestDelegate call = () => foreshoreProfile.CopyProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("fromForeshoreProfile", exception.ParamName);
+        }
+
+        [Test]
+        public void CopyProperties_FromForeshoreProfileAllPropertiesChanged_PropertiesChanged()
+        {
+            // Setup
+            ForeshoreProfile foreshoreProfileToUpdate = CreateFullyDefinedForeshoreProfile();
+
+            const string expectedId = "new_id";
+            const string expectedName = "new_name";
+
+            var random = new Random(21);
+            double expectedX0 = foreshoreProfileToUpdate.X0 + random.NextDouble();
+            var expectedOrientation = new RoundedDouble(2, (foreshoreProfileToUpdate.Orientation + random.NextDouble()) % 360);
+
+            double expectedBreakWaterHeight = foreshoreProfileToUpdate.BreakWater.Height + random.NextDouble();
+            var expectedBreakWater = new BreakWater(random.NextEnumValue<BreakWaterType>(), expectedBreakWaterHeight);
+
+            Point2D originalPoint = foreshoreProfileToUpdate.WorldReferencePoint;
+            var expectedWorldReferencePoint = new Point2D(originalPoint.X + random.NextDouble(),
+                                                          originalPoint.Y + random.NextDouble());
+
+            var expectedForeshoreGeometry = new[]
+            {
+                new Point2D(10, 10),
+                new Point2D(15, 10)
+            };
+
+            var foreshoreProfileToUpdateFrom = new ForeshoreProfile(expectedWorldReferencePoint,
+                                                                    expectedForeshoreGeometry,
+                                                                    expectedBreakWater,
+                                                                    new ForeshoreProfile.ConstructionProperties
+                                                                    {
+                                                                        Id = expectedId,
+                                                                        Name = expectedName,
+                                                                        Orientation = expectedOrientation,
+                                                                        X0 = expectedX0
+                                                                    });
+
+            // Call
+            foreshoreProfileToUpdate.CopyProperties(foreshoreProfileToUpdateFrom);
+
+            // Assert
+            Assert.AreEqual(expectedWorldReferencePoint, foreshoreProfileToUpdate.WorldReferencePoint);
+            CollectionAssert.AreEqual(expectedForeshoreGeometry, foreshoreProfileToUpdate.Geometry);
+            Assert.AreEqual(expectedBreakWater, foreshoreProfileToUpdate.BreakWater);
+
+            Assert.AreEqual(expectedId, foreshoreProfileToUpdate.Id);
+            Assert.AreEqual(expectedName, foreshoreProfileToUpdate.Name);
+            Assert.AreEqual(expectedX0, foreshoreProfileToUpdate.X0);
+            Assert.AreEqual(expectedOrientation, foreshoreProfileToUpdate.Orientation);
+        }
+
         /// <summary>
         /// Creates a default <see cref="ForeshoreProfile"/> with all properties set.
         /// </summary>
@@ -627,7 +692,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         /// is <c>null</c>, empty or a whitespace.</exception>
         private static ForeshoreProfile CreateForeshoreProfile(ForeshoreProfile.ConstructionProperties properties)
         {
-            var worldCoordinate = new Point2D(0, 0);
+            var worldReferencePoint = new Point2D(0, 0);
             var geometry = new[]
             {
                 new Point2D(0, 1),
@@ -635,7 +700,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             };
             var breakWater = new BreakWater(BreakWaterType.Caisson, 1.3);
 
-            return new ForeshoreProfile(worldCoordinate, geometry, breakWater, properties);
+            return new ForeshoreProfile(worldReferencePoint, geometry, breakWater, properties);
         }
     }
 }
