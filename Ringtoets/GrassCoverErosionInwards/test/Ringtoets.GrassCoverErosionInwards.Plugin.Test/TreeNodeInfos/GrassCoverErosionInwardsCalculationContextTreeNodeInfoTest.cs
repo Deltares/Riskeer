@@ -57,7 +57,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuUpdateDikeProfileIndex = 3;
-
         private const int contextMenuValidateIndex = 5;
         private const int contextMenuCalculateIndex = 6;
         private const int contextMenuClearIndex = 8;

@@ -55,9 +55,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuValidateIndex = 4;
-        private const int contextMenuCalculateIndex = 5;
-        private const int contextMenuClearIndex = 7;
+        private const int contextMenuUpdateStructureIndex = 3;
+        private const int contextMenuValidateIndex = 5;
+        private const int contextMenuCalculateIndex = 6;
+        private const int contextMenuClearIndex = 8;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
@@ -185,6 +186,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -244,7 +246,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(14, menu.Items.Count);
+                    Assert.AreEqual(15, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   "&Valideren",
@@ -261,6 +263,77 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenu_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabled()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk",
+                                                                  "Er moet een kunstwerk geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenu_CalculationWithStructure_ContextMenuItemUpdateStructureEnabled()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestHeightStructure()
+                }
+            };
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk",
+                                                                  "Berekening bijwerken met het kunstwerk.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
             }
         }

@@ -2430,6 +2430,35 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTi" +
+                        "p", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening bijwerken met het kunstwerk..
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_data_ToolTip {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_data" +
+                        "_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk.
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Genereer berekeningen op basis van geselecteerde kunstwerken..
         /// </summary>
         public static string StructuresPlugin_Generate_calculations_for_selected_structures {

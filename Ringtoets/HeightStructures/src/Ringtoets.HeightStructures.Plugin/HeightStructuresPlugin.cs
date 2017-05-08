@@ -706,6 +706,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
@@ -756,6 +757,30 @@ namespace Ringtoets.HeightStructures.Plugin
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        private StrictContextMenuItem CreateUpdateStructureItem(HeightStructuresCalculationContext context)
+        {
+            HeightStructuresInput inputParameters = context.WrappedData.InputParameters;
+            bool hasStructure = inputParameters.Structure != null;
+
+            string toolTipMessage = hasStructure
+                                        ? RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_data_ToolTip
+                                        : RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip;
+
+            return new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data,
+                toolTipMessage,
+                RingtoetsCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = hasStructure
+            };
+        }
+
+        private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<HeightStructuresInput> calculation)
+        {
+            // TODO: Implement
         }
 
         #endregion
