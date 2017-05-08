@@ -118,10 +118,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             foreach (StructuresCalculation<HeightStructuresInput> affectedCalculation in GetAffectedCalculationsWithHeightStructure(structure))
             {
                 affectedObjects.Add(affectedCalculation.InputParameters);
-                if (affectedCalculation.HasOutput)
-                {
-                    affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
-                }
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
             }
 
             affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
