@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -31,6 +32,38 @@ namespace Ringtoets.Common.Data.Test
     [TestFixture]
     public class StructureBaseTest
     {
+        private static IEnumerable<TestCaseData> StructureCombinations
+        {
+            get
+            {
+                StructureBase structure = CreateFullyDefinedStructure();
+                yield return new TestCaseData(structure, structure, true)
+                    .SetName("SameStructure");
+                yield return new TestCaseData(structure, CreateFullyDefinedStructure(), true)
+                    .SetName("EqualStructure");
+
+                StructureBase.ConstructionProperties differentId = CreateFullyConfiguredConstructionProperties();
+                differentId.Id = "differentId";
+                yield return new TestCaseData(structure, new TestStructure(differentId), false)
+                    .SetName(nameof(differentId));
+
+                StructureBase.ConstructionProperties differentName = CreateFullyConfiguredConstructionProperties();
+                differentName.Name = "differentName";
+                yield return new TestCaseData(structure, new TestStructure(differentName), false)
+                    .SetName(nameof(differentName));
+
+                StructureBase.ConstructionProperties differentLocation = CreateFullyConfiguredConstructionProperties();
+                differentLocation.Location = new Point2D(9, 9);
+                yield return new TestCaseData(structure, new TestStructure(differentLocation), false)
+                    .SetName(nameof(differentLocation));
+
+                StructureBase.ConstructionProperties differentOrientation = CreateFullyConfiguredConstructionProperties();
+                differentOrientation.StructureNormalOrientation = (RoundedDouble) 90;
+                yield return new TestCaseData(structure, new TestStructure(differentOrientation), false)
+                    .SetName(nameof(differentOrientation));
+            }
+        }
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -184,6 +217,88 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual(structure.Name, otherStructure.Name);
             Assert.AreEqual(structure.Location, otherStructure.Location);
             Assert.AreEqual(structure.StructureNormalOrientation, otherStructure.StructureNormalOrientation);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("string")]
+        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        {
+            // Setup
+            StructureBase structure = CreateFullyDefinedStructure();
+
+            // Call
+            bool isEqualToDifferentObject = structure.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqualToDifferentObject);
+        }
+
+        [Test]
+        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
+        {
+            // Setup
+            StructureBase structureX = CreateFullyDefinedStructure();
+            StructureBase structureY = CreateFullyDefinedStructure();
+            StructureBase structureZ = CreateFullyDefinedStructure();
+
+            // Call
+            bool isXEqualToY = structureX.Equals(structureY);
+            bool isYEqualToZ = structureY.Equals(structureZ);
+            bool isXEqualToZ = structureX.Equals(structureZ);
+
+            // Assert
+            Assert.IsTrue(isXEqualToY);
+            Assert.IsTrue(isYEqualToZ);
+            Assert.IsTrue(isXEqualToZ);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(StructureCombinations))]
+        public void Equal_DifferentProperty_RetunsIsEqual(StructureBase structure,
+                                                          StructureBase otherStructure,
+                                                          bool expectedToBeEqual)
+        {
+            // Call
+            bool isStructureEqualToOther = structure.Equals(otherStructure);
+            bool isOtherEqualToStructure = otherStructure.Equals(structure);
+
+            // Assert
+            Assert.AreEqual(expectedToBeEqual, isStructureEqualToOther);
+            Assert.AreEqual(expectedToBeEqual, isOtherEqualToStructure);
+        }
+
+        [Test]
+        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        {
+            // Setup
+            StructureBase structureOne = CreateFullyDefinedStructure();
+            StructureBase structureTwo = CreateFullyDefinedStructure();
+
+            // Call
+            int hashCodeOne = structureOne.GetHashCode();
+            int hashCodeTwo = structureTwo.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static StructureBase CreateFullyDefinedStructure()
+        {
+            return new TestStructure(CreateFullyConfiguredConstructionProperties());
+        }
+
+        private static StructureBase.ConstructionProperties CreateFullyConfiguredConstructionProperties()
+        {
+            const string id = "structure id";
+            const string name = "Structure name";
+            return new StructureBase.ConstructionProperties
+            {
+                Id = id,
+                Name = name,
+                Location = new Point2D(1, 1),
+                StructureNormalOrientation = (RoundedDouble) 25
+            };
         }
 
         private class TestStructure : StructureBase

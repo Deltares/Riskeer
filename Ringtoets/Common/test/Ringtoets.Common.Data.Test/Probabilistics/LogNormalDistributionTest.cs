@@ -250,10 +250,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             LogNormalDistribution distribution = CreateFullyDefinedDistribution();
 
             // Call
-            bool isEqualToNull = distribution.Equals(other);
+            bool isEqual = distribution.Equals(other);
 
             // Assert
-            Assert.IsFalse(isEqualToNull);
+            Assert.IsFalse(isEqual);
         }
 
         [Test]
@@ -277,7 +277,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
         [Test]
         [TestCaseSource(nameof(DistributionCombinations))]
-        public void Equal_DifferentProperty_RetunsFalse(LogNormalDistribution distribution,
+        public void Equal_DifferentProperty_RetunsIsEqual(LogNormalDistribution distribution,
                                                         LogNormalDistribution otherDistribution,
                                                         bool expectedToBeEqual)
         {

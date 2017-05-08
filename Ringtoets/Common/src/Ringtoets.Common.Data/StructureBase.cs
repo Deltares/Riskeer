@@ -80,6 +80,41 @@ namespace Ringtoets.Common.Data
         /// </summary>
         public RoundedDouble StructureNormalOrientation { get; private set; }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((StructureBase) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Name.GetHashCode();
+                hashCode = (hashCode * 397) ^ Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ Location.GetHashCode();
+                hashCode = (hashCode * 397) ^ StructureNormalOrientation.GetHashCode();
+
+                return hashCode;
+            }
+        }
+
         /// <summary>
         /// Copies the property values of the <paramref name="fromStructure"/> to the 
         /// <see cref="StructureBase"/>.
@@ -100,9 +135,12 @@ namespace Ringtoets.Common.Data
             StructureNormalOrientation = fromStructure.StructureNormalOrientation;
         }
 
-        public override string ToString()
+        private bool Equals(StructureBase other)
         {
-            return Name;
+            return Id.Equals(other.Id)
+                   && Name.Equals(other.Name)
+                   && Location.Equals(other.Location)
+                   && StructureNormalOrientation.Equals(other.StructureNormalOrientation);
         }
 
         /// <summary>

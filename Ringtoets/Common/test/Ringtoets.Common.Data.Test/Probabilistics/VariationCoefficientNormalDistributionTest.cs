@@ -180,10 +180,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             VariationCoefficientNormalDistribution distribution = CreateFullyDefinedDistribution();
 
             // Call
-            bool isEqualToNull = distribution.Equals(other);
+            bool isEqual = distribution.Equals(other);
 
             // Assert
-            Assert.IsFalse(isEqualToNull);
+            Assert.IsFalse(isEqual);
         }
 
         [Test]
@@ -207,7 +207,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
         [Test]
         [TestCaseSource(nameof(DistributionCombinations))]
-        public void Equal_DifferentProperty_RetunsFalse(VariationCoefficientNormalDistribution distribution,
+        public void Equal_DifferentProperty_RetunsIsEqual(VariationCoefficientNormalDistribution distribution,
                                                         VariationCoefficientNormalDistribution otherDistribution,
                                                         bool expectedToBeEqual)
         {

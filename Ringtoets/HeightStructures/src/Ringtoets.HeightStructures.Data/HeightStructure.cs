@@ -151,6 +151,39 @@ namespace Ringtoets.HeightStructures.Data
             WidthFlowApertures.StandardDeviation = fromStructure.WidthFlowApertures.StandardDeviation;
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj) && Equals((HeightStructure) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ AllowedLevelIncreaseStorage.GetHashCode();
+                hashCode = (hashCode * 397) ^ CriticalOvertoppingDischarge.GetHashCode();
+                hashCode = (hashCode * 397) ^ FailureProbabilityStructureWithErosion.GetHashCode();
+                hashCode = (hashCode * 397) ^ FlowWidthAtBottomProtection.GetHashCode();
+                hashCode = (hashCode * 397) ^ LevelCrestStructure.GetHashCode();
+                hashCode = (hashCode * 397) ^ StorageStructureArea.GetHashCode();
+                hashCode = (hashCode * 397) ^ WidthFlowApertures.GetHashCode();
+
+                return hashCode;
+            }
+        }
+
+        private bool Equals(HeightStructure other)
+        {
+            return AllowedLevelIncreaseStorage.Equals(other.AllowedLevelIncreaseStorage)
+                   && CriticalOvertoppingDischarge.Equals(other.CriticalOvertoppingDischarge)
+                   && FailureProbabilityStructureWithErosion.Equals(other.FailureProbabilityStructureWithErosion)
+                   && FlowWidthAtBottomProtection.Equals(other.FlowWidthAtBottomProtection)
+                   && LevelCrestStructure.Equals(other.LevelCrestStructure)
+                   && StorageStructureArea.Equals(other.StorageStructureArea)
+                   && WidthFlowApertures.Equals(other.WidthFlowApertures);
+        }
+
         /// <summary>
         /// Class holding the various construction parameters for <see cref="HeightStructure"/>.
         /// </summary>

@@ -120,7 +120,6 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                 affectedObjects.Add(affectedCalculation.InputParameters);
                 if (affectedCalculation.HasOutput)
                 {
-                    affectedObjects.Add(affectedCalculation);
                     affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
                 }
             }
