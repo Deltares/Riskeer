@@ -1200,6 +1200,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID van het voorlandprofiel..
+        /// </summary>
+        public static string ForeshoreProfile_Id_Description {
+            get {
+                return ResourceManager.GetString("ForeshoreProfile_Id_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van het voorlandprofiel..
         /// </summary>
         public static string ForeshoreProfile_Name_Description {
@@ -1434,6 +1443,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string Id_DisplayName {
+            get {
+                return ResourceManager.GetString("Id_DisplayName", resourceCulture);
             }
         }
         
@@ -2065,6 +2083,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Structure_ForeshoreProfile_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_ForeshoreProfile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID van het kunstwerk..
+        /// </summary>
+        public static string Structure_Id_Description {
+            get {
+                return ResourceManager.GetString("Structure_Id_Description", resourceCulture);
             }
         }
         

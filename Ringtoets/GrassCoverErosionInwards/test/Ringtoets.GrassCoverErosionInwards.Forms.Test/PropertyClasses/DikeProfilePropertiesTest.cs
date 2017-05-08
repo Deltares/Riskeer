@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -33,13 +34,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class DikeProfilePropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int worldReferencePointPropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int worldReferencePointPropertyIndex = 2;
+        private const int orientationPropertyIndex = 3;
+        private const int breakWaterPropertyIndex = 4;
+        private const int foreshorePropertyIndex = 5;
+        private const int dikeGeometryPropertyIndex = 6;
+        private const int dikeHeightPropertyIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -56,8 +58,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewDikeProfileInstance_ReturnCorrectPropertyValues()
         {
             // Setup
+            const string id = "DP";
             const string name = "Dijkprofiel";
-            DikeProfile dikeProfile = new TestDikeProfile(name, new Point2D(12.34, 56.78));
+            var dikeProfile = new DikeProfile(
+                new Point2D(12.34, 56.78),
+                Enumerable.Empty<RoughnessPoint>(),
+                Enumerable.Empty<Point2D>(),
+                new BreakWater(BreakWaterType.Caisson, 2),
+                new DikeProfile.ConstructionProperties
+                {
+                    Id = id,
+                    Name = name
+                });
 
             // Call
             var properties = new DikeProfileProperties
@@ -67,6 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
+            Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.Orientation.Value);
@@ -91,14 +104,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            "Algemeen",
+                                                                            "ID",
+                                                                            "ID van het dijkprofiel.",
+                                                                            true);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("Naam van het dijkprofiel.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Naam",
+                                                                            "Naam van het dijkprofiel.",
+                                                                            true);
 
             PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(worldReferencePointProperty,

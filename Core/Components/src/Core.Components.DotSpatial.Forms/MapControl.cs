@@ -452,9 +452,11 @@ namespace Core.Components.DotSpatial.Forms
         private void ReorderMapDataOnCollectionChange(IList<FeatureBasedMapData> mapDataThatShouldBeDrawn,
                                                       IDictionary<FeatureBasedMapData, DrawnMapData> drawnMapDataLookup)
         {
+            int shiftedIndex = backgroundLayerStatus.BackgroundLayer != null ? 1 : 0;
+
             for (var i = 0; i < mapDataThatShouldBeDrawn.Count; i++)
             {
-                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].FeatureBasedMapDataLayer, i);
+                map.Layers.Move(drawnMapDataLookup[mapDataThatShouldBeDrawn[i]].FeatureBasedMapDataLayer, i + shiftedIndex);
             }
         }
 

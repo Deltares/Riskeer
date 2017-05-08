@@ -125,7 +125,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
-                    Structure = new TestClosingStructure("kunstwerk1", "kunstwerk1"),
+                    Structure = new TestClosingStructure("name", "kunstwerk1"),
                     ForeshoreProfile = new TestForeshoreProfile("profiel1"),
                     FailureProbabilityStructureWithErosion = 1e-4,
                     StructureNormalOrientation = (RoundedDouble) 67.1,
@@ -245,7 +245,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 Name = "with structure",
                 InputParameters =
                 {
-                    Structure = new TestClosingStructure("kunstwerk1", "kunstwerk1")
+                    Structure = new TestClosingStructure("name", "kunstwerk1")
                 }
             };
         }

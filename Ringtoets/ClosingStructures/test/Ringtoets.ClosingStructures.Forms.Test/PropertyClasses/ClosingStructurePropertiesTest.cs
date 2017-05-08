@@ -34,23 +34,24 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class ClosingStructurePropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int locationPropertyIndex = 1;
-        private const int structureNormalOrientationPropertyIndex = 2;
-        private const int inflowModelTypePropertyIndex = 3;
-        private const int widthFlowAperturesPropertyIndex = 4;
-        private const int areaFlowAperturesPropertyIndex = 5;
-        private const int identicalAperturesPropertyIndex = 6;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 7;
-        private const int storageStructureAreaPropertyIndex = 8;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 9;
-        private const int levelCrestStructureNotClosingPropertyIndex = 10;
-        private const int thresholdHeightOpenWeirPropertyIndex = 11;
-        private const int insideWaterLevelPropertyIndex = 12;
-        private const int criticalOvertoppingDischargePropertyIndex = 13;
-        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 14;
-        private const int failureProbabilityOpenStructurePropertyIndex = 15;
-        private const int failureProbabilityReparationPropertyIndex = 16;
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int locationPropertyIndex = 2;
+        private const int structureNormalOrientationPropertyIndex = 3;
+        private const int inflowModelTypePropertyIndex = 4;
+        private const int widthFlowAperturesPropertyIndex = 5;
+        private const int areaFlowAperturesPropertyIndex = 6;
+        private const int identicalAperturesPropertyIndex = 7;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int storageStructureAreaPropertyIndex = 9;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 10;
+        private const int levelCrestStructureNotClosingPropertyIndex = 11;
+        private const int thresholdHeightOpenWeirPropertyIndex = 12;
+        private const int insideWaterLevelPropertyIndex = 13;
+        private const int criticalOvertoppingDischargePropertyIndex = 14;
+        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 15;
+        private const int failureProbabilityOpenStructurePropertyIndex = 16;
+        private const int failureProbabilityReparationPropertyIndex = 17;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -74,6 +75,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             properties.Data = structure;
 
             // Assert
+            Assert.AreEqual(structure.Id, properties.Id);
             Assert.AreEqual(structure.Name, properties.Name);
             Assert.AreEqual(Math.Round(structure.Location.X), properties.Location.X);
             Assert.AreEqual(Math.Round(structure.Location.Y), properties.Location.Y);
@@ -146,11 +148,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(17, dynamicProperties.Count);
+            Assert.AreEqual(18, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string generalCategory = "Algemeen";
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            generalCategory,
+                                                                            "ID",
+                                                                            "ID van het kunstwerk.",
+                                                                            true);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
