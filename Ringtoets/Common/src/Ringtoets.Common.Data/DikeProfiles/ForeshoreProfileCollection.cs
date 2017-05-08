@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     public class ForeshoreProfileCollection : ObservableUniqueItemCollectionWithSourcePath<ForeshoreProfile>
     {
         /// <summary>
-        /// Instantiates a <see cref="ForeshoreProfileCollection"/>.
+        /// Creates a new instance of <see cref="ForeshoreProfileCollection"/>.
         /// </summary>
         public ForeshoreProfileCollection() : base(prf => prf.Id,
                                                    Resources.ForeshoreProfileCollection_TypeDescriptor,

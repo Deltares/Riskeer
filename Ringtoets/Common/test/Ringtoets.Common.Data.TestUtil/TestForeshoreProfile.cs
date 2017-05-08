@@ -37,6 +37,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <see cref="Point2D"/>.
         /// </summary>
         /// <param name="worldReferencePoint">Location of the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="worldReferencePoint"/> is <c>null</c>.</exception>
         public TestForeshoreProfile(Point2D worldReferencePoint)
             : this("id", null, worldReferencePoint, null, Enumerable.Empty<Point2D>()) {}
 
@@ -74,6 +76,10 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="profileId">Name of the profile.</param>
         /// <param name="geometry">The geometry of the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="geometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when 
+        /// <paramref name="geometry"/> contains <c>null</c> elements.</exception>
         public TestForeshoreProfile(string profileId, IEnumerable<Point2D> geometry)
             : this(profileId, "name", new Point2D(0, 0), null, geometry) {}
 
@@ -88,6 +94,10 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified geometry.
         /// </summary>
         /// <param name="geometry">The geometry of the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="geometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when 
+        /// <paramref name="geometry"/> contains <c>null</c> elements.</exception>
         public TestForeshoreProfile(IEnumerable<Point2D> geometry)
             : this("id", null, new Point2D(0, 0), null, geometry) {}
 
@@ -96,8 +106,13 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="geometry">The geometry of the profile.</param>
         /// <param name="id">The id of the foreshore profile.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/>
-        /// is null, empty or whitespaces.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="geometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="id"/> is null, empty or whitespaces.</item>
+        /// <item><paramref name="geometry"/> contains <c>null</c> elements.</item>
+        /// </list></exception>
         public TestForeshoreProfile(IEnumerable<Point2D> geometry, string id) :
             this(id, null, new Point2D(0, 0), null, geometry) {}
 
@@ -109,9 +124,11 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="worldCoordinate">The location of the foreshore profile.</param>
         /// <param name="breakWater">The breakwater of the foreshore profile.</param>
         /// <param name="geometry">The geometry of the foreshore profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
+        /// or <paramref name="worldCoordinate"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="geometry"/> is <c>null</c>.</item>
+        /// <item>Any element of <paramref name="geometry"/> is <c>null</c>.</item>
         /// <item><paramref name="id"/> is null, empty or whitespaces.</item>
         /// </list></exception>
         private TestForeshoreProfile(string id, string profileName, Point2D worldCoordinate, BreakWater breakWater, IEnumerable<Point2D> geometry)

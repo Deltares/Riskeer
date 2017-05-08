@@ -686,7 +686,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithForeshoreProfiles_ReturnsNeGrassCoverErosionOutwardsFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithForeshoreProfiles_ReturnsGrassCoverErosionOutwardsFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
             const string fileLocation = "some/path/to/foreshoreProfiles";

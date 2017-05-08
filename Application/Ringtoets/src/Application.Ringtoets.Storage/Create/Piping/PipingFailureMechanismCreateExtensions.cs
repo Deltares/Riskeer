@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -71,8 +72,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 A = mechanism.PipingProbabilityAssessmentInput.A,
                 WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight,
-                StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath,
-                SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath
+                StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
+                SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone()
             };
 
             entity.PipingFailureMechanismMetaEntities.Add(metaEntity);

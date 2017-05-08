@@ -162,7 +162,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
             Assert.AreEqual(1, entity.PipingFailureMechanismMetaEntities.Count);
-            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().StochasticSoilModelCollectionSourcePath);
+
+            string stochasticSoilModelCollectionSourcePath = entity.PipingFailureMechanismMetaEntities
+                                                                   .First()
+                                                                   .StochasticSoilModelCollectionSourcePath;
+            Assert.AreNotSame(somePath, stochasticSoilModelCollectionSourcePath);
+            Assert.AreEqual(somePath, stochasticSoilModelCollectionSourcePath);
         }
 
         [Test]
@@ -203,7 +208,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(failureMechanism.SurfaceLines.Count, entity.SurfaceLineEntities.Count);
-            Assert.AreEqual(somePath, entity.PipingFailureMechanismMetaEntities.First().SurfaceLineCollectionSourcePath);
+
+            string surfaceLineCollectionSourcePath = entity.PipingFailureMechanismMetaEntities
+                                                           .First()
+                                                           .SurfaceLineCollectionSourcePath;
+            Assert.AreNotSame(somePath, surfaceLineCollectionSourcePath);
+            Assert.AreEqual(somePath, surfaceLineCollectionSourcePath);
         }
 
         [Test]
