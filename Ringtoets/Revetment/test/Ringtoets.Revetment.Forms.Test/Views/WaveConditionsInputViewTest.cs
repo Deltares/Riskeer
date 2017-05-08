@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -31,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Forms.TestUtil;
 using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.TestUtil;
 
@@ -39,7 +41,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
     [TestFixture]
     public class WaveConditionsInputViewTest
     {
-        private static int numberOfChartDataLayers = 9;
+        private const int numberOfChartDataLayers = 9;
+
         private const int foreShoreChartDataIndex = 0;
         private const int lowerBoundaryRevetmentChartDataIndex = 1;
         private const int upperBoundaryRevetmentChartDataIndex = 2;
@@ -51,10 +54,21 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int waterLevelsChartDataIndex = 8;
 
         [Test]
+        public void Constructor_WaveConditionsInputViewStyleNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveConditionsInputView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("inputViewStyle", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -69,7 +83,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_Always_AddEmptyChartControl()
         {
             // Call
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
@@ -86,7 +100,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_IWaveConditionsCalculation_DataSet()
         {
             // Setup
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -102,7 +116,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_OtherThanIWwaveCondittionsCalculation_DataNull()
         {
             // Setup
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 var calculation = new object();
 
@@ -118,7 +132,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_SetToNull_ChartDataCleared()
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = new TestWaveConditionsCalculation()
             })
@@ -141,7 +155,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_EmptyCalculation_NoChartDataSet()
         {
             // Setup
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -159,7 +173,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             // Setup
             const string calculationName = "Calculation name";
 
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 var calculation = new TestWaveConditionsCalculation
                 {
@@ -223,7 +237,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -252,7 +266,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_OtherCalculationNameUpdated_ChartTitleNotUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -308,7 +322,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -379,9 +393,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.WaterLevels,
                                            waterLevelsChartData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -393,7 +406,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             mocks.ReplayAll();
 
             var calculation1 = new TestWaveConditionsCalculation();
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation1
             })
@@ -415,8 +428,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(calculation1, view.Data);
-                mocks.VerifyAll(); // no update observer expected
             }
+            mocks.VerifyAll(); // no update observer expected
         }
 
         private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)

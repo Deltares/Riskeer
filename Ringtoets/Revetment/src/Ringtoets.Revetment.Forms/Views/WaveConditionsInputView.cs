@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
@@ -53,10 +54,18 @@ namespace Ringtoets.Revetment.Forms.Views
         private IWaveConditionsCalculation data;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
+        /// Creates a new instance of <see cref="WaveConditionsInputView"/>.        
         /// </summary>
-        public WaveConditionsInputView()
+        /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputViewStyle"/>
+        /// is <c>null</c>.</exception>
+        public WaveConditionsInputView(IWaveConditionsInputViewStyle inputViewStyle)
         {
+            if (inputViewStyle == null)
+            {
+                throw new ArgumentNullException(nameof(inputViewStyle));
+            }
+
             InitializeComponent();
 
             calculationObserver = new Observer(UpdateChartTitle);
@@ -64,13 +73,13 @@ namespace Ringtoets.Revetment.Forms.Views
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
-            lowerBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData();
-            upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData();
-            revetmentChartData = WaveConditionsChartDataFactory.CreateRevetmentChartData();
-            revetmentBaseChartData = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData();
+            lowerBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
+            upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
+            revetmentChartData = WaveConditionsChartDataFactory.CreateRevetmentChartData(inputViewStyle.RevetmentLineColor);
+            revetmentBaseChartData = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData(inputViewStyle.RevetmentLineColor);
             lowerBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartdata();
             upperBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartdata();
-            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartdata();
+            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartdata(inputViewStyle.DesignWaterLevelName);
             waterLevelsChartData = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
 
             chartDataCollection.Add(foreshoreChartData);

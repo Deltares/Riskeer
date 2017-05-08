@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Components.Charting.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -79,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsInputResourceName()
         {
             // Setup
-            using (var view = new WaveConditionsInputView())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -119,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -145,7 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var calculationToRemove = new TestWaveConditionsCalculation();
 
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculationToRemove
             })
@@ -164,7 +167,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var calculation = new TestWaveConditionsCalculation();
 
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -184,7 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var calculation = new TestWaveConditionsCalculation();
             var calculationToRemove = new TestWaveConditionsCalculation();
 
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -208,7 +211,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -235,7 +238,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var contextToRemove = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -259,7 +262,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -283,7 +286,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -310,7 +313,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -334,7 +337,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -357,7 +360,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                                          IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -380,7 +383,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                                              IWaveConditionsCalculation calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = new TestWaveConditionsCalculation()
             })
@@ -413,7 +416,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 }
             });
 
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -449,7 +452,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var contextToRemove = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
-            using (var view = new WaveConditionsInputView
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
             {
                 Data = calculation
             })
@@ -462,7 +465,71 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             }
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetInputContextDatas))]
+        public void CreateInstance_WaveConditionsInputContext_ReturnViewWithStylingApplied(WaveConditionsInputContext context,
+                                                                                           Color revetmentLineColor,
+                                                                                           string designWaterLevelName)
+        {
+            // Call 
+            var view = (WaveConditionsInputView) info.CreateInstance(context);
+            view.Data = context.Calculation;
+
+            // Assert
+            ChartDataCollection chartData = view.Chart.Data;
+
+            var revetmentChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentChartDataIndex);
+            var revetmentBaseChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentBaseChartDataIndex);
+            var lowerBoundaryRevetmentChartData = (ChartLineData) chartData.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
+            var upperBoundaryRevetmentChartData = (ChartLineData) chartData.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
+            var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
+
+            Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
+            Assert.AreEqual(revetmentLineColor, revetmentBaseChartData.Style.Color);
+            Assert.AreEqual(revetmentLineColor, lowerBoundaryRevetmentChartData.Style.Color);
+            Assert.AreEqual(revetmentLineColor, upperBoundaryRevetmentChartData.Style.Color);
+            Assert.AreEqual(designWaterLevelName, designWaterLevelChartData.Name);
+        }
+
         #region TestCaseData
+
+        private const int lowerBoundaryRevetmentChartDataIndex = 1;
+        private const int upperBoundaryRevetmentChartDataIndex = 2;
+        private const int revetmentChartDataIndex = 3;
+        private const int revetmentBaseChartDataIndex = 4;
+        private const int designWaterLevelChartDataIndex = 7;
+
+        private static IEnumerable<TestCaseData> GetInputContextDatas()
+        {
+            yield return new TestCaseData(
+                    new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                        new WaveConditionsInput(),
+                        new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                        new GrassCoverErosionOutwardsFailureMechanism()),
+                    Color.Green,
+                    "Waterstand bij doorsnede-eis")
+                .SetName("Grass outwards input context");
+
+            yield return new TestCaseData(
+                    new StabilityStoneCoverWaveConditionsInputContext(
+                        new WaveConditionsInput(),
+                        new StabilityStoneCoverWaveConditionsCalculation(),
+                        new ForeshoreProfile[0],
+                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                    Color.Gray,
+                    "Toetspeil")
+                .SetName("Stability stone cover input context");
+
+            yield return new TestCaseData(
+                    new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                        new WaveConditionsInput(),
+                        new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                        new ForeshoreProfile[0],
+                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                    Color.Gray,
+                    "Toetspeil")
+                .SetName("Wave impact asphalt cover input context");
+        }
 
         private static IEnumerable<TestCaseData> GetCalculationContextDatas(string testNameFormat)
         {

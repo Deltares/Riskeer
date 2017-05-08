@@ -67,6 +67,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
@@ -90,8 +91,10 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -411,7 +414,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseWaveConditionsInputViewForData,
-                CreateInstance = context => new WaveConditionsInputView()
+                CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context))
             };
         }
 
@@ -964,6 +967,26 @@ namespace Ringtoets.Integration.Plugin
         #endregion
 
         #region WaveConditionsInputViewInfo
+
+        private static IWaveConditionsInputViewStyle GetWaveConditionsInputViewStyle(WaveConditionsInputContext context)
+        {
+            if (context is GrassCoverErosionOutwardsWaveConditionsInputContext)
+            {
+                return new GrassCoverErosionOutwardsWaveConditionsInputViewStyle();
+            }
+
+            if (context is StabilityStoneCoverWaveConditionsInputContext)
+            {
+                return new StabilityStoneCoverWaveConditionsInputViewStyle();
+            }
+
+            if (context is WaveImpactAsphaltCoverWaveConditionsInputContext)
+            {
+                return new WaveImpactAsphaltCoverWaveConditionsInputViewStyle();
+            }
+
+            return null;
+        }
 
         private static bool CloseWaveConditionsInputViewForData(WaveConditionsInputView view, object o)
         {

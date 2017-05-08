@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
@@ -37,50 +38,54 @@ namespace Ringtoets.Revetment.Forms.Factories
     internal static class WaveConditionsChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for lower boundary revetment.
+        /// Create <see cref="ChartLineData"/> with default styling for lower boundary revetment.        
         /// </summary>
+        /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateLowerRevetmentBoundaryChartData()
+        public static ChartLineData CreateLowerRevetmentBoundaryChartData(Color lineColor)
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_LowerBoundaryRevetment_DisplayName)
             {
-                Style = GetRevetmentBoundaryStyle()
+                Style = GetRevetmentBoundaryStyle(lineColor)
             };
         }
 
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for upper boundary revetment.
+        /// Create <see cref="ChartLineData"/> with default styling for upper boundary revetment.        
         /// </summary>
+        /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateUpperRevetmentBoundaryChartData()
+        public static ChartLineData CreateUpperRevetmentBoundaryChartData(Color lineColor)
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_UpperBoundaryRevetment_DisplayName)
             {
-                Style = GetRevetmentBoundaryStyle()
+                Style = GetRevetmentBoundaryStyle(lineColor)
             };
         }
 
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for revetment.
         /// </summary>
+        /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateRevetmentChartData()
+        public static ChartLineData CreateRevetmentChartData(Color lineColor)
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName)
             {
-                Style = GetRevetmentBoundaryStyle()
+                Style = GetRevetmentBoundaryStyle(lineColor)
             };
         }
 
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for revetment.
         /// </summary>
+        /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateRevetmentBaseChartData()
+        public static ChartLineData CreateRevetmentBaseChartData(Color lineColor)
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName)
             {
-                Style = new ChartLineStyle(Color.Gray, 2, DashStyle.Dash)
+                Style = new ChartLineStyle(lineColor, 2, DashStyle.Dash)
             };
         }
 
@@ -111,10 +116,18 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for design water level.
         /// </summary>
+        /// <param name="chartDataName">The name of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateDesignWaterLevelChartdata()
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartDataName"/>
+        /// is <c>null</c>.</exception>
+        public static ChartLineData CreateDesignWaterLevelChartdata(string chartDataName)
         {
-            return new ChartLineData("Toetspeil")
+            if (chartDataName == null)
+            {
+                throw new ArgumentNullException(nameof(chartDataName));
+            }
+
+            return new ChartLineData(chartDataName)
             {
                 Style = new ChartLineStyle(Color.Red, 2, DashStyle.Solid)
             };
@@ -153,9 +166,9 @@ namespace Ringtoets.Revetment.Forms.Factories
                                  : RingtoetsCommonFormsResources.Foreshore_DisplayName;
         }
 
-        private static ChartLineStyle GetRevetmentBoundaryStyle()
+        private static ChartLineStyle GetRevetmentBoundaryStyle(Color lineColor)
         {
-            return new ChartLineStyle(Color.Gray, 2, DashStyle.Solid);
+            return new ChartLineStyle(lineColor, 2, DashStyle.Solid);
         }
 
         private static ChartLineStyle GetWaterLevelBoundaryStyle()
