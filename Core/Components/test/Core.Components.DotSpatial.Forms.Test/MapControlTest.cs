@@ -118,7 +118,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 map.BackgroundMapData = backgroundMapData;
                 var mapDataCollection = new MapDataCollection("A");
-                mapDataCollection.Add(new MapPointData("points")
+                mapDataCollection.Add(new MapPointData("Points")
                 {
                     Features = new[]
                     {
@@ -155,36 +155,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (var map = new MapControl())
             {
-                var mapPointData = new MapPointData("Points")
-                {
-                    Features = new[]
-                    {
-                        new MapFeature(new[]
-                        {
-                            new MapGeometry(new[]
-                            {
-                                new[]
-                                {
-                                    new Point2D(1.1, 2.2)
-                                }
-                            })
-                        })
-                    }
-                };
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
-
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
                 // When
-                map.Data = mapDataCollection;
+                map.Data = CreateTestMapDataCollection();
 
                 // Then
                 Map mapView = map.Controls.OfType<Map>().First();
@@ -242,26 +214,18 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+                MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
+                FeatureBasedMapData featureBasedMapData = testMapDataCollection.Collection
+                                                                               .OfType<FeatureBasedMapData>()
+                                                                               .First();
 
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
+                map.Data = testMapDataCollection;
 
                 IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
 
                 // When
-                mapLineData.Features = new MapFeature[0];
-                mapLineData.NotifyObservers();
+                featureBasedMapData.Features = new MapFeature[0];
+                featureBasedMapData.NotifyObservers();
 
                 // Then
                 CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
@@ -275,20 +239,15 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+                MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
+                MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
+                                                                                 .OfType<MapDataCollection>()
+                                                                                 .First();
+                MapLineData nestedMapLineData = nestedMapDataCollection.Collection
+                                                                       .OfType<MapLineData>()
+                                                                       .First();
 
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
+                map.Data = testMapDataCollection;
 
                 List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
 
@@ -296,8 +255,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
 
                 // When
-                nestedMapDataCollection1.Remove(mapLineData);
-                nestedMapDataCollection1.NotifyObservers();
+                nestedMapDataCollection.Remove(nestedMapLineData);
+                nestedMapDataCollection.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(2, mapView.Layers.Count);
@@ -315,20 +274,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
-                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
-                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+                MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
+                MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
+                                                                                 .OfType<MapDataCollection>()
+                                                                                 .First();
 
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(nestedMapDataCollection1);
-                nestedMapDataCollection1.Add(mapLineData);
-                nestedMapDataCollection1.Add(nestedMapDataCollection2);
-                nestedMapDataCollection2.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
+                map.Data = testMapDataCollection;
 
                 List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
 
@@ -336,8 +287,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
 
                 // When
-                nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
-                nestedMapDataCollection1.NotifyObservers();
+                nestedMapDataCollection.Insert(0, new MapPolygonData("Additional polygons"));
+                nestedMapDataCollection.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(4, mapView.Layers.Count);
@@ -357,16 +308,15 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
-                var mapPointData = new MapPointData("Points");
-                var mapLineData = new MapLineData("Lines");
-                var mapPolygonData = new MapPolygonData("Polygons");
-                var mapDataCollection = new MapDataCollection("Root collection");
+                MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
+                MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
+                                                                                 .OfType<MapDataCollection>()
+                                                                                 .Last();
+                MapPointData nestedMapPointData = testMapDataCollection.Collection
+                                                                       .OfType<MapPointData>()
+                                                                       .First();
 
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.Add(mapLineData);
-                mapDataCollection.Add(mapPolygonData);
-
-                map.Data = mapDataCollection;
+                map.Data = testMapDataCollection;
 
                 List<FeatureLayer> layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
 
@@ -377,9 +327,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual("Polygons", layersBeforeUpdate[2].Name);
 
                 // When
-                mapDataCollection.Remove(mapPointData);
-                mapDataCollection.Add(mapPointData);
-                mapDataCollection.NotifyObservers();
+                testMapDataCollection.Remove(nestedMapPointData);
+                nestedMapDataCollection.Add(nestedMapPointData);
+                nestedMapDataCollection.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(3, mapView.Layers.Count);
@@ -567,6 +517,39 @@ namespace Core.Components.DotSpatial.Forms.Test
             Assert.AreEqual(2.2, mapView.ViewExtents.MaxX, 1e-3);
             Assert.AreEqual(3.2, mapView.ViewExtents.MinY, 1e-3);
             Assert.AreEqual(5.7, mapView.ViewExtents.MaxY, 1e-3);
+        }
+
+        private static MapDataCollection CreateTestMapDataCollection()
+        {
+            var mapPointData = new MapPointData("Points")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.1, 2.2)
+                            }
+                        })
+                    })
+                }
+            };
+            var mapLineData = new MapLineData("Lines");
+            var mapPolygonData = new MapPolygonData("Polygons");
+            var mapDataCollection = new MapDataCollection("Root collection");
+            var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+            var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+            mapDataCollection.Add(mapPointData);
+            mapDataCollection.Add(nestedMapDataCollection1);
+            nestedMapDataCollection1.Add(mapLineData);
+            nestedMapDataCollection1.Add(nestedMapDataCollection2);
+            nestedMapDataCollection2.Add(mapPolygonData);
+
+            return mapDataCollection;
         }
 
         #region BackgroundMapData
