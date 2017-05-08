@@ -169,4 +169,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="BackgroundData_SelectMapData_Tooltip" xml:space="preserve">
     <value>Selecteer een achtergrondkaart.</value>
   </data>
+  <data name="ForeshoreProfileReplaceDataStrategy_UpdateForeshoreProfilesWithImportedData_Importing_ForeshoreProfiles_failed_Reason_0" xml:space="preserve">
+    <value>Het importeren van voorlandprofielen is mislukt: {0}</value>
+  </data>
 </root>

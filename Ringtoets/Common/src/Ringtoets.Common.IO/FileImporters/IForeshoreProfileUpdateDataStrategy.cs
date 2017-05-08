@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -23,32 +23,29 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new 
-    /// dike profiles have been imported.
+    /// foreshore profiles have been imported.
     /// </summary>
-    public interface IDikeProfileUpdateDataStrategy
+    public interface IForeshoreProfileUpdateDataStrategy
     {
         /// <summary>
-        /// Adds the imported data to the <paramref name="targetDataCollection"/>.
+        /// Adds the imported data to the <paramref name="importedDataCollection"/>.
         /// </summary>
-        /// <param name="targetDataCollection">The target collection which needs
+        /// <param name="targetDataCollection">The target collection which needs 
         /// to be updated.</param>
-        /// <param name="importedDataCollection">The imported dike profiles.</param>
-        /// <param name="sourceFilePath">The source path from where the dike profiles
-        /// were imported from.</param>
+        /// <param name="importedDataCollection">The imported foreshore profiles.</param>
+        /// <param name="sourceFilePath">The source path from where the foreshore 
+        /// profiles were imported from.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input
-        /// argument is <c>null</c>.</exception>
-        /// <exception cref="DikeProfileUpdateException">Thrown 
-        /// when applying the strategy has failed.</exception>
-        IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(
-            DikeProfileCollection targetDataCollection,
-            IEnumerable<DikeProfile> importedDataCollection,
+        /// <exception cref="ArgumentNullException">Thrown when any input argument
+        /// is <c>null</c>.</exception>
+        IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(
+            ForeshoreProfileCollection targetDataCollection,
+            IEnumerable<ForeshoreProfile> importedDataCollection,
             string sourceFilePath);
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Handlers\ReferenceLineReplacementHandler.cs" />
@@ -278,6 +279,7 @@
   <ItemGroup>
     <None Include="Resources\map.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
