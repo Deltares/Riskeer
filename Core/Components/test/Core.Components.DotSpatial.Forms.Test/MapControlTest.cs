@@ -2096,6 +2096,187 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         #endregion
 
+        [Test]
+        public void GivenMapControlWithBackgroundData_WhenMapDataNotifiesChange_ThenAllLayersReused()
+        {
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+
+            // Given
+            using (var map = new MapControl
+            {
+                BackgroundMapData = backgroundMapData
+            })
+            {
+                Map mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+
+                // When
+                mapLineData.Features = new MapFeature[0];
+                mapLineData.NotifyObservers();
+
+                // Then
+                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithBackgroundData_WhenMapDataRemoved_ThenCorrespondingLayerRemovedAndOtherLayersReused()
+        {
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+
+            // Given
+            using (var map = new MapControl
+            {
+                BackgroundMapData = backgroundMapData
+            })
+            {
+                Map mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
+
+                // Precondition
+                Assert.AreEqual(4, layersBeforeUpdate.Count);
+
+                // When
+                nestedMapDataCollection1.Remove(mapLineData);
+                nestedMapDataCollection1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(3, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                AssertFeatureLayer(mapView.Layers[1], "Points");
+                AssertFeatureLayer(mapView.Layers[2], "Polygons");
+                Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithBackgroundData_WhenMapDataAdded_ThenCorrespondingLayerAddedAndOtherLayersReused()
+        {
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+
+            // Given
+            using (var map = new MapControl
+            {
+                BackgroundMapData = backgroundMapData
+            })
+            {
+                Map mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+                var nestedMapDataCollection1 = new MapDataCollection("Nested collection 1");
+                var nestedMapDataCollection2 = new MapDataCollection("Nested collection 2");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(nestedMapDataCollection1);
+                nestedMapDataCollection1.Add(mapLineData);
+                nestedMapDataCollection1.Add(nestedMapDataCollection2);
+                nestedMapDataCollection2.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
+
+                // Precondition
+                Assert.AreEqual(4, layersBeforeUpdate.Count);
+
+                // When
+                nestedMapDataCollection1.Insert(0, new MapPolygonData("Additional polygons"));
+                nestedMapDataCollection1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(5, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                AssertFeatureLayer(mapView.Layers[1], "Points");
+                AssertFeatureLayer(mapView.Layers[2], "Additional polygons");
+                AssertFeatureLayer(mapView.Layers[3], "Lines");
+                AssertFeatureLayer(mapView.Layers[4], "Polygons");
+                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
+            }
+        }
+
+        [Test]
+        public void GivenMapControlWithBackgroundData_WhenMapDataMoved_ThenCorrespondingLayerMovedAndAllLayersReused()
+        {
+            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+
+            // Given
+            using (var map = new MapControl
+            {
+                BackgroundMapData = backgroundMapData
+            })
+            {
+                Map mapView = map.Controls.OfType<Map>().First();
+                var mapPointData = new MapPointData("Points");
+                var mapLineData = new MapLineData("Lines");
+                var mapPolygonData = new MapPolygonData("Polygons");
+                var mapDataCollection = new MapDataCollection("Root collection");
+
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.Add(mapLineData);
+                mapDataCollection.Add(mapPolygonData);
+
+                map.Data = mapDataCollection;
+
+                // Precondition
+                Assert.AreEqual(4, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                AssertFeatureLayer(mapView.Layers[1], "Points");
+                AssertFeatureLayer(mapView.Layers[2], "Lines");
+                AssertFeatureLayer(mapView.Layers[3], "Polygons");
+
+                // When
+                mapDataCollection.Remove(mapPointData);
+                mapDataCollection.Add(mapPointData);
+                mapDataCollection.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(4, mapView.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                AssertFeatureLayer(mapView.Layers[1], "Lines");
+                AssertFeatureLayer(mapView.Layers[2], "Polygons");
+                AssertFeatureLayer(mapView.Layers[3], "Points");
+            }
+        }
+
+        private static void AssertFeatureLayer(ILayer layer, string layerName)
+        {
+            var featureLayer = layer as FeatureLayer;
+            Assert.IsNotNull(featureLayer);
+            Assert.AreEqual(layerName, featureLayer.Name);
+        }
+
         #endregion
 
         #region ZoomToAllVisibleLayers
