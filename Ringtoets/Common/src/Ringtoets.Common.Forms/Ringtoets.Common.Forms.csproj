@@ -49,6 +49,7 @@
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandler.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="ChangeHandlers\PropertyChangeHelper.cs" />
+    <Compile Include="ChangeHandlers\CalculationChangeHandler.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         public string Name { get; set; }
-        public bool HasOutput { get; }
+        public bool HasOutput { get; set; }
         public Comment Comments { get; }
         public void ClearOutput() {}
     }

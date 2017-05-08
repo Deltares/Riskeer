@@ -20,37 +20,38 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO;
 
 namespace Ringtoets.Common.Forms.ChangeHandlers
 {
     /// <summary>
     /// Class which can, if required, inquire the user for a confirmation when a change to the
-    /// failure mechanism requires calculation results to be altered.
+    /// calculations requires calculation results to be altered.
     /// </summary>
-    public class FailureMechanismCalculationChangeHandler : IConfirmDataChangeHandler
+    public class CalculationChangeHandler : IConfirmDataChangeHandler
     {
         private readonly string query;
-        private readonly IFailureMechanism failureMechanism;
+        private readonly IEnumerable<ICalculation> calculations;
         private readonly IInquiryHelper inquiryHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismCalculationChangeHandler"/>.
+        /// Creates a new instance of <see cref="CalculationChangeHandler"/>.
         /// </summary>
-        /// <param name="failureMechanism">Failure mechanism for which to handle changes.</param>
+        /// <param name="calculations">The calculations for which to handle changes.</param>
         /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
-        /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FailureMechanismCalculationChangeHandler(IFailureMechanism failureMechanism,
-                                                        string query,
-                                                        IInquiryHelper inquiryHandler)
+        /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public CalculationChangeHandler(IEnumerable<ICalculation> calculations,
+                                        string query,
+                                        IInquiryHelper inquiryHandler)
         {
-            if (failureMechanism == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(calculations));
             }
             if (query == null)
             {
@@ -60,15 +61,14 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(inquiryHandler));
             }
-
-            this.failureMechanism = failureMechanism;
+            this.calculations = calculations;
             this.query = query;
             this.inquiryHandler = inquiryHandler;
         }
 
         public bool RequireConfirmation()
         {
-            return failureMechanism.Calculations.Any(calc => calc.HasOutput);
+            return calculations.Any(calc => calc.HasOutput);
         }
 
         public bool InquireConfirmation()
