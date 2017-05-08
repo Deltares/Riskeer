@@ -83,14 +83,14 @@ namespace Ringtoets.Revetment.Forms.Views
             waterLevelsChartData = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
 
             chartDataCollection.Add(foreshoreChartData);
+            chartDataCollection.Add(revetmentBaseChartData);
+            chartDataCollection.Add(revetmentChartData);
             chartDataCollection.Add(lowerBoundaryRevetmentChartData);
             chartDataCollection.Add(upperBoundaryRevetmentChartData);
-            chartDataCollection.Add(revetmentChartData);
-            chartDataCollection.Add(revetmentBaseChartData);
+            chartDataCollection.Add(waterLevelsChartData);
             chartDataCollection.Add(lowerBoundaryWaterLevelsChartData);
             chartDataCollection.Add(upperBoundaryWaterLevelsChartData);
             chartDataCollection.Add(designWaterLevelChartData);
-            chartDataCollection.Add(waterLevelsChartData);
         }
 
         public object Data

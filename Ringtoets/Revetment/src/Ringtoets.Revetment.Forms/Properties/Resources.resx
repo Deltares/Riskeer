@@ -264,4 +264,10 @@
   <data name="WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName" xml:space="preserve">
     <value>Bovengrens waterstanden</value>
   </data>
+  <data name="WaveConditionsChartDataFactory_WaterLevels_DisplayName" xml:space="preserve">
+    <value>Waterstanden</value>
+  </data>
+  <data name="WaveConditionsChartDataFactory_RevetmentBase_DisplayName" xml:space="preserve">
+    <value>Hulplijn bekleding</value>
+  </data>
 </root>

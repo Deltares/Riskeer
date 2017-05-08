@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
@@ -493,11 +492,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
         #region TestCaseData
 
-        private const int lowerBoundaryRevetmentChartDataIndex = 1;
-        private const int upperBoundaryRevetmentChartDataIndex = 2;
-        private const int revetmentChartDataIndex = 3;
-        private const int revetmentBaseChartDataIndex = 4;
-        private const int designWaterLevelChartDataIndex = 7;
+        private const int revetmentBaseChartDataIndex = 1;
+        private const int revetmentChartDataIndex = 2;
+        private const int lowerBoundaryRevetmentChartDataIndex = 3;
+        private const int upperBoundaryRevetmentChartDataIndex = 4;
+        private const int designWaterLevelChartDataIndex = 8;
 
         private static IEnumerable<TestCaseData> GetInputContextDatas()
         {

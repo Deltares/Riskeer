@@ -83,7 +83,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateRevetmentBaseChartData(Color lineColor)
         {
-            return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName)
+            return new ChartLineData(Resources.WaveConditionsChartDataFactory_RevetmentBase_DisplayName)
             {
                 Style = new ChartLineStyle(lineColor, 2, DashStyle.Dash)
             };
@@ -139,7 +139,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>The created <see cref="ChartMultipleLineData"/>.</returns>
         public static ChartMultipleLineData CreateWaterLevelsChartData()
         {
-            return new ChartMultipleLineData("Waterstanden")
+            return new ChartMultipleLineData(Resources.WaveConditionsChartDataFactory_WaterLevels_DisplayName)
             {
                 Style = new ChartLineStyle(Color.Blue, 2, DashStyle.Dash)
             };

@@ -181,6 +181,15 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hulplijn bekleding.
+        /// </summary>
+        public static string WaveConditionsChartDataFactory_RevetmentBase_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsChartDataFactory_RevetmentBase_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bovengrens bekleding.
         /// </summary>
         public static string WaveConditionsChartDataFactory_UpperBoundaryRevetment_DisplayName {
@@ -195,6 +204,15 @@ namespace Ringtoets.Revetment.Forms.Properties {
         public static string WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden.
+        /// </summary>
+        public static string WaveConditionsChartDataFactory_WaterLevels_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsChartDataFactory_WaterLevels_DisplayName", resourceCulture);
             }
         }
         

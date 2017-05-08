@@ -44,14 +44,14 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int numberOfChartDataLayers = 9;
 
         private const int foreShoreChartDataIndex = 0;
-        private const int lowerBoundaryRevetmentChartDataIndex = 1;
-        private const int upperBoundaryRevetmentChartDataIndex = 2;
-        private const int revetmentChartDataIndex = 3;
-        private const int revetmentBaseChartDataIndex = 4;
-        private const int lowerBoundaryWaterLevelsChartDataIndex = 5;
-        private const int upperBoundaryWaterLevelsChartDataIndex = 6;
-        private const int designWaterLevelChartDataIndex = 7;
-        private const int waterLevelsChartDataIndex = 8;
+        private const int revetmentBaseChartDataIndex = 1;
+        private const int revetmentChartDataIndex = 2;
+        private const int lowerBoundaryRevetmentChartDataIndex = 3;
+        private const int upperBoundaryRevetmentChartDataIndex = 4;
+        private const int waterLevelsChartDataIndex = 5;
+        private const int lowerBoundaryWaterLevelsChartDataIndex = 6;
+        private const int upperBoundaryWaterLevelsChartDataIndex = 7;
+        private const int designWaterLevelChartDataIndex = 8;
 
         [Test]
         public void Constructor_WaveConditionsInputViewStyleNull_ThrowArgumentNullException()
@@ -464,7 +464,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             Assert.AreEqual("Ondergrens bekleding", lowerBoundaryRevetmentData.Name);
             Assert.AreEqual("Bovengrens bekleding", upperBoundaryRevetmentData.Name);
             Assert.AreEqual("Bekleding", revetmentData.Name);
-            Assert.AreEqual("Bekleding", revetmentBaseData.Name);
+            Assert.AreEqual("Hulplijn bekleding", revetmentBaseData.Name);
             Assert.AreEqual("Ondergrens waterstanden", lowerBoundaryWaterLevelsData.Name);
             Assert.AreEqual("Bovengrens waterstanden", upperBoundaryWaterLevelsData.Name);
             Assert.AreEqual("Toetspeil", designWaterLevelData.Name);
@@ -518,7 +518,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             CollectionAssert.AreEqual(expectedGeometry, revetmentChartData.Points);
 
-            Assert.AreEqual("Bekleding", revetmentChartData.Name);
+            Assert.AreEqual("Hulplijn bekleding", revetmentChartData.Name);
         }
 
         private static void AssertChartData(RoundedPoint2DCollection foreshorePoints,

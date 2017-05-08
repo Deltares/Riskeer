@@ -90,7 +90,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
 
             // Assert
             Assert.IsEmpty(data.Points);
-            Assert.AreEqual("Bekleding", data.Name);
+            Assert.AreEqual("Hulplijn bekleding", data.Name);
             AssertEqualStyle(data.Style, lineColor, 2, DashStyle.Dash);
         }
 
