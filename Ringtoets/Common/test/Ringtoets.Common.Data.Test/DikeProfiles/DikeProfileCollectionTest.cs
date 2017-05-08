@@ -48,9 +48,8 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         protected override IEnumerable<DikeProfile> SingleNonUniqueElements()
         {
             const string someId = "Dike profile";
-            const string name = "Standard Dike Profile Name";
-            yield return new TestDikeProfile(name, someId);
-            yield return new TestDikeProfile(name, someId);
+            yield return new TestDikeProfile("Standard Dike Profile Name", someId);
+            yield return new TestDikeProfile("Other Dike Profile Name", someId);
         }
 
         protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<DikeProfile> itemsToAdd)
@@ -63,12 +62,11 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             const string someId = "Dike profile";
             const string someotherId = "Other dike profile";
-            const string name = "Some Dike profile Name";
 
-            yield return new TestDikeProfile(name, someId);
-            yield return new TestDikeProfile(name, someId);
-            yield return new TestDikeProfile(name, someotherId);
-            yield return new TestDikeProfile(name, someotherId);
+            yield return new TestDikeProfile("Dike profile Name 1", someId);
+            yield return new TestDikeProfile("Dike profile Name 2", someId);
+            yield return new TestDikeProfile("Dike profile Name 3", someotherId);
+            yield return new TestDikeProfile("Dike profile Name 4", someotherId);
         }
 
         protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<DikeProfile> itemsToAdd)

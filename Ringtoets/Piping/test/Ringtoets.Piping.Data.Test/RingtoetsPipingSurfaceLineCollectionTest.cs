@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -35,43 +34,6 @@ namespace Ringtoets.Piping.Data.Test
         CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
             ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>, RingtoetsPipingSurfaceLine>
     {
-        [Test]
-        public void AddRange_MultipleSurfaceLinesWithSameNames_ThrowsArgumentException()
-        {
-            // Setup
-            const string duplicateNameOne = "Duplicate name it is";
-            const string duplicateNameTwo = "Duplicate name again";
-            var surfaceLinesToAdd = new[]
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateNameOne
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateNameOne
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateNameTwo
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateNameTwo
-                }
-            };
-
-            var collection = new RingtoetsPipingSurfaceLineCollection();
-
-            // Call
-            TestDelegate call = () => collection.AddRange(surfaceLinesToAdd, "path");
-
-            // Assert
-            string message = $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateNameOne}, " +
-                             $"{duplicateNameTwo}.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-        }
-
         protected override ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> CreateCollection()
         {
             return new RingtoetsPipingSurfaceLineCollection();
@@ -114,11 +76,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             const string duplicateNameOne = "Duplicate name it is";
             const string duplicateNameTwo = "Duplicate name again";
-            yield return
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = duplicateNameOne
-                };
+            yield return new RingtoetsPipingSurfaceLine
+            {
+                Name = duplicateNameOne
+            };
             yield return new RingtoetsPipingSurfaceLine
             {
                 Name = duplicateNameOne

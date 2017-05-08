@@ -67,7 +67,7 @@ namespace Ringtoets.HeightStructures.IO
         {
             structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
                                                                      CreateHeightStructures(structureLocations.ToList(),
-                                                                                            groupedStructureParameterRows).ToArray(),
+                                                                                            groupedStructureParameterRows),
                                                                      FilePath);
         }
 

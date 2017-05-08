@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data
     /// A collection of <see cref="TStructure"/>. The ids of the <see cref="TStructure"/>
     /// are unique within the collection.
     /// </summary>
-    /// <typeparam name="TStructure">A structure.</typeparam>
+    /// <typeparam name="TStructure">The type of structure used in the collection.</typeparam>
     public class StructureCollection<TStructure> : ObservableUniqueItemCollectionWithSourcePath<TStructure>
         where TStructure : StructureBase
     {
