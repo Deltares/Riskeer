@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
@@ -120,12 +121,13 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                 if (affectedCalculation.HasOutput)
                 {
                     affectedObjects.Add(affectedCalculation);
+                    affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
                 }
             }
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                FailureMechanism.SectionResults,
-                FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
+            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults,
+                                         FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()));
 
             return affectedObjects;
         }

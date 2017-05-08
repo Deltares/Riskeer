@@ -89,21 +89,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
         private IEnumerable<IObservable> UpdateDikeDependentData(DikeProfile objectToUpdate)
         {
             var affectedObjects = new List<IObservable>();
-            GrassCoverErosionInwardsCalculation[] affectedCalculations =
-                FailureMechanism.Calculations
-                                .Cast<GrassCoverErosionInwardsCalculation>()
-                                .Where(calc => ReferenceEquals(objectToUpdate, calc.InputParameters.DikeProfile))
-                                .ToArray();
-            foreach (GrassCoverErosionInwardsCalculation calculation in affectedCalculations)
+            foreach (GrassCoverErosionInwardsCalculation calculation in GetAffectedCalculationsWithDikeProfile(objectToUpdate))
             {
                 affectedObjects.Add(calculation.InputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-
-                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                    FailureMechanism.SectionResults,
-                    FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
             }
+
+            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults,
+                                         FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()));
             return affectedObjects;
+        }
+
+        private IEnumerable<GrassCoverErosionInwardsCalculation> GetAffectedCalculationsWithDikeProfile(DikeProfile objectToUpdate)
+        {
+            IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations =
+                FailureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                .Where(calc => ReferenceEquals(objectToUpdate, calc.InputParameters.DikeProfile));
+            return affectedCalculations;
         }
 
         /// <summary>

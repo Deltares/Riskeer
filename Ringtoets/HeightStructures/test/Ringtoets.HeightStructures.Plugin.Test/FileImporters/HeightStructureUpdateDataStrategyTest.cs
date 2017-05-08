@@ -31,6 +31,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Structures;
@@ -352,7 +353,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 InputParameters =
                 {
                     Structure = structure
-                }
+                },
+                Output = new TestStructuresOutput()
             };
             var failureMechanism = new HeightStructuresFailureMechanism
             {
@@ -380,11 +382,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                                                                                                  sourceFilePath);
 
             // Assert
+            Assert.IsFalse(calculation.HasOutput);
             AssertHeightStructures(readStructure, structure);
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
-                calculation.InputParameters
+                calculation.InputParameters,
+                calculation
             }, affectedObjects);
         }
 
@@ -456,7 +460,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
-                calculation.InputParameters
+                calculation.InputParameters,
+                sectionResults[0],
+                sectionResults[1]
             }, affectedObjects);
 
             sectionResults = failureMechanism.SectionResults.ToArray();

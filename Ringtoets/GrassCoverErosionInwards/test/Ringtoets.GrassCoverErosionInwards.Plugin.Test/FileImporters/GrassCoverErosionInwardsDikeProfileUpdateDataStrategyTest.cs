@@ -512,7 +512,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             Assert.AreSame(unaffectedProfile, inputParametersUnaffectedDikeProfile);
             AssertDikeProfile(unaffectedProfile, inputParametersUnaffectedDikeProfile);
 
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
+            Assert.IsFalse(affectedCalculation.HasOutput);
             DikeProfile inputParametersAffectedDikeProfile = affectedCalculation.InputParameters.DikeProfile;
             Assert.AreSame(affectedProfile, inputParametersAffectedDikeProfile);
             AssertDikeProfile(importedAffectedProfile, inputParametersAffectedDikeProfile);
@@ -633,7 +633,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             {
                 dikeProfiles,
                 affectedCalculation.InputParameters,
-                affectedProfile
+                affectedProfile,
+                sectionResults[0],
+                sectionResults[1]
             }, affectedObjects);
 
             sectionResults = failureMechanism.SectionResults.ToArray();
