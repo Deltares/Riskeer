@@ -144,5 +144,40 @@ namespace Ringtoets.Common.Data.Probabilistics
         {
             return MemberwiseClone();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((LogNormalDistribution)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Mean.GetHashCode();
+                hashCode = (hashCode * 397) ^ StandardDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ Shift.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        private bool Equals(LogNormalDistribution other)
+        {
+            return Mean.Equals(other.Mean)
+                   && StandardDeviation.Equals(other.StandardDeviation)
+                   && Shift.Equals(other.Shift);
+        }
     }
 }

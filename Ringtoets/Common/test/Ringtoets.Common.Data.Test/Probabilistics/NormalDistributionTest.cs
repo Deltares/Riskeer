@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,6 +32,29 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     [TestFixture]
     public class NomalDistributionTest
     {
+        private static IEnumerable<TestCaseData> DistributionCombinations
+        {
+            get
+            {
+                NormalDistribution distribution = CreateFullyDefinedDistribution();
+
+                yield return new TestCaseData(distribution, distribution, true)
+                    .SetName("SameDistribution");
+                yield return new TestCaseData(distribution, CreateFullyDefinedDistribution(), true)
+                    .SetName("EqualDistribution");
+
+                NormalDistribution otherMean = CreateFullyDefinedDistribution();
+                otherMean.Mean = (RoundedDouble) 987;
+                yield return new TestCaseData(distribution, otherMean, false)
+                    .SetName(nameof(otherMean));
+
+                NormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
+                otherStandardDeviation.StandardDeviation = (RoundedDouble) 0.987;
+                yield return new TestCaseData(distribution, otherStandardDeviation, false)
+                    .SetName(nameof(otherStandardDeviation));
+            }
+        }
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -136,6 +160,79 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
             Assert.AreNotSame(distribution.StandardDeviation, clonedDistribution.StandardDeviation);
             DistributionAssert.AreEqual(distribution, clonedDistribution);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("string")]
+        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        {
+            // Setup
+            NormalDistribution distribution = CreateFullyDefinedDistribution();
+
+            // Call
+            bool isEqualToNull = distribution.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqualToNull);
+        }
+
+        [Test]
+        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
+        {
+            // Setup
+            NormalDistribution distributionX = CreateFullyDefinedDistribution();
+            NormalDistribution distributionY = CreateFullyDefinedDistribution();
+            NormalDistribution distributionZ = CreateFullyDefinedDistribution();
+
+            // Call
+            bool isXEqualToY = distributionX.Equals(distributionY);
+            bool isYEqualToZ = distributionY.Equals(distributionZ);
+            bool isXEqualToZ = distributionX.Equals(distributionZ);
+
+            // Assert
+            Assert.IsTrue(isXEqualToY);
+            Assert.IsTrue(isYEqualToZ);
+            Assert.IsTrue(isXEqualToZ);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DistributionCombinations))]
+        public void Equal_DifferentProperty_RetunsFalse(NormalDistribution distribution,
+                                                        NormalDistribution otherDistribution,
+                                                        bool expectedToBeEqual)
+        {
+            // Call
+            bool isDistributionEqualToOther = distribution.Equals(otherDistribution);
+            bool isOtherEqualToDistribution = otherDistribution.Equals(distribution);
+
+            // Assert
+            Assert.AreEqual(expectedToBeEqual, isDistributionEqualToOther);
+            Assert.AreEqual(expectedToBeEqual, isOtherEqualToDistribution);
+        }
+
+        [Test]
+        public void GetHashCode_EqualDistributions_ReturnsSameHashCode()
+        {
+            // Setup
+            NormalDistribution distribution = CreateFullyDefinedDistribution();
+            NormalDistribution otherDistribution = CreateFullyDefinedDistribution();
+
+            // Call
+            int hashCodeOne = distribution.GetHashCode();
+            int hashCodeTwo = otherDistribution.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static NormalDistribution CreateFullyDefinedDistribution()
+        {
+            return new NormalDistribution(5)
+            {
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
         }
     }
 }

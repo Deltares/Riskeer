@@ -87,9 +87,43 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((NormalDistribution) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Mean.GetHashCode();
+                hashCode = (hashCode * 397) ^ StandardDeviation.GetHashCode();
+                return hashCode;
+            }
+        }
+
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        private bool Equals(IDistribution other)
+        {
+            return !ReferenceEquals(null, other)
+                   && Mean.Equals(other.Mean)
+                   && StandardDeviation.Equals(other.StandardDeviation);
         }
     }
 }

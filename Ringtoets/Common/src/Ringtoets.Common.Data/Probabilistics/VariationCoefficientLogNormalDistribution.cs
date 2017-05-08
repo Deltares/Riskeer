@@ -100,9 +100,42 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((VariationCoefficientLogNormalDistribution) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Mean.GetHashCode();
+                hashCode = (hashCode * 397) ^ CoefficientOfVariation.GetHashCode();
+                return hashCode;
+            }
+        }
+
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        private bool Equals(IVariationCoefficientDistribution other)
+        {
+            return Mean.Equals(other.Mean)
+                   && CoefficientOfVariation.Equals(other.CoefficientOfVariation);
         }
     }
 }
