@@ -325,7 +325,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
-                CreateInstance = () => new FailureMechanismContributionView(Gui.ViewCommands),
+                CreateInstance = context => new FailureMechanismContributionView(Gui.ViewCommands),
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
@@ -411,7 +411,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseWaveConditionsInputViewForData,
-                CreateInstance = () => new WaveConditionsInputView()
+                CreateInstance = context => new WaveConditionsInputView()
             };
         }
 

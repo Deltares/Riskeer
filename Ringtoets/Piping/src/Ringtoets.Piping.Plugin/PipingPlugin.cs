@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.Plugin
                     view.AssessmentSection = context.AssessmentSection;
                     view.PipingFailureMechanism = context.FailureMechanism;
                 },
-                CreateInstance = () => new PipingCalculationsView()
+                CreateInstance = context => new PipingCalculationsView()
             };
 
             yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>

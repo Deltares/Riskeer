@@ -35,7 +35,12 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public ViewInfo()
         {
-            CreateInstance = () => (IView) Activator.CreateInstance(ViewType);
+            CreateInstance = o =>
+            {
+                var view = (IView)Activator.CreateInstance(ViewType);
+                view.Data = o;
+                return view;
+            };
         }
 
         /// <summary>
@@ -119,7 +124,7 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         /// <remarks>This property needs to be set if no default constructor is available
         /// for the view type.</remarks>
-        public Func<IView> CreateInstance { get; set; }
+        public Func<object, IView> CreateInstance { get; set; }
 
         public override string ToString()
         {
@@ -140,7 +145,12 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public ViewInfo()
         {
-            CreateInstance = () => (TView) Activator.CreateInstance(ViewType);
+            CreateInstance = o =>
+            {
+                var view = (TView) Activator.CreateInstance(ViewType);
+                view.Data = o;
+                return view;
+            };
         }
 
         /// <summary>
@@ -242,7 +252,7 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         /// <remarks>This property needs to be set if no default constructor is available
         /// for the view type.</remarks>
-        public Func<TView> CreateInstance { get; set; }
+        public Func<TData, TView> CreateInstance { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ViewInfo{TData, TViewData, TView}"/> to <see cref="ViewInfo"/>.
@@ -266,7 +276,7 @@ namespace Core.Common.Gui.Plugin
                     viewInfo.AfterCreate?.Invoke((TView) v, (TData) o);
                 },
                 GetViewName = (v, o) => viewInfo.GetViewName?.Invoke((TView) v, (TViewData) o),
-                CreateInstance = () => viewInfo.CreateInstance()
+                CreateInstance = o => viewInfo.CreateInstance((TData) o)
             };
         }
 

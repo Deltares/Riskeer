@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Test.Plugin
                 // Do something useful
             };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
-            Func<IView> createInstanceDelegate = () => viewInstance;
+            Func<object, IView> createInstanceDelegate = o => viewInstance;
 
             // Call
             viewInfo.DataType = newDataType;
@@ -115,11 +115,14 @@ namespace Core.Common.Gui.Test.Plugin
                 ViewType = typeof(StringView)
             };
 
+            int data = new Random(21).Next();
+
             // Call
-            IView view = viewInfo.CreateInstance();
+            IView view = viewInfo.CreateInstance(data);
 
             // Assert
             Assert.IsInstanceOf<StringView>(view);
+            Assert.AreEqual(data, view.Data);
         }
 
         [Test]
@@ -137,8 +140,7 @@ namespace Core.Common.Gui.Test.Plugin
             string text = viewInfo.ToString();
 
             // Assert
-            string expectedText = string.Format("{0} : {1} : {2}",
-                                                viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
+            string expectedText = $"{viewInfo.DataType} : {viewInfo.ViewDataType} : {viewInfo.ViewType}";
             Assert.AreEqual(expectedText, text);
         }
 
@@ -178,7 +180,7 @@ namespace Core.Common.Gui.Test.Plugin
                 // Do something useful
             };
             Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
-            Func<StringView> createInstanceDelegate = () => new StringView();
+            Func<int, StringView> createInstanceDelegate = o => new StringView();
 
             // Call
             viewInfo.Description = newDescription;
@@ -210,8 +212,7 @@ namespace Core.Common.Gui.Test.Plugin
             string text = viewInfo.ToString();
 
             // Assert
-            string expectedText = string.Format("{0} : {1} : {2}",
-                                                viewInfo.DataType, viewInfo.ViewDataType, viewInfo.ViewType);
+            string expectedText = $"{viewInfo.DataType} : {viewInfo.ViewDataType} : {viewInfo.ViewType}";
             Assert.AreEqual(expectedText, text);
         }
 
@@ -220,9 +221,10 @@ namespace Core.Common.Gui.Test.Plugin
         {
             // Setup
             var viewInfo = new ViewInfo<int, string, StringView>();
+            int data = new Random(21).Next();
 
             // Call
-            StringView view = viewInfo.CreateInstance();
+            StringView view = viewInfo.CreateInstance(data);
 
             // Assert
             Assert.IsNotNull(view);
@@ -277,7 +279,7 @@ namespace Core.Common.Gui.Test.Plugin
             viewInfo.GetViewData = getViewDataDelegate;
             viewInfo.AfterCreate = afterCreateDelegate;
             viewInfo.CloseForData = closeViewForDataDelegate;
-            viewInfo.CreateInstance = () => new StringView
+            viewInfo.CreateInstance = o => new StringView
             {
                 Text = "A"
             };
@@ -298,7 +300,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(icon, info.Image);
             Assert.IsTrue(viewInfo.AdditionalDataCheck(dataObject));
             Assert.AreEqual(dataObject.ToString(), viewInfo.GetViewData(dataObject));
-            Assert.AreEqual("A", viewInfo.CreateInstance().Text);
+            Assert.AreEqual("A", viewInfo.CreateInstance(dataObject).Text);
 
             viewInfo.AfterCreate(stringView, dataObject);
             Assert.IsTrue(afterCreateDelegateCalled);
