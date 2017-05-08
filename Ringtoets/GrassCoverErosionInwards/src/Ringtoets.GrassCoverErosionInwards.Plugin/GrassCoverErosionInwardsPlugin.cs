@@ -53,7 +53,6 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionInwards.IO.Importers;
-using Ringtoets.GrassCoverErosionInwards.Plugin.ChangeHandlers;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionInwards.Service;
@@ -874,9 +873,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private bool DikeProfileDependentDataShouldUpdate(IEnumerable<GrassCoverErosionInwardsCalculation> calculations, string query)
         {
-            var changeHandler = new UpdateDikeProfileParametersChangeHandler(calculations,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new CalculationChangeHandler(calculations,
+                                                             query,
+                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
