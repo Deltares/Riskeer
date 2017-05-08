@@ -299,6 +299,34 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadAsPipingFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string sourcePath = "some/Path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        StochasticSoilModelCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            StochasticSoilModelCollection stochasticSoilModels = failureMechanism.StochasticSoilModels;
+            Assert.AreEqual(sourcePath, stochasticSoilModels.SourcePath);
+            CollectionAssert.IsEmpty(stochasticSoilModels);
+        }
+
+        [Test]
         public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_ReturnsNewPipingFailureMechanismWithStochasticSoilModelsSet()
         {
             // Setup
@@ -344,6 +372,34 @@ namespace Application.Ringtoets.Storage.Test.Read
                 "B",
                 "A"
             }, failureMechanism.StochasticSoilModels.Select(s => s.Name));
+        }
+
+        [Test]
+        public void ReadAsPipingFailureMechanism_WithoutSurfaceLinesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string sourcePath = "some/path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                PipingFailureMechanismMetaEntities =
+                {
+                    new PipingFailureMechanismMetaEntity
+                    {
+                        SurfaceLineCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            RingtoetsPipingSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
+            Assert.AreEqual(sourcePath, surfaceLines.SourcePath);
+            CollectionAssert.IsEmpty(surfaceLines);
         }
 
         [Test]
@@ -686,7 +742,37 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithForeshoreProfiles_ReturnsGrassCoverErosionOutwardsFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithForeshoreProfilesAndSourcePath_ReturnsFailureMechanismWithForeshoreProfilesAndSourcePathSet()
         {
             // Setup
             const string fileLocation = "some/path/to/foreshoreProfiles";
@@ -948,7 +1034,36 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewStabilityStoneCoverFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+        }
+
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithForeshoreProfilesAndSourcePath_ReturnsFailureMechanismWithForeshoreProfilesAndSourcePathSet()
         {
             // Setup
             const string fileLocation = "some/path/to/foreshoreProfiles";
@@ -1081,7 +1196,36 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+        }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithForeshoreProfilesAndSourcePath_ReturnsFailureMechanismWithForeshoreProfilesAndSourcePathSet()
         {
             // Setup
             const string fileLocation = "some/path/to/foreshoreProfiles";
@@ -1173,7 +1317,37 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsHeightStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        public void ReadAsHeightStructuresFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+        }
+
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_WithForeshoreProfilesAndSourcePath_ReturnFailureMechanismWithForeshoreProfilesAndSourcePathSet()
         {
             // Setup
             const int generalInputN = 7;
@@ -1340,6 +1514,36 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ClosingStructuresFailureMechanismMetaEntities =
+                {
+                    new ClosingStructuresFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N2A = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
         }
 
         [Test]
@@ -1533,6 +1737,36 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
+        }
+
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithoutForeshoreProfilesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string fileLocation = "some/path/to/foreshoreProfiles";
+
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
+            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
         }
 
         [Test]

@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Read
                                                   string foreshoreProfileSourcePath,
                                                   ReadConversionCollector collector)
         {
-            if (entity.ForeshoreProfileEntities.Any())
+            if (foreshoreProfileSourcePath != null)
             {
                 foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities
                                                  .OrderBy(fpe => fpe.Order)
@@ -133,20 +133,24 @@ namespace Application.Ringtoets.Storage.Read
             PipingFailureMechanismMetaEntity metaEntity = entity.PipingFailureMechanismMetaEntities.Single();
             metaEntity.ReadProbabilityAssessmentInput(failureMechanism.PipingProbabilityAssessmentInput);
             metaEntity.ReadGeneralPipingInput(failureMechanism.GeneralInput);
-            if (entity.StochasticSoilModelEntities.Any())
+
+            string stochasticSoilModelCollectionSourcePath =
+                metaEntity.StochasticSoilModelCollectionSourcePath;
+            if (stochasticSoilModelCollectionSourcePath != null)
             {
                 failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
                                                                      .OrderBy(ssm => ssm.Order)
                                                                      .Select(e => e.Read(collector)),
-                                                               metaEntity.StochasticSoilModelCollectionSourcePath);
+                                                               stochasticSoilModelCollectionSourcePath);
             }
 
-            if (entity.SurfaceLineEntities.Any())
+            string surfaceLineCollectionSourcePath = metaEntity.SurfaceLineCollectionSourcePath;
+            if (surfaceLineCollectionSourcePath != null)
             {
                 failureMechanism.SurfaceLines.AddRange(entity.SurfaceLineEntities
                                                              .OrderBy(sl => sl.Order)
                                                              .Select(e => e.Read(collector)),
-                                                       metaEntity.SurfaceLineCollectionSourcePath);
+                                                       surfaceLineCollectionSourcePath);
             }
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
