@@ -68,6 +68,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\StabilityStoneCoverSectionResultRow.cs" />
+    <Compile Include="Views\StabilityStoneCoverWaveConditionsInputViewStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

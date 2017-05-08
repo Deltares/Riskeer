@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRow.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationGroupContext.cs" />
+    <Compile Include="Views\WaveImpactAsphaltCoverWaveConditionsInputViewStyle.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>

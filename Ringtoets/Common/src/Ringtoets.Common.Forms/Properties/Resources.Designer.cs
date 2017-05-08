@@ -774,6 +774,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetspeil.
+        /// </summary>
+        public static string DesignWaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("DesignWaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijkhoogte [m+NAP].
         /// </summary>
         public static string DikeHeight_DisplayName {
@@ -1544,15 +1553,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string MetaData_Couple_distance {
             get {
                 return ResourceManager.GetString("MetaData_Couple_distance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeil.
-        /// </summary>
-        public static string MetaData_DesignWaterLevel {
-            get {
-                return ResourceManager.GetString("MetaData_DesignWaterLevel", resourceCulture);
             }
         }
         

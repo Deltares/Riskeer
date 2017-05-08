@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         public static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
             return RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
-                                                                                           Resources.MetaData_DesignWaterLevel,
+                                                                                           Resources.DesignWaterLevel_DisplayName,
                                                                                            Resources.MetaData_WaveHeight);
         }
     }

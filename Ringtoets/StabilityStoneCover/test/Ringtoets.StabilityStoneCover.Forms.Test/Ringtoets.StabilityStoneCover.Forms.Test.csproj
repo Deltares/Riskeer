@@ -55,6 +55,7 @@
     <Reference Include="System.Core">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
     </Reference>
@@ -77,6 +78,7 @@
     <Compile Include="Views\StabilityStoneCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />
+    <Compile Include="Views\StabilityStoneCoverWaveConditionsInputViewStyleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

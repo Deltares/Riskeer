@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +70,7 @@
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />
+    <Compile Include="Views\WaveImpactAsphaltCoverWaveConditionsInputViewStyleTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis.
+        /// </summary>
+        public static string DesignWaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("DesignWaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle golfhoogtes bij doorsnede-eis berekenen..
         /// </summary>
         public static string GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip {
@@ -268,15 +277,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         public static string GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis.
-        /// </summary>
-        public static string MetaData_DesignWaterLevel {
-            get {
-                return ResourceManager.GetString("MetaData_DesignWaterLevel", resourceCulture);
             }
         }
         

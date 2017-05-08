@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.Factories
         public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase?.Locations.ToArray() ?? new HydraulicBoundaryLocation[0],
-                                                           Resources.MetaData_DesignWaterLevel,
+                                                           Resources.DesignWaterLevel_DisplayName,
                                                            Resources.MetaData_WaveHeight);
         }
 
