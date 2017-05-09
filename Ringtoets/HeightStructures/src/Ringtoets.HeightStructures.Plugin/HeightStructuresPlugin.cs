@@ -104,7 +104,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism)),
-                VerifyUpdates = context => VerifyHeightStructuresShouldUpdate(context, Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
+                VerifyUpdates = context =>
+                    VerifyHeightStructuresShouldUpdate(
+                        context,
+                        Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
@@ -129,7 +132,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new UpdateMessageProvider(), new HeightStructureUpdateDataStrategy(context.FailureMechanism)),
                 CurrentPath = context => context.WrappedData.SourcePath,
-                VerifyUpdates = context => VerifyHeightStructuresShouldUpdate(context, Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
+                VerifyUpdates = context =>
+                    VerifyHeightStructuresShouldUpdate(
+                        context,
+                        Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
         }
 

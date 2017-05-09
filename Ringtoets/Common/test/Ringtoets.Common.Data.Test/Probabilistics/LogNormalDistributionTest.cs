@@ -278,8 +278,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [Test]
         [TestCaseSource(nameof(DistributionCombinations))]
         public void Equal_DifferentProperty_RetunsIsEqual(LogNormalDistribution distribution,
-                                                        LogNormalDistribution otherDistribution,
-                                                        bool expectedToBeEqual)
+                                                          LogNormalDistribution otherDistribution,
+                                                          bool expectedToBeEqual)
         {
             // Call
             bool isDistributionEqualToOther = distribution.Equals(otherDistribution);

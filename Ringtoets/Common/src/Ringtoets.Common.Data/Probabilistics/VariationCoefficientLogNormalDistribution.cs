@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             return MemberwiseClone();
         }
 
-        private bool Equals(IVariationCoefficientDistribution other)
+        private bool Equals(VariationCoefficientLogNormalDistribution other)
         {
             return Mean.Equals(other.Mean)
                    && CoefficientOfVariation.Equals(other.CoefficientOfVariation);

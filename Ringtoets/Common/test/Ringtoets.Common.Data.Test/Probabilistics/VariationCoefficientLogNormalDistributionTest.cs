@@ -226,8 +226,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [Test]
         [TestCaseSource(nameof(DistributionCombinations))]
         public void Equal_DifferentProperty_RetunsIsEqual(VariationCoefficientLogNormalDistribution distribution,
-                                                        VariationCoefficientLogNormalDistribution otherDistribution,
-                                                        bool expectedToBeEqual)
+                                                          VariationCoefficientLogNormalDistribution otherDistribution,
+                                                          bool expectedToBeEqual)
         {
             // Call
             bool isDistributionEqualToOther = distribution.Equals(otherDistribution);

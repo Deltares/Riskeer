@@ -119,10 +119,9 @@ namespace Ringtoets.Common.Data.Probabilistics
             return MemberwiseClone();
         }
 
-        private bool Equals(IDistribution other)
+        private bool Equals(NormalDistribution other)
         {
-            return !ReferenceEquals(null, other)
-                   && Mean.Equals(other.Mean)
+            return Mean.Equals(other.Mean)
                    && StandardDeviation.Equals(other.StandardDeviation);
         }
     }
