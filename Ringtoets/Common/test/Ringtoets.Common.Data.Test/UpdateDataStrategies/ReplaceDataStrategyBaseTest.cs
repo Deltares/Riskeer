@@ -249,10 +249,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 return ReplaceTargetCollectionWithImportedData(items, readItems, sourceFilePath);
             }
 
-            protected override IEnumerable<IObservable> ClearData(TestFailureMechanism failureMechanism)
+            protected override IEnumerable<IObservable> ClearData()
             {
                 IsClearDataCalled = true;
-                ClearDataFailureMechanism = failureMechanism;
+                ClearDataFailureMechanism = FailureMechanism;
 
                 return ClearDataReturnedList;
             }

@@ -62,9 +62,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        protected override IEnumerable<IObservable> ClearData(PipingFailureMechanism failureMechanism)
+        protected override IEnumerable<IObservable> ClearData()
         {
-            return PipingDataSynchronizationService.RemoveAllSurfaceLines(failureMechanism);
+            return PipingDataSynchronizationService.RemoveAllSurfaceLines(FailureMechanism);
         }
     }
 }

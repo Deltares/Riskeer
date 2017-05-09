@@ -66,9 +66,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
             }
         }
 
-        protected override IEnumerable<IObservable> ClearData(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        protected override IEnumerable<IObservable> ClearData()
         {
-            return GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(failureMechanism);
+            return GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(FailureMechanism);
         }
     }
 }

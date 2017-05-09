@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         where TTargetData : class
         where TFailureMechanism : IFailureMechanism
     {
-        private readonly TFailureMechanism failureMechanism;
+        protected readonly TFailureMechanism FailureMechanism;
 
         /// <summary>
         /// Initializes a <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>
@@ -51,17 +51,15 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
-        /// Clears all the dependent data of the target items that are contained within 
-        /// the <paramref name="failureMechanism"/>.
+        /// Clears all the dependent data of the target items that within the failure mechanism.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism in which the target collection resides.</param>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> with all the items that are affected within the failure mechanism
         /// after clearing all the within the target collection.</returns>
-        protected abstract IEnumerable<IObservable> ClearData(TFailureMechanism failureMechanism);
+        protected abstract IEnumerable<IObservable> ClearData();
 
         /// <summary>
         /// Replaces the data of the <paramref name="targetDataCollection"/> with the imported data in <paramref name="importedDataCollection"/>.
@@ -91,7 +89,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             }
 
             var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(ClearData(failureMechanism));
+            affectedObjects.AddRange(ClearData());
             AddData(targetDataCollection, importedDataCollection, sourceFilePath);
 
             return affectedObjects;

@@ -64,9 +64,9 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             }
         }
 
-        protected override IEnumerable<IObservable> ClearData(HeightStructuresFailureMechanism failureMechanism)
+        protected override IEnumerable<IObservable> ClearData()
         {
-            return HeightStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
+            return HeightStructuresDataSynchronizationService.RemoveAllStructures(FailureMechanism);
         }
     }
 }

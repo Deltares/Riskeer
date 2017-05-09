@@ -86,40 +86,40 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        protected override IEnumerable<IObservable> ClearData(IFailureMechanism failureMechanism)
+        protected override IEnumerable<IObservable> ClearData()
         {
             // TODO: Clearing the output will be implemented as part of WTI-1116
-            var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+            var waveImpactAsphaltCoverFailureMechanism = FailureMechanism as WaveImpactAsphaltCoverFailureMechanism;
             if (waveImpactAsphaltCoverFailureMechanism != null)
             {
                 return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism);
             }
 
-            var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
+            var stabilityStoneCoverFailureMechanism = FailureMechanism as StabilityStoneCoverFailureMechanism;
             if (stabilityStoneCoverFailureMechanism != null)
             {
                 return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(stabilityStoneCoverFailureMechanism);
             }
 
-            var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+            var grassCoverErosionOutwardsFailureMechanism = FailureMechanism as GrassCoverErosionOutwardsFailureMechanism;
             if (grassCoverErosionOutwardsFailureMechanism != null)
             {
                 return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism);
             }
 
-            var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+            var heightStructuresFailureMechanism = FailureMechanism as HeightStructuresFailureMechanism;
             if (heightStructuresFailureMechanism != null)
             {
                 return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(heightStructuresFailureMechanism);
             }
 
-            var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
+            var stabilityPointStructuresFailureMechanism = FailureMechanism as StabilityPointStructuresFailureMechanism;
             if (stabilityPointStructuresFailureMechanism != null)
             {
                 return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(stabilityPointStructuresFailureMechanism);
             }
 
-            var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
+            var closingStructuresFailureMechanism = FailureMechanism as ClosingStructuresFailureMechanism;
             if (closingStructuresFailureMechanism != null)
             {
                 return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(closingStructuresFailureMechanism);
