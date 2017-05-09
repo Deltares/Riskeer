@@ -959,4 +959,9 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data" xml:space="preserve">
     <value>&amp;Bijwerken kunstwerk</value>
   </data>
+  <data name="StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data" xml:space="preserve">
+    <value>Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

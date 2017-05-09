@@ -25,8 +25,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -35,6 +37,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -780,7 +783,81 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<HeightStructuresInput> calculation)
         {
-            // TODO: Implement
+            string message =
+                RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data;
+            if (StructureDependentDataShouldUpdate(new[]
+            {
+                calculation
+            }, message))
+            {
+                UpdateStructureDerivedCalculationInput(calculation);
+            }
+        }
+
+        private bool StructureDependentDataShouldUpdate(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations, string query)
+        {
+            var changeHandler = new CalculationChangeHandler(calculations,
+                                                             query,
+                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static void UpdateStructureDerivedCalculationInput(StructuresCalculation<HeightStructuresInput> calculation)
+        {
+            HeightStructuresInput inputParameters = calculation.InputParameters;
+
+            RoundedDouble currentStructureNormalOrientation = inputParameters.StructureNormalOrientation;
+            NormalDistribution currentLevelCrestStructure = inputParameters.LevelCrestStructure;
+            LogNormalDistribution currentFlowWidthAtBottomProtection = inputParameters.FlowWidthAtBottomProtection;
+            VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge = inputParameters.CriticalOvertoppingDischarge;
+            NormalDistribution currentWidthFlowApertures = inputParameters.WidthFlowApertures;
+            double currentFailureProbabilityStructureWithErosion = inputParameters.FailureProbabilityStructureWithErosion;
+            VariationCoefficientLogNormalDistribution currentStorageStructureArea = inputParameters.StorageStructureArea;
+            LogNormalDistribution currentAllowedLevelIncreaseStorage = inputParameters.AllowedLevelIncreaseStorage;
+
+            // Reapply the structure will update the derived inputs
+            inputParameters.Structure = inputParameters.Structure;
+
+            var affectedObjects = new List<IObservable>();
+            if (IsDerivedInputUpdated(currentStructureNormalOrientation,
+                                      currentLevelCrestStructure,
+                                      currentFlowWidthAtBottomProtection,
+                                      currentCriticalOvertoppingDischarge,
+                                      currentWidthFlowApertures,
+                                      currentFailureProbabilityStructureWithErosion,
+                                      currentStorageStructureArea,
+                                      currentAllowedLevelIncreaseStorage,
+                                      inputParameters))
+            {
+                affectedObjects.Add(inputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            }
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private static bool IsDerivedInputUpdated(RoundedDouble currentStructureNormalOrientation,
+                                                  NormalDistribution currentLevelCrestStructure,
+                                                  LogNormalDistribution currentFlowWidthAtBottomProtection,
+                                                  VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge,
+                                                  NormalDistribution currentWidthFlowApertures,
+                                                  double currentFailureProbabilityStructureWithErosion,
+                                                  VariationCoefficientLogNormalDistribution currentStorageStructureArea,
+                                                  LogNormalDistribution currentAllowedLevelIncreaseStorage,
+                                                  HeightStructuresInput actualInput)
+        {
+            return !Equals(currentStructureNormalOrientation, actualInput.StructureNormalOrientation)
+                   || !Equals(currentLevelCrestStructure, actualInput.LevelCrestStructure)
+                   || !Equals(currentFlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection)
+                   || !Equals(currentCriticalOvertoppingDischarge, actualInput.CriticalOvertoppingDischarge)
+                   || !Equals(currentWidthFlowApertures, actualInput.WidthFlowApertures)
+                   || !Equals(currentFailureProbabilityStructureWithErosion, actualInput.FailureProbabilityStructureWithErosion)
+                   || !Equals(currentStorageStructureArea, actualInput.StorageStructureArea)
+                   || !Equals(currentAllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage);
         }
 
         #endregion

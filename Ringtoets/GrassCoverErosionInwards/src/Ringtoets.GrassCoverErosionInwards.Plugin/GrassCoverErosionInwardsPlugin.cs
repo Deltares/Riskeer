@@ -889,10 +889,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             RoundedDouble currentDikeHeight = inputParameters.DikeHeight;
             bool currentUseForeshore = inputParameters.UseForeshore;
 
-            DikeProfile currentDikeProfile = inputParameters.DikeProfile;
-
             // Reapply the dike profile will update the derived inputs
-            inputParameters.DikeProfile = currentDikeProfile;
+            inputParameters.DikeProfile = inputParameters.DikeProfile;
 
             var affectedObjects = new List<IObservable>();
             if (IsDerivedInputUpdated(currentUseBreakWater,
