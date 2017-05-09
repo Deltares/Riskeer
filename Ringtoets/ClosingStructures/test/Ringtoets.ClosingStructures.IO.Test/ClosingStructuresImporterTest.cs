@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.Structures;
 
 namespace Ringtoets.ClosingStructures.IO.Test
 {
@@ -57,18 +58,40 @@ namespace Ringtoets.ClosingStructures.IO.Test
         }
 
         [Test]
-        public void Constructor_Always_ExpectedValues()
+        public void Constructor_WithoutUpdateStrategy_ThrowsArgumentNullException()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new ClosingStructuresImporter(
-                new StructureCollection<ClosingStructure>(), 
-                new ReferenceLine(), 
+            TestDelegate test = () => new ClosingStructuresImporter(
+                new StructureCollection<ClosingStructure>(),
+                new ReferenceLine(),
                 string.Empty,
-                messageProvider);
+                messageProvider,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("updateStrategy", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithUpdateStrategy_ExpectedValues()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            mocks.ReplayAll();
+
+            // Call
+            var importer = new ClosingStructuresImporter(
+                new StructureCollection<ClosingStructure>(),
+                new ReferenceLine(),
+                string.Empty,
+                messageProvider,
+                updateStrategy);
 
             // Assert
             Assert.IsInstanceOf<StructuresImporter<StructureCollection<ClosingStructure>>>(importer);
@@ -79,6 +102,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
             mocks.ReplayAll();
 
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
@@ -86,7 +110,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new StructureCollection<ClosingStructure>();
             var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
-                                                         messageProvider);
+                                                         messageProvider, updateStrategy);
 
             // Call
             var importResult = false;
@@ -108,17 +132,37 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_VarianceValuesNeedConversion_WarnUserAboutConversion()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var importTarget = new StructureCollection<ClosingStructure>();
             string filePath = Path.Combine(testDataPath, "StructuresVarianceValueConversion",
                                            "Kunstwerken.shp");
 
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+
+                var closingStructures = ((IEnumerable<ClosingStructure>)i.Arguments[1]);
+                Assert.AreEqual(1, closingStructures.Count());
+
+                ClosingStructure structure = closingStructures.First();
+                Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+                Assert.AreEqual(50, structure.WidthFlowApertures.StandardDeviation.Value);
+                Assert.AreEqual(2.2, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
+                Assert.AreEqual(3.3, structure.InsideWaterLevel.StandardDeviation.Value);
+                Assert.AreEqual(4.4, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+                Assert.AreEqual(5.5, structure.AreaFlowApertures.StandardDeviation.Value);
+                Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+            });
+            mocks.ReplayAll();
+
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new StructureCollection<ClosingStructure>();
             var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
-                                                         messageProvider);
+                                                         messageProvider, updateStrategy);
 
             // Call
             var importResult = false;
@@ -139,19 +183,6 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-
-            Assert.AreEqual(1, importTarget.Count);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
-            ClosingStructure structure = importTarget[0];
-            Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
-            Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            Assert.AreEqual(50, structure.WidthFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual(2.2, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
-            Assert.AreEqual(3.3, structure.InsideWaterLevel.StandardDeviation.Value);
-            Assert.AreEqual(4.4, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
-            Assert.AreEqual(5.5, structure.AreaFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-            Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
         }
 
         [Test]
@@ -160,13 +191,15 @@ namespace Ringtoets.ClosingStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
             mocks.ReplayAll();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv",
                                            "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new StructureCollection<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine,
+                                                                   filePath, messageProvider, updateStrategy);
 
             // Call
             var importResult = false;
@@ -192,10 +225,18 @@ namespace Ringtoets.ClosingStructures.IO.Test
         public void Import_ParameterIdsWithVaryingCase_TrueAndImportTargetUpdated()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
+            var importTarget = new StructureCollection<ClosingStructure>();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv",
                                            "Kunstwerken.shp");
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i.Arguments[1]).Count());
+            });
+            mocks.ReplayAll();
 
             var referencePoints = new List<Point2D>
             {
@@ -206,30 +247,51 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new StructureCollection<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine,
+                                                                   filePath, messageProvider, updateStrategy);
 
             // Call
             bool importResult = structuresImporter.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, importTarget.Count);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
         }
 
         [Test]
         public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
+            var importTarget = new StructureCollection<ClosingStructure>();
             string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter), "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+
+                var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+                {
+                    Name = "test",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                });
+
+                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[1];
+                Assert.AreEqual(1, readStructures.Count());
+                ClosingStructure importedStructure = readStructures.First();
+                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
+                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+                Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
+            });
+            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new StructureCollection<ClosingStructure>();
-            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine,
+                                                                   filePath, messageProvider, updateStrategy);
 
             // Call
             var importResult = false;
@@ -250,20 +312,6 @@ namespace Ringtoets.ClosingStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-            Assert.AreEqual(filePath, importTarget.SourcePath);
-
-            var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
-            {
-                Name = "test",
-                Location = new Point2D(0, 0),
-                Id = "id"
-            });
-            ClosingStructure importedStructure = importTarget[0];
-            DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
-            DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
-            DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
-            Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
         }
 
         private static ReferenceLine CreateReferenceLine()

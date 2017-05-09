@@ -42,6 +42,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ClosingStructuresPlugin.cs" />
+    <Compile Include="FileImporters\ClosingStructureReplaceDataStrategy.cs" />
+    <Compile Include="FileImporters\ClosingStructureUpdateDataStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

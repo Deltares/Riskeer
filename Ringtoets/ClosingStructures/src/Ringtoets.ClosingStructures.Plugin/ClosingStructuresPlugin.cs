@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -36,6 +36,7 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.IO.Configurations;
+using Ringtoets.ClosingStructures.Plugin.FileImporters;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -51,6 +52,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -193,16 +195,15 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             yield return new ImportInfo<ClosingStructuresContext>
             {
-                CreateFileImporter = (context, filePath) => new ClosingStructuresImporter(context.WrappedData,
-                                                                                          context.AssessmentSection.ReferenceLine,
-                                                                                          filePath,
-                                                                                          new ImportMessageProvider()),
+                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
+                    context,
+                    filePath,
+                    new ImportMessageProvider(),
+                    new ClosingStructureReplaceDataStrategy(context.FailureMechanism)),
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                FileFilterGenerator = new FileFilterGenerator(
-                    RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                    RingtoetsCommonIOResources.Shape_file_filter_Description),
+                FileFilterGenerator = CreateClosingStructureFileFilter(),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
 
@@ -216,6 +217,36 @@ namespace Ringtoets.ClosingStructures.Plugin
                     context.FailureMechanism));
         }
 
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return new UpdateInfo<ClosingStructuresContext>
+            {
+                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
+                    context,
+                    filePath,
+                    new UpdateMessageProvider(),
+                    new ClosingStructureUpdateDataStrategy(context.FailureMechanism)),
+                Name = RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                FileFilterGenerator = CreateClosingStructureFileFilter(),
+                IsEnabled = c => c.FailureMechanism.ClosingStructures.SourcePath != null,
+                CurrentPath = context => context.WrappedData.SourcePath
+            };
+        }
+
+        private IFileImporter CreateHeightStructuresImporter(ClosingStructuresContext context,
+                                                             string filePath,
+                                                             IImporterMessageProvider importerMessageProvider,
+                                                             IStructureUpdateStrategy<ClosingStructure> structureUpdateStrategy)
+        {
+            return new ClosingStructuresImporter(context.WrappedData,
+                                                 context.AssessmentSection.ReferenceLine,
+                                                 filePath,
+                                                 importerMessageProvider,
+                                                 structureUpdateStrategy);
+        }
+
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<ClosingStructuresCalculationGroupContext>(
@@ -227,6 +258,13 @@ namespace Ringtoets.ClosingStructures.Plugin
                 {
                     context.WrappedData
                 }, filePath));
+        }
+
+        private static FileFilterGenerator CreateClosingStructureFileFilter()
+        {
+            return new FileFilterGenerator(
+                RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                RingtoetsCommonIOResources.Shape_file_filter_Description);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)

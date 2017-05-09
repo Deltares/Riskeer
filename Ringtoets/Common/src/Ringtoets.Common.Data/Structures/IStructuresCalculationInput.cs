@@ -34,5 +34,10 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets the structure.
         /// </summary>
         T Structure { get; }
+
+        /// <summary>
+        /// Clears the structure from the input.
+        /// </summary>
+        void ClearStructure();
     }
 }

@@ -24,58 +24,65 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Service;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Service;
 
-namespace Ringtoets.HeightStructures.Plugin.FileImporters
+namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
-    /// updating height structures based on imported data.
+    /// updating Closing structures based on imported data.
     /// </summary>
-    public class HeightStructureUpdateDataStrategy : UpdateDataStrategyBase<HeightStructure, HeightStructuresFailureMechanism>,
-                                                     IStructureUpdateStrategy<HeightStructure>
+    public class ClosingStructureUpdateDataStrategy : UpdateDataStrategyBase<ClosingStructure, ClosingStructuresFailureMechanism>,
+                                                     IStructureUpdateStrategy<ClosingStructure>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructureUpdateDataStrategy"/>.
+        /// Creates a new instance of <see cref="ClosingStructureUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public HeightStructureUpdateDataStrategy(HeightStructuresFailureMechanism failureMechanism)
+        public ClosingStructureUpdateDataStrategy(ClosingStructuresFailureMechanism failureMechanism)
             : base(failureMechanism, new StructureIdEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<HeightStructure> targetDataCollection,
-                                                                         IEnumerable<HeightStructure> readStructures,
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<ClosingStructure> targetDataCollection,
+                                                                         IEnumerable<ClosingStructure> readStructures,
                                                                          string sourceFilePath)
         {
             return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(HeightStructure removedObject)
+        #region Removing Data Functions
+
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ClosingStructure removedObject)
         {
             return RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                removedObject,
-                FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                FailureMechanism.HeightStructures,
+                removedObject, 
+                FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
+                FailureMechanism.ClosingStructures, 
                 FailureMechanism.SectionResults);
         }
 
+        #endregion
+
         /// <summary>
-        /// Class for comparing <see cref="HeightStructure"/> by only the id.
+        /// Class for comparing <see cref="ClosingStructure"/> by only the id.
         /// </summary>
-        private class StructureIdEqualityComparer : IEqualityComparer<HeightStructure>
+        private class StructureIdEqualityComparer : IEqualityComparer<ClosingStructure>
         {
-            public bool Equals(HeightStructure x, HeightStructure y)
+            public bool Equals(ClosingStructure x, ClosingStructure y)
             {
                 return x.Id.Equals(y.Id);
             }
 
-            public int GetHashCode(HeightStructure obj)
+            public int GetHashCode(ClosingStructure obj)
             {
                 return obj.Id.GetHashCode();
             }
@@ -83,8 +90,8 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
 
         #region Updating Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(HeightStructure objectToUpdate,
-                                                                                 HeightStructure objectToUpdateFrom)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ClosingStructure objectToUpdate,
+                                                                                 ClosingStructure objectToUpdateFrom)
         {
             var affectedObjects = new List<IObservable>();
 
@@ -92,17 +99,17 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             {
                 objectToUpdate.CopyProperties(objectToUpdateFrom);
 
-                affectedObjects.AddRange(UpdateHeightStructureDependentData(objectToUpdate));
+                affectedObjects.AddRange(UpdateClosingStructureDependentData(objectToUpdate));
             }
 
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateHeightStructureDependentData(HeightStructure structure)
+        private IEnumerable<IObservable> UpdateClosingStructureDependentData(ClosingStructure structure)
         {
             var affectedObjects = new List<IObservable>();
 
-            foreach (StructuresCalculation<HeightStructuresInput> affectedCalculation in GetAffectedCalculationsWithHeightStructure(structure))
+            foreach (StructuresCalculation<ClosingStructuresInput> affectedCalculation in GetAffectedCalculationsWithClosingStructure(structure))
             {
                 affectedObjects.Add(affectedCalculation.InputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
@@ -110,16 +117,16 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
 
             affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
                                          FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()));
+                                         FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()));
 
             return affectedObjects;
         }
 
-        private IEnumerable<StructuresCalculation<HeightStructuresInput>> GetAffectedCalculationsWithHeightStructure(HeightStructure structure)
+        private IEnumerable<StructuresCalculation<ClosingStructuresInput>> GetAffectedCalculationsWithClosingStructure(ClosingStructure structure)
         {
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedCalculations =
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedCalculations =
                 FailureMechanism.Calculations
-                                .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
                                 .Where(calc => ReferenceEquals(calc.InputParameters.Structure, structure));
             return affectedCalculations;
         }

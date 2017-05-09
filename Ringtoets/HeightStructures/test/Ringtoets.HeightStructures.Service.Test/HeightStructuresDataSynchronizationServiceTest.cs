@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -334,7 +335,11 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = HeightStructuresDataSynchronizationService.RemoveStructure(failureMechanism, structure);
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                structure,
+                failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                failureMechanism.HeightStructures,
+                failureMechanism.SectionResults);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -374,14 +379,45 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void RemoveAllStructures_FailureMechanismNull_ThrowsArgumentNullException()
+        public void RemoveAllStructures_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresDataSynchronizationService.RemoveAllStructures(null);
+            TestDelegate call = () => RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
+                null,
+                new StructureCollection<HeightStructure>(),
+                Enumerable.Empty<StructuresFailureMechanismSectionResult<HeightStructuresInput>>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            Assert.AreEqual("calculations", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_StructuresNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsCommonDataSynchronizationService.RemoveAllStructures<HeightStructure, HeightStructuresInput>(
+                Enumerable.Empty<StructuresCalculation<HeightStructuresInput>>(),
+                null,
+                Enumerable.Empty<StructuresFailureMechanismSectionResult<HeightStructuresInput>>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structures", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
+                Enumerable.Empty<StructuresCalculation<HeightStructuresInput>>(),
+                new StructureCollection<HeightStructure>(),
+                null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("sectionResults", paramName);
         }
 
         [Test]
@@ -404,7 +440,10 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithStructure);
 
             // Call
-            IEnumerable<IObservable> observables = HeightStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
+            IEnumerable<IObservable> observables = RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
+                failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                failureMechanism.HeightStructures,
+                failureMechanism.SectionResults);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with

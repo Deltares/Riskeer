@@ -382,6 +382,11 @@ namespace Ringtoets.Common.Data.Structures
             return new BreakWater(BreakWaterType.Dam, 0.0);
         }
 
+        public void ClearStructure()
+        {
+            Structure = null;
+        }
+
         #endregion
     }
 }

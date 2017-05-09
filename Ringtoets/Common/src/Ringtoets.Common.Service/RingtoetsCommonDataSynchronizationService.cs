@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Utils;
 
 namespace Ringtoets.Common.Service
 {
@@ -102,6 +103,106 @@ namespace Ringtoets.Common.Service
                 affectedObjects.Add(calculation.InputParameters);
             }
             return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes the given closing structure and all dependent data, either directly or indirectly,
+        /// from the failure mechanism.
+        /// </summary>
+        /// <param name="structure">The structure to be removed.</param>
+        /// <param name="structuresCalculations"></param>
+        /// <param name="structures"></param>
+        /// <param name="sectionResults"></param>
+        /// <returns>All objects affected by the removal.</returns>
+        public static IEnumerable<IObservable> RemoveStructure<TStructure, TInput>(TStructure structure, IEnumerable<StructuresCalculation<TInput>> structuresCalculations, StructureCollection<TStructure> structures, IEnumerable<StructuresFailureMechanismSectionResult<TInput>> sectionResults)
+            where TInput : IStructuresCalculationInput<TStructure>, new()
+            where TStructure : StructureBase
+        {
+            StructuresCalculation<TInput>[] calculationWithRemovedStructure = structuresCalculations
+                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                .ToArray();
+
+            HashSet<IObservable> changedObservables = ClearStructureDependentData(
+                sectionResults,
+                calculationWithRemovedStructure,
+                structuresCalculations);
+
+            structures.Remove(structure);
+            changedObservables.Add(structures);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes all height structures from the <paramref name="calculations"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="calculations">Calculations to remove the structure from.</param>
+        /// <param name="structures">The collection of structures to clear.</param>
+        /// <param name="sectionResults">All the currently known section results in the failure
+        /// mechanism.</param>
+        /// <returns>All objects that are affected by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is
+        /// <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllStructures<TStructure, TInput>(
+            IEnumerable<StructuresCalculation<TInput>> calculations,
+            StructureCollection<TStructure> structures,
+            IEnumerable<StructuresFailureMechanismSectionResult<TInput>> sectionResults)
+            where TInput : IStructuresCalculationInput<TStructure>, new()
+            where TStructure : StructureBase
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+            if (structures == null)
+            {
+                throw new ArgumentNullException(nameof(structures));
+            }
+            if (sectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResults));
+            }
+            StructuresCalculation<TInput>[] calculationWithRemovedStructure = calculations
+                .Where(c => c.InputParameters.Structure != null)
+                .ToArray();
+
+            HashSet<IObservable> changedObservables = ClearStructureDependentData(
+                sectionResults,
+                calculationWithRemovedStructure,
+                calculations);
+
+            structures.Clear();
+            changedObservables.Add(structures);
+
+            return changedObservables;
+        }
+
+        private static HashSet<IObservable> ClearStructureDependentData<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
+                                                                          IEnumerable<StructuresCalculation<T>> calculationWithRemovedStructure,
+                                                                          IEnumerable<StructuresCalculation<T>> structureCalculations)
+            where T : IStructuresCalculationInput<StructureBase>, new()
+        {
+            var changedObservables = new HashSet<IObservable>();
+            foreach (StructuresCalculation<T> calculation in calculationWithRemovedStructure)
+            {
+                foreach (IObservable calculationWithRemovedOutput in ClearCalculationOutput(calculation))
+                {
+                    changedObservables.Add(calculationWithRemovedOutput);
+                }
+
+                calculation.InputParameters.ClearStructure();
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<StructuresFailureMechanismSectionResult<T>> affectedSectionResults =
+                StructuresHelper.UpdateCalculationToSectionResultAssignments(sectionResults, structureCalculations);
+
+            foreach (StructuresFailureMechanismSectionResult<T> result in affectedSectionResults)
+            {
+                changedObservables.Add(result);
+            }
+            return changedObservables;
         }
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)

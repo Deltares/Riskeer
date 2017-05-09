@@ -97,55 +97,55 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the storage area of the closing structure.
         /// [m^2]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; }
 
         /// <summary>
         /// Gets the allowed increase of level for storage of the closing structure.
         /// [m]
         /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+        public LogNormalDistribution AllowedLevelIncreaseStorage { get; }
 
         /// <summary>
         /// Gets the width of the flow apertures of the closing structure.
         /// [m]
         /// </summary>
-        public NormalDistribution WidthFlowApertures { get; private set; }
+        public NormalDistribution WidthFlowApertures { get; }
 
         /// <summary>
         /// Gets the crest level of the opened closing structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution LevelCrestStructureNotClosing { get; private set; }
+        public NormalDistribution LevelCrestStructureNotClosing { get; }
 
         /// <summary>
         /// Gets the interior water level of the closing structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution InsideWaterLevel { get; private set; }
+        public NormalDistribution InsideWaterLevel { get; }
 
         /// <summary>
         /// Gets the threshold height of the opened closing structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
+        public NormalDistribution ThresholdHeightOpenWeir { get; }
 
         /// <summary>
         /// Gets the area of the flow aperture of the closing structure.
         /// [m^2]
         /// </summary>
-        public LogNormalDistribution AreaFlowApertures { get; private set; }
+        public LogNormalDistribution AreaFlowApertures { get; }
 
         /// <summary>
         /// Gets the critical overtopping discharge per meter of the closing structure.
         /// [m^3/s/m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; }
 
         /// <summary>
         /// Gets the flow width of the closing structure at the bottom protection.
         /// [m]
         /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+        public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
         /// <summary>
         /// Gets the probability or frequency of the closing structure being open before flooding.
@@ -177,6 +177,106 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the type of closing structure inflow model.
         /// </summary>
         public ClosingStructureInflowModelType InflowModelType { get; private set; }
+
+        /// <summary>
+        /// Copies the property values of the <paramref name="fromStructure"/> to the 
+        /// <see cref="ClosingStructure"/>.
+        /// </summary>
+        /// <param name="fromStructure">The <see cref="ClosingStructure"/> to get the property 
+        /// values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromStructure"/>
+        /// is <c>null</c>.</exception>
+        public void CopyProperties(ClosingStructure fromStructure)
+        {
+            base.CopyProperties(fromStructure);
+
+            AllowedLevelIncreaseStorage.Mean = fromStructure.AllowedLevelIncreaseStorage.Mean;
+            AllowedLevelIncreaseStorage.StandardDeviation = fromStructure.AllowedLevelIncreaseStorage.StandardDeviation;
+            AllowedLevelIncreaseStorage.Shift = fromStructure.AllowedLevelIncreaseStorage.Shift;
+
+            AreaFlowApertures.Mean = fromStructure.AreaFlowApertures.Mean;
+            AreaFlowApertures.StandardDeviation = fromStructure.AreaFlowApertures.StandardDeviation;
+            AreaFlowApertures.Shift = fromStructure.AreaFlowApertures.Shift;
+
+            CriticalOvertoppingDischarge.Mean = fromStructure.CriticalOvertoppingDischarge.Mean;
+            CriticalOvertoppingDischarge.CoefficientOfVariation = fromStructure.CriticalOvertoppingDischarge.CoefficientOfVariation;
+
+            FailureProbabilityOpenStructure = fromStructure.FailureProbabilityOpenStructure;
+
+            FailureProbabilityReparation = fromStructure.FailureProbabilityReparation;
+
+            IdenticalApertures = fromStructure.IdenticalApertures;
+
+            FlowWidthAtBottomProtection.Mean = fromStructure.FlowWidthAtBottomProtection.Mean;
+            FlowWidthAtBottomProtection.StandardDeviation = fromStructure.FlowWidthAtBottomProtection.StandardDeviation;
+            FlowWidthAtBottomProtection.Shift = fromStructure.FlowWidthAtBottomProtection.Shift;
+
+            InflowModelType = fromStructure.InflowModelType;
+
+            InsideWaterLevel.Mean = fromStructure.InsideWaterLevel.Mean;
+            InsideWaterLevel.StandardDeviation = fromStructure.InsideWaterLevel.StandardDeviation;
+
+            LevelCrestStructureNotClosing.Mean = fromStructure.LevelCrestStructureNotClosing.Mean;
+            LevelCrestStructureNotClosing.StandardDeviation = fromStructure.LevelCrestStructureNotClosing.StandardDeviation;
+
+            ProbabilityOrFrequencyOpenStructureBeforeFlooding = fromStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+
+            StorageStructureArea.Mean = fromStructure.StorageStructureArea.Mean;
+            StorageStructureArea.CoefficientOfVariation = fromStructure.StorageStructureArea.CoefficientOfVariation;
+
+            ThresholdHeightOpenWeir.Mean = fromStructure.ThresholdHeightOpenWeir.Mean;
+            ThresholdHeightOpenWeir.StandardDeviation = fromStructure.ThresholdHeightOpenWeir.StandardDeviation;
+
+            WidthFlowApertures.Mean = fromStructure.WidthFlowApertures.Mean;
+            WidthFlowApertures.StandardDeviation = fromStructure.WidthFlowApertures.StandardDeviation;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj) && Equals((ClosingStructure) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ AllowedLevelIncreaseStorage.GetHashCode();
+                hashCode = (hashCode * 397) ^ AreaFlowApertures.GetHashCode();
+                hashCode = (hashCode * 397) ^ CriticalOvertoppingDischarge.GetHashCode();
+                hashCode = (hashCode * 397) ^ FailureProbabilityOpenStructure.GetHashCode();
+                hashCode = (hashCode * 397) ^ FailureProbabilityReparation.GetHashCode();
+                hashCode = (hashCode * 397) ^ IdenticalApertures.GetHashCode();
+                hashCode = (hashCode * 397) ^ FlowWidthAtBottomProtection.GetHashCode();
+                hashCode = (hashCode * 397) ^ InflowModelType.GetHashCode();
+                hashCode = (hashCode * 397) ^ InsideWaterLevel.GetHashCode();
+                hashCode = (hashCode * 397) ^ LevelCrestStructureNotClosing.GetHashCode();
+                hashCode = (hashCode * 397) ^ ProbabilityOrFrequencyOpenStructureBeforeFlooding.GetHashCode();
+                hashCode = (hashCode * 397) ^ StorageStructureArea.GetHashCode();
+                hashCode = (hashCode * 397) ^ ThresholdHeightOpenWeir.GetHashCode();
+                hashCode = (hashCode * 397) ^ WidthFlowApertures.GetHashCode();
+
+                return hashCode;
+            }
+        }
+
+        private bool Equals(ClosingStructure other)
+        {
+            return AllowedLevelIncreaseStorage.Equals(other.AllowedLevelIncreaseStorage)
+                   && AreaFlowApertures.Equals(other.AreaFlowApertures)
+                   && CriticalOvertoppingDischarge.Equals(other.CriticalOvertoppingDischarge)
+                   && FailureProbabilityOpenStructure.Equals(other.FailureProbabilityOpenStructure)
+                   && FailureProbabilityReparation.Equals(other.FailureProbabilityReparation)
+                   && IdenticalApertures.Equals(other.IdenticalApertures)
+                   && FlowWidthAtBottomProtection.Equals(other.FlowWidthAtBottomProtection)
+                   && InflowModelType.Equals(other.InflowModelType)
+                   && InsideWaterLevel.Equals(other.InsideWaterLevel)
+                   && LevelCrestStructureNotClosing.Equals(other.LevelCrestStructureNotClosing)
+                   && ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(other.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
+                   && StorageStructureArea.Equals(other.StorageStructureArea)
+                   && ThresholdHeightOpenWeir.Equals(other.ThresholdHeightOpenWeir)
+                   && WidthFlowApertures.Equals(other.WidthFlowApertures);
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="ClosingStructure"/>.

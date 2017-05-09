@@ -332,7 +332,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
             CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveStructure(failureMechanism, structure);
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                structure, 
+                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), 
+                failureMechanism.ClosingStructures, 
+                failureMechanism.SectionResults);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with

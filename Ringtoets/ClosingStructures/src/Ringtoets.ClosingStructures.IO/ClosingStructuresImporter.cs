@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -39,6 +38,8 @@ namespace Ringtoets.ClosingStructures.IO
     /// </summary>
     public class ClosingStructuresImporter : StructuresImporter<StructureCollection<ClosingStructure>>
     {
+        private readonly IStructureUpdateStrategy<ClosingStructure> structureUpdateStrategy;
+
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresImporter"/>.
         /// </summary>
@@ -47,15 +48,29 @@ namespace Ringtoets.ClosingStructures.IO
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
+        /// <param name="updateStrategy">The strategy to update the structures with imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public ClosingStructuresImporter(StructureCollection<ClosingStructure> importTarget,
-                                         ReferenceLine referenceLine, string filePath, IImporterMessageProvider messageProvider)
-            : base(importTarget, referenceLine, filePath, messageProvider) {}
+                                         ReferenceLine referenceLine,
+                                         string filePath,
+                                         IImporterMessageProvider messageProvider,
+                                         IStructureUpdateStrategy<ClosingStructure> updateStrategy)
+            : base(importTarget, referenceLine, filePath, messageProvider)
+        {
+            if (updateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(updateStrategy));
+            }
+            structureUpdateStrategy = updateStrategy;
+        }
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            ImportTarget.AddRange(CreateClosingStructures(structureLocations.ToList(), groupedStructureParameterRows), FilePath);
+            structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
+                                                                     CreateClosingStructures(structureLocations.ToList(),
+                                                                                            groupedStructureParameterRows),
+                                                                     FilePath);
         }
 
         private IEnumerable<ClosingStructure> CreateClosingStructures(IEnumerable<StructureLocation> structureLocations,
