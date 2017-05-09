@@ -387,16 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
-                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
-                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
-
-                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
-                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
-                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
-                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+                    AssertGrassCoverErosionInwardsInput(dikeProfile, calculation.InputParameters);
 
                     // Note: observer assertions are verified in the TearDown()
                 }
@@ -463,7 +454,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreSame(dikeProfile, calculationInput.DikeProfile);
                     Assert.AreEqual(expectedOrientation, calculationInput.Orientation);
                     Assert.AreEqual(expectedDikeHeight, calculationInput.DikeHeight);
-
                     Assert.AreEqual(expectedUseBreakWater, calculationInput.UseBreakWater);
                     Assert.AreEqual(expectedBreakWater, calculationInput.BreakWater);
                     Assert.AreEqual(expectedUseForeshore, calculationInput.UseForeshore);
@@ -530,16 +520,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
-                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
-                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
-
-                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
-                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
-                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
-                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+                    AssertGrassCoverErosionInwardsInput(dikeProfile, calculation.InputParameters);
 
                     string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
@@ -625,16 +606,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.HasOutput);
-
-                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
-                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
-                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
-
-                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
-                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
-                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
-                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
+                    AssertGrassCoverErosionInwardsInput(dikeProfile, calculation.InputParameters);
 
                     string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
@@ -659,7 +631,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    DikeProfile = dikeProfile,
+                    DikeProfile = dikeProfile
                 },
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -702,7 +674,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-                    Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
+                    AssertGrassCoverErosionInwardsInput(dikeProfile, calculation.InputParameters);
 
                     string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
@@ -1276,6 +1248,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                           });
 
             dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
+        }
+
+        private static void AssertGrassCoverErosionInwardsInput(DikeProfile dikeProfile, GrassCoverErosionInwardsInput inputParameters)
+        {
+            Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
+            Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
+            Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
+            Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
+            Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
+            Assert.AreEqual(dikeProfile.ForeshoreGeometry.Count() > 1, inputParameters.UseForeshore);
         }
 
         public override void TearDown()

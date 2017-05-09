@@ -387,17 +387,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-                    Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-                    Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-                    Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-                    Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
+                    AssertHeightStructuresInput(structure, calculation.InputParameters);
 
                     // Note: observer assertions are verified in the TearDown()
                 }
@@ -537,18 +527,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-                    Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-                    Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-                    Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-                    Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
+                    AssertHeightStructuresInput(structure, calculation.InputParameters);
 
                     string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
@@ -612,18 +591,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.HasOutput);
-
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-                    Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-                    Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-                    Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-                    Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
+                    AssertHeightStructuresInput(structure, calculation.InputParameters);
 
                     string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
@@ -691,7 +659,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
+                    AssertHeightStructuresInput(structure, calculation.InputParameters);
 
                     string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
@@ -1236,6 +1204,19 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 });
 
             structure.CopyProperties(structureToUpdateFrom);
+        }
+
+        private static void AssertHeightStructuresInput(TestHeightStructure structure, HeightStructuresInput inputParameters)
+        {
+            Assert.AreSame(structure, inputParameters.Structure);
+            Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
+            Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
+            Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
+            Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
+            Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
+            Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
         }
 
         public override void TearDown()
