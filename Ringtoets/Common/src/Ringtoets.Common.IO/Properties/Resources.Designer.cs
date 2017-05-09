@@ -1002,11 +1002,29 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het importeren van de {0} is mislukt: {{0}}.
+        /// </summary>
+        public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__ {
+            get {
+                return ResourceManager.GetString("Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} bijwerken afgebroken. Geen data ingelezen..
         /// </summary>
         public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled {
             get {
                 return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bijwerken van de {0} is mislukt: {{0}}.
+        /// </summary>
+        public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__ {
+            get {
+                return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__", resourceCulture);
             }
         }
         

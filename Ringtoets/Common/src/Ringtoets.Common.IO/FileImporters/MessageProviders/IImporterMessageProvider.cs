@@ -44,5 +44,15 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeDescriptor"/>
         /// is <c>null</c>.</exception>
         string GetCancelledLogMessageText(string typeDescriptor);
+
+        /// <summary>
+        /// Gets the log message when an importer action failed to update the data.
+        /// </summary>
+        /// <param name="typeDescriptor">The type descriptor of the items that were to 
+        /// be imported.</param>
+        /// <returns>The log message.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeDescriptor"/>
+        /// is <c>null</c>.</exception>
+        string GetUpdateDataFailedLogMessageText(string typeDescriptor);
     }
 }

@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
         }
 
         [Test]
-        public void GetCancelledLogMessageText_DescriptionNull_ThrowsArgumentNullException()
+        public void GetCancelledLogMessageText_DescriptorNull_ThrowsArgumentNullException()
         {
             // Setup
             var messageProvider = new ImportMessageProvider();
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
         }
 
         [Test]
-        public void GetCancelledLogMessageText_WithDescription_ReturnsExpectedMessage()
+        public void GetCancelledLogMessageText_WithDescriptor_ReturnsExpectedMessage()
         {
             // Setup
             const string typeDescriptor = "Items";
@@ -78,6 +78,35 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
 
             // Assert
             const string expectedMessage = "Items importeren afgebroken. Geen data ingelezen.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void GetUpdateDataFailedLogMessageText_DescriptorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var messageProvider = new ImportMessageProvider();
+
+            // Call
+            TestDelegate call = () => messageProvider.GetUpdateDataFailedLogMessageText(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("typeDescriptor", paramName);
+        }
+
+        [Test]
+        public void GetUpdateDataFailedLogMessageText_WithDescriptor_ReturnsExpectedMessage()
+        {
+            // Setup
+            const string typeDescriptor = "Items";
+            var messageProvider = new ImportMessageProvider();
+
+            // Call
+            string message = messageProvider.GetUpdateDataFailedLogMessageText(typeDescriptor);
+
+            // Assert
+            const string expectedMessage = "Het importeren van de items is mislukt: {0}";
             Assert.AreEqual(expectedMessage, message);
         }
     }

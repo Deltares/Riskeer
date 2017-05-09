@@ -32,6 +32,7 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -128,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Call
             TestDelegate call = () => new TestStructuresImporter(testImportTarget, testReferenceLine,
-                                                                   testFilePath, null);
+                                                                 testFilePath, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -284,7 +285,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             const string messageText = "importeren is afgebroken";
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp=>mp.GetCancelledLogMessageText("Kunstwerken")).Return(messageText);
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Kunstwerken")).Return(messageText);
             mocks.ReplayAll();
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -505,6 +506,37 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_CreateSpecificStructuresThrowsUpdateDataException_ReturnFalseAndLogError()
+        {
+            // Setup
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return("");
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Kunstwerken")).Return("error {0}");
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", 
+                                                         "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var importer = new TestStructuresImporter(new ObservableList<object>(), referenceLine,
+                                                      filePath, messageProvider)
+            {
+                CreateSpecificStructuresAction = () => { throw new UpdateDataException("Exception message"); }
+            };
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Then
+            const string expectedMessage = "error Exception message";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
         public void GetStandardDeviation_RowHasStandardDeviation_ReturnVarianceValue()
         {
             // Setup
@@ -674,8 +706,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestStructuresImporter : StructuresImporter<ObservableList<object>>
         {
-            public TestStructuresImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, 
-                string filePath, IImporterMessageProvider messageProvider)
+            public Action CreateSpecificStructuresAction;
+
+            public TestStructuresImporter(ObservableList<object> importTarget, ReferenceLine referenceLine,
+                                          string filePath, IImporterMessageProvider messageProvider)
                 : base(importTarget, referenceLine, filePath, messageProvider) {}
 
             public new RoundedDouble GetStandardDeviation(StructuresParameterRow parameter, string structureName)
@@ -689,7 +723,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             }
 
             protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
-                                                             Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows) {}
+                                                             Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+            {
+                if (CreateSpecificStructuresAction != null)
+                {
+                    CreateSpecificStructuresAction();
+                }
+            }
         }
     }
 }

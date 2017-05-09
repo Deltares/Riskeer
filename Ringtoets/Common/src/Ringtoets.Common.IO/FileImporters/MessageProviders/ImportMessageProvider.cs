@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters.MessageProviders
@@ -42,6 +43,17 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
             }
 
             return string.Format(Resources.Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled, typeDescriptor);
+        }
+
+        public string GetUpdateDataFailedLogMessageText(string typeDescriptor)
+        {
+            if (typeDescriptor == null)
+            {
+                throw new ArgumentNullException(nameof(typeDescriptor));
+            }
+
+            return string.Format(Resources.Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__,
+                                 typeDescriptor.FirstToLower());
         }
     }
 }

@@ -30,8 +30,8 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// containing structure locations and csv files containing structure schematizations.
     /// </summary>
     /// <typeparam name="TCollection">Object type that is the target for this importer.</typeparam>
-    public abstract class StructuresImporter<TCollection> : FileImporterBase<TCollection> 
+    public abstract class StructuresImporter<TCollection> : FileImporterBase<TCollection>
     {
         private readonly ReferenceLine referenceLine;
         private readonly IImporterMessageProvider messageProvider;
@@ -94,6 +94,14 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 CreateStructures(importStructureLocationsResult, importStructureParameterRowsDataResult);
             }
+            catch (UpdateDataException e)
+            {
+                string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
+                                                   RingtoetsCommonDataResources.StructureCollection_TypeDescriptor), 
+                                                   e.Message);
+                Log.Error(message, e);
+                return false;
+            }
             catch (CriticalFileValidationException e)
             {
                 Log.Error(e.Message);
@@ -114,6 +122,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="structureLocations">The read structure locations.</param>
         /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
+        /// <exception cref="UpdateDataException">Thrown when updating the structures failed.</exception>
         protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
