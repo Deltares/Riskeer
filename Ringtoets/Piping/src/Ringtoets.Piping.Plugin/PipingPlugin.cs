@@ -51,7 +51,6 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.IO.Exporters;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.Plugin.ChangeHandlers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
@@ -1080,8 +1079,7 @@ namespace Ringtoets.Piping.Plugin
 
         private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation> calculations, string query)
         {
-            var changeHandler = new UpdateEntryAndExitPointsOfCalculationsChangeHandler(calculations, query,
-                                                                                        new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new CalculationChangeHandler(calculations, query, new DialogBasedInquiryHelper(Gui.MainWindow));
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
