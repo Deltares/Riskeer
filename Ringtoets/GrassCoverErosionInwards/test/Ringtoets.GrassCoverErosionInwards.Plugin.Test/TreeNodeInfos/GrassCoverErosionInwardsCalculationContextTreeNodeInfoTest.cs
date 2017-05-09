@@ -347,7 +347,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithoutOutput_WhenDikeProfileUpdatedAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        public void GivenCalculationWithDikeProfileWithoutOutput_WhenDikeProfileAndInputOutOfSyncAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -404,7 +404,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasChangesAndUpdateClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileAndInputOutOfSyncAndUpdateClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -479,7 +479,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasChangesUpdateDikeProfileClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileAndInputOutOfSyncAndUpdateClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -552,7 +552,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasNoChangeAndUpdateClickedAndContinued_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileAndInputInSyncAndUpdateClickedAndContinued_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -647,23 +647,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfilePartiallyChangedAndUpdateClicked_ThenInquiryAndUpdatesCalculationAndNotifiesObserver()
+        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileAndInputPartiallyOutOfSyncAndUpdateClicked_ThenInquiryAndUpdatesCalculationAndNotifiesObserver()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var dikeProfile = new TestDikeProfile();
-            const double orientation = 10;
-            const bool useForeshore = true;
+            UpdateDikeProfile(dikeProfile);
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     DikeProfile = dikeProfile,
-                    DikeHeight = (RoundedDouble) 30.0,
-                    Orientation = (RoundedDouble) orientation,
-                    UseForeshore = useForeshore,
-                    UseBreakWater = false
                 },
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -700,21 +696,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateDikeProfile(dikeProfile);
+                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
+                    inputParameters.Orientation = (RoundedDouble) 11.0;
                     menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(dikeProfile, inputParameters.DikeProfile);
                     Assert.AreEqual(dikeProfile.Orientation, inputParameters.Orientation);
-                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters.DikeHeight);
-
-                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters.UseBreakWater);
-                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters.BreakWater);
-                    bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
-                    Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
 
                     string expectedMessage = "Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, " +
                                              "zal het resultaat van deze berekening worden " +
