@@ -101,20 +101,20 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var replaceDataStrategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
             mocks.ReplayAll();
 
+            var importTarget = new StructureCollection<HeightStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
-            ReferenceLine referenceLine = CreateReferenceLine();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
-
-            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+            var structuresImporter = new HeightStructuresImporter(importTarget,
                                                                   referenceLine, filePath, messageProvider,
                                                                   replaceDataStrategy);
 
-            // Call
             var importResult = false;
+
+            // Call
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -125,8 +125,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             });
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
-            Assert.AreEqual(0, failureMechanism.HeightStructures.Count);
-            Assert.IsNull(failureMechanism.HeightStructures.SourcePath);
+            Assert.AreEqual(0, importTarget.Count);
+            Assert.IsNull(importTarget.SourcePath);
         }
 
         [Test]
@@ -147,8 +147,9 @@ namespace Ringtoets.HeightStructures.IO.Test
                                                                   referenceLine, filePath, messageProvider,
                                                                   replaceDataStrategy);
 
-            // Call
             var importResult = false;
+
+            // Call
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -180,19 +181,20 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var replaceDataStrategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
             mocks.ReplayAll();
 
+            var importTarget = new StructureCollection<HeightStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv", "Kunstwerken.shp");
 
-            ReferenceLine referenceLine = CreateReferenceLine();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
-            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
+            var structuresImporter = new HeightStructuresImporter(importTarget,
                                                                   referenceLine, filePath, messageProvider,
                                                                   replaceDataStrategy);
 
-            // Call
             var importResult = false;
+
+            // Call
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -206,8 +208,8 @@ namespace Ringtoets.HeightStructures.IO.Test
                 });
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
-            Assert.AreEqual(0, failureMechanism.HeightStructures.Count);
-            Assert.IsNull(failureMechanism.HeightStructures.SourcePath);
+            Assert.AreEqual(0, importTarget.Count);
+            Assert.IsNull(importTarget.SourcePath);
         }
 
         [Test]
@@ -227,8 +229,9 @@ namespace Ringtoets.HeightStructures.IO.Test
                                                                   referenceLine, filePath, messageProvider,
                                                                   replaceDataStrategy);
 
-            // Call
             var importResult = false;
+
+            // Call
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
@@ -307,10 +310,10 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             string validFilePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
+            var importTarget = new StructureCollection<HeightStructure>();
             var referenceLine = new ReferenceLine();
-            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var importer = new HeightStructuresImporter(failureMechanism.HeightStructures, referenceLine, validFilePath, messageProvider, strategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath, messageProvider, strategy);
             importer.SetProgressChanged(delegate(string description, int step, int steps)
             {
                 if (description.Contains("Inlezen van kunstwerklocaties uit een shapebestand."))
@@ -343,10 +346,10 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             string validFilePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
+            var importTarget = new StructureCollection<HeightStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
-            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var importer = new HeightStructuresImporter(failureMechanism.HeightStructures, referenceLine, validFilePath, messageProvider, strategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath, messageProvider, strategy);
             importer.SetProgressChanged(delegate(string description, int step, int steps)
             {
                 if (description.Contains("Inlezen van kunstwerkgegevens uit een kommagescheiden bestand."))
@@ -375,7 +378,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(progressText);
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var importTarget = new StructureCollection<HeightStructure>();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -383,7 +386,7 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             var strategy = new TestStructureUpdateStrategy();
 
-            var importer = new HeightStructuresImporter(failureMechanism.HeightStructures, referenceLine,
+            var importer = new HeightStructuresImporter(importTarget, referenceLine,
                                                         validFilePath, messageProvider, strategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
