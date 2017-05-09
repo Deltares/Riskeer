@@ -64,12 +64,11 @@ namespace Ringtoets.Common.Data.TestUtil
         /// name and id and no <see cref="BreakWater"/>.
         /// </summary>
         /// <param name="profileName">The name of the profile.</param>
-        /// <param name="id">The id of the profile.</param>
+        /// <param name="profileId">The id of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when 
-        /// <paramref name="id"/> is null, empty or whitespaces.</exception>
-        public TestForeshoreProfile(string profileName, string id)
-            : this(id, profileName, new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) {}
-
+        /// <paramref name="profileId"/> is null, empty or whitespaces.</exception>
+        public TestForeshoreProfile(string profileName, string profileId)
+            : this(profileId, profileName, new Point2D(0, 0), null, Enumerable.Empty<Point2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified <see cref="BreakWater"/>.
@@ -103,12 +102,12 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <item><paramref name="profileId"/> is null, empty or whitespaces.</item>
         /// </list></exception>
         public TestForeshoreProfile(string profileId, IEnumerable<Point2D> geometry)
-            : this(profileId, "name", new Point2D(0, 0), null, geometry) { }
+            : this(profileId, "name", new Point2D(0, 0), null, geometry) {}
 
         /// <summary>
         /// Instantiates a <see cref="TestForeshoreProfile"/> with given properties.
         /// </summary>
-        /// <param name="id">The id of the foreshore profile.</param>
+        /// <param name="profileId">The id of the foreshore profile.</param>
         /// <param name="profileName">The name of the foreshore profile.</param>
         /// <param name="worldCoordinate">The location of the foreshore profile.</param>
         /// <param name="breakWater">The breakwater of the foreshore profile.</param>
@@ -118,15 +117,15 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>Any element of <paramref name="geometry"/> is <c>null</c>.</item>
-        /// <item><paramref name="id"/> is null, empty or whitespaces.</item>
+        /// <item><paramref name="profileId"/> is null, empty or whitespaces.</item>
         /// </list></exception>
-        private TestForeshoreProfile(string id, string profileName, Point2D worldCoordinate, BreakWater breakWater, IEnumerable<Point2D> geometry)
+        private TestForeshoreProfile(string profileId, string profileName, Point2D worldCoordinate, BreakWater breakWater, IEnumerable<Point2D> geometry)
             : base(worldCoordinate,
                    geometry,
                    breakWater,
                    new ConstructionProperties
                    {
-                       Id = id,
+                       Id = profileId,
                        Name = profileName
                    }) {}
     }
