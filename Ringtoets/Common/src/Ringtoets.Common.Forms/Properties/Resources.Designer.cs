@@ -2430,6 +2430,35 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met een kunstwerk..
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle berekeningen bijwerken met het kunstwerk..
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure" +
+                        "_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerken.
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip {
@@ -2485,6 +2514,18 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 return ResourceManager.GetString("StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_up" +
                         "dating_Structure_dependent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze kunstwerken gebruiken, worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_u" +
+                        "pdating_Structure_dependent_data", resourceCulture);
             }
         }
         

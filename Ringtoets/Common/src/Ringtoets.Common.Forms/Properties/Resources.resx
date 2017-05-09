@@ -964,4 +964,18 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data" xml:space="preserve">
+    <value>Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze kunstwerken gebruiken, worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures" xml:space="preserve">
+    <value>&amp;Bijwerken kunstwerken</value>
+  </data>
+  <data name="StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip" xml:space="preserve">
+    <value>Alle berekeningen bijwerken met het kunstwerk.</value>
+  </data>
+  <data name="StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip" xml:space="preserve">
+    <value>Er zijn geen berekeningen met een kunstwerk.</value>
+  </data>
 </root>

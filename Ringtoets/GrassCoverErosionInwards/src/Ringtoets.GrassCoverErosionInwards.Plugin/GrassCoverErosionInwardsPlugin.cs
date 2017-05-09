@@ -638,19 +638,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return new StrictContextMenuItem(Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles,
                                              toolTipText,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(nodeData))
+                                             (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(calculations))
             {
                 Enabled = isContextMenuItemEnabled
             };
         }
 
-        private void UpdateDikeProfileDependentDataOfAllCalculations(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        private void UpdateDikeProfileDependentDataOfAllCalculations(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
-            GrassCoverErosionInwardsCalculation[] calculations = nodeData.WrappedData
-                                                                         .GetCalculations()
-                                                                         .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                         .ToArray();
-
             string message =
                 Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data;
             if (DikeProfileDependentDataShouldUpdate(calculations, message))

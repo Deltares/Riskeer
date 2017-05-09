@@ -1056,16 +1056,14 @@ namespace Ringtoets.Piping.Plugin
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
                 toolTipText,
                 RingtoetsCommonFormsResources.UpdateItemIcon,
-                (sender, args) => UpdateAllEntryAndExitPointsOfAllCalculations(nodeData))
+                (sender, args) => UpdateAllEntryAndExitPointsOfAllCalculations(calculations))
             {
                 Enabled = isItemEnabled
             };
         }
 
-        private void UpdateAllEntryAndExitPointsOfAllCalculations(PipingCalculationGroupContext nodeData)
+        private void UpdateAllEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
         {
-            PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>().ToArray();
-
             string message =
                 Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
