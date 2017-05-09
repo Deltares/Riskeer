@@ -19,15 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.IO;
@@ -36,7 +42,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class HeightStructuresContextUpdateInfoTest
+    public class HeightStructuresContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private HeightStructuresPlugin plugin;
@@ -49,7 +55,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             plugin.Dispose();
         }
@@ -158,6 +164,85 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
 
             // Assert
             Assert.AreEqual(expectedFilePath, currentPath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
+
+            var structures = new StructureCollection<HeightStructure>();
+            var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
+
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
+
+            // Assert
+            Assert.IsTrue(updatesVerified);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            });
+
+            var structures = new StructureCollection<HeightStructure>();
+            var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+
+                if (isActionConfirmed)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
+
+            // Assert
+            string expectedInquiryMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken " +
+                                            "zullen de resultaten van berekeningen die deze kunstwerken gebruiken worden verwijderd." +
+                                            $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+            Assert.AreEqual(isActionConfirmed, updatesVerified);
             mocks.VerifyAll();
         }
 

@@ -59,6 +59,7 @@ using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.IO.Configurations;
 using Ringtoets.HeightStructures.Plugin.FileImporters;
+using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HeightStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -102,7 +103,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 IsEnabled = IsHeightStructuresImporterEnabled,
                 FileFilterGenerator = HeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
-                    context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism))
+                    context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism)),
+                VerifyUpdates = context => VerifyHeightStructuresShouldUpdate(context, Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
@@ -126,7 +128,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 FileFilterGenerator = HeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new UpdateMessageProvider(), new HeightStructureUpdateDataStrategy(context.FailureMechanism)),
-                CurrentPath = context => context.WrappedData.SourcePath
+                CurrentPath = context => context.WrappedData.SourcePath,
+                VerifyUpdates = context => VerifyHeightStructuresShouldUpdate(context, Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
         }
 
@@ -884,6 +887,15 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                            RingtoetsCommonIOResources.Shape_file_filter_Description);
+        }
+
+        private bool VerifyHeightStructuresShouldUpdate(HeightStructuresContext context, string query)
+        {
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
