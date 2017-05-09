@@ -181,16 +181,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het importeren van voorlandprofielen is mislukt: {0}.
-        /// </summary>
-        public static string ForeshoreProfileReplaceDataStrategy_UpdateForeshoreProfilesWithImportedData_Importing_ForeshoreProfiles_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("ForeshoreProfileReplaceDataStrategy_UpdateForeshoreProfilesWithImportedData_Impor" +
-                        "ting_ForeshoreProfiles_failed_Reason_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voorlandprofiellocaties.
         /// </summary>
         public static string ForeshoreProfilesImporter_DisplayName {

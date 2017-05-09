@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -144,11 +142,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                                                        sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<ForeshoreProfileUpdateException>(call);
-            string expectedMessage = "Het importeren van voorlandprofielen is mislukt: " +
-                                     $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
+            var exception = Assert.Throws<UpdateDataException>(call);
+            string expectedMessage = $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
 
         [Test]
@@ -233,21 +229,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var foreshoreProfile = new TestForeshoreProfile();
-            var calculationWithForeshoreProfileAndOutput = new TestCalculationWithForeshoreProfile(true)
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            var calculationWithForeshoreProfile = new TestCalculationWithForeshoreProfile(false)
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            var calculationWithoutForeshoreProfile = new TestCalculationWithForeshoreProfile(false);
+            TestCalculationWithForeshoreProfile calculationWithForeshoreProfileAndOutput =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
+            TestCalculationWithForeshoreProfile calculationWithForeshoreProfile =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
+            TestCalculationWithForeshoreProfile calculationWithoutForeshoreProfile =
+                TestCalculationWithForeshoreProfile.CreateDefaultCalculation();
 
             var failureMechanism = new TestFailureMechanism(new[]
             {
@@ -288,46 +275,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                     calculationWithForeshoreProfileAndOutput
                                                 });
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        private class TestCalculationWithForeshoreProfile : Observable, ICalculation<TestCalculationInputWithForeshoreProfile>
-        {
-            public TestCalculationWithForeshoreProfile(bool hasOutput)
-            {
-                InputParameters = new TestCalculationInputWithForeshoreProfile();
-                HasOutput = hasOutput;
-            }
-
-            public string Name { get; set; }
-            public bool HasOutput { get; private set; }
-            public Comment Comments { get; }
-
-            public TestCalculationInputWithForeshoreProfile InputParameters { get; }
-
-            public void ClearOutput()
-            {
-                HasOutput = false;
-            }
-        }
-
-        private class TestCalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile
-        {
-            public ForeshoreProfile ForeshoreProfile { get; set; }
-
-            public void Attach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Detach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void NotifyObservers()
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

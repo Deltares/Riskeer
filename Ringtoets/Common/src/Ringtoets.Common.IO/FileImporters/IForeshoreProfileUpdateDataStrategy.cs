@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
@@ -43,6 +44,8 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input argument
         /// is <c>null</c>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when updating the data
+        /// model has failed.</exception>
         IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(
             ForeshoreProfileCollection targetDataCollection,
             IEnumerable<ForeshoreProfile> importedDataCollection,

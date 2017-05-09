@@ -66,18 +66,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                                                                                 IEnumerable<ForeshoreProfile> importedDataCollection,
                                                                                 string sourceFilePath)
         {
-            try
-            {
-                return ReplaceTargetCollectionWithImportedData(foreshoreProfiles, importedDataCollection, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message = string.Format(
-                    Resources.ForeshoreProfileReplaceDataStrategy_UpdateForeshoreProfilesWithImportedData_Importing_ForeshoreProfiles_failed_Reason_0,
-                    e.Message);
-
-                throw new ForeshoreProfileUpdateException(message, e);
-            }
+            return ReplaceTargetCollectionWithImportedData(foreshoreProfiles, importedDataCollection, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

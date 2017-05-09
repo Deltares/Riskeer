@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBackgroundDataConfigurationTest.cs" />
     <Compile Include="TestCalculationTest.cs" />
+    <Compile Include="TestCalculationWithForeshoreProfileTest.cs" />
     <Compile Include="TestDikeProfileTest.cs" />
     <Compile Include="TestFailureMechanismSectionResultTest.cs" />
     <Compile Include="TestFailureMechanismTest.cs" />

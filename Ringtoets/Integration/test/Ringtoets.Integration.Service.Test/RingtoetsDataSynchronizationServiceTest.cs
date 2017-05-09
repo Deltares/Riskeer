@@ -26,7 +26,6 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -1271,21 +1270,12 @@ namespace Ringtoets.Integration.Service.Test
                 foreshoreProfile
             }, "path");
 
-            var calculationWithForeshoreProfileAndOutput = new TestCalculationWithForeshoreProfile(true)
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            var calculationWithForeshoreProfile = new TestCalculationWithForeshoreProfile(false)
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            var calculationWithoutForeshoreProfile = new TestCalculationWithForeshoreProfile(false);
+            TestCalculationWithForeshoreProfile calculationWithForeshoreProfileAndOutput =
+                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
+            TestCalculationWithForeshoreProfile calculationWithForeshoreProfile =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
+            TestCalculationWithForeshoreProfile calculationWithoutForeshoreProfile =
+                TestCalculationWithForeshoreProfile.CreateDefaultCalculation();
 
             var calculations = new List<ICalculation<ICalculationInput>>
             {
@@ -1306,8 +1296,6 @@ namespace Ringtoets.Integration.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.IsEmpty(foreshoreProfiles);
-
             CollectionAssert.IsEmpty(foreshoreProfiles);
             Assert.IsFalse(calculationWithForeshoreProfileAndOutput.HasOutput);
             Assert.IsTrue(calculationsWithForeshoreProfile.All(calc => calc.InputParameters.ForeshoreProfile == null));
@@ -1590,46 +1578,6 @@ namespace Ringtoets.Integration.Service.Test
         private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return hydraulicBoundaryLocation.DesignWaterLevelOutput != null || hydraulicBoundaryLocation.WaveHeightOutput != null;
-        }
-
-        private class TestCalculationWithForeshoreProfile : Observable, ICalculation<TestCalculationInputWithForeshoreProfile>
-        {
-            public TestCalculationWithForeshoreProfile(bool hasOutput)
-            {
-                InputParameters = new TestCalculationInputWithForeshoreProfile();
-                HasOutput = hasOutput;
-            }
-
-            public string Name { get; set; }
-            public bool HasOutput { get; private set; }
-            public Comment Comments { get; }
-
-            public TestCalculationInputWithForeshoreProfile InputParameters { get; }
-
-            public void ClearOutput()
-            {
-                HasOutput = false;
-            }
-        }
-
-        private class TestCalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile
-        {
-            public ForeshoreProfile ForeshoreProfile { get; set; }
-
-            public void Attach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Detach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void NotifyObservers()
-            {
-                throw new NotImplementedException();
-            }
         }
 
         #region TestData
