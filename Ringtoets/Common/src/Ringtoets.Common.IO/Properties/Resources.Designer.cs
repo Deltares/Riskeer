@@ -1040,20 +1040,20 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het importeren van de kunstwerken is mislukt: {0}.
         /// </summary>
-        public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0 {
+        public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0_ {
             get {
                 return ResourceManager.GetString("IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_fa" +
-                        "iled_Reason_0", resourceCulture);
+                        "iled_Reason_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het bijwerken van de kunstwerken is mislukt: {0}.
         /// </summary>
-        public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0 {
+        public static string IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0_ {
             get {
                 return ResourceManager.GetString("IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_faile" +
-                        "d_Reason_0", resourceCulture);
+                        "d_Reason_0_", resourceCulture);
             }
         }
         
@@ -1334,9 +1334,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geen shapebestand om trajecten te specificeren gevonden in de map &apos;{0}&apos;..
         /// </summary>
-        public static string ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0 {
+        public static string ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_ {
             get {
-                return ResourceManager.GetString("ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_", resourceCulture);
             }
         }
         
@@ -1512,10 +1512,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen kunstwerk opgegeven om de stochast &apos;{0}&apos; aan toe te voegen..
         /// </summary>
-        public static string StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0 {
+        public static string StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0_ {
             get {
                 return ResourceManager.GetString("StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_de" +
-                        "fined_to_add_Stochast_0", resourceCulture);
+                        "fined_to_add_Stochast_0_", resourceCulture);
             }
         }
         

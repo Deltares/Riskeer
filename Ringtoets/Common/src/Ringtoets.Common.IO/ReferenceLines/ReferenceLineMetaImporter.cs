@@ -85,7 +85,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             string[] files = GetShapeFilesInFolder(folderpath);
             if (files.Length == 0)
             {
-                string message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0, folderpath);
+                string message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_, folderpath);
                 throw new CriticalFileReadException(message);
             }
 

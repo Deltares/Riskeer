@@ -156,7 +156,7 @@ namespace Ringtoets.Common.IO.Configurations
             bool parameterDefined = stochastConfiguration != null && (stochastConfiguration.Mean.HasValue || stochastConfiguration.StandardDeviation.HasValue || stochastConfiguration.VariationCoefficient.HasValue);
             if (parameterDefined)
             {
-                Log.LogCalculationConversionError(string.Format(Resources.StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0,
+                Log.LogCalculationConversionError(string.Format(Resources.StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0_,
                                                                 stochastName), calculationName);
             }
 

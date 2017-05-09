@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             catch (UpdateDataException e)
             {
                 string message =
-                    string.Format(Resources.IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0,
+                    string.Format(Resources.IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0_,
                                   e.Message);
                 throw new StructureUpdateException(message, e);
             }
