@@ -100,8 +100,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                IsEnabled = IsHeightStructuresImporterEnabled,
-                FileFilterGenerator = HeightStructureFileFilter(),
+                IsEnabled = IsHeightStructuresImportEnabled,
+                FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = context => VerifyHeightStructuresShouldUpdate(context, Resources.HeightStructuresPlugin_VerifyHeightStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
@@ -124,8 +124,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 Name = RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                IsEnabled = IsHeightStructuresImporterEnabled,
-                FileFilterGenerator = HeightStructureFileFilter(),
+                IsEnabled = context => context.WrappedData.SourcePath != null,
+                FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new UpdateMessageProvider(), new HeightStructureUpdateDataStrategy(context.FailureMechanism)),
                 CurrentPath = context => context.WrappedData.SourcePath,
@@ -216,7 +216,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = HeightStructuresContextContextMenuStrip
+                ContextMenuStrip = CreateHeightStructuresContextContextMenuStrip
             };
 
             yield return new TreeNodeInfo<HeightStructure>
@@ -374,8 +374,8 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region HeightStructuresContext TreeNodeInfo
 
-        private ContextMenuStrip HeightStructuresContextContextMenuStrip(HeightStructuresContext nodeData,
-                                                                         object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CreateHeightStructuresContextContextMenuStrip(HeightStructuresContext nodeData,
+                                                                               object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -878,12 +878,12 @@ namespace Ringtoets.HeightStructures.Plugin
                                                 filePath, messageProvider, strategy);
         }
 
-        private static bool IsHeightStructuresImporterEnabled(HeightStructuresContext context)
+        private static bool IsHeightStructuresImportEnabled(HeightStructuresContext context)
         {
             return context.AssessmentSection.ReferenceLine != null;
         }
 
-        private static FileFilterGenerator HeightStructureFileFilter()
+        private static FileFilterGenerator CreateHeightStructureFileFilter()
         {
             return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                            RingtoetsCommonIOResources.Shape_file_filter_Description);

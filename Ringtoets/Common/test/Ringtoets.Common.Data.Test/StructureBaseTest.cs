@@ -199,24 +199,29 @@ namespace Ringtoets.Common.Data.Test
             {
                 Name = "aName",
                 Id = "anId",
-                Location = new Point2D(0, 0)
+                Location = new Point2D(0, 0),
+                StructureNormalOrientation = RoundedDouble.NaN
             });
 
             var otherStructure = new TestStructure(new StructureBase.ConstructionProperties
             {
                 Name = "otherName",
                 Id = "otherId",
-                Location = new Point2D(1, 1)
+                Location = new Point2D(1, 1),
+                StructureNormalOrientation = (RoundedDouble) 89
             });
 
             // Call
             structure.CopyProperties(otherStructure);
 
             // Assert
-            Assert.AreNotEqual(structure.Id, otherStructure.Id);
-            Assert.AreEqual(structure.Name, otherStructure.Name);
-            Assert.AreEqual(structure.Location, otherStructure.Location);
-            Assert.AreEqual(structure.StructureNormalOrientation, otherStructure.StructureNormalOrientation);
+            Assert.AreNotEqual(otherStructure.Id, structure.Id);
+            Assert.AreEqual(otherStructure.Name, structure.Name);
+            Assert.AreEqual(otherStructure.Location, structure.Location);
+            Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+
+            Assert.AreNotSame(otherStructure.Location, structure.Location);
+            Assert.AreNotSame(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
         }
 
         [Test]

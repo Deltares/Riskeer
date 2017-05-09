@@ -113,7 +113,6 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="structureLocations">The read structure locations.</param>
         /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
-        /// <returns>The created structures.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
         protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);

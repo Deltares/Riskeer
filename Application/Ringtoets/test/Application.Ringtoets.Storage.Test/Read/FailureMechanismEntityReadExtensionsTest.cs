@@ -1475,6 +1475,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(sourcePath, failureMechanism.HeightStructures.SourcePath);
+            Assert.IsEmpty(failureMechanism.HeightStructures);
         }
 
         #endregion

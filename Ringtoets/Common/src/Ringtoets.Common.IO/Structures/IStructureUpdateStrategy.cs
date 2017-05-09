@@ -34,7 +34,8 @@ namespace Ringtoets.Common.IO.Structures
     public interface IStructureUpdateStrategy<TStructure> where TStructure : StructureBase
     {
         /// <summary>
-        /// Adds the imported data to the <paramref name="targetDataCollection"/>.
+        /// Updates the <paramref name="targetDataCollection"/> and its dependent data with data
+        /// from <paramref name="readStructures"/>.
         /// </summary>
         /// <param name="targetDataCollection">The target collection which needs to be updated.</param>
         /// <param name="readStructures">The imported structures.</param>

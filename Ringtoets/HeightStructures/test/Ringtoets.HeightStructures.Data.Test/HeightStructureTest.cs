@@ -331,6 +331,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void CopyProperties_FromStructure_UpdatesProperties()
         {
             // Setup
+            var random = new Random(123);
             var structure = new HeightStructure(new HeightStructure.ConstructionProperties
             {
                 Name = "aName",
@@ -342,39 +343,73 @@ namespace Ringtoets.HeightStructures.Data.Test
             {
                 Name = "otherName",
                 Id = "otherId",
-                Location = new Point2D(1, 1)
+                Location = new Point2D(1, 1),
+                StructureNormalOrientation = (RoundedDouble) random.Next(),
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    Shift = (RoundedDouble) random.NextDouble(),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                CriticalOvertoppingDischarge =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                },
+                FailureProbabilityStructureWithErosion = random.NextDouble(),
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    Shift = (RoundedDouble) random.NextDouble(),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                LevelCrestStructure =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                StorageStructureArea =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                },
+                WidthFlowApertures =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                }
             });
 
             // Call
             structure.CopyProperties(otherStructure);
 
             // Assert
-            Assert.AreNotEqual(structure.Id, otherStructure.Id);
-            Assert.AreEqual(structure.Name, otherStructure.Name);
-            Assert.AreEqual(structure.Location, otherStructure.Location);
-            Assert.AreEqual(structure.StructureNormalOrientation, otherStructure.StructureNormalOrientation);
+            Assert.AreNotEqual(otherStructure.Id, structure.Id);
+            Assert.AreEqual(otherStructure.Name, structure.Name);
+            Assert.AreEqual(otherStructure.Location, structure.Location);
+            Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
 
-            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
-            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.Shift, structure.AllowedLevelIncreaseStorage.Shift);
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Shift, structure.AllowedLevelIncreaseStorage.Shift);
 
-            Assert.AreEqual(structure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(structure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
 
-            Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(otherStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
 
-            Assert.AreEqual(structure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
-            Assert.AreEqual(structure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.AreEqual(structure.FlowWidthAtBottomProtection.Shift, structure.FlowWidthAtBottomProtection.Shift);
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Shift, structure.FlowWidthAtBottomProtection.Shift);
 
-            Assert.AreEqual(structure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean);
-            Assert.AreEqual(structure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation);
+            Assert.AreEqual(otherStructure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean);
+            Assert.AreEqual(otherStructure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation);
 
-            Assert.AreEqual(structure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
-            Assert.AreEqual(structure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
+            Assert.AreEqual(otherStructure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
+            Assert.AreEqual(otherStructure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
 
-            Assert.AreEqual(structure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
-            Assert.AreEqual(structure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
+            Assert.AreEqual(otherStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
+            Assert.AreEqual(otherStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
         }
 
         [Test]

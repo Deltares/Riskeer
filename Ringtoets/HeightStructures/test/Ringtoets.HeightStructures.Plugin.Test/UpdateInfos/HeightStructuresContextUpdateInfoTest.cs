@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNull_ReturnFalse()
+        public void IsEnabled_SourcePathNull_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -112,17 +112,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_SourcePathSet_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            assessmentSection.ReferenceLine = new ReferenceLine();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var structures = new StructureCollection<HeightStructure>();
+            structures.AddRange(Enumerable.Empty<HeightStructure>(), "some path");
 
             var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
 
