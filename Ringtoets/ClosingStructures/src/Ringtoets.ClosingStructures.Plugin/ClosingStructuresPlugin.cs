@@ -152,8 +152,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
+                                                                                 .AddUpdateItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
@@ -167,12 +166,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                 Text = structure => structure.Name,
                 Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
-                                                                                  .AddDeleteItem()
-                                                                                  .AddSeparator()
                                                                                   .AddPropertiesItem()
-                                                                                  .Build(),
-                CanRemove = CanRemoveClosingStructure,
-                OnNodeRemoved = OnClosingStructureRemoved
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ClosingStructuresInputContext>
@@ -707,26 +702,6 @@ namespace Ringtoets.ClosingStructures.Plugin
                     context.FailureMechanism.SectionResults,
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
-            }
-        }
-
-        #endregion
-
-        #region ClosingStructure TreeNodeInfo
-
-        private static bool CanRemoveClosingStructure(ClosingStructure nodeData, object parentData)
-        {
-            return parentData is ClosingStructuresContext;
-        }
-
-        private static void OnClosingStructureRemoved(ClosingStructure nodeData, object parentData)
-        {
-            var parentContext = (ClosingStructuresContext) parentData;
-            IEnumerable<IObservable> changedObservables = ClosingStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
-                                                                                                                      nodeData);
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
             }
         }
 
