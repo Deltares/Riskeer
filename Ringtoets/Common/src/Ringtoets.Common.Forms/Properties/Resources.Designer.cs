@@ -2442,10 +2442,10 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekening bijwerken met het kunstwerk..
         /// </summary>
-        public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_data_ToolTip {
+        public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip {
             get {
-                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_data" +
-                        "_ToolTip", resourceCulture);
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_Tool" +
+                        "Tip", resourceCulture);
             }
         }
         

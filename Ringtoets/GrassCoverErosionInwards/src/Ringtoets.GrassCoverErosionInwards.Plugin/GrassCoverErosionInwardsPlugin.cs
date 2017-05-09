@@ -845,7 +845,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             bool hasDikeProfile = inputParameters.DikeProfile != null;
 
             string toolTipMessage = hasDikeProfile
-                                        ? Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_data_ToolTip
+                                        ? Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip
                                         : Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip;
 
             return new StrictContextMenuItem(

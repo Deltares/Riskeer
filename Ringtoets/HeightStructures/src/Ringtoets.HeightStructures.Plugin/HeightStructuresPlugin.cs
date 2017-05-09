@@ -771,7 +771,7 @@ namespace Ringtoets.HeightStructures.Plugin
             bool hasStructure = inputParameters.Structure != null;
 
             string toolTipMessage = hasStructure
-                                        ? RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_data_ToolTip
+                                        ? RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip
                                         : RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip;
 
             return new StrictContextMenuItem(

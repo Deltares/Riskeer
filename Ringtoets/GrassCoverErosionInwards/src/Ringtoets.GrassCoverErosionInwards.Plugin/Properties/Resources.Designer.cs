@@ -163,10 +163,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekening bijwerken met het dijkprofiel..
         /// </summary>
-        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_data_ToolTip {
+        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_wit" +
-                        "h_DikeProfile_data_ToolTip", resourceCulture);
+                        "h_DikeProfile_ToolTip", resourceCulture);
             }
         }
         

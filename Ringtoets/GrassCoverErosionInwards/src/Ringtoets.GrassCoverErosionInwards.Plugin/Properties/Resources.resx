@@ -142,7 +142,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data" xml:space="preserve">
     <value>&amp;Bijwerken dijkprofiel</value>
   </data>
-  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_data_ToolTip" xml:space="preserve">
+  <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met het dijkprofiel.</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip" xml:space="preserve">

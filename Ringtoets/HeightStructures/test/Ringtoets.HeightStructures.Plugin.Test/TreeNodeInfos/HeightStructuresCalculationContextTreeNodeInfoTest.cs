@@ -250,6 +250,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(15, menu.Items.Count);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk",
+                                                                  "Er moet een kunstwerk geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
