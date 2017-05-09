@@ -643,12 +643,6 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0_" xml:space="preserve">
     <value>Er is geen kunstwerk opgegeven om de stochast '{0}' aan toe te voegen.</value>
   </data>
-  <data name="IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0_" xml:space="preserve">
-    <value>Het importeren van de kunstwerken is mislukt: {0}</value>
-  </data>
-  <data name="IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0_" xml:space="preserve">
-    <value>Het bijwerken van de kunstwerken is mislukt: {0}</value>
-  </data>
   <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__" xml:space="preserve">
     <value>Het bijwerken van de {0} is mislukt: {{0}}</value>
   </data>
