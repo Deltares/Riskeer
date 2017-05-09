@@ -101,21 +101,20 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var replaceDataStrategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
             mocks.ReplayAll();
 
             var importTarget = new StructureCollection<HeightStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
-            var structuresImporter = new HeightStructuresImporter(importTarget,
-                                                                  referenceLine, filePath, messageProvider,
-                                                                  replaceDataStrategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath,
+                                                        messageProvider, strategy);
 
             var importResult = false;
 
             // Call
-            Action call = () => importResult = structuresImporter.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
@@ -133,24 +132,39 @@ namespace Ringtoets.HeightStructures.IO.Test
         public void Import_ValidFileWithConversionsBetweenVarianceTypes_WarnUserAboutConversion()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var importTarget = new StructureCollection<HeightStructure>();
             string filePath = Path.Combine(testDataPath, "HeightStructuresVarianceConvert", "StructureNeedVarianceValueConversion.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(invocation.Arguments[0], importTarget);
+                        Assert.AreSame(invocation.Arguments[2], filePath);
+
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        Assert.AreEqual(1, readStructures.Count());
+                        HeightStructure structure = readStructures.First();
+                        Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
+                        Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+                        Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                        Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
+                        Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                        Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+                    })
+                    .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
-
-            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
-                                                                  referenceLine, filePath, messageProvider,
-                                                                  replaceDataStrategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath, 
+                messageProvider, strategy);
 
             var importResult = false;
 
             // Call
-            Action call = () => importResult = structuresImporter.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             string[] expectedMessages =
@@ -164,15 +178,6 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, failureMechanism.HeightStructures.Count);
-            HeightStructure structure = failureMechanism.HeightStructures[0];
-            Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
-            Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-            Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
-            Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -181,21 +186,20 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var replaceDataStrategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
             mocks.ReplayAll();
 
             var importTarget = new StructureCollection<HeightStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv", "Kunstwerken.shp");
 
-            var structuresImporter = new HeightStructuresImporter(importTarget,
-                                                                  referenceLine, filePath, messageProvider,
-                                                                  replaceDataStrategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath,
+                                                        messageProvider, strategy);
 
             var importResult = false;
 
             // Call
-            Action call = () => importResult = structuresImporter.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
@@ -208,31 +212,48 @@ namespace Ringtoets.HeightStructures.IO.Test
                 });
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
-            Assert.AreEqual(0, importTarget.Count);
-            Assert.IsNull(importTarget.SourcePath);
         }
 
         [Test]
-        public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
+        public void Import_MissingParameters_LogWarningAndContinueImport()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var importTarget = new StructureCollection<HeightStructure>();
             string filePath = Path.Combine(testDataPath, nameof(HeightStructuresImporter), "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(invocation.Arguments[0], importTarget);
+                        Assert.AreSame(invocation.Arguments[2], filePath);
+
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        Assert.AreEqual(1, readStructures.Count());
+                        HeightStructure structure = readStructures.First();
+                        var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+                        {
+                            Name = "test",
+                            Location = new Point2D(0, 0),
+                            Id = "id"
+                        });
+                        Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+                        DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+                        Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+                    })
+                    .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
-            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
-                                                                  referenceLine, filePath, messageProvider,
-                                                                  replaceDataStrategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath,
+                                                        messageProvider, strategy);
 
             var importResult = false;
 
             // Call
-            Action call = () => importResult = structuresImporter.Import();
+            Action call = () => importResult = importer.Import();
 
             // Assert
             TestHelper.AssertLogMessages(call, msgs =>
@@ -248,29 +269,29 @@ namespace Ringtoets.HeightStructures.IO.Test
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, failureMechanism.HeightStructures.Count);
-            HeightStructure importedStructure = failureMechanism.HeightStructures.First();
-            var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
-            {
-                Name = "test",
-                Location = new Point2D(0, 0),
-                Id = "id"
-            });
-            Assert.AreEqual(defaultStructure.StructureNormalOrientation, importedStructure.StructureNormalOrientation);
-            DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, importedStructure.FlowWidthAtBottomProtection);
-            Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, importedStructure.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
         public void Import_ParameterIdsWithVaryingCase_TrueAndImportTargetUpdated()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
+            var importTarget = new StructureCollection<HeightStructure>();
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv",
                                            "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(invocation.Arguments[0], importTarget);
+                        Assert.AreSame(invocation.Arguments[2], filePath);
+
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        Assert.AreEqual(4, readStructures.Count());
+                    })
+                    .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
 
             var referencePoints = new List<Point2D>
             {
@@ -282,19 +303,14 @@ namespace Ringtoets.HeightStructures.IO.Test
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var replaceDataStrategy = new HeightStructureReplaceDataStrategy(failureMechanism);
-            var structuresImporter = new HeightStructuresImporter(failureMechanism.HeightStructures,
-                                                                  referenceLine, filePath, messageProvider,
-                                                                  replaceDataStrategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath,
+                                                        messageProvider, strategy);
 
             // Call
-            bool importResult = structuresImporter.Import();
+            bool importResult = importer.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, failureMechanism.HeightStructures.Count);
-            Assert.AreEqual(filePath, failureMechanism.HeightStructures.SourcePath);
         }
 
         [Test]
@@ -313,7 +329,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             var importTarget = new StructureCollection<HeightStructure>();
             var referenceLine = new ReferenceLine();
 
-            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath, messageProvider, strategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath,
+                                                        messageProvider, strategy);
             importer.SetProgressChanged(delegate(string description, int step, int steps)
             {
                 if (description.Contains("Inlezen van kunstwerklocaties uit een shapebestand."))
@@ -349,7 +366,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             var importTarget = new StructureCollection<HeightStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath, messageProvider, strategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath,
+                                                        messageProvider, strategy);
             importer.SetProgressChanged(delegate(string description, int step, int steps)
             {
                 if (description.Contains("Inlezen van kunstwerkgegevens uit een kommagescheiden bestand."))
@@ -373,21 +391,23 @@ namespace Ringtoets.HeightStructures.IO.Test
         public void Import_CancelOfImportWhenAddingDataToModel_ImportCompletedSuccessfullyNonetheless()
         {
             // Setup
+            string validFilePath = Path.Combine(testDataPath, "HeightStructuresImporter", "Kunstwerken.shp");
+            var importTarget = new StructureCollection<HeightStructure>();
+
             const string progressText = "ProgressText";
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(progressText);
+
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(Arg.Is(importTarget),
+                                                                    Arg<IEnumerable<HeightStructure>>.Is.NotNull,
+                                                                    Arg.Is(validFilePath)))
+                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importTarget = new StructureCollection<HeightStructure>();
-
             ReferenceLine referenceLine = CreateReferenceLine();
-
-            string validFilePath = Path.Combine(testDataPath, "HeightStructuresImporter", "Kunstwerken.shp");
-
-            var strategy = new TestStructureUpdateStrategy();
-
-            var importer = new HeightStructuresImporter(importTarget, referenceLine,
-                                                        validFilePath, messageProvider, strategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath,
+                                                        messageProvider, strategy);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains(progressText))
@@ -406,25 +426,6 @@ namespace Ringtoets.HeightStructures.IO.Test
                 "Huidige actie was niet meer te annuleren en is daarom voortgezet.", LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsTrue(importResult);
-            Assert.IsTrue(strategy.Updated);
-        }
-
-        private class TestStructureUpdateStrategy : IStructureUpdateStrategy<HeightStructure>
-        {
-            public bool Updated { get; private set; }
-            public string FilePath { get; private set; }
-            public HeightStructure[] ReadHeightStructures { get; private set; }
-            public IEnumerable<IObservable> UpdatedInstances { get; } = Enumerable.Empty<IObservable>();
-
-            public IEnumerable<IObservable> UpdateStructuresWithImportedData(
-                StructureCollection<HeightStructure> targetDataCollection,
-                IEnumerable<HeightStructure> readStructures, string sourceFilePath)
-            {
-                Updated = true;
-                FilePath = sourceFilePath;
-                ReadHeightStructures = readStructures.ToArray();
-                return UpdatedInstances;
-            }
         }
 
         private static ReferenceLine CreateReferenceLine()
