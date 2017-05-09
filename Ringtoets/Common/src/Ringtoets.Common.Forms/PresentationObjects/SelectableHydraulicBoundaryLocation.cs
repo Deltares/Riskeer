@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     public class SelectableHydraulicBoundaryLocation
     {
         /// <summary>
-        /// Instantiates a <see cref="SelectableHydraulicBoundaryLocation"/>.
+        /// Creates a new instance of <see cref="SelectableHydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="referencePoint">A <see cref="Point2D"/> reference point to which the distance of

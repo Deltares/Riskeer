@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data
         where TStructure : StructureBase
     {
         /// <summary>
-        /// Instantiates a <see cref="StructureCollection{TStructure}"/>.
+        /// Creates a new instance of <see cref="StructureCollection{TStructure}"/>.
         /// </summary>
         public StructureCollection() : base(structure => structure.Id,
                                             Resources.StructureCollection_TypeDescriptor,

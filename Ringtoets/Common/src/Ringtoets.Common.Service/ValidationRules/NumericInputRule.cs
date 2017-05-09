@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         private readonly string parameterName;
 
         /// <summary>
-        /// Instantiates a <see cref="NumericInputRule"/> to validate a numeric input.
+        /// Creates a new instance of <see cref="NumericInputRule"/> to validate a numeric input.
         /// </summary>
         /// <param name="numericInput">The numeric input to validate.</param>
         /// <param name="parameterName">The name of the parameter.</param>

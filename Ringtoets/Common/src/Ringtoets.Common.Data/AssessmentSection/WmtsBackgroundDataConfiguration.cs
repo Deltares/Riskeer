@@ -29,12 +29,12 @@ namespace Ringtoets.Common.Data.AssessmentSection
     public class WmtsBackgroundDataConfiguration : IBackgroundDataConfiguration
     {
         /// <summary>
-        /// Instantiates an unconfigured <see cref="WmtsBackgroundDataConfiguration"/>.
+        /// Creates a new instance of <see cref="WmtsBackgroundDataConfiguration"/> that is not configured.
         /// </summary>
         public WmtsBackgroundDataConfiguration() : this(false, null, null, null) {}
 
         /// <summary>
-        /// Instantiate a <see cref="WmtsBackgroundDataConfiguration"/>.
+        /// Creates a new instance of <see cref="WmtsBackgroundDataConfiguration"/> that is configured.
         /// </summary>
         /// <param name="isConfigured">Indicates if the configuration is configured to use as a tile source.</param>
         /// <param name="sourceCapabilitiesUrl">The URL to the capabilities of the WMTS.</param>

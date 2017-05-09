@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     public class DikeProfileCollection : ObservableUniqueItemCollectionWithSourcePath<DikeProfile>
     {
         /// <summary>
-        /// Instantiates a <see cref="DikeProfileCollection"/>.
+        /// Creates a new instance of <see cref="DikeProfileCollection"/>.
         /// </summary>
         public DikeProfileCollection() : base(profile => profile.Id,
                                               Resources.DikeProfileCollection_TypeDescriptor,

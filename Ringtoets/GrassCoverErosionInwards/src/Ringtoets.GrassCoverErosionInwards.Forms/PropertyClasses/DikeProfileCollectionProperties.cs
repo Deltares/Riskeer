@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class DikeProfileCollectionProperties : ObjectProperties<DikeProfileCollection>
     {
         /// <summary>
-        /// Instantiates a <see cref="DikeProfileCollectionProperties"/>.
+        /// Creates a new instance of <see cref="DikeProfileCollectionProperties"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>

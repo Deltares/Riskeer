@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Migration
         private readonly string migrationLogPath;
 
         /// <summary>
-        /// Instantiates a <see cref="RingtoetsProjectMigrator"/>.
+        /// Creates a new instance of <see cref="RingtoetsProjectMigrator"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the data.</param>
         public RingtoetsProjectMigrator(IInquiryHelper inquiryHelper)

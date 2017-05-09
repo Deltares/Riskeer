@@ -270,7 +270,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenu_CalculationWithoutDikeProfile_ContextMenuItemUpdateDikeProfileDisabled()
+        public void ContextMenuStrip_CalculationWithoutDikeProfile_ContextMenuItemUpdateDikeProfileDisabled()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -303,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenu_CalculationWithDikeProfile_ContextMenuItemUpdateDikeProfileEnabled()
+        public void ContextMenuStrip_CalculationWithDikeProfile_ContextMenuItemUpdateDikeProfileEnabled()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -392,7 +392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     bool expectedUseForeShore = dikeProfile.ForeshoreGeometry.Count() > 1;
                     Assert.AreEqual(expectedUseForeShore, inputParameters.UseForeshore);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -467,7 +467,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -540,7 +540,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -635,7 +635,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -715,7 +715,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }

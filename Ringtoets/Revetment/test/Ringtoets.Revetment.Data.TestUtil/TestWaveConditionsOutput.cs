@@ -30,7 +30,7 @@ namespace Ringtoets.Revetment.TestUtil
     public class TestWaveConditionsOutput : WaveConditionsOutput
     {
         /// <summary>
-        /// Instantiates a <see cref="TestWaveConditionsOutput"/> with default values.
+        /// Creates a new instance of <see cref="TestWaveConditionsOutput"/> with default values.
         /// </summary>
         public TestWaveConditionsOutput() : this(1.1, 2.2, 3.3, 4.4, 5.5) {}
 

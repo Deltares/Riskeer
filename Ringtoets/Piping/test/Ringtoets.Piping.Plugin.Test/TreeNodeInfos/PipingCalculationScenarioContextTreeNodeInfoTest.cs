@@ -521,7 +521,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsFalse(calculation.HasOutput);
 
-                    // Note: observer assertions are verified in Teardown
+                    // Note: observer assertions are verified in TearDown
                 }
             }
         }
@@ -588,7 +588,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in Teardown
+                    // Note: observer assertions are verified in TearDown
                 }
             }
         }
@@ -665,7 +665,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in Teardown
+                    // Note: observer assertions are verified in TearDown
                 }
             }
         }
@@ -730,7 +730,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in Teardown
+                    // Note: observer assertions are verified in TearDown
                 }
             }
         }

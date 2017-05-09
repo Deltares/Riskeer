@@ -270,7 +270,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenu_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabled()
+        public void ContextMenuStrip_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabled()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -303,7 +303,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenu_CalculationWithStructure_ContextMenuItemUpdateStructureEnabled()
+        public void ContextMenuStrip_CalculationWithStructure_ContextMenuItemUpdateStructureEnabled()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -393,7 +393,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
                     Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -475,7 +475,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -549,7 +549,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -624,7 +624,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -692,7 +692,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    // Note: observer assertions are verified in the Teardown()
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }

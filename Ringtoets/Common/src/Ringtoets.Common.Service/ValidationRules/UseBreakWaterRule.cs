@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         private readonly IUseBreakWater breakWater;
 
         /// <summary>
-        /// Instantiates a <see cref="UseBreakWaterRule"/> to validate the properties of calculation inputs that implement 
+        /// Creates a new instance of <see cref="UseBreakWaterRule"/> to validate the properties of calculation inputs that implement 
         /// <see cref="IUseBreakWater"/>.
         /// </summary>
         /// <param name="breakWater">The <see cref="IUseBreakWater"/> that needs to be validated.</param>

@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Data.TestUtil
             : this(profileId, "name", new Point2D(0, 0), null, geometry) {}
 
         /// <summary>
-        /// Instantiates a <see cref="TestForeshoreProfile"/> with given properties.
+        /// Creates a new instance of <see cref="TestForeshoreProfile"/> with given properties.
         /// </summary>
         /// <param name="profileId">The id of the foreshore profile.</param>
         /// <param name="profileName">The name of the foreshore profile.</param>

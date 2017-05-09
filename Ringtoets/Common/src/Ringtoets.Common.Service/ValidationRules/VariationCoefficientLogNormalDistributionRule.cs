@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         private readonly string parameterName;
 
         /// <summary>
-        /// Instantiates a <see cref="VariationCoefficientLogNormalDistributionRule"/> to validate 
+        /// Creates a new instance of <see cref="VariationCoefficientLogNormalDistributionRule"/> to validate 
         /// a <see cref="VariationCoefficientLogNormalDistribution"/>.
         /// </summary>
         /// <param name="distribution">The distribution to validate.</param>

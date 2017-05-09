@@ -42,7 +42,7 @@ namespace Core.Common.Base
         private readonly string featureDescription;
 
         /// <summary>
-        /// Instantiates a <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject}"/>.
+        /// Creates a new instance of <see cref="ObservableUniqueItemCollectionWithSourcePath{TObject}"/>.
         /// </summary>
         /// <param name="getUniqueFeature">A function to retrieve the unique feature of the items it stores.</param>
         /// <param name="typeDescriptor">The description of the item that is validated.</param>

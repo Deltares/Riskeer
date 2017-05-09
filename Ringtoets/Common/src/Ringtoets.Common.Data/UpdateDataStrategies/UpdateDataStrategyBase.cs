@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         private readonly IEqualityComparer<TTargetData> equalityComparer;
 
         /// <summary>
-        /// Instantiates a <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> object.
+        /// Creates a new instance of <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> object.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which needs to be updated.</param>
         /// <param name="equalityComparer">The comparer which should be used to determine when two objects are equal.</param>

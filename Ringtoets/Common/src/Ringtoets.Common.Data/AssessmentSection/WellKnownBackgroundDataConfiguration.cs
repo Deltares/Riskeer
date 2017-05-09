@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
     public class WellKnownBackgroundDataConfiguration : IBackgroundDataConfiguration
     {
         /// <summary>
-        /// Instantiates a <see cref="WellKnownBackgroundDataConfiguration"/>.
+        /// Creates a new instance of <see cref="WellKnownBackgroundDataConfiguration"/>.
         /// </summary>
         /// <param name="wellKnownTileSource">The type of well known tile source.</param>
         public WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource wellKnownTileSource)

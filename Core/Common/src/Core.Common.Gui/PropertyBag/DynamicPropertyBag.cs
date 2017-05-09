@@ -47,7 +47,7 @@ namespace Core.Common.Gui.PropertyBag
     public class DynamicPropertyBag : ICustomTypeDescriptor
     {
         /// <summary>
-        /// Instantiates a new instance of <see cref="DynamicPropertyBag"/>, wrapping another
+        /// Creates a new instance of <see cref="DynamicPropertyBag"/>, wrapping another
         /// object and exposing properties for that object.
         /// </summary>
         /// <param name="propertyObject">The object to be wrapped.</param>

@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         where TStructure : StructureBase
     {
         /// <summary>
-        /// Instantiates a <see cref="StructureCollectionProperties{TStructure}"/>.
+        /// Creates a new instance of <see cref="StructureCollectionProperties{TStructure}"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
