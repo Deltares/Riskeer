@@ -224,12 +224,8 @@ namespace Ringtoets.HeightStructures.Plugin
                 Text = structure => structure.Name,
                 Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
-                                                                                  .AddDeleteItem()
-                                                                                  .AddSeparator()
                                                                                   .AddPropertiesItem()
-                                                                                  .Build(),
-                CanRemove = CanRemoveHeightStructure,
-                OnNodeRemoved = OnHeightStructureRemoved
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<HeightStructuresScenariosContext>
@@ -351,26 +347,6 @@ namespace Ringtoets.HeightStructures.Plugin
         #endregion
 
         #region TreeNodeInfos
-
-        #region HeightStructure TreeNodeInfo
-
-        private static bool CanRemoveHeightStructure(HeightStructure nodeData, object parentData)
-        {
-            return parentData is HeightStructuresContext;
-        }
-
-        private static void OnHeightStructureRemoved(HeightStructure nodeData, object parentData)
-        {
-            var parentContext = (HeightStructuresContext) parentData;
-            IEnumerable<IObservable> changedObservables = HeightStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
-                                                                                                                     nodeData);
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
-        }
-
-        #endregion
 
         #region HeightStructuresContext TreeNodeInfo
 

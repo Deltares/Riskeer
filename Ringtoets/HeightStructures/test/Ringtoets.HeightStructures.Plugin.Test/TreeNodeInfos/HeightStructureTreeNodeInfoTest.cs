@@ -21,20 +21,14 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
@@ -77,8 +71,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNotNull(info.CanRemove);
-            Assert.IsNotNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -117,137 +111,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_ParentIsHeightStructuresContext_ReturnTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures,
-                                                         failureMechanism, assessmentSection);
-
-            // Call
-            bool canRemove = info.CanRemove(null, parentData);
-
-            // Assert
-            Assert.IsTrue(canRemove);
-        }
-
-        [Test]
-        public void CanRemove_ParentIsNotHeightStructuresContext_ReturnFalse()
-        {
-            // Call
-            bool canRemove = info.CanRemove(null, null);
-
-            // Assert
-            Assert.IsFalse(canRemove);
-        }
-
-        [Test]
-        public void OnNodeRemoved_RemovingProfilePartOfCalculationOfSectionResult_ProfileRemovedFromFailureMechanismAndCalculationProfileClearedAndSectionResultCalculationCleared()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            var calculation3Observer = mocks.StrictMock<IObserver>();
-            calculation3Observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mocks.ReplayAll();
-
-            var nodeData = new TestHeightStructure(new Point2D(1, 0), "Id1");
-            var otherProfile1 = new TestHeightStructure(new Point2D(2, 0), "Id2");
-            var otherProfile2 = new TestHeightStructure(new Point2D(6, 0), "Id6");
-
-            var calculation1 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = nodeData
-                }
-            };
-            calculation1.InputParameters.Attach(calculation1Observer);
-            var calculation2 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = otherProfile1
-                }
-            };
-            calculation2.InputParameters.Attach(calculation2Observer);
-            var calculation3 = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = otherProfile2
-                }
-            };
-            calculation3.InputParameters.Attach(calculation3Observer);
-
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation1,
-                        calculation2,
-                        calculation3
-                    }
-                }
-            };
-
-            failureMechanism.HeightStructures.AddRange(new[]
-            {
-                nodeData,
-                otherProfile1,
-                otherProfile2
-            }, "some location");
-
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(4, 0)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("B", new[]
-            {
-                new Point2D(4, 0),
-                new Point2D(9, 0)
-            }));
-            failureMechanism.HeightStructures.Attach(observer);
-            failureMechanism.SectionResults.ElementAt(0).Calculation = calculation1;
-            failureMechanism.SectionResults.ElementAt(1).Calculation = calculation3;
-
-            var parentData = new HeightStructuresContext(failureMechanism.HeightStructures,
-                                                         failureMechanism, assessmentSection);
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentData);
-
-            // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, nodeData);
-
-            Assert.IsNull(calculation1.InputParameters.Structure);
-            Assert.IsNotNull(calculation2.InputParameters.Structure);
-
-            Assert.AreSame(calculation2, failureMechanism.SectionResults.ElementAt(0).Calculation);
-            Assert.AreSame(calculation3, failureMechanism.SectionResults.ElementAt(1).Calculation);
-        }
-
-        [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }
