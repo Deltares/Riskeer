@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Service
         /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/> and the 
         /// hydraulic boundary locations that are contained within specific failure mechanisms of the <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> which contains the locations.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -580,6 +580,204 @@ namespace Ringtoets.Integration.Service
             changedObservables.Add(failureMechanism.DikeProfiles);
 
             return changedObservables;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ForeshoreProfile"/> from the <see cref="ClosingStructuresFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism 
+        /// containing the <see cref="ForeshoreProfile"/>.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllForeshoreProfiles(ClosingStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedCalculations =
+                failureMechanism.Calculations
+                                .OfType<StructuresCalculation<ClosingStructuresInput>>()
+                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in affectedCalculations)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            affectedObjects.Add(failureMechanism.ForeshoreProfiles);
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ForeshoreProfile"/> from the <see cref="StabilityPointStructuresFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism 
+        /// containing the <see cref="ForeshoreProfile"/>.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllForeshoreProfiles(StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedCalculations =
+                failureMechanism.Calculations
+                                .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
+                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in affectedCalculations)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            affectedObjects.Add(failureMechanism.ForeshoreProfiles);
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ForeshoreProfile"/> from the <see cref="HeightStructuresFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism 
+        /// containing the <see cref="ForeshoreProfile"/>.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllForeshoreProfiles(HeightStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedCalculations =
+                failureMechanism.Calculations
+                                .OfType<StructuresCalculation<HeightStructuresInput>>()
+                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in affectedCalculations)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            affectedObjects.Add(failureMechanism.ForeshoreProfiles);
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ForeshoreProfile"/> from the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism 
+        /// containing the <see cref="ForeshoreProfile"/>.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllForeshoreProfiles(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedCalculations =
+                failureMechanism.Calculations
+                                .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in affectedCalculations)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            affectedObjects.Add(failureMechanism.ForeshoreProfiles);
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ForeshoreProfile"/> from the <see cref="StabilityStoneCoverFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism 
+        /// containing the <see cref="ForeshoreProfile"/>.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllForeshoreProfiles(StabilityStoneCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedCalculations =
+                failureMechanism.Calculations
+                                .OfType<StabilityStoneCoverWaveConditionsCalculation>()
+                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in affectedCalculations)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            affectedObjects.Add(failureMechanism.ForeshoreProfiles);
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ForeshoreProfile"/> from the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism 
+        /// containing the <see cref="ForeshoreProfile"/>.</param>
+        /// <returns>All observable objects affected by this method.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllForeshoreProfiles(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedCalculations =
+                failureMechanism.Calculations
+                                .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in affectedCalculations)
+            {
+                calculation.InputParameters.ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+            }
+
+            failureMechanism.ForeshoreProfiles.Clear();
+            affectedObjects.Add(failureMechanism.ForeshoreProfiles);
+            return affectedObjects;
         }
 
         private static ClearResults GetClearResultsForFailureMechanism(IFailureMechanism failureMechanism)

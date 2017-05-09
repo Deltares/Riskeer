@@ -27,12 +27,12 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Service;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -92,154 +92,40 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
             if (waveImpactAsphaltCoverFailureMechanism != null)
             {
-                return ClearForeshoreProfilesDependentData(waveImpactAsphaltCoverFailureMechanism);
+                return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism);
             }
 
             var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
             if (stabilityStoneCoverFailureMechanism != null)
             {
-                return ClearForeshoreProfilesDependentData(stabilityStoneCoverFailureMechanism);
+                return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(stabilityStoneCoverFailureMechanism);
             }
 
             var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
             if (grassCoverErosionOutwardsFailureMechanism != null)
             {
-                return ClearForeshoreProfilesDependentData(grassCoverErosionOutwardsFailureMechanism);
+                return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism);
             }
 
             var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
             if (heightStructuresFailureMechanism != null)
             {
-                return ClearForeshoreProfilesDependentData(heightStructuresFailureMechanism);
+                return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(heightStructuresFailureMechanism);
             }
 
             var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
             if (stabilityPointStructuresFailureMechanism != null)
             {
-                return ClearForeshoreProfilesDependentData(stabilityPointStructuresFailureMechanism);
+                return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(stabilityPointStructuresFailureMechanism);
             }
 
             var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
             if (closingStructuresFailureMechanism != null)
             {
-                return ClearForeshoreProfileDependentData(closingStructuresFailureMechanism);
+                return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(closingStructuresFailureMechanism);
             }
 
             return Enumerable.Empty<IObservable>();
-        }
-
-        private static IEnumerable<IObservable> ClearForeshoreProfileDependentData(ClosingStructuresFailureMechanism closingStructuresFailureMechanism)
-        {
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedCalculations =
-                closingStructuresFailureMechanism.Calculations
-                                                 .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                 .Where(calc => calc.InputParameters.ForeshoreProfile != null);
-
-            var affectedObjects = new List<IObservable>();
-            foreach (var calculation in affectedCalculations)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                affectedObjects.Add(calculation.InputParameters);
-            }
-
-            closingStructuresFailureMechanism.ForeshoreProfiles.Clear();
-            affectedObjects.Add(closingStructuresFailureMechanism.ForeshoreProfiles);
-            return affectedObjects;
-        }
-
-        private static IEnumerable<IObservable> ClearForeshoreProfilesDependentData(StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism)
-        {
-            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedCalculations =
-                stabilityPointStructuresFailureMechanism.Calculations
-                                                        .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                        .Where(calc => calc.InputParameters.ForeshoreProfile != null);
-
-            var affectedObjects = new List<IObservable>();
-            foreach (var calculation in affectedCalculations)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                affectedObjects.Add(calculation.InputParameters);
-            }
-
-            stabilityPointStructuresFailureMechanism.ForeshoreProfiles.Clear();
-            affectedObjects.Add(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
-            return affectedObjects;
-        }
-
-        private static IEnumerable<IObservable> ClearForeshoreProfilesDependentData(HeightStructuresFailureMechanism heightStructuresFailureMechanism)
-        {
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> affectedCalculations =
-                heightStructuresFailureMechanism.Calculations
-                                                .OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                .Where(calc => calc.InputParameters.ForeshoreProfile != null);
-
-            var affectedObjects = new List<IObservable>();
-            foreach (var calculation in affectedCalculations)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                affectedObjects.Add(calculation.InputParameters);
-            }
-
-            heightStructuresFailureMechanism.ForeshoreProfiles.Clear();
-            affectedObjects.Add(heightStructuresFailureMechanism.ForeshoreProfiles);
-            return affectedObjects;
-        }
-
-        private static IEnumerable<IObservable> ClearForeshoreProfilesDependentData(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism)
-        {
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedCalculations =
-                grassCoverErosionOutwardsFailureMechanism.Calculations
-                                                         .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                         .Where(calc => calc.InputParameters.ForeshoreProfile != null);
-
-            var affectedObjects = new List<IObservable>();
-            foreach (var calculation in affectedCalculations)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                affectedObjects.Add(calculation.InputParameters);
-            }
-
-            grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles.Clear();
-            affectedObjects.Add(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
-            return affectedObjects;
-        }
-
-        private static IEnumerable<IObservable> ClearForeshoreProfilesDependentData(StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism)
-        {
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> affectedCalculations =
-                stabilityStoneCoverFailureMechanism.Calculations
-                                                   .OfType<StabilityStoneCoverWaveConditionsCalculation>()
-                                                   .Where(calc => calc.InputParameters.ForeshoreProfile != null);
-
-            var affectedObjects = new List<IObservable>();
-            foreach (var calculation in affectedCalculations)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                affectedObjects.Add(calculation.InputParameters);
-            }
-
-            stabilityStoneCoverFailureMechanism.ForeshoreProfiles.Clear();
-            affectedObjects.Add(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
-            return affectedObjects;
-        }
-
-        private static IEnumerable<IObservable> ClearForeshoreProfilesDependentData(WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism)
-        {
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedCalculations =
-               waveImpactAsphaltCoverFailureMechanism.Calculations
-                                                  .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                  .Where(calc => calc.InputParameters.ForeshoreProfile != null);
-
-            var affectedObjects = new List<IObservable>();
-            foreach (var calculation in affectedCalculations)
-            {
-                calculation.InputParameters.ForeshoreProfile = null;
-                affectedObjects.Add(calculation.InputParameters);
-            }
-
-            waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles.Clear();
-            affectedObjects.Add(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
-            return affectedObjects;
         }
     }
 }

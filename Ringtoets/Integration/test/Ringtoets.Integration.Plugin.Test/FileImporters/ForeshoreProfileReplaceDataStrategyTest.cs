@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Constructor_UnsupportedFailureMechanism_ThrowsUnsupportedException()
+        public void Constructor_UnsupportedFailureMechanism_ThrowsNotSupportedException()
         {
             // Call
             TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism());
@@ -283,38 +283,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             foreshoreProfiles.AddRange(new[]
             {
                 new TestForeshoreProfile("Profile 1", "ID 1")
-            }, sourceFilePath);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            var importedForeshoreProfiles = new[]
-            {
-                new TestForeshoreProfile("Profile 2", "ID 2")
-            };
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        importedForeshoreProfiles,
-                                                                                                        sourceFilePath);
-
-            // Assert
-            CollectionAssert.AreEqual(importedForeshoreProfiles, foreshoreProfiles);
-            CollectionAssert.AreEqual(new IObservable[]
-            {
-                foreshoreProfiles
-            }, affectedObjects);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanismsAndEmptyForeshoreProfileCollection))]
-        public void UpdateForeshoreProfilesWithImportedData_CalculationsWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData(
-            IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
-        {
-            // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
-            foreshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
             }, sourceFilePath);
 
             var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);

@@ -1236,6 +1236,258 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
+        public void RemoveAllForeshoreProfile_ClosingStructuresFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles((ClosingStructuresFailureMechanism) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_FullyConfiguredClosingStructuresFailureMechanism_RemovesAllForeshoreProfilesAndDependentData()
+        {
+            // Setup
+            ClosingStructuresFailureMechanism failureMechanism = TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations();
+
+            StructuresCalculation<ClosingStructuresInput>[] calculationsWithForeshoreProfiles = failureMechanism.Calculations
+                                                                                                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
+                                                                                                                .ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     failureMechanism.ForeshoreProfiles
+                                                 });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_StabilityPointStructuresFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles((StabilityPointStructuresFailureMechanism) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_FullyConfiguredStabilityPointStructuresFailureMechanism_RemovesAllForeshoreProfilesAndDependentData()
+        {
+            // Setup
+            StabilityPointStructuresFailureMechanism failureMechanism = TestDataGenerator.GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations();
+
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithForeshoreProfiles = failureMechanism.Calculations
+                                                                                                                       .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                                       .Where(calc => calc.InputParameters.ForeshoreProfile != null)
+                                                                                                                       .ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     failureMechanism.ForeshoreProfiles
+                                                 });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_HeightStructuresFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles((HeightStructuresFailureMechanism) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_FullyConfiguredHeightStructuresFailureMechanism_RemovesAllForeshoreProfilesAndDependentData()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
+
+            StructuresCalculation<HeightStructuresInput>[] calculationsWithForeshoreProfiles = failureMechanism.Calculations
+                                                                                                               .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                                                                               .Where(calc => calc.InputParameters.ForeshoreProfile != null)
+                                                                                                               .ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     failureMechanism.ForeshoreProfiles
+                                                 });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles((GrassCoverErosionOutwardsFailureMechanism) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_FullyConfiguredGrassCoverErosionOutwardsFailureMechanism_RemovesAllForeshoreProfilesAndDependentData()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithForeshoreProfiles = failureMechanism.Calculations
+                                                                                                                     .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                                     .Where(calc => calc.InputParameters.ForeshoreProfile != null)
+                                                                                                                     .ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     failureMechanism.ForeshoreProfiles
+                                                 });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_StabilityStoneCoverFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles((StabilityStoneCoverFailureMechanism) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_FullyConfiguredStabilityStoneCoverFailureMechanism_RemovesAllForeshoreProfilesAndDependentData()
+        {
+            // Setup
+            StabilityStoneCoverFailureMechanism failureMechanism = TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
+
+            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfiles = failureMechanism.Calculations
+                                                                                                               .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                                               .Where(calc => calc.InputParameters.ForeshoreProfile != null)
+                                                                                                               .ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     failureMechanism.ForeshoreProfiles
+                                                 });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles((WaveImpactAsphaltCoverFailureMechanism) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveAllForeshoreProfile_FullyConfiguredWaveImpactAsphaltCoverFailureMechanism_RemovesAllForeshoreProfilesAndDependentData()
+        {
+            // Setup
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfiles = failureMechanism.Calculations
+                                                                                                                  .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                                                  .Where(calc => calc.InputParameters.ForeshoreProfile != null)
+                                                                                                                  .ToArray();
+
+            // Pre-condition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                 {
+                                                     failureMechanism.ForeshoreProfiles
+                                                 });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
         public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
