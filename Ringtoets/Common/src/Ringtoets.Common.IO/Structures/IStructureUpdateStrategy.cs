@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.Common.IO.Structures
 {
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <param name="sourceFilePath">The source path from where the structures were imported from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        /// <exception cref="StructureUpdateException">Thrown when applying the strategy has failed.</exception>
+        /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed.</exception>
         IEnumerable<IObservable> UpdateStructuresWithImportedData(
             StructureCollection<TStructure> targetDataCollection,
             IEnumerable<TStructure> readStructures,

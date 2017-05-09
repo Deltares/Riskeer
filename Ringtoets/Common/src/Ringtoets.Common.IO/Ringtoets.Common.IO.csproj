@@ -73,7 +73,6 @@
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
-    <Compile Include="Exceptions\StructureUpdateException.cs" />
     <Compile Include="FileImporters\DikeProfilesImporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />

@@ -24,11 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
@@ -56,27 +53,13 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                                                                          IEnumerable<HeightStructure> readStructures,
                                                                          string sourceFilePath)
         {
-            try
-            {
-                return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message =
-                    string.Format(Resources.IStructureUpdateStrategy_UpdateStructuresWithImportedData_Update_Structures_failed_Reason_0_,
-                                  e.Message);
-                throw new StructureUpdateException(message, e);
-            }
+            return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
         }
-
-        #region Removing Data Functions
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(HeightStructure removedObject)
         {
             return HeightStructuresDataSynchronizationService.RemoveStructure(FailureMechanism, removedObject);
         }
-
-        #endregion
 
         /// <summary>
         /// Class for comparing <see cref="HeightStructure"/> by only the id.

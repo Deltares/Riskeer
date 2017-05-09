@@ -23,10 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
@@ -52,16 +49,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                                                                          IEnumerable<HeightStructure> readStructures,
                                                                          string sourceFilePath)
         {
-            try
-            {
-                return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStructures, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message = string.Format(Resources.IStructureUpdateStrategy_UpdateStructuresWithImportedData_Importing_Structures_failed_Reason_0_,
-                                               e.Message);
-                throw new StructureUpdateException(message, e);
-            }
+            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStructures, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -356,7 +355,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_ImportedDataContainsDuplicateIds_ThrowsUpdateException()
+        public void UpdateStructuresWithImportedData_ImportedDataContainsDuplicateIds_ThrowsUpdateDataException()
         {
             // Setup
             const string duplicateId = "I am a duplicate id";
@@ -375,12 +374,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                                                                                 sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<StructureUpdateException>(call);
-            string expectedMessage = "Het importeren van de kunstwerken is mislukt: " +
-                                     "Kunstwerken moeten een unieke id hebben. " +
+            var exception = Assert.Throws<UpdateDataException>(call);
+            string expectedMessage = "Kunstwerken moeten een unieke id hebben. " +
                                      $"Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
     }
 }
