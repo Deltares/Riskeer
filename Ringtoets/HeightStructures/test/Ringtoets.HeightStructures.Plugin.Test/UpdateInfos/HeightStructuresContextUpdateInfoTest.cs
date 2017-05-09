@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
             var importTarget = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
+            IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "This is valid");
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresImporter>(importer);

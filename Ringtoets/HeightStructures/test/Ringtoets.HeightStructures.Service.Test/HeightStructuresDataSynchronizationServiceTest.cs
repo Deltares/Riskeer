@@ -415,11 +415,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
 
-            IObservable[] affectedObjectsArray = observables.ToArray();
-            int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStructure.Length +
-                                              sectionResultsWithStructure.Length;
-            Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
-
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
@@ -434,7 +429,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                          {
                                              failureMechanism.HeightStructures
                                          });
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjectsArray);
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, observables);
         }
 
         private HeightStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()

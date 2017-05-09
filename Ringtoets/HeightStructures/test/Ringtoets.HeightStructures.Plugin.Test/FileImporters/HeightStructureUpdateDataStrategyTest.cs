@@ -247,7 +247,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_WithoutCurrentStructureAndImportedMultipleStructuresWithSameId_ThrowsStructureUpdateException()
+        public void UpdateStructuresWithImportedData_WithCurrentStructureAndImportedMultipleStructuresWithSameId_ThrowsStructureUpdateException()
         {
             // Setup
             const string duplicateId = "I am a duplicate id";
@@ -569,6 +569,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                                                                          failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
 
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+
+            // Precondition
             Assert.AreSame(calculation, sectionResults[0].Calculation);
             Assert.IsNull(sectionResults[1].Calculation);
 

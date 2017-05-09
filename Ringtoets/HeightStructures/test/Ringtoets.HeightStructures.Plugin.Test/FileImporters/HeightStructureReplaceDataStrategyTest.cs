@@ -75,7 +75,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null, Enumerable.Empty<HeightStructure>(),
+            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
+                                                                                Enumerable.Empty<HeightStructure>(),
                                                                                 string.Empty);
 
             // Assert
@@ -200,6 +201,52 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 importedStructure
             };
             CollectionAssert.AreEqual(expected, failureMechanism.HeightStructures);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_CalculationWithoutOutputAndStructure_CalculationUpdatedAndReturnsAffectedObject()
+        {
+            // Setup
+            var structure = new TestHeightStructure();
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                }
+            };
+            failureMechanism.HeightStructures.AddRange(new[]
+            {
+                structure
+            }, sourceFilePath);
+
+            var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                failureMechanism.HeightStructures,
+                Enumerable.Empty<HeightStructure>(),
+                sourceFilePath).ToArray();
+
+            // Assert
+            Assert.IsNull(calculation.InputParameters.Structure);
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                calculation.InputParameters,
+                failureMechanism.HeightStructures
+            }, affectedObjects);
         }
 
         [Test]

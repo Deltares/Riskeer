@@ -261,7 +261,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                     }
                 }
             }
-            return intersectionPoint != null ? ReferenceLineIntersectionResult.CreateIntersectionResult(intersectionPoint) : ReferenceLineIntersectionResult.CreateNoSingleIntersectionResult();
+            return intersectionPoint != null
+                       ? ReferenceLineIntersectionResult.CreateIntersectionResult(intersectionPoint)
+                       : ReferenceLineIntersectionResult.CreateNoSingleIntersectionResult();
         }
 
         private static void SetCharacteristicPointsOnSurfaceLine(RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPointsLocation)
