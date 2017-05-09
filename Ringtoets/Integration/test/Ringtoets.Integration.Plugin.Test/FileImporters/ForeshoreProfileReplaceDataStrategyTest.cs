@@ -24,23 +24,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
+using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {
@@ -49,72 +41,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
     {
         private const string sourceFilePath = "path/to/foreshoreProfiles";
 
-        private static IEnumerable<TestCaseData> SupportedFailureMechanisms
-        {
-            get
-            {
-                yield return new TestCaseData(new WaveImpactAsphaltCoverFailureMechanism()).SetName("WaveImpactAsphaltCover");
-                yield return new TestCaseData(new GrassCoverErosionOutwardsFailureMechanism()).SetName("GrassCoverErosionOutwards");
-                yield return new TestCaseData(new StabilityStoneCoverFailureMechanism()).SetName("StabilityStoneCover");
-                yield return new TestCaseData(new HeightStructuresFailureMechanism()).SetName("HeightStructures");
-                yield return new TestCaseData(new StabilityPointStructuresFailureMechanism()).SetName("StabilityPointStructures");
-                yield return new TestCaseData(new ClosingStructuresFailureMechanism()).SetName("ClosingStructures");
-            }
-        }
-
-        private static IEnumerable<TestCaseData> SupportedFailureMechanismsAndEmptyForeshoreProfileCollection
-        {
-            get
-            {
-                var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
-                yield return new TestCaseData(waveImpactAsphaltCoverFailureMechanism,
-                                              waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles)
-                    .SetName("WaveImpactAsphaltCover");
-
-                var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                yield return new TestCaseData(grassCoverErosionOutwardsFailureMechanism,
-                                              grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles)
-                    .SetName("GrassCoverErosionOutwards");
-
-                var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-                yield return new TestCaseData(stabilityStoneCoverFailureMechanism,
-                                              stabilityStoneCoverFailureMechanism.ForeshoreProfiles)
-                    .SetName("StabilityStoneCover");
-
-                var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-                yield return new TestCaseData(heightStructuresFailureMechanism,
-                                              heightStructuresFailureMechanism.ForeshoreProfiles)
-                    .SetName("HeightStructures");
-
-                var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
-                yield return new TestCaseData(stabilityPointStructuresFailureMechanism,
-                                              stabilityPointStructuresFailureMechanism.ForeshoreProfiles)
-                    .SetName("StabilityPointStructures");
-
-                var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-                yield return new TestCaseData(closingStructuresFailureMechanism,
-                                              closingStructuresFailureMechanism.ForeshoreProfiles)
-                    .SetName("ClosingStructures");
-            }
-        }
-
-        [Test]
-        public void Constructor_UnsupportedFailureMechanism_ThrowsNotSupportedException()
-        {
-            // Call
-            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism());
-
-            // Assert
-            var exception = Assert.Throws<NotSupportedException>(call);
-            Assert.AreEqual($"Can't apply this strategy for {typeof(TestFailureMechanism)}.", exception.Message);
-        }
-
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call 
-            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(null);
+            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(null, new ForeshoreProfileCollection());
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -122,11 +53,21 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanisms))]
-        public void Constructor_SupportedFailureMechanism_CreatesNewInstance(IFailureMechanism failureMechanism)
+        public void Constructor_ForeshoreProfileCollectionNull_ThrowsArgumentNullException()
         {
             // Call 
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), null);
+
+            // Assert 
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("foreshoreProfiles", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_SupportedFailureMechanism_CreatesNewInstance()
+        {
+            // Call 
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
 
             // Assert
             Assert.IsInstanceOf<ReplaceDataStrategyBase<ForeshoreProfile, IFailureMechanism>>(strategy);
@@ -134,12 +75,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanisms))]
-        public void UpdateForeshoreProfilesWithImportedData_TargetCollectionNull_ThrowsArgumentNullException(
-            IFailureMechanism failureMechanism)
+        public void UpdateForeshoreProfilesWithImportedData_TargetDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            var foreshoreProfileCollection = new ForeshoreProfileCollection();
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
             TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
@@ -152,15 +92,14 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanisms))]
-        public void UpdateForeshoreProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException(
-            IFailureMechanism failureMechanism)
+        public void UpdateForeshoreProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            var foreshoreProfileCollection = new ForeshoreProfileCollection();
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(new ForeshoreProfileCollection(),
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfileCollection,
                                                                                        null,
                                                                                        "path");
 
@@ -170,15 +109,14 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanisms))]
-        public void UpdateForeshoreProfilesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException(
-            IFailureMechanism failureMechanism)
+        public void UpdateForeshoreProfilesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            var foreshoreProfileCollection = new ForeshoreProfileCollection();
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(new ForeshoreProfileCollection(),
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfileCollection,
                                                                                        Enumerable.Empty<ForeshoreProfile>(),
                                                                                        null);
 
@@ -188,19 +126,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanisms))]
-        public void UpdateForeshoreProfilesWithImportedData_ImportedDataContainsDuplicateIDs_ThrowsUpdateException(
-            IFailureMechanism failureMechanism)
+        public void UpdateForeshoreProfilesWithImportedData_ImportedDataContainsDuplicateIDs_ThrowsUpdateException()
         {
             // Setup
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            var originalForeshoreProfiles = new[]
-            {
-                new TestForeshoreProfile("original profile", "original ID")
-            };
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
 
             const string duplicateId = "Just a duplicate ID";
             var importedForeshoreProfiles = new[]
@@ -210,8 +140,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             };
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                       importedForeshoreProfiles,
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles, importedForeshoreProfiles,
                                                                                        sourceFilePath);
 
             // Assert
@@ -220,18 +149,14 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                      $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
-
-            CollectionAssert.AreEqual(originalForeshoreProfiles, foreshoreProfiles);
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanisms))]
-        public void UpdateForeshoreProfilesWithImportedData_DifferentSourcePath_UpdatesSourcePathOfDataCollection(
-            IFailureMechanism failureMechanism)
+        public void UpdateForeshoreProfilesWithImportedData_DifferentSourcePath_UpdatesSourcePathOfDataCollection()
         {
             // Setup
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
             var foreshoreProfiles = new ForeshoreProfileCollection();
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
 
             const string newForeshoreProfilesPath = "new/path";
 
@@ -249,12 +174,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanismsAndEmptyForeshoreProfileCollection))]
-        public void UpdateForeshoreProfilesWithImportedData_CollectionEmptyAndImportedCollectionNotEmpty_AddsNewForeshoreProfiles(
-            IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
+        public void UpdateForeshoreProfilesWithImportedData_CollectionEmptyAndImportedCollectionNotEmpty_AddsNewForeshoreProfiles()
         {
             // Setup
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
 
             var importedForeshoreProfiles = new[]
             {
@@ -275,17 +199,16 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(SupportedFailureMechanismsAndEmptyForeshoreProfileCollection))]
-        public void UpdateForeshoreProfilesWithImportedData_CollectionAndImportedCollectionNotEmpty_ReplaceCurrentWithImportedData(
-            IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
+        public void UpdateForeshoreProfilesWithImportedData_CollectionAndImportedCollectionNotEmpty_ReplaceCurrentWithImportedData()
         {
             // Setup
+            var foreshoreProfiles = new ForeshoreProfileCollection();
             foreshoreProfiles.AddRange(new[]
             {
                 new TestForeshoreProfile("Profile 1", "ID 1")
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
 
             var importedForeshoreProfiles = new[]
             {
@@ -305,31 +228,47 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             }, affectedObjects);
         }
 
-        #region Wave Impact Asphalt Cover
-
         [Test]
-        public void UpdateForeshoreProfilesWithImportedData_WaveImpactAsphaltCoverCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
+        public void UpdateForeshoreProfilesWithImportedData_CalculationsWithForeshoreProfilesAndOutput_CalculationUpdatedAndReturnsAffectedData()
         {
             // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
-            foreshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
-            }, sourceFilePath);
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var foreshoreProfile = new TestForeshoreProfile();
+            var calculationWithForeshoreProfileAndOutput = new TestCalculationWithForeshoreProfile(true)
             {
                 InputParameters =
                 {
                     ForeshoreProfile = foreshoreProfile
                 }
             };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            var calculationWithForeshoreProfile = new TestCalculationWithForeshoreProfile(false)
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfile
+                }
+            };
+            var calculationWithoutForeshoreProfile = new TestCalculationWithForeshoreProfile(false);
 
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculationWithForeshoreProfileAndOutput,
+                calculationWithForeshoreProfile,
+                calculationWithoutForeshoreProfile
+            });
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            foreshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, sourceFilePath);
+
+            var calculationsWithForeshoreProfile = new[]
+            {
+                calculationWithForeshoreProfileAndOutput,
+                calculationWithForeshoreProfile
+            };
+
+            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, foreshoreProfiles);
 
             // Call 
             IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
@@ -337,230 +276,58 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                                                                         sourceFilePath);
 
             // Assert
-            WaveConditionsInput inputParameters = calculation.InputParameters;
-            Assert.IsNull(inputParameters.ForeshoreProfile);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                foreshoreProfiles,
-                inputParameters
-            }, affectedObjects);
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+            Assert.IsFalse(calculationWithForeshoreProfileAndOutput.HasOutput);
+            Assert.IsTrue(calculationsWithForeshoreProfile.All(calc => calc.InputParameters.ForeshoreProfile == null));
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfile.Select(calc => calc.InputParameters)
+                                                .Concat(new IObservable[]
+                                                {
+                                                    foreshoreProfiles,
+                                                    calculationWithForeshoreProfileAndOutput
+                                                });
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
-        #endregion
-
-        #region Grass Cover Erosion Outwards
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_GrassCoverErosionOutwardsCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
+        private class TestCalculationWithForeshoreProfile : Observable, ICalculation<TestCalculationInputWithForeshoreProfile>
         {
-            // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
-            foreshoreProfiles.AddRange(new[]
+            public TestCalculationWithForeshoreProfile(bool hasOutput)
             {
-                foreshoreProfile
-            }, sourceFilePath);
+                InputParameters = new TestCalculationInputWithForeshoreProfile();
+                HasOutput = hasOutput;
+            }
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            public string Name { get; set; }
+            public bool HasOutput { get; private set; }
+            public Comment Comments { get; }
+
+            public TestCalculationInputWithForeshoreProfile InputParameters { get; }
+
+            public void ClearOutput()
             {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                        sourceFilePath);
-
-            // Assert
-            WaveConditionsInput inputParameters = calculation.InputParameters;
-            Assert.IsNull(inputParameters.ForeshoreProfile);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                foreshoreProfiles,
-                inputParameters
-            }, affectedObjects);
+                HasOutput = false;
+            }
         }
 
-        #endregion
-
-        #region Stability Stone Cover
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_StabilityStoneCoverCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
+        private class TestCalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile
         {
-            // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
+            public ForeshoreProfile ForeshoreProfile { get; set; }
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
-            foreshoreProfiles.AddRange(new[]
+            public void Attach(IObserver observer)
             {
-                foreshoreProfile
-            }, sourceFilePath);
+                throw new NotImplementedException();
+            }
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            public void Detach(IObserver observer)
             {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+                throw new NotImplementedException();
+            }
 
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                        sourceFilePath);
-
-            // Assert
-            WaveConditionsInput inputParameters = calculation.InputParameters;
-            Assert.IsNull(inputParameters.ForeshoreProfile);
-            CollectionAssert.AreEquivalent(new IObservable[]
+            public void NotifyObservers()
             {
-                foreshoreProfiles,
-                inputParameters
-            }, affectedObjects);
+                throw new NotImplementedException();
+            }
         }
-
-        #endregion
-
-        #region Height Structures
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_HeightStructuresCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
-            foreshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
-            }, sourceFilePath);
-
-            var calculation = new TestHeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                        sourceFilePath);
-
-            // Assert
-            HeightStructuresInput inputParameters = calculation.InputParameters;
-            Assert.IsNull(inputParameters.ForeshoreProfile);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                foreshoreProfiles,
-                inputParameters
-            }, affectedObjects);
-        }
-
-        #endregion
-
-        #region Stability Point Structures
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_StabilityPointStructuresCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
-            foreshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
-            }, sourceFilePath);
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                        sourceFilePath);
-
-            // Assert
-            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
-            Assert.IsNull(inputParameters.ForeshoreProfile);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                foreshoreProfiles,
-                inputParameters
-            }, affectedObjects);
-        }
-
-        #endregion
-
-        #region Closing Structures
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_ClosingStructuresCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            var foreshoreProfile = new TestForeshoreProfile("Profile 1", "ID 1");
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
-            foreshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
-            }, sourceFilePath);
-
-            var calculation = new TestClosingStructuresCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = foreshoreProfile
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                        sourceFilePath);
-
-            // Assert
-            ClosingStructuresInput inputParameters = calculation.InputParameters;
-            Assert.IsNull(inputParameters.ForeshoreProfile);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                foreshoreProfiles,
-                inputParameters
-            }, affectedObjects);
-        }
-
-        #endregion
     }
 }

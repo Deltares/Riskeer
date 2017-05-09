@@ -56,6 +56,7 @@
     <Compile Include="DikeProfiles\DikeProfileCollection.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfile.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfileCollection.cs" />
+    <Compile Include="DikeProfiles\IHasForeshoreProfile.cs" />
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
     <Compile Include="Exceptions\DikeProfileUpdateException.cs" />

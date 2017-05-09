@@ -36,7 +36,7 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// Class that holds all wave conditions calculation specific input parameters.
     /// </summary>
-    public class WaveConditionsInput : Observable, ICalculationInput, IUseBreakWater, IUseForeshore
+    public class WaveConditionsInput : Observable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const double designWaterLevelSubstraction = 0.01;
         private const int orientationNumberOfDecimals = 2;

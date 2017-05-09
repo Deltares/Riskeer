@@ -41,4 +41,16 @@ namespace Ringtoets.Common.Data.Calculation
         /// </summary>
         void ClearOutput();
     }
+
+    /// <summary>
+    /// A calculation related object which has input parameters.
+    /// </summary>
+    /// <typeparam name="T">The type of input parameter.</typeparam>
+    public interface ICalculation<out T> : ICalculation where T : ICalculationInput
+    {
+        /// <summary>
+        /// Gets the input parameters of the calculation.
+        /// </summary>
+        T InputParameters { get; }
+    }
 }

@@ -48,6 +48,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsInstanceOf<IStructuresCalculationInput<StructureBase>>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
+            Assert.IsInstanceOf<IHasForeshoreProfile>(input);
 
             Assert.IsNull(input.Structure);
             Assert.IsNull(input.HydraulicBoundaryLocation);

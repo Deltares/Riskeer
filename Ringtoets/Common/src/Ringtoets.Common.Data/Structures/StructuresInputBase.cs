@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// Base class that holds generic structures calculation input parameters.
     /// </summary>
-    public abstract class StructuresInputBase<T> : Observable, IStructuresCalculationInput<T>, IUseBreakWater, IUseForeshore
+    public abstract class StructuresInputBase<T> : Observable, IStructuresCalculationInput<T>, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
         where T : StructureBase
     {
         private const int structureNormalOrientationNumberOfDecimals = 2;

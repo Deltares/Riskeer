@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
-    public class StructuresCalculation<T> : Observable, ICalculation where T : ICalculationInput, new()
+    public class StructuresCalculation<T> : Observable, ICalculation<T> where T : ICalculationInput, new()
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StructuresCalculation{T}"/> class.
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.Structures
         /// <summary>
         /// Gets the input parameters to perform a structures calculation with.
         /// </summary>
-        public T InputParameters { get; private set; }
+        public T InputParameters { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="ProbabilityAssessmentOutput"/>, 

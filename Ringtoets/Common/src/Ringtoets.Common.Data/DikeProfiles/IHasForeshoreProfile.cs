@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,12 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Calculation;
-
-namespace Ringtoets.Revetment.Data
+namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
-    /// Interface for wave conditions related calculation.
+    /// This interface describes if an object has a foreshore profile.
     /// </summary>
-    public interface IWaveConditionsCalculation : ICalculation<WaveConditionsInput> {}
+    public interface IHasForeshoreProfile {
+
+        /// <summary>
+        /// Gets or sets the foreshore profile.
+        /// </summary>
+        ForeshoreProfile ForeshoreProfile { get; set; }
+    }
 }
