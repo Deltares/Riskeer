@@ -32,6 +32,7 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -47,11 +48,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     [TestFixture]
     public class PipingSurfaceLinesCsvImporterTest
     {
-        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
-        private readonly string pluginSurfaceLinesTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
-
         private const string krpFormat = "{0}.krp.csv";
         private const string surfaceLineFormat = "{0}.csv";
+        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
+        private readonly string pluginSurfaceLinesTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
 
         private MockRepository mocks;
 
@@ -1721,6 +1721,43 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
+        }
+
+        [Test]
+        public void Import_UpdateSurfaceLinesWithImportedDataThrowsUpdateDataException_ReturnFalseAndLogError()
+        {
+            // Setup
+            var importTarget = new RingtoetsPipingSurfaceLineCollection();
+
+            const string twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
+            string filePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
+
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return("");
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Profielschematisaties"))
+                           .Return("error {0}");
+
+            var strategy = mocks.StrictMock<ISurfaceLineUpdateDataStrategy>();
+            strategy.Expect(s => s.UpdateSurfaceLinesWithImportedData(
+                                Arg<RingtoetsPipingSurfaceLineCollection>.Is.Same(importTarget),
+                                Arg<RingtoetsPipingSurfaceLine[]>.Is.NotNull,
+                                Arg<string>.Is.Same(filePath)
+                            )).Throw(new UpdateDataException("Exception message"));
+            mocks.ReplayAll();
+
+            var referenceLine = new ReferenceLine();
+
+            var importer = new PipingSurfaceLinesCsvImporter(importTarget, referenceLine, filePath, messageProvider, strategy);
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Then
+            const string expectedMessage = "error Exception message";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(importResult);
         }
 
         [Test]

@@ -29,6 +29,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -115,7 +116,19 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
-            updatedInstances = surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
+
+            try
+            {
+                updatedInstances = surfaceLineUpdateStrategy.UpdateSurfaceLinesWithImportedData(ImportTarget, importResults, FilePath);
+            }
+            catch (UpdateDataException e)
+            {
+                string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
+                                                   RingtoetsPipingDataResources.PipingSurfaceLineCollection_TypeDescriptor),
+                                               e.Message);
+                Log.Error(message, e);
+                return false;
+            }
             return true;
         }
 

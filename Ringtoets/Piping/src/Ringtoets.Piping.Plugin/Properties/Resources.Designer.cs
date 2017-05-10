@@ -430,26 +430,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het importeren van profielschematisaties is mislukt: {0}.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_Importing_RingtoetsPipingSurfaceLines_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_" +
-                        "Importing_RingtoetsPipingSurfaceLines_failed_Reason_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de profielschematisaties is mislukt: {0}.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_U" +
-                        "pdate_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to D-Soil Model bestand.
         /// </summary>
         public static string Soil_file_Description {

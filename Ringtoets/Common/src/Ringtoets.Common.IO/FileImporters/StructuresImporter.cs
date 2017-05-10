@@ -187,6 +187,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="importStructureLocationsResult">The read structure locations.</param>
         /// <param name="importStructureParameterRowsDataResult">The read structure properties.</param>
         /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
+        /// <exception cref="UpdateDataException">Thrown when updating the structures failed.</exception>
         private void CreateStructures(ReadResult<StructureLocation> importStructureLocationsResult,
                                       ReadResult<StructuresParameterRow> importStructureParameterRowsDataResult)
         {

@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_ImportedDataContainsDuplicateNames_ThrowsUpdateException()
+        public void UpdateSurfaceLinesWithImportedData_ImportedDataContainsDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
             var targetCollection = new RingtoetsPipingSurfaceLineCollection();
@@ -272,11 +272,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                                                   sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
-            string expectedMessage = "Het importeren van profielschematisaties is mislukt: " +
-                                     $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
+            var exception = Assert.Throws<UpdateDataException>(call);
+            string expectedMessage = "Profielschematisaties moeten een unieke naam hebben. " +
+                                     $"Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
     }
 }

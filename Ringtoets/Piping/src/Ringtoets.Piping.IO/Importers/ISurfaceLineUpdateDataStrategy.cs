@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.Primitives;
@@ -42,8 +43,8 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="sourceFilePath">The source path from where the surface lines were imported from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        /// <exception cref="RingtoetsPipingSurfaceLineUpdateException">Thrown when applying the strategy has failed. The 
-        /// <see cref="RingtoetsPipingSurfaceLineUpdateException.InnerException"/> is set with a more detailed explanation
+        /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed. The 
+        /// <see cref="UpdateDataException.InnerException"/> is set with a more detailed explanation
         /// of why the exception occurs.</exception>
         IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(
             RingtoetsPipingSurfaceLineCollection targetDataCollection,

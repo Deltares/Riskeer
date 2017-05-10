@@ -22,12 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
@@ -50,16 +47,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                                            IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                            string sourceFilePath)
         {
-            try
-            {
-                return ReplaceTargetCollectionWithImportedData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message = string.Format(Resources.RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_Importing_RingtoetsPipingSurfaceLines_failed_Reason_0,
-                                               e.Message);
-                throw new RingtoetsPipingSurfaceLineUpdateException(message, e);
-            }
+            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

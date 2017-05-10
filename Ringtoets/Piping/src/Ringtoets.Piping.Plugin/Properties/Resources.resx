@@ -200,9 +200,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0" xml:space="preserve">
-    <value>Het bijwerken van de profielschematisaties is mislukt: {0}</value>
-  </data>
   <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als profielschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze profielschematisaties gebruiken verwijderd.
 
@@ -245,9 +242,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLineReplaceDataStrategy_UpdateSurfaceLinesWithImportedData_Importing_RingtoetsPipingSurfaceLines_failed_Reason_0" xml:space="preserve">
-    <value>Het importeren van profielschematisaties is mislukt: {0}</value>
   </data>
   <data name="StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0" xml:space="preserve">
     <value>Het importeren van stochastische ondergrondmodellen is mislukt: {0}</value>

@@ -24,14 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
@@ -55,17 +52,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                                            IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
                                                                            string sourceFilePath)
         {
-            try
-            {
-                return UpdateTargetCollectionData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message =
-                    string.Format(Resources.RingtoetsPipingSurfaceLineUpdateDataStrategy_UpdateSurfaceLinesWithImportedData_Update_of_RingtoetsPipingSurfaceLine_has_failed_Reason_0,
-                                  e.Message);
-                throw new RingtoetsPipingSurfaceLineUpdateException(message, e);
-            }
+            return UpdateTargetCollectionData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
         }
 
         #region Removing Data Functions

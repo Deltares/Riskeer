@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -264,7 +263,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithoutCurrentSurfaceLinesAndReadLinesHaveDuplicateNames_ThrowsUpdateException()
+        public void UpdateSurfaceLinesWithImportedData_WithoutCurrentSurfaceLinesAndReadLinesHaveDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
@@ -299,12 +298,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                                                   sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
+            var exception = Assert.Throws<UpdateDataException>(call);
 
-            string expectedMessage = "Het bijwerken van de profielschematisaties is mislukt: " +
-                                     $"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
+            string expectedMessage = "Profielschematisaties moeten een unieke naam hebben. " +
+                                     $"Gevonden dubbele elementen: {duplicateName}.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 
             CollectionAssert.IsEmpty(targetCollection);
         }
@@ -345,7 +343,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsUpdateException()
+        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsUpdateDataException()
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
@@ -389,11 +387,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                                                   sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<RingtoetsPipingSurfaceLineUpdateException>(call);
-            const string expectedMessage = "Het bijwerken van de profielschematisaties is mislukt: " +
-                                           "Geïmporteerde data moet unieke elementen bevatten.";
+            var exception = Assert.Throws<UpdateDataException>(call);
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 
             CollectionAssert.AreEqual(expectedCollection, targetCollection);
             RingtoetsPipingSurfaceLine actualSurfaceLine = targetCollection[0];

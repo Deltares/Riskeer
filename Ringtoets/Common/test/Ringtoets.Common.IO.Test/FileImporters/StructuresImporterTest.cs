@@ -725,10 +725,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                              Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
             {
-                if (CreateSpecificStructuresAction != null)
-                {
-                    CreateSpecificStructuresAction();
-                }
+                CreateSpecificStructuresAction?.Invoke();
             }
         }
     }
