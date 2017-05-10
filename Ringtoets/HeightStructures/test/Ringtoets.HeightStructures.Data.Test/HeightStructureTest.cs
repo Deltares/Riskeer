@@ -344,38 +344,38 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Name = "otherName",
                 Id = "otherId",
                 Location = new Point2D(1, 1),
-                StructureNormalOrientation = (RoundedDouble) random.Next(),
+                StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = (RoundedDouble) random.Next(1, 10),
                     Shift = (RoundedDouble) random.NextDouble(),
                     StandardDeviation = (RoundedDouble) random.NextDouble()
                 },
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = (RoundedDouble) random.Next(1, 10),
                     CoefficientOfVariation = (RoundedDouble) random.NextDouble()
                 },
                 FailureProbabilityStructureWithErosion = random.NextDouble(),
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = (RoundedDouble) random.Next(1, 10),
                     Shift = (RoundedDouble) random.NextDouble(),
                     StandardDeviation = (RoundedDouble) random.NextDouble()
                 },
                 LevelCrestStructure =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = (RoundedDouble) random.Next(1, 10),
                     StandardDeviation = (RoundedDouble) random.NextDouble()
                 },
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = (RoundedDouble) random.Next(1, 10),
                     CoefficientOfVariation = (RoundedDouble) random.NextDouble()
                 },
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = (RoundedDouble) random.Next(1, 10),
                     StandardDeviation = (RoundedDouble) random.NextDouble()
                 }
             });

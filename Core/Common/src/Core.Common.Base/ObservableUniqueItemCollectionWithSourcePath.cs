@@ -142,10 +142,6 @@ namespace Core.Common.Base
         /// </exception>
         public void AddRange(IEnumerable<TElement> items, string filePath)
         {
-            if (items == null)
-            {
-                throw new ArgumentNullException(nameof(items));
-            }
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
@@ -171,9 +167,11 @@ namespace Core.Common.Base
         }
 
         /// <summary>
-        /// Validates the items of an <see cref="IEnumerable{TObject}"/> based on their feature.
+        /// Validates the items of <paramref name="items"/> based on their feature.
         /// </summary>
-        /// <param name="items"></param>
+        /// <param name="items">The items to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="items"/> is 
+        /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
         /// <item>one of the items is <c>null</c></item>
@@ -182,6 +180,10 @@ namespace Core.Common.Base
         /// </exception>
         private void InternalValidateItems(IEnumerable<TElement> items)
         {
+            if (items == null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
             if (items.Contains(null))
             {
                 throw new ArgumentException(@"Collection cannot contain null.", nameof(items));

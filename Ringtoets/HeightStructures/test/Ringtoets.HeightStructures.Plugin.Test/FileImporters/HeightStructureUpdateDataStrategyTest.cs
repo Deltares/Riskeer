@@ -565,11 +565,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
 
+            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
+
             // Precondition
             Assert.AreSame(calculation, sectionResults[0].Calculation);
             Assert.IsNull(sectionResults[1].Calculation);
-
-            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
