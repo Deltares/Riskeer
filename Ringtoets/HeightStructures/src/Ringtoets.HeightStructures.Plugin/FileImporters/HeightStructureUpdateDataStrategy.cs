@@ -30,7 +30,6 @@ using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Service;
 
 namespace Ringtoets.HeightStructures.Plugin.FileImporters
 {

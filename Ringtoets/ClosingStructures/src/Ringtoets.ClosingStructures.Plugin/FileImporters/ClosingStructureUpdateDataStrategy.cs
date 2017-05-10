@@ -23,13 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
-using Ringtoets.ClosingStructures.Data;
 
 namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
@@ -38,7 +38,7 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
     /// updating Closing structures based on imported data.
     /// </summary>
     public class ClosingStructureUpdateDataStrategy : UpdateDataStrategyBase<ClosingStructure, ClosingStructuresFailureMechanism>,
-                                                     IStructureUpdateStrategy<ClosingStructure>
+                                                      IStructureUpdateStrategy<ClosingStructure>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructureUpdateDataStrategy"/>.
@@ -55,18 +55,14 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
             return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
         }
 
-        #region Removing Data Functions
-
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ClosingStructure removedObject)
         {
             return RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                removedObject, 
+                removedObject,
                 FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                FailureMechanism.ClosingStructures, 
+                FailureMechanism.ClosingStructures,
                 FailureMechanism.SectionResults);
         }
-
-        #endregion
 
         /// <summary>
         /// Class for comparing <see cref="ClosingStructure"/> by only the id.

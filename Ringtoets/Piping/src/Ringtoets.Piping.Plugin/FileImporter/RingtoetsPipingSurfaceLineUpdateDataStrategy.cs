@@ -55,14 +55,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return UpdateTargetCollectionData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
         }
 
-        #region Removing Data Functions
-
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)
         {
             return PipingDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedSurfaceLine);
         }
-
-        #endregion
 
         /// <summary>
         /// Class for comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
