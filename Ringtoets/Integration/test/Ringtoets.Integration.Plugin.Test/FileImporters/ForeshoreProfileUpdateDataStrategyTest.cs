@@ -42,6 +42,68 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
     {
         private const string sourceFilePath = "some/path/to/foreshoreProfiles";
 
+        private static IEnumerable<TestCaseData> DifferentForeshoreProfileWithSameID
+        {
+            get
+            {
+                var random = new Random(21);
+
+                var defaultForeshoreProfile = new TestForeshoreProfile();
+
+                string defaultId = defaultForeshoreProfile.Id;
+                string defaultName = defaultForeshoreProfile.Name;
+                RoundedPoint2DCollection defaultGeometry = defaultForeshoreProfile.Geometry;
+                BreakWater defaultBreakWater = defaultForeshoreProfile.BreakWater;
+                Point2D defaultReferencePoint = defaultForeshoreProfile.WorldReferencePoint;
+                double defaultX0 = defaultForeshoreProfile.X0;
+                RoundedDouble defaultOrientation = defaultForeshoreProfile.Orientation;
+
+                yield return new TestCaseData(new TestForeshoreProfile("different name", defaultId))
+                    .SetName("DifferentName");
+                yield return new TestCaseData(new TestForeshoreProfile(new Point2D(defaultReferencePoint.X + random.NextDouble(),
+                                                                                   defaultReferencePoint.Y + random.NextDouble())))
+                    .SetName("DifferentWorldReferencePoint");
+                yield return new TestCaseData(new TestForeshoreProfile(new BreakWater(random.NextEnumValue<BreakWaterType>(),
+                                                                                      random.NextDouble())))
+                    .SetName("DifferentBreakWater");
+                yield return new TestCaseData(new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(random.NextDouble(),
+                                    random.NextDouble())
+                    }))
+                    .SetName("DifferentGeometry");
+                yield return new TestCaseData(new ForeshoreProfile(defaultReferencePoint, defaultGeometry, defaultBreakWater,
+                                                                   new ForeshoreProfile.ConstructionProperties
+                                                                   {
+                                                                       Id = defaultId,
+                                                                       Name = defaultName,
+                                                                       Orientation = defaultOrientation,
+                                                                       X0 = defaultX0 + random.NextDouble()
+                                                                   }))
+                    .SetName("DifferentX0");
+                yield return new TestCaseData(new ForeshoreProfile(defaultReferencePoint, defaultGeometry, defaultBreakWater,
+                                                                   new ForeshoreProfile.ConstructionProperties
+                                                                   {
+                                                                       Id = defaultId,
+                                                                       Name = defaultName,
+                                                                       Orientation = defaultOrientation + random.NextDouble(),
+                                                                       X0 = defaultX0
+                                                                   }))
+                    .SetName("DifferentOrientation");
+            }
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ForeshoreProfileUpdateDataStrategy(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_CreatesNewInstance()
         {
@@ -54,11 +116,60 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateForeshoreProfilesWithImportedData_ForeshoreProfilePropertiesChanged_UpdateRelevantProperties()
+        public void UpdateForeshoreProfilesWithImportedData_TargetDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var profileToBeUpdated = new TestForeshoreProfile("Name", "Profile ID");
-            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
+                                                                                       Enumerable.Empty<ForeshoreProfile>(),
+                                                                                       sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("targetDataCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(new ForeshoreProfileCollection(),
+                                                                                       null,
+                                                                                       sourceFilePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("importedDataCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(new ForeshoreProfileCollection(),
+                                                                                       Enumerable.Empty<ForeshoreProfile>(),
+                                                                                       null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentForeshoreProfileWithSameID))]
+        public void UpdateForeshoreProfilesWithImportedData_ForeshoreProfilePropertiesChanged_UpdateRelevantProperties(
+            ForeshoreProfile readForeshoreProfile)
+        {
+            // Setup
+            var profileToBeUpdated = new TestForeshoreProfile();
 
             var targetCollection = new ForeshoreProfileCollection();
             targetCollection.AddRange(new[]
@@ -72,13 +183,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             strategy.UpdateForeshoreProfilesWithImportedData(targetCollection,
                                                              new[]
                                                              {
-                                                                 profileToUpdateFrom
+                                                                 readForeshoreProfile
                                                              }, sourceFilePath);
 
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
             Assert.AreSame(profileToBeUpdated, targetCollection[0]);
-            AssertForeshoreProfile(profileToUpdateFrom, profileToBeUpdated);
+            AssertForeshoreProfile(readForeshoreProfile, profileToBeUpdated);
         }
 
         [Test]
@@ -453,7 +564,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var originalForeshoreProfiles = new[]
             {
-                affectedProfile,
+                affectedProfile
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
