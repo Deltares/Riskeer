@@ -1095,7 +1095,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<HeightStructuresInput>() 
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -1144,14 +1144,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
+                                                                       failureMechanism,
+                                                                       assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
-                
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1163,7 +1163,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             }
         }
-
 
         [Test]
         public void GivenCalculationWithStructureWithoutOutput_WhenStructureUpdatedAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
@@ -1518,7 +1517,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     HeightStructuresInput inputParameters = calculation.InputParameters;
-                    inputParameters.StructureNormalOrientation = (RoundedDouble)1.1;
+                    inputParameters.StructureNormalOrientation = (RoundedDouble) 1.1;
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
