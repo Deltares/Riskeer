@@ -515,7 +515,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private IList<OrderedDictionary> GetForlandModelsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
-            foreach (HydraRingCalculationInput input in hydraRingInputs.Where(i => i.ForelandsPoints.Any()))
+            foreach (HydraRingCalculationInput input in hydraRingInputs.Where(i => i.ForelandsPoints.Any() || i.BreakWater != null))
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(input.FailureMechanismType);
                 orderDictionaries.Add(new OrderedDictionary
