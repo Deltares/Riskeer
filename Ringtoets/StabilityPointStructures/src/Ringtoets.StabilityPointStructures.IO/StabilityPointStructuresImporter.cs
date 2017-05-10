@@ -24,12 +24,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
+using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
-
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
@@ -54,12 +57,21 @@ namespace Ringtoets.StabilityPointStructures.IO
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            IEnumerable<StabilityPointStructure> importedStabilityPointStructures = CreateStabilityPointStructures(structureLocations.ToList(), groupedStructureParameterRows);
+            IEnumerable<StabilityPointStructure> importedStabilityPointStructures = 
+                CreateStabilityPointStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray();
 
-            foreach (StabilityPointStructure stabilityPointStructure in importedStabilityPointStructures)
+            IEnumerable<string> knownIds = ImportTarget.Select(t => t.Id).Intersect(importedStabilityPointStructures.Select(s => s.Id)).ToArray();
+            if (knownIds.Any())
             {
-                ImportTarget.Add(stabilityPointStructure);
+                string duplicateFeatures = string.Join(", ", knownIds);
+                string exceptionMessage = string.Format(
+                    Resources.ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2,
+                    RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
+                    RingtoetsCommonDataResources.StructureCollection_UniqueFeature_id_FeatureDescription,
+                    duplicateFeatures);
+                throw new UpdateDataException(exceptionMessage);
             }
+            ImportTarget.AddRange(importedStabilityPointStructures);
         }
 
         private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IEnumerable<StructureLocation> structureLocations,

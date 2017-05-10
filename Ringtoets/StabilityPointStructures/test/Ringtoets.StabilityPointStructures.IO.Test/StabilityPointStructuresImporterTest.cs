@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test
 {
@@ -274,6 +275,45 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
             Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
             DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+        }
+
+        [Test]
+        public void Import_StructureWithSameIdAlreadyImporterd_FalseAndImportTargetNotUpdated()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var errorText = "Failed";
+            messageProvider.Stub(m => m.GetUpdateDataFailedLogMessageText(null)).IgnoreArguments().Return(errorText);
+            messageProvider.Stub(m => m.GetAddDataToModelProgressText()).Return("Progress");
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv", "Kunstwerken.shp");
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(154493.618, 568995.991),
+                new Point2D(156844.169, 574771.498),
+                new Point2D(157910.502, 579115.458),
+                new Point2D(163625.153, 585151.261)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var importTarget = new ObservableList<StabilityPointStructure>
+            {
+                new TestStabilityPointStructure("KWK_3"),
+                new TestStabilityPointStructure("KWK_4")
+            };
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+
+            var importResult = true;
+
+            // Call
+            Action import = () => importResult = structuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(import, Tuple.Create(errorText, LogLevelConstant.Error));
+            Assert.IsFalse(importResult);
+            Assert.AreEqual(2, importTarget.Count);
         }
 
         private static ReferenceLine CreateReferenceLine()

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -31,7 +32,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Utils;
 using Enumerable = System.Linq.Enumerable;
 
 namespace Ringtoets.Common.Service.Test
@@ -116,11 +116,8 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
-            // Setup
-            StructuresCalculation<TestInput> calculation = null;
-
             // Call
-            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -131,10 +128,11 @@ namespace Ringtoets.Common.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            var calculation = new StructuresCalculation<TestInput>
-            {
-                Output = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1)
-            };
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation>();
+            calculation.Expect(c => c.HasOutput).Return(true);
+            calculation.Expect(c => c.ClearOutput());
+            mocks.ReplayAll();
 
             // Call
             IEnumerable<IObservable> changedObjects = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
@@ -142,7 +140,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(calculation.Output);
+            mocks.VerifyAll();
 
             CollectionAssert.AreEqual(new[]
             {
@@ -154,16 +152,18 @@ namespace Ringtoets.Common.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new StructuresCalculation<TestInput>
-            {
-                Output = null
-            };
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation>();
+            calculation.Expect(c => c.HasOutput).Return(false);
+            mocks.ReplayAll();
 
             // Call
             IEnumerable<IObservable> changedObjects = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -173,21 +173,21 @@ namespace Ringtoets.Common.Service.Test
             var foreshoreProfileToBeRemoved = new TestForeshoreProfile(new Point2D(0, 0));
             var foreshoreProfile = new TestForeshoreProfile(new Point2D(1, 1));
 
-            var calculation1 = new StructuresCalculation<SimpleStructuresInput>
+            var calculation1 = new StructuresCalculation<TestStructureInput>
             {
                 InputParameters =
                 {
                     ForeshoreProfile = foreshoreProfile
                 }
             };
-            var calculation2 = new StructuresCalculation<SimpleStructuresInput>
+            var calculation2 = new StructuresCalculation<TestStructureInput>
             {
                 InputParameters =
                 {
                     ForeshoreProfile = foreshoreProfileToBeRemoved
                 }
             };
-            var calculation3 = new StructuresCalculation<SimpleStructuresInput>
+            var calculation3 = new StructuresCalculation<TestStructureInput>
             {
                 InputParameters =
                 {
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<SimpleStructuresInput, StructureBase>(
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<TestStructureInput, TestStructure>(
                 calculations, foreshoreProfileToBeRemoved);
 
             // Assert
@@ -454,51 +454,30 @@ namespace Ringtoets.Common.Service.Test
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
-        private class TestInput : ICalculationInput
+        private class TestSectionResult : StructuresFailureMechanismSectionResult<TestStructureInput>
         {
-            public void Attach(IObserver observer)
+            public TestSectionResult(Point2D point2D) : base(new FailureMechanismSection($"Location {point2D}", new[]
             {
-                throw new NotImplementedException();
-            }
-
-            public void Detach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void NotifyObservers()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
-        {
-            protected override void UpdateStructureParameters() {}
-        }
-    }
-
-    public class TestSectionResult : StructuresFailureMechanismSectionResult<TestStructureInput>
-    {
-        public TestSectionResult(Point2D point2D) : base(new FailureMechanismSection($"Location {point2D}", new[]
-        {
             point2D,
             point2D
-        })) {}
-    }
+        }))
+            { }
+        }
 
-    public class TestStructureInput : StructuresInputBase<TestStructure>
-    {
-        protected override void UpdateStructureParameters() {}
-    }
-
-    public class TestStructure : StructureBase
-    {
-        public TestStructure(string id, Point2D location) : base(new ConstructionProperties
+        private class TestStructureInput : StructuresInputBase<TestStructure>
         {
-            Name = $"{id} name",
-            Id = id,
-            Location = location
-        }) {}
+            protected override void UpdateStructureParameters() { }
+        }
+
+        private class TestStructure : StructureBase
+        {
+            public TestStructure(string id, Point2D location) : base(new ConstructionProperties
+            {
+                Name = $"{id} name",
+                Id = id,
+                Location = location
+            })
+            { }
+        }
     }
 }
