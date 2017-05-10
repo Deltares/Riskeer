@@ -170,22 +170,23 @@ namespace Core.Common.Base
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Validates the items of an <see cref="IEnumerable{TObject}"/> based on their feature.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <exception cref="ArgumentException">Thrown when 
+        /// <list type="bullet">
+        /// <item>one of the items is <c>null</c></item>
+        /// <item>when a duplicate item was found.</item>
+        /// </list>
+        /// </exception>
         private void InternalValidateItems(IEnumerable<TElement> items)
         {
             if (items.Contains(null))
             {
-                throw new ArgumentException("Collection cannot contain null.", nameof(items));
+                throw new ArgumentException(@"Collection cannot contain null.", nameof(items));
             }
-            ValidateItems(items);
-        }
 
-        /// <summary>
-        /// Validates the items of an <see cref="IEnumerable{TObject}"/> based on their feature.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when any parameters are <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when a duplicate item was found.</exception>
-        private void ValidateItems(IEnumerable<TElement> items)
-        {
             IEnumerable<IGrouping<object, TElement>> duplicateItems =
                 items.Concat(collection).GroupBy(getUniqueFeature)
                      .Where(group => group.Count() > 1);

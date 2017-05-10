@@ -120,10 +120,6 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new UpdateDataException(e.Message, e);
             }
-            catch (InvalidOperationException e)
-            {
-                throw new UpdateDataException(Resources.UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items, e);
-            }
         }
 
         /// <summary>
@@ -138,8 +134,8 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <returns>A <see cref="IEnumerable{T}"/> with affected objects.</returns>
         /// <exception cref="ArgumentException">Thrown when duplicate items are being added to the 
         /// <paramref name="targetDataCollection"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when duplicate items are found during the 
-        /// update of the items to be updated in the <paramref name="targetDataCollection"/>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when duplicate items are found in the 
+        /// <paramref name="importedDataCollection"/>.</exception>
         private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                               IEnumerable<TTargetData> importedDataCollection,
                                                               string sourceFilePath)
@@ -184,12 +180,16 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <param name="objectsToUpdate">The objects that need to be updated.</param>
         /// <param name="importedDataCollection">The data to update from.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of affected items.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when the imported 
+        /// <exception cref="UpdateDataException">Thrown when the imported 
         /// <paramref name="importedDataCollection"/> contains duplicate items.</exception>
         private IEnumerable<IObservable> UpdateData(IEnumerable<TTargetData> objectsToUpdate,
                                                     IEnumerable<TTargetData> importedDataCollection)
         {
             var affectedObjects = new List<IObservable>();
+            if (importedDataCollection.Count() != importedDataCollection.Distinct(equalityComparer).Count())
+            {
+                throw new UpdateDataException(Resources.UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items);
+            }
 
             foreach (TTargetData objectToUpdate in objectsToUpdate)
             {

@@ -300,8 +300,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
 
-            string expectedMessage = "Profielschematisaties moeten een unieke naam hebben. " +
-                                     $"Gevonden dubbele elementen: {duplicateName}.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             CollectionAssert.IsEmpty(targetCollection);

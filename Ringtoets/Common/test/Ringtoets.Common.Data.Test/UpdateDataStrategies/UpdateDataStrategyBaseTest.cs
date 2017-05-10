@@ -208,9 +208,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var collection = new TestUniqueItemCollection();
+            var testItem = new TestItem("I am an expected item");
             collection.AddRange(new[]
             {
-                new TestItem("I am an expected item")
+                testItem
             }, sourceFilePath);
 
             const string duplicateName = "Duplicate Name";
@@ -227,11 +228,13 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
-            string message = $"TestItem moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.";
+            const string message = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(message, exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
 
-            CollectionAssert.IsEmpty(collection);
+            CollectionAssert.AreEqual(new[]
+            {
+                testItem
+            }, collection);
         }
 
         [Test]
@@ -469,7 +472,6 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
             Assert.AreEqual("Geïmporteerde data moet unieke elementen bevatten.", exception.Message);
-            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 
         [Test]

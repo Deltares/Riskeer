@@ -27,17 +27,16 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
+using Ringtoets.ClosingStructures.Plugin.FileImporters;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.Plugin.FileImporters;
 using Ringtoets.Common.Utils;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
@@ -71,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 }).SetName("Different AllowedLevelIncreaseStorage");
                 yield return new TestCaseData(new TestClosingStructure
                 {
-                    AreaFlowApertures = 
+                    AreaFlowApertures =
                     {
                         Mean = (RoundedDouble) random.Next(),
                         Shift = random.NextRoundedDouble(),
@@ -97,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 }).SetName("Different FlowWidthAtBottomProtection");
                 yield return new TestCaseData(new TestClosingStructure
                 {
-                    InsideWaterLevel = 
+                    InsideWaterLevel =
                     {
                         Mean = (RoundedDouble) random.Next(),
                         StandardDeviation = random.NextRoundedDouble()
@@ -105,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 }).SetName("Different InsideWaterLevel");
                 yield return new TestCaseData(new TestClosingStructure
                 {
-                    LevelCrestStructureNotClosing = 
+                    LevelCrestStructureNotClosing =
                     {
                         Mean = (RoundedDouble) random.Next(),
                         StandardDeviation = random.NextRoundedDouble()
@@ -121,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 }).SetName("Different StorageStructureArea");
                 yield return new TestCaseData(new TestClosingStructure
                 {
-                    ThresholdHeightOpenWeir = 
+                    ThresholdHeightOpenWeir =
                     {
                         Mean = (RoundedDouble) random.Next(),
                         StandardDeviation = random.NextRoundedDouble()
@@ -291,7 +290,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
 
-            string expectedMessage = $"Kunstwerken moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             CollectionAssert.IsEmpty(targetCollection);

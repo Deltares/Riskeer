@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var exception = Assert.Throws<DikeProfileUpdateException>(call);
 
             string expectedMessage = "Het bijwerken van de dijkprofielen is mislukt: " +
-                                     $"Dijkprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
+                                     "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 

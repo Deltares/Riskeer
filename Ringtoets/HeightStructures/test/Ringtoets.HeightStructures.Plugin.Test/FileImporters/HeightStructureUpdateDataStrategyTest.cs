@@ -216,7 +216,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_WithoutCurrentStructuresAndReadStructuresHaveDuplicateNames_ThrowsUpdateDataException()
+        public void UpdateStructuresWithImportedData_WithoutCurrentStructuresAndReadStructuresHaveDuplicateIds_ThrowsUpdateDataException()
         {
             // Setup
             const string duplicateId = "I am a duplicate id";
@@ -237,8 +237,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
 
-            string expectedMessage = "Kunstwerken moeten een unieke id hebben. " +
-                                     $"Gevonden dubbele elementen: {duplicateId}.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             CollectionAssert.IsEmpty(targetCollection);

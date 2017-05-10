@@ -152,8 +152,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(test);
-            const string expectedMessage = "Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
-                                           "Gevonden dubbele elementen: non-unique name.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             CollectionAssert.IsEmpty(targetCollection);
