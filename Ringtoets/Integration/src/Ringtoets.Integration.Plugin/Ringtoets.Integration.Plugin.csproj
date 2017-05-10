@@ -55,6 +55,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
+    <Compile Include="FileImporters\ForeshoreProfileUpdateDataStrategy.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Handlers\ReferenceLineReplacementHandler.cs" />
