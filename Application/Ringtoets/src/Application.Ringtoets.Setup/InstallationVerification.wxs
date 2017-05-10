@@ -6,10 +6,10 @@
         <File Source="InstallationVerification\hlcd.sqlite" KeyPath="yes"/>
       </Component>
       <Component Id="HRDConfigFile" Guid="AA3C6607-7B3A-4A34-9C46-430CEA76BD4C">
-        <File Source="InstallationVerification\WBI2017_IJsselmeer_12-2_v01.config.sqlite" KeyPath="yes"/>
+        <File Source="InstallationVerification\WBI2017_IJsselmeer_12-2_v02.config.sqlite" KeyPath="yes"/>
       </Component>
       <Component Id="HRDFile" Guid="D495D4D6-8B24-48FC-936C-CB921714CDED">
-        <File Source="InstallationVerification\WBI2017_IJsselmeer_12-2_v01.sqlite" KeyPath="yes"/>
+        <File Source="InstallationVerification\WBI2017_IJsselmeer_12-2_v02.sqlite" KeyPath="yes"/>
       </Component>
     </DirectoryRef>
 	</Fragment>
