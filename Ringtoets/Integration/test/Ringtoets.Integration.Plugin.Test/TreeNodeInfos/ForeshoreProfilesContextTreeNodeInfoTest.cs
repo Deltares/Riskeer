@@ -199,8 +199,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     contextMenuBuilder.Expect(b => b.AddImportItem()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddDeleteChildrenItem()).Return(contextMenuBuilder);
-                    contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.AddCollapseAllItem()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.AddExpandAllItem()).Return(contextMenuBuilder);
                     contextMenuBuilder.Expect(b => b.AddSeparator()).Return(contextMenuBuilder);

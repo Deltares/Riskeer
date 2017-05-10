@@ -542,9 +542,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.ReferenceLineIcon,
-                ForeColor = context => context.WrappedData.ReferenceLine == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => context.WrappedData.ReferenceLine == null
+                                           ? Color.FromKnownColor(KnownColor.GrayText)
+                                           : Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
                     Gui.Get(nodeData, treeViewControl)
                        .AddImportItem()
@@ -562,9 +562,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.SectionsIcon,
-                ForeColor = context => context.WrappedData.Sections.Any() ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.Sections.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
             };
 
@@ -591,9 +591,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null
+                                           ? Color.FromKnownColor(KnownColor.GrayText)
+                                           : Color.FromKnownColor(KnownColor.ControlText),
                 ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
@@ -616,16 +616,14 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = context => context.WrappedData.Any() ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData
                                                      .Cast<object>()
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
@@ -648,12 +646,8 @@ namespace Ringtoets.Integration.Plugin
                 Text = foreshoreProfile => foreshoreProfile.Name,
                 Image = context => RingtoetsIntegrationPluginResources.Foreshore,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddDeleteItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
-                                                                                 .Build(),
-                CanRemove = CanRemoveForeshoreProfile,
-                OnNodeRemoved = OnForeshoreProfileRemoved
+                                                                                 .Build()
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
@@ -1063,7 +1057,7 @@ namespace Ringtoets.Integration.Plugin
 
             if (failureMechanism != null)
             {
-                calculations = (IEnumerable<IWaveConditionsCalculation>)failureMechanism.Calculations;
+                calculations = (IEnumerable<IWaveConditionsCalculation>) failureMechanism.Calculations;
             }
 
             return calculations;
@@ -1160,83 +1154,6 @@ namespace Ringtoets.Integration.Plugin
             assessmentSection.BackgroundData.Configuration = newBackgroundData.Configuration;
 
             assessmentSection.BackgroundData.NotifyObservers();
-        }
-
-        #endregion
-
-        #region ForeshoreProfile TreeNodeInfo
-
-        private static bool CanRemoveForeshoreProfile(ForeshoreProfile nodeData, object parentNodeData)
-        {
-            var parentContext = (ForeshoreProfilesContext) parentNodeData;
-            IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
-            return failureMechanism is StabilityStoneCoverFailureMechanism ||
-                   failureMechanism is WaveImpactAsphaltCoverFailureMechanism ||
-                   failureMechanism is GrassCoverErosionOutwardsFailureMechanism ||
-                   failureMechanism is HeightStructuresFailureMechanism ||
-                   failureMechanism is ClosingStructuresFailureMechanism ||
-                   failureMechanism is StabilityPointStructuresFailureMechanism;
-        }
-
-        private static void OnForeshoreProfileRemoved(ForeshoreProfile nodeData, object parentNodeData)
-        {
-            var parentContext = (ForeshoreProfilesContext) parentNodeData;
-            IFailureMechanism failureMechanism = parentContext.ParentFailureMechanism;
-
-            var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
-            if (stabilityStoneCoverFailureMechanism != null)
-            {
-                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(stabilityStoneCoverFailureMechanism, nodeData);
-                foreach (IObservable affectedObservable in affectedObservables)
-                {
-                    affectedObservable.NotifyObservers();
-                }
-            }
-            var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
-            if (waveImpactAsphaltCoverFailureMechanism != null)
-            {
-                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(waveImpactAsphaltCoverFailureMechanism, nodeData);
-                foreach (IObservable affectedObservable in affectedObservables)
-                {
-                    affectedObservable.NotifyObservers();
-                }
-            }
-            var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-            if (grassCoverErosionOutwardsFailureMechanism != null)
-            {
-                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(grassCoverErosionOutwardsFailureMechanism, nodeData);
-                foreach (IObservable affectedObservable in affectedObservables)
-                {
-                    affectedObservable.NotifyObservers();
-                }
-            }
-            var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
-            if (heightStructuresFailureMechanism != null)
-            {
-                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(heightStructuresFailureMechanism, nodeData);
-                foreach (IObservable affectedObservable in affectedObservables)
-                {
-                    affectedObservable.NotifyObservers();
-                }
-            }
-            var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
-            if (closingStructuresFailureMechanism != null)
-            {
-                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(closingStructuresFailureMechanism, nodeData);
-                foreach (IObservable affectedObservable in affectedObservables)
-                {
-                    affectedObservable.NotifyObservers();
-                }
-            }
-            var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
-            if (stabilityPointStructuresFailureMechanism != null)
-            {
-                IEnumerable<IObservable> affectedObservables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(stabilityPointStructuresFailureMechanism, nodeData);
-                foreach (IObservable affectedObservable in affectedObservables)
-                {
-                    affectedObservable.NotifyObservers();
-                }
-            }
         }
 
         #endregion
