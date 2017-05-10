@@ -31,6 +31,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -582,6 +583,38 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_CreateProfilesThrowsUpdateDataException_ReturnsFalseAndLogsError()
+        {
+            // Setup
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
+                           .Return("");
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(null))
+                           .IgnoreArguments()
+                           .Return("error {0}");
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider)
+            {
+                CreateProfileAction = () => { throw new UpdateDataException("Exception message"); }
+            };
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            const string expectedMessage = "error Exception message";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
         public void Import_AddingDataToModel_SetsProgressText()
         {
             // Setup
@@ -629,11 +662,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestProfilesImporter : ProfilesImporter<ObservableList<object>>
         {
+            public Action CreateProfileAction;
+
             public TestProfilesImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, string filePath,
                                         IImporterMessageProvider messageProvider)
                 : base(referenceLine, filePath, importTarget, messageProvider) {}
 
-            protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult, ReadResult<DikeProfileData> importDikeProfileDataResult) {}
+            protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
+                                                   ReadResult<DikeProfileData> importDikeProfileDataResult)
+            {
+                CreateProfileAction?.Invoke();
+            }
 
             protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
             {

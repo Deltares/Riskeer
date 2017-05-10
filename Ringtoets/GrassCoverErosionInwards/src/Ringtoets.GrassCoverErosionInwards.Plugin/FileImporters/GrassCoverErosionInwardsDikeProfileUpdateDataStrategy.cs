@@ -56,15 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
                                                                            IEnumerable<DikeProfile> importedDataCollection,
                                                                            string sourceFilePath)
         {
-            try
-            {
-                return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message = string.Format(Resources.DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikeProfiles_failed_Reason_0, e.Message);
-                throw new DikeProfileUpdateException(message, e);
-            }
+            return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(DikeProfile objectToUpdate, DikeProfile objectToUpdateFrom)

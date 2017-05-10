@@ -82,26 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het importeren van dijkprofielen is mislukt: {0}.
-        /// </summary>
-        internal static string DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Importing_DikeProfiles_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Importing_DikeP" +
-                        "rofiles_failed_Reason_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de dijkprofielen is mislukt: {0}.
-        /// </summary>
-        internal static string DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikeProfiles_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikePr" +
-                        "ofiles_failed_Reason_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren..
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {

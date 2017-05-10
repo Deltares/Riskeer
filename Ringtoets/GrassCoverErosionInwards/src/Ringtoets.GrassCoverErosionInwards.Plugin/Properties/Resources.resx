@@ -123,12 +123,6 @@
   <data name="GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip" xml:space="preserve">
     <value>Genereer berekeningen op basis van geselecteerde dijkprofielen.</value>
   </data>
-  <data name="DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Importing_DikeProfiles_failed_Reason_0" xml:space="preserve">
-    <value>Het importeren van dijkprofielen is mislukt: {0}</value>
-  </data>
-  <data name="DikeProfileReplaceDataStrategy_UpdateDikeProfilesWithImportedData_Updating_DikeProfiles_failed_Reason_0" xml:space="preserve">
-    <value>Het bijwerken van de dijkprofielen is mislukt: {0}</value>
-  </data>
   <data name="GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfiles_Calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u dijkprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 

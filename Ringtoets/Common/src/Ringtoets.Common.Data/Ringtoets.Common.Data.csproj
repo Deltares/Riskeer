@@ -59,7 +59,6 @@
     <Compile Include="DikeProfiles\IHasForeshoreProfile.cs" />
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
-    <Compile Include="Exceptions\DikeProfileUpdateException.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />

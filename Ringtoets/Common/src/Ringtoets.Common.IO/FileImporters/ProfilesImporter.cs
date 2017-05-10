@@ -30,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -94,6 +95,14 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 CreateProfiles(importDikeProfilesResult, importDikeProfileDataResult);
             }
+            catch (UpdateDataException e)
+            {
+                string message = string.Format(MessageProvider.GetUpdateDataFailedLogMessageText(
+                                                   "TODO"),
+                                               e.Message);
+                Log.Error(message, e);
+                return false;
+            }
             catch (CriticalFileReadException e)
             {
                 Log.Error(e.Message);
@@ -110,6 +119,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="importDikeProfileDataResult">The read dike profile geometries.</param>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="importDikeProfileDataResult"/>
         /// does not contain data for a location in <paramref name="importProfileLocationResult"/>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when applying updates to the data model has failed.</exception>
         protected abstract void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult);
 

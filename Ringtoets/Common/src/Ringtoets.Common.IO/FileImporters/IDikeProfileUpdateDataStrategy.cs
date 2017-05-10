@@ -44,7 +44,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input
         /// argument is <c>null</c>.</exception>
-        /// <exception cref="DikeProfileUpdateException">Thrown 
+        /// <exception cref="UpdateDataException">Thrown 
         /// when applying the strategy has failed.</exception>
         IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(
             DikeProfileCollection targetDataCollection,

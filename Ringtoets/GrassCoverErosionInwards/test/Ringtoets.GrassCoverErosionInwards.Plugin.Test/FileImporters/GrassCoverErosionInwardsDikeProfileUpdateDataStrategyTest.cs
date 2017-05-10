@@ -179,12 +179,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                                                                                   }, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<DikeProfileUpdateException>(call);
+            var exception = Assert.Throws<UpdateDataException>(call);
 
-            string expectedMessage = "Het bijwerken van de dijkprofielen is mislukt: " +
-                                     "Geïmporteerde data moet unieke elementen bevatten.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 
             CollectionAssert.IsEmpty(targetCollection);
         }
@@ -245,11 +243,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                                                                                   sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<DikeProfileUpdateException>(call);
-            const string expectedMessage = "Het bijwerken van de dijkprofielen is mislukt: " +
-                                           "Geïmporteerde data moet unieke elementen bevatten.";
+            var exception = Assert.Throws<UpdateDataException>(call);
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 
             CollectionAssert.AreEqual(expectedTargetCollection, targetCollection);
             AssertDikeProfile(expectedDikeProfile, targetCollection[0]);
