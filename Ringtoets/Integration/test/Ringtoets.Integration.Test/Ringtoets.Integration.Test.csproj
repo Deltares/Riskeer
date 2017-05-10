@@ -60,6 +60,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategyIntegrationTest.cs" />
+    <Compile Include="FileImporters\ForeshoreProfileUpdateDataStrategyIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceLineImporterIntegrationTest.cs" />
   </ItemGroup>
