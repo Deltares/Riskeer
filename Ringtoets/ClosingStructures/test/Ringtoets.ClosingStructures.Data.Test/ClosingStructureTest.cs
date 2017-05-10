@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -418,6 +419,141 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(1, structure.FailureProbabilityReparation);
 
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructureNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var structure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            // Call
+            TestDelegate call = () => structure.CopyProperties(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("fromStructure", paramName);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructure_UpdatesProperties()
+        {
+            // Setup
+            var random = new Random(123);
+            var structure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            var otherStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+            {
+                Name = "otherName",
+                Id = "otherId",
+                Location = new Point2D(1, 1),
+                StructureNormalOrientation = (RoundedDouble)random.Next(),
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    Shift = (RoundedDouble) random.NextDouble(),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                AreaFlowApertures =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                CriticalOvertoppingDischarge =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                },
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    Shift = (RoundedDouble) random.NextDouble(),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                InsideWaterLevel =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                LevelCrestStructureNotClosing =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                StorageStructureArea =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                },
+                ThresholdHeightOpenWeir =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                WidthFlowApertures =
+                {
+                    Mean = (RoundedDouble) (random.NextDouble() + 1.0),
+                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                },
+                FailureProbabilityOpenStructure = random.NextDouble(),
+                FailureProbabilityReparation = random.NextDouble(),
+                InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
+                IdenticalApertures = random.Next(),
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble()
+            });
+
+            // Call
+            structure.CopyProperties(otherStructure);
+
+            // Assert
+            Assert.AreNotEqual(otherStructure.Id, structure.Id);
+            Assert.AreEqual(otherStructure.Name, structure.Name);
+            Assert.AreEqual(otherStructure.Location, structure.Location);
+            Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Shift, structure.AllowedLevelIncreaseStorage.Shift);
+
+            Assert.AreEqual(otherStructure.AreaFlowApertures.Mean, structure.AreaFlowApertures.Mean);
+            Assert.AreEqual(otherStructure.AreaFlowApertures.StandardDeviation, structure.AreaFlowApertures.StandardDeviation);
+
+            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
+
+            Assert.AreEqual(otherStructure.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure);
+            Assert.AreEqual(otherStructure.FailureProbabilityReparation, structure.FailureProbabilityReparation);
+            Assert.AreEqual(otherStructure.IdenticalApertures, structure.IdenticalApertures);
+            Assert.AreEqual(otherStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Shift, structure.FlowWidthAtBottomProtection.Shift);
+
+            Assert.AreEqual(otherStructure.InsideWaterLevel.Mean, structure.InsideWaterLevel.Mean);
+            Assert.AreEqual(otherStructure.InsideWaterLevel.StandardDeviation, structure.InsideWaterLevel.StandardDeviation);
+
+            Assert.AreEqual(otherStructure.LevelCrestStructureNotClosing.Mean, structure.LevelCrestStructureNotClosing.Mean);
+            Assert.AreEqual(otherStructure.LevelCrestStructureNotClosing.StandardDeviation, structure.LevelCrestStructureNotClosing.StandardDeviation);
+
+            Assert.AreEqual(otherStructure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
+            Assert.AreEqual(otherStructure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
+
+            Assert.AreEqual(otherStructure.ThresholdHeightOpenWeir.Mean, structure.ThresholdHeightOpenWeir.Mean);
+            Assert.AreEqual(otherStructure.ThresholdHeightOpenWeir.StandardDeviation, structure.ThresholdHeightOpenWeir.StandardDeviation);
+
+            Assert.AreEqual(otherStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
+            Assert.AreEqual(otherStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
         }
 
         private static ClosingStructure CreateFullyDefinedStructure()
