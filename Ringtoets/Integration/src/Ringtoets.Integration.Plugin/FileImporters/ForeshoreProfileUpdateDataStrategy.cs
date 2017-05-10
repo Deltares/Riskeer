@@ -21,38 +21,83 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Service;
 
 namespace Ringtoets.Integration.Plugin.FileImporters
 {
+    /// <summary>
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for 
+    /// updating surface lines based on imported data.
+    /// </summary>
     public class ForeshoreProfileUpdateDataStrategy : UpdateDataStrategyBase<ForeshoreProfile, IFailureMechanism>,
                                                       IForeshoreProfileUpdateDataStrategy
     {
-        public ForeshoreProfileUpdateDataStrategy(IFailureMechanism failureMechanism) : base(failureMechanism, new ForeshoreProfileEqualityComparer()) {}
+        /// <summary>
+        /// Creates a new instance of <see cref="ForeshoreProfileUpdateDataStrategy"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism in which the <see cref="ForeshoreProfile"/>
+        ///  are updated.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public ForeshoreProfileUpdateDataStrategy(IFailureMechanism failureMechanism)
+            : base(failureMechanism, new ForeshoreProfileEqualityComparer()) {}
 
+        public IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(ForeshoreProfileCollection targetDataCollection,
+                                                                                IEnumerable<ForeshoreProfile> importedDataCollection,
+                                                                                string sourceFilePath)
+        {
+            return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
+        }
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ForeshoreProfile objectToUpdate, ForeshoreProfile objectToUpdateFrom)
         {
-            objectToUpdate.CopyProperties(objectToUpdateFrom);
-            return new IObservable[]
+            var affectedObjects = new List<IObservable>();
+            if (!objectToUpdate.Equals(objectToUpdateFrom))
             {
-                objectToUpdate
-            };
+                objectToUpdate.CopyProperties(objectToUpdateFrom);
+                affectedObjects.Add(objectToUpdate);
+
+                IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
+
+                foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
+                {
+                    affectedObjects.Add(calculation.InputParameters);
+                    affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                }
+            }
+
+            return affectedObjects;
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ForeshoreProfile removedObject)
         {
-            // TODO
-            return new IObservable[0];
+            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(removedObject);
+
+            var affectedObjects = new List<IObservable>();
+            foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
+            {
+                ((IHasForeshoreProfile) calculation.InputParameters).ForeshoreProfile = null;
+                affectedObjects.Add(calculation.InputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            }
+
+            return affectedObjects;
         }
 
-        public IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(ForeshoreProfileCollection targetDataCollection, IEnumerable<ForeshoreProfile> importedDataCollection, string sourceFilePath)
+        private IEnumerable<ICalculation<ICalculationInput>> GetAffectedCalculationWithSurfaceLines(ForeshoreProfile foreshoreProfile)
         {
-            return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
+            IEnumerable<ICalculation<ICalculationInput>> calculations = FailureMechanism.Calculations.Cast<ICalculation<ICalculationInput>>();
+            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations =
+                calculations.Where(calc => ReferenceEquals(
+                                       ((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile, foreshoreProfile));
+            return affectedCalculations;
         }
 
         /// <summary>

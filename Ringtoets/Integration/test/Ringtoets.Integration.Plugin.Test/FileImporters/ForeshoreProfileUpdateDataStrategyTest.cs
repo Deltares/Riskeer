@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var profileToBeUpdated = new TestForeshoreProfile("Name", "Profile ID");
-            var profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
+            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
 
             var targetCollection = new ForeshoreProfileCollection();
             targetCollection.AddRange(new[]
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
-            string expectedMessage = $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
             CollectionAssert.IsEmpty(foreshoreProfiles);
@@ -206,10 +206,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
-            string expectedMessage = $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
-            CollectionAssert.IsEmpty(foreshoreProfiles);
+            CollectionAssert.AreEqual(originalForeshoreProfiles, foreshoreProfiles);
         }
 
         [Test]
@@ -263,7 +263,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 targetForeshoreProfile
             }, sourceFilePath);
 
-            var readForeshoreProfile = DeepCloneAndModify(targetForeshoreProfile);
+            ForeshoreProfile readForeshoreProfile = DeepCloneAndModify(targetForeshoreProfile);
             var importedForeshoreProfiles = new[]
             {
                 readForeshoreProfile
@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 foreshoreProfileToBeRemoved
             }, sourceFilePath);
 
-            var foreshoreProfileToUpdateFrom = DeepCloneAndModify(foreshoreProfileToBeUpdated);
+            ForeshoreProfile foreshoreProfileToUpdateFrom = DeepCloneAndModify(foreshoreProfileToBeUpdated);
             var foreshoreProfileToBeAdded = new TestForeshoreProfile(commonName, "Added ID");
             var importedForeshoreProfiles = new[]
             {
@@ -339,6 +339,157 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             }, affectedObjects);
         }
 
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_CalculationWithOutputAssignedToRemovedProfile_UpdatesCalculation()
+        {
+            // Setup
+            var profileToBeRemoved = new TestForeshoreProfile("Name", "Removed ID");
+            TestCalculationWithForeshoreProfile calculation =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(profileToBeRemoved);
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            foreshoreProfiles.AddRange(new[]
+            {
+                profileToBeRemoved
+            }, sourceFilePath);
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
+
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
+                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                 sourceFilePath);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                calculation,
+                calculation.InputParameters,
+                foreshoreProfiles
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_MultipleCalculationsWithOutputAndProfile_UpdatesCalculationWithUpdatedProfile()
+        {
+            // Setup
+            var affectedProfile = new TestForeshoreProfile("Name", "Updated ID");
+            TestCalculationWithForeshoreProfile affectedCalculation =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(affectedProfile);
+            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(affectedProfile);
+
+            const string unaffectedProfileId = "Unaffected ID";
+            const string unaffectedProfileName = "Name";
+            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
+            TestCalculationWithForeshoreProfile unaffectedCalculation =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(unaffectedProfile);
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var originalForeshoreProfiles = new[]
+            {
+                affectedProfile,
+                unaffectedProfile
+            };
+            foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                affectedCalculation,
+                unaffectedCalculation
+            });
+
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
+                                                                 new[]
+                                                                 {
+                                                                     new TestForeshoreProfile(unaffectedProfileName,
+                                                                                              unaffectedProfileId),
+                                                                     profileToUpdateFrom
+                                                                 },
+                                                                 sourceFilePath);
+
+            // Assert
+            Assert.IsTrue(unaffectedCalculation.HasOutput);
+            Assert.AreSame(unaffectedProfile,
+                           unaffectedCalculation.InputParameters.ForeshoreProfile);
+
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.AreSame(affectedProfile, affectedCalculation.InputParameters.ForeshoreProfile);
+
+            CollectionAssert.AreEquivalent(originalForeshoreProfiles, foreshoreProfiles);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                affectedProfile,
+                foreshoreProfiles
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_MultipleCalculationsWithSameReference_OnlyReturnsDistinctCalculations()
+        {
+            // Setup
+            var affectedProfile = new TestForeshoreProfile("Name", "Updated ID");
+            TestCalculationWithForeshoreProfile affectedCalculation =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(affectedProfile);
+            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(affectedProfile);
+
+            TestCalculationWithForeshoreProfile calculationSameReference = affectedCalculation;
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var originalForeshoreProfiles = new[]
+            {
+                affectedProfile,
+            };
+            foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                affectedCalculation,
+                calculationSameReference
+            });
+
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
+                                                                 new[]
+                                                                 {
+                                                                     profileToUpdateFrom
+                                                                 },
+                                                                 sourceFilePath);
+
+            // Assert
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                affectedProfile,
+                foreshoreProfiles
+            }, affectedObjects);
+        }
+
+        /// <summary>
+        /// Makes a deep clone of the foreshore profile and modifies all the properties,
+        /// except the <see cref="ForeshoreProfile.Id"/>.
+        /// </summary>
+        /// <param name="foreshoreProfile">The foreshore profile to deep clone.</param>
+        /// <returns>A deep clone of the <paramref name="foreshoreProfile"/>.</returns>
         private static ForeshoreProfile DeepCloneAndModify(ForeshoreProfile foreshoreProfile)
         {
             var random = new Random(21);

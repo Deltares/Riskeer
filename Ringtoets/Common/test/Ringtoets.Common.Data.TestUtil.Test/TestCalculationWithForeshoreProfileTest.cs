@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
@@ -37,6 +38,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
             Assert.IsNull(calculation.Comments);
+        }
+
+        [Test]
+        public void CreateCalculationWithOutput_ForeshoreProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("foreshoreProfile", exception.ParamName);
         }
 
         [Test]
@@ -76,7 +89,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Given
             var foreshoreProfile = new TestForeshoreProfile();
-            var calculation =
+            TestCalculationWithForeshoreProfile calculation =
                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
 
             // When
@@ -91,7 +104,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Given
             var foreshoreProfile = new TestForeshoreProfile();
-            var calculation =
+            TestCalculationWithForeshoreProfile calculation =
                 TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
 
             // When
