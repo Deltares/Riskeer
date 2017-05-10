@@ -87,12 +87,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_WritesExpectedCreationScript()
+        [TestCase(true, true)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(false, false)]
+        public void WriteDatabaseCreationScript_SingleHydraRingCalculationInput_WritesExpectedCreationScript(bool withForeland, bool withBreakWater)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004)
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004, withForeland, withBreakWater)
             {
                 DesignTablesSetting = new DesignTablesSetting(6.6, 7.7),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
@@ -103,6 +107,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 },
                 TimeIntegrationSetting = new TimeIntegrationSetting(3)
             });
+
+            string expectedForelandModelsScript = withForeland || withBreakWater
+                                                      ? "INSERT INTO [ForelandModels] VALUES (1, 1, 3);" + Environment.NewLine
+                                                      : string.Empty;
+            string expectedForelandsScript = withForeland
+                                                 ? "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                                   "INSERT INTO [Forelands] VALUES (1, 2, 2.2, 3.3);" + Environment.NewLine
+                                                 : string.Empty;
+            string expectedBreakWatersScript = withBreakWater
+                                                   ? "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine
+                                                   : string.Empty;
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 2, 'WTI 2017');" + Environment.NewLine +
@@ -155,11 +170,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Profiles] VALUES (1, 2, 11.1, 22.2);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [ForelandModels];" + Environment.NewLine +
-                                            "INSERT INTO [ForelandModels] VALUES (1, 1, 3);" + Environment.NewLine +
+                                            expectedForelandModelsScript +
                                             Environment.NewLine +
                                             "DELETE FROM [Forelands];" + Environment.NewLine +
-                                            "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
-                                            "INSERT INTO [Forelands] VALUES (1, 2, 2.2, 3.3);" + Environment.NewLine +
+                                            expectedForelandsScript +
                                             Environment.NewLine +
                                             "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -178,7 +192,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine +
-                                            "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine;
+                                            expectedBreakWatersScript;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
             using (new FileDisposeHelper(databaseFilePath))
@@ -193,7 +207,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_MultipleHydraRingCalculationInputs_WritesExpectedCreationScript()
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.Model);
@@ -377,11 +391,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         private class HydraRingCalculationInputImplementation : HydraRingCalculationInput
         {
             private readonly int sectionId;
+            private readonly bool withForeland;
+            private readonly bool withBreakWater;
             private HydraRingFailureMechanismType failureMechanismType;
 
-            public HydraRingCalculationInputImplementation(int sectionId, int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId)
+            public HydraRingCalculationInputImplementation(int sectionId, int hydraulicBoundaryLocationId, bool withForeland = true, bool withBreakWater = true)
+                : base(hydraulicBoundaryLocationId)
             {
                 this.sectionId = sectionId;
+                this.withForeland = withForeland;
+                this.withBreakWater = withBreakWater;
 
                 failureMechanismType = HydraRingFailureMechanismType.AssessmentLevel;
             }
@@ -451,8 +470,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             {
                 get
                 {
-                    yield return new HydraRingForelandPoint(1.1, 2.2);
-                    yield return new HydraRingForelandPoint(2.2, 3.3);
+                    if (withForeland)
+                    {
+                        yield return new HydraRingForelandPoint(1.1, 2.2);
+                        yield return new HydraRingForelandPoint(2.2, 3.3);
+                    }
                 }
             }
 
@@ -460,7 +482,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             {
                 get
                 {
-                    return new HydraRingBreakWater(1, 99.9);
+                    return withBreakWater
+                               ? new HydraRingBreakWater(1, 99.9)
+                               : null;
                 }
             }
 
