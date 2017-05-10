@@ -618,11 +618,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
 
+            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
+
             // Precondition
             Assert.AreSame(calculation, sectionResults[0].Calculation);
             Assert.IsNull(sectionResults[1].Calculation);
-
-            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(

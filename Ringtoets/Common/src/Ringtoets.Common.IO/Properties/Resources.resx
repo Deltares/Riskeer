@@ -649,4 +649,14 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__" xml:space="preserve">
     <value>Het importeren van de {0} is mislukt: {{0}}</value>
   </data>
+  <data name="VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Wanneer de kunstwerken wijzigen als gevolg van het bijwerken zullen de resultaten van berekeningen die deze kunstwerken gebruiken worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>

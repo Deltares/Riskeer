@@ -1870,6 +1870,30 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_outpu" +
+                        "t_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer de kunstwerken wijzigen als gevolg van het bijwerken zullen de resultaten van berekeningen die deze kunstwerken gebruiken worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output" +
+                        "_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

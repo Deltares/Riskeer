@@ -19,51 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.IO;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class ClosingStructuresContextImportInfoTest
+    public class ClosingStructuresContextImportInfoTest : NUnitFormTest
     {
-        [Test]
-        public void CreateFileImporter_Always_ReturnFileImporter()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            assessmentSectionStub.ReferenceLine = new ReferenceLine();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
-
-            using (var plugin = new ClosingStructuresPlugin())
-            {
-                ImportInfo importInfo = GetImportInfo(plugin);
-
-                // Call
-                IFileImporter importer = importInfo.CreateFileImporter(importTarget, "test");
-
-                // Assert
-                Assert.IsInstanceOf<ClosingStructuresImporter>(importer);
-            }
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
@@ -175,6 +156,120 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
                 Assert.IsFalse(isEnabled);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFileImporter_Always_ReturnFileImporter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            assessmentSectionStub.ReferenceLine = new ReferenceLine();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
+
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
+
+                // Call
+                IFileImporter importer = importInfo.CreateFileImporter(importTarget, "test");
+
+                // Assert
+                Assert.IsInstanceOf<ClosingStructuresImporter>(importer);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                plugin.Gui = gui;
+
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
+
+                var structures = new StructureCollection<ClosingStructure>();
+                var context = new ClosingStructuresContext(structures, failureMechanism, assessmentSection);
+
+                ImportInfo importInfo = GetImportInfo(plugin);
+
+                // Call
+                bool updatesVerified = importInfo.VerifyUpdates(context);
+
+                // Assert
+                Assert.IsTrue(updatesVerified);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                plugin.Gui = gui;
+
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new TestStructuresOutput()
+                });
+
+                var structures = new StructureCollection<ClosingStructure>();
+                var context = new ClosingStructuresContext(structures, failureMechanism, assessmentSection);
+
+                ImportInfo importInfo = GetImportInfo(plugin);
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+
+                    if (isActionConfirmed)
+                    {
+                        helper.ClickOk();
+                    }
+                    else
+                    {
+                        helper.ClickCancel();
+                    }
+                };
+
+                // Call
+                bool updatesVerified = importInfo.VerifyUpdates(context);
+
+                // Assert
+                string expectedInquiryMessage = "Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                                                $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+                Assert.AreEqual(isActionConfirmed, updatesVerified);
+                mocks.VerifyAll();
+            }
         }
 
         private static ImportInfo GetImportInfo(ClosingStructuresPlugin plugin)
