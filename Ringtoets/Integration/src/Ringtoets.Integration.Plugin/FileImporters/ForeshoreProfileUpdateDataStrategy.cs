@@ -37,8 +37,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ForeshoreProfile objectToUpdate, ForeshoreProfile objectToUpdateFrom)
         {
-            // TODO
-            return new IObservable[0];
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
+            return new IObservable[]
+            {
+                objectToUpdate
+            };
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ForeshoreProfile removedObject)

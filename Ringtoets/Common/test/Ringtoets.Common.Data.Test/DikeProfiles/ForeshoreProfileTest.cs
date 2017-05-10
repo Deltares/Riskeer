@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -52,6 +53,8 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                         });
 
             // Assert
+            Assert.IsInstanceOf<Observable>(foreshoreProfile);
+
             Assert.IsInstanceOf<RoundedDouble>(foreshoreProfile.Orientation);
             Assert.IsInstanceOf<double>(foreshoreProfile.X0);
 

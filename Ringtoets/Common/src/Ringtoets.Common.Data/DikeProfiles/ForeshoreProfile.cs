@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Properties;
@@ -31,7 +32,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// Definition for a foreshore profile for a failure mechanism.
     /// </summary>
-    public class ForeshoreProfile
+    public class ForeshoreProfile : Observable
     {
         /// <summary>
         /// Creates a new instance of the <see cref="ForeshoreProfile"/> class.
