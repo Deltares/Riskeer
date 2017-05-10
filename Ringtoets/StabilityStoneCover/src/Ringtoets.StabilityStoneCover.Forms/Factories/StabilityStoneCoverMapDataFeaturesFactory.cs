@@ -32,7 +32,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Factories
     /// <summary>
     /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
-    public static class StabilityStoneCoverMapDataFeaturesFactory
+    internal static class StabilityStoneCoverMapDataFeaturesFactory
     {
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculationInputs"/>.

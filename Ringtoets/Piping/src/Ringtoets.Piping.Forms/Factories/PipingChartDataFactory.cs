@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Forms.Factories
     /// <summary>
     /// Factory for creating <see cref="ChartData"/> for data used as input in the piping failure mechanism.
     /// </summary>
-    public static class PipingChartDataFactory
+    internal static class PipingChartDataFactory
     {
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for a <see cref="RingtoetsPipingSurfaceLine"/>.

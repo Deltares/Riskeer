@@ -28,7 +28,7 @@ namespace Core.Components.OxyPlot.DataSeries
     /// <summary>
     /// A factory to create <see cref="IItemBasedChartDataSeries"/> based on <see cref="ItemBasedChartData"/>.
     /// </summary>
-    public static class ItemBasedChartDataSeriesFactory
+    internal static class ItemBasedChartDataSeriesFactory
     {
         /// <summary>
         /// Creates a <see cref="IItemBasedChartDataSeries"/> based on <paramref name="data"/>.

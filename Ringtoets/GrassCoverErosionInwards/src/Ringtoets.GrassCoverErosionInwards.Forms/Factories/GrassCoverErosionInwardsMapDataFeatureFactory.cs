@@ -32,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
     /// <summary>
     /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
-    public static class GrassCoverErosionInwardsMapDataFeaturesFactory
+    internal static class GrassCoverErosionInwardsMapDataFeaturesFactory
     {
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.

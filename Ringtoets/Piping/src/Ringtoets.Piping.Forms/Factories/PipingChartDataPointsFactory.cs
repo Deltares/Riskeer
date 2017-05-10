@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Forms.Factories
     /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>
     /// (created via <see cref="PipingChartDataFactory"/>).
     /// </summary>
-    public static class PipingChartDataPointsFactory
+    internal static class PipingChartDataPointsFactory
     {
         /// <summary>
         /// Create surface line points in 2D space based on the provided <paramref name="surfaceLine"/>.
