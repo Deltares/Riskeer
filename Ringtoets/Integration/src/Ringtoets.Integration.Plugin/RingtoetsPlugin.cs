@@ -79,6 +79,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
@@ -448,6 +449,8 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateFileImporter = (context, filePath) => new ForeshoreProfilesImporter(context.WrappedData,
                                                                                           context.ParentAssessmentSection.ReferenceLine,
+                                                                                          new ForeshoreProfileReplaceDataStrategy(context.ParentFailureMechanism,
+                                                                                                                                  context.WrappedData),
                                                                                           filePath),
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,

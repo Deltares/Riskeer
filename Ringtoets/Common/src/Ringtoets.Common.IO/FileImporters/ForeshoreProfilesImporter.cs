@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -37,17 +38,33 @@ namespace Ringtoets.Common.IO.FileImporters
     /// </summary>
     public class ForeshoreProfilesImporter : ProfilesImporter<ForeshoreProfileCollection>
     {
+        private readonly IForeshoreProfileUpdateDataStrategy foreshoreProfileUpdateStrategy;
+        private IEnumerable<IObservable> affectedObjects;
+
         /// <summary>
         /// Creates a new instance of <see cref="ForeshoreProfilesImporter"/>.
         /// </summary>
         /// <param name="importTarget">The foreshore profiles to import on.</param>
         /// <param name="referenceLine">The reference line used to check if the <see cref="ForeshoreProfile"/>
         /// objects found in the file are intersecting it.</param>
+        /// <param name="foreshoreProfileUpdateStrategy">The strategy to update the 
+        /// foreshore profiles with the imported data.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ForeshoreProfilesImporter(ForeshoreProfileCollection importTarget, ReferenceLine referenceLine, string filePath)
-            : base(referenceLine, filePath, importTarget, new ImportMessageProvider()) {}
+        public ForeshoreProfilesImporter(ForeshoreProfileCollection importTarget, ReferenceLine referenceLine,
+                                         IForeshoreProfileUpdateDataStrategy foreshoreProfileUpdateStrategy,
+                                         string filePath)
+            : base(referenceLine, filePath, importTarget, new ImportMessageProvider())
+        {
+            if (foreshoreProfileUpdateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(foreshoreProfileUpdateStrategy));
+            }
+
+            this.foreshoreProfileUpdateStrategy = foreshoreProfileUpdateStrategy;
+            affectedObjects = Enumerable.Empty<IObservable>();
+        }
 
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
@@ -55,7 +72,17 @@ namespace Ringtoets.Common.IO.FileImporters
             IEnumerable<ForeshoreProfile> importedForeshoreProfiles =
                 CreateForeshoreProfiles(importProfileLocationResult.Items, importDikeProfileDataResult.Items);
 
-            ImportTarget.AddRange(importedForeshoreProfiles, FilePath);
+            affectedObjects = foreshoreProfileUpdateStrategy.UpdateForeshoreProfilesWithImportedData(ImportTarget,
+                                                                                                     importedForeshoreProfiles,
+                                                                                                     FilePath);
+        }
+
+        protected override void DoPostImportUpdates()
+        {
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
         }
 
         protected override void LogImportCanceledMessage()

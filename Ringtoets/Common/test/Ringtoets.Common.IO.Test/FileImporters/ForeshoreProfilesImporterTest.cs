@@ -48,15 +48,24 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mockRepository = new MockRepository();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            mockRepository.VerifyAll();
+        }
+
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
+            mockRepository.ReplayAll();
+
             var importTarget = new ForeshoreProfileCollection();
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new ForeshoreProfilesImporter(importTarget, referenceLine, "");
+            var importer = new ForeshoreProfilesImporter(importTarget, referenceLine, strategy, "");
 
             // Assert
             Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
@@ -65,8 +74,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
+            // Setup
+            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "");
+            TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), strategy, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,8 +89,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
+            // Setup
+            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
+            mockRepository.ReplayAll();
+
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "");
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, strategy, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,10 +102,25 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_ForeshoreProfileUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null);
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, "path");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("foreshoreProfileUpdateStrategy", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), strategy, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -107,9 +139,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
 
             // Call
             var importResult = true;
@@ -123,7 +157,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -134,9 +167,23 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                               Path.Combine("DikeProfiles", "NoDamsAndNoForeshoreGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
-            ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
+                        Assert.AreSame(filePath, invocation.Arguments[2]);
+
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        Assert.AreEqual(5, readForeshoreProfiles.Count());
+                    });
+            mockRepository.ReplayAll();
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
 
             // Call
             var importResult = false;
@@ -154,7 +201,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
         }
 
         [Test]
@@ -175,12 +221,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
 
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
 
             // Call
             var importResult = true;
@@ -191,7 +239,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                            "ID 'profiel005' ligt niet op de referentielijn.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
-            Assert.IsEmpty(foreshoreProfiles);
         }
 
         [Test]
@@ -204,11 +251,23 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
+                        Assert.AreSame(filePath, invocation.Arguments[2]);
+
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        Assert.AreEqual(5, readForeshoreProfiles.Count());
+                    });
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -233,8 +292,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
@@ -249,10 +306,51 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
+                        Assert.AreSame(filePath, invocation.Arguments[2]);
+
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        ForeshoreProfile[] readForeshoreProfilesArray = readForeshoreProfiles.ToArray();
+                        Assert.AreEqual(5, readForeshoreProfilesArray.Length);
+
+                        ForeshoreProfile foreshoreProfile1 = readForeshoreProfilesArray[0];
+                        Assert.AreEqual("profiel001", foreshoreProfile1.Id);
+                        Assert.AreEqual("profiel001", foreshoreProfile1.Name);
+
+                        ForeshoreProfile foreshoreProfile2 = readForeshoreProfilesArray[1];
+                        Assert.AreEqual("profiel002", foreshoreProfile2.Id);
+                        Assert.AreEqual("profiel002", foreshoreProfile2.Name);
+
+                        ForeshoreProfile foreshoreProfile3 = readForeshoreProfilesArray[2];
+                        Assert.AreEqual("profiel003", foreshoreProfile3.Id);
+                        Assert.AreEqual("profiel003", foreshoreProfile3.Name);
+
+                        ForeshoreProfile foreshoreProfile4 = readForeshoreProfilesArray[3];
+                        Assert.AreEqual(new Point2D(136432.12250000238, 538235.26300000318), foreshoreProfile4.WorldReferencePoint);
+                        Assert.AreEqual("profiel004", foreshoreProfile4.Id);
+                        Assert.AreEqual("Valide naam", foreshoreProfile4.Name);
+                        Assert.AreEqual(-17.93475471, foreshoreProfile4.X0);
+                        Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile4.Orientation);
+                        Assert.IsFalse(foreshoreProfile4.HasBreakWater);
+
+                        ForeshoreProfile foreshoreProfile5 = readForeshoreProfilesArray[4];
+                        Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile5.WorldReferencePoint);
+                        Assert.AreEqual("profiel005", foreshoreProfile5.Id);
+                        Assert.AreEqual("Heeeeeeeeeeeeeeeeeeeeeeeele laaaaaaaaaaaaaaaaaaaange naaaaaaaaaaam", foreshoreProfile5.Name);
+                        Assert.AreEqual(15.56165507, foreshoreProfile5.X0);
+                        Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile5.Orientation);
+                        Assert.IsTrue(foreshoreProfile5.HasBreakWater);
+                    });
             mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
             targetContext.Attach(observer);
@@ -261,35 +359,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             foreshoreProfilesImporter.Import();
 
             // Assert
-            ForeshoreProfile foreshoreProfile1 = foreshoreProfiles[0];
-            Assert.AreEqual("profiel001", foreshoreProfile1.Id);
-            Assert.AreEqual("profiel001", foreshoreProfile1.Name);
-
-            ForeshoreProfile foreshoreProfile2 = foreshoreProfiles[1];
-            Assert.AreEqual("profiel002", foreshoreProfile2.Id);
-            Assert.AreEqual("profiel002", foreshoreProfile2.Name);
-
-            ForeshoreProfile foreshoreProfile3 = foreshoreProfiles[2];
-            Assert.AreEqual("profiel003", foreshoreProfile3.Id);
-            Assert.AreEqual("profiel003", foreshoreProfile3.Name);
-
-            ForeshoreProfile foreshoreProfile4 = foreshoreProfiles[3];
-            Assert.AreEqual(new Point2D(136432.12250000238, 538235.26300000318), foreshoreProfile4.WorldReferencePoint);
-            Assert.AreEqual("profiel004", foreshoreProfile4.Id);
-            Assert.AreEqual("Valide naam", foreshoreProfile4.Name);
-            Assert.AreEqual(-17.93475471, foreshoreProfile4.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile4.Orientation);
-            Assert.IsFalse(foreshoreProfile4.HasBreakWater);
-
-            ForeshoreProfile foreshoreProfile5 = foreshoreProfiles[4];
-            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile5.WorldReferencePoint);
-            Assert.AreEqual("profiel005", foreshoreProfile5.Id);
-            Assert.AreEqual("Heeeeeeeeeeeeeeeeeeeeeeeele laaaaaaaaaaaaaaaaaaaange naaaaaaaaaaam", foreshoreProfile5.Name);
-            Assert.AreEqual(15.56165507, foreshoreProfile5.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile5.Orientation);
-            Assert.IsTrue(foreshoreProfile5.HasBreakWater);
-
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            // Assertions are handled in the TearDown
+            // 'observer' should not be notified
         }
 
         [Test]
@@ -304,11 +375,23 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
+                        Assert.AreSame(filePath, invocation.Arguments[2]);
+
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        Assert.AreEqual(5, readForeshoreProfiles.Count());
+                    });
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -336,8 +419,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            // 'observer' should not be notified
         }
 
         [Test]
@@ -350,10 +432,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
@@ -371,7 +455,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             const string expectedMessage = "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -384,10 +467,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
+
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
@@ -405,7 +490,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             const string expectedMessage = "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -418,10 +502,24 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
+                        Assert.AreSame(filePath, invocation.Arguments[2]);
+
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        {
+                            Assert.AreEqual(5, readForeshoreProfiles.Count());
+                        }
+                    });
+            mockRepository.ReplayAll();
+
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => foreshoreProfilesImporter.Cancel());
 
             // Precondition
@@ -436,11 +534,47 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll();
         }
 
-        private ReferenceLine CreateMatchingReferenceLine()
+        [Test]
+        public void DoPostImport_AfterImport_ObserversNotified()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            var observableA = mockRepository.StrictMock<IObservable>();
+            observableA.Expect(o => o.NotifyObservers());
+            var observableB = mockRepository.StrictMock<IObservable>();
+            observableB.Expect(o => o.NotifyObservers());
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .Return(new []
+                    {
+                        observableA,
+                        observableB
+                    });
+            mockRepository.ReplayAll();
+
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+
+            foreshoreProfilesImporter.Import();
+
+            // Call
+            foreshoreProfilesImporter.DoPostImport();
+
+            // Assert
+            // Assertions are handled in the TearDown
+        }
+
+        private static ReferenceLine CreateMatchingReferenceLine()
         {
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
