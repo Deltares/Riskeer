@@ -122,7 +122,7 @@ namespace Core.Common.Gui.Test.Plugin
 
             // Assert
             Assert.IsInstanceOf<StringView>(view);
-            Assert.AreEqual(data, view.Data);
+            Assert.IsNull(view.Data);
         }
 
         [Test]
@@ -228,6 +228,7 @@ namespace Core.Common.Gui.Test.Plugin
 
             // Assert
             Assert.IsNotNull(view);
+            Assert.IsNull(view.Data);
         }
 
         [Test]

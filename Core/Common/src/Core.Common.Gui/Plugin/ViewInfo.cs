@@ -35,12 +35,7 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public ViewInfo()
         {
-            CreateInstance = o =>
-            {
-                var view = (IView)Activator.CreateInstance(ViewType);
-                view.Data = o;
-                return view;
-            };
+            CreateInstance = o => (IView) Activator.CreateInstance(ViewType);
         }
 
         /// <summary>
@@ -121,6 +116,11 @@ namespace Core.Common.Gui.Plugin
 
         /// <summary>
         /// Gets or sets the optional method that allows for the construction of the view.
+        /// Function arguments:
+        /// <list type="number">
+        ///     <item>The data corresponding to this view info.</item>
+        ///     <item>The view to create.</item>
+        /// </list>
         /// </summary>
         /// <remarks>This property needs to be set if no default constructor is available
         /// for the view type.</remarks>
@@ -145,12 +145,7 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         public ViewInfo()
         {
-            CreateInstance = o =>
-            {
-                var view = (TView) Activator.CreateInstance(ViewType);
-                view.Data = o;
-                return view;
-            };
+            CreateInstance = o => (TView) Activator.CreateInstance(ViewType);
         }
 
         /// <summary>
@@ -249,6 +244,11 @@ namespace Core.Common.Gui.Plugin
 
         /// <summary>
         /// Gets or sets the optional method that allows for the construction of the view.
+        /// Function arguments:
+        /// <list type="number">
+        ///     <item>The data corresponding to this view info.</item>
+        ///     <item>The view to create.</item>
+        /// </list>
         /// </summary>
         /// <remarks>This property needs to be set if no default constructor is available
         /// for the view type.</remarks>
@@ -271,10 +271,7 @@ namespace Core.Common.Gui.Plugin
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
                 CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
-                AfterCreate = (v, o) =>
-                {
-                    viewInfo.AfterCreate?.Invoke((TView) v, (TData) o);
-                },
+                AfterCreate = (v, o) => viewInfo.AfterCreate?.Invoke((TView) v, (TData) o),
                 GetViewName = (v, o) => viewInfo.GetViewName?.Invoke((TView) v, (TViewData) o),
                 CreateInstance = o => viewInfo.CreateInstance((TData) o)
             };
