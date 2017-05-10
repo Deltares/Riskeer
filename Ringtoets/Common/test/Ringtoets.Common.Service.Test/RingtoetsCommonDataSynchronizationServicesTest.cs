@@ -26,10 +26,13 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Utils;
+using Enumerable = System.Linq.Enumerable;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -217,6 +220,240 @@ namespace Ringtoets.Common.Service.Test
             }, affectedObjects);
         }
 
+        [Test]
+        public void RemoveStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
+        {
+            // Setup
+            var locationStructureToRemove = new Point2D(0, 0);
+            var locationStructureToKeep = new Point2D(5, 5);
+
+            var structureToRemove = new TestStructure("ToRemove", locationStructureToRemove);
+            var structureToKeep = new TestStructure("ToKeep", locationStructureToKeep);
+
+            var structures = new StructureCollection<TestStructure>();
+            structures.AddRange(new[]
+            {
+                structureToRemove,
+                structureToKeep
+            }, "path/to/structures");
+            var calculationWithOutput = new StructuresCalculation<TestStructureInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithStructureToRemove = new StructuresCalculation<TestStructureInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureToRemove
+                }
+            };
+            var calculationWithStructureToKeepAndOutput = new StructuresCalculation<TestStructureInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureToKeep
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithStructureToRemoveAndOutput = new StructuresCalculation<TestStructureInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureToRemove
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            StructuresCalculation<TestStructureInput>[] calculations =
+            {
+                calculationWithOutput,
+                calculationWithStructureToRemove,
+                calculationWithStructureToKeepAndOutput,
+                calculationWithStructureToRemoveAndOutput
+            };
+            var sectionWithCalculationAtStructureToRemove = new TestSectionResult(locationStructureToRemove)
+            {
+                Calculation = calculationWithStructureToRemove
+            };
+            var sectionWithCalculationAtStructureToKeep = new TestSectionResult(locationStructureToKeep)
+            {
+                Calculation = calculationWithStructureToKeepAndOutput
+            };
+            StructuresFailureMechanismSectionResult<TestStructureInput>[] sectionResults =
+            {
+                sectionWithCalculationAtStructureToRemove,
+                sectionWithCalculationAtStructureToKeep
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                structureToRemove,
+                calculations,
+                structures,
+                sectionResults);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(structures, structureToRemove);
+            Assert.IsNull(calculationWithStructureToRemove.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureToRemoveAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureToRemoveAndOutput.Output);
+            Assert.IsNull(sectionWithCalculationAtStructureToRemove.Calculation);
+            Assert.IsNotNull(calculationWithOutput.Output);
+            Assert.IsNotNull(calculationWithStructureToKeepAndOutput.Output);
+            Assert.IsNotNull(calculationWithStructureToKeepAndOutput.InputParameters.Structure);
+            Assert.AreSame(sectionWithCalculationAtStructureToKeep.Calculation, calculationWithStructureToKeepAndOutput);
+
+            IObservable[] expectedAffectedObjects =
+            {
+                calculationWithStructureToRemove.InputParameters,
+                calculationWithStructureToRemoveAndOutput,
+                calculationWithStructureToRemoveAndOutput.InputParameters,
+                sectionWithCalculationAtStructureToRemove,
+                structures
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllStructures_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
+                null,
+                new StructureCollection<TestStructure>(),
+                Enumerable.Empty<StructuresFailureMechanismSectionResult<TestStructureInput>>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("calculations", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_StructuresNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsCommonDataSynchronizationService.RemoveAllStructures<TestStructure, TestStructureInput>(
+                Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
+                null,
+                Enumerable.Empty<StructuresFailureMechanismSectionResult<TestStructureInput>>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structures", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
+                Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
+                new StructureCollection<TestStructure>(),
+                null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("sectionResults", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_FullyConfiguredFailureMechanism_RemoveAllHeightStructuresAndClearDependentData()
+        {
+            // Setup
+            var locationStructureA = new Point2D(0, 0);
+            var locationStructureB = new Point2D(5, 5);
+
+            var structureA = new TestStructure("A", locationStructureA);
+            var structureB = new TestStructure("B", locationStructureB);
+
+            var structures = new StructureCollection<TestStructure>();
+            structures.AddRange(new[]
+            {
+                structureA,
+                structureB
+            }, "path/to/structures");
+            var calculationWithOutput = new StructuresCalculation<TestStructureInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithStructureA = new StructuresCalculation<TestStructureInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureA
+                }
+            };
+            var calculationWithStructureBAndOutput = new StructuresCalculation<TestStructureInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureB
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            var calculationWithStructureAAndOutput = new StructuresCalculation<TestStructureInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureA
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+            StructuresCalculation<TestStructureInput>[] calculations =
+            {
+                calculationWithOutput,
+                calculationWithStructureA,
+                calculationWithStructureBAndOutput,
+                calculationWithStructureAAndOutput
+            };
+            var sectionWithCalculationAtStructureA = new TestSectionResult(locationStructureA)
+            {
+                Calculation = calculationWithStructureA
+            };
+            var sectionWithCalculationAtStructureB = new TestSectionResult(locationStructureB)
+            {
+                Calculation = calculationWithStructureBAndOutput
+            };
+            StructuresFailureMechanismSectionResult<TestStructureInput>[] sectionResults =
+            {
+                sectionWithCalculationAtStructureA,
+                sectionWithCalculationAtStructureB
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
+                calculations,
+                structures,
+                sectionResults);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(structures, structureA);
+            Assert.IsNull(calculationWithStructureA.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureAAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureBAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureAAndOutput.Output);
+            Assert.IsNull(calculationWithStructureBAndOutput.Output);
+            Assert.IsNull(sectionWithCalculationAtStructureA.Calculation);
+            Assert.IsNull(sectionWithCalculationAtStructureB.Calculation);
+            Assert.IsNotNull(calculationWithOutput.Output);
+
+            IObservable[] expectedAffectedObjects =
+            {
+                calculationWithStructureA.InputParameters,
+                calculationWithStructureAAndOutput,
+                calculationWithStructureAAndOutput.InputParameters,
+                calculationWithStructureBAndOutput,
+                calculationWithStructureBAndOutput.InputParameters,
+                sectionWithCalculationAtStructureA,
+                sectionWithCalculationAtStructureB,
+                structures
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
         private class TestInput : ICalculationInput
         {
             public void Attach(IObserver observer)
@@ -239,5 +476,29 @@ namespace Ringtoets.Common.Service.Test
         {
             protected override void UpdateStructureParameters() {}
         }
+    }
+
+    public class TestSectionResult : StructuresFailureMechanismSectionResult<TestStructureInput>
+    {
+        public TestSectionResult(Point2D point2D) : base(new FailureMechanismSection($"Location {point2D}", new[]
+        {
+            point2D,
+            point2D
+        })) {}
+    }
+
+    public class TestStructureInput : StructuresInputBase<TestStructure>
+    {
+        protected override void UpdateStructureParameters() {}
+    }
+
+    public class TestStructure : StructureBase
+    {
+        public TestStructure(string id, Point2D location) : base(new ConstructionProperties
+        {
+            Name = $"{id} name",
+            Id = id,
+            Location = location
+        }) {}
     }
 }
