@@ -24,12 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Utils;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
@@ -53,17 +50,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
-            try
-            {
-                return UpdateTargetCollectionData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message =
-                    string.Format(Resources.StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0,
-                                  e.Message);
-                throw new StochasticSoilModelUpdateException(message, e);
-            }
+            return UpdateTargetCollectionData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
         }
 
         #region Remove Data Functions

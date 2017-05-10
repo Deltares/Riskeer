@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
@@ -109,8 +110,19 @@ namespace Ringtoets.Piping.IO.Importers
             }
 
             NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
-            updatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, validStochasticSoilModels, FilePath);
 
+            try
+            {
+                updatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, validStochasticSoilModels, FilePath);
+            }
+            catch (UpdateDataException e)
+            {
+                string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
+                                                   RingtoetsPipingDataResources.StochasticSoilModelCollection_TypeDescriptor),
+                                               e.Message);
+                Log.Error(message, e);
+                return false;
+            }
             return true;
         }
 

@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -106,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_WithCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsStochasticSoilModelUpdateException()
+        public void UpdateModelWithImportedData_WithCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsUpdateDataException()
         {
             // Setup
             const string nonUniqueName = "non-unique name";
@@ -128,15 +127,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            const string expectedMessage = "Het bijwerken van de stochastische ondergrondmodellen is mislukt: " +
-                                           "Geïmporteerde data moet unieke elementen bevatten.";
+            var exception = Assert.Throws<UpdateDataException>(test);
+            const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
         }
 
         [Test]
-        public void UpdateModelWithImportedData_WithoutCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsStochasticSoilModelUpdateException()
+        public void UpdateModelWithImportedData_WithoutCurrentModelsAndImportedMultipleModelsWithSameName_ThrowsUpdateDataException()
         {
             // Setup
             const string nonUniqueName = "non-unique name";
@@ -154,11 +151,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            const string expectedMessage = "Het bijwerken van de stochastische ondergrondmodellen is mislukt: " +
-                                           "Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: non-unique name.";
+            var exception = Assert.Throws<UpdateDataException>(test);
+            const string expectedMessage = "Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
+                                           "Gevonden dubbele elementen: non-unique name.";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
 
             CollectionAssert.IsEmpty(targetCollection);
         }

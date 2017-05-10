@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -41,8 +41,8 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
         /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="StochasticSoilModelUpdateException">Thrown when applying the strategy failed.
-        /// <see cref="StochasticSoilModelUpdateException.InnerException"/> is set with the more detailed
+        /// <exception cref="UpdateDataException">Thrown when applying the strategy failed.
+        /// <see cref="UpdateDataException.InnerException"/> is set with the more detailed
         /// exception.</exception>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(

@@ -192,9 +192,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
     <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {0}.</value>
   </data>
-  <data name="StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0" xml:space="preserve">
-    <value>Het bijwerken van de stochastische ondergrondmodellen is mislukt: {0}</value>
-  </data>
   <data name="PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 
@@ -242,8 +239,5 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Als ondergrondschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze ondergrondschematisaties gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
-  </data>
-  <data name="StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0" xml:space="preserve">
-    <value>Het importeren van stochastische ondergrondmodellen is mislukt: {0}</value>
   </data>
 </root>

@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 
@@ -220,7 +219,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_ImportedModelsContainDuplicateNames_ThrowsUpdateException()
+        public void UpdateModelWithImportedData_ImportedModelsContainDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
             var importedStochasticSoilModels = new[]
@@ -235,10 +234,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
 
             // Assert
-            var exception = Assert.Throws<StochasticSoilModelUpdateException>(test);
-            Assert.AreEqual("Het importeren van stochastische ondergrondmodellen is mislukt: " +
-                            "Stochastische ondergrondmodellen moeten een unieke naam hebben. Gevonden dubbele elementen: B.", exception.Message);
-            Assert.IsInstanceOf<UpdateDataException>(exception.InnerException);
+            var exception = Assert.Throws<UpdateDataException>(test);
+            Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
+                            "Gevonden dubbele elementen: B.", exception.Message);
         }
     }
 }

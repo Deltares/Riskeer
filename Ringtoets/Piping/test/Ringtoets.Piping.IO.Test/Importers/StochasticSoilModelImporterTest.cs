@@ -29,6 +29,8 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
@@ -969,10 +971,43 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        public void Import_UpdateSurfaceLinesWithImportedDataThrowsUpdateDataException_ReturnFalseAndLogError()
+        {
+            // Setup
+            var importTarget = new StochasticSoilModelCollection();
+
+            string filePath = Path.Combine(testDataPath, "complete.soil");
+
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return("");
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Stochastische ondergrondmodellen"))
+                           .Return("error {0}");
+
+            var strategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy>();
+            strategy.Expect(s => s.UpdateModelWithImportedData(
+                                Arg<StochasticSoilModelCollection>.Is.Same(importTarget),
+                                Arg<StochasticSoilModel[]>.Is.NotNull,
+                                Arg<string>.Is.Same(filePath)
+                            )).Throw(new UpdateDataException("Exception message"));
+            mocks.ReplayAll();
+
+            var importer = new StochasticSoilModelImporter(importTarget, filePath, messageProvider, strategy);
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Then
+            const string expectedMessage = "error Exception message";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
         public void DoPostImport_AfterImport_ObserversNotified()
         {
             // Setup
-            var mocks = new MockRepository();
             var observableA = mocks.StrictMock<IObservable>();
             observableA.Expect(o => o.NotifyObservers());
             var observableB = mocks.StrictMock<IObservable>();

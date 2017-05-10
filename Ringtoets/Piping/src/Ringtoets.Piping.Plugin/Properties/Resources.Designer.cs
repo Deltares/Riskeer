@@ -446,25 +446,5 @@ namespace Ringtoets.Piping.Plugin.Properties {
                 return ResourceManager.GetString("Soil_file_Extension", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het importeren van stochastische ondergrondmodellen is mislukt: {0}.
-        /// </summary>
-        public static string StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_Stoc" +
-                        "hasticSoilModels_failed_Reason_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de stochastische ondergrondmodellen is mislukt: {0}.
-        /// </summary>
-        public static string StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_StochasticSoilModel_failed_Reason_0 {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelUpdateDataStrategy_UpdateModelWithImportedData_Update_of_Stoch" +
-                        "asticSoilModel_failed_Reason_0", resourceCulture);
-            }
-        }
     }
 }

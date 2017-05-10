@@ -58,7 +58,6 @@
     <Compile Include="Importers\ISurfaceLineUpdateDataStrategy.cs" />
     <Compile Include="Importers\PipingCalculationConfigurationImporter.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
-    <Compile Include="Exceptions\StochasticSoilModelUpdateException.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

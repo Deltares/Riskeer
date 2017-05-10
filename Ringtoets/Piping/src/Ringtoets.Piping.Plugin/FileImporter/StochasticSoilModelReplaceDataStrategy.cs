@@ -22,12 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -50,17 +47,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                                     IEnumerable<StochasticSoilModel> readStochasticSoilModels,
                                                                     string sourceFilePath)
         {
-            try
-            {
-                return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
-            }
-            catch (UpdateDataException e)
-            {
-                string message =
-                    string.Format(Resources.StochasticSoilModelReplaceDataStrategy_UpdateModelWithImportedData_Importing_StochasticSoilModels_failed_Reason_0,
-                                  e.Message);
-                throw new StochasticSoilModelUpdateException(message, e);
-            }
+            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()
