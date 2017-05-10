@@ -172,7 +172,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsTrue(chartMultipleLineDataSeries.IsVisible);
 
             Assert.AreEqual(0, chartMultipleLineDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartMultipleLineDataSeries.Color);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Fuchsia.A, Color.Fuchsia.R, Color.Fuchsia.G, Color.Fuchsia.B), chartMultipleLineDataSeries.Color);
             Assert.AreEqual(LineStyle.Solid, chartMultipleLineDataSeries.LineStyle);
 
             Assert.AreEqual(0, chartMultipleLineDataSeries.Lines.Count);

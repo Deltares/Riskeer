@@ -39,7 +39,7 @@ namespace Core.Components.OxyPlot.Test.Converter
     public class ChartMultipleLineDataConverterTest
     {
         [Test]
-        public void DefaultConstructor_IsChartDataConverter()
+        public void DefaultConstructor_ItemBasedChartDataConverter()
         {
             // Call
             var converter = new ChartMultipleLineDataConverter();
@@ -128,6 +128,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Assert
             Assert.AreEqual(width, multipleLineSeries.StrokeThickness);
         }
+
         [Test]
         [TestCase(DashStyle.Solid, LineStyle.Solid)]
         [TestCase(DashStyle.Dash, LineStyle.Dash)]

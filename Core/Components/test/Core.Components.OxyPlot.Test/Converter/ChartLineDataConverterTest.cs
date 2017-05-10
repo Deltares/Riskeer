@@ -38,7 +38,7 @@ namespace Core.Components.OxyPlot.Test.Converter
     public class ChartLineDataConverterTest
     {
         [Test]
-        public void DefaultConstructor_IsChartDataConverter()
+        public void DefaultConstructor_IsItemBasedChartDataConverter()
         {
             // Call
             var converter = new ChartLineDataConverter();

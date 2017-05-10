@@ -171,8 +171,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsTrue(chartMultipleAreaDataSeries.IsVisible);
 
             Assert.AreEqual(0, chartMultipleAreaDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartMultipleAreaDataSeries.Color);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartMultipleAreaDataSeries.Fill);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Fuchsia.A, Color.Fuchsia.R, Color.Fuchsia.G, Color.Fuchsia.B), chartMultipleAreaDataSeries.Color);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Fuchsia.A, Color.Fuchsia.R, Color.Fuchsia.G, Color.Fuchsia.B), chartMultipleAreaDataSeries.Fill);
 
             Assert.AreEqual(0, chartMultipleAreaDataSeries.Areas.Count);
         }

@@ -28,11 +28,13 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.CustomSeries
 {
     /// <summary>
-    /// Represents multiple area series that fills the polygons defined by each collection of points.
+    /// Represents multiple area series that fills each of the polygons defined by a collection of points.
     /// </summary>
     public class MultipleAreaSeries : XYAxisSeries
     {
         private readonly OxyColor defaultColor = OxyColors.Fuchsia;
+        private OxyColor color;
+        private OxyColor fill;
 
         /// <summary>
         /// Creates a new instance of <see cref="MultipleAreaSeries"/>.
@@ -50,17 +52,15 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// Gets or sets the color of the curve.
         /// </summary>
         /// <value>The color.</value>
-        public OxyColor Color { get; set; }
-
-        /// <summary>
-        /// Gets the actual color.
-        /// </summary>
-        /// <value>The actual color.</value>
-        public OxyColor ActualColor
+        public OxyColor Color
         {
             get
             {
-                return Color.GetActualColor(defaultColor);
+                return color.GetActualColor(defaultColor);
+            }
+            set
+            {
+                color = value;
             }
         }
 
@@ -74,17 +74,15 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// Gets or sets the area fill color.
         /// </summary>
         /// <value>The fill.</value>
-        public OxyColor Fill { get; set; }
-
-        /// <summary>
-        /// Gets the actual fill color.
-        /// </summary>
-        /// <value>The actual fill.</value>
-        public OxyColor ActualFill
+        public OxyColor Fill
         {
             get
             {
-                return Fill.GetActualColor(defaultColor);
+                return fill.GetActualColor(defaultColor);
+            }
+            set
+            {
+                fill = value;
             }
         }
 
@@ -94,14 +92,8 @@ namespace Core.Components.OxyPlot.CustomSeries
             {
                 throw new ArgumentNullException(nameof(renderContext));
             }
-
-            IList<DataPoint[]> areas = Areas;
-            int numberOfAreas = areas.Count;
-            if (numberOfAreas == 0)
-            {
-                return;
-            }
-            if (areas.All(a => !a.Any()))
+            
+            if (!Areas.Any() || Areas.All(a => !a.Any()))
             {
                 return;
             }
@@ -112,13 +104,13 @@ namespace Core.Components.OxyPlot.CustomSeries
             renderContext.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
-            foreach (DataPoint[] area in areas)
+            foreach (DataPoint[] area in Areas)
             {
                 int n0 = area.Length;
                 IList<ScreenPoint> pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, area);
 
-                renderContext.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(ActualFill), ActualColor, StrokeThickness);
+                renderContext.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(Fill), Color, StrokeThickness);
             }
 
             renderContext.ResetClip();

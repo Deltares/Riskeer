@@ -51,8 +51,8 @@ namespace Core.Plugins.Chart.Test.Legend
                 yield return new TestCaseData(new ChartPointData("test"), Resources.PointsIcon);
                 yield return new TestCaseData(new ChartLineData("test"), Resources.LineIcon);
                 yield return new TestCaseData(new ChartAreaData("test"), Resources.AreaIcon);
-                yield return new TestCaseData(new ChartMultipleAreaData("test data"), Resources.AreaIcon);
-                yield return new TestCaseData(new ChartMultipleLineData("test data"), Resources.LineIcon);
+                yield return new TestCaseData(new ChartMultipleAreaData("test"), Resources.AreaIcon);
+                yield return new TestCaseData(new ChartMultipleLineData("test"), Resources.LineIcon);
                 yield return new TestCaseData(new ChartDataCollection("test"), GuiResources.folder);
             }
         }
@@ -81,7 +81,7 @@ namespace Core.Plugins.Chart.Test.Legend
                     new ChartPointData("test"),
                     new ChartLineData("test"),
                     new ChartAreaData("Test"),
-                    new ChartMultipleAreaData("test data"),
+                    new ChartMultipleAreaData("test"),
                     new ChartMultipleLineData("Test")
                 };
             }
@@ -97,10 +97,10 @@ namespace Core.Plugins.Chart.Test.Legend
                 yield return new TestCaseData(new ChartLineData("test"), true);
                 yield return new TestCaseData(new ChartAreaData("test"), false);
                 yield return new TestCaseData(new ChartAreaData("test"), true);
-                yield return new TestCaseData(new ChartMultipleAreaData("test data"), false);
-                yield return new TestCaseData(new ChartMultipleAreaData("test data"), true);
-                yield return new TestCaseData(new ChartMultipleLineData("test data"), false);
-                yield return new TestCaseData(new ChartMultipleLineData("test data"), true);
+                yield return new TestCaseData(new ChartMultipleAreaData("test"), false);
+                yield return new TestCaseData(new ChartMultipleAreaData("test"), true);
+                yield return new TestCaseData(new ChartMultipleLineData("test"), false);
+                yield return new TestCaseData(new ChartMultipleLineData("test"), true);
             }
         }
 
@@ -179,7 +179,7 @@ namespace Core.Plugins.Chart.Test.Legend
             var chartData1 = new TestChartData();
             var chartData2 = new TestChartData();
             var chartData3 = new TestChartData();
-            var chartDataCollection = new ChartDataCollection("test data");
+            var chartDataCollection = new ChartDataCollection("test");
 
             chartDataCollection.Add(chartData1);
             chartDataCollection.Add(chartData2);
@@ -218,7 +218,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void CanDrag_WrappedDataChartMultipleAreaData_ReturnsFalse()
         {
             // Setup
-            var multipleChartAreaData = new ChartMultipleAreaData("test data");
+            var multipleChartAreaData = new ChartMultipleAreaData("test");
             ChartDataContext context = GetContext(multipleChartAreaData);
 
             // Call
@@ -246,7 +246,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void CanCheck_WrappedDataChartDataCollection_ReturnsFalse()
         {
             // Setup
-            ChartDataContext context = GetContext(new ChartDataCollection("test data"));
+            ChartDataContext context = GetContext(new ChartDataCollection("test"));
 
             // Call
             bool canCheck = info.CanCheck(context);
@@ -426,7 +426,7 @@ namespace Core.Plugins.Chart.Test.Legend
             var chartData1 = new TestChartData();
             var chartData2 = new TestChartData();
             var chartData3 = new TestChartData();
-            var chartDataCollection = new ChartDataCollection("test data");
+            var chartDataCollection = new ChartDataCollection("test");
 
             chartDataCollection.Add(chartData1);
             chartDataCollection.Add(chartData2);
@@ -454,7 +454,7 @@ namespace Core.Plugins.Chart.Test.Legend
         [Test]
         [TestCase(-50)]
         [TestCase(-1)]
-        [TestCase(4)]
+        [TestCase(5)]
         [TestCase(50)]
         public void OnDrop_ChartDataMovedToPositionOutsideRange_ThrowsException(int position)
         {
@@ -467,12 +467,14 @@ namespace Core.Plugins.Chart.Test.Legend
             var chartData2 = new ChartAreaData("area");
             var chartData3 = new ChartPointData("point");
             var chartData4 = new ChartMultipleAreaData("multiple area");
-            var chartDataCollection = new ChartDataCollection("test data");
+            var chartData5 = new ChartMultipleLineData("multiple line");
+            var chartDataCollection = new ChartDataCollection("test");
 
             chartDataCollection.Add(chartData1);
             chartDataCollection.Add(chartData2);
             chartDataCollection.Add(chartData3);
             chartDataCollection.Add(chartData4);
+            chartDataCollection.Add(chartData5);
 
             chartDataCollection.Attach(observer);
             chartLegendView.Data = chartDataCollection;

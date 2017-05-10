@@ -28,11 +28,12 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.CustomSeries
 {
     /// <summary>
-    /// Represents multiple line series that are defined by each collection of points.
+    /// Represents multiple line series that are each defined by a collection of points.
     /// </summary>
     public class MultipleLineSeries : XYAxisSeries
     {
         private readonly OxyColor defaultColor = OxyColors.Fuchsia;
+        private OxyColor color;
 
         /// <summary>
         /// Creates a new instance of <see cref="MultipleLineSeries"/>.
@@ -56,16 +57,15 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// <summary>
         /// Gets or sets the color of the lines.
         /// </summary>
-        public OxyColor Color { get; set; }
-
-        /// <summary>
-        /// Gets the actual color.
-        /// </summary>
-        public OxyColor ActualColor
+        public OxyColor Color
         {
             get
             {
-                return Color.GetActualColor(defaultColor);
+                return color.GetActualColor(defaultColor);
+            }
+            set
+            {
+                color = value;
             }
         }
 
@@ -81,8 +81,7 @@ namespace Core.Components.OxyPlot.CustomSeries
                 throw new ArgumentNullException(nameof(renderContext));
             }
 
-            IList<DataPoint[]> lines = Lines;
-            if (!lines.Any() || lines.All(a => !a.Any()))
+            if (!Lines.Any() || Lines.All(a => !a.Any()))
             {
                 return;
             }
@@ -93,13 +92,13 @@ namespace Core.Components.OxyPlot.CustomSeries
             renderContext.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
-            foreach (DataPoint[] area in lines)
+            foreach (DataPoint[] line in Lines)
             {
-                int n0 = area.Length;
+                int n0 = line.Length;
                 IList<ScreenPoint> pts0 = new ScreenPoint[n0];
-                TransformToScreenCoordinates(n0, pts0, area);
+                TransformToScreenCoordinates(n0, pts0, line);
 
-                renderContext.DrawLine(pts0, ActualColor, StrokeThickness, LineStyle.GetDashArray());
+                renderContext.DrawLine(pts0, Color, StrokeThickness, LineStyle.GetDashArray());
             }
 
             renderContext.ResetClip();
@@ -109,7 +108,7 @@ namespace Core.Components.OxyPlot.CustomSeries
         {
             base.UpdateMaxMin();
 
-            DataPoint[] allPoints = Lines.SelectMany(a => a).ToArray();
+            DataPoint[] allPoints = Lines.SelectMany(l => l).ToArray();
 
             if (!allPoints.Any())
             {
