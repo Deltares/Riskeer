@@ -106,26 +106,31 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Removes the given closing structure and all dependent data, either directly or indirectly,
+        /// Removes the <paramref name="structure"/>, unassigns it from the <paramref name="calculations"/>
+        /// and clears all dependent data, either directly or indirectly,
         /// from the failure mechanism.
         /// </summary>
         /// <param name="structure">The structure to be removed.</param>
-        /// <param name="structuresCalculations"></param>
+        /// <param name="calculations"></param>
         /// <param name="structures"></param>
         /// <param name="sectionResults"></param>
         /// <returns>All objects affected by the removal.</returns>
-        public static IEnumerable<IObservable> RemoveStructure<TStructure, TInput>(TStructure structure, IEnumerable<StructuresCalculation<TInput>> structuresCalculations, StructureCollection<TStructure> structures, IEnumerable<StructuresFailureMechanismSectionResult<TInput>> sectionResults)
+        public static IEnumerable<IObservable> RemoveStructure<TStructure, TInput>(
+            TStructure structure, 
+            IEnumerable<StructuresCalculation<TInput>> calculations, 
+            StructureCollection<TStructure> structures, 
+            IEnumerable<StructuresFailureMechanismSectionResult<TInput>> sectionResults)
             where TInput : IStructuresCalculationInput<TStructure>, new()
             where TStructure : StructureBase
         {
-            StructuresCalculation<TInput>[] calculationWithRemovedStructure = structuresCalculations
+            StructuresCalculation<TInput>[] calculationWithRemovedStructure = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
 
             HashSet<IObservable> changedObservables = ClearStructureDependentData(
                 sectionResults,
                 calculationWithRemovedStructure,
-                structuresCalculations);
+                calculations);
 
             structures.Remove(structure);
             changedObservables.Add(structures);
@@ -134,8 +139,9 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Removes all height structures from the <paramref name="calculations"/>
-        /// and clears all data that depends on it, either directly or indirectly.
+        /// Clears the <paramref name="structures"/>, unassigns them from the 
+        /// <paramref name="calculations"/> and clears all data that depends on it,
+        /// either directly or indirectly.
         /// </summary>
         /// <param name="calculations">Calculations to remove the structure from.</param>
         /// <param name="structures">The collection of structures to clear.</param>
