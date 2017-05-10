@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -45,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                                   IWaveConditionsCalculation calculation,
+                                                                   ICalculation<WaveConditionsInput> calculation,
                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(wrappedData, calculation)
         {

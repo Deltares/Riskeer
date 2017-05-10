@@ -408,7 +408,7 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseCommentViewForData
             };
 
-            yield return new ViewInfo<WaveConditionsInputContext, IWaveConditionsCalculation, WaveConditionsInputView>
+            yield return new ViewInfo<WaveConditionsInputContext, ICalculation<WaveConditionsInput>, WaveConditionsInputView>
             {
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
@@ -984,20 +984,20 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseWaveConditionsInputViewForData(WaveConditionsInputView view, object o)
         {
-            var context = o as ICalculationContext<IWaveConditionsCalculation, IFailureMechanism>;
+            var context = o as ICalculationContext<ICalculation<WaveConditionsInput>, IFailureMechanism>;
             if (context != null)
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
-            var calculation = o as IWaveConditionsCalculation;
+            var calculation = o as ICalculation<WaveConditionsInput>;
             if (calculation != null)
             {
                 return ReferenceEquals(view.Data, calculation);
             }
 
-            IEnumerable<IWaveConditionsCalculation> calculations = GetCalculationsFromCalculationGroupContexts(o);
+            IEnumerable<ICalculation<WaveConditionsInput>> calculations = GetCalculationsFromCalculationGroupContexts(o);
 
-            IEnumerable<IWaveConditionsCalculation> failureMechanismCalculations = GetCalculationsFromFailureMechanisms(o);
+            IEnumerable<ICalculation<WaveConditionsInput>> failureMechanismCalculations = GetCalculationsFromFailureMechanisms(o);
             if (failureMechanismCalculations != null)
             {
                 calculations = failureMechanismCalculations;
@@ -1006,9 +1006,9 @@ namespace Ringtoets.Integration.Plugin
             return calculations != null && calculations.Any(c => ReferenceEquals(view.Data, c));
         }
 
-        private static IEnumerable<IWaveConditionsCalculation> GetCalculationsFromFailureMechanisms(object o)
+        private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromFailureMechanisms(object o)
         {
-            IEnumerable<IWaveConditionsCalculation> grassCoverErosionOutwardsCalculations = GetCalculationsFromFailureMechanism<
+            IEnumerable<ICalculation<WaveConditionsInput>> grassCoverErosionOutwardsCalculations = GetCalculationsFromFailureMechanism<
                 GrassCoverErosionOutwardsFailureMechanismContext,
                 GrassCoverErosionOutwardsFailureMechanism>(o);
 
@@ -1017,7 +1017,7 @@ namespace Ringtoets.Integration.Plugin
                 return grassCoverErosionOutwardsCalculations;
             }
 
-            IEnumerable<IWaveConditionsCalculation> stabilityStoneCoverCalculations = GetCalculationsFromFailureMechanism<
+            IEnumerable<ICalculation<WaveConditionsInput>> stabilityStoneCoverCalculations = GetCalculationsFromFailureMechanism<
                 StabilityStoneCoverFailureMechanismContext,
                 StabilityStoneCoverFailureMechanism>(o);
 
@@ -1026,18 +1026,18 @@ namespace Ringtoets.Integration.Plugin
                 return stabilityStoneCoverCalculations;
             }
 
-            IEnumerable<IWaveConditionsCalculation> waveImpactAsphaltCoverCalculations = GetCalculationsFromFailureMechanism<
+            IEnumerable<ICalculation<WaveConditionsInput>> waveImpactAsphaltCoverCalculations = GetCalculationsFromFailureMechanism<
                 WaveImpactAsphaltCoverFailureMechanismContext,
                 WaveImpactAsphaltCoverFailureMechanism>(o);
 
             return waveImpactAsphaltCoverCalculations;
         }
 
-        private static IEnumerable<IWaveConditionsCalculation> GetCalculationsFromFailureMechanism<TContext, TFailureMechanism>(object o)
+        private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromFailureMechanism<TContext, TFailureMechanism>(object o)
             where TContext : class, IFailureMechanismContext<TFailureMechanism>
             where TFailureMechanism : class, IFailureMechanism
         {
-            IEnumerable<IWaveConditionsCalculation> calculations = null;
+            IEnumerable<ICalculation<WaveConditionsInput>> calculations = null;
 
             var failureMechanism = o as TFailureMechanism;
 
@@ -1057,15 +1057,15 @@ namespace Ringtoets.Integration.Plugin
 
             if (failureMechanism != null)
             {
-                calculations = (IEnumerable<IWaveConditionsCalculation>) failureMechanism.Calculations;
+                calculations = (IEnumerable<ICalculation<WaveConditionsInput>>) failureMechanism.Calculations;
             }
 
             return calculations;
         }
 
-        private static IEnumerable<IWaveConditionsCalculation> GetCalculationsFromCalculationGroupContexts(object o)
+        private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromCalculationGroupContexts(object o)
         {
-            IEnumerable<IWaveConditionsCalculation> calculations = null;
+            IEnumerable<ICalculation<WaveConditionsInput>> calculations = null;
 
             var grassCoverErosionOutwardsCalculationGroupContext = o as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
             if (grassCoverErosionOutwardsCalculationGroupContext != null)

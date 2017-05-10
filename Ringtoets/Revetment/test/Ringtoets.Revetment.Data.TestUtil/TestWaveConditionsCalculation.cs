@@ -20,19 +20,18 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.TestUtil
 {
     /// <summary>
-    /// Creates a simple <see cref="IWaveConditionsCalculation"/> implementation, which
-    /// can have an object set as output.
+    /// Creates a simple <see cref="ICalculation{T}"/> implementation
+    /// for wave conditions, which can have an object set as output.
     /// </summary>
-    public class TestWaveConditionsCalculation : Observable, IWaveConditionsCalculation
+    public class TestWaveConditionsCalculation : Observable, ICalculation<WaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestWaveConditionsCalculation"/>.

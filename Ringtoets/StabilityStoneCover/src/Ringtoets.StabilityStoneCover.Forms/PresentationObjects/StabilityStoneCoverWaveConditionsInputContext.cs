@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
@@ -47,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                             IWaveConditionsCalculation calculation,
+                                                             ICalculation<WaveConditionsInput> calculation,
                                                              IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                                              IAssessmentSection assessmentSection) : base(wrappedData, calculation)
         {

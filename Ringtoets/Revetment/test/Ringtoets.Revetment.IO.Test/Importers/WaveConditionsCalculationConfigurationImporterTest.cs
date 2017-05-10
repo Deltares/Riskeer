@@ -254,7 +254,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (IWaveConditionsCalculation) calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -318,10 +318,10 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (IWaveConditionsCalculation) calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
         }
 
-        private void AssertWaveConditionsCalculation(IWaveConditionsCalculation expectedCalculation, IWaveConditionsCalculation actualCalculation)
+        private void AssertWaveConditionsCalculation(ICalculation<WaveConditionsInput> expectedCalculation, ICalculation<WaveConditionsInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
@@ -338,7 +338,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
         }
 
-        private class SimpleWaveConditionsCalculation : Observable, IWaveConditionsCalculation
+        private class SimpleWaveConditionsCalculation : Observable, ICalculation<WaveConditionsInput>
         {
             public SimpleWaveConditionsCalculation()
             {

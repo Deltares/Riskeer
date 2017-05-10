@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Factories;
@@ -51,7 +52,7 @@ namespace Ringtoets.Revetment.Forms.Views
         private readonly ChartLineData designWaterLevelChartData;
         private readonly ChartMultipleLineData waterLevelsChartData;
 
-        private IWaveConditionsCalculation data;
+        private ICalculation<WaveConditionsInput> data;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputView"/>.        
@@ -101,7 +102,7 @@ namespace Ringtoets.Revetment.Forms.Views
             }
             set
             {
-                data = value as IWaveConditionsCalculation;
+                data = value as ICalculation<WaveConditionsInput>;
 
                 calculationObserver.Observable = data;
                 calculationInputObserver.Observable = data?.InputParameters;

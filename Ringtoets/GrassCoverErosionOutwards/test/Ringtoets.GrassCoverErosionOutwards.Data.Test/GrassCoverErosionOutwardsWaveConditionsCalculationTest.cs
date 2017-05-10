@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -37,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<IWaveConditionsCalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
 
             Assert.AreEqual(RingtoetsCommonDataResources.Calculation_DefaultName, calculation.Name);

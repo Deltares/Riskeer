@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveConditionsInputContext),
-                    typeof(IWaveConditionsCalculation),
+                    typeof(ICalculation<WaveConditionsInput>),
                     typeof(WaveConditionsInputView));
             }
         }

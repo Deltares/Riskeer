@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(WaveConditionsInputContext), info.DataType);
-            Assert.AreEqual(typeof(IWaveConditionsCalculation), info.ViewDataType);
+            Assert.AreEqual(typeof(ICalculation<WaveConditionsInput>), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
@@ -117,8 +117,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 "CloseForData_CorrespondingToCalculationContext_ReturnTrue({0})"
             })]
         public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue(
-            ICalculationContext<IWaveConditionsCalculation, IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculationContext<ICalculation<WaveConditionsInput>, IFailureMechanism> context,
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -141,8 +141,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 "CloseForData_NotCorrespondingToCalculationContext_ReturnFalse({0})"
             })]
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse(
-            ICalculationContext<IWaveConditionsCalculation, IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculationContext<ICalculation<WaveConditionsInput>, IFailureMechanism> context,
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             var calculationToRemove = new TestWaveConditionsCalculation();
@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue(
             ICalculationContext<CalculationGroup, IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -231,7 +231,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse(
             ICalculationContext<CalculationGroup, IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             var contextToRemove = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
@@ -258,7 +258,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_ViewCorrespondingWithRemovedFailureMechanismContext_ReturnsTrue(
             IFailureMechanismContext<IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -282,7 +282,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_ViewNotCorrespondingWithRemovedFailureMechanismContext_ReturnsFalse(
             IFailureMechanismContext<IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -309,7 +309,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue(
             IFailureMechanism failureMechanism,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -333,7 +333,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse(
             IFailureMechanism failureMechanism,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -356,7 +356,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 "CloseForData_CorrespondingWithAssessmentSection_ReturnTrue({0})"
             })]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue(AssessmentSection assessmentSection,
-                                                                                         IWaveConditionsCalculation calculation)
+                                                                                         ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -379,7 +379,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 "CloseForData_NotCorrespondingWithAssessmentSection_ReturnFalse({0})"
             })]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse(AssessmentSection assessmentSection,
-                                                                                             IWaveConditionsCalculation calculation)
+                                                                                             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -403,7 +403,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_NestedViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue(
             ICalculationContext<CalculationGroup, IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             context.WrappedData.Children.RemoveAt(0);
@@ -436,7 +436,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             })]
         public void CloseForData_NestedViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse(
             ICalculationContext<CalculationGroup, IFailureMechanism> context,
-            IWaveConditionsCalculation calculation)
+            ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
             context.WrappedData.Children.RemoveAt(0);

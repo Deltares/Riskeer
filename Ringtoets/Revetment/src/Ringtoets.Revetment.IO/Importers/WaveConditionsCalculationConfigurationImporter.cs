@@ -42,7 +42,7 @@ namespace Ringtoets.Revetment.IO.Importers
     /// <typeparam name="T">The type of the calculation to import.</typeparam>
     public class WaveConditionsCalculationConfigurationImporter<T>
         : CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, ReadWaveConditionsCalculation>
-        where T : IWaveConditionsCalculation, new()
+        where T : ICalculation<WaveConditionsInput>, new()
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
@@ -107,7 +107,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when one of the boundaries is invalid, <c>true</c> otherwise.</returns>
-        private bool TryReadBoundaries(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private bool TryReadBoundaries(ReadWaveConditionsCalculation readCalculation, ICalculation<WaveConditionsInput> calculation)
         {
             WaveConditionsInput input = calculation.InputParameters;
             return TryReadParameter(readCalculation.UpperBoundaryRevetment,
@@ -148,7 +148,7 @@ namespace Ringtoets.Revetment.IO.Importers
             return true;
         }
 
-        private static void ReadStepSize(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private static void ReadStepSize(ReadWaveConditionsCalculation readCalculation, ICalculation<WaveConditionsInput> calculation)
         {
             if (readCalculation.StepSize.HasValue)
             {
@@ -156,7 +156,7 @@ namespace Ringtoets.Revetment.IO.Importers
             }
         }
 
-        private bool TryReadHydraulicBoundaryLocation(string locationName, IWaveConditionsCalculation calculation)
+        private bool TryReadHydraulicBoundaryLocation(string locationName, ICalculation<WaveConditionsInput> calculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -169,7 +169,7 @@ namespace Ringtoets.Revetment.IO.Importers
             return false;
         }
 
-        private bool TryReadForeshoreProfile(string foreshoreProfileName, IWaveConditionsCalculation calculation)
+        private bool TryReadForeshoreProfile(string foreshoreProfileName, ICalculation<WaveConditionsInput> calculation)
         {
             ForeshoreProfile foreshoreProfile;
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>falce</c> when the orientation is invalid, <c>true</c> otherwise.</returns>
-        private bool TryReadOrientation(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private bool TryReadOrientation(ReadWaveConditionsCalculation readCalculation, ICalculation<WaveConditionsInput> calculation)
         {
             if (readCalculation.Orientation.HasValue)
             {
@@ -218,7 +218,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is an invalid wave reduction parameter defined,
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private bool TryReadWaveReduction(ReadWaveConditionsCalculation readCalculation, ICalculation<WaveConditionsInput> calculation)
         {
             if (!ValidateWaveReduction(readCalculation, calculation))
             {
@@ -254,7 +254,7 @@ namespace Ringtoets.Revetment.IO.Importers
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is an invalid wave reduction parameter defined,
         /// <c>true</c> otherwise.</returns>
-        private bool ValidateWaveReduction(ReadWaveConditionsCalculation readCalculation, IWaveConditionsCalculation calculation)
+        private bool ValidateWaveReduction(ReadWaveConditionsCalculation readCalculation, ICalculation<WaveConditionsInput> calculation)
         {
             if (calculation.InputParameters.ForeshoreProfile == null)
             {
