@@ -30,14 +30,15 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Test.ImportInfos
+namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class ForeshoreProfilesContextImportInfoTest
+    public class ForeshoreProfileContextUpdateInfoTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
@@ -56,10 +57,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                IFileImporter importer = importInfo.CreateFileImporter(importTarget, "test");
+                IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "test");
 
                 // Assert
                 Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
@@ -73,10 +74,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                string name = importInfo.Name;
+                string name = updateInfo.Name;
 
                 // Assert
                 Assert.AreEqual("Voorlandprofiellocaties", name);
@@ -89,10 +90,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                string category = importInfo.Category;
+                string category = updateInfo.Category;
 
                 // Assert
                 Assert.AreEqual("Algemeen", category);
@@ -105,10 +106,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                Image image = importInfo.Image;
+                Image image = updateInfo.Image;
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.Foreshore, image);
@@ -131,10 +132,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                bool isEnabled = importInfo.IsEnabled(context);
+                bool isEnabled = updateInfo.IsEnabled(context);
 
                 // Assert
                 Assert.IsTrue(isEnabled);
@@ -158,10 +159,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                bool isEnabled = importInfo.IsEnabled(context);
+                bool isEnabled = updateInfo.IsEnabled(context);
 
                 // Assert
                 Assert.IsFalse(isEnabled);
@@ -175,19 +176,50 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                ImportInfo importInfo = GetImportInfo(plugin);
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
                 // Call
-                FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
+                FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
 
                 // Assert
                 Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
             }
         }
 
-        private static ImportInfo GetImportInfo(RingtoetsPlugin plugin)
+        [Test]
+        public void CurrentPath_DikeProfileCollectionHasPathSet_ReturnsExpectedPath()
         {
-            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(ForeshoreProfilesContext));
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            const string expectedFilePath = "some/path";
+            var surfaceLines = new ForeshoreProfileCollection();
+            surfaceLines.AddRange(new[]
+            {
+                new TestForeshoreProfile(), 
+            }, expectedFilePath);
+
+            var context = new ForeshoreProfilesContext(surfaceLines, failureMechanism, assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+
+                // Call
+                string currentFilePath = updateInfo.CurrentPath(context);
+
+                // Assert
+                Assert.AreEqual(expectedFilePath, currentFilePath);
+                mocks.VerifyAll();
+            }
+        }
+
+        private static UpdateInfo GetUpdateInfo(RingtoetsPlugin plugin)
+        {
+            return plugin.GetUpdateInfos().First(ii => ii.DataType == typeof(ForeshoreProfilesContext));
         }
     }
 }

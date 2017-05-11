@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
@@ -273,6 +274,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
 
                 // Assert
                 Assert.IsInstanceOf<DikeProfilesImporter>(importer);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CurrentPath_DikeProfileCollectionHasPathSet_ReturnsExpectedPath()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            const string expectedFilePath = "some/path";
+            var surfaceLines = new DikeProfileCollection();
+            surfaceLines.AddRange(new[]
+            {
+                new TestDikeProfile() 
+            }, expectedFilePath);
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var context = new DikeProfilesContext(surfaceLines, failureMechanism, assessmentSection);
+
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
+            {
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+
+                // Call
+                string currentFilePath = updateInfo.CurrentPath(context);
+
+                // Assert
+                Assert.AreEqual(expectedFilePath, currentFilePath);
                 mocks.VerifyAll();
             }
         }

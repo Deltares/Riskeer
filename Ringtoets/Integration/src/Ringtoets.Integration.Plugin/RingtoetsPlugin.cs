@@ -448,12 +448,13 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new ImportInfo<ForeshoreProfilesContext>
             {
-                CreateFileImporter = (context, filePath) => new ForeshoreProfilesImporter(context.WrappedData,
-                                                                                          context.ParentAssessmentSection.ReferenceLine,
-                                                                                          filePath,
-                                                                                          new ForeshoreProfileReplaceDataStrategy(context.ParentFailureMechanism,
-                                                                                                                                  context.WrappedData),
-                                                                                          new ImportMessageProvider()),
+                CreateFileImporter = (context, filePath) =>
+                    new ForeshoreProfilesImporter(context.WrappedData,
+                                                  context.ParentAssessmentSection.ReferenceLine,
+                                                  filePath,
+                                                  new ForeshoreProfileReplaceDataStrategy(context.ParentFailureMechanism,
+                                                                                          context.WrappedData),
+                                                  new ImportMessageProvider()),
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,
@@ -481,6 +482,26 @@ namespace Ringtoets.Integration.Plugin
                 IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
+            };
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return new UpdateInfo<ForeshoreProfilesContext>
+            {
+                CreateFileImporter = (context, filePath) =>
+                    new ForeshoreProfilesImporter(context.WrappedData,
+                                                  context.ParentAssessmentSection.ReferenceLine,
+                                                  filePath,
+                                                  new ForeshoreProfileUpdateDataStrategy(context.ParentFailureMechanism),
+                                                  new UpdateMessageProvider()),
+                Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsIntegrationPluginResources.Foreshore,
+                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                CurrentPath = context => context.WrappedData.SourcePath,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
         }
 
@@ -629,6 +650,7 @@ namespace Ringtoets.Integration.Plugin
                                                      .ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
+                                                                                 .AddUpdateItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()

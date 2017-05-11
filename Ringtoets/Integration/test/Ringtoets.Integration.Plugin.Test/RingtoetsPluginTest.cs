@@ -521,6 +521,21 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
+        public void GetImportInfos_ReturnsSupportedUpdateInfos()
+        {
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, updateInfos.Length);
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
+            }
+        }
+
+        [Test]
         public void Activate_WithoutGui_ThrowsInvalidOperationException()
         {
             // Setup

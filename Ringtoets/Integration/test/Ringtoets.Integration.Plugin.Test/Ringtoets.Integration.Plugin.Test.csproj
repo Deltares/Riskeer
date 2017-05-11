@@ -115,6 +115,7 @@
     <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveHeightLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveConditionsInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="UpdateInfos\ForeshoreProfileContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DesignWaterLevelLocationsViewInfoTest.cs" />
