@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -37,7 +36,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -831,58 +829,22 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static void UpdateStructureDerivedCalculationInput(StructuresCalculation<HeightStructuresInput> calculation)
         {
-            HeightStructuresInput inputParameters = calculation.InputParameters;
-
-            RoundedDouble currentStructureNormalOrientation = inputParameters.StructureNormalOrientation;
-            NormalDistribution currentLevelCrestStructure = inputParameters.LevelCrestStructure;
-            LogNormalDistribution currentFlowWidthAtBottomProtection = inputParameters.FlowWidthAtBottomProtection;
-            VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge = inputParameters.CriticalOvertoppingDischarge;
-            NormalDistribution currentWidthFlowApertures = inputParameters.WidthFlowApertures;
-            double currentFailureProbabilityStructureWithErosion = inputParameters.FailureProbabilityStructureWithErosion;
-            VariationCoefficientLogNormalDistribution currentStorageStructureArea = inputParameters.StorageStructureArea;
-            LogNormalDistribution currentAllowedLevelIncreaseStorage = inputParameters.AllowedLevelIncreaseStorage;
-
-            inputParameters.SynchronizeStructureParameters();
-
-            var affectedObjects = new List<IObservable>();
-            if (IsDerivedInputUpdated(currentStructureNormalOrientation,
-                                      currentLevelCrestStructure,
-                                      currentFlowWidthAtBottomProtection,
-                                      currentCriticalOvertoppingDischarge,
-                                      currentWidthFlowApertures,
-                                      currentFailureProbabilityStructureWithErosion,
-                                      currentStorageStructureArea,
-                                      currentAllowedLevelIncreaseStorage,
-                                      inputParameters))
+            if (!calculation.InputParameters.StructureParametersSynchronized)
             {
-                affectedObjects.Add(inputParameters);
+                calculation.InputParameters.SynchronizeStructureParameters();
+
+                var affectedObjects = new List<IObservable>
+                {
+                    calculation.InputParameters
+                };
+
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-            }
 
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
+                foreach (IObservable affectedObject in affectedObjects)
+                {
+                    affectedObject.NotifyObservers();
+                }
             }
-        }
-
-        private static bool IsDerivedInputUpdated(RoundedDouble currentStructureNormalOrientation,
-                                                  NormalDistribution currentLevelCrestStructure,
-                                                  LogNormalDistribution currentFlowWidthAtBottomProtection,
-                                                  VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge,
-                                                  NormalDistribution currentWidthFlowApertures,
-                                                  double currentFailureProbabilityStructureWithErosion,
-                                                  VariationCoefficientLogNormalDistribution currentStorageStructureArea,
-                                                  LogNormalDistribution currentAllowedLevelIncreaseStorage,
-                                                  HeightStructuresInput actualInput)
-        {
-            return !Equals(currentStructureNormalOrientation, actualInput.StructureNormalOrientation)
-                   || !Equals(currentLevelCrestStructure, actualInput.LevelCrestStructure)
-                   || !Equals(currentFlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection)
-                   || !Equals(currentCriticalOvertoppingDischarge, actualInput.CriticalOvertoppingDischarge)
-                   || !Equals(currentWidthFlowApertures, actualInput.WidthFlowApertures)
-                   || !Equals(currentFailureProbabilityStructureWithErosion, actualInput.FailureProbabilityStructureWithErosion)
-                   || !Equals(currentStorageStructureArea, actualInput.StorageStructureArea)
-                   || !Equals(currentAllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage);
         }
 
         #endregion

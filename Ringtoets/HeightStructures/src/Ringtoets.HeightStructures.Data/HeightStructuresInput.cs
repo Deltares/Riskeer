@@ -98,6 +98,30 @@ namespace Ringtoets.HeightStructures.Data
 
         #endregion
 
+        /// <summary>
+        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
+        /// </summary>
+        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
+        public bool StructureParametersSynchronized
+        {
+            get
+            {
+                if (Structure == null)
+                {
+                    return false;
+                }
+
+                return Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
+                       && Equals(LevelCrestStructure, Structure.LevelCrestStructure)
+                       && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
+                       && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)
+                       && Equals(WidthFlowApertures, Structure.WidthFlowApertures)
+                       && Equals(FailureProbabilityStructureWithErosion, Structure.FailureProbabilityStructureWithErosion)
+                       && Equals(StorageStructureArea, Structure.StorageStructureArea)
+                       && Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage);
+            }
+        }
+
         public override void SynchronizeStructureParameters()
         {
             if (Structure != null)
