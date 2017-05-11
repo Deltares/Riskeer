@@ -52,13 +52,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
-            foreach (ICalculationBase calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location, calculations)))
+            foreach (ICalculationBase calculation in locations.Select(location => CreateWaveImpactAsphaltCoverWaveConditionsCalculation(location, calculations)))
             {
                 calculations.Add(calculation);
             }
         }
 
-        private static ICalculationBase CreateStabilityStoneCoverWaveConditionsCalculation(
+        private static ICalculationBase CreateWaveImpactAsphaltCoverWaveConditionsCalculation(
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             IEnumerable<ICalculationBase> calculations)
         {

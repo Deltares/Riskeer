@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.dataGridViewControl = new DataGridViewControl();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -63,13 +63,13 @@ namespace Ringtoets.Common.Forms
             this.dataGridViewControl.Size = new System.Drawing.Size(368, 426);
             this.dataGridViewControl.TabIndex = 0;
             // 
-            // GrassCoverErosionInwardsScenariosView
+            // ScenarioSelectionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.dataGridViewControl);
-            this.Name = "GrassCoverErosionInwardsScenariosView";
+            this.Name = "ScenarioSelectionControl";
             this.Size = new System.Drawing.Size(368, 426);
             this.ResumeLayout(false);
 

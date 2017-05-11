@@ -52,13 +52,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
-            foreach (ICalculationBase calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location, calculations)))
+            foreach (ICalculationBase calculation in locations.Select(location => CreateGrassCoverErosionOutwardsWaveConditionsCalculation(location, calculations)))
             {
                 calculations.Add(calculation);
             }
         }
 
-        private static ICalculationBase CreateStabilityStoneCoverWaveConditionsCalculation(
+        private static ICalculationBase CreateGrassCoverErosionOutwardsWaveConditionsCalculation(
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             IEnumerable<ICalculationBase> calculations)
         {

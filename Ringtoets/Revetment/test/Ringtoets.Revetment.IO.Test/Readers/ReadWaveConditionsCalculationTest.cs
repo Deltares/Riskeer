@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const bool useForeshore = false;
 
             // Call
-            var readPipingCalculation = new ReadWaveConditionsCalculation(new ReadWaveConditionsCalculation.ConstructionProperties
+            var readWaveConditionsCalculation = new ReadWaveConditionsCalculation(new ReadWaveConditionsCalculation.ConstructionProperties
             {
                 Name = calculationName,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -100,19 +100,19 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             });
 
             // Assert
-            Assert.AreEqual(calculationName, readPipingCalculation.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation, readPipingCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(upperBoundaryRevetment, readPipingCalculation.UpperBoundaryRevetment);
-            Assert.AreEqual(lowerBoundaryRevetment, readPipingCalculation.LowerBoundaryRevetment);
-            Assert.AreEqual(upperBoundaryWaterLevels, readPipingCalculation.UpperBoundaryWaterLevels);
-            Assert.AreEqual(lowerBoundaryWaterLevels, readPipingCalculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(stepSize, readPipingCalculation.StepSize);
-            Assert.AreEqual(foreshoreProfileName, readPipingCalculation.ForeshoreProfile);
-            Assert.AreEqual(orientation, readPipingCalculation.Orientation);
-            Assert.AreEqual(useBreakWater, readPipingCalculation.UseBreakWater);
-            Assert.AreEqual(breakWaterType, readPipingCalculation.BreakWaterType);
-            Assert.AreEqual(breakWaterHeight, readPipingCalculation.BreakWaterHeight);
-            Assert.AreEqual(useForeshore, readPipingCalculation.UseForeshore);
+            Assert.AreEqual(calculationName, readWaveConditionsCalculation.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation, readWaveConditionsCalculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(upperBoundaryRevetment, readWaveConditionsCalculation.UpperBoundaryRevetment);
+            Assert.AreEqual(lowerBoundaryRevetment, readWaveConditionsCalculation.LowerBoundaryRevetment);
+            Assert.AreEqual(upperBoundaryWaterLevels, readWaveConditionsCalculation.UpperBoundaryWaterLevels);
+            Assert.AreEqual(lowerBoundaryWaterLevels, readWaveConditionsCalculation.LowerBoundaryWaterLevels);
+            Assert.AreEqual(stepSize, readWaveConditionsCalculation.StepSize);
+            Assert.AreEqual(foreshoreProfileName, readWaveConditionsCalculation.ForeshoreProfile);
+            Assert.AreEqual(orientation, readWaveConditionsCalculation.Orientation);
+            Assert.AreEqual(useBreakWater, readWaveConditionsCalculation.UseBreakWater);
+            Assert.AreEqual(breakWaterType, readWaveConditionsCalculation.BreakWaterType);
+            Assert.AreEqual(breakWaterHeight, readWaveConditionsCalculation.BreakWaterHeight);
+            Assert.AreEqual(useForeshore, readWaveConditionsCalculation.UseForeshore);
         }
     }
 }

@@ -37,10 +37,10 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
     internal static class WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GrassCoverErosionInwardsCalculationEntity"/> and use the
+        /// Reads the <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/> and use the
         /// information to update a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>
         /// to create <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.</returns>

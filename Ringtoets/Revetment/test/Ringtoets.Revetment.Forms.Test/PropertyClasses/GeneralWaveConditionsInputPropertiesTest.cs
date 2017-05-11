@@ -45,7 +45,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewStabilityStoneCoverFailureMechanismContext_ReturnCorrectPropertyValues()
+        public void Data_SetNewGeneralWaveConditionsInput_ReturnCorrectPropertyValues()
         {
             // Setup
             var properties = new GeneralWaveConditionsInputProperties();

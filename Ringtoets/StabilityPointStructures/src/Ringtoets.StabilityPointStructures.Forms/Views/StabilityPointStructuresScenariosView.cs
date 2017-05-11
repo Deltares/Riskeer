@@ -33,7 +33,7 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// View for configuring scenarios for the closing structures failure mechanism.
+    /// View for configuring scenarios for the stability point structures failure mechanism.
     /// Shows a grid view where for each failure mechanism section, a calculation within the section
     /// can be selected.
     /// </summary>
