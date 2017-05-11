@@ -577,10 +577,23 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipText,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => { })
+                                             (o, args) => { UpdateStructureDependentDataOfCalculation(calculations); })
             {
                 Enabled = contextMenuEnabled
             };
+        }
+
+        private void UpdateStructureDependentDataOfCalculation(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
+        {
+            string message =
+                RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data;
+            if (StructureDependentDataShouldUpdate(calculations, message))
+            {
+                foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
+                {
+                    UpdateStructureDerivedCalculationInput(calculation);
+                }
+            }
         }
 
         private StrictContextMenuItem CreateGenerateClosingStructuresCalculationsItem(ClosingStructuresCalculationGroupContext nodeData)

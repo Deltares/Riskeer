@@ -867,8 +867,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-                plugin.Gui = guiStub;
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
@@ -943,8 +941,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                plugin.Gui = guiStub;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
@@ -1192,12 +1188,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
@@ -1272,12 +1265,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
@@ -1347,12 +1338,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
@@ -1426,12 +1414,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
@@ -1506,12 +1491,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
-
-                plugin.Gui = gui;
 
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
@@ -1577,8 +1559,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiStub;
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
@@ -1634,8 +1614,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                plugin.Gui = guiStub;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -1700,8 +1678,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
-
-                plugin.Gui = guiStub;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
