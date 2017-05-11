@@ -597,10 +597,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Precondition
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-                
+
                 // Call
                 var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
-                              {
+                {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
                 });
@@ -609,7 +609,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-                mocks.ReplayAll();
+                mocks.VerifyAll();
             }
         }
 
@@ -784,6 +784,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                         Structure = new TestClosingStructure(calculationLocationA)
                     }
                 };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -828,10 +829,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                         Structure = new TestClosingStructure(calculationLocationA)
                     }
                 };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 calculationA.Name = "new name";
 
@@ -840,6 +847,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Assert
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -1074,7 +1082,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-            
+
             var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
 
