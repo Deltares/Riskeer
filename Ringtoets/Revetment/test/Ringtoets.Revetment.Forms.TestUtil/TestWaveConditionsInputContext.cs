@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
-        /// <param name="calculation">The calculation</param>
+        /// <param name="calculation">The calculation.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
         /// <param name="locations">The hydraulic boundary locations.</param>
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,

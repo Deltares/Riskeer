@@ -38,7 +38,7 @@ namespace Ringtoets.Revetment.Forms.Factories
     internal static class WaveConditionsChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for lower boundary revetment.        
+        /// Create <see cref="ChartLineData"/> with default styling for lower boundary revetment.
         /// </summary>
         /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for upper boundary revetment.        
+        /// Create <see cref="ChartLineData"/> with default styling for upper boundary revetment.
         /// </summary>
         /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for revetment.
+        /// Create <see cref="ChartLineData"/> with default styling for the revetment base.
         /// </summary>
         /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
@@ -93,11 +93,11 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create <see cref="ChartLineData"/> with default styling for lower boundary water levels.
         /// </summary>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateLowerWaterLevelsBoundaryChartdata()
+        public static ChartLineData CreateLowerWaterLevelsBoundaryChartData()
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_LowerBoundaryWaterLevels_DisplayName)
             {
-                Style = GetWaterLevelBoundaryStyle()
+                Style = GetWaterLevelsBoundaryStyle()
             };
         }
 
@@ -105,11 +105,11 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create <see cref="ChartLineData"/> with default styling for upper boundary water levels.
         /// </summary>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateUpperWaterLevelsBoundaryChartdata()
+        public static ChartLineData CreateUpperWaterLevelsBoundaryChartData()
         {
-            return new ChartLineData(Resources.WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName)
+            return new ChartLineData(Resources.WaveConditionsChartDataFactory_UpperBoundaryWaterLevels_DisplayName)
             {
-                Style = GetWaterLevelBoundaryStyle()
+                Style = GetWaterLevelsBoundaryStyle()
             };
         }
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartDataName"/>
         /// is <c>null</c>.</exception>
-        public static ChartLineData CreateDesignWaterLevelChartdata(string chartDataName)
+        public static ChartLineData CreateDesignWaterLevelChartData(string chartDataName)
         {
             if (chartDataName == null)
             {
@@ -171,7 +171,7 @@ namespace Ringtoets.Revetment.Forms.Factories
             return new ChartLineStyle(lineColor, 2, DashStyle.Solid);
         }
 
-        private static ChartLineStyle GetWaterLevelBoundaryStyle()
+        private static ChartLineStyle GetWaterLevelsBoundaryStyle()
         {
             return new ChartLineStyle(Color.Blue, 2, DashStyle.Solid);
         }

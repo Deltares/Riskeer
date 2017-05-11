@@ -201,9 +201,9 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens waterstanden.
         /// </summary>
-        public static string WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName {
+        public static string WaveConditionsChartDataFactory_UpperBoundaryWaterLevels_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsChartDataFactory_UpperBoundaryWaterLevelsDisplayName", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsChartDataFactory_UpperBoundaryWaterLevels_DisplayName", resourceCulture);
             }
         }
         

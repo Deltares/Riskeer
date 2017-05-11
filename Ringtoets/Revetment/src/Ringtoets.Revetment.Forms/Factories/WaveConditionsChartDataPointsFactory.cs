@@ -33,7 +33,7 @@ namespace Ringtoets.Revetment.Forms.Factories
 {
     /// <summary>
     /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>
-    /// (created via <see cref="RingtoetsChartDataFactory"/>).
+    /// (created via <see cref="RingtoetsChartDataFactory"/> and <see cref="WaveConditionsChartDataFactory"/>) .
     /// </summary>
     internal static class WaveConditionsChartDataPointsFactory
     {
@@ -63,7 +63,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set;</item>
-        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set;</item>
+        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateRevetmentGeometryPoints(WaveConditionsInput input)
@@ -75,8 +75,8 @@ namespace Ringtoets.Revetment.Forms.Factories
                 return new Point2D[0];
             }
 
-            double startPointX = GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment);
-            double endPointX = GetPointXOnRevetmenetLine(input, input.UpperBoundaryRevetment);
+            double startPointX = GetPointXOnRevetmentLine(input, input.LowerBoundaryRevetment);
+            double endPointX = GetPointXOnRevetmentLine(input, input.UpperBoundaryRevetment);
 
             return new[]
             {
@@ -93,7 +93,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set;</item>
-        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set;</item>
+        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateRevetmentBaseGeometryPoints(WaveConditionsInput input)
@@ -108,12 +108,12 @@ namespace Ringtoets.Revetment.Forms.Factories
             var points = new List<Point2D>
             {
                 GetBaseStartPoint(input),
-                new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
+                new Point2D(GetPointXOnRevetmentLine(input, input.LowerBoundaryRevetment), input.LowerBoundaryRevetment)
             };
 
             if (input.LowerBoundaryWaterLevels < points.First().Y)
             {
-                points.Insert(0, new Point2D(GetPointXOnRevetmenetLine(input, input.LowerBoundaryWaterLevels), input.LowerBoundaryWaterLevels));
+                points.Insert(0, new Point2D(GetPointXOnRevetmentLine(input, input.LowerBoundaryWaterLevels), input.LowerBoundaryWaterLevels));
             }
 
             return points.ToArray();
@@ -126,7 +126,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>An array of points in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set;</item>
+        /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
@@ -143,7 +143,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>An array of points in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set;</item>
+        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateUpperBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
@@ -160,7 +160,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>An array of points in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>the <see cref="WaveConditionsInput.LowerBoundaryWaterLevels"/> is not set;</item>
+        /// <item>the <see cref="WaveConditionsInput.LowerBoundaryWaterLevels"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateLowerBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
@@ -177,7 +177,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>An array of points in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryWaterLevels"/> is not set;</item>
+        /// <item>the <see cref="WaveConditionsInput.UpperBoundaryWaterLevels"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateUpperBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
@@ -195,7 +195,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item>the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> is not set;</item>
+        /// <item>the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> is not set.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateDesignWaterLevelGeometryPoints(WaveConditionsInput input)
@@ -212,7 +212,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>A list with arrays of points in 2D space or an empty list when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>there are no <see cref="WaveConditionsInput.WaterLevels"/>;</item>
+        /// <item>there are no <see cref="WaveConditionsInput.WaterLevels"/>.</item>
         /// </list>
         /// </returns>
         public static List<Point2D[]> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
@@ -231,7 +231,7 @@ namespace Ringtoets.Revetment.Forms.Factories
                        : new[]
                        {
                            new Point2D(GetForeshoreProfileStartX(input), value),
-                           new Point2D(GetPointXOnRevetmenetLine(input, value), value)
+                           new Point2D(GetPointXOnRevetmentLine(input, value), value)
                        };
         }
 
@@ -242,7 +242,7 @@ namespace Ringtoets.Revetment.Forms.Factories
                        : -10;
         }
 
-        private static double GetPointXOnRevetmenetLine(WaveConditionsInput input, double valueY)
+        private static double GetPointXOnRevetmentLine(WaveConditionsInput input, double valueY)
         {
             Point2D baseStartPoint = GetBaseStartPoint(input);
             double endPointX = ((valueY - baseStartPoint.Y) / 3) + baseStartPoint.X;

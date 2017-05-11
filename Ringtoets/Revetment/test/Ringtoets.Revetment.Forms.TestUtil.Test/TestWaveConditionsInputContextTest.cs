@@ -97,7 +97,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
-            Assert.AreEqual(calculation, context.Calculation);
+            Assert.AreSame(calculation, context.Calculation);
             CollectionAssert.AreEqual(profiles, context.ForeshoreProfiles);
             CollectionAssert.AreEqual(locations, context.HydraulicBoundaryLocations);
         }

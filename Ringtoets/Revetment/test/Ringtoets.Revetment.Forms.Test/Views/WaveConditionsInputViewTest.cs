@@ -113,7 +113,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void Data_OtherThanIWwaveCondittionsCalculation_DataNull()
+        public void Data_OtherThanWaveConditionsCalculation_DataNull()
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
@@ -555,7 +555,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                                        ChartData chartData)
         {
             Assert.IsInstanceOf<ChartMultipleLineData>(chartData);
-            var chartLineData = (ChartMultipleLineData)chartData;
+            var chartLineData = (ChartMultipleLineData) chartData;
 
             List<Point2D[]> expectedGeometry = waterLevels.Select(waterLevel => new[]
             {

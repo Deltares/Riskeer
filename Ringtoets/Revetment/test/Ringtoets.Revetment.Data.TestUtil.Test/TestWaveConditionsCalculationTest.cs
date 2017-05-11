@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.TestUtil.Test
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.Revetment.TestUtil.Test
             var calculation = new TestWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNull(calculation.Output);

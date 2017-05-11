@@ -55,7 +55,7 @@ namespace Ringtoets.Revetment.Forms.Views
         private ICalculation<WaveConditionsInput> data;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputView"/>.        
+        /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
         /// </summary>
         /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputViewStyle"/>
@@ -78,9 +78,9 @@ namespace Ringtoets.Revetment.Forms.Views
             upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
             revetmentChartData = WaveConditionsChartDataFactory.CreateRevetmentChartData(inputViewStyle.RevetmentLineColor);
             revetmentBaseChartData = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData(inputViewStyle.RevetmentLineColor);
-            lowerBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartdata();
-            upperBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartdata();
-            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartdata(inputViewStyle.DesignWaterLevelName);
+            lowerBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartData();
+            upperBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartData();
+            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData(inputViewStyle.DesignWaterLevelName);
             waterLevelsChartData = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
 
             chartDataCollection.Add(foreshoreChartData);
