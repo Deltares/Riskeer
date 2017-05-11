@@ -96,7 +96,37 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             get
             {
-                return false;
+                if (Structure == null)
+                {
+                    return false;
+                }
+
+                return Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage)
+                       && Equals(AreaFlowApertures, Structure.AreaFlowApertures)
+                       && Equals(BankWidth, Structure.BankWidth)
+                       && Equals(ConstructiveStrengthLinearLoadModel, Structure.ConstructiveStrengthLinearLoadModel)
+                       && Equals(ConstructiveStrengthQuadraticLoadModel, Structure.ConstructiveStrengthQuadraticLoadModel)
+                       && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)
+                       && Equals(EvaluationLevel, Structure.EvaluationLevel)
+                       && Equals(FailureCollisionEnergy, Structure.FailureCollisionEnergy)
+                       && Equals(FailureProbabilityRepairClosure, Structure.FailureProbabilityRepairClosure)
+                       && Equals(FlowVelocityStructureClosable, Structure.FlowVelocityStructureClosable)
+                       && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
+                       && Equals(InflowModelType, Structure.InflowModelType)
+                       && Equals(InsideWaterLevel, Structure.InsideWaterLevel)
+                       && Equals(InsideWaterLevelFailureConstruction, Structure.InsideWaterLevelFailureConstruction)
+                       && Equals(LevelCrestStructure, Structure.LevelCrestStructure)
+                       && Equals(LevellingCount, Structure.LevellingCount)
+                       && Equals(ProbabilityCollisionSecondaryStructure, Structure.ProbabilityCollisionSecondaryStructure)
+                       && Equals(ShipMass, Structure.ShipMass)
+                       && Equals(ShipVelocity, Structure.ShipVelocity)
+                       && Equals(StabilityLinearLoadModel, Structure.StabilityLinearLoadModel)
+                       && Equals(StabilityQuadraticLoadModel, Structure.StabilityQuadraticLoadModel)
+                       && Equals(StorageStructureArea, Structure.StorageStructureArea)
+                       && Equals(ThresholdHeightOpenWeir, Structure.ThresholdHeightOpenWeir)
+                       && Equals(VerticalDistance, Structure.VerticalDistance)
+                       && Equals(WidthFlowApertures, Structure.WidthFlowApertures)
+                       && Equals(StructureNormalOrientation, Structure.StructureNormalOrientation);
             }
         }
 
