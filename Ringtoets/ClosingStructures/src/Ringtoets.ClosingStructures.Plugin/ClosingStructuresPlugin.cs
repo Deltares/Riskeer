@@ -575,7 +575,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipText,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => { UpdateStructureDependentDataOfCalculation(calculations); })
+                                             (o, args) => UpdateStructureDependentDataOfCalculation(calculations) )
             {
                 Enabled = contextMenuEnabled
             };

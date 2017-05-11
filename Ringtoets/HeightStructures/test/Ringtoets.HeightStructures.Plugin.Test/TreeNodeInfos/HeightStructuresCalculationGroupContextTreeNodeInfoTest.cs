@@ -1120,7 +1120,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructure_ContextMenuItemUpdatStructureAllEnabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructure_ContextMenuItemUpdateStructureAllEnabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup
