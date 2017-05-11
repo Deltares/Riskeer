@@ -98,7 +98,7 @@ namespace Ringtoets.HeightStructures.Data
 
         #endregion
 
-        protected override void SynchronizeStructureParameters()
+        public override void SynchronizeStructureParameters()
         {
             if (Structure != null)
             {

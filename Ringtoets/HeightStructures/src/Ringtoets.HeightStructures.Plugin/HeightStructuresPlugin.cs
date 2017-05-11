@@ -842,8 +842,7 @@ namespace Ringtoets.HeightStructures.Plugin
             VariationCoefficientLogNormalDistribution currentStorageStructureArea = inputParameters.StorageStructureArea;
             LogNormalDistribution currentAllowedLevelIncreaseStorage = inputParameters.AllowedLevelIncreaseStorage;
 
-            // Reapply the structure will update the derived inputs
-            inputParameters.Structure = inputParameters.Structure;
+            inputParameters.SynchronizeStructureParameters();
 
             var affectedObjects = new List<IObservable>();
             if (IsDerivedInputUpdated(currentStructureNormalOrientation,

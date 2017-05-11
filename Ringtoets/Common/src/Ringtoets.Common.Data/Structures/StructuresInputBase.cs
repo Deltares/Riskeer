@@ -130,7 +130,8 @@ namespace Ringtoets.Common.Data.Structures
         /// <summary>
         /// Synchronizes the input parameters with the parameters of the structure.
         /// </summary>
-        protected abstract void SynchronizeStructureParameters();
+        /// <remarks>When no structure is present, the input parameters are set to default values.</remarks>
+        public abstract void SynchronizeStructureParameters();
 
         private void SetDefaultCommonStructureSchematizationProperties()
         {

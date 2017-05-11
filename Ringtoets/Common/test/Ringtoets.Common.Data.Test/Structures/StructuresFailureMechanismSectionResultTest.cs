@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
         {
-            protected override void SynchronizeStructureParameters() {}
+            public override void SynchronizeStructureParameters() {}
         }
     }
 }

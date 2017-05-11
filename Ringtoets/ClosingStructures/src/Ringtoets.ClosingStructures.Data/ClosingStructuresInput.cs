@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        protected override void SynchronizeStructureParameters()
+        public override void SynchronizeStructureParameters()
         {
             if (Structure != null)
             {

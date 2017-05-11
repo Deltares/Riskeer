@@ -525,7 +525,7 @@ namespace Ringtoets.Common.Service.Test
 
         private class TestStructureInput : StructuresInputBase<TestStructure>
         {
-            protected override void SynchronizeStructureParameters() {}
+            public override void SynchronizeStructureParameters() {}
         }
 
         private class TestStructure : StructureBase

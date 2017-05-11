@@ -839,8 +839,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             double currentProbabilityOrFrequencyOpenStructureBeforeFlooding = inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
             NormalDistribution currentThresholdHeightOpenWeir = inputParameters.ThresholdHeightOpenWeir;
 
-            // Reapply the structure will update the derived inputs
-            inputParameters.Structure = inputParameters.Structure;
+            inputParameters.SynchronizeStructureParameters();
 
             var affectedObjects = new List<IObservable>();
             if (IsDerivedInputUpdated(currentStructureNormalOrientation,
