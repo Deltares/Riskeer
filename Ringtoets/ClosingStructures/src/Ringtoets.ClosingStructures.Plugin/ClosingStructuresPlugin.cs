@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -42,6 +44,7 @@ using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -196,7 +199,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             yield return new ImportInfo<ClosingStructuresContext>
             {
-                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
+                CreateFileImporter = (context, filePath) => CreateClosingStructuresImporter(
                     context,
                     filePath,
                     new ImportMessageProvider(),
@@ -207,7 +210,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 FileFilterGenerator = CreateClosingStructureFileFilter(),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 VerifyUpdates = context => VerifyStructuresShouldUpdate(
-                    context.FailureMechanism, 
+                    context.FailureMechanism,
                     RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
@@ -225,7 +228,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             yield return new UpdateInfo<ClosingStructuresContext>
             {
-                CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
+                CreateFileImporter = (context, filePath) => CreateClosingStructuresImporter(
                     context,
                     filePath,
                     new UpdateMessageProvider(),
@@ -237,7 +240,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 IsEnabled = c => c.FailureMechanism.ClosingStructures.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 VerifyUpdates = context => VerifyStructuresShouldUpdate(
-                    context.FailureMechanism, 
+                    context.FailureMechanism,
                     RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
         }
@@ -678,6 +681,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
@@ -731,6 +735,132 @@ namespace Ringtoets.ClosingStructures.Plugin
             }
         }
 
+        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationContext context)
+        {
+            ClosingStructuresInput inputParameters = context.WrappedData.InputParameters;
+            bool hasStructure = inputParameters.Structure != null;
+
+            string toolTipMessage = hasStructure
+                                        ? RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip
+                                        : RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip;
+
+            return new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data,
+                toolTipMessage,
+                RingtoetsCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = hasStructure
+            };
+        }
+
+        private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<ClosingStructuresInput> calculation)
+        {
+            string message =
+                RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data;
+            if (StructureDependentDataShouldUpdate(new[]
+            {
+                calculation
+            }, message))
+            {
+                UpdateStructureDerivedCalculationInput(calculation);
+            }
+        }
+
+        private bool StructureDependentDataShouldUpdate(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations, string query)
+        {
+            var changeHandler = new CalculationChangeHandler(calculations,
+                                                             query,
+                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static void UpdateStructureDerivedCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation)
+        {
+            ClosingStructuresInput inputParameters = calculation.InputParameters;
+
+            RoundedDouble currentStructureNormalOrientation = inputParameters.StructureNormalOrientation;
+            NormalDistribution currentLevelCrestStructureNotClosing = inputParameters.LevelCrestStructureNotClosing;
+            LogNormalDistribution currentFlowWidthAtBottomProtection = inputParameters.FlowWidthAtBottomProtection;
+            VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge = inputParameters.CriticalOvertoppingDischarge;
+            NormalDistribution currentWidthFlowApertures = inputParameters.WidthFlowApertures;
+            VariationCoefficientLogNormalDistribution currentStorageStructureArea = inputParameters.StorageStructureArea;
+            LogNormalDistribution currentAllowedLevelIncreaseStorage = inputParameters.AllowedLevelIncreaseStorage;
+            ClosingStructureInflowModelType currentInflowModelType = inputParameters.InflowModelType;
+            LogNormalDistribution currentAreaFlowApertures = inputParameters.AreaFlowApertures;
+            double currentFailureProbabilityOpenStructure = inputParameters.FailureProbabilityOpenStructure;
+            double currentFailureProbabilityReparation = inputParameters.FailureProbabilityReparation;
+            int currentIdenticalApertures = inputParameters.IdenticalApertures;
+            NormalDistribution currentInsideWaterLevel = inputParameters.InsideWaterLevel;
+            double currentProbabilityOrFrequencyOpenStructureBeforeFlooding = inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+            NormalDistribution currentThresholdHeightOpenWeir = inputParameters.ThresholdHeightOpenWeir;
+
+            // Reapply the structure will update the derived inputs
+            inputParameters.Structure = inputParameters.Structure;
+
+            var affectedObjects = new List<IObservable>();
+            if (IsDerivedInputUpdated(currentStructureNormalOrientation,
+                                      currentLevelCrestStructureNotClosing,
+                                      currentFlowWidthAtBottomProtection,
+                                      currentCriticalOvertoppingDischarge,
+                                      currentWidthFlowApertures,
+                                      currentStorageStructureArea,
+                                      currentAllowedLevelIncreaseStorage,
+                                      currentInflowModelType,
+                                      currentAreaFlowApertures,
+                                      currentFailureProbabilityOpenStructure,
+                                      currentFailureProbabilityReparation,
+                                      currentIdenticalApertures,
+                                      currentInsideWaterLevel,
+                                      currentProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                                      currentThresholdHeightOpenWeir,
+                                      inputParameters))
+            {
+                affectedObjects.Add(inputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            }
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private static bool IsDerivedInputUpdated(RoundedDouble currentStructureNormalOrientation,
+                                                  NormalDistribution currentLevelCrestStructureNotClosing,
+                                                  LogNormalDistribution currentFlowWidthAtBottomProtection,
+                                                  VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge,
+                                                  NormalDistribution currentWidthFlowApertures,
+                                                  VariationCoefficientLogNormalDistribution currentStorageStructureArea,
+                                                  LogNormalDistribution currentAllowedLevelIncreaseStorage,
+                                                  ClosingStructureInflowModelType currentInflowModelType,
+                                                  LogNormalDistribution currentAreaFlowApertures,
+                                                  double currentFailureProbabilityOpenStructure,
+                                                  double currentFailureProbabilityReparation,
+                                                  int currentIdenticalApertures,
+                                                  NormalDistribution currentInsideWaterLevel,
+                                                  double currentProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                                                  NormalDistribution currentThresholdHeightOpenWeir,
+                                                  ClosingStructuresInput actualInput)
+        {
+            return !Equals(currentStructureNormalOrientation, actualInput.StructureNormalOrientation)
+                   || !Equals(currentLevelCrestStructureNotClosing, actualInput.LevelCrestStructureNotClosing)
+                   || !Equals(currentFlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection)
+                   || !Equals(currentCriticalOvertoppingDischarge, actualInput.CriticalOvertoppingDischarge)
+                   || !Equals(currentWidthFlowApertures, actualInput.WidthFlowApertures)
+                   || !Equals(currentStorageStructureArea, actualInput.StorageStructureArea)
+                   || !Equals(currentAllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage)
+                   || !Equals(currentInflowModelType, actualInput.InflowModelType)
+                   || !Equals(currentAreaFlowApertures, actualInput.AreaFlowApertures)
+                   || !Equals(currentFailureProbabilityOpenStructure, actualInput.FailureProbabilityOpenStructure)
+                   || !Equals(currentFailureProbabilityReparation, actualInput.FailureProbabilityReparation)
+                   || !Equals(currentIdenticalApertures, actualInput.IdenticalApertures)
+                   || !Equals(currentInsideWaterLevel, actualInput.InsideWaterLevel)
+                   || !Equals(currentProbabilityOrFrequencyOpenStructureBeforeFlooding, actualInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
+                   || !Equals(currentThresholdHeightOpenWeir, actualInput.ThresholdHeightOpenWeir);
+        }
+
         #endregion
 
         #endregion
@@ -739,10 +869,10 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         #region ClosingStructuresImporter
 
-        private IFileImporter CreateHeightStructuresImporter(ClosingStructuresContext context,
-                                                             string filePath,
-                                                             IImporterMessageProvider importerMessageProvider,
-                                                             IStructureUpdateStrategy<ClosingStructure> structureUpdateStrategy)
+        private static IFileImporter CreateClosingStructuresImporter(ClosingStructuresContext context,
+                                                                     string filePath,
+                                                                     IImporterMessageProvider importerMessageProvider,
+                                                                     IStructureUpdateStrategy<ClosingStructure> structureUpdateStrategy)
         {
             return new ClosingStructuresImporter(context.WrappedData,
                                                  context.AssessmentSection.ReferenceLine,
