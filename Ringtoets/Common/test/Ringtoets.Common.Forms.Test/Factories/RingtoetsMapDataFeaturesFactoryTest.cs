@@ -846,7 +846,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            protected override void UpdateStructureParameters() {}
+            protected override void SynchronizeStructureParameters() {}
         }
 
         private class SimpleStructuresCalculation : StructuresCalculation<SimpleStructuresInput> {}

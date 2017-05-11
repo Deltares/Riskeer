@@ -224,7 +224,7 @@ namespace Ringtoets.Common.Utils.Test
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
         {
-            protected override void UpdateStructureParameters() {}
+            protected override void SynchronizeStructureParameters() {}
         }
 
         private class TestStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<TestStructuresInput>

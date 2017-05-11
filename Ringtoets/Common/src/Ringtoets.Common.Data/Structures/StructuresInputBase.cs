@@ -123,14 +123,14 @@ namespace Ringtoets.Common.Data.Structures
                     SetDefaultCommonStructureSchematizationProperties();
                 }
 
-                UpdateStructureParameters();
+                SynchronizeStructureParameters();
             }
         }
 
         /// <summary>
         /// Synchronizes the input parameters with the parameters of the structure.
         /// </summary>
-        protected abstract void UpdateStructureParameters();
+        protected abstract void SynchronizeStructureParameters();
 
         private void SetDefaultCommonStructureSchematizationProperties()
         {

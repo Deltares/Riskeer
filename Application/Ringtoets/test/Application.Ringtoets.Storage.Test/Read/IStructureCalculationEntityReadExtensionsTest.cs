@@ -228,7 +228,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private class SimpleStructuresInput : StructuresInputBase<SimpleStructure>
         {
-            protected override void UpdateStructureParameters()
+            protected override void SynchronizeStructureParameters()
             {
                 throw new NotImplementedException();
             }

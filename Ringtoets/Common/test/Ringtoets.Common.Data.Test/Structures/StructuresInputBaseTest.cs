@@ -131,14 +131,14 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
 
             // Precondition
-            Assert.IsFalse(input.Updated);
+            Assert.IsFalse(input.Synchronized);
 
             // Call
             input.Structure = structure;
 
             // Assert
             Assert.AreSame(structure, input.Structure);
-            Assert.IsTrue(input.Updated);
+            Assert.IsTrue(input.Synchronized);
         }
 
         [Test]
@@ -274,11 +274,11 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            public bool Updated { get; private set; }
+            public bool Synchronized { get; private set; }
 
-            protected override void UpdateStructureParameters()
+            protected override void SynchronizeStructureParameters()
             {
-                Updated = true;
+                Synchronized = true;
             }
         }
 

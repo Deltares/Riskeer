@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             SetDefaultSchematizationProperties();
         }
 
-        protected override void UpdateStructureParameters()
+        protected override void SynchronizeStructureParameters()
         {
             if (Structure != null)
             {
