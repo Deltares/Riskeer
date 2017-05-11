@@ -66,12 +66,12 @@ namespace Ringtoets.ClosingStructures.IO
         }
 
         protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                         Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
-                                                                     CreateClosingStructures(structureLocations.ToList(),
-                                                                                            groupedStructureParameterRows),
-                                                                     FilePath);
+                                                                            CreateClosingStructures(structureLocations.ToList(),
+                                                                                                    groupedStructureParameterRows),
+                                                                            FilePath);
         }
 
         private IEnumerable<ClosingStructure> CreateClosingStructures(IEnumerable<StructureLocation> structureLocations,

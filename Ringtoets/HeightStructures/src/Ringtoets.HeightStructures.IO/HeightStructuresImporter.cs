@@ -64,12 +64,12 @@ namespace Ringtoets.HeightStructures.IO
         }
 
         protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                         Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
-                                                                     CreateHeightStructures(structureLocations.ToList(),
-                                                                                            groupedStructureParameterRows),
-                                                                     FilePath);
+                                                                            CreateHeightStructures(structureLocations.ToList(),
+                                                                                                   groupedStructureParameterRows),
+                                                                            FilePath);
         }
 
         private IEnumerable<HeightStructure> CreateHeightStructures(IEnumerable<StructureLocation> structureLocations,

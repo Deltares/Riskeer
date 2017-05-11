@@ -32,6 +32,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.StabilityPointStructures.IO
 {
     /// <summary>
@@ -54,9 +55,9 @@ namespace Ringtoets.StabilityPointStructures.IO
             : base(importTarget, referenceLine, filePath, messageProvider) {}
 
         protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                         Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            IEnumerable<StabilityPointStructure> importedStabilityPointStructures = 
+            IEnumerable<StabilityPointStructure> importedStabilityPointStructures =
                 CreateStabilityPointStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray();
 
             IEnumerable<string> knownIds = ImportTarget.Select(t => t.Id).Intersect(importedStabilityPointStructures.Select(s => s.Id)).ToArray();
