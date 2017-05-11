@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -44,7 +43,6 @@ using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
@@ -821,86 +819,22 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void UpdateStructureDerivedCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            ClosingStructuresInput inputParameters = calculation.InputParameters;
-
-            RoundedDouble currentStructureNormalOrientation = inputParameters.StructureNormalOrientation;
-            NormalDistribution currentLevelCrestStructureNotClosing = inputParameters.LevelCrestStructureNotClosing;
-            LogNormalDistribution currentFlowWidthAtBottomProtection = inputParameters.FlowWidthAtBottomProtection;
-            VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge = inputParameters.CriticalOvertoppingDischarge;
-            NormalDistribution currentWidthFlowApertures = inputParameters.WidthFlowApertures;
-            VariationCoefficientLogNormalDistribution currentStorageStructureArea = inputParameters.StorageStructureArea;
-            LogNormalDistribution currentAllowedLevelIncreaseStorage = inputParameters.AllowedLevelIncreaseStorage;
-            ClosingStructureInflowModelType currentInflowModelType = inputParameters.InflowModelType;
-            LogNormalDistribution currentAreaFlowApertures = inputParameters.AreaFlowApertures;
-            double currentFailureProbabilityOpenStructure = inputParameters.FailureProbabilityOpenStructure;
-            double currentFailureProbabilityReparation = inputParameters.FailureProbabilityReparation;
-            int currentIdenticalApertures = inputParameters.IdenticalApertures;
-            NormalDistribution currentInsideWaterLevel = inputParameters.InsideWaterLevel;
-            double currentProbabilityOrFrequencyOpenStructureBeforeFlooding = inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
-            NormalDistribution currentThresholdHeightOpenWeir = inputParameters.ThresholdHeightOpenWeir;
-
-            inputParameters.SynchronizeStructureParameters();
-
-            var affectedObjects = new List<IObservable>();
-            if (IsDerivedInputUpdated(currentStructureNormalOrientation,
-                                      currentLevelCrestStructureNotClosing,
-                                      currentFlowWidthAtBottomProtection,
-                                      currentCriticalOvertoppingDischarge,
-                                      currentWidthFlowApertures,
-                                      currentStorageStructureArea,
-                                      currentAllowedLevelIncreaseStorage,
-                                      currentInflowModelType,
-                                      currentAreaFlowApertures,
-                                      currentFailureProbabilityOpenStructure,
-                                      currentFailureProbabilityReparation,
-                                      currentIdenticalApertures,
-                                      currentInsideWaterLevel,
-                                      currentProbabilityOrFrequencyOpenStructureBeforeFlooding,
-                                      currentThresholdHeightOpenWeir,
-                                      inputParameters))
+            if (!calculation.InputParameters.StructureParametersSynchronized)
             {
-                affectedObjects.Add(inputParameters);
+                calculation.InputParameters.SynchronizeStructureParameters();
+
+                var affectedObjects = new List<IObservable>
+                {
+                    calculation.InputParameters
+                };
+
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-            }
 
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
+                foreach (IObservable affectedObject in affectedObjects)
+                {
+                    affectedObject.NotifyObservers();
+                }
             }
-        }
-
-        private static bool IsDerivedInputUpdated(RoundedDouble currentStructureNormalOrientation,
-                                                  NormalDistribution currentLevelCrestStructureNotClosing,
-                                                  LogNormalDistribution currentFlowWidthAtBottomProtection,
-                                                  VariationCoefficientLogNormalDistribution currentCriticalOvertoppingDischarge,
-                                                  NormalDistribution currentWidthFlowApertures,
-                                                  VariationCoefficientLogNormalDistribution currentStorageStructureArea,
-                                                  LogNormalDistribution currentAllowedLevelIncreaseStorage,
-                                                  ClosingStructureInflowModelType currentInflowModelType,
-                                                  LogNormalDistribution currentAreaFlowApertures,
-                                                  double currentFailureProbabilityOpenStructure,
-                                                  double currentFailureProbabilityReparation,
-                                                  int currentIdenticalApertures,
-                                                  NormalDistribution currentInsideWaterLevel,
-                                                  double currentProbabilityOrFrequencyOpenStructureBeforeFlooding,
-                                                  NormalDistribution currentThresholdHeightOpenWeir,
-                                                  ClosingStructuresInput actualInput)
-        {
-            return !Equals(currentStructureNormalOrientation, actualInput.StructureNormalOrientation)
-                   || !Equals(currentLevelCrestStructureNotClosing, actualInput.LevelCrestStructureNotClosing)
-                   || !Equals(currentFlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection)
-                   || !Equals(currentCriticalOvertoppingDischarge, actualInput.CriticalOvertoppingDischarge)
-                   || !Equals(currentWidthFlowApertures, actualInput.WidthFlowApertures)
-                   || !Equals(currentStorageStructureArea, actualInput.StorageStructureArea)
-                   || !Equals(currentAllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage)
-                   || !Equals(currentInflowModelType, actualInput.InflowModelType)
-                   || !Equals(currentAreaFlowApertures, actualInput.AreaFlowApertures)
-                   || !Equals(currentFailureProbabilityOpenStructure, actualInput.FailureProbabilityOpenStructure)
-                   || !Equals(currentFailureProbabilityReparation, actualInput.FailureProbabilityReparation)
-                   || !Equals(currentIdenticalApertures, actualInput.IdenticalApertures)
-                   || !Equals(currentInsideWaterLevel, actualInput.InsideWaterLevel)
-                   || !Equals(currentProbabilityOrFrequencyOpenStructureBeforeFlooding, actualInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
-                   || !Equals(currentThresholdHeightOpenWeir, actualInput.ThresholdHeightOpenWeir);
         }
 
         #endregion

@@ -80,6 +80,37 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
+        /// <summary>
+        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
+        /// </summary>
+        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
+        public bool StructureParametersSynchronized
+        {
+            get
+            {
+                if (Structure == null)
+                {
+                    return false;
+                }
+
+                return Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
+                       && Equals(LevelCrestStructureNotClosing, Structure.LevelCrestStructureNotClosing)
+                       && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
+                       && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)
+                       && Equals(WidthFlowApertures, Structure.WidthFlowApertures)
+                       && Equals(StorageStructureArea, Structure.StorageStructureArea)
+                       && Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage)
+                       && Equals(InflowModelType, Structure.InflowModelType)
+                       && Equals(AreaFlowApertures, Structure.AreaFlowApertures)
+                       && Equals(FailureProbabilityOpenStructure, Structure.FailureProbabilityOpenStructure)
+                       && Equals(FailureProbabilityReparation, Structure.FailureProbabilityReparation)
+                       && Equals(IdenticalApertures, Structure.IdenticalApertures)
+                       && Equals(InsideWaterLevel, Structure.InsideWaterLevel)
+                       && Equals(ProbabilityOrFrequencyOpenStructureBeforeFlooding, Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
+                       && Equals(ThresholdHeightOpenWeir, Structure.ThresholdHeightOpenWeir);
+            }
+        }
+
         public override void SynchronizeStructureParameters()
         {
             if (Structure != null)
