@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
@@ -91,13 +90,10 @@ namespace Ringtoets.Common.Service
             where TStructureInput : StructuresInputBase<TStructure>, new()
             where TStructure : StructureBase
         {
-            var affectedObjects = new Collection<IObservable>();
+            var affectedObjects = new List<IObservable>();
             foreach (StructuresCalculation<TStructureInput> calculation in calculations.Where(c => ReferenceEquals(c.InputParameters.ForeshoreProfile, profile)))
             {
-                foreach (IObservable calculationWithRemovedOutput in ClearCalculationOutput(calculation))
-                {
-                    affectedObjects.Add(calculationWithRemovedOutput);
-                }
+                affectedObjects.AddRange(ClearCalculationOutput(calculation));
 
                 calculation.InputParameters.ForeshoreProfile = null;
                 affectedObjects.Add(calculation.InputParameters);
@@ -146,7 +142,7 @@ namespace Ringtoets.Common.Service
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
 
-            HashSet<IObservable> changedObservables = ClearStructureDependentData(
+            ICollection<IObservable> changedObservables = ClearStructureDependentData(
                 sectionResults,
                 calculationWithRemovedStructure,
                 calculations);
@@ -203,18 +199,15 @@ namespace Ringtoets.Common.Service
             return changedObservables;
         }
 
-        private static HashSet<IObservable> ClearStructureDependentData<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                                                           IEnumerable<StructuresCalculation<T>> calculationWithRemovedStructure,
-                                                                           IEnumerable<StructuresCalculation<T>> structureCalculations)
+        private static ICollection<IObservable> ClearStructureDependentData<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
+                                                                               IEnumerable<StructuresCalculation<T>> calculationWithRemovedStructure,
+                                                                               IEnumerable<StructuresCalculation<T>> structureCalculations)
             where T : IStructuresCalculationInput<StructureBase>, new()
         {
-            var changedObservables = new HashSet<IObservable>();
+            var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<T> calculation in calculationWithRemovedStructure)
             {
-                foreach (IObservable calculationWithRemovedOutput in ClearCalculationOutput(calculation))
-                {
-                    changedObservables.Add(calculationWithRemovedOutput);
-                }
+                changedObservables.AddRange(ClearCalculationOutput(calculation));
 
                 calculation.InputParameters.ClearStructure();
                 changedObservables.Add(calculation.InputParameters);
@@ -223,10 +216,7 @@ namespace Ringtoets.Common.Service
             IEnumerable<StructuresFailureMechanismSectionResult<T>> affectedSectionResults =
                 StructuresHelper.UpdateCalculationToSectionResultAssignments(sectionResults, structureCalculations);
 
-            foreach (StructuresFailureMechanismSectionResult<T> result in affectedSectionResults)
-            {
-                changedObservables.Add(result);
-            }
+            changedObservables.AddRange(affectedSectionResults);
             return changedObservables;
         }
 
