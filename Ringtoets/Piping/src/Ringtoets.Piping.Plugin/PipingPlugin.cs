@@ -473,11 +473,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData);
             }
-            var pipingCalculationScenario = o as PipingCalculationScenario;
-            if (pipingCalculationScenario != null)
-            {
-                return ReferenceEquals(view.Data, pipingCalculationScenario);
-            }
 
             IEnumerable<PipingCalculationScenario> calculations = null;
 

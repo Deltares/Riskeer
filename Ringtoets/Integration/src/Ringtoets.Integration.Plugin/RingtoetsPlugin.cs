@@ -992,107 +992,50 @@ namespace Ringtoets.Integration.Plugin
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
-            var calculation = o as ICalculation<WaveConditionsInput>;
-            if (calculation != null)
+
+            IEnumerable<ICalculation<WaveConditionsInput>> calculations = Enumerable.Empty<ICalculation<WaveConditionsInput>>();
+
+            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            if (calculationGroupContext != null)
             {
-                return ReferenceEquals(view.Data, calculation);
+                calculations = calculationGroupContext.WrappedData
+                                                      .GetCalculations()
+                                                      .OfType<ICalculation<WaveConditionsInput>>();
             }
 
-            IEnumerable<ICalculation<WaveConditionsInput>> calculations = GetCalculationsFromCalculationGroupContexts(o);
-
-            IEnumerable<ICalculation<WaveConditionsInput>> failureMechanismCalculations = GetCalculationsFromFailureMechanisms(o);
-            if (failureMechanismCalculations != null)
+            if (!calculations.Any())
             {
-                calculations = failureMechanismCalculations;
+                calculations = GetCalculationsFromFailureMechanisms(o);
             }
 
-            return calculations != null && calculations.Any(c => ReferenceEquals(view.Data, c));
+            return calculations.Any(c => ReferenceEquals(view.Data, c));
         }
 
         private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromFailureMechanisms(object o)
         {
-            IEnumerable<ICalculation<WaveConditionsInput>> grassCoverErosionOutwardsCalculations = GetCalculationsFromFailureMechanism<
-                GrassCoverErosionOutwardsFailureMechanismContext,
-                GrassCoverErosionOutwardsFailureMechanism>(o);
+            var failureMechanism = o as IFailureMechanism;
 
-            if (grassCoverErosionOutwardsCalculations != null && grassCoverErosionOutwardsCalculations.Any())
-            {
-                return grassCoverErosionOutwardsCalculations;
-            }
-
-            IEnumerable<ICalculation<WaveConditionsInput>> stabilityStoneCoverCalculations = GetCalculationsFromFailureMechanism<
-                StabilityStoneCoverFailureMechanismContext,
-                StabilityStoneCoverFailureMechanism>(o);
-
-            if (stabilityStoneCoverCalculations != null && stabilityStoneCoverCalculations.Any())
-            {
-                return stabilityStoneCoverCalculations;
-            }
-
-            IEnumerable<ICalculation<WaveConditionsInput>> waveImpactAsphaltCoverCalculations = GetCalculationsFromFailureMechanism<
-                WaveImpactAsphaltCoverFailureMechanismContext,
-                WaveImpactAsphaltCoverFailureMechanism>(o);
-
-            return waveImpactAsphaltCoverCalculations;
-        }
-
-        private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromFailureMechanism<TContext, TFailureMechanism>(object o)
-            where TContext : class, IFailureMechanismContext<TFailureMechanism>
-            where TFailureMechanism : class, IFailureMechanism
-        {
-            IEnumerable<ICalculation<WaveConditionsInput>> calculations = null;
-
-            var failureMechanism = o as TFailureMechanism;
-
-            var context = o as TContext;
+            var context = o as IFailureMechanismContext<IFailureMechanism>;
             if (context != null)
             {
                 failureMechanism = context.WrappedData;
             }
 
+            if (failureMechanism != null)
+            {
+                return failureMechanism.Calculations
+                                       .OfType<ICalculation<WaveConditionsInput>>();
+            }
+
             var assessmentSection = o as IAssessmentSection;
             if (assessmentSection != null)
             {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<TFailureMechanism>()
-                                                    .FirstOrDefault();
+                return assessmentSection.GetFailureMechanisms()
+                                        .SelectMany(fm => fm.Calculations)
+                                        .OfType<ICalculation<WaveConditionsInput>>();
             }
 
-            if (failureMechanism != null)
-            {
-                calculations = (IEnumerable<ICalculation<WaveConditionsInput>>) failureMechanism.Calculations;
-            }
-
-            return calculations;
-        }
-
-        private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromCalculationGroupContexts(object o)
-        {
-            IEnumerable<ICalculation<WaveConditionsInput>> calculations = null;
-
-            var grassCoverErosionOutwardsCalculationGroupContext = o as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
-            if (grassCoverErosionOutwardsCalculationGroupContext != null)
-            {
-                calculations = grassCoverErosionOutwardsCalculationGroupContext.WrappedData
-                                                                               .GetCalculations()
-                                                                               .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-            }
-            var stabilityStoneCoverCalculationGroupContext = o as StabilityStoneCoverWaveConditionsCalculationGroupContext;
-            if (stabilityStoneCoverCalculationGroupContext != null)
-            {
-                calculations = stabilityStoneCoverCalculationGroupContext.WrappedData
-                                                                         .GetCalculations()
-                                                                         .OfType<StabilityStoneCoverWaveConditionsCalculation>();
-            }
-            var waveImpactAsphaltCoverCalculationGroupContext = o as WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
-            if (waveImpactAsphaltCoverCalculationGroupContext != null)
-            {
-                calculations = waveImpactAsphaltCoverCalculationGroupContext.WrappedData
-                                                                            .GetCalculations()
-                                                                            .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-            }
-
-            return calculations;
+            return Enumerable.Empty<ICalculation<WaveConditionsInput>>();
         }
 
         #endregion

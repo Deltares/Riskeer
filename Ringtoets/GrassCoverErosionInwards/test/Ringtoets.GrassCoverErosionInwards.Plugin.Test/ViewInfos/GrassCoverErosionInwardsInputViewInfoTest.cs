@@ -155,47 +155,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedCalculation_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            using (var view = new GrassCoverErosionInwardsInputView
-            {
-                Data = calculation
-            })
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, calculation);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedCalculation_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var calculationToRemove = new GrassCoverErosionInwardsCalculation();
-
-            using (var view = new GrassCoverErosionInwardsInputView
-            {
-                Data = calculation
-            })
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, calculationToRemove);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup

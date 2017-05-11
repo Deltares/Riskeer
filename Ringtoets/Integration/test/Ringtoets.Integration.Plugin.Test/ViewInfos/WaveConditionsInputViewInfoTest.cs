@@ -161,45 +161,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedCalculation_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new TestWaveConditionsCalculation();
-
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
-            {
-                Data = calculation
-            })
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, calculation);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedCalculation_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new TestWaveConditionsCalculation();
-            var calculationToRemove = new TestWaveConditionsCalculation();
-
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
-            {
-                Data = calculation
-            })
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, calculationToRemove);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetCalculationGroupDatas),
             new object[]
             {
