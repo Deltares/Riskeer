@@ -228,10 +228,15 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private class SimpleStructuresInput : StructuresInputBase<SimpleStructure>
         {
-            public override void SynchronizeStructureParameters()
+            public override bool StructureParametersSynchronized
             {
-                throw new NotImplementedException();
+                get
+                {
+                    return false;
+                }
             }
+
+            public override void SynchronizeStructureParameters() {}
         }
     }
 }

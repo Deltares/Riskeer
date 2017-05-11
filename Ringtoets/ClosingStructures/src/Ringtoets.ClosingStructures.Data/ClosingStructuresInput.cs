@@ -80,11 +80,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        /// <summary>
-        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
-        /// </summary>
-        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
-        public bool StructureParametersSynchronized
+        public override bool StructureParametersSynchronized
         {
             get
             {

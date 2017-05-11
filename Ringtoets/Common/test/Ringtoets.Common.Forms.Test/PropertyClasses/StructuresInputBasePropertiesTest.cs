@@ -1131,6 +1131,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private class SimpleStructureInput : StructuresInputBase<SimpleStructure>
         {
+            public override bool StructureParametersSynchronized
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override void SynchronizeStructureParameters() {}
         }
 

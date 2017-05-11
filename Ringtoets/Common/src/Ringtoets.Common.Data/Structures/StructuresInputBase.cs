@@ -128,6 +128,12 @@ namespace Ringtoets.Common.Data.Structures
         }
 
         /// <summary>
+        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
+        /// </summary>
+        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
+        public abstract bool StructureParametersSynchronized { get; }
+
+        /// <summary>
         /// Synchronizes the input parameters with the parameters of the structure.
         /// </summary>
         /// <remarks>When no structure is present, the input parameters are set to default values.</remarks>

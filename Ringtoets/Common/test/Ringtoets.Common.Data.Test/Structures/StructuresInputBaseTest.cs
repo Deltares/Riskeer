@@ -276,6 +276,14 @@ namespace Ringtoets.Common.Data.Test.Structures
         {
             public bool Synchronized { get; private set; }
 
+            public override bool StructureParametersSynchronized
+            {
+                get
+                {
+                    return Synchronized;
+                }
+            }
+
             public override void SynchronizeStructureParameters()
             {
                 Synchronized = true;
