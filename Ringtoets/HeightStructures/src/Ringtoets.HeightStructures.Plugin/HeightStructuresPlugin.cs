@@ -724,15 +724,20 @@ namespace Ringtoets.HeightStructures.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(HeightStructuresCalculationContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(HeightStructuresCalculationContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
-
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddUpdateForeshoreProfileOfCalculationItem(context.WrappedData,
+                                                                      inquiryHelper,
+                                                                      UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
@@ -754,6 +759,8 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
+
+        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<HeightStructuresInput> calculation) {}
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresCalculationContext context)
         {

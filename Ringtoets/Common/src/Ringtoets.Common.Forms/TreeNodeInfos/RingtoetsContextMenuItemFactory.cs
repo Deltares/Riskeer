@@ -383,7 +383,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             IInquiryHelper inquiryHelper,
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
-
         {
             bool hasForeshoreProfile = calculation.InputParameters.ForeshoreProfile != null;
             string toolTipMessage = hasForeshoreProfile
