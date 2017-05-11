@@ -21,8 +21,10 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 
@@ -244,6 +246,29 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, onChangeAction));
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which is bound to the action 
+        /// when updating the <see cref="ForeshoreProfile"/> of a <paramref name="calculation"/>.
+        /// </summary>
+        /// <typeparam name="TCalculationInput">The type of calculation input that has can have 
+        /// a foreshore profile.</typeparam>
+        /// <param name="calculation">The calculation to update.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddUpdateForeshoreProfileOfCalculationItem<TCalculationInput>(
+            ICalculation<TCalculationInput> calculation,
+            IInquiryHelper inquiryHelper,
+            Action<ICalculation<TCalculationInput>> updateAction)
+            where TCalculationInput : ICalculationInput, IHasForeshoreProfile
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                                                 calculation,
+                                                 inquiryHelper,
+                                                 updateAction));
             return this;
         }
 

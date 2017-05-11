@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
@@ -33,6 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -112,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => { }).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1622,6 +1624,105 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
             mocks.VerifyAll();
         }
+
+        #endregion
+
+        #region AddUpdateForeshoreProfileOfCalculationItem
+
+        [Test]
+        public void AddUpdateForeshoreProfileOfCalculationItem_CalculationWithForeshoreProfile_ItemAddedToContextMenuEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
+                                                                importHandlerMock,
+                                                                exportHandlerMock,
+                                                                updateHandlerMock,
+                                                                viewCommandsMock,
+                                                                calculationMock,
+                                                                treeViewControl);
+
+                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+                // Call
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationItem(
+                    calculationMock,
+                    inquiryHelperMock,
+                    c => {}).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                              "&Bijwerken voorlandprofiel...",
+                                                              "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                              RingtoetsFormsResources.UpdateItemIcon);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddUpdateForeshoreProfileOfCalculationItem_CalculationWithoutForeshoreProfile_ItemAddedToContextMenuDisabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(null);
+            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
+                                                                importHandlerMock,
+                                                                exportHandlerMock,
+                                                                updateHandlerMock,
+                                                                viewCommandsMock,
+                                                                calculationMock,
+                                                                treeViewControl);
+
+                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+                // Call
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationItem(
+                    calculationMock,
+                    inquiryHelperMock,
+                    c => {}).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                              "&Bijwerken voorlandprofiel...",
+                                                              "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                              RingtoetsFormsResources.UpdateItemIcon,
+                                                              false);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
 
         #endregion
 
