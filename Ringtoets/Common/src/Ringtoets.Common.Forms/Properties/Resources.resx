@@ -978,4 +978,18 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip" xml:space="preserve">
     <value>Er zijn geen berekeningen met een kunstwerk.</value>
   </data>
+  <data name="CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip" xml:space="preserve">
+    <value>Berekening bijwerken waar een voorlandprofiel geselecteerd is.</value>
+  </data>
+  <data name="CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip" xml:space="preserve">
+    <value>Er moet een voorlandprofiel geselecteerd zijn.</value>
+  </data>
+  <data name="UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data" xml:space="preserve">
+    <value>Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="CreateUpdateForshoreProfileOfCalculationItem_Update_ForeshoreProfile_data" xml:space="preserve">
+    <value>&amp;Bijwerken voorlandprofiel...</value>
+  </data>
 </root>

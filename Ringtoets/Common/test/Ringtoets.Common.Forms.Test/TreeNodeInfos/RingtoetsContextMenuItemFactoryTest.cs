@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -30,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -98,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => {});
 
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
@@ -592,6 +595,205 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll();
         }
+
+        #region CreateUpdateForshoreProfileOfCalculationItem
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            ICalculation<ICalculationInputWithForeshoreProfile> calculation = null;
+
+            // Call
+            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper, c => {});
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("calculation", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_IInquiryHelperNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                null, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("inquiryHelper", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_ActionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("updateAction", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutForeshoreProfile_CreatesEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(null);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper, c => {});
+
+            // Assert
+            Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
+            Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithForeshoreProfile_CreatesEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper, c => {});
+
+            // Assert
+            Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
+            Assert.AreEqual("Berekening bijwerken waar een voorlandprofiel geselecteerd is.", toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutCalculationOutputPerformClick_PerformesAction()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            calculation.Expect(c => c.HasOutput).Return(false);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper,
+                c => { actionCalculation = c; });
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.AreSame(calculation, actionCalculation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithCalculationOutputPerformClickNoContinuation_DoesNotPerformAction()
+        {
+            // Setup
+            string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
+                                                "zal het resultaat van deze berekening worden verwijderd." +
+                                                $"{Environment.NewLine}{Environment.NewLine}" +
+                                                "Weet u zeker dat u wilt doorgaan?";
+
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            calculation.Expect(c => c.HasOutput).Return(true);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(false);
+            mocks.ReplayAll();
+
+            var actionPerformed = false;
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper,
+                c => { actionPerformed = true; });
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.IsFalse(actionPerformed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithCalculationOutputPerformClickWithContinuation_PerformsAction()
+        {
+            // Setup
+            string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
+                                                "zal het resultaat van deze berekening worden verwijderd." +
+                                                $"{Environment.NewLine}{Environment.NewLine}" +
+                                                "Weet u zeker dat u wilt doorgaan?";
+
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            calculation.Expect(c => c.HasOutput).Return(true);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(true);
+            mocks.ReplayAll();
+
+            var actionPerformed = false;
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper,
+                c => { actionPerformed = true; });
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.IsTrue(actionPerformed);
+            mocks.VerifyAll();
+        }
+
+        public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
+
+        #endregion
 
         #region CreatePerformCalculationItem
 

@@ -20,12 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
@@ -363,6 +367,87 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     failureMechanismContext.WrappedData.IsRelevant = !isRelevant;
                     failureMechanismContext.WrappedData.NotifyObservers();
                 });
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action when updating
+        /// the <see cref="ForeshoreProfile"/> of a <paramref name="calculation"/>.
+        /// </summary>
+        /// <typeparam name="TCalculationInput">The type of calculation input that has can have a foreshore profile.</typeparam>
+        /// <param name="calculation">The calculation to update.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        public static StrictContextMenuItem CreateUpdateForshoreProfileOfCalculationItem<TCalculationInput>(
+            ICalculation<TCalculationInput> calculation,
+            IInquiryHelper inquiryHelper,
+            Action<ICalculation<TCalculationInput>> updateAction)
+            where TCalculationInput : ICalculationInput, IHasForeshoreProfile
+
+        {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (inquiryHelper == null)
+            {
+                throw new ArgumentNullException(nameof(inquiryHelper));
+            }
+            if (updateAction == null)
+            {
+                throw new ArgumentNullException(nameof(updateAction));
+            }
+
+            bool hasForeshoreProfile = calculation.InputParameters.ForeshoreProfile != null;
+            string toolTipMessage = hasForeshoreProfile
+                                        ? Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip
+                                        : Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
+
+            var menuItem = new StrictContextMenuItem(
+                Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_ForeshoreProfile_data,
+                toolTipMessage,
+                Resources.UpdateItemIcon,
+                (o, args) =>
+                {
+                    UpdateForeshoreProfileDependentDataOfCalculation(calculation,
+                                                                     inquiryHelper,
+                                                                     updateAction);
+                })
+            {
+                Enabled = hasForeshoreProfile
+            };
+
+            return menuItem;
+        }
+
+        private static void UpdateForeshoreProfileDependentDataOfCalculation<TCalculationInput>(
+            ICalculation<TCalculationInput> calculation,
+            IInquiryHelper inquiryHelper,
+            Action<ICalculation<TCalculationInput>> updateAction)
+            where TCalculationInput : ICalculationInput, IHasForeshoreProfile
+        {
+            string message = Resources.UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
+
+            if (ForeshoreProfileDependentDataShouldUpdate(new[]
+                {
+                    calculation
+                }, message, inquiryHelper
+            ))
+            {
+                updateAction(calculation);
+            }
+        }
+
+        private static bool ForeshoreProfileDependentDataShouldUpdate(IEnumerable<ICalculation> calculations,
+                                                                      string query,
+                                                                      IInquiryHelper inquiryHelper)
+        {
+            var changeHandler = new CalculationChangeHandler(calculations,
+                                                             query,
+                                                             inquiryHelper);
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         private static void SetStateWithEnableFunction<T>(T context, Func<T, string> enableFunction, StrictContextMenuItem menuItem)
