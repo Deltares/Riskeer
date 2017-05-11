@@ -410,7 +410,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             };
 
             HeightStructuresInput calculationInput = calculation.InputParameters;
-
             RoundedDouble expectedStructureNormalOrientation = calculationInput.StructureNormalOrientation;
             NormalDistribution expectedLevelCrestStructure = calculationInput.LevelCrestStructure;
             LogNormalDistribution expectedFlowWidthAtBottomProtection = calculationInput.FlowWidthAtBottomProtection;
@@ -454,9 +453,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.HasOutput);
-
                     Assert.AreSame(structure, calculationInput.Structure);
-
                     Assert.AreEqual(expectedStructureNormalOrientation, calculationInput.StructureNormalOrientation);
                     Assert.AreEqual(expectedLevelCrestStructure, calculationInput.LevelCrestStructure);
                     Assert.AreEqual(expectedFlowWidthAtBottomProtection, calculationInput.FlowWidthAtBottomProtection);
