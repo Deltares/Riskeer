@@ -187,7 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void CurrentPath_DikeProfileCollectionHasPathSet_ReturnsExpectedPath()
+        public void CurrentPath_ForeshoreProfileCollectionHasPathSet_ReturnsExpectedPath()
         {
             // Setup
             var mocks = new MockRepository();
