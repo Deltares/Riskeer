@@ -1017,7 +1017,7 @@ namespace Ringtoets.Integration.Plugin
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
-            IEnumerable<ICalculation<WaveConditionsInput>> calculations = Enumerable.Empty<ICalculation<WaveConditionsInput>>();
+            IEnumerable<ICalculation<WaveConditionsInput>> calculations;
 
             var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
@@ -1026,8 +1026,7 @@ namespace Ringtoets.Integration.Plugin
                                                       .GetCalculations()
                                                       .OfType<ICalculation<WaveConditionsInput>>();
             }
-
-            if (!calculations.Any())
+            else
             {
                 calculations = GetCalculationsFromFailureMechanisms(o);
             }

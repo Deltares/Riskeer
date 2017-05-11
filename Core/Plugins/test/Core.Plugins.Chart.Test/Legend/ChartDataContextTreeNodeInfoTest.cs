@@ -65,8 +65,8 @@ namespace Core.Plugins.Chart.Test.Legend
                 {
                     new ChartPointData("test"),
                     new ChartLineData("test"),
-                    new ChartAreaData("Test"),
-                    new ChartMultipleLineData("Test"), 
+                    new ChartAreaData("test"),
+                    new ChartMultipleLineData("test"),
                     new ChartDataCollection("test")
                 };
             }
@@ -80,9 +80,9 @@ namespace Core.Plugins.Chart.Test.Legend
                 {
                     new ChartPointData("test"),
                     new ChartLineData("test"),
-                    new ChartAreaData("Test"),
+                    new ChartAreaData("test"),
                     new ChartMultipleAreaData("test"),
-                    new ChartMultipleLineData("Test")
+                    new ChartMultipleLineData("test")
                 };
             }
         }

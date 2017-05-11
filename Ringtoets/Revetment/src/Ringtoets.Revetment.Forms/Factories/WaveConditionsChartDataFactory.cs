@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for the revetment base.
+        /// Create <see cref="ChartLineData"/> with default styling for revetment base.
         /// </summary>
         /// <param name="lineColor">The color of the <see cref="ChartLineData"/>.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
