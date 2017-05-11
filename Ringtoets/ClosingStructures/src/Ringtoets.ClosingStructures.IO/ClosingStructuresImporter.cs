@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -64,10 +65,10 @@ namespace Ringtoets.ClosingStructures.IO
             structureUpdateStrategy = updateStrategy;
         }
 
-        protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
+        protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
+            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
                                                                      CreateClosingStructures(structureLocations.ToList(),
                                                                                             groupedStructureParameterRows),
                                                                      FilePath);

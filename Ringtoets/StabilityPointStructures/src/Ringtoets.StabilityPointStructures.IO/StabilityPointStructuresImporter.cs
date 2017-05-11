@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
@@ -54,7 +53,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                                                 ReferenceLine referenceLine, string filePath, IImporterMessageProvider messageProvider)
             : base(importTarget, referenceLine, filePath, messageProvider) {}
 
-        protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
+        protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             IEnumerable<StabilityPointStructure> importedStabilityPointStructures = 
@@ -72,6 +71,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                 throw new UpdateDataException(exceptionMessage);
             }
             ImportTarget.AddRange(importedStabilityPointStructures);
+            return Enumerable.Empty<IObservable>();
         }
 
         private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IEnumerable<StructureLocation> structureLocations,

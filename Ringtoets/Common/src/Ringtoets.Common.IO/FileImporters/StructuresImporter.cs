@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
@@ -49,6 +50,7 @@ namespace Ringtoets.Common.IO.FileImporters
     {
         private readonly ReferenceLine referenceLine;
         private readonly IImporterMessageProvider messageProvider;
+        private IEnumerable<IObservable> updatedInstances;
 
         /// <summary>
         /// Initializes a new instance of <see cref="StructuresImporter{TCollection}"/>.
@@ -97,8 +99,8 @@ namespace Ringtoets.Common.IO.FileImporters
             catch (UpdateDataException e)
             {
                 string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
-                                                   RingtoetsCommonDataResources.StructureCollection_TypeDescriptor), 
-                                                   e.Message);
+                                                   RingtoetsCommonDataResources.StructureCollection_TypeDescriptor),
+                                               e.Message);
                 Log.Error(message, e);
                 return false;
             }
@@ -116,15 +118,25 @@ namespace Ringtoets.Common.IO.FileImporters
             Log.Info(message);
         }
 
+        protected override void DoPostImportUpdates()
+        {
+            foreach (IObservable updatedInstance in updatedInstances)
+            {
+                updatedInstance.NotifyObservers();
+            }
+            base.DoPostImportUpdates();
+        }
+
         /// <summary>
-        /// Create structure objects from location and geometry data.
+        /// Create structure objects from location and geometry data and use this to update the current data model.
         /// </summary>
         /// <param name="structureLocations">The read structure locations.</param>
         /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
+        /// <returns>Collection of all objects that were changed due to the update.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
         /// <exception cref="UpdateDataException">Thrown when updating the structures failed.</exception>
-        protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
-                                                         Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
+        protected abstract IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
+                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
         protected RoundedDouble GetStandardDeviation(StructuresParameterRow structuresParameterRow, string structureName)
         {
@@ -196,7 +208,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                                       .GroupBy(row => row.LocationId)
                                                       .ToDictionary(g => g.Key, g => g.ToList());
 
-            CreateSpecificStructures(importStructureLocationsResult.Items, groupedRows);
+            updatedInstances = UpdateWithCreatedStructures(importStructureLocationsResult.Items, groupedRows);
         }
 
         private ReadResult<StructuresParameterRow> ReadStructureParameterRowsData()

@@ -506,7 +506,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_CreateSpecificStructuresThrowsUpdateDataException_ReturnFalseAndLogError()
+        public void Import_UpdateWithCreatedStructuresThrowsUpdateDataException_ReturnFalseAndLogError()
         {
             // Setup
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
@@ -515,14 +515,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectFiles", 
-                                                         "Kunstwerken.shp"));
+                                                         Path.Combine("Structures", "CorrectFiles",
+                                                                      "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importer = new TestStructuresImporter(new ObservableList<object>(), referenceLine,
                                                       filePath, messageProvider)
             {
-                CreateSpecificStructuresAction = () => { throw new UpdateDataException("Exception message"); }
+                UpdateWithCreatedStructuresAction = () => { throw new UpdateDataException("Exception message"); }
             };
 
             var importResult = true;
@@ -534,6 +534,42 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             const string expectedMessage = "error Exception message";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        public void DoPostImport_UpdateWithCreatedStructuresReturnsObservables_ObservablesNotified()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var observableA = mocks.StrictMock<IObservable>();
+            observableA.Expect(o => o.NotifyObservers());
+            var observableB = mocks.StrictMock<IObservable>();
+            observableB.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles",
+                                                                      "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+            IObservable[] observables =
+            {
+                observableA,
+                observableB
+            };
+            var importer = new TestStructuresImporter(new ObservableList<object>(), referenceLine,
+                                                      filePath, messageProvider)
+            {
+                UpdateWithCreatedStructuresAction = () => observables
+            };
+
+            importer.Import();
+
+            // Call
+            importer.DoPostImport();
+
+            // Then
+            // Assertions performed in TearDown
         }
 
         [Test]
@@ -706,7 +742,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestStructuresImporter : StructuresImporter<ObservableList<object>>
         {
-            public Action CreateSpecificStructuresAction;
+            public Func<IEnumerable<IObservable>> UpdateWithCreatedStructuresAction;
 
             public TestStructuresImporter(ObservableList<object> importTarget, ReferenceLine referenceLine,
                                           string filePath, IImporterMessageProvider messageProvider)
@@ -722,10 +758,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 return base.GetCoefficientOfVariation(parameter, structureName);
             }
 
-            protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
-                                                             Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+            protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
+                                                                                    Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
             {
-                CreateSpecificStructuresAction?.Invoke();
+                return UpdateWithCreatedStructuresAction?.Invoke();
             }
         }
     }

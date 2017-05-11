@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -62,10 +63,10 @@ namespace Ringtoets.HeightStructures.IO
             this.structureUpdateStrategy = structureUpdateStrategy;
         }
 
-        protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
+        protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
+            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
                                                                      CreateHeightStructures(structureLocations.ToList(),
                                                                                             groupedStructureParameterRows),
                                                                      FilePath);

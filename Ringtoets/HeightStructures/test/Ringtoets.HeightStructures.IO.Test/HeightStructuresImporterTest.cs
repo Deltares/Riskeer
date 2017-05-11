@@ -428,6 +428,42 @@ namespace Ringtoets.HeightStructures.IO.Test
             Assert.IsTrue(importResult);
         }
 
+        [Test]
+        public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
+        {
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+
+            var observableA = mocks.StrictMock<IObservable>();
+            observableA.Expect(o => o.NotifyObservers());
+            var observableB = mocks.StrictMock<IObservable>();
+            observableB.Expect(o => o.NotifyObservers());
+            IObservable[] observables =
+            {
+                observableA,
+                observableB
+            };
+
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().Return(observables);
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "HeightStructuresImporter", "Kunstwerken.shp");
+
+            var importTarget = new StructureCollection<HeightStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
+
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath,
+                                                        messageProvider, strategy);
+
+            importer.Import();
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            // Assertions performed in TearDown
+        }
+
         private static ReferenceLine CreateReferenceLine()
         {
             var referencePoints = new List<Point2D>
