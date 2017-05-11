@@ -23,26 +23,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 
 namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace Closing 
-    /// structures with the imported Closing structures.
+    /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace closing 
+    /// structures with the imported closing structures.
     /// </summary>
     public class ClosingStructureReplaceDataStrategy : ReplaceDataStrategyBase<ClosingStructure, ClosingStructuresFailureMechanism>,
-                                                      IStructureUpdateStrategy<ClosingStructure>
+                                                       IStructureUpdateStrategy<ClosingStructure>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructureReplaceDataStrategy"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism in which the Closing structures are updated.</param>
+        /// <param name="failureMechanism">The failure mechanism in which the closing structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public ClosingStructureReplaceDataStrategy(ClosingStructuresFailureMechanism failureMechanism)
             : base(failureMechanism) {}
@@ -57,8 +57,8 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
         protected override IEnumerable<IObservable> ClearData()
         {
             return RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
-                FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), 
-                FailureMechanism.ClosingStructures, 
+                FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
+                FailureMechanism.ClosingStructures,
                 FailureMechanism.SectionResults);
         }
     }

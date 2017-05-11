@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Service;
 
 namespace Ringtoets.HeightStructures.Plugin.FileImporters
 {

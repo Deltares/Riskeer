@@ -138,7 +138,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                                            "Kunstwerken.shp");
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
             {
                 Assert.AreSame(importTarget, i.Arguments[0]);
@@ -230,7 +230,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv",
                                            "Kunstwerken.shp");
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
             {
                 Assert.AreSame(importTarget, i.Arguments[0]);
@@ -266,7 +266,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter), "Kunstwerken.shp");
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
             {
                 Assert.AreSame(importTarget, i.Arguments[0]);

@@ -136,7 +136,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     .SetName(nameof(differentIdenticalApertures));
 
                 ClosingStructure.ConstructionProperties differentInflowModelType = CreateFullyConfiguredConstructionProperties();
-                differentInflowModelType.InflowModelType = ClosingStructureInflowModelType.FloodedCulvert;
+                differentInflowModelType.InflowModelType = ClosingStructureInflowModelType.LowSill;
                 yield return new TestCaseData(structure, new ClosingStructure(differentInflowModelType), false)
                     .SetName(nameof(differentInflowModelType));
 
@@ -554,6 +554,70 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             Assert.AreEqual(otherStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
             Assert.AreEqual(otherStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("string")]
+        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        {
+            // Setup
+            ClosingStructure structure = CreateFullyDefinedStructure();
+
+            // Call
+            bool isEqual = structure.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
+        {
+            // Setup
+            ClosingStructure structureX = CreateFullyDefinedStructure();
+            ClosingStructure structureY = CreateFullyDefinedStructure();
+            ClosingStructure structureZ = CreateFullyDefinedStructure();
+
+            // Call
+            bool isXEqualToY = structureX.Equals(structureY);
+            bool isYEqualToZ = structureY.Equals(structureZ);
+            bool isXEqualToZ = structureX.Equals(structureZ);
+
+            // Assert
+            Assert.IsTrue(isXEqualToY);
+            Assert.IsTrue(isYEqualToZ);
+            Assert.IsTrue(isXEqualToZ);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(StructureCombinations))]
+        public void Equal_DifferentProperty_RetunsIsEqual(ClosingStructure structure,
+                                                          ClosingStructure otherStructure,
+                                                          bool expectedToBeEqual)
+        {
+            // Call
+            bool isStructureEqualToOther = structure.Equals(otherStructure);
+            bool isOtherEqualToStructure = otherStructure.Equals(structure);
+
+            // Assert
+            Assert.AreEqual(expectedToBeEqual, isStructureEqualToOther);
+            Assert.AreEqual(expectedToBeEqual, isOtherEqualToStructure);
+        }
+
+        [Test]
+        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        {
+            // Setup
+            ClosingStructure structureOne = CreateFullyDefinedStructure();
+            ClosingStructure structureTwo = CreateFullyDefinedStructure();
+
+            // Call
+            int hashCodeOne = structureOne.GetHashCode();
+            int hashCodeTwo = structureTwo.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
         }
 
         private static ClosingStructure CreateFullyDefinedStructure()

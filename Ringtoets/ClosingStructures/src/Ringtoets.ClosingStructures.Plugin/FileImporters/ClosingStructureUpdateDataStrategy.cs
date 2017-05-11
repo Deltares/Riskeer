@@ -35,7 +35,7 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
-    /// updating Closing structures based on imported data.
+    /// updating closing structures based on imported data.
     /// </summary>
     public class ClosingStructureUpdateDataStrategy : UpdateDataStrategyBase<ClosingStructure, ClosingStructuresFailureMechanism>,
                                                       IStructureUpdateStrategy<ClosingStructure>

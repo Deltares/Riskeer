@@ -221,6 +221,66 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void RemoveStructure_WithoutStructure_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                null,
+                Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
+                new StructureCollection<TestStructure>(),
+                Enumerable.Empty<TestSectionResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("structure", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_WithoutCalculations_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                new TestStructure("id", new Point2D(0,0)), 
+                null,
+                new StructureCollection<TestStructure>(),
+                Enumerable.Empty<TestSectionResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_WithoutStructures_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                new TestStructure("id", new Point2D(0, 0)),
+                Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
+                null,
+                Enumerable.Empty<TestSectionResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("structures", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_WithoutSectionResults_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
+                new TestStructure("id", new Point2D(0, 0)),
+                Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
+                new StructureCollection<TestStructure>(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
         public void RemoveStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
         {
             // Setup
@@ -458,15 +518,14 @@ namespace Ringtoets.Common.Service.Test
         {
             public TestSectionResult(Point2D point2D) : base(new FailureMechanismSection($"Location {point2D}", new[]
             {
-            point2D,
-            point2D
-        }))
-            { }
+                point2D,
+                point2D
+            })) {}
         }
 
         private class TestStructureInput : StructuresInputBase<TestStructure>
         {
-            protected override void UpdateStructureParameters() { }
+            protected override void UpdateStructureParameters() {}
         }
 
         private class TestStructure : StructureBase
@@ -476,8 +535,7 @@ namespace Ringtoets.Common.Service.Test
                 Name = $"{id} name",
                 Id = id,
                 Location = location
-            })
-            { }
+            }) {}
         }
     }
 }

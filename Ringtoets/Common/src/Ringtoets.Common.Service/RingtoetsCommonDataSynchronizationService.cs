@@ -111,18 +111,37 @@ namespace Ringtoets.Common.Service
         /// from the failure mechanism.
         /// </summary>
         /// <param name="structure">The structure to be removed.</param>
-        /// <param name="calculations"></param>
-        /// <param name="structures"></param>
-        /// <param name="sectionResults"></param>
+        /// <param name="calculations">The calculations that may have <paramref name="structure"/> assigned.</param>
+        /// <param name="structures">The collection of structures in which <paramref name="structure"/> is 
+        /// contained.</param>
+        /// <param name="sectionResults">The section results that may have an assignment to a calculation 
+        /// based on the <paramref name="structure"/>.</param>
         /// <returns>All objects affected by the removal.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveStructure<TStructure, TInput>(
-            TStructure structure, 
-            IEnumerable<StructuresCalculation<TInput>> calculations, 
-            StructureCollection<TStructure> structures, 
+            TStructure structure,
+            IEnumerable<StructuresCalculation<TInput>> calculations,
+            StructureCollection<TStructure> structures,
             IEnumerable<StructuresFailureMechanismSectionResult<TInput>> sectionResults)
             where TInput : IStructuresCalculationInput<TStructure>, new()
             where TStructure : StructureBase
         {
+            if (structure == null)
+            {
+                throw new ArgumentNullException(nameof(structure));
+            }
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+            if (structures == null)
+            {
+                throw new ArgumentNullException(nameof(structures));
+            }
+            if (sectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResults));
+            }
             StructuresCalculation<TInput>[] calculationWithRemovedStructure = calculations
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
@@ -143,13 +162,13 @@ namespace Ringtoets.Common.Service
         /// <paramref name="calculations"/> and clears all data that depends on it,
         /// either directly or indirectly.
         /// </summary>
-        /// <param name="calculations">Calculations to remove the structure from.</param>
+        /// <param name="calculations">The calculations that may have assigned an element in
+        /// <paramref name="structures"/>.</param>
         /// <param name="structures">The collection of structures to clear.</param>
-        /// <param name="sectionResults">All the currently known section results in the failure
-        /// mechanism.</param>
+        /// <param name="sectionResults">The section results that may have an assignment to a calculation 
+        /// based on elements of <paramref name="structures"/>.</param>
         /// <returns>All objects that are affected by this operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is
-        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveAllStructures<TStructure, TInput>(
             IEnumerable<StructuresCalculation<TInput>> calculations,
             StructureCollection<TStructure> structures,
@@ -173,7 +192,7 @@ namespace Ringtoets.Common.Service
                 .Where(c => c.InputParameters.Structure != null)
                 .ToArray();
 
-            HashSet<IObservable> changedObservables = ClearStructureDependentData(
+            ICollection<IObservable> changedObservables = ClearStructureDependentData(
                 sectionResults,
                 calculationWithRemovedStructure,
                 calculations);
@@ -185,8 +204,8 @@ namespace Ringtoets.Common.Service
         }
 
         private static HashSet<IObservable> ClearStructureDependentData<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                                                          IEnumerable<StructuresCalculation<T>> calculationWithRemovedStructure,
-                                                                          IEnumerable<StructuresCalculation<T>> structureCalculations)
+                                                                           IEnumerable<StructuresCalculation<T>> calculationWithRemovedStructure,
+                                                                           IEnumerable<StructuresCalculation<T>> structureCalculations)
             where T : IStructuresCalculationInput<StructureBase>, new()
         {
             var changedObservables = new HashSet<IObservable>();
