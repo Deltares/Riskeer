@@ -378,7 +378,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static StrictContextMenuItem CreateUpdateForshoreProfileOfCalculationItem<TCalculationInput>(
             ICalculation<TCalculationInput> calculation,
             IInquiryHelper inquiryHelper,
@@ -386,19 +385,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
 
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (inquiryHelper == null)
-            {
-                throw new ArgumentNullException(nameof(inquiryHelper));
-            }
-            if (updateAction == null)
-            {
-                throw new ArgumentNullException(nameof(updateAction));
-            }
-
             bool hasForeshoreProfile = calculation.InputParameters.ForeshoreProfile != null;
             string toolTipMessage = hasForeshoreProfile
                                         ? Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip

@@ -599,66 +599,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         #region CreateUpdateForshoreProfileOfCalculationItem
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            ICalculation<ICalculationInputWithForeshoreProfile> calculation = null;
-
-            // Call
-            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
-                calculation,
-                inquiryHelper, c => {});
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("calculation", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_IInquiryHelperNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
-                calculation,
-                null, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("inquiryHelper", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_ActionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
-                calculation,
-                inquiryHelper, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("updateAction", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CreateUpdateForshoreProfileOfCalculationItem_WithoutForeshoreProfile_CreatesEnabledItem()
         {
             // Setup
@@ -705,7 +645,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutCalculationOutputPerformClick_PerformesAction()
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutCalculationOutputPerformClick_PerformsAction()
         {
             // Setup
             var mocks = new MockRepository();
