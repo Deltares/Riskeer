@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetfailureMechanismContextDatas),
+        [TestCaseSource(nameof(GetFailureMechanismContextDatas),
             new object[]
             {
                 "CloseForData_CorrespondingWithFailureMechanismContext_ReturnTrue({0})"
@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetfailureMechanismContextDatas),
+        [TestCaseSource(nameof(GetFailureMechanismContextDatas),
             new object[]
             {
                 "CloseForData_NotCorrespondingWithFailureMechanismContext_ReturnFalse({0})"
@@ -263,10 +263,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetfailureMechanismDatas),
+        [TestCaseSource(nameof(GetFailureMechanismDatas),
             new object[]
             {
-                "CloseForData_CorrespondingWithFailureMechanismContext_ReturnTrue({0})"
+                "CloseForData_CorrespondingWithFailureMechanism_ReturnTrue({0})"
             })]
         public void CloseForData_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue(
             IFailureMechanism failureMechanism,
@@ -287,10 +287,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetfailureMechanismDatas),
+        [TestCaseSource(nameof(GetFailureMechanismDatas),
             new object[]
             {
-                "CloseForData_NotCorrespondingWithFailureMechanismContext_ReturnFalse({0})"
+                "CloseForData_NotCorrespondingWithFailureMechanism_ReturnFalse({0})"
             })]
         public void CloseForData_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse(
             IFailureMechanism failureMechanism,
@@ -524,7 +524,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                        nameof(WaveImpactAsphaltCoverWaveConditionsCalculation)));
         }
 
-        private static IEnumerable<TestCaseData> GetfailureMechanismDatas(string testNameFormat)
+        private static IEnumerable<TestCaseData> GetFailureMechanismDatas(string testNameFormat)
         {
             var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             yield return new TestCaseData(
@@ -548,7 +548,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                        nameof(WaveImpactAsphaltCoverFailureMechanism)));
         }
 
-        private static IEnumerable<TestCaseData> GetfailureMechanismContextDatas(string testNameFormat)
+        private static IEnumerable<TestCaseData> GetFailureMechanismContextDatas(string testNameFormat)
         {
             var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             yield return new TestCaseData(

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -322,28 +321,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateInstance_Always_NewViewWithHandler()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            var calculationGroup = new CalculationGroup();
-            var context = new PipingCalculationGroupContext(calculationGroup,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
-                                                            failureMechanism,
-                                                            assessmentSection);
-
-            // Call
-            IView view = info.CreateInstance(context);
-
-            // Assert
-            Assert.IsInstanceOf<PipingCalculationsView>(view);
         }
     }
 }
