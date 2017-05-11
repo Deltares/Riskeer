@@ -52,6 +52,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, WaveImpactAsphaltCoverWaveConditionsCalculation> calculationObserver;
+        private readonly RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -88,6 +89,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, WaveImpactAsphaltCoverWaveConditionsCalculation>(UpdateMapData, pcg => pcg.Children);
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);
 
             mapDataCollection = new MapDataCollection(WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -123,6 +125,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                     assessmentSectionObserver.Observable = null;
                     hydraulicBoundaryDatabaseObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
+                    foreshoreProfileObserver.Observable = null;
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
@@ -135,6 +138,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                     assessmentSectionObserver.Observable = data.Parent;
                     hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
+                    foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     calculationInputObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
                     calculationGroupObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
                     calculationObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
@@ -160,6 +164,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryDatabaseObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
+            foreshoreProfileObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();

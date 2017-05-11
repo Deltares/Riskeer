@@ -505,6 +505,48 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_ForeshoreProfileUpdate_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new StabilityPointStructuresFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+
+                var failureMechanism = new StabilityPointStructuresFailureMechanism();
+                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+
+                var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                });
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                {
+                    foreshoreProfile
+                }, "path");
+
+                view.Data = failureMechanismContext;
+
+                MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+
+                // Call
+                var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                });
+                foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
+                foreshoreProfile.NotifyObservers();
+
+                // Assert
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_ForeshoreProfilesUpdated_MapDataUpdated()
         {
             // Setup
@@ -620,6 +662,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
+                // Precondition
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
+                          calculationMapData);
+
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 // Call
@@ -654,10 +700,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                         Structure = new TestStabilityPointStructure(calculationLocationA)
                     }
                 };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                // Precondition
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
+                          calculationMapData);
 
                 calculationA.InputParameters.Structure = new TestStabilityPointStructure(calculationLocationB);
 
@@ -692,10 +743,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                         Structure = new TestStabilityPointStructure(calculationLocationA)
                     }
                 };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                // Precondition
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
+                          calculationMapData);
 
                 calculationA.Name = "new name";
 

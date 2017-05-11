@@ -516,6 +516,48 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
             }
         }
+        
+        [Test]
+        public void UpdateObserver_ForeshoreProfileUpdate_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+
+                var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                });
+                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                {
+                    foreshoreProfile
+                }, "path");
+
+                view.Data = failureMechanismContext;
+
+                MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+
+                // Call
+                var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                });
+                foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
+                foreshoreProfile.NotifyObservers();
+
+                // Assert
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+            }
+        }
 
         [Test]
         public void UpdateObserver_ForeshoreProfilesUpdated_MapDataUpdated()
@@ -641,6 +683,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
+                // Precondition
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                          calculationMapData);
+
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 // Call
@@ -677,10 +723,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                         Structure = new TestHeightStructure(calculationLocationA)
                     }
                 };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                // Precondition
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                          calculationMapData);
 
                 calculationA.InputParameters.Structure = new TestHeightStructure(calculationLocationB);
 
@@ -717,10 +768,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                         Structure = new TestHeightStructure(calculationLocationA)
                     }
                 };
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+                // Precondition
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                          calculationMapData);
 
                 calculationA.Name = "new name";
 
