@@ -521,10 +521,12 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
             }
-            builder.AddValidateAllCalculationsInGroupItem(
+
+            builder.AddCustomItem(CreateUpdateStructureItem(context))
+                   .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(
                        context,
                        ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
@@ -551,6 +553,34 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationGroupContext nodeData)
+        {
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = nodeData.WrappedData
+                                                                                              .GetCalculations()
+                                                                                              .OfType<StructuresCalculation<ClosingStructuresInput>>();
+
+            var contextMenuEnabled = true;
+            string toolTipText = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
+            if (!calculations.Any())
+            {
+                contextMenuEnabled = false;
+                toolTipText = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+            }
+            else if (calculations.All(c => c.InputParameters.Structure == null))
+            {
+                contextMenuEnabled = false;
+                toolTipText = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip;
+            }
+
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
+                                             toolTipText,
+                                             RingtoetsCommonFormsResources.UpdateItemIcon,
+                                             (o, args) => { })
+            {
+                Enabled = contextMenuEnabled
+            };
         }
 
         private StrictContextMenuItem CreateGenerateClosingStructuresCalculationsItem(ClosingStructuresCalculationGroupContext nodeData)
