@@ -31,9 +31,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
@@ -58,6 +60,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
@@ -65,7 +68,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new ForeshoreProfilesImporter(importTarget, referenceLine, strategy, "");
+            var importer = new ForeshoreProfilesImporter(importTarget, referenceLine, "", strategy, messageProvider);
 
             // Assert
             Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
@@ -75,11 +78,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Setup
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), strategy, "");
+            TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "", strategy, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -90,11 +94,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, strategy, "");
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "", strategy, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -102,10 +107,29 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
+            var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, strategy, messageProvider);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
         public void ParameteredConstructor_ForeshoreProfileUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, "path");
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
+            mockRepository.ReplayAll();
+
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", null, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -113,18 +137,18 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_MessageProviderNull_ThrowArgumentNullException()
         {
             // Setup
             var strategy = mockRepository.Stub<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), strategy, null);
+            TestDelegate call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", strategy, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("filePath", exception.ParamName);
+            Assert.AreEqual("messageProvider", exception.ParamName);
         }
 
         [Test]
@@ -140,10 +164,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
 
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             // Call
             var importResult = true;
@@ -179,11 +205,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                         var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
                     });
+
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             mockRepository.ReplayAll();
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             // Call
             var importResult = false;
@@ -222,13 +250,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             referenceLine.SetGeometry(referencePoints);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
+            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            
+
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             // Call
             var importResult = true;
@@ -264,10 +293,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                         var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
                     });
+
+            const string expectedAddingDataToModelMessage = "Adding data to model";
+            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddingDataToModelMessage);
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -289,7 +322,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
+                new ProgressNotification(expectedAddingDataToModelMessage, 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
         }
@@ -348,9 +381,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                         Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile5.Orientation);
                         Assert.IsTrue(foreshoreProfile5.HasBreakWater);
                     });
+
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
             targetContext.Attach(observer);
@@ -388,10 +423,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                         var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
                     });
+
+            const string expectedAddingDataToModelMessage = "Adding data to model";
+            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddingDataToModelMessage);
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
@@ -416,7 +455,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 1, 1)
+                new ProgressNotification(expectedAddingDataToModelMessage, 1, 1)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             // 'observer' should not be notified
@@ -433,11 +472,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
 
+            const string cancelledLogMessage = "Operation cancelled";
+            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Voorlandprofielen")).Return(cancelledLogMessage);
+
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine,
+                                                                          filePath, strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profiellocaties uit een shapebestand."))
@@ -452,8 +496,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            const string expectedMessage = "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage,
+                                                                              LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
         }
 
@@ -468,11 +513,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
 
+            const string cancelledLogMessage = "Operation cancelled";
+            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Voorlandprofielen")).Return(cancelledLogMessage);
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             mockRepository.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath,
+                                                                          strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen van profielgegevens uit een prfl bestand."))
@@ -487,8 +536,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            const string expectedMessage = "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
         }
 
@@ -517,9 +566,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                             Assert.AreEqual(5, readForeshoreProfiles.Count());
                         }
                     });
+
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath,
+                                                                          strategy, messageProvider);
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => foreshoreProfilesImporter.Cancel());
 
             // Precondition
@@ -534,6 +586,42 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_ThrowsUpdateDataException_ReturnsFalseAndLogsError()
+        {
+            // Setup
+            var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
+                           .Return("");
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Dijkprofielen"))
+                           .IgnoreArguments()
+                           .Return("error {0}");
+
+            const string exceptionMessage = "Look, an exception!";
+            var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .Throw(new UpdateDataException(exceptionMessage));
+            mockRepository.ReplayAll();
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+
+            var importer = new ForeshoreProfilesImporter(new ForeshoreProfileCollection(),
+                                                         referenceLine,
+                                                         filePath, strategy, messageProvider);
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            string expectedMessage = $"error {exceptionMessage}";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
@@ -556,14 +644,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var foreshoreProfiles = new ForeshoreProfileCollection();
             strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
                     .IgnoreArguments()
-                    .Return(new []
+                    .Return(new[]
                     {
                         observableA,
                         observableB
                     });
+
+            var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, strategy, filePath);
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
 
             foreshoreProfilesImporter.Import();
 

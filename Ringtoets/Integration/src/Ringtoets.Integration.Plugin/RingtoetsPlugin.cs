@@ -55,6 +55,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
@@ -449,9 +450,10 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateFileImporter = (context, filePath) => new ForeshoreProfilesImporter(context.WrappedData,
                                                                                           context.ParentAssessmentSection.ReferenceLine,
+                                                                                          filePath,
                                                                                           new ForeshoreProfileReplaceDataStrategy(context.ParentFailureMechanism,
                                                                                                                                   context.WrappedData),
-                                                                                          filePath),
+                                                                                          new ImportMessageProvider()),
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,

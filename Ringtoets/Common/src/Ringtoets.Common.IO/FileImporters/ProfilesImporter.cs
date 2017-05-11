@@ -47,6 +47,7 @@ namespace Ringtoets.Common.IO.FileImporters
     {
         protected readonly IImporterMessageProvider MessageProvider;
         private readonly ReferenceLine referenceLine;
+        private readonly string typeDescriptor;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ProfilesImporter{T}"/>.
@@ -55,10 +56,13 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The import target.</param>
         /// <param name="messageProvider">The message provider to provide messages during the import.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        protected ProfilesImporter(ReferenceLine referenceLine, string filePath, T importTarget,
-                                   IImporterMessageProvider messageProvider) : base(filePath, importTarget)
+        /// <param name="typeDescriptor">The description of the profiles that are imported.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        protected ProfilesImporter(ReferenceLine referenceLine,
+                                   string filePath,
+                                   T importTarget,
+                                   IImporterMessageProvider messageProvider,
+                                   string typeDescriptor) : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
@@ -68,8 +72,13 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
+            if (typeDescriptor == null)
+            {
+                throw new ArgumentNullException(nameof(typeDescriptor));
+            }
 
             this.referenceLine = referenceLine;
+            this.typeDescriptor = typeDescriptor;
             MessageProvider = messageProvider;
         }
 
@@ -98,7 +107,7 @@ namespace Ringtoets.Common.IO.FileImporters
             catch (UpdateDataException e)
             {
                 string message = string.Format(MessageProvider.GetUpdateDataFailedLogMessageText(
-                                                   "TODO"),
+                                                   typeDescriptor),
                                                e.Message);
                 Log.Error(message, e);
                 return false;

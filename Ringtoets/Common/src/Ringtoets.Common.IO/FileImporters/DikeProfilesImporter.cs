@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                     string filePath,
                                     IDikeProfileUpdateDataStrategy dikeProfileUpdateStrategy,
                                     IImporterMessageProvider messageProvider)
-            : base(referenceLine, filePath, importTarget, messageProvider)
+            : base(referenceLine, filePath, importTarget, messageProvider, RingtoetsCommonDataResources.DikeProfileCollection_TypeDescriptor)
         {
             if (dikeProfileUpdateStrategy == null)
             {

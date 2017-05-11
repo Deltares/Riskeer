@@ -130,6 +130,21 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void ParameteredConstructor_TypeDescriptorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("typeDescriptor", exception.ParamName);
+        }
+
+        [Test]
         [TestCase("", "bestandspad mag niet leeg of ongedefinieerd zijn.")]
         [TestCase("      ", "bestandspad mag niet leeg of ongedefinieerd zijn.")]
         [TestCase("c>\\Invalid_Characters.shp", "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.")]
@@ -586,10 +601,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         public void Import_CreateProfilesThrowsUpdateDataException_ReturnsFalseAndLogsError()
         {
             // Setup
+            const string typeDescriptor = "A typeDescriptor";
+
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
                            .Return("");
-            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(null))
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(typeDescriptor))
                            .IgnoreArguments()
                            .Return("error {0}");
             mocks.ReplayAll();
@@ -598,7 +615,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider)
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<object>(),
+                                                                referenceLine,
+                                                                filePath,
+                                                                messageProvider,
+                                                                typeDescriptor)
             {
                 CreateProfileAction = () => { throw new UpdateDataException("Exception message"); }
             };
@@ -666,7 +687,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             public TestProfilesImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, string filePath,
                                         IImporterMessageProvider messageProvider)
-                : base(referenceLine, filePath, importTarget, messageProvider) {}
+                : base(referenceLine, filePath, importTarget, messageProvider, string.Empty) {}
+
+            public TestProfilesImporter(ObservableList<object> importTarget, ReferenceLine referenceLine, string filePath,
+                                        IImporterMessageProvider messageProvider, string typeDescriptor)
+                : base(referenceLine, filePath, importTarget, messageProvider, typeDescriptor) {}
 
             protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                    ReadResult<DikeProfileData> importDikeProfileDataResult)

@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
@@ -46,16 +47,18 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="importTarget">The foreshore profiles to import on.</param>
         /// <param name="referenceLine">The reference line used to check if the <see cref="ForeshoreProfile"/>
-        /// objects found in the file are intersecting it.</param>
-        /// <param name="foreshoreProfileUpdateStrategy">The strategy to update the 
-        /// foreshore profiles with the imported data.</param>
+        ///     objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ForeshoreProfilesImporter(ForeshoreProfileCollection importTarget, ReferenceLine referenceLine,
+        /// <param name="foreshoreProfileUpdateStrategy">The strategy to update the 
+        ///     foreshore profiles with the imported data.</param>
+        /// <param name="messageProvider"></param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ForeshoreProfilesImporter(ForeshoreProfileCollection importTarget,
+                                         ReferenceLine referenceLine,
+                                         string filePath,
                                          IForeshoreProfileUpdateDataStrategy foreshoreProfileUpdateStrategy,
-                                         string filePath)
-            : base(referenceLine, filePath, importTarget, new ImportMessageProvider())
+                                         IImporterMessageProvider messageProvider)
+            : base(referenceLine, filePath, importTarget, messageProvider, RingtoetsCommonDataResources.ForeshoreProfileCollection_TypeDescriptor)
         {
             if (foreshoreProfileUpdateStrategy == null)
             {
@@ -87,7 +90,9 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted);
+            string logMessage =
+                MessageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.ForeshoreProfileCollection_TypeDescriptor);
+            Log.Info(logMessage);
         }
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)

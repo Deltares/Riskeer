@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.TestUtil;
@@ -526,6 +527,43 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             // Asserts done in TearDown()
+        }
+
+        [Test]
+        public void Import_ThrowsUpdateDataException_ReturnsFalseAndLogsError()
+        {
+            // Setup
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
+                           .Return("");
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Dijkprofielen"))
+                           .IgnoreArguments()
+                           .Return("error {0}");
+
+            const string exceptionMessage = "Look, an exception!";
+            var strategy = mocks.StrictMock<IDikeProfileUpdateDataStrategy>();
+            strategy.Expect(strat => strat.UpdateDikeProfilesWithImportedData(null, null, null))
+                    .IgnoreArguments()
+                    .Throw(new UpdateDataException(exceptionMessage));
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+
+            var importer = new DikeProfilesImporter(new DikeProfileCollection(),
+                                                    referenceLine,
+                                                    filePath,
+                                                    strategy, messageProvider);
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            string expectedMessage = $"error {exceptionMessage}";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importResult);
         }
 
         private static ReferenceLine CreateMatchingReferenceLine()
