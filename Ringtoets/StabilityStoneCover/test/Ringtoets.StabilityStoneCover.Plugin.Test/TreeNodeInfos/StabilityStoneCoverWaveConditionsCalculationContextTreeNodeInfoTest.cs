@@ -31,6 +31,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -51,9 +52,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int validateMenuItemIndex = 4;
-        private const int calculateMenuItemIndex = 5;
-        private const int clearOutputMenuItemIndex = 7;
+        private const int contextMenuUpdateForeshoreProfileIndex = 3;
+        private const int validateMenuItemIndex = 5;
+        private const int calculateMenuItemIndex = 6;
+        private const int clearOutputMenuItemIndex = 8;
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
@@ -426,6 +429,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -444,7 +448,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -454,6 +458,66 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random"
+            };
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(15, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+            }
         }
 
         [Test]
@@ -488,7 +552,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -538,7 +602,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -589,7 +653,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -646,7 +710,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -713,7 +777,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -782,7 +846,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -833,7 +897,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -890,7 +954,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1018,7 +1082,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1070,7 +1134,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1125,7 +1189,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
