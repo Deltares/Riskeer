@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -40,6 +41,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
@@ -554,12 +556,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                                                   object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
 
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
+                                                                      inquiryHelper,
+                                                                      UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(nodeData,
                                                       Validate,
@@ -575,6 +581,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
+
+        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<WaveConditionsInput> calculation) {}
 
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {

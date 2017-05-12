@@ -32,6 +32,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -53,9 +54,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int validateMenuItemIndex = 4;
-        private const int calculateMenuItemIndex = 5;
-        private const int clearOutputMenuItemIndex = 7;
+        private const int contextMenuUpdateForeshoreProfileIndex = 3;
+        private const int validateMenuItemIndex = 5;
+        private const int calculateMenuItemIndex = 6;
+        private const int clearOutputMenuItemIndex = 8;
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -420,6 +423,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -438,7 +442,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -448,6 +452,66 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random"
+            };
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(15, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+            }
         }
 
         [Test]
@@ -487,7 +551,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -543,7 +607,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -565,8 +629,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenValidInput_ThenValidationItemEnabled()
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydroDatabasePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -605,7 +668,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -628,8 +691,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenCalculation_WhenValidating_ThenCalculationValidated(bool validCalculation)
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydroDatabasePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -680,7 +742,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -749,7 +811,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -805,7 +867,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -827,8 +889,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenValidInput_ThenCalculationItemEnabled()
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydroDatabasePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -867,7 +928,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -888,8 +949,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculation_WhenCalculating_ThenCalculationReturnsResult()
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydroDatabasePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
@@ -999,7 +1059,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1050,7 +1110,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1104,7 +1164,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
