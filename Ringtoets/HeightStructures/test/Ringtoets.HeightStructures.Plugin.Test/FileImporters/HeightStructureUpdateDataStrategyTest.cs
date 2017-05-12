@@ -224,7 +224,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId))]
+        [TestCaseSource(typeof(HeightStructurePermutationHelper),
+            nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
+            new object[]
+            {
+                "UpdateStructuresWithImportedData",
+                "UpdatesOnlySingleChange"
+            })]
         public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(HeightStructure readStructure)
         {
             // Setup

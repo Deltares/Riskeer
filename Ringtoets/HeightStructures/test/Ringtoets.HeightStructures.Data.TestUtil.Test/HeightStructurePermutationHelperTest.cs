@@ -36,10 +36,16 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var differentStructures = new List<HeightStructure>();
 
             // Call
-            List<TestCaseData> testCaseDatas = HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId().ToList();
+            List<TestCaseData> testCaseDatas = HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId("A", "B").ToList();
 
             // Assert
             Assert.AreEqual(10, testCaseDatas.Count);
+            IEnumerable<string> testNames = testCaseDatas
+                .Select(tcd => tcd.TestName)
+                .ToList();
+            Assert.AreEqual(10, testNames.Distinct().Count());
+            Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
+            Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
             IEnumerable<HeightStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<HeightStructure>()
@@ -56,7 +62,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Equals(referenceStructure.WidthFlowApertures)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityStructureWithErosion.Equals(referenceStructure.FailureProbabilityStructureWithErosion)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(10, differentStructures.Count);
+            Assert.AreEqual(10, differentStructures.Distinct().Count());
         }
 
         [Test]
@@ -67,10 +73,16 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var differentStructures = new List<HeightStructure>();
 
             // Call
-            List<TestCaseData> testCaseDatas = HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation().ToList();
+            List<TestCaseData> testCaseDatas = HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation("C", "D").ToList();
 
             // Assert
             Assert.AreEqual(8, testCaseDatas.Count);
+            IEnumerable<string> testNames = testCaseDatas
+                .Select(tcd => tcd.TestName)
+                .ToList();
+            Assert.AreEqual(8, testNames.Distinct().Count());
+            Assert.IsTrue(testNames.All(tn => tn.StartsWith("C_")));
+            Assert.IsTrue(testNames.All(tn => tn.EndsWith("_D")));
             IEnumerable<HeightStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<HeightStructure>()
@@ -87,7 +99,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Equals(referenceStructure.WidthFlowApertures)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityStructureWithErosion.Equals(referenceStructure.FailureProbabilityStructureWithErosion)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(8, differentStructures.Count);
+            Assert.AreEqual(8, differentStructures.Distinct().Count());
         }
     }
 }
