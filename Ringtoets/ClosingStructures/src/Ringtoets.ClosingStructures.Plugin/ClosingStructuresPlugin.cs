@@ -575,7 +575,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipText,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => UpdateStructureDependentDataOfCalculation(calculations) )
+                                             (o, args) => UpdateStructureDependentDataOfCalculation(calculations))
             {
                 Enabled = contextMenuEnabled
             };
@@ -724,7 +724,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
-                          .AddUpdateForeshoreProfileOfCalculationItem(context.WrappedData,
+                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
                                                                       UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))

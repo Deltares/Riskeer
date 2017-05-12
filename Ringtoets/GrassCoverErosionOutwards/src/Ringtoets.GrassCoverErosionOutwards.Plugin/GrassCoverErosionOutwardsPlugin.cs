@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -54,6 +55,7 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -206,9 +208,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
                                                                                  .Build(),
-                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText)
+                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null
+                                           ? Color.FromKnownColor(KnownColor.GrayText)
+                                           : Color.FromKnownColor(KnownColor.ControlText)
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext>
@@ -511,9 +513,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
-                nodeData.AssessmentSection.HydraulicBoundaryDatabase != null ?
-                    RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip :
-                    RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate,
+                nodeData.AssessmentSection.HydraulicBoundaryDatabase != null
+                    ? RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip
+                    : RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -852,6 +854,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                            TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = nodeData.WrappedData;
 
@@ -859,6 +862,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddExportItem()
                 .AddSeparator()
                 .AddRenameItem()
+                .AddUpdateForeshoreProfileOfCalculationItem(calculation,
+                                                            inquiryHelper,
+                                                            UpdateForeshoreProfileDerivedCalculationInput)
                 .AddSeparator()
                 .AddValidateCalculationItem(
                     nodeData,
@@ -879,6 +885,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddPropertiesItem()
                 .Build();
         }
+
+        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<WaveConditionsInput> calculation) {}
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {

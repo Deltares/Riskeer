@@ -735,7 +735,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
-                          .AddUpdateForeshoreProfileOfCalculationItem(context.WrappedData,
+                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
                                                                       UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
