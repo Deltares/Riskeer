@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -279,6 +280,272 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.AreNotSame(distributionToSet, input.CriticalFlowRate);
             DistributionAssert.AreEqual(expectedDistribution, input.CriticalFlowRate);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void SynchronizeDikeProfileParameters_InputAndDikeProfileOutOfSync_InputSyncedAccordingly(
+            [Values(true, false)] bool withBreakWater,
+            [Values(true, false)] bool withValidForeshore)
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+            BreakWaterType originalBreakWaterType = input.BreakWater.Type;
+            RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
+
+            var foreshoreGeometry = new List<Point2D>
+            {
+                new Point2D(2.2, 3.3)
+            };
+
+            if (withValidForeshore)
+            {
+                foreshoreGeometry.Add(new Point2D(4.4, 5.5));
+            }
+
+            BreakWater breakWater = null;
+            if (withBreakWater)
+            {
+                const BreakWaterType nonDefaultBreakWaterType = BreakWaterType.Wall;
+                const double nonDefaultBreakWaterHeight = 5.5;
+
+                // Precondition
+                Assert.AreNotEqual(nonDefaultBreakWaterType, input.BreakWater.Type);
+                Assert.AreNotEqual(nonDefaultBreakWaterHeight, input.BreakWater.Height);
+
+                breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
+            }
+
+            var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new[]
+                                              {
+                                                  new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                              }, foreshoreGeometry.ToArray(), breakWater,
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = "id",
+                                                  Orientation = 1.1,
+                                                  DikeHeight = 4.4
+                                              });
+            input.DikeProfile = dikeProfile;
+
+            input.Orientation = (RoundedDouble) 50;
+            input.UseBreakWater = true;
+            input.UseForeshore = true;
+            input.DikeHeight = (RoundedDouble) 4;
+
+            // Call
+            input.SynchronizeDikeProfileParameters();
+
+            // Assert
+            Assert.AreSame(dikeProfile, input.DikeProfile);
+            Assert.AreEqual(dikeProfile.Orientation, input.Orientation);
+            Assert.AreEqual(withBreakWater, input.UseBreakWater);
+            Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
+            Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
+            Assert.AreEqual(withValidForeshore, input.UseForeshore);
+            CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
+            CollectionAssert.AreEqual(dikeProfile.DikeGeometry, input.DikeGeometry);
+            Assert.AreEqual(dikeProfile.DikeHeight, input.DikeHeight);
+        }
+
+        [Test]
+        public void SynchronizeDikeProfileParameters_DikeProfileNull_InputSyncedToDefaults()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+            BreakWaterType originalBreakWaterType = input.BreakWater.Type;
+            RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
+
+            input.Orientation = (RoundedDouble) 50;
+            input.UseBreakWater = true;
+            input.UseForeshore = true;
+            input.DikeHeight = (RoundedDouble) 4;
+
+            // Call
+            input.SynchronizeDikeProfileParameters();
+
+            // Assert
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.Orientation);
+            Assert.IsFalse(input.UseBreakWater);
+            Assert.AreEqual(originalBreakWaterType, input.BreakWater.Type);
+            Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);
+            Assert.IsFalse(input.UseForeshore);
+            CollectionAssert.IsEmpty(input.ForeshoreGeometry);
+            CollectionAssert.IsEmpty(input.DikeGeometry);
+            Assert.AreEqual(2, input.DikeHeight.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.DikeHeight);
+        }
+
+        [Test]
+        public void DikeProfileParametersSynchronized_DikeProfileNull_ReturnFalse()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+
+            // Call
+            bool synchronized = input.DikeProfileParametersSynchronized;
+
+            // Assert
+            Assert.IsFalse(synchronized);
+        }
+
+        [Test]
+        public void DikeProfileParametersSynchronized_InputParametersAndDikeProfileInSync_ReturnTrue()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new TestDikeProfile(new[]
+                {
+                    new Point2D(3.3, 4.4),
+                    new Point2D(5.5, 6.6)
+                })
+            };
+
+            // Call
+            bool synchronized = input.DikeProfileParametersSynchronized;
+
+            // Assert
+            Assert.IsTrue(synchronized);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentDikeProfileProperties))]
+        public void DikeProfileParametersSynchronized_InputParametersAndDikeProfileNotInSync_ReturnFalse(DikeProfile newDikeProfile)
+        {
+            // Setup
+            var breakWater = new BreakWater(BreakWaterType.Wall, 5.5);
+
+            var dikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new[]
+                                              {
+                                                  new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                              }, new[]
+                                              {
+                                                  new Point2D(2.2, 3.3),
+                                                  new Point2D(4.4, 5.5)
+                                              }, breakWater,
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Id = "id",
+                                                  Orientation = 1.1,
+                                                  DikeHeight = 4.4
+                                              });
+
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = dikeProfile
+            };
+
+            if (newDikeProfile.BreakWater != null)
+            {
+                input.BreakWater.Type = newDikeProfile.BreakWater.Type;
+                input.BreakWater.Height = newDikeProfile.BreakWater.Height;
+            }
+            input.DikeHeight = newDikeProfile.DikeHeight;
+            input.Orientation = newDikeProfile.Orientation;
+            input.UseForeshore = newDikeProfile.ForeshoreGeometry.Count() > 1;
+            input.UseBreakWater = newDikeProfile.HasBreakWater;
+
+            // Call
+            input.SynchronizeDikeProfileParameters();
+
+            // Assert
+            Assert.AreSame(dikeProfile, input.DikeProfile);
+            Assert.AreEqual(dikeProfile.Orientation, input.Orientation);
+            Assert.IsTrue(input.UseBreakWater);
+            Assert.AreEqual(dikeProfile.BreakWater.Type, input.BreakWater.Type);
+            Assert.AreEqual(dikeProfile.BreakWater.Height, input.BreakWater.Height);
+            Assert.IsTrue(input.UseForeshore);
+            CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
+            CollectionAssert.AreEqual(dikeProfile.DikeGeometry, input.DikeGeometry);
+            Assert.AreEqual(dikeProfile.DikeHeight, input.DikeHeight);
+        }
+
+        private static IEnumerable<TestCaseData> DifferentDikeProfileProperties
+        {
+            get
+            {
+                yield return new TestCaseData(
+                        new DikeProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                        }, new[]
+                                        {
+                                            new Point2D(2.2, 3.3),
+                                            new Point2D(4.4, 5.5)
+                                        }, new BreakWater(BreakWaterType.Caisson, 5.5),
+                                        new DikeProfile.ConstructionProperties
+                                        {
+                                            Id = "id",
+                                            Orientation = 1.1,
+                                            DikeHeight = 4.4
+                                        }))
+                    .SetName("DifferentBreakWaterType");
+                yield return new TestCaseData(
+                        new DikeProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                        }, new[]
+                                        {
+                                            new Point2D(2.2, 3.3),
+                                            new Point2D(4.4, 5.5)
+                                        }, new BreakWater(BreakWaterType.Wall, 4),
+                                        new DikeProfile.ConstructionProperties
+                                        {
+                                            Id = "id",
+                                            Orientation = 1.1,
+                                            DikeHeight = 4.4
+                                        }))
+                    .SetName("DifferentBreakWaterHeight");
+                yield return new TestCaseData(
+                        new DikeProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                        }, new[]
+                                        {
+                                            new Point2D(2.2, 3.3),
+                                            new Point2D(4.4, 5.5)
+                                        }, new BreakWater(BreakWaterType.Wall, 5.5),
+                                        new DikeProfile.ConstructionProperties
+                                        {
+                                            Id = "id",
+                                            Orientation = 1.1,
+                                            DikeHeight = 2
+                                        }))
+                    .SetName("DifferentDikeHeight");
+                yield return new TestCaseData(
+                        new DikeProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                        }, new Point2D[0], new BreakWater(BreakWaterType.Wall, 5.5),
+                                        new DikeProfile.ConstructionProperties
+                                        {
+                                            Id = "id",
+                                            Orientation = 1.1,
+                                            DikeHeight = 4.4
+                                        }))
+                    .SetName("DifferentUseForeshore");
+                yield return new TestCaseData(
+                        new DikeProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                        }, new Point2D[0], null,
+                                        new DikeProfile.ConstructionProperties
+                                        {
+                                            Id = "id",
+                                            Orientation = 1.1,
+                                            DikeHeight = 4.4
+                                        }))
+                    .SetName("DifferentUseBreakWater");
+            }
         }
     }
 }
