@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -833,11 +832,12 @@ namespace Ringtoets.Piping.Plugin
             {
                 scenario.InputParameters.SynchronizeEntryAndExitPoint();
 
-                var affectedObjects = new List<IObservable>();
+                var affectedObjects = new List<IObservable>
+                {
+                    scenario.InputParameters
+                };
 
-                affectedObjects.Add(scenario.InputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(scenario));
-
 
                 foreach (IObservable affectedObject in affectedObjects)
                 {
@@ -845,7 +845,7 @@ namespace Ringtoets.Piping.Plugin
                 }
             }
         }
-        
+
         #endregion
 
         #region PipingCalculationGroupContext TreeNodeInfo
