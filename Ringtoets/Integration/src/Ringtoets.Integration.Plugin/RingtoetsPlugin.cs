@@ -49,6 +49,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -458,9 +459,9 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
+                FileFilterGenerator = ForeshoreProFileFilterGenerator,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, RingtoetsIntegrationPluginResources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
         }
 
@@ -498,10 +499,10 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                FileFilterGenerator = ForeshoreProFileFilterGenerator,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, RingtoetsIntegrationPluginResources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
         }
 
@@ -1582,6 +1583,28 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
+
+        #endregion
+
+        #region Foreshore Profile Update and ImportInfo
+
+        private static FileFilterGenerator ForeshoreProFileFilterGenerator
+        {
+            get
+            {
+                return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                                               RingtoetsCommonIOResources.Shape_file_filter_Description);
+            }
+        }
+
+        private bool VerifyForeshoreProfileUpdates(ForeshoreProfilesContext context, string query)
+        {
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
 
         #endregion
     }

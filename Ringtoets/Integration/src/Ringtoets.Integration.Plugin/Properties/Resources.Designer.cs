@@ -210,6 +210,30 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_def" +
+                        "initions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als voorlandprofielen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze voorlandprofielen gebruiken verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+            get {
+                return ResourceManager.GetString("RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_defi" +
+                        "nitions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuw.
         /// </summary>
         public static string RingtoetsRibbon_GroupBox_New {

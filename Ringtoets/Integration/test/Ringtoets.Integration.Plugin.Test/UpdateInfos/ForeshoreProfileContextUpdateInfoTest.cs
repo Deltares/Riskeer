@@ -19,15 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -38,7 +43,7 @@ using Ringtoets.Integration.Plugin.Properties;
 namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class ForeshoreProfileContextUpdateInfoTest
+    public class ForeshoreProfileContextUpdateInfoTest : NUnitFormTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
@@ -199,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
             var surfaceLines = new ForeshoreProfileCollection();
             surfaceLines.AddRange(new[]
             {
-                new TestForeshoreProfile(), 
+                new TestForeshoreProfile()
             }, expectedFilePath);
 
             var context = new ForeshoreProfilesContext(surfaceLines, failureMechanism, assessmentSection);
@@ -215,6 +220,113 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
                 Assert.AreEqual(expectedFilePath, currentFilePath);
                 mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+            var calculationWithoutOutput = mocks.Stub<ICalculation>();
+            calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(false);
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            {
+                calculationWithoutOutput
+            });
+
+            mocks.ReplayAll();
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.Gui = gui;
+
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+
+                // Call
+                bool updatesVerified = updateInfo.VerifyUpdates(context);
+
+                // Assert
+                Assert.IsTrue(updatesVerified);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnInquiryMessage(bool isActionConfirmed)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+            var calculationWithoutOutput = mocks.Stub<ICalculation>();
+            calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(true);
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
+            {
+                calculationWithoutOutput
+            });
+            mocks.ReplayAll();
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+
+                if (isActionConfirmed)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.Gui = gui;
+
+                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+
+                // Call
+                bool updatesVerified = updateInfo.VerifyUpdates(context);
+
+                // Assert
+                Assert.AreEqual(isActionConfirmed, updatesVerified);
+                string expectedInquiryMessage = "Als voorlandprofielen wijzigen door het bijwerken, " +
+                                                "dan worden de resultaten van berekeningen die deze voorlandprofielen gebruiken verwijderd." +
+                                                $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+            }
+
+            mocks.VerifyAll();
         }
 
         private static UpdateInfo GetUpdateInfo(RingtoetsPlugin plugin)

@@ -169,4 +169,14 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="BackgroundData_SelectMapData_Tooltip" xml:space="preserve">
     <value>Selecteer een achtergrondkaart.</value>
   </data>
+  <data name="RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u voorlandprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als voorlandprofielen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze voorlandprofielen gebruiken verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>
