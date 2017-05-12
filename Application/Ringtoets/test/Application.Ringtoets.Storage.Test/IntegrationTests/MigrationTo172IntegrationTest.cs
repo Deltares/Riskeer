@@ -21,7 +21,9 @@
 
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
+using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -63,6 +65,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertWaveImpactAsphaltCoverFailureMechanism(reader);
                     AssertHeightStructuresFailureMechanism(reader);
                     AssertClosingStructuresFailureMechanism(reader);
+
+                    AssertClosingStructures(reader);
+                    AssertHeightStructures(reader);
+                    AssertForeshoreProfiles(reader);
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
@@ -274,6 +280,39 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertForeshoreProfiles(MigratedDatabaseReader reader)
+        {
+            const string validateForeshoreProfiles =
+                "SELECT SUM([IsNotUnique]) = 0 " +
+                "FROM(" +
+                "SELECT " +
+                "CASE WHEN COUNT(DISTINCT([Name])) IS COUNT() " +
+                "AND " +
+                "COUNT(DISTINCT([Id])) IS COUNT() " +
+                "THEN 0 ELSE 1 END AS [IsNotUnique] " +
+                "FROM ForeshoreProfileEntity " +
+                "GROUP BY [FailureMechanismEntityId])";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfiles);
+        }
+
+        private static void AssertHeightStructures(MigratedDatabaseReader reader)
+        {
+            const string validateHeightStructures =
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM HeightStructureEntity " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateHeightStructures);
+        }
+
+        private static void AssertClosingStructures(MigratedDatabaseReader reader)
+        {
+            const string validateClosingStructures =
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM ClosingStructureEntity " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateClosingStructures);
         }
 
         /// <summary>

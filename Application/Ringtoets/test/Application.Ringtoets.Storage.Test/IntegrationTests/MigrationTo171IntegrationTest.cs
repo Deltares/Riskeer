@@ -158,7 +158,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             const string validateDikeProfiles =
                 "SELECT COUNT(DISTINCT(Name)) = COUNT() " +
-                "AND COUNT(DISTINCT(Id)) = COUNT() FROM DikeProfileEntity";
+                "AND COUNT(DISTINCT(Id)) = COUNT() FROM DikeProfileEntity " +
+                "GROUP BY [FailureMechanismEntityId]";
             reader.AssertReturnedDataIsValid(validateDikeProfiles);
         }
 

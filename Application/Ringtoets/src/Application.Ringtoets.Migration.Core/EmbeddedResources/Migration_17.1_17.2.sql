@@ -49,9 +49,9 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Name] || 
+	CASE WHEN Suffix THEN [Id] || 
 	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Name] END as [Id],
+	|| Suffix ELSE [Id] END as [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -78,13 +78,13 @@ SELECT
 	[IdenticalApertures],
 	[FailureProbabilityReparation],
 	[InflowModelType]
-	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT count(*)
                      FROM [SOURCEPROJECT].ClosingStructureEntity
-                     WHERE HS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
-                     AND HS.[Name] IS [Name]
-                     AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
-	FROM [SOURCEPROJECT].ClosingStructureEntity HS
-	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].ClosingStructureEntity));
+                     WHERE CS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
+                     AND CS.[Id] IS [Id]
+                     AND CS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) AS Suffix
+	FROM [SOURCEPROJECT].ClosingStructureEntity CS
+	JOIN (SELECT MAX(LENGTH([Id])) AS MaxLength FROM [SOURCEPROJECT].ClosingStructureEntity));
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity (
 	[ClosingStructuresFailureMechanismMetaEntityId],
@@ -127,9 +127,9 @@ INSERT INTO ForeshoreProfileEntity(
 SELECT
 	[ForeshoreProfileEntityId],
 	[FailureMechanismEntityId],
-	CASE WHEN Suffix THEN [Name] || 
+	CASE WHEN Suffix THEN [Id] || 
 	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Name] END as [Id],
+	|| Suffix ELSE [Id] END as [Id],
 	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
 	[Orientation],
 	[BreakWaterType],
@@ -199,9 +199,9 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Name] || 
+	CASE WHEN Suffix THEN [Id] || 
 	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Name] END as [Id],
+	|| Suffix ELSE [Id] END as [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -218,13 +218,13 @@ SELECT
 	[StorageStructureAreaCoefficientOfVariation],
 	[AllowedLevelIncreaseStorageMean],
 	[AllowedLevelIncreaseStorageStandardDeviation]
-	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT count(*)
                      FROM [SOURCEPROJECT].HeightStructureEntity
                      WHERE HS.[HeightStructureEntityId] > [HeightStructureEntityId]
-                     AND HS.[Name] IS [Name]
-                     AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
+                     AND HS.[Id] IS [Id]
+                     AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) AS Suffix
 	FROM [SOURCEPROJECT].HeightStructureEntity HS
-	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].HeightStructureEntity));
+	JOIN (SELECT MAX(LENGTH([Id])) AS MaxLength FROM [SOURCEPROJECT].HeightStructureEntity));
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity (
 	[HeightStructuresFailureMechanismMetaEntityId],
