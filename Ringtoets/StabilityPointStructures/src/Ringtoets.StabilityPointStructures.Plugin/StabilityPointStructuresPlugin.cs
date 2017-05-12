@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -672,15 +673,20 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(StabilityPointStructuresCalculationContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(StabilityPointStructuresCalculationContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
-
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
+                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
+                                                                      inquiryHelper,
+                                                                      UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
@@ -701,6 +707,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
+
+        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<StabilityPointStructuresInput> calculation) {}
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationContext context)
         {
