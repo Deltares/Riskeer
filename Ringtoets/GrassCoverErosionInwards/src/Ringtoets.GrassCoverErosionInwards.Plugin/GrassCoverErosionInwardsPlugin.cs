@@ -872,46 +872,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void UpdateDikeProfileDerivedCalculationInput(GrassCoverErosionInwardsCalculation calculation)
         {
-            GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
-            bool currentUseBreakWater = inputParameters.UseBreakWater;
-            BreakWater currentBreakWater = inputParameters.BreakWater;
-            RoundedDouble currentOrientation = inputParameters.Orientation;
-            RoundedDouble currentDikeHeight = inputParameters.DikeHeight;
-            bool currentUseForeshore = inputParameters.UseForeshore;
-
-            // Reapply the dike profile will update the derived inputs
-            inputParameters.DikeProfile = inputParameters.DikeProfile;
-
-            var affectedObjects = new List<IObservable>();
-            if (IsDerivedInputUpdated(currentUseBreakWater,
-                                      currentBreakWater,
-                                      currentOrientation,
-                                      currentDikeHeight,
-                                      currentUseForeshore,
-                                      inputParameters))
+            if (!calculation.InputParameters.DikeProfileParametersSynchronized)
             {
-                affectedObjects.Add(inputParameters);
+                calculation.InputParameters.SynchronizeDikeProfileParameters();
+
+                var affectedObjects = new List<IObservable>
+                {
+                    calculation.InputParameters
+                };
+
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-            }
 
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
+                foreach (IObservable affectedObject in affectedObjects)
+                {
+                    affectedObject.NotifyObservers();
+                }
             }
-        }
-
-        private static bool IsDerivedInputUpdated(bool currentUseBreakWater,
-                                                  BreakWater currentBreakWater,
-                                                  RoundedDouble currentOrientation,
-                                                  RoundedDouble currentDikeHeight,
-                                                  bool currentUseForeshore,
-                                                  GrassCoverErosionInwardsInput actualInput)
-        {
-            return currentUseBreakWater != actualInput.UseBreakWater
-                   || !Equals(currentBreakWater, actualInput.BreakWater)
-                   || currentOrientation != actualInput.Orientation
-                   || currentDikeHeight != actualInput.DikeHeight
-                   || currentUseForeshore != actualInput.UseForeshore;
         }
 
         #endregion
