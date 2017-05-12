@@ -27,8 +27,19 @@ using Ringtoets.Common.Service;
 
 namespace Ringtoets.Common.Forms.Helpers
 {
+    /// <summary>
+    /// Helper for updating parameters of calculation input with values taken from 
+    /// a <see cref="ForeshoreProfile"/>.
+    /// </summary>
     public static class SynchronizeCalculationWithForeshoreProfileHelper
     {
+        /// <summary>
+        /// Updates the foreshore profile derived calculation input with values from the
+        /// assigned <see cref="ForeshoreProfile"/>.
+        /// </summary>
+        /// <typeparam name="TInput">The type of input to update.</typeparam>
+        /// <param name="calculation">The calculation for which to update the properties of.</param>
+        /// <remarks>Objects which are affected by input changes are notified.</remarks>
         public static void UpdateForeshoreProfileDerivedCalculationInput<TInput>(ICalculation<TInput> calculation)
             where TInput : ICalculationInput, IHasForeshoreProfile
         {
