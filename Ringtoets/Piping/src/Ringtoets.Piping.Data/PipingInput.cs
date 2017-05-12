@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Data
             set
             {
                 surfaceLine = value;
-                UpdateEntryAndExitPoint();
+                SynchronizeEntryAndExitPoint();
             }
         }
 
@@ -229,7 +229,11 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateEntryAndExitPoint()
+        /// <summary>
+        /// Synchronizes the entry and exit point with the parameters of the surface line.
+        /// </summary>
+        /// <remarks>When no surface line is present, the entry and exit point are set to <see cref="double.NaN"/>.</remarks>
+        public void SynchronizeEntryAndExitPoint()
         {
             if (SurfaceLine == null)
             {

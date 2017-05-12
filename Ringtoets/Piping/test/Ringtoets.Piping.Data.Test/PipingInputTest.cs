@@ -316,7 +316,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void SurfaceLine_WithDikeToes_ExitPointLAndEntryPointLUpdated()
         {
-            // Given
+            // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void SurfaceLine_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
         {
-            // Given
+            // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void SurfaceLine_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
         {
-            // Given
+            // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -393,6 +393,89 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             input.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
+            Assert.AreEqual(new RoundedDouble(2, 3), input.ExitPointL);
+        }
+        [Test]
+        public void SynchronizeEntryAndExitPoint_SurfaceLineNull_EntryPointLAndExitPointLNaN()
+        {
+            // Setup
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                EntryPointL = (RoundedDouble) 3,
+                ExitPointL = (RoundedDouble) 5
+            };
+
+            // Precondition
+            Assert.AreEqual(3, input.EntryPointL.Value);
+            Assert.AreEqual(5, input.ExitPointL.Value);
+
+            // Call
+            input.SynchronizeEntryAndExitPoint();
+
+            // Assert
+            Assert.IsNaN(input.EntryPointL);
+            Assert.IsNaN(input.ExitPointL);
+        }
+
+        [Test]
+        public void SynchronizeEntryAndExitPoint_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
+        {
+            // Setup
+            var input = new PipingInput(new GeneralPipingInput());
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+            input.SurfaceLine = surfaceLine;
+            input.EntryPointL = (RoundedDouble) 0;
+            input.ExitPointL = (RoundedDouble) 1;
+
+            // Call
+            input.SynchronizeEntryAndExitPoint();
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
+            Assert.AreEqual(new RoundedDouble(3, 3), input.ExitPointL);
+        }
+
+        [Test]
+        public void SynchronizeEntryAndExitPoint_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
+        {
+            // Setup
+            var input = new PipingInput(new GeneralPipingInput());
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+            input.SurfaceLine = surfaceLine;
+            input.ExitPointL = (RoundedDouble) 5;
+            input.EntryPointL = (RoundedDouble) 4;
+
+            // Call
+            input.SynchronizeEntryAndExitPoint();
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
