@@ -170,31 +170,31 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             ClosingStructure.ConstructionProperties differentFailureProbabilityOpenStructureConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentFailureProbabilityOpenStructureConstructionProperties.FailureProbabilityOpenStructure = random.NextDouble();
-            yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
+            yield return new TestCaseData(new ClosingStructure(differentFailureProbabilityOpenStructureConstructionProperties))
                 .SetName($"{targetName}_DifferentFailureProbabilityOpenStructure_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentIdenticalAperturesProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentIdenticalAperturesProperties.IdenticalApertures = random.Next();
-            yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
+            yield return new TestCaseData(new ClosingStructure(differentIdenticalAperturesProperties))
                 .SetName($"{targetName}_DifferentIdenticalApertures_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentInflowModelTypeConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentInflowModelTypeConstructionProperties.InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
-            yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
+            yield return new TestCaseData(new ClosingStructure(differentInflowModelTypeConstructionProperties))
                 .SetName($"{targetName}_DifferentInflowModelType_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
-            yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
+            yield return new TestCaseData(new ClosingStructure(differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties))
                 .SetName($"{targetName}_DifferentProbabilityOrFrequencyOpenStructureBeforeFlooding_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentStructureNormalOrientationConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentStructureNormalOrientationConstructionProperties.StructureNormalOrientation = random.NextRoundedDouble();
-            yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
+            yield return new TestCaseData(new ClosingStructure(differentStructureNormalOrientationConstructionProperties))
                 .SetName($"{targetName}_DifferentStructureNormalOrientation_{testResultDescription}");
         }
 
