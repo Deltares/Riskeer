@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
@@ -45,86 +43,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
     public class HeightStructureUpdateDataStrategyTest
     {
         private const string sourceFilePath = "some/path";
-
-        private static IEnumerable<TestCaseData> DifferentHeightStructureWithSameId
-        {
-            get
-            {
-                var random = new Random(532);
-                const string defaultId = "id";
-                const string defaultName = "name";
-                var defaultLocation = new Point2D(0, 0);
-
-                yield return new TestCaseData(new TestHeightStructure(defaultId, "Different name"))
-                    .SetName("Different name");
-                yield return new TestCaseData(new TestHeightStructure(new Point2D(1, 1), defaultId))
-                    .SetName("Different Location");
-                yield return new TestCaseData(new TestHeightStructure
-                {
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different AllowedLevelIncreaseStorage");
-                yield return new TestCaseData(new TestHeightStructure
-                {
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different CriticalOvertoppingDischarge");
-                yield return new TestCaseData(new TestHeightStructure
-                {
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different FlowWidthAtBottomProtection");
-                yield return new TestCaseData(new TestHeightStructure
-                {
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different LevelCrestStructure");
-                yield return new TestCaseData(new TestHeightStructure
-                {
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different StorageStructureArea");
-                yield return new TestCaseData(new TestHeightStructure
-                {
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different WidthFlowApertures");
-                yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    FailureProbabilityStructureWithErosion = random.NextDouble()
-                })).SetName("Different FailureProbabilityStructureWithErosion");
-                yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    StructureNormalOrientation = random.NextRoundedDouble()
-                })).SetName("Different StructureNormalOrientation");
-            }
-        }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -306,7 +224,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentHeightStructureWithSameId))]
+        [TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameId))]
         public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(HeightStructure readStructure)
         {
             // Setup

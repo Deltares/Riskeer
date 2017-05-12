@@ -111,6 +111,56 @@ namespace Ringtoets.HeightStructures.Data.Test
             AssertHeightStructure(structure, input);
         }
 
+        [Test]
+        public void StructureParametersSynchronized_StructureNotSet_ReturnFalse()
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+
+            // Assert
+            Assert.IsFalse(structureParametersSynchronized);
+        }
+
+        [Test]
+        public void StructureParametersSynchronized_StructureAndInputInSync_ReturnTrue()
+        {
+            // Setup
+            var structure = new TestHeightStructure();
+            var input = new HeightStructuresInput
+            {
+                Structure = structure
+            };
+
+            // Call
+            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+
+            // Assert
+            Assert.IsTrue(structureParametersSynchronized);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameIdLocationAndName))]
+        public void StructureParametersSynchronized_StructureAndInputNotInSync_ReturnFalse(HeightStructure modifiedStructure)
+        {
+            // Setup
+            var structure = new TestHeightStructure();
+            var input = new HeightStructuresInput
+            {
+                Structure = structure
+            };
+
+            structure.CopyProperties(modifiedStructure);
+
+            // Call
+            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+
+            // Assert
+            Assert.IsFalse(structureParametersSynchronized);
+        }
+
         #region Schematization
 
         [Test]
