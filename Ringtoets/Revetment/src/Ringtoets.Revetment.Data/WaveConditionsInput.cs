@@ -64,7 +64,7 @@ namespace Ringtoets.Revetment.Data
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
 
-            UpdateProfileParameters();
+            SynchronizeForeshoreProfileParameters();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 foreshoreProfile = value;
-                UpdateProfileParameters();
+                SynchronizeForeshoreProfileParameters();
             }
         }
 
@@ -348,7 +348,24 @@ namespace Ringtoets.Revetment.Data
             return waterLevels;
         }
 
-        private void UpdateProfileParameters()
+        public bool IsForeshoreProfileParametersSynchronized
+        {
+            get
+            {
+                if (foreshoreProfile == null)
+                {
+                    return false;
+                }
+
+                return
+                    Orientation == foreshoreProfile.Orientation
+                    && UseForeshore == foreshoreProfile.Geometry.Count() > 1
+                    && UseBreakWater == foreshoreProfile.HasBreakWater
+                    && BreakWater.Equals(foreshoreProfile.BreakWater);
+            }
+        }
+
+        public void SynchronizeForeshoreProfileParameters()
         {
             if (foreshoreProfile == null)
             {

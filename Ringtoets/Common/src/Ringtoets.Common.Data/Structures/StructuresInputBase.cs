@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Data.Structures
             widthFlowApertures = new NormalDistribution(2);
 
             SetDefaultCommonStructureSchematizationProperties();
-            UpdateProfileParameters();
+            SynchronizeForeshoreProfileParameters();
         }
 
         #region Model factors
@@ -107,6 +107,12 @@ namespace Ringtoets.Common.Data.Structures
         #endregion
 
         /// <summary>
+        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
+        /// </summary>
+        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
+        public abstract bool StructureParametersSynchronized { get; }
+
+        /// <summary>
         /// Gets or sets the structure.
         /// </summary>
         public T Structure
@@ -126,12 +132,6 @@ namespace Ringtoets.Common.Data.Structures
                 SynchronizeStructureParameters();
             }
         }
-
-        /// <summary>
-        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
-        /// </summary>
-        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
-        public abstract bool StructureParametersSynchronized { get; }
 
         /// <summary>
         /// Synchronizes the input parameters with the parameters of the structure.
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.Data.Structures
             set
             {
                 foreshoreProfile = value;
-                UpdateProfileParameters();
+                SynchronizeForeshoreProfileParameters();
             }
         }
 
@@ -366,7 +366,33 @@ namespace Ringtoets.Common.Data.Structures
             }
         }
 
-        private void UpdateProfileParameters()
+        private static BreakWater GetDefaultBreakWater()
+        {
+            return new BreakWater(BreakWaterType.Dam, 0.0);
+        }
+
+        public void ClearStructure()
+        {
+            Structure = null;
+        }
+
+        public bool IsForeshoreProfileParametersSynchronized
+        {
+            get
+            {
+                if (foreshoreProfile == null)
+                {
+                    return false;
+                }
+
+                return
+                    UseForeshore == foreshoreProfile.Geometry.Count() > 1
+                    && UseBreakWater == foreshoreProfile.HasBreakWater
+                    && BreakWater.Equals(foreshoreProfile.BreakWater);
+            }
+        }
+
+        public void SynchronizeForeshoreProfileParameters()
         {
             if (foreshoreProfile == null)
             {
@@ -382,16 +408,6 @@ namespace Ringtoets.Common.Data.Structures
                                  new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) :
                                  GetDefaultBreakWater();
             }
-        }
-
-        private static BreakWater GetDefaultBreakWater()
-        {
-            return new BreakWater(BreakWaterType.Dam, 0.0);
-        }
-
-        public void ClearStructure()
-        {
-            Structure = null;
         }
 
         #endregion

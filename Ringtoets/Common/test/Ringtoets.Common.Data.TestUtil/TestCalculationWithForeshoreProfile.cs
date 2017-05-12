@@ -111,10 +111,6 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         public class TestCalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile
         {
-            /// <summary>
-            /// Gets or sets the foreshore profile.
-            /// </summary>
-            public ForeshoreProfile ForeshoreProfile { get; set; }
 
             public void Attach(IObserver observer)
             {
@@ -127,6 +123,13 @@ namespace Ringtoets.Common.Data.TestUtil
             }
 
             public void NotifyObservers()
+            {
+                throw new NotImplementedException();
+            }
+
+            public ForeshoreProfile ForeshoreProfile { get; set; }
+            public bool IsForeshoreProfileParametersSynchronized { get; }
+            public void SynchronizeForeshoreProfileParameters()
             {
                 throw new NotImplementedException();
             }
