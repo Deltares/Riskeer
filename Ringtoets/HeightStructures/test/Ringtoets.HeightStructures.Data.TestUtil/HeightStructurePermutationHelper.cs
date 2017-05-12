@@ -28,8 +28,17 @@ using NUnit.Framework;
 
 namespace Ringtoets.HeightStructures.Data.TestUtil
 {
+    /// <summary>
+    /// Helper containing a source of modified <see cref="HeightStructure"/> entities that can
+    /// be used in tests as a TestCaseSource.
+    /// </summary>
     public static class HeightStructurePermutationHelper
     {
+        /// <summary>
+        /// Returns a collection of modified <see cref="HeightStructure"/> entities, which all differ
+        /// except for their id.
+        /// </summary>
+        /// <example>[TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameId))]</example>
         public static IEnumerable<TestCaseData> DifferentHeightStructureWithSameId
         {
             get
@@ -50,6 +59,11 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             }
         }
 
+        /// <summary>
+        /// Returns a collection of modified <see cref="HeightStructure"/> entities, which all
+        /// differ except for their id, location and name.
+        /// </summary>
+        /// <example>[TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameIdLocationAndName))]</example>
         public static IEnumerable<TestCaseData> DifferentHeightStructureWithSameIdLocationAndName
         {
             get
@@ -125,6 +139,5 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 })).SetName("Different StructureNormalOrientation");
             }
         }
-
     }
 }
