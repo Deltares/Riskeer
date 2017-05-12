@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -398,6 +399,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
             Assert.AreEqual(new RoundedDouble(2, 3), input.ExitPointL);
         }
+
         [Test]
         public void SynchronizeEntryAndExitPoint_SurfaceLineNull_EntryPointLAndExitPointLNaN()
         {
@@ -480,6 +482,92 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
             Assert.AreEqual(new RoundedDouble(2, 3), input.ExitPointL);
+        }
+
+        [Test]
+        public void EntryAndExitPointSynchronized_SurfaceLineNull_ReturnFalse()
+        {
+            // Setup
+            var input = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            bool synchronized = input.EntryAndExitPointSynchronized();
+
+            // Assert
+            Assert.IsFalse(synchronized);
+        }
+
+        [Test]
+        public void EntryAndExitPointSynchronized_SurfaceLineAndInputInSync_ReturnTrue()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine
+            };
+
+            // Call
+            bool synchronized = input.EntryAndExitPointSynchronized();
+
+            // Assert
+            Assert.IsTrue(synchronized);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentSurfaceLineProperties))]
+        public void EntryAndExitPointSynchronized_SurfaceLineAndInputNotInSync_ReturnFalse(Point3D newDikeToeAtRiver, Point3D newDikeToeAtPolder)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
+                new Point3D(2, 0, 3),
+                new Point3D(3, 0, 0),
+                new Point3D(4, 0, 2),
+                new Point3D(5, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
+
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine
+            };
+
+            input.SurfaceLine.SetDikeToeAtRiverAt(newDikeToeAtRiver);
+            input.SurfaceLine.SetDikeToeAtPolderAt(newDikeToeAtPolder);
+
+            // Call
+            bool synchronized = input.EntryAndExitPointSynchronized();
+
+            // Assert
+            Assert.IsFalse(synchronized);
+        }
+
+        private static IEnumerable<TestCaseData> DifferentSurfaceLineProperties
+        {
+            get
+            {
+                yield return new TestCaseData(new Point3D(3, 0, 0), new Point3D(3, 0, 0))
+                    .SetName("DifferentDikeToeAtRiver");
+                yield return new TestCaseData(new Point3D(2, 0, 3), new Point3D(4, 0, 2))
+                    .SetName("DifferentDikeToeAtPolder"); ;
+            }
         }
 
         [Test]

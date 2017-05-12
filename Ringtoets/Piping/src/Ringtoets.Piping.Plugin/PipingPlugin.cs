@@ -829,36 +829,23 @@ namespace Ringtoets.Piping.Plugin
 
         private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
         {
-            PipingInput inputParameters = scenario.InputParameters;
-            RingtoetsPipingSurfaceLine currentSurfaceLine = inputParameters.SurfaceLine;
-            RoundedDouble currentEntryPointL = inputParameters.EntryPointL;
-            RoundedDouble currentExitPointL = inputParameters.ExitPointL;
-
-            // Setting the surfaceLine will trigger to update the entry and exit points.
-            inputParameters.SurfaceLine = currentSurfaceLine;
-
-            var affectedObjects = new List<IObservable>();
-            if (AreEntryAndExitPointsUpdated(currentEntryPointL, currentExitPointL, inputParameters.EntryPointL, inputParameters.ExitPointL))
+            if (!scenario.InputParameters.EntryAndExitPointSynchronized())
             {
-                affectedObjects.Add(inputParameters);
+                scenario.InputParameters.SynchronizeEntryAndExitPoint();
+
+                var affectedObjects = new List<IObservable>();
+
+                affectedObjects.Add(scenario.InputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(scenario));
-            }
 
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
+
+                foreach (IObservable affectedObject in affectedObjects)
+                {
+                    affectedObject.NotifyObservers();
+                }
             }
         }
-
-        private static bool AreEntryAndExitPointsUpdated(RoundedDouble currentEntryPointL,
-                                                         RoundedDouble currentExitPointL,
-                                                         RoundedDouble updatedEntryPointL,
-                                                         RoundedDouble updatedExitPointL)
-        {
-            return !(currentEntryPointL == updatedEntryPointL)
-                   || !(currentExitPointL == updatedExitPointL);
-        }
-
+        
         #endregion
 
         #region PipingCalculationGroupContext TreeNodeInfo

@@ -210,6 +210,76 @@ namespace Ringtoets.Piping.Data
             }
         }
 
+        /// <summary>
+        /// Gets whether the entry and exit point are synchronized with the set <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// </summary>
+        /// <remarks>Always returns <c>false</c> in case no surface line is present.</remarks>
+        public bool EntryAndExitPointSynchronized()
+        {
+            if (SurfaceLine == null)
+            {
+                return false;
+            }
+
+            double newEntryPointL;
+            double newExitPointL;
+            GetEntryExitPointFromSurfaceLine(out newEntryPointL, out newExitPointL);
+
+            return Math.Abs(newEntryPointL - EntryPointL) < 1e-6
+                   && Math.Abs(newExitPointL - ExitPointL) < 1e-6;
+        }
+
+        /// <summary>
+        /// Synchronizes the entry and exit point with the parameters of the surface line.
+        /// </summary>
+        /// <remarks>When no surface line is present, the entry and exit point are set to <see cref="double.NaN"/>.</remarks>
+        public void SynchronizeEntryAndExitPoint()
+        {
+            if (SurfaceLine == null)
+            {
+                EntryPointL = RoundedDouble.NaN;
+                ExitPointL = RoundedDouble.NaN;
+            }
+            else
+            {
+                double tempEntryPointL;
+                double tempExitPointL;
+                GetEntryExitPointFromSurfaceLine(out tempEntryPointL, out tempExitPointL);
+
+                if (tempExitPointL <= ExitPointL)
+                {
+                    EntryPointL = (RoundedDouble) tempEntryPointL;
+                    ExitPointL = (RoundedDouble) tempExitPointL;
+                }
+                else
+                {
+                    ExitPointL = (RoundedDouble) tempExitPointL;
+                    EntryPointL = (RoundedDouble) tempEntryPointL;
+                }
+            }
+        }
+
+        private void GetEntryExitPointFromSurfaceLine(out double tempEntryPointL, out double tempExitPointL)
+        {
+            int entryPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtRiver);
+            int exitPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtPolder);
+
+            Point2D[] localGeometry = SurfaceLine.ProjectGeometryToLZ().ToArray();
+
+            tempEntryPointL = localGeometry[0].X;
+            tempExitPointL = localGeometry[localGeometry.Length - 1].X;
+
+            bool isDifferentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+            if (isDifferentPoints && exitPointIndex > 0)
+            {
+                tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+            }
+            if (isDifferentPoints && entryPointIndex > -1)
+            {
+                tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
+            }
+        }
+
         private void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
         {
             if (entryPointLocalXCoordinate >= exitPointLocalXCoordinate)
@@ -226,50 +296,6 @@ namespace Ringtoets.Piping.Data
                 string outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_,
                                                          validityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
-            }
-        }
-
-        /// <summary>
-        /// Synchronizes the entry and exit point with the parameters of the surface line.
-        /// </summary>
-        /// <remarks>When no surface line is present, the entry and exit point are set to <see cref="double.NaN"/>.</remarks>
-        public void SynchronizeEntryAndExitPoint()
-        {
-            if (SurfaceLine == null)
-            {
-                EntryPointL = RoundedDouble.NaN;
-                ExitPointL = RoundedDouble.NaN;
-            }
-            else
-            {
-                int entryPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtRiver);
-                int exitPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtPolder);
-
-                Point2D[] localGeometry = SurfaceLine.ProjectGeometryToLZ().ToArray();
-
-                double tempEntryPointL = localGeometry[0].X;
-                double tempExitPointL = localGeometry[localGeometry.Length - 1].X;
-
-                bool isDifferentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
-                if (isDifferentPoints && exitPointIndex > 0)
-                {
-                    tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
-                }
-                if (isDifferentPoints && entryPointIndex > -1)
-                {
-                    tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
-                }
-
-                if (tempExitPointL <= ExitPointL)
-                {
-                    EntryPointL = (RoundedDouble) tempEntryPointL;
-                    ExitPointL = (RoundedDouble) tempExitPointL;
-                }
-                else
-                {
-                    ExitPointL = (RoundedDouble) tempExitPointL;
-                    EntryPointL = (RoundedDouble) tempEntryPointL;
-                }
             }
         }
 
