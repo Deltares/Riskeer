@@ -38,32 +38,31 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// Returns a collection of modified <see cref="ClosingStructure"/> entities, which all differ
         /// except for their id.
         /// </summary>
-        /// <param name="testMethodName">The name of the test method to use the test case source for.</param>
-        /// <param name="testResultDescription">A description of the result of the test to use the test
-        /// case source for.</param>
+        /// <param name="targetName">The name of the target to test while using the test case source.</param>
+        /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
         /// [TestCaseSource(typeof(ClosingStructurePermutationHelper),
         ///                 nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId),
         ///                 new object[]
         ///                 {
-        ///                     "MethodName",
+        ///                     "TargetMethodName",
         ///                     "TestResult"
         ///                 })]
         /// </example>
-        public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameId(string testMethodName, string testResultDescription)
+        public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameId(string targetName, string testResultDescription)
         {
             var referenceStructure = new TestClosingStructure();
 
             var testCaseData = new List<TestCaseData>
             {
                 new TestCaseData(new TestClosingStructure(referenceStructure.Id, "Different name"))
-                    .SetName($"{testMethodName}_DifferentName_{testResultDescription}"),
+                    .SetName($"{targetName}_DifferentName_{testResultDescription}"),
                 new TestCaseData(new TestClosingStructure(new Point2D(1, 1), referenceStructure.Id))
-                    .SetName($"{testMethodName}_DifferentLocation_{testResultDescription}")
+                    .SetName($"{targetName}_DifferentLocation_{testResultDescription}")
             };
 
-            testCaseData.AddRange(DifferentClosingStructuresWithSameIdNameAndLocation(testMethodName, testResultDescription));
+            testCaseData.AddRange(DifferentClosingStructuresWithSameIdNameAndLocation(targetName, testResultDescription));
 
             return testCaseData;
         }
@@ -72,20 +71,19 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// Returns a collection of modified <see cref="ClosingStructure"/> entities, which all differ
         /// except for their id, name and location.
         /// </summary>
-        /// <param name="testMethodName">The name of the test method to use the test case source for.</param>
-        /// <param name="testResultDescription">A description of the result of the test to use the test
-        /// case source for.</param>
+        /// <param name="targetName">The name of the target to test while using the test case source.</param>
+        /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
         /// [TestCaseSource(typeof(ClosingStructurePermutationHelper),
         ///                 nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation),
         ///                 new object[]
         ///                 {
-        ///                     "MethodName",
+        ///                     "TargetMethodName",
         ///                     "TestResult"
         ///                 })]
         /// </example>
-        public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameIdNameAndLocation(string testMethodName, string testResultDescription)
+        public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameIdNameAndLocation(string targetName, string testResultDescription)
         {
             var random = new Random(532);
 
@@ -97,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Shift = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentAreaFlowApertures_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentAreaFlowApertures_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -106,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) random.Next(),
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -116,7 +114,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Shift = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -125,7 +123,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) random.Next(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentInsideWaterLevel_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentInsideWaterLevel_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -134,7 +132,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) random.Next(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentLevelCrestStructureNotClosing_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentLevelCrestStructureNotClosing_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -143,7 +141,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) random.Next(),
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentStorageStructureArea_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentStorageStructureArea_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -152,7 +150,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) random.Next(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentThresholdHeightOpenWeir_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentThresholdHeightOpenWeir_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {
@@ -161,43 +159,43 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Mean = (RoundedDouble) random.Next(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{testMethodName}_DifferentWidthFlowApertures_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentWidthFlowApertures_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentFailureProbabilityReparationConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentFailureProbabilityReparationConstructionProperties.FailureProbabilityReparation = random.NextDouble();
             yield return new TestCaseData(new ClosingStructure(differentFailureProbabilityReparationConstructionProperties))
-                .SetName($"{testMethodName}_DifferentFailureProbabilityReparation_{testResultDescription}");
+                .SetName($"{targetName}_DifferentFailureProbabilityReparation_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentFailureProbabilityOpenStructureConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentFailureProbabilityOpenStructureConstructionProperties.FailureProbabilityOpenStructure = random.NextDouble();
             yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
-                .SetName($"{testMethodName}_DifferentFailureProbabilityOpenStructure_{testResultDescription}");
+                .SetName($"{targetName}_DifferentFailureProbabilityOpenStructure_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentIdenticalAperturesProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentIdenticalAperturesProperties.IdenticalApertures = random.Next();
             yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
-                .SetName($"{testMethodName}_DifferentIdenticalApertures_{testResultDescription}");
+                .SetName($"{targetName}_DifferentIdenticalApertures_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentInflowModelTypeConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentInflowModelTypeConstructionProperties.InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
-                .SetName($"{testMethodName}_DifferentInflowModelType_{testResultDescription}");
+                .SetName($"{targetName}_DifferentInflowModelType_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
             yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
-                .SetName($"{testMethodName}_DifferentProbabilityOrFrequencyOpenStructureBeforeFlooding_{testResultDescription}");
+                .SetName($"{targetName}_DifferentProbabilityOrFrequencyOpenStructureBeforeFlooding_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentStructureNormalOrientationConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
             differentStructureNormalOrientationConstructionProperties.StructureNormalOrientation = random.NextRoundedDouble();
             yield return new TestCaseData(new ClosingStructure(CreateTestClosingStructureConstructionProperties()))
-                .SetName($"{testMethodName}_DifferentStructureNormalOrientation_{testResultDescription}");
+                .SetName($"{targetName}_DifferentStructureNormalOrientation_{testResultDescription}");
         }
 
         private static ClosingStructure.ConstructionProperties CreateTestClosingStructureConstructionProperties()
