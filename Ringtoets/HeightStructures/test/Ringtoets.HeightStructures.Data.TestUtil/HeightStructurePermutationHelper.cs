@@ -39,105 +39,164 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// except for their id.
         /// </summary>
         /// <example>[TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameId))]</example>
-        public static IEnumerable<TestCaseData> DifferentHeightStructureWithSameId
+        public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameId()
         {
-            get
+            var referenceStructure = new TestHeightStructure();
+
+            var testCaseData = new List<TestCaseData>
             {
-                const string defaultId = "id";
+                new TestCaseData(new TestHeightStructure(referenceStructure.Id, "Different Name"))
+                    .SetName("Different Name"),
+                new TestCaseData(new TestHeightStructure(new Point2D(1, 1), referenceStructure.Id))
+                    .SetName("Different Location")
+            };
 
-                var testCaseData = new List<TestCaseData>
-                {
-                    new TestCaseData(new TestHeightStructure(defaultId, "Different Name"))
-                        .SetName("Different Name"),
-                    new TestCaseData(new TestHeightStructure(new Point2D(1, 1), defaultId))
-                        .SetName("Different Location")
-                };
+            testCaseData.AddRange(DifferentHeightStructuresWithSameIdNameAndLocation());
 
-                testCaseData.AddRange(DifferentHeightStructureWithSameIdLocationAndName);
-
-                return testCaseData;
-            }
+            return testCaseData;
         }
 
         /// <summary>
         /// Returns a collection of modified <see cref="HeightStructure"/> entities, which all
-        /// differ except for their id, location and name.
+        /// differ except for their id, name and location.
         /// </summary>
         /// <example>[TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameIdLocationAndName))]</example>
-        public static IEnumerable<TestCaseData> DifferentHeightStructureWithSameIdLocationAndName
+        public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameIdNameAndLocation()
         {
-            get
-            {
-                var random = new Random(532);
-                const string defaultId = "id";
-                const string defaultName = "name";
-                var defaultLocation = new Point2D(0, 0);
+            var random = new Random(532);
+            var referenceStructure = new TestHeightStructure();
 
-                yield return new TestCaseData(new TestHeightStructure
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                AllowedLevelIncreaseStorage =
                 {
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different AllowedLevelIncreaseStorage");
-                yield return new TestCaseData(new TestHeightStructure
+                    Mean = (RoundedDouble) random.Next(),
+                    Shift = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                }
+            }).SetName("Different AllowedLevelIncreaseStorage");
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                CriticalOvertoppingDischarge =
                 {
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different CriticalOvertoppingDischarge");
-                yield return new TestCaseData(new TestHeightStructure
+                    Mean = (RoundedDouble) random.Next(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                }
+            }).SetName("Different CriticalOvertoppingDischarge");
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                FlowWidthAtBottomProtection =
                 {
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different FlowWidthAtBottomProtection");
-                yield return new TestCaseData(new TestHeightStructure
+                    Mean = (RoundedDouble) random.Next(),
+                    Shift = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                }
+            }).SetName("Different FlowWidthAtBottomProtection");
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                LevelCrestStructure =
                 {
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different LevelCrestStructure");
-                yield return new TestCaseData(new TestHeightStructure
+                    Mean = (RoundedDouble) random.Next(),
+                    StandardDeviation = random.NextRoundedDouble()
+                }
+            }).SetName("Different LevelCrestStructure");
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                StorageStructureArea =
                 {
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different StorageStructureArea");
-                yield return new TestCaseData(new TestHeightStructure
+                    Mean = (RoundedDouble) random.Next(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                }
+            }).SetName("Different StorageStructureArea");
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                WidthFlowApertures =
                 {
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different WidthFlowApertures");
-                yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+                    Mean = (RoundedDouble) random.Next(),
+                    StandardDeviation = random.NextRoundedDouble()
+                }
+            }).SetName("Different WidthFlowApertures");
+
+            yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = referenceStructure.Name,
+                Id = referenceStructure.Id,
+                Location = referenceStructure.Location,
+                AllowedLevelIncreaseStorage =
                 {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    FailureProbabilityStructureWithErosion = random.NextDouble()
-                })).SetName("Different FailureProbabilityStructureWithErosion");
-                yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+                    Mean = referenceStructure.AllowedLevelIncreaseStorage.Mean,
+                    Shift = referenceStructure.AllowedLevelIncreaseStorage.Shift,
+                    StandardDeviation = referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation
+                },
+                CriticalOvertoppingDischarge =
                 {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    StructureNormalOrientation = random.NextRoundedDouble()
-                })).SetName("Different StructureNormalOrientation");
-            }
+                    Mean = referenceStructure.CriticalOvertoppingDischarge.Mean,
+                    CoefficientOfVariation = referenceStructure.CriticalOvertoppingDischarge.CoefficientOfVariation
+                },
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = referenceStructure.FlowWidthAtBottomProtection.Mean,
+                    Shift = referenceStructure.FlowWidthAtBottomProtection.Shift,
+                    StandardDeviation = referenceStructure.FlowWidthAtBottomProtection.StandardDeviation
+                },
+                LevelCrestStructure =
+                {
+                    Mean = referenceStructure.LevelCrestStructure.Mean,
+                    StandardDeviation = referenceStructure.LevelCrestStructure.StandardDeviation
+                },
+                StorageStructureArea =
+                {
+                    Mean = referenceStructure.StorageStructureArea.Mean,
+                    CoefficientOfVariation = referenceStructure.StorageStructureArea.CoefficientOfVariation
+                },
+                WidthFlowApertures =
+                {
+                    Mean = referenceStructure.WidthFlowApertures.Mean,
+                    StandardDeviation = referenceStructure.WidthFlowApertures.StandardDeviation
+                },
+                FailureProbabilityStructureWithErosion = random.NextRoundedDouble(),
+                StructureNormalOrientation = referenceStructure.StructureNormalOrientation
+            })).SetName("Different FailureProbabilityStructureWithErosion");
+            yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = referenceStructure.Name,
+                Id = referenceStructure.Id,
+                Location = referenceStructure.Location,
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = referenceStructure.AllowedLevelIncreaseStorage.Mean,
+                    Shift = referenceStructure.AllowedLevelIncreaseStorage.Shift,
+                    StandardDeviation = referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation
+                },
+                CriticalOvertoppingDischarge =
+                {
+                    Mean = referenceStructure.CriticalOvertoppingDischarge.Mean,
+                    CoefficientOfVariation = referenceStructure.CriticalOvertoppingDischarge.CoefficientOfVariation
+                },
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = referenceStructure.FlowWidthAtBottomProtection.Mean,
+                    Shift = referenceStructure.FlowWidthAtBottomProtection.Shift,
+                    StandardDeviation = referenceStructure.FlowWidthAtBottomProtection.StandardDeviation
+                },
+                LevelCrestStructure =
+                {
+                    Mean = referenceStructure.LevelCrestStructure.Mean,
+                    StandardDeviation = referenceStructure.LevelCrestStructure.StandardDeviation
+                },
+                StorageStructureArea =
+                {
+                    Mean = referenceStructure.StorageStructureArea.Mean,
+                    CoefficientOfVariation = referenceStructure.StorageStructureArea.CoefficientOfVariation
+                },
+                WidthFlowApertures =
+                {
+                    Mean = referenceStructure.WidthFlowApertures.Mean,
+                    StandardDeviation = referenceStructure.WidthFlowApertures.StandardDeviation
+                },
+                FailureProbabilityStructureWithErosion = referenceStructure.FailureProbabilityStructureWithErosion,
+                StructureNormalOrientation = random.NextRoundedDouble()
+            })).SetName("Different StructureNormalOrientation");
         }
     }
 }

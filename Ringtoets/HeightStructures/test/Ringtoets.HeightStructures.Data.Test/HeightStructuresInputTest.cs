@@ -142,7 +142,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameIdLocationAndName))]
+        [TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation))]
         public void StructureParametersSynchronized_StructureAndInputNotInSync_ReturnFalse(HeightStructure modifiedStructure)
         {
             // Setup
