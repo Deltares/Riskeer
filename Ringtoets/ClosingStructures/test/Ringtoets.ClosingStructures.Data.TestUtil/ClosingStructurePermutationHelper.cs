@@ -89,6 +89,16 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
 
             yield return new TestCaseData(new TestClosingStructure
             {
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = (RoundedDouble) random.Next(),
+                    Shift = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_AllowedLevelIncreaseStorage_{testResultDescription}");
+
+            yield return new TestCaseData(new TestClosingStructure
+            {
                 AreaFlowApertures =
                 {
                     Mean = (RoundedDouble) random.Next(),
@@ -207,6 +217,12 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 Name = referenceStructure.Name,
                 Id = referenceStructure.Id,
                 Location = referenceStructure.Location,
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = referenceStructure.AllowedLevelIncreaseStorage.Mean,
+                    Shift = referenceStructure.AllowedLevelIncreaseStorage.Shift,
+                    StandardDeviation = referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation
+                },
                 AreaFlowApertures =
                 {
                     Mean = referenceStructure.AreaFlowApertures.Mean,

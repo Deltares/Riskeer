@@ -39,21 +39,22 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId("A", "B").ToList();
 
             // Assert
-            Assert.AreEqual(16, testCaseDatas.Count);
+            Assert.AreEqual(17, testCaseDatas.Count);
             IEnumerable<string> testNames = testCaseDatas
                 .Select(tcd => tcd.TestName)
                 .ToList();
-            Assert.AreEqual(16, testNames.Distinct().Count());
+            Assert.AreEqual(17, testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
                 .ToList();
-            Assert.AreEqual(16, structures.Count());
+            Assert.AreEqual(17, structures.Count());
             Assert.IsTrue(structures.All(s => s.Id == structures.First().Id));
             differentStructures.Add(structures.Single(s => !s.Name.Equals(referenceStructure.Name)));
             differentStructures.Add(structures.Single(s => !s.Location.Equals(referenceStructure.Location)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
             differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
             differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Equals(referenceStructure.CriticalOvertoppingDischarge)));
             differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Equals(referenceStructure.FlowWidthAtBottomProtection)));
@@ -68,7 +69,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(16, differentStructures.Distinct().Count());
+            Assert.AreEqual(17, differentStructures.Distinct().Count());
         }
 
         [Test]
@@ -82,21 +83,22 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation("C", "D").ToList();
 
             // Assert
-            Assert.AreEqual(14, testCaseDatas.Count);
+            Assert.AreEqual(15, testCaseDatas.Count);
             IEnumerable<string> testNames = testCaseDatas
                 .Select(tcd => tcd.TestName)
                 .ToList();
-            Assert.AreEqual(14, testNames.Distinct().Count());
+            Assert.AreEqual(15, testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith("C_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith("_D")));
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
                 .ToList();
-            Assert.AreEqual(14, structures.Count());
+            Assert.AreEqual(15, structures.Count());
             Assert.IsTrue(structures.All(s => s.Id == referenceStructure.Id));
             Assert.IsTrue(structures.All(s => s.Name == referenceStructure.Name));
             Assert.IsTrue(structures.All(s => s.Location.Equals(referenceStructure.Location)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
             differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
             differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Equals(referenceStructure.CriticalOvertoppingDischarge)));
             differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Equals(referenceStructure.FlowWidthAtBottomProtection)));
@@ -111,7 +113,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(14, differentStructures.Distinct().Count());
+            Assert.AreEqual(15, differentStructures.Distinct().Count());
         }
     }
 }
