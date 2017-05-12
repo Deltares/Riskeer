@@ -49,7 +49,9 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Id] || '(' || Suffix || ')' ELSE [Id] END as [Id],
+	CASE WHEN Suffix THEN [Name] || 
+	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
+	|| Suffix ELSE [Name] END as [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -76,12 +78,13 @@ SELECT
 	[IdenticalApertures],
 	[FailureProbabilityReparation],
 	[InflowModelType]
-	FROM (SELECT *, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
                      FROM [SOURCEPROJECT].ClosingStructureEntity
                      WHERE HS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
                      AND HS.[Name] IS [Name]
                      AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
-	FROM [SOURCEPROJECT].ClosingStructureEntity HS);
+	FROM [SOURCEPROJECT].ClosingStructureEntity HS
+	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].ClosingStructureEntity));
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity (
 	[ClosingStructuresFailureMechanismMetaEntityId],
@@ -124,7 +127,9 @@ INSERT INTO ForeshoreProfileEntity(
 SELECT
 	[ForeshoreProfileEntityId],
 	[FailureMechanismEntityId],
-	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Id],
+	CASE WHEN Suffix THEN [Name] || 
+	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
+	|| Suffix ELSE [Name] END as [Id],
 	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
 	[Orientation],
 	[BreakWaterType],
@@ -134,12 +139,13 @@ SELECT
 	[Y],
 	[X0],
 	[Order]
-	FROM (SELECT *, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
                      FROM [SOURCEPROJECT].ForeshoreProfileEntity
                      WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
                      AND FS.Name IS Name
                      AND FS.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
-	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS);
+	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS
+	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].ForeshoreProfileEntity));
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
@@ -193,7 +199,9 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Id] || '(' || Suffix || ')' ELSE [Id] END as [Id],
+	CASE WHEN Suffix THEN [Name] || 
+	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
+	|| Suffix ELSE [Name] END as [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -210,12 +218,13 @@ SELECT
 	[StorageStructureAreaCoefficientOfVariation],
 	[AllowedLevelIncreaseStorageMean],
 	[AllowedLevelIncreaseStorageStandardDeviation]
-	FROM (SELECT *, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
                      FROM [SOURCEPROJECT].HeightStructureEntity
                      WHERE HS.[HeightStructureEntityId] > [HeightStructureEntityId]
                      AND HS.[Name] IS [Name]
                      AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) as Suffix
-	FROM [SOURCEPROJECT].HeightStructureEntity HS);
+	FROM [SOURCEPROJECT].HeightStructureEntity HS
+	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].HeightStructureEntity));
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity (
 	[HeightStructuresFailureMechanismMetaEntityId],

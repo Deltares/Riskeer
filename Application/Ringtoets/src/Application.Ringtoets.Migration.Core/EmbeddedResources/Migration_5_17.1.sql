@@ -32,7 +32,9 @@ INSERT INTO DikeProfileEntity (
 SELECT
 	[DikeProfileEntityId],
 	[FailureMechanismEntityId],
-	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Id],
+	CASE WHEN Suffix THEN [Name] || 
+	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
+	|| Suffix ELSE [Name] END as [Id],
 	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
 	[Orientation],
 	[BreakWaterType],
@@ -44,12 +46,13 @@ SELECT
 	[Y],
 	[X0],
 	[Order]
-	FROM (SELECT *, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
                      FROM [SOURCEPROJECT].DikeProfileEntity
                      WHERE DP.DikeProfileEntityId > DikeProfileEntityId
                      AND DP.Name IS Name
                      AND DP.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
-	FROM [SOURCEPROJECT].DikeProfileEntity DP);
+	FROM [SOURCEPROJECT].DikeProfileEntity DP
+	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].DikeProfileEntity));
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;

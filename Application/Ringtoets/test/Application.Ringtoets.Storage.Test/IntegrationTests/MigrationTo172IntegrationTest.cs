@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM(" +
                 "SELECT " +
                 "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
                 "THEN 1 ELSE 0 END AS[IsInvalid] " +
@@ -163,7 +163,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM(" +
                 "SELECT " +
                 "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
                 "THEN 1 ELSE 0 END AS[IsInvalid] " +
@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM(" +
                 "SELECT " +
                 "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
                 "THEN 1 ELSE 0 END AS[IsInvalid] " +
@@ -210,7 +210,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM(" +
                 "SELECT " +
                 "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
                 "THEN 1 ELSE 0 END AS[IsInvalid] " +
@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM(" +
                 "SELECT " +
                 "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND[ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
                 "THEN 1 ELSE 0 END AS[IsInvalid] " +
