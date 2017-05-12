@@ -43,21 +43,23 @@ namespace Ringtoets.Common.Forms.Helpers
         public static void UpdateForeshoreProfileDerivedCalculationInput<TInput>(ICalculation<TInput> calculation)
             where TInput : ICalculationInput, IHasForeshoreProfile
         {
-            if (!calculation.InputParameters.IsForeshoreProfileParametersSynchronized)
+            if (calculation.InputParameters.IsForeshoreProfileParametersSynchronized)
             {
-                calculation.InputParameters.SynchronizeForeshoreProfileParameters();
+                return;
+            }
 
-                var affectedObjects = new List<IObservable>
-                {
-                    calculation.InputParameters
-                };
+            calculation.InputParameters.SynchronizeForeshoreProfileParameters();
 
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            var affectedObjects = new List<IObservable>
+            {
+                calculation.InputParameters
+            };
 
-                foreach (IObservable affectedObject in affectedObjects)
-                {
-                    affectedObject.NotifyObservers();
-                }
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
             }
         }
     }
