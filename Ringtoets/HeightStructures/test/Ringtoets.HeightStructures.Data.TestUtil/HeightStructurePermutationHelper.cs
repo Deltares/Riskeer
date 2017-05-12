@@ -42,7 +42,15 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test to use the test
         /// case source for.</param>
         /// <returns>The collection of test case data.</returns>
-        /// <example>[TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameId))]</example>
+        /// <example>
+        /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
+        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
+        ///                 new object[]
+        ///                 {
+        ///                     "MethodName",
+        ///                     "TestResult"
+        ///                 })]
+        /// </example>
         public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameId(string testMethodName, string testResultDescription)
         {
             var referenceStructure = new TestHeightStructure();
@@ -68,11 +76,18 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test to use the test
         /// case source for.</param>
         /// <returns>The collection of test case data.</returns>
-        /// <example>[TestCaseSource(typeof(HeightStructurePermutationHelper), nameof(HeightStructurePermutationHelper.DifferentHeightStructureWithSameIdLocationAndName))]</example>
+        /// <example>
+        /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
+        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
+        ///                 new object[]
+        ///                 {
+        ///                     "MethodName",
+        ///                     "TestResult"
+        ///                 })]
+        /// </example>
         public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameIdNameAndLocation(string testMethodName, string testResultDescription)
         {
             var random = new Random(532);
-            var referenceStructure = new TestHeightStructure();
 
             yield return new TestCaseData(new TestHeightStructure
             {
@@ -83,6 +98,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{testMethodName}_DifferentAllowedLevelIncreaseStorage_{testResultDescription}");
+
             yield return new TestCaseData(new TestHeightStructure
             {
                 CriticalOvertoppingDischarge =
@@ -91,6 +107,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             }).SetName($"{testMethodName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
+
             yield return new TestCaseData(new TestHeightStructure
             {
                 FlowWidthAtBottomProtection =
@@ -100,6 +117,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{testMethodName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
+
             yield return new TestCaseData(new TestHeightStructure
             {
                 LevelCrestStructure =
@@ -108,6 +126,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{testMethodName}_DifferentLevelCrestStructure_{testResultDescription}");
+
             yield return new TestCaseData(new TestHeightStructure
             {
                 StorageStructureArea =
@@ -116,6 +135,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             }).SetName($"{testMethodName}_DifferentStorageStructureArea_{testResultDescription}");
+
             yield return new TestCaseData(new TestHeightStructure
             {
                 WidthFlowApertures =
@@ -125,47 +145,22 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 }
             }).SetName($"{testMethodName}_DifferentWidthFlowApertures_{testResultDescription}");
 
-            yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
-            {
-                Name = referenceStructure.Name,
-                Id = referenceStructure.Id,
-                Location = referenceStructure.Location,
-                AllowedLevelIncreaseStorage =
-                {
-                    Mean = referenceStructure.AllowedLevelIncreaseStorage.Mean,
-                    Shift = referenceStructure.AllowedLevelIncreaseStorage.Shift,
-                    StandardDeviation = referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation
-                },
-                CriticalOvertoppingDischarge =
-                {
-                    Mean = referenceStructure.CriticalOvertoppingDischarge.Mean,
-                    CoefficientOfVariation = referenceStructure.CriticalOvertoppingDischarge.CoefficientOfVariation
-                },
-                FlowWidthAtBottomProtection =
-                {
-                    Mean = referenceStructure.FlowWidthAtBottomProtection.Mean,
-                    Shift = referenceStructure.FlowWidthAtBottomProtection.Shift,
-                    StandardDeviation = referenceStructure.FlowWidthAtBottomProtection.StandardDeviation
-                },
-                LevelCrestStructure =
-                {
-                    Mean = referenceStructure.LevelCrestStructure.Mean,
-                    StandardDeviation = referenceStructure.LevelCrestStructure.StandardDeviation
-                },
-                StorageStructureArea =
-                {
-                    Mean = referenceStructure.StorageStructureArea.Mean,
-                    CoefficientOfVariation = referenceStructure.StorageStructureArea.CoefficientOfVariation
-                },
-                WidthFlowApertures =
-                {
-                    Mean = referenceStructure.WidthFlowApertures.Mean,
-                    StandardDeviation = referenceStructure.WidthFlowApertures.StandardDeviation
-                },
-                FailureProbabilityStructureWithErosion = random.NextRoundedDouble(),
-                StructureNormalOrientation = referenceStructure.StructureNormalOrientation
-            })).SetName($"{testMethodName}_DifferentFailureProbabilityStructureWithErosion_{testResultDescription}");
-            yield return new TestCaseData(new HeightStructure(new HeightStructure.ConstructionProperties
+            HeightStructure.ConstructionProperties differentFailureProbabilityStructureWithErosionConstructionProperties = CreateTestHeightStructureConstructionProperties();
+            differentFailureProbabilityStructureWithErosionConstructionProperties.FailureProbabilityStructureWithErosion = random.NextDouble();
+            yield return new TestCaseData(new HeightStructure(differentFailureProbabilityStructureWithErosionConstructionProperties))
+                .SetName($"{testMethodName}_DifferentFailureProbabilityStructureWithErosion_{testResultDescription}");
+
+            HeightStructure.ConstructionProperties differentStructureNormalOrientationConstructionProperties = CreateTestHeightStructureConstructionProperties();
+            differentStructureNormalOrientationConstructionProperties.StructureNormalOrientation = random.NextRoundedDouble();
+            yield return new TestCaseData(new HeightStructure(differentStructureNormalOrientationConstructionProperties))
+                .SetName($"{testMethodName}_DifferentStructureNormalOrientation_{testResultDescription}");
+        }
+
+        private static HeightStructure.ConstructionProperties CreateTestHeightStructureConstructionProperties()
+        {
+            var referenceStructure = new TestHeightStructure();
+
+            return new HeightStructure.ConstructionProperties
             {
                 Name = referenceStructure.Name,
                 Id = referenceStructure.Id,
@@ -203,8 +198,8 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                     StandardDeviation = referenceStructure.WidthFlowApertures.StandardDeviation
                 },
                 FailureProbabilityStructureWithErosion = referenceStructure.FailureProbabilityStructureWithErosion,
-                StructureNormalOrientation = random.NextRoundedDouble()
-            })).SetName($"{testMethodName}_DifferentStructureNormalOrientation_{testResultDescription}");
+                StructureNormalOrientation = referenceStructure.StructureNormalOrientation
+            };
         }
     }
 }
