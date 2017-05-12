@@ -57,6 +57,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuUpdateForeshoreProfileIndex = 3;
         private const int contextMenuUpdateStructureIndex = 4;
         private const int contextMenuValidateIndex = 6;
         private const int contextMenuCalculateIndex = 7;
@@ -251,6 +252,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     Assert.AreEqual(16, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk",

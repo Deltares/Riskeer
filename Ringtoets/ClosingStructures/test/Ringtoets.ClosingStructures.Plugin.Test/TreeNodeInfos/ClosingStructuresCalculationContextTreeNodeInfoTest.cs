@@ -57,10 +57,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuUpdateStructureIndex = 3;
-        private const int contextMenuValidateIndex = 5;
-        private const int contextMenuCalculateIndex = 6;
-        private const int contextMenuClearIndex = 8;
+        private const int contextMenuUpdateForeshoreProfileIndex = 3;
+        private const int contextMenuUpdateStructureIndex = 4;
+        private const int contextMenuValidateIndex = 6;
+        private const int contextMenuCalculateIndex = 7;
+        private const int contextMenuClearIndex = 9;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui gui;
@@ -200,6 +201,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -217,7 +219,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -248,14 +250,20 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(16, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk",
@@ -296,6 +304,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -332,6 +341,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -681,7 +691,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -717,7 +727,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -761,7 +771,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -803,7 +813,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -936,7 +946,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
