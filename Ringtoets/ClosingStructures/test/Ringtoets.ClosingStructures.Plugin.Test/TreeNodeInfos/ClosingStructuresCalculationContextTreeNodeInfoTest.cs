@@ -834,7 +834,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfile_ContextMenuItemUpdateForeshoreProfileEnabled()
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfileEnabled()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -846,6 +846,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
+            calculation.InputParameters.UseBreakWater = true;
             var nodeData = new ClosingStructuresCalculationContext(calculation,
                                                                    failureMechanism,
                                                                    assessmentSectionStub);

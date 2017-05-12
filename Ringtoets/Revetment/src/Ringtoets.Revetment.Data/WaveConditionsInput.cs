@@ -85,22 +85,6 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the foreshore profile.
-        /// </summary>
-        public ForeshoreProfile ForeshoreProfile
-        {
-            get
-            {
-                return foreshoreProfile;
-            }
-            set
-            {
-                foreshoreProfile = value;
-                SynchronizeForeshoreProfileParameters();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
@@ -256,6 +240,41 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the foreshore profile.
+        /// </summary>
+        public ForeshoreProfile ForeshoreProfile
+        {
+            get
+            {
+                return foreshoreProfile;
+            }
+            set
+            {
+                foreshoreProfile = value;
+                SynchronizeForeshoreProfileParameters();
+            }
+        }
+
+        public bool IsForeshoreProfileParametersSynchronized
+        {
+            get
+            {
+                if (foreshoreProfile == null)
+                {
+                    return false;
+                }
+
+                return
+                    Orientation == foreshoreProfile.Orientation
+                    && UseForeshore == foreshoreProfile.Geometry.Count() > 1
+                    && UseBreakWater == foreshoreProfile.HasBreakWater
+                    && BreakWater.Equals(foreshoreProfile.HasBreakWater
+                                             ? foreshoreProfile.BreakWater
+                                             : GetDefaultBreakWater());
+            }
+        }
+
         public bool UseBreakWater { get; set; }
 
         public BreakWater BreakWater { get; private set; }
@@ -269,6 +288,25 @@ namespace Ringtoets.Revetment.Data
                 return foreshoreProfile != null
                            ? foreshoreProfile.Geometry
                            : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
+            }
+        }
+
+        public void SynchronizeForeshoreProfileParameters()
+        {
+            if (foreshoreProfile == null)
+            {
+                UseForeshore = false;
+                UseBreakWater = false;
+                BreakWater = GetDefaultBreakWater();
+            }
+            else
+            {
+                Orientation = foreshoreProfile.Orientation;
+                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
+                UseBreakWater = foreshoreProfile.HasBreakWater;
+                BreakWater = foreshoreProfile.HasBreakWater
+                                 ? new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height)
+                                 : GetDefaultBreakWater();
             }
         }
 
@@ -346,42 +384,6 @@ namespace Ringtoets.Revetment.Data
             waterLevels.Add(lowerBoundary);
 
             return waterLevels;
-        }
-
-        public bool IsForeshoreProfileParametersSynchronized
-        {
-            get
-            {
-                if (foreshoreProfile == null)
-                {
-                    return false;
-                }
-
-                return
-                    Orientation == foreshoreProfile.Orientation
-                    && UseForeshore == foreshoreProfile.Geometry.Count() > 1
-                    && UseBreakWater == foreshoreProfile.HasBreakWater
-                    && BreakWater.Equals(foreshoreProfile.BreakWater);
-            }
-        }
-
-        public void SynchronizeForeshoreProfileParameters()
-        {
-            if (foreshoreProfile == null)
-            {
-                UseForeshore = false;
-                UseBreakWater = false;
-                BreakWater = GetDefaultBreakWater();
-            }
-            else
-            {
-                Orientation = foreshoreProfile.Orientation;
-                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
-                UseBreakWater = foreshoreProfile.HasBreakWater;
-                BreakWater = foreshoreProfile.HasBreakWater
-                                 ? new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height)
-                                 : GetDefaultBreakWater();
-            }
         }
 
         private static BreakWater GetDefaultBreakWater()

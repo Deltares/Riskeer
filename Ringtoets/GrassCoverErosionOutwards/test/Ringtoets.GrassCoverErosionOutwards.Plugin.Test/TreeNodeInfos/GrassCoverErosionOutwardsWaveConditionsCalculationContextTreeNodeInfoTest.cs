@@ -761,7 +761,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfile_ContextMenuItemUpdateForeshoreProfileEnabled()
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfileEnabled()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -776,6 +776,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
+            calculation.InputParameters.UseBreakWater = true;
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                          failureMechanism,
                                                                                          assessmentSectionStub);

@@ -442,7 +442,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfile_ContextMenuItemUpdateForeshoreProfileEnabled()
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfileEnabled()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -454,6 +454,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
+            calculation.InputParameters.UseBreakWater = true;
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
                                                                           failureMechanism,
                                                                           assessmentSectionStub);

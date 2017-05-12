@@ -548,6 +548,9 @@ namespace Ringtoets.Common.Data.Test.Structures
                                                             Orientation = orientation
                                                         });
 
+            // Precondition
+            Assert.IsFalse(input.IsForeshoreProfileParametersSynchronized);
+
             // Call
             input.ForeshoreProfile = foreshoreProfile;
 
@@ -559,6 +562,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
             CollectionAssert.AreEqual(foreshoreProfile.Geometry, input.ForeshoreGeometry);
             Assert.AreSame(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.IsTrue(input.IsForeshoreProfileParametersSynchronized);
         }
 
         [Test]
@@ -586,6 +590,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.ForeshoreProfile = foreshoreProfile;
 
             // Precondition
+            Assert.IsTrue(input.IsForeshoreProfileParametersSynchronized);
             Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
             Assert.IsTrue(input.UseBreakWater);
             Assert.AreNotEqual(originalBreakWaterType, input.BreakWater.Type);
@@ -598,6 +603,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.ForeshoreProfile = null;
 
             // Assert
+            Assert.IsFalse(input.IsForeshoreProfileParametersSynchronized);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);
