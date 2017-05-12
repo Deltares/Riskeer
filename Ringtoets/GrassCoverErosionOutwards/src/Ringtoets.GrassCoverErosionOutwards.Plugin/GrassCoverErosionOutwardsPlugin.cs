@@ -55,7 +55,6 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -864,7 +863,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddRenameItem()
                 .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                             inquiryHelper,
-                                                            UpdateForeshoreProfileDerivedCalculationInput)
+                                                            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                 .AddSeparator()
                 .AddValidateCalculationItem(
                     nodeData,
@@ -885,8 +884,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddPropertiesItem()
                 .Build();
         }
-
-        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<WaveConditionsInput> calculation) {}
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {

@@ -737,7 +737,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
-                                                                      UpdateForeshoreProfileDerivedCalculationInput)
+                                                                      SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
@@ -759,8 +759,6 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-
-        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<HeightStructuresInput> calculation) {}
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresCalculationContext context)
         {

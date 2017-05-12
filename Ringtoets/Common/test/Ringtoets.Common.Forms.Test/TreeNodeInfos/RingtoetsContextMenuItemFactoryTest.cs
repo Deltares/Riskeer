@@ -599,7 +599,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         #region CreateUpdateForshoreProfileOfCalculationItem
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutForeshoreProfile_CreatesEnabledItem()
+        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutForeshoreProfile_CreatesDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -615,7 +615,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
-            Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -627,7 +627,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(false);
+            calculationMock.Expect(c => c.InputParameters).Return(input);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -650,7 +653,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(false);
+            calculationMock.Expect(c => c.InputParameters).Return(input);
             calculationMock.Expect(c => c.HasOutput).Return(false);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
@@ -680,7 +686,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var mocks = new MockRepository();
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(false);
+            calculationMock.Expect(c => c.InputParameters).Return(input);
             calculationMock.Expect(c => c.HasOutput).Return(true);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(false);
@@ -711,7 +720,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var mocks = new MockRepository();
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(false);
+            calculationMock.Expect(c => c.InputParameters).Return(input);
             calculationMock.Expect(c => c.HasOutput).Return(true);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(true);

@@ -1630,7 +1630,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         #region AddUpdateForeshoreProfileOfCalculationItem
 
         [Test]
-        public void AddUpdateForeshoreProfileOfCalculationItem_CalculationWithForeshoreProfile_ItemAddedToContextMenuEnabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddUpdateForeshoreProfileOfCalculationItem_CalculationWithForeshoreProfile_ItemAddedToContextMenuEnabledIfNotSynchronized(
+            bool synchronized)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1641,7 +1644,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(new TestForeshoreProfile());
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(synchronized);
+            calculationMock.Expect(c => c.InputParameters).Return(input);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -1668,8 +1674,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
-                                                              "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
-                                                              RingtoetsFormsResources.UpdateItemIcon);
+                                                              synchronized
+                                                                ? "Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken."
+                                                                : "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                              RingtoetsFormsResources.UpdateItemIcon,
+                                                              !synchronized);
             }
 
             mocks.VerifyAll();
@@ -1714,7 +1723,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
-                                                              "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                              "Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken.",
                                                               RingtoetsFormsResources.UpdateItemIcon,
                                                               false);
             }

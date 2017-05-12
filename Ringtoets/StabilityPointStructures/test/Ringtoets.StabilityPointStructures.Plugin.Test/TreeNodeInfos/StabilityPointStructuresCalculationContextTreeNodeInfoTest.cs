@@ -251,7 +251,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                                  "Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
 

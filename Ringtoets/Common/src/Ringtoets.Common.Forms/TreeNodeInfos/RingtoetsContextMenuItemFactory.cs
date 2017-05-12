@@ -384,7 +384,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            bool hasForeshoreProfile = calculation.InputParameters.ForeshoreProfile != null;
+            TCalculationInput input = calculation.InputParameters;
+            bool hasForeshoreProfile = input.ForeshoreProfile != null && !input.IsForeshoreProfileParametersSynchronized;
             string toolTipMessage = hasForeshoreProfile
                                         ? Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip
                                         : Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;

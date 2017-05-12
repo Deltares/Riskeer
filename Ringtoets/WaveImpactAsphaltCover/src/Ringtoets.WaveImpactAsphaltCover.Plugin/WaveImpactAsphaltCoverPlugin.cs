@@ -565,7 +565,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
-                                                                      UpdateForeshoreProfileDerivedCalculationInput)
+                                                                      SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(nodeData,
                                                       Validate,
@@ -581,8 +581,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-
-        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<WaveConditionsInput> calculation) {}
 
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {

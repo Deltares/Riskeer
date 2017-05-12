@@ -686,7 +686,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
-                                                                      UpdateForeshoreProfileDerivedCalculationInput)
+                                                                      SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
@@ -707,8 +707,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-
-        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<StabilityPointStructuresInput> calculation) {}
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationContext context)
         {

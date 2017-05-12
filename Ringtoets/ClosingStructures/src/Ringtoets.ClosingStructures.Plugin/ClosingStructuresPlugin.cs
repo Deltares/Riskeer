@@ -726,7 +726,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
-                                                                      UpdateForeshoreProfileDerivedCalculationInput)
+                                                                      SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
@@ -748,8 +748,6 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-
-        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<ClosingStructuresInput> calculation) {}
 
         private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationContext context)
         {

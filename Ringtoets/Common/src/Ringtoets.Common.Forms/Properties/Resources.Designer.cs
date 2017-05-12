@@ -728,7 +728,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet een voorlandprofiel geselecteerd zijn..
+        ///   Looks up a localized string similar to Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken..
         /// </summary>
         public static string CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip {
             get {
