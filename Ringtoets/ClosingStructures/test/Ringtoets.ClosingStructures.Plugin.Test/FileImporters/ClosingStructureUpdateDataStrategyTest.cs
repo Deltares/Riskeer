@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -45,139 +43,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
     public class ClosingStructureUpdateDataStrategyTest
     {
         private const string sourceFilePath = "some/path";
-
-        private static IEnumerable<TestCaseData> DifferentClosingStructureWithSameId
-        {
-            get
-            {
-                var random = new Random(532);
-                const string defaultId = "id";
-                const string defaultName = "name";
-                var defaultLocation = new Point2D(0, 0);
-
-                yield return new TestCaseData(new TestClosingStructure(defaultId, "Different name"))
-                    .SetName("Different name");
-                yield return new TestCaseData(new TestClosingStructure(new Point2D(1, 1), defaultId))
-                    .SetName("Different Location");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different AllowedLevelIncreaseStorage");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    AreaFlowApertures =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different AreaFlowApertures");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different CriticalOvertoppingDischarge");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        Shift = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different FlowWidthAtBottomProtection");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    InsideWaterLevel =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different InsideWaterLevel");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    LevelCrestStructureNotClosing =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different LevelCrestStructure");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different StorageStructureArea");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    ThresholdHeightOpenWeir =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different ThresholdHeightOpenWeir");
-                yield return new TestCaseData(new TestClosingStructure
-                {
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) random.Next(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    }
-                }).SetName("Different WidthFlowApertures");
-                yield return new TestCaseData(new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    FailureProbabilityReparation = random.NextDouble()
-                })).SetName("Different FailureProbabilityReparation");
-                yield return new TestCaseData(new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    FailureProbabilityOpenStructure = random.NextDouble()
-                })).SetName("Different FailureProbabilityOpenStructure");
-                yield return new TestCaseData(new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    IdenticalApertures = random.Next()
-                })).SetName("Different IdenticalApertures");
-                yield return new TestCaseData(new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>()
-                })).SetName("Different InflowModelType");
-                yield return new TestCaseData(new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextRoundedDouble()
-                })).SetName("Different ProbabilityOrFrequencyOpenStructureBeforeFlooding");
-                yield return new TestCaseData(new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = defaultName,
-                    Id = defaultId,
-                    Location = defaultLocation,
-                    StructureNormalOrientation = random.NextRoundedDouble()
-                })).SetName("Different StructureNormalOrientation");
-            }
-        }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -359,7 +224,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentClosingStructureWithSameId))]
+        [TestCaseSource(typeof(ClosingStructurePermutationHelper),
+            nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId),
+            new object[]
+            {
+                "UpdateStructuresWithImportedData",
+                "UpdatesOnlySingleChange"
+            })]
         public void UpdateStructuresWithImportedData_SingleChange_UpdatesOnlySingleChange(ClosingStructure readStructure)
         {
             // Setup
