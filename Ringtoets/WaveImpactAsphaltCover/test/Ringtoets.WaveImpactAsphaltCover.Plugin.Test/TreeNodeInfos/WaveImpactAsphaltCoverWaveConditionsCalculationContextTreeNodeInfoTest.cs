@@ -686,6 +686,45 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_WithForeshoreProfile_ContextMenuItemUpdateForeshoreProfileEnabled()
+        {
+            // Setup
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                      failureMechanism,
+                                                                                      assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenCalculation_WhenValidating_ThenCalculationValidated(bool validCalculation)
