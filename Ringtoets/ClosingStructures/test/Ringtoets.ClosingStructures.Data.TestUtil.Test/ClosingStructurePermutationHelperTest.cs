@@ -51,7 +51,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
                 .OfType<ClosingStructure>()
                 .ToList();
             Assert.AreEqual(17, structures.Count());
-            Assert.IsTrue(structures.All(s => s.Id == structures.First().Id));
+            Assert.IsTrue(structures.All(s => s.Id == referenceStructure.Id));
             differentStructures.Add(structures.Single(s => !s.Name.Equals(referenceStructure.Name)));
             differentStructures.Add(structures.Single(s => !s.Location.Equals(referenceStructure.Location)));
             differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));

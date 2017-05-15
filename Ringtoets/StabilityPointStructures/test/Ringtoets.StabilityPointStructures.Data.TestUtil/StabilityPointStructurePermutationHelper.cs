@@ -55,7 +55,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 
             var testCaseData = new List<TestCaseData>
             {
-                new TestCaseData(new TestStabilityPointStructure(referenceStructure.Id, "Different name"))
+                new TestCaseData(new TestStabilityPointStructure("Different name", referenceStructure.Id))
                     .SetName($"{targetName}_DifferentName_{testResultDescription}"),
                 new TestCaseData(new TestStabilityPointStructure(new Point2D(1, 1), referenceStructure.Id))
                     .SetName($"{targetName}_DifferentLocation_{testResultDescription}")
@@ -351,7 +351,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
                 BankWidth =
                 {
                     Mean = referenceStructure.BankWidth.Mean,
-                    StandardDeviation = referenceStructure.BankWidth.Mean
+                    StandardDeviation = referenceStructure.BankWidth.StandardDeviation
                 },
                 InsideWaterLevelFailureConstruction =
                 {

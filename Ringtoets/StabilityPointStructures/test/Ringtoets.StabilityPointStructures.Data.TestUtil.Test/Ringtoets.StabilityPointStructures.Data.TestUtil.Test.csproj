@@ -50,6 +50,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StabilityPointStructurePermutationHelperTest.cs" />
     <Compile Include="TestStabilityPointStructuresCalculationTest.cs" />
     <Compile Include="TestStabilityPointStructuresFailureMechanismTest.cs" />
     <Compile Include="TestStabilityPointStructureTest.cs" />

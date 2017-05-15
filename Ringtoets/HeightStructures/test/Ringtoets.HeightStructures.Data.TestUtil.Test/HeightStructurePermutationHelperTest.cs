@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
                 .OfType<HeightStructure>()
                 .ToList();
             Assert.AreEqual(10, structures.Count());
-            Assert.IsTrue(structures.All(s => s.Id == structures.First().Id));
+            Assert.IsTrue(structures.All(s => s.Id == referenceStructure.Id));
             differentStructures.Add(structures.Single(s => !s.Name.Equals(referenceStructure.Name)));
             differentStructures.Add(structures.Single(s => !s.Location.Equals(referenceStructure.Location)));
             differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
