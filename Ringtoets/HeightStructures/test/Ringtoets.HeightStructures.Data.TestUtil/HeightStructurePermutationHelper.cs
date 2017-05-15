@@ -34,6 +34,34 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
     public static class HeightStructurePermutationHelper
     {
         /// <summary>
+        /// Returns a collection of modified <see cref="HeightStructure"/> entities.
+        /// </summary>
+        /// <param name="targetName">The name of the target to test while using the test case source.</param>
+        /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
+        /// <returns>The collection of test case data.</returns>
+        /// <example>
+        /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
+        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructures),
+        ///                 new object[]
+        ///                 {
+        ///                     "TargetMethodName",
+        ///                     "TestResult"
+        ///                 })]
+        /// </example>
+        public static IEnumerable<TestCaseData> DifferentHeightStructures(string targetName, string testResultDescription)
+        {
+            var testCaseData = new List<TestCaseData>
+            {
+                new TestCaseData(new TestHeightStructure("Different id"))
+                    .SetName($"{targetName}_DifferentId_{testResultDescription}")
+            };
+
+            testCaseData.AddRange(DifferentHeightStructuresWithSameId(targetName, testResultDescription));
+
+            return testCaseData;
+        }
+
+        /// <summary>
         /// Returns a collection of modified <see cref="HeightStructure"/> entities, which all differ
         /// except for their id.
         /// </summary>
@@ -75,7 +103,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <returns>The collection of test case data.</returns>
         /// <example>
         /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
-        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
+        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
         ///                 new object[]
         ///                 {
         ///                     "TargetMethodName",

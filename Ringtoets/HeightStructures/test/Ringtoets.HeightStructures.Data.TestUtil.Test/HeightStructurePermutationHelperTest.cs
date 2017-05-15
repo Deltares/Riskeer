@@ -29,7 +29,44 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
     public class HeightStructurePermutationHelperTest
     {
         [Test]
-        public void DifferentHeightStructureWithSameId_ReturnsExpectedTestCaseData()
+        public void DifferentHeightStructures_ReturnsExpectedTestCaseData()
+        {
+            // Setup
+            var referenceStructure = new TestHeightStructure();
+            var differentStructures = new List<HeightStructure>();
+
+            // Call
+            List<TestCaseData> testCaseDatas = HeightStructurePermutationHelper.DifferentHeightStructures("A", "B").ToList();
+
+            // Assert
+            Assert.AreEqual(11, testCaseDatas.Count);
+            IEnumerable<string> testNames = testCaseDatas
+                .Select(tcd => tcd.TestName)
+                .ToList();
+            Assert.AreEqual(11, testNames.Distinct().Count());
+            Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
+            Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
+            IEnumerable<HeightStructure> structures = testCaseDatas
+                .Select(tcd => tcd.Arguments[0])
+                .OfType<HeightStructure>()
+                .ToList();
+            Assert.AreEqual(11, structures.Count());
+            differentStructures.Add(structures.Single(s => !s.Id.Equals(referenceStructure.Id)));
+            differentStructures.Add(structures.Single(s => !s.Name.Equals(referenceStructure.Name)));
+            differentStructures.Add(structures.Single(s => !s.Location.Equals(referenceStructure.Location)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Equals(referenceStructure.CriticalOvertoppingDischarge)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Equals(referenceStructure.FlowWidthAtBottomProtection)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructure.Equals(referenceStructure.LevelCrestStructure)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Equals(referenceStructure.StorageStructureArea)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Equals(referenceStructure.WidthFlowApertures)));
+            differentStructures.Add(structures.Single(s => !s.FailureProbabilityStructureWithErosion.Equals(referenceStructure.FailureProbabilityStructureWithErosion)));
+            differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
+            Assert.AreEqual(11, differentStructures.Distinct().Count());
+        }
+
+        [Test]
+        public void DifferentHeightStructuresWithSameId_ReturnsExpectedTestCaseData()
         {
             // Setup
             var referenceStructure = new TestHeightStructure();
