@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
@@ -430,6 +432,179 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(0.01, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
 
             Assert.AreEqual(StabilityPointStructureInflowModelType.LowSill, structure.InflowModelType);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructureNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var structure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            // Call
+            TestDelegate call = () => structure.CopyProperties(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("fromStructure", paramName);
+        }
+
+        [Test]
+        public void CopyProperties_FromStructure_UpdatesProperties()
+        {
+            // Setup
+            var random = new Random(123);
+            var structure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+            {
+                Name = "aName",
+                Id = "anId",
+                Location = new Point2D(0, 0)
+            });
+
+            var otherStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+            {
+                Name = "otherName",
+                Id = "otherId",
+                Location = new Point2D(1, 1),
+                StorageStructureArea =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                WidthFlowApertures =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                InsideWaterLevel =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                ThresholdHeightOpenWeir =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                CriticalOvertoppingDischarge =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                ConstructiveStrengthLinearLoadModel =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                ConstructiveStrengthQuadraticLoadModel =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                BankWidth =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                InsideWaterLevelFailureConstruction =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                EvaluationLevel = random.NextDouble(),
+                LevelCrestStructure =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                VerticalDistance = random.NextDouble(),
+                FailureProbabilityRepairClosure = random.NextDouble(),
+                FailureCollisionEnergy =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                ShipMass =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                ShipVelocity =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                LevellingCount = random.Next(),
+                ProbabilityCollisionSecondaryStructure = random.NextDouble(),
+                FlowVelocityStructureClosable =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                StabilityLinearLoadModel =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                StabilityQuadraticLoadModel =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                AreaFlowApertures =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                InflowModelType = random.NextEnumValue<StabilityPointStructureInflowModelType>()
+            });
+
+            // Call
+            structure.CopyProperties(otherStructure);
+
+            // Assert
+            Assert.AreNotEqual(otherStructure.Id, structure.Id);
+            Assert.AreEqual(otherStructure.Name, structure.Name);
+            Assert.AreEqual(otherStructure.Location, structure.Location);
+            Assert.AreEqual(otherStructure.StorageStructureArea, structure.StorageStructureArea);
+            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
+            Assert.AreEqual(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
+            Assert.AreEqual(otherStructure.InsideWaterLevel, structure.InsideWaterLevel);
+            Assert.AreEqual(otherStructure.ThresholdHeightOpenWeir, structure.ThresholdHeightOpenWeir);
+            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
+            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+            Assert.AreEqual(otherStructure.ConstructiveStrengthLinearLoadModel, structure.ConstructiveStrengthLinearLoadModel);
+            Assert.AreEqual(otherStructure.ConstructiveStrengthQuadraticLoadModel, structure.ConstructiveStrengthQuadraticLoadModel);
+            Assert.AreEqual(otherStructure.BankWidth, structure.BankWidth);
+            Assert.AreEqual(otherStructure.InsideWaterLevelFailureConstruction, structure.InsideWaterLevelFailureConstruction);
+            Assert.AreEqual(otherStructure.EvaluationLevel, structure.EvaluationLevel);
+            Assert.AreEqual(otherStructure.LevelCrestStructure, structure.LevelCrestStructure);
+            Assert.AreEqual(otherStructure.VerticalDistance, structure.VerticalDistance);
+            Assert.AreEqual(otherStructure.FailureProbabilityRepairClosure, structure.FailureProbabilityRepairClosure);
+            Assert.AreEqual(otherStructure.FailureCollisionEnergy, structure.FailureCollisionEnergy);
+            Assert.AreEqual(otherStructure.ShipMass, structure.ShipMass);
+            Assert.AreEqual(otherStructure.ShipVelocity, structure.ShipVelocity);
+            Assert.AreEqual(otherStructure.LevellingCount, structure.LevellingCount);
+            Assert.AreEqual(otherStructure.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(otherStructure.FlowVelocityStructureClosable, structure.FlowVelocityStructureClosable);
+            Assert.AreEqual(otherStructure.StabilityLinearLoadModel, structure.StabilityLinearLoadModel);
+            Assert.AreEqual(otherStructure.StabilityQuadraticLoadModel, structure.StabilityQuadraticLoadModel);
+            Assert.AreEqual(otherStructure.AreaFlowApertures, structure.AreaFlowApertures);
+            Assert.AreEqual(otherStructure.InflowModelType, structure.InflowModelType);
         }
 
         [Test]
