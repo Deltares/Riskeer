@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -91,8 +90,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble) random.Next(),
-                    Shift = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorage_{testResultDescription}");
@@ -101,7 +99,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
@@ -110,8 +108,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble) random.Next(),
-                    Shift = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
@@ -120,7 +117,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 LevelCrestStructure =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentLevelCrestStructure_{testResultDescription}");
@@ -129,7 +126,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentStorageStructureArea_{testResultDescription}");
@@ -138,7 +135,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentWidthFlowApertures_{testResultDescription}");

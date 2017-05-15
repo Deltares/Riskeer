@@ -187,7 +187,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 
             StabilityPointStructure.ConstructionProperties differentEvaluationLevelConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
-            differentEvaluationLevelConstructionProperties.EvaluationLevel = random.NextRoundedDouble();
+            differentEvaluationLevelConstructionProperties.EvaluationLevel = random.NextDouble();
             yield return new TestCaseData(new StabilityPointStructure(differentEvaluationLevelConstructionProperties))
                 .SetName($"{targetName}_DifferentEvaluationLevel_{testResultDescription}");
 
@@ -202,7 +202,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 
             StabilityPointStructure.ConstructionProperties differentVerticalDistanceConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
-            differentVerticalDistanceConstructionProperties.VerticalDistance = random.NextRoundedDouble();
+            differentVerticalDistanceConstructionProperties.VerticalDistance = random.NextDouble();
             yield return new TestCaseData(new StabilityPointStructure(differentVerticalDistanceConstructionProperties))
                 .SetName($"{targetName}_DifferentVerticalDistance_{testResultDescription}");
 

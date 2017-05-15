@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -91,8 +90,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble) random.Next(),
-                    Shift = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorage_{testResultDescription}");
@@ -101,8 +99,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 AreaFlowApertures =
                 {
-                    Mean = (RoundedDouble) random.Next(),
-                    Shift = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentAreaFlowApertures_{testResultDescription}");
@@ -111,7 +108,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
@@ -120,8 +117,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble) random.Next(),
-                    Shift = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
@@ -130,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 InsideWaterLevel =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentInsideWaterLevel_{testResultDescription}");
@@ -139,7 +135,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 LevelCrestStructureNotClosing =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentLevelCrestStructureNotClosing_{testResultDescription}");
@@ -148,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentStorageStructureArea_{testResultDescription}");
@@ -157,7 +153,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 ThresholdHeightOpenWeir =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentThresholdHeightOpenWeir_{testResultDescription}");
@@ -166,7 +162,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             {
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble) random.Next(),
+                    Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
             }).SetName($"{targetName}_DifferentWidthFlowApertures_{testResultDescription}");
@@ -220,13 +216,11 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 AllowedLevelIncreaseStorage =
                 {
                     Mean = referenceStructure.AllowedLevelIncreaseStorage.Mean,
-                    Shift = referenceStructure.AllowedLevelIncreaseStorage.Shift,
                     StandardDeviation = referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation
                 },
                 AreaFlowApertures =
                 {
                     Mean = referenceStructure.AreaFlowApertures.Mean,
-                    Shift = referenceStructure.AreaFlowApertures.Shift,
                     StandardDeviation = referenceStructure.AreaFlowApertures.StandardDeviation
                 },
                 CriticalOvertoppingDischarge =
@@ -237,7 +231,6 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 FlowWidthAtBottomProtection =
                 {
                     Mean = referenceStructure.FlowWidthAtBottomProtection.Mean,
-                    Shift = referenceStructure.FlowWidthAtBottomProtection.Shift,
                     StandardDeviation = referenceStructure.FlowWidthAtBottomProtection.StandardDeviation
                 },
                 InsideWaterLevel =
