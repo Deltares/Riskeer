@@ -457,7 +457,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Name = "otherName",
                 Id = "otherId",
                 Location = new Point2D(1, 1),
-                StructureNormalOrientation = (RoundedDouble)random.Next(),
+                StructureNormalOrientation = (RoundedDouble) random.Next(),
                 AllowedLevelIncreaseStorage =
                 {
                     Mean = (RoundedDouble) (random.NextDouble() + 1.0),
@@ -592,9 +592,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
         [Test]
         [TestCaseSource(nameof(StructureCombinations))]
-        public void Equal_DifferentProperty_RetunsIsEqual(ClosingStructure structure,
-                                                          ClosingStructure otherStructure,
-                                                          bool expectedToBeEqual)
+        public void Equal_DifferentProperty_ReturnsIsEqual(ClosingStructure structure,
+                                                           ClosingStructure otherStructure,
+                                                           bool expectedToBeEqual)
         {
             // Call
             bool isStructureEqualToOther = structure.Equals(otherStructure);
