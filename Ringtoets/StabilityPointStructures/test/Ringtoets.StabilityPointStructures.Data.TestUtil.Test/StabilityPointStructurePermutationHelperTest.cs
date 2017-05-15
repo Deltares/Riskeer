@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.StabilityQuadraticLoadModel.Equals(referenceStructure.StabilityQuadraticLoadModel)));
             differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
-            Assert.AreEqual(27, differentStructures.Count);
+            Assert.AreEqual(27, differentStructures.Distinct().Count());
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.StabilityQuadraticLoadModel.Equals(referenceStructure.StabilityQuadraticLoadModel)));
             differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
-            Assert.AreEqual(25, differentStructures.Count);
+            Assert.AreEqual(25, differentStructures.Distinct().Count());
         }
     }
 }

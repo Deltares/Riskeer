@@ -148,150 +148,219 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the storage area of the stability point structure.
         /// [m^2]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; }
 
         /// <summary>
         /// Gets the allowed increase of level for storage of the stability point structure.
         /// [m]
         /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+        public LogNormalDistribution AllowedLevelIncreaseStorage { get; }
 
         /// <summary>
         /// Gets the width of the flow apertures of the stability point structure.
         /// [m]
         /// </summary>
-        public NormalDistribution WidthFlowApertures { get; private set; }
+        public NormalDistribution WidthFlowApertures { get; }
 
         /// <summary>
         /// Gets the interior water level of the stability point structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution InsideWaterLevel { get; private set; }
+        public NormalDistribution InsideWaterLevel { get; }
 
         /// <summary>
         /// Gets the threshold height of the opened stability point structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
+        public NormalDistribution ThresholdHeightOpenWeir { get; }
 
         /// <summary>
         /// Gets the critical overtopping discharge per meter of the stability point structure.
         /// [m^3/s/m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; }
 
         /// <summary>
         /// Gets the flow width of the stability point structure at the bottom protection.
         /// [m]
         /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+        public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
         /// <summary>
         /// Gets the constructive strength of the linear load model of the stability point structure.
         /// [kN/m^2]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearLoadModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearLoadModel { get; }
 
         /// <summary>
         /// Gets the constructive strength of the quadratic load model of the stability point structure.
         /// [kN/m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticLoadModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticLoadModel { get; }
 
         /// <summary>
         /// Gets the bank width of the stability point structure.
         /// [m]
         /// </summary>
-        public NormalDistribution BankWidth { get; private set; }
+        public NormalDistribution BankWidth { get; }
 
         /// <summary>
         /// Gets the inside water level failure construction of the stability point structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution InsideWaterLevelFailureConstruction { get; private set; }
+        public NormalDistribution InsideWaterLevelFailureConstruction { get; }
 
         /// <summary>
         /// Gets the evaluation level of the stability point structure.
         /// [m+NAP]
         /// </summary>
-        public RoundedDouble EvaluationLevel { get; private set; }
+        public RoundedDouble EvaluationLevel { get; }
 
         /// <summary>
         /// Gets the crest level of the stability point structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution LevelCrestStructure { get; private set; }
+        public NormalDistribution LevelCrestStructure { get; }
 
         /// <summary>
         /// Gets the vertical distance of the stability point structure.
         /// [m]
         /// </summary>
-        public RoundedDouble VerticalDistance { get; private set; }
+        public RoundedDouble VerticalDistance { get; }
 
         /// <summary>
         /// Gets the probability of failing to repair a failed closure of the stability point structure.
         /// [1/year]
         /// </summary>
-        public double FailureProbabilityRepairClosure { get; private set; }
+        public double FailureProbabilityRepairClosure { get; }
 
         /// <summary>
         /// Gets the failure collision energy of the stability point structure.
         /// [kN m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution FailureCollisionEnergy { get; private set; }
+        public VariationCoefficientLogNormalDistribution FailureCollisionEnergy { get; }
 
         /// <summary>
         /// Gets the mass of the ship.
         /// [ton]
         /// </summary>
-        public VariationCoefficientNormalDistribution ShipMass { get; private set; }
+        public VariationCoefficientNormalDistribution ShipMass { get; }
 
         /// <summary>
         /// Gets the velocity of the ship.
         /// [m/s]
         /// </summary>
-        public VariationCoefficientNormalDistribution ShipVelocity { get; private set; }
+        public VariationCoefficientNormalDistribution ShipVelocity { get; }
 
         /// <summary>
         /// Gets the levelling count.
         /// [1/year]
         /// </summary>
-        public int LevellingCount { get; private set; }
+        public int LevellingCount { get; }
 
         /// <summary>
         /// Gets the probability of a secondary collision on the structure per levelling.
         /// [1/year/levelling]
         /// </summary>
-        public double ProbabilityCollisionSecondaryStructure { get; private set; }
+        public double ProbabilityCollisionSecondaryStructure { get; }
 
         /// <summary>
         /// Gets the maximum flow velocity at which the structure is closable.
         /// [m/s]
         /// </summary>
-        public VariationCoefficientNormalDistribution FlowVelocityStructureClosable { get; private set; }
+        public VariationCoefficientNormalDistribution FlowVelocityStructureClosable { get; }
 
         /// <summary>
         /// Gets the stability properties of the linear load model of the stability point structure.
         /// [kN/m^2]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StabilityLinearLoadModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution StabilityLinearLoadModel { get; }
 
         /// <summary>
         /// Gets the stability properties of the quadratic load model of the stability point structure.
         /// [kN/m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StabilityQuadraticLoadModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution StabilityQuadraticLoadModel { get; }
 
         /// <summary>
         /// Gets the area of the flow aperture of the stability point structure.
         /// [m^2]
         /// </summary>
-        public LogNormalDistribution AreaFlowApertures { get; private set; }
+        public LogNormalDistribution AreaFlowApertures { get; }
 
         /// <summary>
         /// Gets the type of stability point structure inflow model.
         /// </summary>
-        public StabilityPointStructureInflowModelType InflowModelType { get; private set; }
+        public StabilityPointStructureInflowModelType InflowModelType { get; }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj) && Equals((StabilityPointStructure) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ StorageStructureArea.GetHashCode();
+                hashCode = (hashCode * 397) ^ AllowedLevelIncreaseStorage.GetHashCode();
+                hashCode = (hashCode * 397) ^ WidthFlowApertures.GetHashCode();
+                hashCode = (hashCode * 397) ^ InsideWaterLevel.GetHashCode();
+                hashCode = (hashCode * 397) ^ ThresholdHeightOpenWeir.GetHashCode();
+                hashCode = (hashCode * 397) ^ CriticalOvertoppingDischarge.GetHashCode();
+                hashCode = (hashCode * 397) ^ FlowWidthAtBottomProtection.GetHashCode();
+                hashCode = (hashCode * 397) ^ ConstructiveStrengthLinearLoadModel.GetHashCode();
+                hashCode = (hashCode * 397) ^ ConstructiveStrengthQuadraticLoadModel.GetHashCode();
+                hashCode = (hashCode * 397) ^ BankWidth.GetHashCode();
+                hashCode = (hashCode * 397) ^ InsideWaterLevelFailureConstruction.GetHashCode();
+                hashCode = (hashCode * 397) ^ EvaluationLevel.GetHashCode();
+                hashCode = (hashCode * 397) ^ LevelCrestStructure.GetHashCode();
+                hashCode = (hashCode * 397) ^ VerticalDistance.GetHashCode();
+                hashCode = (hashCode * 397) ^ FailureProbabilityRepairClosure.GetHashCode();
+                hashCode = (hashCode * 397) ^ FailureCollisionEnergy.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShipMass.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShipVelocity.GetHashCode();
+                hashCode = (hashCode * 397) ^ LevellingCount.GetHashCode();
+                hashCode = (hashCode * 397) ^ ProbabilityCollisionSecondaryStructure.GetHashCode();
+                hashCode = (hashCode * 397) ^ FlowVelocityStructureClosable.GetHashCode();
+                hashCode = (hashCode * 397) ^ StabilityLinearLoadModel.GetHashCode();
+                hashCode = (hashCode * 397) ^ StabilityQuadraticLoadModel.GetHashCode();
+                hashCode = (hashCode * 397) ^ AreaFlowApertures.GetHashCode();
+                hashCode = (hashCode * 397) ^ InflowModelType.GetHashCode();
+
+                return hashCode;
+            }
+        }
+
+        private bool Equals(StabilityPointStructure other)
+        {
+            return StorageStructureArea.Equals(other.StorageStructureArea)
+                   && AllowedLevelIncreaseStorage.Equals(other.AllowedLevelIncreaseStorage)
+                   && WidthFlowApertures.Equals(other.WidthFlowApertures)
+                   && InsideWaterLevel.Equals(other.InsideWaterLevel)
+                   && ThresholdHeightOpenWeir.Equals(other.ThresholdHeightOpenWeir)
+                   && CriticalOvertoppingDischarge.Equals(other.CriticalOvertoppingDischarge)
+                   && FlowWidthAtBottomProtection.Equals(other.FlowWidthAtBottomProtection)
+                   && ConstructiveStrengthLinearLoadModel.Equals(other.ConstructiveStrengthLinearLoadModel)
+                   && ConstructiveStrengthQuadraticLoadModel.Equals(other.ConstructiveStrengthQuadraticLoadModel)
+                   && BankWidth.Equals(other.BankWidth)
+                   && InsideWaterLevelFailureConstruction.Equals(other.InsideWaterLevelFailureConstruction)
+                   && EvaluationLevel.Equals(other.EvaluationLevel)
+                   && LevelCrestStructure.Equals(other.LevelCrestStructure)
+                   && VerticalDistance.Equals(other.VerticalDistance)
+                   && FailureProbabilityRepairClosure.Equals(other.FailureProbabilityRepairClosure)
+                   && FailureCollisionEnergy.Equals(other.FailureCollisionEnergy)
+                   && ShipMass.Equals(other.ShipMass)
+                   && ShipVelocity.Equals(other.ShipVelocity)
+                   && LevellingCount.Equals(other.LevellingCount)
+                   && ProbabilityCollisionSecondaryStructure.Equals(other.ProbabilityCollisionSecondaryStructure)
+                   && FlowVelocityStructureClosable.Equals(other.FlowVelocityStructureClosable)
+                   && StabilityLinearLoadModel.Equals(other.StabilityLinearLoadModel)
+                   && StabilityQuadraticLoadModel.Equals(other.StabilityQuadraticLoadModel)
+                   && AreaFlowApertures.Equals(other.AreaFlowApertures)
+                   && InflowModelType.Equals(other.InflowModelType);
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="StabilityPointStructure"/>.
