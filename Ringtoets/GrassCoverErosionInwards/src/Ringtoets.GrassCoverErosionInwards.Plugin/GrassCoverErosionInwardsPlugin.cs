@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
-                IsEnabled = IsDikeProfileImporterEnabled,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
                 VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
                                                                           Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfiles_Calculation_output_will_be_cleared_confirm)
             };
@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = RingtoetsCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
                 CurrentPath = context => context.WrappedData.SourcePath,
-                IsEnabled = IsDikeProfileImporterEnabled,
+                IsEnabled = context => context.WrappedData.SourcePath != null,
                 VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
                                                                           Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm)
             };
@@ -898,11 +898,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                            RingtoetsCommonIOResources.Shape_file_filter_Description);
-        }
-
-        private static bool IsDikeProfileImporterEnabled(DikeProfilesContext context)
-        {
-            return context.ParentAssessmentSection.ReferenceLine != null;
         }
 
         private bool VerifyDikeProfilesShouldUpdate(DikeProfilesContext context, string query)

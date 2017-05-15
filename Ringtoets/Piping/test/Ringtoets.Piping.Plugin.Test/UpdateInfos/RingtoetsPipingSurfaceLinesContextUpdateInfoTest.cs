@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNull_ReturnFalse()
+        public void IsEnabled_SurfaceLineCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -111,17 +111,16 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_SurfaceLineCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            assessmentSection.ReferenceLine = new ReferenceLine();
-
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            surfaceLines.AddRange(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),"some/path");
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 

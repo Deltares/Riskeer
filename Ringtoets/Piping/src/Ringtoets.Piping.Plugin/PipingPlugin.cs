@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
-                IsEnabled = IsSurfaceLineImporterEnabled,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new ImportMessageProvider(), new RingtoetsPipingSurfaceLineReplaceDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm)
             };
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
-                IsEnabled = StochasticSoilModelImporterEnabled,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new ImportMessageProvider(), new StochasticSoilModelReplaceDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
-                IsEnabled = IsSurfaceLineImporterEnabled,
+                IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new UpdateMessageProvider(), new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
-                IsEnabled = StochasticSoilModelImporterEnabled,
+                IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new UpdateMessageProvider(), new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
@@ -359,11 +359,6 @@ namespace Ringtoets.Piping.Plugin
                                                    filePath,
                                                    messageProvider,
                                                    updateStrategy);
-        }
-
-        private static bool StochasticSoilModelImporterEnabled(StochasticSoilModelCollectionContext context)
-        {
-            return context.AssessmentSection.ReferenceLine != null;
         }
 
         private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)
@@ -1077,11 +1072,6 @@ namespace Ringtoets.Piping.Plugin
                                                      filePath,
                                                      messageProvider,
                                                      strategy);
-        }
-
-        private static bool IsSurfaceLineImporterEnabled(RingtoetsPipingSurfaceLinesContext context)
-        {
-            return context.AssessmentSection.ReferenceLine != null;
         }
 
         private static FileFilterGenerator RingtoetsPipingSurfaceLineFileFilter

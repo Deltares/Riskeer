@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNull_ReturnFalse()
+        public void IsEnabled_SoilModelCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -99,8 +99,9 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
+            var stochasticSoilModel = new StochasticSoilModelCollection();
 
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -111,18 +112,18 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_SoilModelCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            assessmentSection.ReferenceLine = new ReferenceLine();
-
             var failureMechanism = new PipingFailureMechanism();
+            var stochasticSoilModel = new StochasticSoilModelCollection();
+            stochasticSoilModel.AddRange(Enumerable.Empty<StochasticSoilModel>(), "some/path");
 
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
