@@ -41,7 +41,6 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -561,7 +560,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 .AddRenameItem()
                 .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                             inquiryHelper,
-                                                            UpdateForeshoreProfileDerivedCalculationInput)
+                                                            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                 .AddSeparator()
                 .AddValidateCalculationItem(nodeData,
                                             Validate,
@@ -577,8 +576,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 .AddPropertiesItem()
                 .Build();
         }
-
-        private static void UpdateForeshoreProfileDerivedCalculationInput(ICalculation<WaveConditionsInput> calculation) {}
 
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
