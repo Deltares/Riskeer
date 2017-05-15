@@ -39,37 +39,46 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructures("A", "B").ToList();
 
             // Assert
-            Assert.AreEqual(18, testCaseDatas.Count);
+            Assert.AreEqual(27, testCaseDatas.Count);
             IEnumerable<string> testNames = testCaseDatas
                 .Select(tcd => tcd.TestName)
                 .ToList();
-            Assert.AreEqual(18, testNames.Distinct().Count());
+            Assert.AreEqual(27, testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
                 .ToList();
-            Assert.AreEqual(18, structures.Count());
+            Assert.AreEqual(27, structures.Count());
             differentStructures.Add(structures.Single(s => !s.Id.Equals(referenceStructure.Id)));
             differentStructures.Add(structures.Single(s => !s.Name.Equals(referenceStructure.Name)));
             differentStructures.Add(structures.Single(s => !s.Location.Equals(referenceStructure.Location)));
-            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
-            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
-            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Equals(referenceStructure.CriticalOvertoppingDischarge)));
-            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Equals(referenceStructure.FlowWidthAtBottomProtection)));
-            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.Equals(referenceStructure.InsideWaterLevel)));
-            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.Equals(referenceStructure.LevelCrestStructureNotClosing)));
-            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Equals(referenceStructure.StorageStructureArea)));
-            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.Equals(referenceStructure.ThresholdHeightOpenWeir)));
-            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Equals(referenceStructure.WidthFlowApertures)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Mean.Equals(referenceStructure.AllowedLevelIncreaseStorage.Mean)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.StandardDeviation.Equals(referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Mean.Equals(referenceStructure.AreaFlowApertures.Mean)));
+            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.StandardDeviation.Equals(referenceStructure.AreaFlowApertures.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Mean.Equals(referenceStructure.CriticalOvertoppingDischarge.Mean)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.CoefficientOfVariation.Equals(referenceStructure.CriticalOvertoppingDischarge.CoefficientOfVariation)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Mean.Equals(referenceStructure.FlowWidthAtBottomProtection.Mean)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.StandardDeviation.Equals(referenceStructure.FlowWidthAtBottomProtection.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.Mean.Equals(referenceStructure.InsideWaterLevel.Mean)));
+            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.StandardDeviation.Equals(referenceStructure.InsideWaterLevel.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.Mean.Equals(referenceStructure.LevelCrestStructureNotClosing.Mean)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.StandardDeviation.Equals(referenceStructure.LevelCrestStructureNotClosing.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Mean.Equals(referenceStructure.StorageStructureArea.Mean)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.CoefficientOfVariation.Equals(referenceStructure.StorageStructureArea.CoefficientOfVariation)));
+            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.Mean.Equals(referenceStructure.ThresholdHeightOpenWeir.Mean)));
+            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.StandardDeviation.Equals(referenceStructure.ThresholdHeightOpenWeir.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Mean.Equals(referenceStructure.WidthFlowApertures.Mean)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.StandardDeviation.Equals(referenceStructure.WidthFlowApertures.StandardDeviation)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityReparation.Equals(referenceStructure.FailureProbabilityReparation)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityOpenStructure.Equals(referenceStructure.FailureProbabilityOpenStructure)));
             differentStructures.Add(structures.Single(s => !s.IdenticalApertures.Equals(referenceStructure.IdenticalApertures)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(18, differentStructures.Distinct().Count());
+            Assert.AreEqual(27, differentStructures.Distinct().Count());
         }
 
         [Test]
@@ -83,37 +92,46 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId("A", "B").ToList();
 
             // Assert
-            Assert.AreEqual(17, testCaseDatas.Count);
+            Assert.AreEqual(26, testCaseDatas.Count);
             IEnumerable<string> testNames = testCaseDatas
                 .Select(tcd => tcd.TestName)
                 .ToList();
-            Assert.AreEqual(17, testNames.Distinct().Count());
+            Assert.AreEqual(26, testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
                 .ToList();
-            Assert.AreEqual(17, structures.Count());
+            Assert.AreEqual(26, structures.Count());
             Assert.IsTrue(structures.All(s => s.Id == referenceStructure.Id));
             differentStructures.Add(structures.Single(s => !s.Name.Equals(referenceStructure.Name)));
             differentStructures.Add(structures.Single(s => !s.Location.Equals(referenceStructure.Location)));
-            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
-            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
-            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Equals(referenceStructure.CriticalOvertoppingDischarge)));
-            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Equals(referenceStructure.FlowWidthAtBottomProtection)));
-            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.Equals(referenceStructure.InsideWaterLevel)));
-            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.Equals(referenceStructure.LevelCrestStructureNotClosing)));
-            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Equals(referenceStructure.StorageStructureArea)));
-            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.Equals(referenceStructure.ThresholdHeightOpenWeir)));
-            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Equals(referenceStructure.WidthFlowApertures)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Mean.Equals(referenceStructure.AllowedLevelIncreaseStorage.Mean)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.StandardDeviation.Equals(referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Mean.Equals(referenceStructure.AreaFlowApertures.Mean)));
+            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.StandardDeviation.Equals(referenceStructure.AreaFlowApertures.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Mean.Equals(referenceStructure.CriticalOvertoppingDischarge.Mean)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.CoefficientOfVariation.Equals(referenceStructure.CriticalOvertoppingDischarge.CoefficientOfVariation)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Mean.Equals(referenceStructure.FlowWidthAtBottomProtection.Mean)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.StandardDeviation.Equals(referenceStructure.FlowWidthAtBottomProtection.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.Mean.Equals(referenceStructure.InsideWaterLevel.Mean)));
+            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.StandardDeviation.Equals(referenceStructure.InsideWaterLevel.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.Mean.Equals(referenceStructure.LevelCrestStructureNotClosing.Mean)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.StandardDeviation.Equals(referenceStructure.LevelCrestStructureNotClosing.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Mean.Equals(referenceStructure.StorageStructureArea.Mean)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.CoefficientOfVariation.Equals(referenceStructure.StorageStructureArea.CoefficientOfVariation)));
+            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.Mean.Equals(referenceStructure.ThresholdHeightOpenWeir.Mean)));
+            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.StandardDeviation.Equals(referenceStructure.ThresholdHeightOpenWeir.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Mean.Equals(referenceStructure.WidthFlowApertures.Mean)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.StandardDeviation.Equals(referenceStructure.WidthFlowApertures.StandardDeviation)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityReparation.Equals(referenceStructure.FailureProbabilityReparation)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityOpenStructure.Equals(referenceStructure.FailureProbabilityOpenStructure)));
             differentStructures.Add(structures.Single(s => !s.IdenticalApertures.Equals(referenceStructure.IdenticalApertures)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(17, differentStructures.Distinct().Count());
+            Assert.AreEqual(26, differentStructures.Distinct().Count());
         }
 
         [Test]
@@ -127,37 +145,46 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation("C", "D").ToList();
 
             // Assert
-            Assert.AreEqual(15, testCaseDatas.Count);
+            Assert.AreEqual(24, testCaseDatas.Count);
             IEnumerable<string> testNames = testCaseDatas
                 .Select(tcd => tcd.TestName)
                 .ToList();
-            Assert.AreEqual(15, testNames.Distinct().Count());
+            Assert.AreEqual(24, testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith("C_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith("_D")));
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
                 .ToList();
-            Assert.AreEqual(15, structures.Count());
+            Assert.AreEqual(24, structures.Count());
             Assert.IsTrue(structures.All(s => s.Id == referenceStructure.Id));
             Assert.IsTrue(structures.All(s => s.Name == referenceStructure.Name));
             Assert.IsTrue(structures.All(s => s.Location.Equals(referenceStructure.Location)));
-            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Equals(referenceStructure.AllowedLevelIncreaseStorage)));
-            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Equals(referenceStructure.AreaFlowApertures)));
-            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Equals(referenceStructure.CriticalOvertoppingDischarge)));
-            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Equals(referenceStructure.FlowWidthAtBottomProtection)));
-            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.Equals(referenceStructure.InsideWaterLevel)));
-            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.Equals(referenceStructure.LevelCrestStructureNotClosing)));
-            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Equals(referenceStructure.StorageStructureArea)));
-            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.Equals(referenceStructure.ThresholdHeightOpenWeir)));
-            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Equals(referenceStructure.WidthFlowApertures)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.Mean.Equals(referenceStructure.AllowedLevelIncreaseStorage.Mean)));
+            differentStructures.Add(structures.Single(s => !s.AllowedLevelIncreaseStorage.StandardDeviation.Equals(referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Mean.Equals(referenceStructure.AreaFlowApertures.Mean)));
+            differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.StandardDeviation.Equals(referenceStructure.AreaFlowApertures.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.Mean.Equals(referenceStructure.CriticalOvertoppingDischarge.Mean)));
+            differentStructures.Add(structures.Single(s => !s.CriticalOvertoppingDischarge.CoefficientOfVariation.Equals(referenceStructure.CriticalOvertoppingDischarge.CoefficientOfVariation)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.Mean.Equals(referenceStructure.FlowWidthAtBottomProtection.Mean)));
+            differentStructures.Add(structures.Single(s => !s.FlowWidthAtBottomProtection.StandardDeviation.Equals(referenceStructure.FlowWidthAtBottomProtection.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.Mean.Equals(referenceStructure.InsideWaterLevel.Mean)));
+            differentStructures.Add(structures.Single(s => !s.InsideWaterLevel.StandardDeviation.Equals(referenceStructure.InsideWaterLevel.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.Mean.Equals(referenceStructure.LevelCrestStructureNotClosing.Mean)));
+            differentStructures.Add(structures.Single(s => !s.LevelCrestStructureNotClosing.StandardDeviation.Equals(referenceStructure.LevelCrestStructureNotClosing.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.Mean.Equals(referenceStructure.StorageStructureArea.Mean)));
+            differentStructures.Add(structures.Single(s => !s.StorageStructureArea.CoefficientOfVariation.Equals(referenceStructure.StorageStructureArea.CoefficientOfVariation)));
+            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.Mean.Equals(referenceStructure.ThresholdHeightOpenWeir.Mean)));
+            differentStructures.Add(structures.Single(s => !s.ThresholdHeightOpenWeir.StandardDeviation.Equals(referenceStructure.ThresholdHeightOpenWeir.StandardDeviation)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.Mean.Equals(referenceStructure.WidthFlowApertures.Mean)));
+            differentStructures.Add(structures.Single(s => !s.WidthFlowApertures.StandardDeviation.Equals(referenceStructure.WidthFlowApertures.StandardDeviation)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityReparation.Equals(referenceStructure.FailureProbabilityReparation)));
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityOpenStructure.Equals(referenceStructure.FailureProbabilityOpenStructure)));
             differentStructures.Add(structures.Single(s => !s.IdenticalApertures.Equals(referenceStructure.IdenticalApertures)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(15, differentStructures.Distinct().Count());
+            Assert.AreEqual(24, differentStructures.Distinct().Count());
         }
     }
 }
