@@ -332,6 +332,62 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertStabilityPointStructure(structure, input);
         }
 
+        [Test]
+        public void StructureParametersSynchronized_StructureNotSet_ReturnFalse()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+
+            // Assert
+            Assert.IsFalse(structureParametersSynchronized);
+        }
+
+        [Test]
+        public void StructureParametersSynchronized_StructureAndInputInSync_ReturnTrue()
+        {
+            // Setup
+            var structure = new TestStabilityPointStructure();
+            var input = new StabilityPointStructuresInput
+            {
+                Structure = structure
+            };
+
+            // Call
+            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+
+            // Assert
+            Assert.IsTrue(structureParametersSynchronized);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
+            nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation),
+            new object[]
+            {
+                "StructureParametersSynchronized",
+                "ReturnFalse"
+            })]
+        public void StructureParametersSynchronized_StructureAndInputNotInSync_ReturnFalse(StabilityPointStructure modifiedStructure)
+        {
+            // Setup
+            var structure = new TestStabilityPointStructure();
+            var input = new StabilityPointStructuresInput
+            {
+                Structure = structure
+            };
+
+            structure.CopyProperties(modifiedStructure);
+
+            // Call
+            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+
+            // Assert
+            Assert.IsFalse(structureParametersSynchronized);
+        }
+
         #region Hydraulic data
 
         [Test]
