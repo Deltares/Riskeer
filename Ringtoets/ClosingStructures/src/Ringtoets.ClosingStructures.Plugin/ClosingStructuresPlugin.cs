@@ -497,11 +497,18 @@ namespace Ringtoets.ClosingStructures.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
+            
+            StructuresCalculation<ClosingStructuresInput>[] calculations = group
+                .GetCalculations()
+                .OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -522,7 +529,10 @@ namespace Ringtoets.ClosingStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddCustomItem(CreateUpdateStructureItem(context))
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
+                                                                inquiryHelper,
+                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -553,12 +563,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateUpdateStructureItem(StructuresCalculation<ClosingStructuresInput>[] calculations)
         {
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = nodeData.WrappedData
-                                                                                              .GetCalculations()
-                                                                                              .OfType<StructuresCalculation<ClosingStructuresInput>>();
-
             var contextMenuEnabled = true;
             string toolTipText = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
             if (!calculations.Any())
