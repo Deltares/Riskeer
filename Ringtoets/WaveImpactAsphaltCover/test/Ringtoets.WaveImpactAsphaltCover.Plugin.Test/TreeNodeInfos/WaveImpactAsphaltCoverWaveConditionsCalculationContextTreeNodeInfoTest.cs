@@ -986,6 +986,59 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationUpdatedAndUpdateObserver()
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            calculationInputObserver.Expect(o => o.UpdateObserver());
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                }
+            };
+            calculation.InputParameters.UseBreakWater = false;
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                      failureMechanism,
+                                                                                      assessmentSectionStub);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var guiStub = mocks.Stub<IGui>();
+                guiStub.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = guiStub;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
+                                                                  contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                }
+            }
+        }
+
+        [Test]
         public void GivenValidCalculation_WhenCalculating_ThenCalculationReturnsResult()
         {
             // Given
