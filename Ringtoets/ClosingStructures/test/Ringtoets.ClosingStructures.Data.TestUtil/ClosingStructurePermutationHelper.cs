@@ -34,6 +34,34 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
     public static class ClosingStructurePermutationHelper
     {
         /// <summary>
+        /// Returns a collection of modified <see cref="ClosingStructure"/> entities.
+        /// </summary>
+        /// <param name="targetName">The name of the target to test while using the test case source.</param>
+        /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
+        /// <returns>The collection of test case data.</returns>
+        /// <example>
+        /// [TestCaseSource(typeof(ClosingStructurePermutationHelper),
+        ///                 nameof(ClosingStructurePermutationHelper.DifferentClosingStructures),
+        ///                 new object[]
+        ///                 {
+        ///                     "TargetMethodName",
+        ///                     "TestResult"
+        ///                 })]
+        /// </example>
+        public static IEnumerable<TestCaseData> DifferentClosingStructures(string targetName, string testResultDescription)
+        {
+            var testCaseData = new List<TestCaseData>
+            {
+                new TestCaseData(new TestClosingStructure("Different id"))
+                    .SetName($"{targetName}_DifferentId_{testResultDescription}")
+            };
+
+            testCaseData.AddRange(DifferentClosingStructuresWithSameId(targetName, testResultDescription));
+
+            return testCaseData;
+        }
+
+        /// <summary>
         /// Returns a collection of modified <see cref="ClosingStructure"/> entities, which all differ
         /// except for their id.
         /// </summary>

@@ -34,6 +34,34 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
     public static class StabilityPointStructurePermutationHelper
     {
         /// <summary>
+        /// Returns a collection of modified <see cref="StabilityPointStructure"/> entities.
+        /// </summary>
+        /// <param name="targetName">The name of the target to test while using the test case source.</param>
+        /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
+        /// <returns>The collection of test case data.</returns>
+        /// <example>
+        /// [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
+        ///                 nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures),
+        ///                 new object[]
+        ///                 {
+        ///                     "TargetMethodName",
+        ///                     "TestResult"
+        ///                 })]
+        /// </example>
+        public static IEnumerable<TestCaseData> DifferentStabilityPointStructures(string targetName, string testResultDescription)
+        {
+            var testCaseData = new List<TestCaseData>
+            {
+                new TestCaseData(new TestStabilityPointStructure("Different id"))
+                    .SetName($"{targetName}_DifferentId_{testResultDescription}")
+            };
+
+            testCaseData.AddRange(DifferentStabilityPointStructuresWithSameId(targetName, testResultDescription));
+
+            return testCaseData;
+        }
+
+        /// <summary>
         /// Returns a collection of modified <see cref="StabilityPointStructure"/> entities, which all differ
         /// except for their id.
         /// </summary>
