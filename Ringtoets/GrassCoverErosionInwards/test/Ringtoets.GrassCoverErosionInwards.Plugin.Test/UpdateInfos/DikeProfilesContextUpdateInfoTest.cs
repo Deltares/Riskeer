@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_DikeProfileCollectionSourcePathSet_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -104,8 +104,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var dikeProfiles = new DikeProfileCollection();
+            dikeProfiles.AddRange(Enumerable.Empty<DikeProfile>(), "some/path");
 
-            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
+            var context = new DikeProfilesContext(dikeProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
@@ -121,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNotSet_ReturnFalse()
+        public void IsEnabled_DikeProfileCollectionSourcePathNull_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -129,8 +131,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var dikeProfiles = new DikeProfileCollection();
 
-            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
+            var context = new DikeProfilesContext(dikeProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
