@@ -508,11 +508,18 @@ namespace Ringtoets.HeightStructures.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip CalculationGroupContextContextMenuStrip(HeightStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(HeightStructuresCalculationGroupContext context,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
+
+            StructuresCalculation<HeightStructuresInput>[] calculations = group
+                .GetCalculations()
+                .OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -533,7 +540,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddCustomItem(CreateUpdateStructureItem(context))
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
+                                                                inquiryHelper,
+                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -564,12 +574,8 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(HeightStructuresCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateUpdateStructureItem(StructuresCalculation<HeightStructuresInput>[] calculations)
         {
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = nodeData.WrappedData
-                                                                                             .GetCalculations()
-                                                                                             .OfType<StructuresCalculation<HeightStructuresInput>>();
-
             var contextMenuEnabled = true;
             string toolTipText = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
             if (!calculations.Any())
