@@ -118,55 +118,97 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             {
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorageMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                AllowedLevelIncreaseStorage =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorage_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorageStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestHeightStructure
             {
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischargeMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                CriticalOvertoppingDischarge =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischargeCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestHeightStructure
             {
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtectionMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                FlowWidthAtBottomProtection =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtectionStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestHeightStructure
             {
                 LevelCrestStructure =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentLevelCrestStructureMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                LevelCrestStructure =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentLevelCrestStructure_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentLevelCrestStructureStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestHeightStructure
             {
                 StorageStructureArea =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentStorageStructureAreaMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                StorageStructureArea =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentStorageStructureArea_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentStorageStructureAreaCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestHeightStructure
             {
                 WidthFlowApertures =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentWidthFlowAperturesMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestHeightStructure
+            {
+                WidthFlowApertures =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentWidthFlowApertures_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentWidthFlowAperturesStandardDeviation_{testResultDescription}");
 
             HeightStructure.ConstructionProperties differentFailureProbabilityStructureWithErosionConstructionProperties = CreateTestHeightStructureConstructionProperties();
             differentFailureProbabilityStructureWithErosionConstructionProperties.FailureProbabilityStructureWithErosion = random.NextDouble();
