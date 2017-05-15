@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the evaluation level of the stability point structure.
         /// [m+NAP]
         /// </summary>
-        public RoundedDouble EvaluationLevel { get; }
+        public RoundedDouble EvaluationLevel { get; private set; }
 
         /// <summary>
         /// Gets the crest level of the stability point structure.
@@ -226,13 +226,13 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the vertical distance of the stability point structure.
         /// [m]
         /// </summary>
-        public RoundedDouble VerticalDistance { get; }
+        public RoundedDouble VerticalDistance { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing to repair a failed closure of the stability point structure.
         /// [1/year]
         /// </summary>
-        public double FailureProbabilityRepairClosure { get; }
+        public double FailureProbabilityRepairClosure { get; private set; }
 
         /// <summary>
         /// Gets the failure collision energy of the stability point structure.
@@ -256,13 +256,13 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the levelling count.
         /// [1/year]
         /// </summary>
-        public int LevellingCount { get; }
+        public int LevellingCount { get; private set; }
 
         /// <summary>
         /// Gets the probability of a secondary collision on the structure per levelling.
         /// [1/year/levelling]
         /// </summary>
-        public double ProbabilityCollisionSecondaryStructure { get; }
+        public double ProbabilityCollisionSecondaryStructure { get; private set; }
 
         /// <summary>
         /// Gets the maximum flow velocity at which the structure is closable.
@@ -291,7 +291,87 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the type of stability point structure inflow model.
         /// </summary>
-        public StabilityPointStructureInflowModelType InflowModelType { get; }
+        public StabilityPointStructureInflowModelType InflowModelType { get; private set; }
+
+        /// <summary>
+        /// Copies the property values of the <paramref name="fromStructure"/> to the 
+        /// <see cref="StabilityPointStructure"/>.
+        /// </summary>
+        /// <param name="fromStructure">The <see cref="StabilityPointStructure"/> to get the property 
+        /// values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromStructure"/>
+        /// is <c>null</c>.</exception>
+        public void CopyProperties(StabilityPointStructure fromStructure)
+        {
+            base.CopyProperties(fromStructure);
+
+            StorageStructureArea.Mean = fromStructure.StorageStructureArea.Mean;
+            StorageStructureArea.CoefficientOfVariation = fromStructure.StorageStructureArea.CoefficientOfVariation;
+
+            AllowedLevelIncreaseStorage.Mean = fromStructure.AllowedLevelIncreaseStorage.Mean;
+            AllowedLevelIncreaseStorage.StandardDeviation = fromStructure.AllowedLevelIncreaseStorage.StandardDeviation;
+
+            WidthFlowApertures.Mean = fromStructure.WidthFlowApertures.Mean;
+            WidthFlowApertures.StandardDeviation = fromStructure.WidthFlowApertures.StandardDeviation;
+
+            InsideWaterLevel.Mean = fromStructure.InsideWaterLevel.Mean;
+            InsideWaterLevel.StandardDeviation = fromStructure.InsideWaterLevel.StandardDeviation;
+
+            ThresholdHeightOpenWeir.Mean = fromStructure.ThresholdHeightOpenWeir.Mean;
+            ThresholdHeightOpenWeir.StandardDeviation = fromStructure.ThresholdHeightOpenWeir.StandardDeviation;
+
+            CriticalOvertoppingDischarge.Mean = fromStructure.CriticalOvertoppingDischarge.Mean;
+            CriticalOvertoppingDischarge.CoefficientOfVariation = fromStructure.CriticalOvertoppingDischarge.CoefficientOfVariation;
+
+            FlowWidthAtBottomProtection.Mean = fromStructure.FlowWidthAtBottomProtection.Mean;
+            FlowWidthAtBottomProtection.StandardDeviation = fromStructure.FlowWidthAtBottomProtection.StandardDeviation;
+
+            ConstructiveStrengthLinearLoadModel.Mean = fromStructure.ConstructiveStrengthLinearLoadModel.Mean;
+            ConstructiveStrengthLinearLoadModel.CoefficientOfVariation = fromStructure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation;
+
+            ConstructiveStrengthQuadraticLoadModel.Mean = fromStructure.ConstructiveStrengthQuadraticLoadModel.Mean;
+            ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation = fromStructure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation;
+
+            BankWidth.Mean = fromStructure.BankWidth.Mean;
+            BankWidth.StandardDeviation = fromStructure.BankWidth.StandardDeviation;
+
+            InsideWaterLevelFailureConstruction.Mean = fromStructure.InsideWaterLevelFailureConstruction.Mean;
+            InsideWaterLevelFailureConstruction.StandardDeviation = fromStructure.InsideWaterLevelFailureConstruction.StandardDeviation;
+
+            EvaluationLevel = new RoundedDouble(2, fromStructure.EvaluationLevel);
+
+            LevelCrestStructure.Mean = fromStructure.LevelCrestStructure.Mean;
+            LevelCrestStructure.StandardDeviation = fromStructure.LevelCrestStructure.StandardDeviation;
+
+            VerticalDistance = new RoundedDouble(2, fromStructure.VerticalDistance);
+            FailureProbabilityRepairClosure = fromStructure.FailureProbabilityRepairClosure;
+
+            FailureCollisionEnergy.Mean = fromStructure.FailureCollisionEnergy.Mean;
+            FailureCollisionEnergy.CoefficientOfVariation = fromStructure.FailureCollisionEnergy.CoefficientOfVariation;
+
+            ShipMass.Mean = fromStructure.ShipMass.Mean;
+            ShipMass.CoefficientOfVariation = fromStructure.ShipMass.CoefficientOfVariation;
+
+            ShipVelocity.Mean = fromStructure.ShipVelocity.Mean;
+            ShipVelocity.CoefficientOfVariation = fromStructure.ShipVelocity.CoefficientOfVariation;
+
+            LevellingCount = fromStructure.LevellingCount;
+            ProbabilityCollisionSecondaryStructure = fromStructure.ProbabilityCollisionSecondaryStructure;
+
+            FlowVelocityStructureClosable.Mean = fromStructure.FlowVelocityStructureClosable.Mean;
+            FlowVelocityStructureClosable.CoefficientOfVariation = (RoundedDouble) 0.2;
+
+            StabilityLinearLoadModel.Mean = fromStructure.StabilityLinearLoadModel.Mean;
+            StabilityLinearLoadModel.CoefficientOfVariation = fromStructure.StabilityLinearLoadModel.CoefficientOfVariation;
+
+            StabilityQuadraticLoadModel.Mean = fromStructure.StabilityQuadraticLoadModel.Mean;
+            StabilityQuadraticLoadModel.CoefficientOfVariation = fromStructure.StabilityQuadraticLoadModel.CoefficientOfVariation;
+
+            AreaFlowApertures.Mean = fromStructure.AreaFlowApertures.Mean;
+            AreaFlowApertures.StandardDeviation = fromStructure.AreaFlowApertures.StandardDeviation;
+
+            InflowModelType = fromStructure.InflowModelType;
+        }
 
         public override bool Equals(object obj)
         {
