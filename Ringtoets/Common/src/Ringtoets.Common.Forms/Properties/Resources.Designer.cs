@@ -757,6 +757,35 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken..
+        /// </summary>
+        public static string CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip {
+            get {
+                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_no_ForeshorePro" +
+                        "file_changes_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningen bijwerken waar een voorlandprofiel geselecteerd is..
+        /// </summary>
+        public static string CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip {
+            get {
+                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreP" +
+                        "rofile_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken voorlandprofielen....
+        /// </summary>
+        public static string CreateUpdateForshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data {
+            get {
+                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DatabaseIcon {
@@ -2621,6 +2650,18 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 return ResourceManager.GetString("UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updati" +
                         "ng_ForeshoreProfile_dependent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van de berekeningen worden verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string UpdateForshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data {
+            get {
+                return ResourceManager.GetString("UpdateForshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_upda" +
+                        "ting_ForeshoreProfile_dependent_data", resourceCulture);
             }
         }
         

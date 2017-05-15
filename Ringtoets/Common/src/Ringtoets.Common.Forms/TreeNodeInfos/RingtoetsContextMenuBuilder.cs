@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -267,6 +268,29 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
                                                  calculation,
+                                                 inquiryHelper,
+                                                 updateAction));
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which is bound to the action 
+        /// when updating the <see cref="ForeshoreProfile"/> of the <paramref name="calculations"/>.
+        /// </summary>
+        /// <typeparam name="TCalculationInput">The type of calculation input that has can have 
+        /// a foreshore profile.</typeparam>
+        /// <param name="calculations">The calculations to update.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddUpdateForeshoreProfileOfCalculationsItem<TCalculationInput>(
+            IEnumerable<ICalculation<TCalculationInput>> calculations,
+            IInquiryHelper inquiryHelper,
+            Action<ICalculation<TCalculationInput>> updateAction)
+            where TCalculationInput : ICalculationInput, IHasForeshoreProfile
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+                                                 calculations,
                                                  inquiryHelper,
                                                  updateAction));
             return this;

@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -390,14 +391,20 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                                         ? Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip
                                         : Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
 
+            string confirmOutputMessage = Resources.UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
+
             var menuItem = new StrictContextMenuItem(
                 Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_ForeshoreProfile_data,
                 toolTipMessage,
                 Resources.UpdateItemIcon,
                 (o, args) =>
                 {
-                    UpdateForeshoreProfileDependentDataOfCalculation(calculation,
+                    UpdateForeshoreProfileDependentDataOfCalculation(new[]
+                                                                     {
+                                                                         calculation
+                                                                     },
                                                                      inquiryHelper,
+                                                                     confirmOutputMessage,
                                                                      updateAction);
                 })
             {
@@ -407,21 +414,61 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return menuItem;
         }
 
-        private static void UpdateForeshoreProfileDependentDataOfCalculation<TCalculationInput>(
-            ICalculation<TCalculationInput> calculation,
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action when updating
+        /// the <see cref="ForeshoreProfile"/> of the <paramref name="calculations"/>.
+        /// </summary>
+        /// <typeparam name="TCalculationInput">The type of calculation input that has can have a foreshore profile.</typeparam>
+        /// <param name="calculations">The calculations to update.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateUpdateForshoreProfileOfCalculationsItem<TCalculationInput>(
+            IEnumerable<ICalculation<TCalculationInput>> calculations,
             IInquiryHelper inquiryHelper,
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            string message = Resources.UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
+            ICalculation<TCalculationInput>[] calculationsWithForeshoreProfileChanges = calculations.Where(
+                c => c.InputParameters.ForeshoreProfile != null
+                     && !c.InputParameters.IsForeshoreProfileParametersSynchronized).ToArray();
 
-            if (ForeshoreProfileDependentDataShouldUpdate(new[]
+            bool hasForeshoreProfileChanges = calculationsWithForeshoreProfileChanges.Any();
+
+            string toolTipMessage = hasForeshoreProfileChanges
+                                        ? Resources.CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip
+                                        : Resources.CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip;
+
+            string confirmOutputMessage = Resources.UpdateForshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data;
+
+            var menuItem = new StrictContextMenuItem(
+                Resources.CreateUpdateForshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data,
+                toolTipMessage,
+                Resources.UpdateItemIcon,
+                (o, args) =>
                 {
-                    calculation
-                }, message, inquiryHelper
-            ))
+                    UpdateForeshoreProfileDependentDataOfCalculation(calculationsWithForeshoreProfileChanges,
+                                                                     inquiryHelper,
+                                                                     confirmOutputMessage,
+                                                                     updateAction);
+                })
             {
-                updateAction(calculation);
+                Enabled = hasForeshoreProfileChanges
+            };
+
+            return menuItem;
+        }
+
+        private static void UpdateForeshoreProfileDependentDataOfCalculation<TCalculationInput>(
+            ICalculation<TCalculationInput>[] calculations,
+            IInquiryHelper inquiryHelper,
+            string confirmOutputMessage,
+            Action<ICalculation<TCalculationInput>> updateAction)
+            where TCalculationInput : ICalculationInput, IHasForeshoreProfile
+        {
+            if (ForeshoreProfileDependentDataShouldUpdate(calculations, confirmOutputMessage, inquiryHelper))
+            {
+                calculations.ForEachElementDo(updateAction);
             }
         }
 
