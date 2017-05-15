@@ -448,9 +448,9 @@ namespace Ringtoets.HeightStructures.Data.Test
 
         [Test]
         [TestCaseSource(nameof(StructureCombinations))]
-        public void Equal_DifferentProperty_ReturnsIsEqual(HeightStructure structure,
-                                                           HeightStructure otherStructure,
-                                                           bool expectedToBeEqual)
+        public void Equals_DifferentProperty_ReturnsIsEqual(HeightStructure structure,
+                                                            HeightStructure otherStructure,
+                                                            bool expectedToBeEqual)
         {
             // Call
             bool isStructureEqualToOther = structure.Equals(otherStructure);

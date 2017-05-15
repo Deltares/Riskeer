@@ -260,9 +260,9 @@ namespace Ringtoets.Common.Data.Test
 
         [Test]
         [TestCaseSource(nameof(StructureCombinations))]
-        public void Equal_DifferentProperty_ReturnsIsEqual(StructureBase structure,
-                                                           StructureBase otherStructure,
-                                                           bool expectedToBeEqual)
+        public void Equals_DifferentProperty_ReturnsIsEqual(StructureBase structure,
+                                                            StructureBase otherStructure,
+                                                            bool expectedToBeEqual)
         {
             // Call
             bool isStructureEqualToOther = structure.Equals(otherStructure);
