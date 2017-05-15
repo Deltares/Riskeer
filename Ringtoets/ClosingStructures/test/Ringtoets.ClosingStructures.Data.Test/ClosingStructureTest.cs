@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -34,169 +33,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
     [TestFixture]
     public class ClosingStructureTest
     {
-        private static IEnumerable<TestCaseData> StructureCombinations
-        {
-            get
-            {
-                return GetInequalStructures.Concat(GetEqualStructures);
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GetEqualStructures
-        {
-            get
-            {
-                ClosingStructure structure = CreateFullyDefinedStructure();
-                yield return new TestCaseData(structure, structure, true)
-                    .SetName("SameStructure");
-                yield return new TestCaseData(structure, CreateFullyDefinedStructure(), true)
-                    .SetName("EqualStructure");
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GetInequalStructures
-        {
-            get
-            {
-                ClosingStructure structure = CreateFullyDefinedStructure();
-
-                ClosingStructure.ConstructionProperties differentId = CreateFullyConfiguredConstructionProperties();
-                differentId.Id = "differentId";
-                yield return new TestCaseData(structure, new ClosingStructure(differentId), false)
-                    .SetName(nameof(differentId));
-
-                ClosingStructure.ConstructionProperties differentName = CreateFullyConfiguredConstructionProperties();
-                differentName.Name = "differentName";
-                yield return new TestCaseData(structure, new ClosingStructure(differentName), false)
-                    .SetName(nameof(differentName));
-
-                ClosingStructure.ConstructionProperties differentLocation = CreateFullyConfiguredConstructionProperties();
-                differentLocation.Location = new Point2D(9, 9);
-                yield return new TestCaseData(structure, new ClosingStructure(differentLocation), false)
-                    .SetName(nameof(differentLocation));
-
-                ClosingStructure.ConstructionProperties differentOrientation = CreateFullyConfiguredConstructionProperties();
-                differentOrientation.StructureNormalOrientation = (RoundedDouble) 90;
-                yield return new TestCaseData(structure, new ClosingStructure(differentOrientation), false)
-                    .SetName(nameof(differentOrientation));
-
-                ClosingStructure.ConstructionProperties differentAllowedLevelIncreaseStorageMean = CreateFullyConfiguredConstructionProperties();
-                differentAllowedLevelIncreaseStorageMean.AreaFlowApertures.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentAllowedLevelIncreaseStorageMean), false)
-                    .SetName(nameof(differentAllowedLevelIncreaseStorageMean));
-
-                ClosingStructure.ConstructionProperties differentAllowedLevelIncreaseStorageStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentAllowedLevelIncreaseStorageStandardDeviation.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentAllowedLevelIncreaseStorageStandardDeviation), false)
-                    .SetName(nameof(differentAllowedLevelIncreaseStorageStandardDeviation));
-
-                ClosingStructure.ConstructionProperties differentAreaFlowAperturesMean = CreateFullyConfiguredConstructionProperties();
-                differentAreaFlowAperturesMean.AreaFlowApertures.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentAreaFlowAperturesMean), false)
-                    .SetName(nameof(differentAreaFlowAperturesMean));
-
-                ClosingStructure.ConstructionProperties differentAreaFlowAperturesStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentAreaFlowAperturesStandardDeviation.AreaFlowApertures.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentAreaFlowAperturesStandardDeviation), false)
-                    .SetName(nameof(differentAreaFlowAperturesStandardDeviation));
-
-                ClosingStructure.ConstructionProperties differentCriticalOvertoppingDischargeMean = CreateFullyConfiguredConstructionProperties();
-                differentCriticalOvertoppingDischargeMean.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentCriticalOvertoppingDischargeMean), false)
-                    .SetName(nameof(differentCriticalOvertoppingDischargeMean));
-
-                ClosingStructure.ConstructionProperties differentCriticalOvertoppingDischargeCoefficientOfVariation = CreateFullyConfiguredConstructionProperties();
-                differentCriticalOvertoppingDischargeCoefficientOfVariation.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentCriticalOvertoppingDischargeCoefficientOfVariation), false)
-                    .SetName(nameof(differentCriticalOvertoppingDischargeCoefficientOfVariation));
-
-                ClosingStructure.ConstructionProperties differentFailureProbabilityOpenStructure = CreateFullyConfiguredConstructionProperties();
-                differentFailureProbabilityOpenStructure.FailureProbabilityOpenStructure = 987;
-                yield return new TestCaseData(structure, new ClosingStructure(differentFailureProbabilityOpenStructure), false)
-                    .SetName(nameof(differentFailureProbabilityOpenStructure));
-
-                ClosingStructure.ConstructionProperties differentFailureProbabilityReparation = CreateFullyConfiguredConstructionProperties();
-                differentFailureProbabilityReparation.FailureProbabilityReparation = 987;
-                yield return new TestCaseData(structure, new ClosingStructure(differentFailureProbabilityReparation), false)
-                    .SetName(nameof(differentFailureProbabilityReparation));
-
-                ClosingStructure.ConstructionProperties differentFlowWidthAtBottomProtectionMean = CreateFullyConfiguredConstructionProperties();
-                differentFlowWidthAtBottomProtectionMean.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentFlowWidthAtBottomProtectionMean), false)
-                    .SetName(nameof(differentFlowWidthAtBottomProtectionMean));
-
-                ClosingStructure.ConstructionProperties differentFlowWidthAtBottomProtectionStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentFlowWidthAtBottomProtectionStandardDeviation.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentFlowWidthAtBottomProtectionStandardDeviation), false)
-                    .SetName(nameof(differentFlowWidthAtBottomProtectionStandardDeviation));
-
-                ClosingStructure.ConstructionProperties differentIdenticalApertures = CreateFullyConfiguredConstructionProperties();
-                differentIdenticalApertures.IdenticalApertures = 987;
-                yield return new TestCaseData(structure, new ClosingStructure(differentIdenticalApertures), false)
-                    .SetName(nameof(differentIdenticalApertures));
-
-                ClosingStructure.ConstructionProperties differentInflowModelType = CreateFullyConfiguredConstructionProperties();
-                differentInflowModelType.InflowModelType = ClosingStructureInflowModelType.LowSill;
-                yield return new TestCaseData(structure, new ClosingStructure(differentInflowModelType), false)
-                    .SetName(nameof(differentInflowModelType));
-
-                ClosingStructure.ConstructionProperties differentInsideWaterLevelMean = CreateFullyConfiguredConstructionProperties();
-                differentInsideWaterLevelMean.InsideWaterLevel.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentInsideWaterLevelMean), false)
-                    .SetName(nameof(differentInsideWaterLevelMean));
-
-                ClosingStructure.ConstructionProperties differentInsideWaterLevelStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentInsideWaterLevelStandardDeviation.InsideWaterLevel.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentInsideWaterLevelStandardDeviation), false)
-                    .SetName(nameof(differentInsideWaterLevelStandardDeviation));
-
-                ClosingStructure.ConstructionProperties differentLevelCrestStructureNotClosingMean = CreateFullyConfiguredConstructionProperties();
-                differentLevelCrestStructureNotClosingMean.LevelCrestStructureNotClosing.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentLevelCrestStructureNotClosingMean), false)
-                    .SetName(nameof(differentLevelCrestStructureNotClosingMean));
-
-                ClosingStructure.ConstructionProperties differentLevelCrestStructureNotClosingStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentLevelCrestStructureNotClosingStandardDeviation.LevelCrestStructureNotClosing.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentLevelCrestStructureNotClosingStandardDeviation), false)
-                    .SetName(nameof(differentLevelCrestStructureNotClosingStandardDeviation));
-
-                ClosingStructure.ConstructionProperties differentProbabilityOrFrequencyOpenStructureBeforeFlooding = CreateFullyConfiguredConstructionProperties();
-                differentProbabilityOrFrequencyOpenStructureBeforeFlooding.ProbabilityOrFrequencyOpenStructureBeforeFlooding = 987;
-                yield return new TestCaseData(structure, new ClosingStructure(differentProbabilityOrFrequencyOpenStructureBeforeFlooding), false)
-                    .SetName(nameof(differentProbabilityOrFrequencyOpenStructureBeforeFlooding));
-
-                ClosingStructure.ConstructionProperties differentStorageStructureAreaMean = CreateFullyConfiguredConstructionProperties();
-                differentStorageStructureAreaMean.StorageStructureArea.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentStorageStructureAreaMean), false)
-                    .SetName(nameof(differentStorageStructureAreaMean));
-
-                ClosingStructure.ConstructionProperties differentStorageStructureAreaCoefficientOfVariation = CreateFullyConfiguredConstructionProperties();
-                differentStorageStructureAreaCoefficientOfVariation.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentStorageStructureAreaCoefficientOfVariation), false)
-                    .SetName(nameof(differentStorageStructureAreaCoefficientOfVariation));
-
-                ClosingStructure.ConstructionProperties differentThresholdHeightOpenWeirMean = CreateFullyConfiguredConstructionProperties();
-                differentThresholdHeightOpenWeirMean.ThresholdHeightOpenWeir.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentThresholdHeightOpenWeirMean), false)
-                    .SetName(nameof(differentThresholdHeightOpenWeirMean));
-
-                ClosingStructure.ConstructionProperties differentThresholdHeightOpenWeirStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentThresholdHeightOpenWeirStandardDeviation.ThresholdHeightOpenWeir.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentThresholdHeightOpenWeirStandardDeviation), false)
-                    .SetName(nameof(differentThresholdHeightOpenWeirStandardDeviation));
-
-                ClosingStructure.ConstructionProperties differentWidthFlowAperturesMean = CreateFullyConfiguredConstructionProperties();
-                differentWidthFlowAperturesMean.WidthFlowApertures.Mean = (RoundedDouble) 10.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentWidthFlowAperturesMean), false)
-                    .SetName(nameof(differentWidthFlowAperturesMean));
-
-                ClosingStructure.ConstructionProperties differentWidthFlowAperturesStandardDeviation = CreateFullyConfiguredConstructionProperties();
-                differentWidthFlowAperturesStandardDeviation.WidthFlowApertures.StandardDeviation = (RoundedDouble) 0.1;
-                yield return new TestCaseData(structure, new ClosingStructure(differentWidthFlowAperturesStandardDeviation), false)
-                    .SetName(nameof(differentWidthFlowAperturesStandardDeviation));
-            }
-        }
-
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
@@ -562,7 +398,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
         {
             // Setup
-            ClosingStructure structure = CreateFullyDefinedStructure();
+            ClosingStructure structure = new TestClosingStructure();
 
             // Call
             bool isEqual = structure.Equals(other);
@@ -572,12 +408,25 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        public void Equals_ToItself_ReturnsTrue()
+        {
+            // Setup
+            ClosingStructure structure = new TestClosingStructure();
+
+            // Call
+            bool isEqual = structure.Equals(structure);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+        }
+
+        [Test]
         public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
         {
             // Setup
-            ClosingStructure structureX = CreateFullyDefinedStructure();
-            ClosingStructure structureY = CreateFullyDefinedStructure();
-            ClosingStructure structureZ = CreateFullyDefinedStructure();
+            ClosingStructure structureX = new TestClosingStructure();
+            ClosingStructure structureY = new TestClosingStructure();
+            ClosingStructure structureZ = new TestClosingStructure();
 
             // Call
             bool isXEqualToY = structureX.Equals(structureY);
@@ -591,26 +440,28 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(StructureCombinations))]
-        public void Equals_DifferentProperty_ReturnsIsEqual(ClosingStructure structure,
-                                                            ClosingStructure otherStructure,
-                                                            bool expectedToBeEqual)
+        [TestCaseSource(typeof(ClosingStructurePermutationHelper),
+            nameof(ClosingStructurePermutationHelper.DifferentClosingStructures),
+            new object[]
+            {
+                "Equals",
+                "ReturnsFalse"
+            })]
+        public void Equals_DifferentProperty_ReturnsFalse(ClosingStructure structure)
         {
             // Call
-            bool isStructureEqualToOther = structure.Equals(otherStructure);
-            bool isOtherEqualToStructure = otherStructure.Equals(structure);
+            bool isEqual = structure.Equals(new TestClosingStructure());
 
             // Assert
-            Assert.AreEqual(expectedToBeEqual, isStructureEqualToOther);
-            Assert.AreEqual(expectedToBeEqual, isOtherEqualToStructure);
+            Assert.IsFalse(isEqual);
         }
 
         [Test]
         public void GetHashCode_EqualStructures_ReturnsSameHashCode()
         {
             // Setup
-            ClosingStructure structureOne = CreateFullyDefinedStructure();
-            ClosingStructure structureTwo = CreateFullyDefinedStructure();
+            ClosingStructure structureOne = new TestClosingStructure();
+            ClosingStructure structureTwo = new TestClosingStructure();
 
             // Call
             int hashCodeOne = structureOne.GetHashCode();
@@ -618,74 +469,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        private static ClosingStructure CreateFullyDefinedStructure()
-        {
-            return new ClosingStructure(CreateFullyConfiguredConstructionProperties());
-        }
-
-        private static ClosingStructure.ConstructionProperties CreateFullyConfiguredConstructionProperties()
-        {
-            const string id = "structure id";
-            const string name = "Structure name";
-            return new ClosingStructure.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                Location = new Point2D(1, 1),
-                StructureNormalOrientation = (RoundedDouble) 25,
-                AllowedLevelIncreaseStorage =
-                {
-                    Mean = (RoundedDouble) 1,
-                    StandardDeviation = (RoundedDouble) 0.51
-                },
-                AreaFlowApertures =
-                {
-                    Mean = (RoundedDouble) 2,
-                    StandardDeviation = (RoundedDouble) 0.52
-                },
-                CriticalOvertoppingDischarge =
-                {
-                    Mean = (RoundedDouble) 3,
-                    CoefficientOfVariation = (RoundedDouble) 0.53
-                },
-                FlowWidthAtBottomProtection =
-                {
-                    Mean = (RoundedDouble) 4,
-                    StandardDeviation = (RoundedDouble) 0.54
-                },
-                InsideWaterLevel =
-                {
-                    Mean = (RoundedDouble) 5,
-                    StandardDeviation = (RoundedDouble) 0.55
-                },
-                LevelCrestStructureNotClosing =
-                {
-                    Mean = (RoundedDouble) 6,
-                    StandardDeviation = (RoundedDouble) 0.56
-                },
-                StorageStructureArea =
-                {
-                    Mean = (RoundedDouble) 7,
-                    CoefficientOfVariation = (RoundedDouble) 0.57
-                },
-                ThresholdHeightOpenWeir =
-                {
-                    Mean = (RoundedDouble) 8,
-                    StandardDeviation = (RoundedDouble) 0.58
-                },
-                WidthFlowApertures =
-                {
-                    Mean = (RoundedDouble) 9,
-                    StandardDeviation = (RoundedDouble) 0.59
-                },
-                FailureProbabilityOpenStructure = 9,
-                FailureProbabilityReparation = 10,
-                InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
-                IdenticalApertures = 11,
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 12
-            };
         }
     }
 }

@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
@@ -429,6 +430,85 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(0.01, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
 
             Assert.AreEqual(StabilityPointStructureInflowModelType.LowSill, structure.InflowModelType);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("string")]
+        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        {
+            // Setup
+            StabilityPointStructure structure = new TestStabilityPointStructure();
+
+            // Call
+            bool isEqual = structure.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToItself_ReturnsTrue()
+        {
+            // Setup
+            StabilityPointStructure structure = new TestStabilityPointStructure();
+
+            // Call
+            bool isEqual = structure.Equals(structure);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+        }
+
+        [Test]
+        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
+        {
+            // Setup
+            StabilityPointStructure structureX = new TestStabilityPointStructure();
+            StabilityPointStructure structureY = new TestStabilityPointStructure();
+            StabilityPointStructure structureZ = new TestStabilityPointStructure();
+
+            // Call
+            bool isXEqualToY = structureX.Equals(structureY);
+            bool isYEqualToZ = structureY.Equals(structureZ);
+            bool isXEqualToZ = structureX.Equals(structureZ);
+
+            // Assert
+            Assert.IsTrue(isXEqualToY);
+            Assert.IsTrue(isYEqualToZ);
+            Assert.IsTrue(isXEqualToZ);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
+            nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures),
+            new object[]
+            {
+                "Equals",
+                "ReturnsFalse"
+            })]
+        public void Equals_DifferentProperty_ReturnsFalse(StabilityPointStructure structure)
+        {
+            // Call
+            bool isEqual = structure.Equals(new TestStabilityPointStructure());
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        {
+            // Setup
+            StabilityPointStructure structureOne = new TestStabilityPointStructure();
+            StabilityPointStructure structureTwo = new TestStabilityPointStructure();
+
+            // Call
+            int hashCodeOne = structureOne.GetHashCode();
+            int hashCodeTwo = structureTwo.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
         }
     }
 }
