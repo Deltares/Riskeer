@@ -95,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                     Shift = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_AllowedLevelIncreaseStorage_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorage_{testResultDescription}");
 
             yield return new TestCaseData(new TestClosingStructure
             {

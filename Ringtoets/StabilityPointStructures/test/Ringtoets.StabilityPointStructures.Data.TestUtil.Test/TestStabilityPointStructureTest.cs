@@ -95,6 +95,24 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertStabilityPointStructuresDefault(structure);
         }
 
+        [Test]
+        public void Constructor_WithLocationAndId_ExpectedValues()
+        {
+            // Setup
+            var location = new Point2D(1234.5, 5678.9);
+            const string id = "<some id>";
+
+            // Call
+            var structure = new TestStabilityPointStructure(location, id);
+
+            // Assert
+            Assert.IsInstanceOf<StabilityPointStructure>(structure);
+            Assert.AreEqual("name", structure.Name);
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(location, structure.Location);
+            AssertStabilityPointStructuresDefault(structure);
+        }
+
         private static void AssertStabilityPointStructuresDefault(TestStabilityPointStructure structure)
         {
             AssertAreEqual(123.456, structure.StructureNormalOrientation);
