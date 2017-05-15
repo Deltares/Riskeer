@@ -60,19 +60,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddGenerateCalculationsIndex = 3;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
         private const int contextMenuAddCalculationIndexRootGroup = 6;
-        private const int contextMenuValidateAllIndexRootGroup = 8;
-        private const int contextMenuCalculateAllIndexRootGroup = 9;
-        private const int contextMenuClearOutputIndexRootGroup = 11;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 12;
-        private const int contextMenuCollapseAllIndexRootGroup = 14;
-        private const int contextMenuExpandAllIndexRootGroup = 15;
-        private const int contextMenuPropertiesIndexRootGroup = 17;
+        private const int contextMenuUpdateForeshoreProfileIndexRootGroup = 8;
+        private const int contextMenuValidateAllIndexRootGroup = 10;
+        private const int contextMenuCalculateAllIndexRootGroup = 11;
+        private const int contextMenuClearOutputIndexRootGroup = 13;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 14;
+        private const int contextMenuCollapseAllIndexRootGroup = 16;
+        private const int contextMenuExpandAllIndexRootGroup = 17;
+        private const int contextMenuPropertiesIndexRootGroup = 19;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuValidateAllIndexNestedGroup = 8;
-        private const int contextMenuCalculateAllIndexNestedGroup = 9;
-        private const int contextMenuClearOutputIndexNestedGroup = 11;
+        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 7;
+        private const int contextMenuValidateAllIndexNestedGroup = 9;
+        private const int contextMenuCalculateAllIndexNestedGroup = 10;
+        private const int contextMenuClearOutputIndexNestedGroup = 12;
 
         private const string expectedTextExpandAll = "Alles ui&tklappen";
         private const string expectedTextExpandAllToolTip = "Klap dit element en alle onderliggende elementen uit.";
@@ -254,6 +256,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+            gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+
             treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
             treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
             treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
@@ -266,7 +270,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(18, menu.Items.Count);
+                Assert.AreEqual(19, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                               "&Importeren...",
@@ -289,6 +293,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                               expectedTextRename,
                                                               expectedTextRenameToolTip,
                                                               CoreCommonGuiResources.RenameIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
+                                                              "&Bijwerken voorlandprofielen...",
+                                                              "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
+                                                              RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                              false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
@@ -304,21 +313,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                               expectedTextDelete,
                                                               expectedTextDeleteToolTip,
                                                               CoreCommonGuiResources.DeleteIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
                                                               expectedTextCollapseAll,
                                                               expectedTextCollapseAllToolTip,
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 16,
                                                               expectedTextExpandAll,
                                                               expectedTextExpandAllToolTip,
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 17,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 18,
                                                               expectedTextProperties,
                                                               expectedTextPropertiesToolTip,
                                                               CoreCommonGuiResources.PropertiesHS,
@@ -328,10 +337,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[2],
                     menu.Items[5],
-                    menu.Items[7],
-                    menu.Items[10],
-                    menu.Items[13],
-                    menu.Items[16]
+                    menu.Items[8],
+                    menu.Items[11],
+                    menu.Items[14],
+                    menu.Items[17]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -368,6 +377,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -376,7 +386,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(20, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                                   "&Importeren...",
@@ -389,7 +399,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -398,11 +409,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  "Ma&p leegmaken...",
-                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
@@ -417,6 +430,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   "&Wis alle uitvoer...",
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                                  "Ma&p leegmaken...",
+                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
+                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   expectedTextExpandAll,
@@ -438,9 +456,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         menu.Items[2],
                         menu.Items[4],
                         menu.Items[7],
-                        menu.Items[10],
-                        menu.Items[13],
-                        menu.Items[16]
+                        menu.Items[9],
+                        menu.Items[15],
+                        menu.Items[15],
+                        menu.Items[18]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -485,6 +504,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -493,7 +513,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(20, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                                   "&Importeren...",
                                                                   "Importeer de gegevens vanuit een bestand.",
@@ -555,9 +575,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         menu.Items[2],
                         menu.Items[4],
                         menu.Items[7],
-                        menu.Items[10],
-                        menu.Items[13],
-                        menu.Items[16]
+                        menu.Items[9],
+                        menu.Items[12],
+                        menu.Items[15],
+                        menu.Items[18]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -585,8 +606,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -631,8 +652,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -681,8 +702,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -735,8 +756,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -789,8 +810,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -869,8 +890,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1175,7 +1196,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1210,6 +1232,115 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateAllForeshoreProfilesEnabled()
+        {
+            // Setup
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+            calculation.InputParameters.UseBreakWater = true;
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                },
+                failureMechanism,
+                assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationUpdatedAndUpdateObserver()
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            calculationInputObserver.Expect(o => o.UpdateObserver());
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                }
+            };
+            calculation.InputParameters.UseBreakWater = false;
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                },
+                failureMechanism,
+                assessmentSectionStub);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
+                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                }
+            }
+        }
+
+        [Test]
         public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
         {
             // Given
@@ -1238,7 +1369,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1291,7 +1422,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

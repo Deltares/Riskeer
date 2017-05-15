@@ -652,7 +652,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group
+                .GetCalculations()
+                .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -672,11 +677,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
+                                                                inquiryHelper,
+                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(
                        nodeData,
                        ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)

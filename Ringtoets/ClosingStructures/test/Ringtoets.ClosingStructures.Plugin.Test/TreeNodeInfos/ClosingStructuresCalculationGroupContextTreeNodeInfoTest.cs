@@ -62,7 +62,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuGenerateCalculationsIndexRootGroup = 3;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
         private const int contextMenuAddCalculationIndexRootGroup = 6;
-        private const int contextMenuUpdateForeshoreProfileAllIndexRootGroup = 8;
+        private const int contextMenuUpdateForeshoreProfileIndexRootGroup = 8;
         private const int contextMenuUpdateStructureAllIndexRootGroup = 9;
         private const int contextMenuValidateAllIndexRootGroup = 11;
         private const int contextMenuCalculateAllIndexRootGroup = 12;
@@ -70,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuUpdateForeshoreProfileAllIndexNestedGroup = 7;
+        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 7;
         private const int contextMenuUpdateStructureAllIndexNestedGroup = 8;
         private const int contextMenuValidateAllIndexNestedGroup = 10;
         private const int contextMenuCalculateAllIndexNestedGroup = 11;
@@ -278,7 +278,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileAllIndexRootGroup,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
@@ -435,7 +435,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileAllIndexNestedGroup,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
@@ -677,7 +677,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateAllForeshoreProfilesEnabled()
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfilesEnabled()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -715,7 +715,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateForeshoreProfileAllIndexRootGroup,
+                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
@@ -769,13 +769,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Precondition
                     TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileAllIndexRootGroup,
+                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
 
                     // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileAllIndexRootGroup].PerformClick();
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
 
                     // Then
                     Assert.IsTrue(calculation.InputParameters.UseBreakWater);
@@ -1038,7 +1038,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateForeshoreProfileAllIndexRootGroup,
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
