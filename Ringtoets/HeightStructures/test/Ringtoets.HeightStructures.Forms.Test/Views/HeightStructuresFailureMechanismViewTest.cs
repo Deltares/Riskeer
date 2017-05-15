@@ -516,14 +516,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
             }
         }
-        
+
         [Test]
         public void UpdateObserver_ForeshoreProfileUpdate_MapDataUpdated()
         {
             // Setup
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -685,7 +685,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -731,7 +731,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 calculationA.InputParameters.Structure = new TestHeightStructure(calculationLocationB);
 
@@ -776,7 +776,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 calculationA.Name = "new name";
 

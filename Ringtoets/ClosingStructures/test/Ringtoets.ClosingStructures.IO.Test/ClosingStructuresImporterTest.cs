@@ -144,7 +144,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                 Assert.AreSame(importTarget, i.Arguments[0]);
                 Assert.AreEqual(filePath, i.Arguments[2]);
 
-                var closingStructures = ((IEnumerable<ClosingStructure>)i.Arguments[1]);
+                var closingStructures = (IEnumerable<ClosingStructure>) i.Arguments[1];
                 Assert.AreEqual(1, closingStructures.Count());
 
                 ClosingStructure structure = closingStructures.First();
@@ -340,7 +340,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             ReferenceLine referenceLine = CreateReferenceLine();
 
             var importer = new ClosingStructuresImporter(importTarget, referenceLine, filePath,
-                                                        messageProvider, strategy);
+                                                         messageProvider, strategy);
 
             importer.Import();
 

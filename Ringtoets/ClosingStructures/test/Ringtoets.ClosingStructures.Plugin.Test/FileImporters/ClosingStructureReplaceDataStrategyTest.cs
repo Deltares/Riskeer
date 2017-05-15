@@ -25,6 +25,9 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
+using Ringtoets.ClosingStructures.Plugin.FileImporters;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -32,9 +35,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.Plugin.FileImporters;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 {

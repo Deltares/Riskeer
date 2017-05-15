@@ -24,11 +24,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
 {

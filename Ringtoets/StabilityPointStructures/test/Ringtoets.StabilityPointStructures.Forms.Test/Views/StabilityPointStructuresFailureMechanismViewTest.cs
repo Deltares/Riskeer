@@ -510,7 +510,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
-                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -664,7 +664,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -708,7 +708,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 calculationA.InputParameters.Structure = new TestStabilityPointStructure(calculationLocationB);
 
@@ -751,7 +751,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 calculationA.Name = "new name";
 

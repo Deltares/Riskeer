@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;

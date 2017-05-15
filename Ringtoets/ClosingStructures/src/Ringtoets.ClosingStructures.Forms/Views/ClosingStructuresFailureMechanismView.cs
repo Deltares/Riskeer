@@ -203,7 +203,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             SetForeshoreProfilesMapData();
             SetStructuresMapData();
         }
-      
+
         #region Calculations MapData
 
         private void UpdateCalculationsMapData()
@@ -250,9 +250,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private void SetReferenceLineMapData()
         {
             ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            referenceLineMapData.Features = 
+            referenceLineMapData.Features =
                 RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
         }
+
         #endregion
 
         #region Sections MapData
@@ -268,7 +269,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private void SetSectionsMapData()
         {
             IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            
+
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
@@ -305,6 +306,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             IEnumerable<ClosingStructure> structures = data.WrappedData.ClosingStructures;
             structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
         }
+
         #endregion
     }
 }

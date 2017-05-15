@@ -668,7 +668,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
@@ -712,7 +712,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 calculationA.InputParameters.Structure = new TestClosingStructure(calculationLocationB);
 
@@ -755,7 +755,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Precondition
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                          calculationMapData);
+                                          calculationMapData);
 
                 calculationA.Name = "new name";
 

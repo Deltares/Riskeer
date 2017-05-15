@@ -505,7 +505,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
-            
+
             StructuresCalculation<ClosingStructuresInput>[] calculations = group
                 .GetCalculations()
                 .OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();

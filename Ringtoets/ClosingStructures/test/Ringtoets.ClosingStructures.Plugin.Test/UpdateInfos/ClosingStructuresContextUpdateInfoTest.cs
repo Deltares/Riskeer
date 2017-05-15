@@ -30,13 +30,13 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.ClosingStructures.IO;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.UpdateInfos

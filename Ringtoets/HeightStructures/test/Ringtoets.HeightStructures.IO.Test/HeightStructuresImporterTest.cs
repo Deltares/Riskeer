@@ -158,8 +158,8 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath, 
-                messageProvider, strategy);
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath,
+                                                        messageProvider, strategy);
 
             var importResult = false;
 
