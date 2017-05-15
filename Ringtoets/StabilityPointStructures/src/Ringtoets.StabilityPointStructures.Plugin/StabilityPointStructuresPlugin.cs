@@ -502,7 +502,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
+
+            StructuresCalculation<StabilityPointStructuresInput>[] calculations = group
+                .GetCalculations()
+                .OfType<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -520,11 +525,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
+                                                                inquiryHelper,
+                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(
                        context,
                        ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)

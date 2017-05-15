@@ -861,8 +861,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiStub.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                guiStub.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = guiStub;
@@ -917,7 +917,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 guiStub.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiStub.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = guiStub;

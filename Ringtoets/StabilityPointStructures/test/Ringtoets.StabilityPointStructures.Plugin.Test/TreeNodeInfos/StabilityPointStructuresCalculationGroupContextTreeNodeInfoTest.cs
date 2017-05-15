@@ -59,15 +59,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuGenerateCalculationsIndexRootGroup = 3;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
         private const int contextMenuAddCalculationIndexRootGroup = 6;
-        private const int contextMenuValidateAllIndexRootGroup = 8;
-        private const int contextMenuCalculateAllIndexRootGroup = 9;
-        private const int contextMenuClearAllIndexRootGroup = 11;
+        private const int contextMenuUpdateForeshoreProfileIndexRootGroup = 8;
+        private const int contextMenuValidateAllIndexRootGroup = 10;
+        private const int contextMenuCalculateAllIndexRootGroup = 11;
+        private const int contextMenuClearAllIndexRootGroup = 13;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuValidateAllIndexNestedGroup = 8;
-        private const int contextMenuCalculateAllIndexNestedGroup = 9;
-        private const int contextMenuClearAllIndexNestedGroup = 11;
+        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 7;
+        private const int contextMenuValidateAllIndexNestedGroup = 9;
+        private const int contextMenuCalculateAllIndexNestedGroup = 10;
+        private const int contextMenuClearAllIndexNestedGroup = 12;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui gui;
@@ -191,6 +193,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -205,8 +209,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -232,15 +237,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(20, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
@@ -255,6 +260,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
@@ -291,15 +303,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(20, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
@@ -336,7 +348,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -385,7 +398,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -442,8 +456,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -498,8 +512,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -545,6 +559,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                     menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -559,7 +574,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     menuBuilderMock.Expect(mb => mb.Build()).Return(null);
                 }
 
-                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
@@ -587,14 +603,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                    Assert.AreEqual(19, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
@@ -604,6 +620,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                                   "Alles &valideren",
@@ -620,6 +642,113 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfilesEnabled()
+        {
+            // Setup
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+            calculation.InputParameters.UseBreakWater = true;
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                },
+                failureMechanism,
+                assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationUpdatedAndUpdateObserver()
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            calculationInputObserver.Expect(o => o.UpdateObserver());
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                }
+            };
+            calculation.InputParameters.UseBreakWater = false;
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                },
+                failureMechanism,
+                assessmentSectionStub);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
+                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                                  "&Bijwerken voorlandprofielen...",
+                                                                  "Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
                 }
             }
         }
@@ -644,9 +773,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 group.Children.Add(calculationGroup);
@@ -690,9 +819,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 group.Children.Add(calculationItem);
@@ -763,8 +892,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -844,8 +973,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -905,10 +1034,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -968,8 +1097,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -1031,10 +1160,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
