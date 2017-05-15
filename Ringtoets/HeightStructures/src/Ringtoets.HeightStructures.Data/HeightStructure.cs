@@ -130,7 +130,6 @@ namespace Ringtoets.HeightStructures.Data
 
             AllowedLevelIncreaseStorage.Mean = fromStructure.AllowedLevelIncreaseStorage.Mean;
             AllowedLevelIncreaseStorage.StandardDeviation = fromStructure.AllowedLevelIncreaseStorage.StandardDeviation;
-            AllowedLevelIncreaseStorage.Shift = fromStructure.AllowedLevelIncreaseStorage.Shift;
 
             CriticalOvertoppingDischarge.Mean = fromStructure.CriticalOvertoppingDischarge.Mean;
             CriticalOvertoppingDischarge.CoefficientOfVariation = fromStructure.CriticalOvertoppingDischarge.CoefficientOfVariation;
@@ -139,7 +138,6 @@ namespace Ringtoets.HeightStructures.Data
 
             FlowWidthAtBottomProtection.Mean = fromStructure.FlowWidthAtBottomProtection.Mean;
             FlowWidthAtBottomProtection.StandardDeviation = fromStructure.FlowWidthAtBottomProtection.StandardDeviation;
-            FlowWidthAtBottomProtection.Shift = fromStructure.FlowWidthAtBottomProtection.Shift;
 
             LevelCrestStructure.Mean = fromStructure.LevelCrestStructure.Mean;
             LevelCrestStructure.StandardDeviation = fromStructure.LevelCrestStructure.StandardDeviation;

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
@@ -230,39 +231,37 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Name = "otherName",
                 Id = "otherId",
                 Location = new Point2D(1, 1),
-                StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
+                StructureNormalOrientation = random.NextRoundedDouble(),
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble) random.Next(1, 10),
-                    Shift = (RoundedDouble) random.NextDouble(),
-                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
                 },
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble) random.Next(1, 10),
-                    CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
                 },
                 FailureProbabilityStructureWithErosion = random.NextDouble(),
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble) random.Next(1, 10),
-                    Shift = (RoundedDouble) random.NextDouble(),
-                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
                 },
                 LevelCrestStructure =
                 {
-                    Mean = (RoundedDouble) random.Next(1, 10),
-                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
                 },
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble) random.Next(1, 10),
-                    CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
                 },
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble) random.Next(1, 10),
-                    StandardDeviation = (RoundedDouble) random.NextDouble()
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
                 }
             });
 
@@ -274,26 +273,17 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(otherStructure.Name, structure.Name);
             Assert.AreEqual(otherStructure.Location, structure.Location);
             Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-
             Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
             Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Shift, structure.AllowedLevelIncreaseStorage.Shift);
-
             Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
             Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
-
             Assert.AreEqual(otherStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-
             Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
             Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Shift, structure.FlowWidthAtBottomProtection.Shift);
-
             Assert.AreEqual(otherStructure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean);
             Assert.AreEqual(otherStructure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation);
-
             Assert.AreEqual(otherStructure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
             Assert.AreEqual(otherStructure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
-
             Assert.AreEqual(otherStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
             Assert.AreEqual(otherStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
         }

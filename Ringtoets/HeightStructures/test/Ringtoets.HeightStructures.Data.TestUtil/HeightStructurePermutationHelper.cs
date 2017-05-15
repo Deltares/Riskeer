@@ -191,7 +191,6 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 AllowedLevelIncreaseStorage =
                 {
                     Mean = referenceStructure.AllowedLevelIncreaseStorage.Mean,
-                    Shift = referenceStructure.AllowedLevelIncreaseStorage.Shift,
                     StandardDeviation = referenceStructure.AllowedLevelIncreaseStorage.StandardDeviation
                 },
                 CriticalOvertoppingDischarge =
@@ -202,7 +201,6 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
                 FlowWidthAtBottomProtection =
                 {
                     Mean = referenceStructure.FlowWidthAtBottomProtection.Mean,
-                    Shift = referenceStructure.FlowWidthAtBottomProtection.Shift,
                     StandardDeviation = referenceStructure.FlowWidthAtBottomProtection.StandardDeviation
                 },
                 LevelCrestStructure =
