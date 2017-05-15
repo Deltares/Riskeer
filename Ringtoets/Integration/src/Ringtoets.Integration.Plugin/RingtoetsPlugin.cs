@@ -459,7 +459,7 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,
-                FileFilterGenerator = ForeshoreProFileFilterGenerator,
+                FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, RingtoetsIntegrationPluginResources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
@@ -499,7 +499,7 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsIntegrationPluginResources.Foreshore,
-                FileFilterGenerator = ForeshoreProFileFilterGenerator,
+                FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, RingtoetsIntegrationPluginResources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
@@ -1588,7 +1588,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region Foreshore Profile Update and ImportInfo
 
-        private static FileFilterGenerator ForeshoreProFileFilterGenerator
+        private static FileFilterGenerator CreateForeshoreProfileFileFilterGenerator
         {
             get
             {
