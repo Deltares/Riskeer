@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Calculation">
-    <profielschematisatie>Profielschematisatie</profielschematisatie>
-    <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
-    <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
-  </berekening>
-</configuratie>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <map naam="Group A">
-    <calculation>Calculation A</calculation>
-    <map naam="Group B">
-      <calculation>Calculation B</calculation>
-    </map>
-  </map>
-</configuratie>

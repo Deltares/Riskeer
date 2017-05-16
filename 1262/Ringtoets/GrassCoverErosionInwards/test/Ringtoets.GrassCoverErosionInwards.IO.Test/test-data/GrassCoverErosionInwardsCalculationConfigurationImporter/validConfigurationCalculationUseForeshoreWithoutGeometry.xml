@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Berekening 1">
-    <dijkprofiel>Dijkprofiel ID</dijkprofiel>
-    <golfreductie>
-      <voorlandgebruiken>true</voorlandgebruiken>
-    </golfreductie>
-  </berekening>
-</configuratie>

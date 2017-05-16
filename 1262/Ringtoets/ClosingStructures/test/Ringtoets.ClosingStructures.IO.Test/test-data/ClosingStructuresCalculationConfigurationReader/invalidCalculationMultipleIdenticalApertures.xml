@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Calculation">
-    <nrdoorstroomopeningen>2</nrdoorstroomopeningen>
-    <nrdoorstroomopeningen>3</nrdoorstroomopeningen>
-  </berekening>
-</configuratie>
