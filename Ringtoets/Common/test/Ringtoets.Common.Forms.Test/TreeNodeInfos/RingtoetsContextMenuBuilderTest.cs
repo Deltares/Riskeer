@@ -1646,7 +1646,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
-            input.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(synchronized);
+            input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(synchronized);
             calculationMock.Expect(c => c.InputParameters).Return(input);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
@@ -1675,7 +1675,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
                                                               synchronized
-                                                                  ? "Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken."
+                                                                  ? "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken."
                                                                   : "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
                                                               RingtoetsFormsResources.UpdateItemIcon,
                                                               !synchronized);
@@ -1723,7 +1723,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
-                                                              "Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken.",
+                                                              "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.",
                                                               RingtoetsFormsResources.UpdateItemIcon,
                                                               false);
             }
@@ -1752,13 +1752,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var inputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             inputMock.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputMock.Expect(i => i.IsForeshoreProfileParametersSynchronized).Return(synchronized);
+            inputMock.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(synchronized);
             calculationMock.Stub(c => c.InputParameters).Return(inputMock);
 
             var calculationWithoutChangesMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var inputWithoutChangesMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             inputWithoutChangesMock.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileParametersSynchronized).Return(true);
+            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
             calculationWithoutChangesMock.Stub(c => c.InputParameters).Return(inputWithoutChangesMock);
 
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
@@ -1820,7 +1820,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationWithoutChangesMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var inputWithoutChangesMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             inputWithoutChangesMock.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileParametersSynchronized).Return(true);
+            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
             calculationWithoutChangesMock.Stub(c => c.InputParameters).Return(inputWithoutChangesMock);
 
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();

@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Data.Structures
             widthFlowApertures = new NormalDistribution(2);
 
             SetDefaultCommonStructureSchematizationProperties();
-            SynchronizeForeshoreProfileParameters();
+            SynchronizeForeshoreProfileInput();
         }
 
         #region Model factors
@@ -350,7 +350,7 @@ namespace Ringtoets.Common.Data.Structures
             set
             {
                 foreshoreProfile = value;
-                SynchronizeForeshoreProfileParameters();
+                SynchronizeForeshoreProfileInput();
             }
         }
 
@@ -380,7 +380,7 @@ namespace Ringtoets.Common.Data.Structures
             Structure = null;
         }
 
-        public bool IsForeshoreProfileParametersSynchronized
+        public bool IsForeshoreProfileInputSynchronized
         {
             get
             {
@@ -398,7 +398,7 @@ namespace Ringtoets.Common.Data.Structures
             }
         }
 
-        public void SynchronizeForeshoreProfileParameters()
+        public void SynchronizeForeshoreProfileInput()
         {
             if (foreshoreProfile == null)
             {

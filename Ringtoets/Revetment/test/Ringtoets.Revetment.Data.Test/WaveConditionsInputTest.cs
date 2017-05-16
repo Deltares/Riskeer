@@ -213,13 +213,13 @@ namespace Ringtoets.Revetment.Data.Test
                                                         });
 
             // Precondition
-            Assert.IsFalse(input.IsForeshoreProfileParametersSynchronized);
+            Assert.IsFalse(input.IsForeshoreProfileInputSynchronized);
 
             // Call
             input.ForeshoreProfile = foreshoreProfile;
 
             // Assert
-            Assert.IsTrue(input.IsForeshoreProfileParametersSynchronized);
+            Assert.IsTrue(input.IsForeshoreProfileInputSynchronized);
             Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
             Assert.AreEqual(withBreakWater, input.UseBreakWater);
             Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
@@ -256,7 +256,7 @@ namespace Ringtoets.Revetment.Data.Test
             input.ForeshoreProfile = foreshoreProfile;
 
             // Precondition
-            Assert.IsTrue(input.IsForeshoreProfileParametersSynchronized);
+            Assert.IsTrue(input.IsForeshoreProfileInputSynchronized);
             Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
             Assert.IsTrue(input.UseBreakWater);
             Assert.AreNotEqual(originalBreakWaterType, input.BreakWater.Type);
@@ -269,7 +269,7 @@ namespace Ringtoets.Revetment.Data.Test
             input.ForeshoreProfile = null;
 
             // Assert
-            Assert.IsFalse(input.IsForeshoreProfileParametersSynchronized);
+            Assert.IsFalse(input.IsForeshoreProfileInputSynchronized);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);

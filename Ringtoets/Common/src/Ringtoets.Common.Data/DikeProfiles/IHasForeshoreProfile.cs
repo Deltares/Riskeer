@@ -39,13 +39,13 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// is not the case, or if there is no <see cref="ForeshoreProfile"/>
         /// assigned.
         /// </summary>
-        bool IsForeshoreProfileParametersSynchronized { get; }
+        bool IsForeshoreProfileInputSynchronized { get; }
 
         /// <summary>
         /// Applies the properties of the <see cref="ForeshoreProfile"/> to
         /// the parameters of the instance of <see cref="IHasForeshoreProfile"/>.
         /// </summary>
         /// <remarks>When no foreshore profile is present, the input parameters are set to default values.</remarks>
-        void SynchronizeForeshoreProfileParameters();
+        void SynchronizeForeshoreProfileInput();
     }
 }

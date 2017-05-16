@@ -128,8 +128,8 @@ namespace Ringtoets.Common.Data.TestUtil
             }
 
             public ForeshoreProfile ForeshoreProfile { get; set; }
-            public bool IsForeshoreProfileParametersSynchronized { get; }
-            public void SynchronizeForeshoreProfileParameters()
+            public bool IsForeshoreProfileInputSynchronized { get; }
+            public void SynchronizeForeshoreProfileInput()
             {
                 throw new NotImplementedException();
             }

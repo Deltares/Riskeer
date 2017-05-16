@@ -43,12 +43,12 @@ namespace Ringtoets.Common.Forms.Helpers
         public static void UpdateForeshoreProfileDerivedCalculationInput<TInput>(ICalculation<TInput> calculation)
             where TInput : ICalculationInput, IHasForeshoreProfile
         {
-            if (calculation.InputParameters.IsForeshoreProfileParametersSynchronized)
+            if (calculation.InputParameters.IsForeshoreProfileInputSynchronized)
             {
                 return;
             }
 
-            calculation.InputParameters.SynchronizeForeshoreProfileParameters();
+            calculation.InputParameters.SynchronizeForeshoreProfileInput();
 
             var affectedObjects = new List<IObservable>
             {

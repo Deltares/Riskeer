@@ -386,7 +386,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
             TCalculationInput input = calculation.InputParameters;
-            bool hasForeshoreProfile = input.ForeshoreProfile != null && !input.IsForeshoreProfileParametersSynchronized;
+            bool hasForeshoreProfile = input.ForeshoreProfile != null && !input.IsForeshoreProfileInputSynchronized;
             string toolTipMessage = hasForeshoreProfile
                                         ? Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip
                                         : Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
@@ -431,7 +431,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             ICalculation<TCalculationInput>[] calculationsWithForeshoreProfileChanges = calculations.Where(
                 c => c.InputParameters.ForeshoreProfile != null
-                     && !c.InputParameters.IsForeshoreProfileParametersSynchronized).ToArray();
+                     && !c.InputParameters.IsForeshoreProfileInputSynchronized).ToArray();
 
             bool hasForeshoreProfileChanges = calculationsWithForeshoreProfileChanges.Any();
 

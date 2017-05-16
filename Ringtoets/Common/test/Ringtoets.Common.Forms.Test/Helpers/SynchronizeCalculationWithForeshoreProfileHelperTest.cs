@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             // Setup
             var mocks = new MockRepository();
             var calculationInputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            calculationInputMock.Expect(ci => ci.IsForeshoreProfileParametersSynchronized).Return(true);
+            calculationInputMock.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
 
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             calculationMock.Stub(c => c.InputParameters).Return(calculationInputMock);
@@ -57,8 +57,8 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             // Setup
             var mocks = new MockRepository();
             var calculationInputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            calculationInputMock.Expect(ci => ci.IsForeshoreProfileParametersSynchronized).Return(false);
-            calculationInputMock.Expect(ci => ci.SynchronizeForeshoreProfileParameters());
+            calculationInputMock.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(false);
+            calculationInputMock.Expect(ci => ci.SynchronizeForeshoreProfileInput());
             calculationInputMock.Expect(ci => ci.NotifyObservers());
 
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
