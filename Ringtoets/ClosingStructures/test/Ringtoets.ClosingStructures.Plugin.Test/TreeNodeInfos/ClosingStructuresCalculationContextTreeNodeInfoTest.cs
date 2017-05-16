@@ -261,7 +261,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken.",
+                                                                  "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
 

@@ -982,7 +982,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Berekening bijwerken waar een voorlandprofiel geselecteerd is.</value>
   </data>
   <data name="CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip" xml:space="preserve">
-    <value>Geselecteerd voorlandprofiel heeft geen wijzingingen om bij te werken.</value>
+    <value>Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.</value>
   </data>
   <data name="UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data" xml:space="preserve">
     <value>Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
