@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -394,14 +395,6 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
-                FlowVelocityStructureClosable =
-                {
-                    CoefficientOfVariation = random.NextRoundedDouble()
-                }
-            }).SetName($"{targetName}_DifferentFlowVelocityStructureClosableCoefficientOfVariation_{testResultDescription}");
-
-            yield return new TestCaseData(new TestStabilityPointStructure
-            {
                 StabilityLinearLoadModel =
                 {
                     Mean = random.NextRoundedDouble()
@@ -450,7 +443,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 
             StabilityPointStructure.ConstructionProperties differentInflowModelTypeConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
-            differentInflowModelTypeConstructionProperties.InflowModelType = random.NextEnumValue<StabilityPointStructureInflowModelType>();
+            differentInflowModelTypeConstructionProperties.InflowModelType = StabilityPointStructureInflowModelType.LowSill;
             yield return new TestCaseData(new StabilityPointStructure(differentInflowModelTypeConstructionProperties))
                 .SetName($"{targetName}_DifferentInflowModelType_{testResultDescription}");
         }

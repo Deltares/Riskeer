@@ -39,7 +39,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures(targetName, testResultDescription).ToList();
 
             // Assert
-            Assert.AreEqual(47, testCaseDatas.Count);
+            Assert.AreEqual(46, testCaseDatas.Count);
             AssertTestNames(testCaseDatas, targetName, testResultDescription);
             AssertParameters(testCaseDatas, true, true, true);
         }
@@ -55,7 +55,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId(targetName, testResultDescription).ToList();
 
             // Assert
-            Assert.AreEqual(46, testCaseDatas.Count);
+            Assert.AreEqual(45, testCaseDatas.Count);
             AssertTestNames(testCaseDatas, targetName, testResultDescription);
             AssertParameters(testCaseDatas, false, true, true);
         }
@@ -71,7 +71,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             List<TestCaseData> testCaseDatas = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation(targetName, testResultDescription).ToList();
 
             // Assert
-            Assert.AreEqual(44, testCaseDatas.Count);
+            Assert.AreEqual(43, testCaseDatas.Count);
             AssertTestNames(testCaseDatas, targetName, testResultDescription);
             AssertParameters(testCaseDatas, false, false, false);
         }
@@ -161,7 +161,6 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.LevellingCount.Equals(referenceStructure.LevellingCount)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityCollisionSecondaryStructure.Equals(referenceStructure.ProbabilityCollisionSecondaryStructure)));
             differentStructures.Add(structures.Single(s => !s.FlowVelocityStructureClosable.Mean.Equals(referenceStructure.FlowVelocityStructureClosable.Mean)));
-            differentStructures.Add(structures.Single(s => !s.FlowVelocityStructureClosable.CoefficientOfVariation.Equals(referenceStructure.FlowVelocityStructureClosable.CoefficientOfVariation)));
             differentStructures.Add(structures.Single(s => !s.StabilityLinearLoadModel.Mean.Equals(referenceStructure.StabilityLinearLoadModel.Mean)));
             differentStructures.Add(structures.Single(s => !s.StabilityLinearLoadModel.CoefficientOfVariation.Equals(referenceStructure.StabilityLinearLoadModel.CoefficientOfVariation)));
             differentStructures.Add(structures.Single(s => !s.StabilityQuadraticLoadModel.Mean.Equals(referenceStructure.StabilityQuadraticLoadModel.Mean)));

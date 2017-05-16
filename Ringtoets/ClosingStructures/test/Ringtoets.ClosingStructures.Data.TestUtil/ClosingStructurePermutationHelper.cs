@@ -278,7 +278,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
 
             ClosingStructure.ConstructionProperties differentInflowModelTypeConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
-            differentInflowModelTypeConstructionProperties.InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
+            differentInflowModelTypeConstructionProperties.InflowModelType = ClosingStructureInflowModelType.LowSill;
             yield return new TestCaseData(new ClosingStructure(differentInflowModelTypeConstructionProperties))
                 .SetName($"{targetName}_DifferentInflowModelType_{testResultDescription}");
 
