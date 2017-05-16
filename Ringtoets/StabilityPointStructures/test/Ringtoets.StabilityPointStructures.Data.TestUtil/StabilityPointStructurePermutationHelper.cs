@@ -118,100 +118,177 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
             {
                 StorageStructureArea =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentStorageStructureAreaMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                StorageStructureArea =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentStorageStructureArea_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentStorageStructureAreaCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorageMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                AllowedLevelIncreaseStorage =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorage_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentAllowedLevelIncreaseStorageStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 WidthFlowApertures =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentWidthFlowAperturesMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                WidthFlowApertures =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentWidthFlowApertures_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentWidthFlowAperturesStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 InsideWaterLevel =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentInsideWaterLevelMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                InsideWaterLevel =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentInsideWaterLevel_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentInsideWaterLevelStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 ThresholdHeightOpenWeir =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentThresholdHeightOpenWeirMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                ThresholdHeightOpenWeir =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentThresholdHeightOpenWeir_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentThresholdHeightOpenWeirStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischargeMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                CriticalOvertoppingDischarge =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischarge_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentCriticalOvertoppingDischargeCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtectionMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                FlowWidthAtBottomProtection =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtection_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentFlowWidthAtBottomProtectionStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 ConstructiveStrengthLinearLoadModel =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentConstructiveStrengthLinearLoadModelMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                ConstructiveStrengthLinearLoadModel =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentConstructiveStrengthLinearLoadModel_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentConstructiveStrengthLinearLoadModelCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 ConstructiveStrengthQuadraticLoadModel =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentConstructiveStrengthQuadraticLoadModelMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                ConstructiveStrengthQuadraticLoadModel =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentConstructiveStrengthQuadraticLoadModel_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentConstructiveStrengthQuadraticLoadModelCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 BankWidth =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentBankWidthMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                BankWidth =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentBankWidth_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentBankWidthStandardDeviation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 InsideWaterLevelFailureConstruction =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentInsideWaterLevelFailureConstructionMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                InsideWaterLevelFailureConstruction =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentInsideWaterLevelFailureConstruction_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentInsideWaterLevelFailureConstructionStandardDeviation_{testResultDescription}");
 
             StabilityPointStructure.ConstructionProperties differentEvaluationLevelConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
@@ -223,10 +300,17 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
             {
                 LevelCrestStructure =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentLevelCrestStructureMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                LevelCrestStructure =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentLevelCrestStructure_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentLevelCrestStructureStandardDeviation_{testResultDescription}");
 
             StabilityPointStructure.ConstructionProperties differentVerticalDistanceConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
@@ -244,28 +328,49 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
             {
                 FailureCollisionEnergy =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentFailureCollisionEnergyMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                FailureCollisionEnergy =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentFailureCollisionEnergy_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentFailureCollisionEnergyCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 ShipMass =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentShipMassMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                ShipMass =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentShipMass_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentShipMassCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 ShipVelocity =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentShipVelocityMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                ShipVelocity =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentShipVelocity_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentShipVelocityCoefficientOfVariation_{testResultDescription}");
 
             StabilityPointStructure.ConstructionProperties differentLevellingCountConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
@@ -283,37 +388,65 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
             {
                 FlowVelocityStructureClosable =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentFlowVelocityStructureClosableMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                FlowVelocityStructureClosable =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentFlowVelocityStructureClosable_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentFlowVelocityStructureClosableCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 StabilityLinearLoadModel =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentStabilityLinearLoadModelMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                StabilityLinearLoadModel =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentStabilityLinearLoadModel_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentStabilityLinearLoadModelCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 StabilityQuadraticLoadModel =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentStabilityQuadraticLoadModelMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                StabilityQuadraticLoadModel =
+                {
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentStabilityQuadraticLoadModel_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentStabilityQuadraticLoadModelCoefficientOfVariation_{testResultDescription}");
 
             yield return new TestCaseData(new TestStabilityPointStructure
             {
                 AreaFlowApertures =
                 {
-                    Mean = random.NextRoundedDouble(),
+                    Mean = random.NextRoundedDouble()
+                }
+            }).SetName($"{targetName}_DifferentAreaFlowAperturesMean_{testResultDescription}");
+
+            yield return new TestCaseData(new TestStabilityPointStructure
+            {
+                AreaFlowApertures =
+                {
                     StandardDeviation = random.NextRoundedDouble()
                 }
-            }).SetName($"{targetName}_DifferentAreaFlowApertures_{testResultDescription}");
+            }).SetName($"{targetName}_DifferentAreaFlowAperturesStandardDeviation_{testResultDescription}");
 
             StabilityPointStructure.ConstructionProperties differentInflowModelTypeConstructionProperties =
                 CreateTestStabilityPointStructureConstructionProperties();
