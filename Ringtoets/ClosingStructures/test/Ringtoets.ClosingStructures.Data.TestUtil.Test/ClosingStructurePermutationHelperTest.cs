@@ -32,20 +32,18 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         public void DifferentClosingStructures_ReturnsExpectedTestCaseData()
         {
             // Setup
+            const string targetName = "A";
+            const string testResultDescription = "B";
             var referenceStructure = new TestClosingStructure();
             var differentStructures = new List<ClosingStructure>();
 
             // Call
-            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructures("A", "B").ToList();
+            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructures(targetName, testResultDescription).ToList();
 
             // Assert
             Assert.AreEqual(27, testCaseDatas.Count);
-            IEnumerable<string> testNames = testCaseDatas
-                .Select(tcd => tcd.TestName)
-                .ToList();
-            Assert.AreEqual(27, testNames.Distinct().Count());
-            Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
-            Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
+            AssertTestNames(testCaseDatas, targetName, testResultDescription);
+
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
@@ -85,20 +83,18 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         public void DifferentClosingStructuresWithSameId_ReturnsExpectedTestCaseData()
         {
             // Setup
+            const string targetName = "E";
+            const string testResultDescription = "F";
             var referenceStructure = new TestClosingStructure();
             var differentStructures = new List<ClosingStructure>();
 
             // Call
-            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId("A", "B").ToList();
+            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId(targetName, testResultDescription).ToList();
 
             // Assert
             Assert.AreEqual(26, testCaseDatas.Count);
-            IEnumerable<string> testNames = testCaseDatas
-                .Select(tcd => tcd.TestName)
-                .ToList();
-            Assert.AreEqual(26, testNames.Distinct().Count());
-            Assert.IsTrue(testNames.All(tn => tn.StartsWith("A_")));
-            Assert.IsTrue(testNames.All(tn => tn.EndsWith("_B")));
+            AssertTestNames(testCaseDatas, targetName, testResultDescription);
+
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
@@ -138,20 +134,18 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         public void DifferentClosingStructuresWithSameIdNameAndLocation_ReturnsExpectedTestCaseData()
         {
             // Setup
+            const string targetName = "C";
+            const string testResultDescription = "D";
             var referenceStructure = new TestClosingStructure();
             var differentStructures = new List<ClosingStructure>();
 
             // Call
-            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation("C", "D").ToList();
+            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation(targetName, testResultDescription).ToList();
 
             // Assert
             Assert.AreEqual(24, testCaseDatas.Count);
-            IEnumerable<string> testNames = testCaseDatas
-                .Select(tcd => tcd.TestName)
-                .ToList();
-            Assert.AreEqual(24, testNames.Distinct().Count());
-            Assert.IsTrue(testNames.All(tn => tn.StartsWith("C_")));
-            Assert.IsTrue(testNames.All(tn => tn.EndsWith("_D")));
+            AssertTestNames(testCaseDatas, targetName, testResultDescription);
+
             IEnumerable<ClosingStructure> structures = testCaseDatas
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
@@ -185,6 +179,16 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
             Assert.AreEqual(24, differentStructures.Distinct().Count());
+        }
+
+        private static void AssertTestNames(ICollection<TestCaseData> testCaseDatas, string targetName, string testResultDescription)
+        {
+            IEnumerable<string> testNames = testCaseDatas
+                .Select(tcd => tcd.TestName)
+                .ToList();
+            Assert.AreEqual(testCaseDatas.Count, testNames.Distinct().Count());
+            Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
+            Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
         }
     }
 }
