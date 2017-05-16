@@ -57,6 +57,7 @@
     <Compile Include="BackgroundDataTestHelper.cs" />
     <Compile Include="CalculationType.cs" />
     <Compile Include="CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase.cs" />
+    <Compile Include="ForeshoreProfilePermutationHelper.cs" />
     <Compile Include="LimitedPrecisionHelper.cs" />
     <Compile Include="DistributionAssert.cs" />
     <Compile Include="ObservableTestAssessmentSectionStub.cs" />

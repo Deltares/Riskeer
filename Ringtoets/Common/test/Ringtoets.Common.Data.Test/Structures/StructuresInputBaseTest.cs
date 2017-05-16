@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -139,6 +140,27 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Assert
             Assert.AreSame(structure, input.Structure);
             Assert.IsTrue(input.Synchronized);
+        }
+
+        [Test]
+        public void ClearStructure_ClearsStructure()
+        {
+            // Setup
+            var input = new SimpleStructuresInput
+            {
+                Structure = new SimpleStructure(new StructureBase.ConstructionProperties
+                {
+                    Name = "<awesome name>",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                })
+            };
+
+            // Call
+            input.ClearStructure();
+
+            // Assert
+            Assert.IsNull(input.Structure);
         }
 
         [Test]
@@ -274,8 +296,6 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            public bool Synchronized { get; private set; }
-
             public override bool IsStructureInputSynchronized
             {
                 get
@@ -283,6 +303,8 @@ namespace Ringtoets.Common.Data.Test.Structures
                     return Synchronized;
                 }
             }
+
+            public bool Synchronized { get; private set; }
 
             public override void SynchronizeStructureInput()
             {
@@ -548,9 +570,6 @@ namespace Ringtoets.Common.Data.Test.Structures
                                                             Orientation = orientation
                                                         });
 
-            // Precondition
-            Assert.IsFalse(input.IsForeshoreProfileInputSynchronized);
-
             // Call
             input.ForeshoreProfile = foreshoreProfile;
 
@@ -562,7 +581,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
             CollectionAssert.AreEqual(foreshoreProfile.Geometry, input.ForeshoreGeometry);
             Assert.AreSame(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.IsTrue(input.IsForeshoreProfileInputSynchronized);
         }
 
         [Test]
@@ -590,7 +608,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.ForeshoreProfile = foreshoreProfile;
 
             // Precondition
-            Assert.IsTrue(input.IsForeshoreProfileInputSynchronized);
             Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
             Assert.IsTrue(input.UseBreakWater);
             Assert.AreNotEqual(originalBreakWaterType, input.BreakWater.Type);
@@ -603,7 +620,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.ForeshoreProfile = null;
 
             // Assert
-            Assert.IsFalse(input.IsForeshoreProfileInputSynchronized);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);
@@ -612,9 +628,133 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreSame(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 
+        [Test]
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileNotSet_ReturnFalse()
+        {
+            // Setup
+            var input = new SimpleStructuresInput();
+
+            // Call
+            bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
+
+            // Assert
+            Assert.IsFalse(isSynchronized);
+        }
+
+        [Test]
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputInSync_ReturnTrue()
+        {
+            // Setup
+            var input = new SimpleStructuresInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+
+            // Call
+            bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
+
+            // Assert
+            Assert.IsTrue(isSynchronized);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
+            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameOrientationAndX0),
+            new object[]
+            {
+                "IsForeshoreProfileInputSynchronized",
+                "ReturnFalse"
+            })]
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputInSync_ReturnTrue(ForeshoreProfile modifiedProfile)
+        {
+            // Setup
+            var input = new SimpleStructuresInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+
+            input.ForeshoreProfile.CopyProperties(modifiedProfile);
+
+            // Call
+            bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
+
+            // Assert
+            Assert.IsFalse(isSynchronized);
+        }
+
+        [Test]
+        public void SynchronizeForeshoreProfileInput_ForeshoreProfileNotSet_ExpectedValues()
+        {
+            // Setup
+            var input = new SimpleStructuresInput
+            {
+                UseBreakWater = true,
+                UseForeshore = true,
+                BreakWater =
+                {
+                    Height = (RoundedDouble) 1.0,
+                    Type = BreakWaterType.Caisson
+                }
+            };
+
+            // Call
+            input.SynchronizeForeshoreProfileInput();
+
+            // Assert
+            AssertSimpleStructuresInput(null, input);
+        }
+
+        [Test]
+        public void SynchronizeForeshoreProfileInput_ChangedForeshoreProfile_ExpectedValues()
+        {
+            // Setup
+            var differentProfile = new TestForeshoreProfile(true);
+            var input = new SimpleStructuresInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+
+            input.ForeshoreProfile.CopyProperties(differentProfile);
+
+            // Precondition
+            AssertSimpleStructuresInput(new TestForeshoreProfile(), input);
+
+            // Call
+            input.SynchronizeForeshoreProfileInput();
+
+            // Assert
+            AssertSimpleStructuresInput(differentProfile, input);
+        }
+
         #endregion
 
         #region Helpers
+
+        private static void AssertSimpleStructuresInput(ForeshoreProfile expectedForeshoreProfile, SimpleStructuresInput input)
+        {
+            var defaultInput = new SimpleStructuresInput();
+            if (expectedForeshoreProfile == null)
+            {
+                Assert.AreEqual(defaultInput.UseBreakWater, input.UseBreakWater);
+                Assert.AreEqual(defaultInput.UseForeshore, input.UseForeshore);
+            }
+            else
+            {
+                Assert.AreEqual(expectedForeshoreProfile.Geometry.Count() > 1, input.UseForeshore);
+                Assert.AreEqual(expectedForeshoreProfile.HasBreakWater, input.UseBreakWater);
+            }
+
+            if (expectedForeshoreProfile?.BreakWater == null)
+            {
+                Assert.AreEqual(defaultInput.BreakWater.Type, input.BreakWater.Type);
+                Assert.AreEqual(defaultInput.BreakWater.Height, input.BreakWater.Height);
+            }
+            else
+            {
+                Assert.AreEqual(expectedForeshoreProfile.BreakWater.Type, input.BreakWater.Type);
+                Assert.AreEqual(expectedForeshoreProfile.BreakWater.Height, input.BreakWater.Height);
+            }
+        }
 
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -281,6 +282,115 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileNotSet_ReturnFalse()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
+
+            // Assert
+            Assert.IsFalse(isSynchronized);
+        }
+
+        [Test]
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputInSync_ReturnTrue()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+
+            // Call
+            bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
+
+            // Assert
+            Assert.IsTrue(isSynchronized);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
+            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameAndX0),
+            new object[]
+            {
+                "IsForeshoreProfileInputSynchronized",
+                "ReturnFalse"
+            })]
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputNotInSync_ReturnFalse(ForeshoreProfile modifiedProfile)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+
+            input.ForeshoreProfile.CopyProperties(modifiedProfile);
+
+            // Call
+            bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
+
+            // Assert
+            Assert.IsFalse(isSynchronized);
+        }
+
+        [Test]
+        public void SynchronizeForeshoreProfileInput_ForeshoreProfileNotSet_ExpectedValues()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UseBreakWater = true,
+                UseForeshore = true,
+                BreakWater =
+                {
+                    Height = (RoundedDouble) 1.0,
+                    Type = BreakWaterType.Caisson
+                }
+            };
+
+            // Call
+            input.SynchronizeForeshoreProfileInput();
+
+            // Assert
+            AssertWaveConditionsInput(null, input);
+        }
+
+        [Test]
+        public void SynchronizeForeshoreProfileInput_ChangedForeshoreProfile_ExpectedValues()
+        {
+            // Setup
+            var differentProfile = new ForeshoreProfile(new Point2D(9, 9), new[]
+                                                        {
+                                                            new Point2D(3.3, 4.4),
+                                                            new Point2D(5.5, 6.6)
+                                                        }, new BreakWater(BreakWaterType.Caisson, 2),
+                                                        new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Id = "id",
+                                                            Name = "Some name",
+                                                            Orientation = 123.0
+                                                        });
+
+            var input = new WaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+
+            input.ForeshoreProfile.CopyProperties(differentProfile);
+
+            // Precondition
+            AssertWaveConditionsInput(new TestForeshoreProfile(), input);
+
+            // Call
+            input.SynchronizeForeshoreProfileInput();
+
+            // Assert
+            AssertWaveConditionsInput(differentProfile, input);
+        }
+
+        [Test]
         [TestCase(360.004)]
         [TestCase(300)]
         [TestCase(0)]
@@ -415,7 +525,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
-            string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
+            var expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -746,6 +856,33 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             CollectionAssert.AreEqual(expectedWaterLevels, waterLevels);
+        }
+
+        private static void AssertWaveConditionsInput(ForeshoreProfile expectedForeshoreProfile, WaveConditionsInput input)
+        {
+            var defaultInput = new WaveConditionsInput();
+            if (expectedForeshoreProfile == null)
+            {
+                Assert.AreEqual(defaultInput.UseBreakWater, input.UseBreakWater);
+                Assert.AreEqual(defaultInput.UseForeshore, input.UseForeshore);
+            }
+            else
+            {
+                Assert.AreEqual(expectedForeshoreProfile.Orientation, input.Orientation);
+                Assert.AreEqual(expectedForeshoreProfile.Geometry.Count() > 1, input.UseForeshore);
+                Assert.AreEqual(expectedForeshoreProfile.HasBreakWater, input.UseBreakWater);
+            }
+
+            if (expectedForeshoreProfile?.BreakWater == null)
+            {
+                Assert.AreEqual(defaultInput.BreakWater.Type, input.BreakWater.Type);
+                Assert.AreEqual(defaultInput.BreakWater.Height, input.BreakWater.Height);
+            }
+            else
+            {
+                Assert.AreEqual(expectedForeshoreProfile.BreakWater.Type, input.BreakWater.Type);
+                Assert.AreEqual(expectedForeshoreProfile.BreakWater.Height, input.BreakWater.Height);
+            }
         }
     }
 }

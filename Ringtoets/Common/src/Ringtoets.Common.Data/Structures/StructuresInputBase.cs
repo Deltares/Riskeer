@@ -410,7 +410,9 @@ namespace Ringtoets.Common.Data.Structures
             {
                 UseForeshore = foreshoreProfile.Geometry.Count() > 1;
                 UseBreakWater = foreshoreProfile.HasBreakWater;
-                BreakWater = foreshoreProfile.HasBreakWater ? new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) : GetDefaultBreakWater();
+                BreakWater = foreshoreProfile.HasBreakWater
+                                 ? new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height)
+                                 : GetDefaultBreakWater();
             }
         }
 
