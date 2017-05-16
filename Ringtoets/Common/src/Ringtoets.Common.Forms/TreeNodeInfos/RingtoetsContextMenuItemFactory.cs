@@ -386,10 +386,19 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
             TCalculationInput input = calculation.InputParameters;
-            bool hasForeshoreProfile = input.ForeshoreProfile != null && !input.IsForeshoreProfileInputSynchronized;
-            string toolTipMessage = hasForeshoreProfile
-                                        ? Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip
-                                        : Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
+
+            var isEnabled = true;
+            string toolTipMessage = Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip;
+            if (input.ForeshoreProfile == null)
+            {
+                isEnabled = false;
+                toolTipMessage = Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
+            }
+            else if (input.IsForeshoreProfileInputSynchronized)
+            {
+                isEnabled = false;
+                toolTipMessage = Resources.CalculationItem_Update_no_changes_ToolTip;
+            }
 
             string confirmOutputMessage = Resources.UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
 
@@ -408,7 +417,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                                                                      updateAction);
                 })
             {
-                Enabled = hasForeshoreProfile
+                Enabled = isEnabled
             };
 
             return menuItem;

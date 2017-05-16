@@ -1675,8 +1675,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
                                                               synchronized
-                                                                  ? "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken."
-                                                                  : "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  ? "Er zijn geen wijzigingen om bij te werken."
+                                                                  : "Berekening bijwerken met het voorlandprofiel.",
                                                               RingtoetsFormsResources.UpdateItemIcon,
                                                               !synchronized);
             }
@@ -1723,7 +1723,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
-                                                              "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.",
+                                                              "Er moet een voorlandprofiel geselecteerd zijn.",
                                                               RingtoetsFormsResources.UpdateItemIcon,
                                                               false);
             }

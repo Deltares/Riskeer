@@ -482,6 +482,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen wijzigingen om bij te werken..
+        /// </summary>
+        public static string CalculationItem_Update_no_changes_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationItem_Update_no_changes_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De berekende kans van voorkomen van het berekende resultaat..
         /// </summary>
         public static string CalculationOutput_CalculatedProbability_Description {
@@ -728,7 +737,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken..
+        ///   Looks up a localized string similar to Er moet een voorlandprofiel geselecteerd zijn..
         /// </summary>
         public static string CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip {
             get {
@@ -738,7 +747,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening bijwerken waar een voorlandprofiel geselecteerd is..
+        ///   Looks up a localized string similar to Berekening bijwerken met het voorlandprofiel..
         /// </summary>
         public static string CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip {
             get {

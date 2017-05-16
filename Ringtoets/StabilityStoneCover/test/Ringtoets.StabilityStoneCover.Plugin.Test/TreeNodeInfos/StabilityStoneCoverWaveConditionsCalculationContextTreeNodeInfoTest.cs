@@ -497,7 +497,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.",
+                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
@@ -728,6 +728,46 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfileEnabled()
+        {
+            // Setup
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+            calculation.InputParameters.UseBreakWater = true;
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Berekening bijwerken met het voorlandprofiel.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
         public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationUpdatedAndUpdateObserver()
         {
             // Given
@@ -768,7 +808,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
                                                                   contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  "Berekening bijwerken met het voorlandprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
 
                     // When

@@ -255,7 +255,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.",
+                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
@@ -999,7 +999,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  "Berekening bijwerken met het voorlandprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
             }
@@ -1046,7 +1046,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
                                                                   contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken waar een voorlandprofiel geselecteerd is.",
+                                                                  "Berekening bijwerken met het voorlandprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
 
                     // When

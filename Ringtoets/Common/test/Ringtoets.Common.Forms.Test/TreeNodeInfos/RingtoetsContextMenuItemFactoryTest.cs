@@ -615,7 +615,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
-            Assert.AreEqual("Geselecteerd voorlandprofiel heeft geen wijzigingen om bij te werken.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -641,7 +641,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
-            Assert.AreEqual("Berekening bijwerken waar een voorlandprofiel geselecteerd is.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Berekening bijwerken met het voorlandprofiel.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
