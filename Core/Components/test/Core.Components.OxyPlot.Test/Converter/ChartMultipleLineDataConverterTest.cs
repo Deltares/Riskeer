@@ -150,6 +150,32 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Assert
             Assert.AreEqual(expectedLineStyle, multipleLineSeries.LineStyle);
+            Assert.IsNull(multipleLineSeries.Dashes);
+        }
+
+        [Test]
+        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentCustomDashStyles_AppliesStyleToSeries()
+        {
+            // Setup
+            var converter = new ChartMultipleLineDataConverter();
+            var multipleLineSeries = new MultipleLineSeries();
+            var random = new Random(21);
+            var dashes = new[]
+            {
+                random.NextDouble(),
+                random.NextDouble()
+            };
+            var data = new ChartMultipleLineData("test")
+            {
+                Style = new ChartLineStyle(Color.Red, 3, dashes)
+            };
+
+            // Call
+            converter.ConvertSeriesProperties(data, multipleLineSeries);
+
+            // Assert
+            Assert.AreEqual(LineStyle.Solid, multipleLineSeries.LineStyle);
+            Assert.AreEqual(dashes, multipleLineSeries.Dashes);
         }
     }
 }

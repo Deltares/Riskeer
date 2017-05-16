@@ -96,7 +96,7 @@ namespace Core.Components.OxyPlot.Converter
                     markerType = MarkerType.Triangle;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("symbol",
+                    throw new InvalidEnumArgumentException(nameof(symbol),
                                                            (int) symbol,
                                                            typeof(ChartPointSymbol));
             }

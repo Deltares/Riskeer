@@ -208,7 +208,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden.
+        ///   Looks up a localized string similar to Waterstanden in berekening.
         /// </summary>
         public static string WaveConditionsChartDataFactory_WaterLevels_DisplayName {
             get {

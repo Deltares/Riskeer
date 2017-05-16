@@ -99,12 +99,28 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         }
 
         [Test]
-        public void Render_NonEmptyLine_RendersThePoints()
+        [TestCase(null, new[]
+        {
+            3.0,
+            2.3
+        })]
+        [TestCase(LineStyle.DashDashDot, null)]
+        [TestCase(LineStyle.DashDashDot, new[]
+        {
+            4.1,
+            1.25
+        })]
+        public void Render_NonEmptyLine_RendersThePoints(LineStyle? style, double[] dashes)
         {
             // Setup
             var random = new Random(21);
             int pointCount = random.Next(5, 455);
             var series = new MultipleLineSeries();
+            if (style.HasValue)
+            {
+                series.LineStyle = style.Value;
+            }
+            series.Dashes = dashes;
             var model = new PlotModel();
             model.Series.Add(series);
 
@@ -116,7 +132,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                                      Arg<ScreenPoint[]>.Matches(sp => sp.Length == pointCount),
                                      Arg<OxyColor>.Is.Equal(series.Color),
                                      Arg<double>.Is.Equal(series.StrokeThickness),
-                                     Arg<double[]>.Is.Anything,
+                                     Arg<double[]>.Is.Equal(dashes ?? style.Value.GetDashArray()),
                                      Arg<LineJoin>.Is.Anything,
                                      Arg<bool>.Is.Anything));
 
@@ -139,12 +155,28 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         }
 
         [Test]
-        public void Render_MultipleNonEmptyLine_RendersTheLines()
+        [TestCase(null, new[]
+        {
+            3.0,
+            2.3
+        })]
+        [TestCase(LineStyle.DashDashDot, null)]
+        [TestCase(LineStyle.DashDashDot, new[]
+        {
+            4.1,
+            1.25
+        })]
+        public void Render_MultipleNonEmptyLine_RendersTheLines(LineStyle? style, double[] dashes)
         {
             // Setup
             var random = new Random(21);
             int lineCount = random.Next(5, 455);
             var series = new MultipleLineSeries();
+            if (style.HasValue)
+            {
+                series.LineStyle = style.Value;
+            }
+            series.Dashes = dashes;
             var model = new PlotModel();
             model.Series.Add(series);
 
@@ -156,7 +188,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                                      Arg<ScreenPoint[]>.Matches(sp => sp.Length == 1),
                                      Arg<OxyColor>.Is.Equal(series.Color),
                                      Arg<double>.Is.Equal(series.StrokeThickness),
-                                     Arg<double[]>.Is.Anything,
+                                     Arg<double[]>.Is.Equal(dashes ?? style.Value.GetDashArray()),
                                      Arg<LineJoin>.Is.Anything,
                                      Arg<bool>.Is.Anything)).Repeat.Times(lineCount);
 

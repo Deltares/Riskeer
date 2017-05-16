@@ -74,6 +74,12 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// </summary>
         public LineStyle LineStyle { get; set; }
 
+        /// <summary>
+        /// Gets or sets the definition of a dashed line style.
+        /// Overrides the <see cref="LineStyle"/>.
+        /// </summary>
+        public double[] Dashes { get; set; }
+
         public override void Render(IRenderContext renderContext)
         {
             if (renderContext == null)
@@ -98,7 +104,7 @@ namespace Core.Components.OxyPlot.CustomSeries
                 IList<ScreenPoint> pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, line);
 
-                renderContext.DrawLine(pts0, Color, StrokeThickness, LineStyle.GetDashArray());
+                renderContext.DrawLine(pts0, Color, StrokeThickness, Dashes ?? LineStyle.GetDashArray());
             }
 
             renderContext.ResetClip();

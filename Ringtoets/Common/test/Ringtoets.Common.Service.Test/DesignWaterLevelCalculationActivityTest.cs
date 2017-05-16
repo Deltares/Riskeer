@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -59,8 +60,8 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -69,7 +70,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    1,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -130,15 +131,15 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
+            calculationMessageProvider.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    inValidFilePath,
                                                                    1,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             // Call
             Action call = () => activity.Run();
@@ -168,15 +169,15 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
 
-            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            calculationMessageProvider.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -217,9 +218,9 @@ namespace Ringtoets.Common.Service.Test
             const string activityName = "GetActivityName";
             const double norm = 1.0 / 30;
 
-            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(activityName);
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            calculationMessageProvider.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(activityName);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
@@ -232,7 +233,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             // Call
             Action call = () => activity.Run();
@@ -250,9 +251,9 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName 1";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
+            calculationMessageProvider.Expect(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -263,7 +264,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -288,10 +289,10 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName";
             const string calculationFailedMessage = "Something went wrong";
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            calculationMessageProvider.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
@@ -305,7 +306,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    30,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -332,10 +333,10 @@ namespace Ringtoets.Common.Service.Test
             const string activityName = "getActivityName";
             const string calculationNotConvergedMessage = "GetCalculatedNotConvergedMessage";
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return("GetCalculationName").Repeat.AtLeastOnce();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
+            calculationMessageProvider.Expect(calc => calc.GetCalculationName(locationName)).Return("GetCalculationName").Repeat.AtLeastOnce();
+            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
@@ -350,7 +351,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -387,12 +388,12 @@ namespace Ringtoets.Common.Service.Test
                                                                              double.NaN, CalculationConvergence.NotCalculated)
             };
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(locationName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(locationName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(locationName);
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Stub(calc => calc.GetActivityName(locationName)).Return(locationName);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(locationName);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
+            calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(locationName);
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -401,7 +402,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    norm,
-                                                                   calculationMessageProviderMock);
+                                                                   calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -415,6 +416,32 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_Always_NotifyHydraulicBoundaryLocation()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            hydraulicBoundaryLocation.Attach(observer);
+            mockRepository.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, validFile);
+            const double norm = 1.0;
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+                                                                   validFilePath,
+                                                                   norm,
+                                                                   calculationMessageProvider);
+
+            // Call
+            activity.Finish();
+
+            // Assert
             mockRepository.VerifyAll();
         }
     }

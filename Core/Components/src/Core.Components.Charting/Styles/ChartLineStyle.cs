@@ -43,6 +43,19 @@ namespace Core.Components.Charting.Styles
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ChartLineStyle"/>.
+        /// </summary>
+        /// <param name="color">The color of the line.</param>
+        /// <param name="width">The width of the line.</param>
+        /// <param name="style">The dash style definition of the line.</param>
+        public ChartLineStyle(Color color, int width, double[] style)
+        {
+            Color = color;
+            Width = width;
+            Dashes = style;
+        }
+
+        /// <summary>
         /// Gets the line color.
         /// </summary>
         public Color Color { get; private set; }
@@ -56,5 +69,11 @@ namespace Core.Components.Charting.Styles
         /// Gets the line style.
         /// </summary>
         public DashStyle Style { get; private set; }
+
+        /// <summary>
+        /// Gets the line style.
+        /// Overrides <see cref="Style"/>.
+        /// </summary>
+        public double[] Dashes { get; private set; }
     }
 }

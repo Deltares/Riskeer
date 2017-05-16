@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Components.OxyPlot.CustomSeries;
 using OxyPlot;
 
@@ -44,11 +46,15 @@ namespace Core.Components.OxyPlot.Converter
 
         protected override void SetSeriesStyle(ChartMultipleLineData data, MultipleLineSeries series)
         {
-            if (data.Style != null)
+            ChartLineStyle lineStyle = data.Style;
+            if (lineStyle != null)
             {
-                series.Color = ChartDataHelper.Convert(data.Style.Color);
-                series.StrokeThickness = data.Style.Width;
-                series.LineStyle = ChartDataHelper.Convert(data.Style.Style);
+                series.Color = ChartDataHelper.Convert(lineStyle.Color);
+                series.StrokeThickness = lineStyle.Width;
+
+                DashStyle dashStyle = lineStyle.Style;
+                series.Dashes = lineStyle.Dashes;
+                series.LineStyle = ChartDataHelper.Convert(dashStyle);
             }
         }
     }

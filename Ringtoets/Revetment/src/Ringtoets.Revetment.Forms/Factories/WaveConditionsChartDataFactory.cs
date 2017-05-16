@@ -37,6 +37,9 @@ namespace Ringtoets.Revetment.Forms.Factories
     /// </summary>
     internal static class WaveConditionsChartDataFactory
     {
+        private const int revetmentThickness = 8;
+        private const int levelThickness = 3;
+
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for lower boundary revetment.
         /// </summary>
@@ -72,7 +75,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName)
             {
-                Style = GetRevetmentBoundaryStyle(lineColor)
+                Style = new ChartLineStyle(lineColor, revetmentThickness, DashStyle.Solid)
             };
         }
 
@@ -85,7 +88,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_RevetmentBase_DisplayName)
             {
-                Style = new ChartLineStyle(lineColor, 2, DashStyle.Dash)
+                Style = new ChartLineStyle(Color.FromArgb(120, lineColor), revetmentThickness, DashStyle.Dash)
             };
         }
 
@@ -129,7 +132,7 @@ namespace Ringtoets.Revetment.Forms.Factories
 
             return new ChartLineData(chartDataName)
             {
-                Style = new ChartLineStyle(Color.Red, 2, DashStyle.Solid)
+                Style = new ChartLineStyle(Color.LightCoral, levelThickness, DashStyle.Solid)
             };
         }
 
@@ -141,7 +144,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         {
             return new ChartMultipleLineData(Resources.WaveConditionsChartDataFactory_WaterLevels_DisplayName)
             {
-                Style = new ChartLineStyle(Color.Blue, 2, DashStyle.Dash)
+                Style = new ChartLineStyle(Color.DarkTurquoise, levelThickness, new [] { 6.0, 6.0 })
             };
         }
 
@@ -168,12 +171,12 @@ namespace Ringtoets.Revetment.Forms.Factories
 
         private static ChartLineStyle GetRevetmentBoundaryStyle(Color lineColor)
         {
-            return new ChartLineStyle(lineColor, 2, DashStyle.Solid);
+            return new ChartLineStyle(lineColor, levelThickness, DashStyle.Solid);
         }
 
         private static ChartLineStyle GetWaterLevelsBoundaryStyle()
         {
-            return new ChartLineStyle(Color.Blue, 2, DashStyle.Solid);
+            return new ChartLineStyle(Color.MediumBlue, levelThickness, DashStyle.Solid);
         }
     }
 }

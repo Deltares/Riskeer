@@ -265,7 +265,7 @@
     <value>Bovengrens waterstanden</value>
   </data>
   <data name="WaveConditionsChartDataFactory_WaterLevels_DisplayName" xml:space="preserve">
-    <value>Waterstanden</value>
+    <value>Waterstanden in berekening</value>
   </data>
   <data name="WaveConditionsChartDataFactory_RevetmentBase_DisplayName" xml:space="preserve">
     <value>Hulplijn bekleding</value>

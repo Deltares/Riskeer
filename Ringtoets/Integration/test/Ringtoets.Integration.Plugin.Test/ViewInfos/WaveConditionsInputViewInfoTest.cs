@@ -445,7 +445,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
 
             Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
-            Assert.AreEqual(revetmentLineColor, revetmentBaseChartData.Style.Color);
+            Assert.AreEqual(Color.FromArgb(120, revetmentLineColor), revetmentBaseChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, lowerBoundaryRevetmentChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, upperBoundaryRevetmentChartData.Style.Color);
             Assert.AreEqual(designWaterLevelName, designWaterLevelChartData.Name);
@@ -453,11 +453,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
         #region TestCaseData
 
-        private const int revetmentBaseChartDataIndex = 1;
-        private const int revetmentChartDataIndex = 2;
-        private const int lowerBoundaryRevetmentChartDataIndex = 3;
-        private const int upperBoundaryRevetmentChartDataIndex = 4;
-        private const int designWaterLevelChartDataIndex = 8;
+        private const int lowerBoundaryRevetmentChartDataIndex = 1;
+        private const int upperBoundaryRevetmentChartDataIndex = 2;
+        private const int designWaterLevelChartDataIndex = 5;
+        private const int revetmentBaseChartDataIndex = 7;
+        private const int revetmentChartDataIndex = 8;
 
         private static IEnumerable<TestCaseData> GetInputContextDatas()
         {
