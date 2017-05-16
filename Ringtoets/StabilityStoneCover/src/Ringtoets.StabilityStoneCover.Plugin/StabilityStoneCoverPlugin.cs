@@ -357,7 +357,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
+
+            StabilityStoneCoverWaveConditionsCalculation[] calculations = group
+                .GetCalculations()
+                .OfType<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -375,11 +380,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(nodeData,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
+                                                                inquiryHelper,
+                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
