@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -42,7 +41,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -319,7 +317,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithStructure_ContextMenuItemUpdateStructureEnabled()
+        public void ContextMenuStrip_CalculationWithInputInSync_ContextMenuItemUpdateStructureDisabled()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -334,6 +332,47 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestHeightStructuresFailureMechanism();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk",
+                                                                  "Er zijn geen wijzigingen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon, false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithInputOutOfSync_ContextMenuItemUpdateStructureEnabled()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestHeightStructure()
+                }
+            };
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            ChangeStructure(calculation.InputParameters.Structure);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -390,15 +429,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-                    AssertHeightStructuresInput(structure, calculation.InputParameters);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()
                 }
@@ -420,21 +460,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Output = new TestStructuresOutput()
             };
 
-            HeightStructuresInput calculationInput = calculation.InputParameters;
-            RoundedDouble expectedStructureNormalOrientation = calculationInput.StructureNormalOrientation;
-            NormalDistribution expectedLevelCrestStructure = calculationInput.LevelCrestStructure;
-            LogNormalDistribution expectedFlowWidthAtBottomProtection = calculationInput.FlowWidthAtBottomProtection;
-            VariationCoefficientLogNormalDistribution expectedCriticalOvertoppingDischarge = calculationInput.CriticalOvertoppingDischarge;
-            NormalDistribution expectedWidthFlowApertures = calculationInput.WidthFlowApertures;
-            double expectedFailureProbabilityStructureWithErosion = calculationInput.FailureProbabilityStructureWithErosion;
-            VariationCoefficientLogNormalDistribution expectedStorageStructureArea = calculationInput.StorageStructureArea;
-            LogNormalDistribution expectedAllowedLevelIncreaseStorage = calculationInput.AllowedLevelIncreaseStorage;
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
-            calculationInput.Attach(inputObserver);
+            calculation.InputParameters.Attach(inputObserver);
 
             var calculationObserver = mocks.StrictMock<IObserver>();
             calculation.Attach(calculationObserver);
@@ -456,26 +486,19 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
                     // Then
                     Assert.IsTrue(calculation.HasOutput);
-                    Assert.AreSame(structure, calculationInput.Structure);
-                    Assert.AreEqual(expectedStructureNormalOrientation, calculationInput.StructureNormalOrientation);
-                    Assert.AreEqual(expectedLevelCrestStructure, calculationInput.LevelCrestStructure);
-                    Assert.AreEqual(expectedFlowWidthAtBottomProtection, calculationInput.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(expectedCriticalOvertoppingDischarge, calculationInput.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(expectedWidthFlowApertures, calculationInput.WidthFlowApertures);
-                    Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, calculationInput.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(expectedStorageStructureArea, calculationInput.StorageStructureArea);
-                    Assert.AreEqual(expectedAllowedLevelIncreaseStorage, calculationInput.AllowedLevelIncreaseStorage);
+                    Assert.IsFalse(calculation.InputParameters.IsStructureInputSynchronized);
 
-                    string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -527,150 +550,18 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-                    AssertHeightStructuresInput(structure, calculation.InputParameters);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
-                    string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureAndInputInSyncAndUpdateClickedAndContinued_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var structure = new TestHeightStructure();
-            UpdateStructure(structure);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    AssertHeightStructuresInput(structure, calculation.InputParameters);
-
-                    string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureAndInputPartiallyOutOfSyncAndUpdateClicked_ThenInquiryAndUpdatesCalculationAndNotifiesObserver()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var structure = new TestHeightStructure();
-            UpdateStructure(structure);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(obs => obs.UpdateObserver());
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(obs => obs.UpdateObserver());
-            calculation.Attach(calculationObserver);
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-                    inputParameters.StructureNormalOrientation = (RoundedDouble) 1.1;
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsFalse(calculation.HasOutput);
-                    AssertHeightStructuresInput(structure, calculation.InputParameters);
-
-                    string expectedMessage = "Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -1263,61 +1154,15 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNull(result.Calculation);
         }
 
-        private static void UpdateStructure(HeightStructure structure)
+        private static void ChangeStructure(HeightStructure structure)
         {
-            var structureToUpdateFrom = new HeightStructure(
-                new HeightStructure.ConstructionProperties
-                {
-                    Id = structure.Id,
-                    Name = structure.Name,
-                    Location = structure.Location,
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) 1.0,
-                        StandardDeviation = (RoundedDouble) 2.0
-                    },
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) 3.0,
-                        StandardDeviation = (RoundedDouble) 4.0
-                    },
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) 5.0,
-                        CoefficientOfVariation = (RoundedDouble) 6.0
-                    },
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) 7.0,
-                        StandardDeviation = (RoundedDouble) 8.0
-                    },
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) 9.0,
-                        CoefficientOfVariation = (RoundedDouble) 10.0
-                    },
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) 11.0,
-                        StandardDeviation = (RoundedDouble) 12.0
-                    },
-                    FailureProbabilityStructureWithErosion = 0.13
-                });
-
-            structure.CopyProperties(structureToUpdateFrom);
-        }
-
-        private static void AssertHeightStructuresInput(TestHeightStructure structure, HeightStructuresInput inputParameters)
-        {
-            Assert.AreSame(structure, inputParameters.Structure);
-            Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-            Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-            Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-            Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-            Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-            Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-            Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
+            structure.CopyProperties(new HeightStructure(
+                                         new HeightStructure.ConstructionProperties
+                                         {
+                                             Id = structure.Id,
+                                             Name = structure.Name,
+                                             Location = structure.Location
+                                         }));
         }
 
         public override void TearDown()

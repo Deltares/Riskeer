@@ -950,7 +950,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="Structure_Id_Description" xml:space="preserve">
     <value>ID van het kunstwerk.</value>
   </data>
-  <data name="StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip" xml:space="preserve">
+  <data name="StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip" xml:space="preserve">
     <value>Er moet een kunstwerk geselecteerd zijn.</value>
   </data>
   <data name="StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip" xml:space="preserve">
@@ -960,7 +960,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>&amp;Bijwerken kunstwerk</value>
   </data>
   <data name="StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data" xml:space="preserve">
-    <value>Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
+    <value>Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
@@ -984,7 +984,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip" xml:space="preserve">
     <value>Er moet een voorlandprofiel geselecteerd zijn.</value>
   </data>
-  <data name="CalculationItem_Update_no_changes_ToolTip" xml:space="preserve">
+  <data name="CalculationItem_No_changes_to_update_ToolTip" xml:space="preserve">
     <value>Er zijn geen wijzigingen om bij te werken.</value>
   </data>
   <data name="UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data" xml:space="preserve">

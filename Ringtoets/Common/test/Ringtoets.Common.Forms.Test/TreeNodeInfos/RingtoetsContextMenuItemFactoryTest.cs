@@ -630,7 +630,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input);
+            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -656,7 +656,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input);
+            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
             calculationMock.Expect(c => c.HasOutput).Return(false);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
@@ -689,7 +689,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input);
+            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
             calculationMock.Expect(c => c.HasOutput).Return(true);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(false);
@@ -723,7 +723,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input);
+            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
             calculationMock.Expect(c => c.HasOutput).Return(true);
             var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
             inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(true);

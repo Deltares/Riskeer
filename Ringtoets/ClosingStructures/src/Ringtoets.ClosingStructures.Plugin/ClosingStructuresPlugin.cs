@@ -789,12 +789,18 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationContext context)
         {
-            ClosingStructuresInput inputParameters = context.WrappedData.InputParameters;
-            bool hasStructure = inputParameters.Structure != null;
-
-            string toolTipMessage = hasStructure
-                                        ? RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip
-                                        : RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip;
+            var isEnabled = true;
+            string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip;
+            if (context.WrappedData.InputParameters.Structure == null)
+            {
+                isEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
+            {
+                isEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
 
             return new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data,
@@ -802,7 +808,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 RingtoetsCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
             {
-                Enabled = hasStructure
+                Enabled = isEnabled
             };
         }
 

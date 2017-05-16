@@ -484,9 +484,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen wijzigingen om bij te werken..
         /// </summary>
-        public static string CalculationItem_Update_no_changes_ToolTip {
+        public static string CalculationItem_No_changes_to_update_ToolTip {
             get {
-                return ResourceManager.GetString("CalculationItem_Update_no_changes_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CalculationItem_No_changes_to_update_ToolTip", resourceCulture);
             }
         }
         
@@ -2507,6 +2507,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
+        /// </summary>
+        public static string StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen bijwerken met het kunstwerk..
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip {
@@ -2522,16 +2531,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
                 return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
-        /// </summary>
-        public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTip {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_calculation_no_Structure_ToolTi" +
-                        "p", resourceCulture);
             }
         }
         
@@ -2573,7 +2572,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer het kunstwerk wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
+        ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
