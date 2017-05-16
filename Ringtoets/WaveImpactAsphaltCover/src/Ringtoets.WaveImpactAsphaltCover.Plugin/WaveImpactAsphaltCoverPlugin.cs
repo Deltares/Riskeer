@@ -41,7 +41,6 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Importers;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
@@ -361,7 +360,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group
+                .GetCalculations()
+                .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -381,11 +385,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
             }
 
-            builder.AddValidateAllCalculationsInGroupItem(nodeData,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
+                                                                inquiryHelper,
+                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
