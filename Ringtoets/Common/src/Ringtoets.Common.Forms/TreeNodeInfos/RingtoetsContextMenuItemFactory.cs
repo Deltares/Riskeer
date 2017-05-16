@@ -379,7 +379,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateUpdateForshoreProfileOfCalculationItem<TCalculationInput>(
+        public static StrictContextMenuItem CreateUpdateForeshoreProfileOfCalculationItem<TCalculationInput>(
             ICalculation<TCalculationInput> calculation,
             IInquiryHelper inquiryHelper,
             Action<ICalculation<TCalculationInput>> updateAction)
@@ -388,11 +388,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             TCalculationInput input = calculation.InputParameters;
 
             var isEnabled = true;
-            string toolTipMessage = Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip;
+            string toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip;
             if (input.ForeshoreProfile == null)
             {
                 isEnabled = false;
-                toolTipMessage = Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
+                toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
             }
             else if (input.IsForeshoreProfileInputSynchronized)
             {
@@ -400,10 +400,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 toolTipMessage = Resources.CalculationItem_Update_no_changes_ToolTip;
             }
 
-            string confirmOutputMessage = Resources.UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
+            string confirmOutputMessage = Resources.UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
 
             var menuItem = new StrictContextMenuItem(
-                Resources.CreateUpdateForshoreProfileOfCalculationItem_Update_ForeshoreProfile_data,
+                Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data,
                 toolTipMessage,
                 Resources.UpdateItemIcon,
                 (o, args) =>
@@ -432,7 +432,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateUpdateForshoreProfileOfCalculationsItem<TCalculationInput>(
+        public static StrictContextMenuItem CreateUpdateForeshoreProfileOfCalculationsItem<TCalculationInput>(
             IEnumerable<ICalculation<TCalculationInput>> calculations,
             IInquiryHelper inquiryHelper,
             Action<ICalculation<TCalculationInput>> updateAction)
@@ -445,13 +445,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             bool hasForeshoreProfileChanges = calculationsWithForeshoreProfileChanges.Any();
 
             string toolTipMessage = hasForeshoreProfileChanges
-                                        ? Resources.CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip
-                                        : Resources.CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip;
+                                        ? Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip
+                                        : Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip;
 
-            string confirmOutputMessage = Resources.UpdateForshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data;
+            string confirmOutputMessage = Resources.UpdateForeshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data;
 
             var menuItem = new StrictContextMenuItem(
-                Resources.CreateUpdateForshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data,
+                Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data,
                 toolTipMessage,
                 Resources.UpdateItemIcon,
                 (o, args) =>

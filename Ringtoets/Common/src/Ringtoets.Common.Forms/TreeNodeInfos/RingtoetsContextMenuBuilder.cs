@@ -266,7 +266,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                                                  calculation,
                                                  inquiryHelper,
                                                  updateAction));
@@ -289,7 +289,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                                                  calculations,
                                                  inquiryHelper,
                                                  updateAction));

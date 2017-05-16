@@ -739,58 +739,58 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er moet een voorlandprofiel geselecteerd zijn..
         /// </summary>
-        public static string CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip {
+        public static string CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip {
             get {
-                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfi" +
-                        "le_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProf" +
+                        "ile_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekening bijwerken met het voorlandprofiel..
         /// </summary>
-        public static string CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip {
+        public static string CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip {
             get {
-                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationItem_Update_calculation_with_ForeshorePro" +
-                        "file_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshorePr" +
+                        "ofile_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &amp;Bijwerken voorlandprofiel....
         /// </summary>
-        public static string CreateUpdateForshoreProfileOfCalculationItem_Update_ForeshoreProfile_data {
+        public static string CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data {
             get {
-                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationItem_Update_ForeshoreProfile_data", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken..
         /// </summary>
-        public static string CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip {
+        public static string CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip {
             get {
-                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_no_ForeshorePro" +
-                        "file_changes_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_no_ForeshorePr" +
+                        "ofile_changes_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekeningen bijwerken waar een voorlandprofiel geselecteerd is..
         /// </summary>
-        public static string CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip {
+        public static string CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip {
             get {
-                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreP" +
-                        "rofile_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_Foreshore" +
+                        "Profile_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &amp;Bijwerken voorlandprofielen....
         /// </summary>
-        public static string CreateUpdateForshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data {
+        public static string CreateUpdateForeshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data {
             get {
-                return ResourceManager.GetString("CreateUpdateForshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data", resourceCulture);
             }
         }
         
@@ -2655,10 +2655,10 @@ namespace Ringtoets.Common.Forms.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data {
+        public static string UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data {
             get {
-                return ResourceManager.GetString("UpdateForshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updati" +
-                        "ng_ForeshoreProfile_dependent_data", resourceCulture);
+                return ResourceManager.GetString("UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updat" +
+                        "ing_ForeshoreProfile_dependent_data", resourceCulture);
             }
         }
         
@@ -2667,10 +2667,10 @@ namespace Ringtoets.Common.Forms.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string UpdateForshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data {
+        public static string UpdateForeshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data {
             get {
-                return ResourceManager.GetString("UpdateForshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_upda" +
-                        "ting_ForeshoreProfile_dependent_data", resourceCulture);
+                return ResourceManager.GetString("UpdateForeshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_upd" +
+                        "ating_ForeshoreProfile_dependent_data", resourceCulture);
             }
         }
         

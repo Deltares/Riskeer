@@ -596,10 +596,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        #region CreateUpdateForshoreProfileOfCalculationItem
+        #region CreateUpdateForeshoreProfileOfCalculationItem
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutForeshoreProfile_CreatesDisabledItem()
+        public void CreateUpdateForeshoreProfileOfCalculationItem_WithoutForeshoreProfile_CreatesDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -609,7 +609,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
                 inquiryHelperMock, c => {});
 
@@ -622,7 +622,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithForeshoreProfile_CreatesEnabledItem()
+        public void CreateUpdateForeshoreProfileOfCalculationItem_WithForeshoreProfile_CreatesEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -635,7 +635,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
                 inquiryHelperMock, c => {});
 
@@ -648,7 +648,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithoutCalculationOutputPerformClick_PerformsAction()
+        public void CreateUpdateForeshoreProfileOfCalculationItem_WithoutCalculationOutputPerformClick_PerformsAction()
         {
             // Setup
             var mocks = new MockRepository();
@@ -662,7 +662,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
                 inquiryHelperMock,
                 c => { actionCalculation = c; });
@@ -676,7 +676,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithCalculationOutputPerformClickNoContinuation_DoesNotPerformAction()
+        public void CreateUpdateForeshoreProfileOfCalculationItem_WithCalculationOutputPerformClickNoContinuation_DoesNotPerformAction()
         {
             // Setup
             string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
@@ -696,7 +696,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var actionPerformed = false;
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
                 inquiryHelperMock,
                 c => { actionPerformed = true; });
@@ -710,7 +710,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationItem_WithCalculationOutputPerformClickWithContinuation_PerformsAction()
+        public void CreateUpdateForeshoreProfileOfCalculationItem_WithCalculationOutputPerformClickWithContinuation_PerformsAction()
         {
             // Setup
             string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
@@ -730,7 +730,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var actionPerformed = false;
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
                 inquiryHelperMock,
                 c => { actionPerformed = true; });
@@ -745,10 +745,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        #region CreateUpdateForshoreProfileOfCalculationsItem
+        #region CreateUpdateForeshoreProfileOfCalculationsItem
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationsItem_WithoutForeshoreProfile_CreatesDisabledItem()
+        public void CreateUpdateForeshoreProfileOfCalculationsItem_WithoutForeshoreProfile_CreatesDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -759,7 +759,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
                     calculationMock
@@ -775,7 +775,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationsItem_WithForeshoreProfileSynchronized_CreatesDisabledItem()
+        public void CreateUpdateForeshoreProfileOfCalculationsItem_WithForeshoreProfileSynchronized_CreatesDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -789,7 +789,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
                     calculationMock
@@ -805,7 +805,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationsItem_WithForeshoreProfile_CreatesEnabledItem()
+        public void CreateUpdateForeshoreProfileOfCalculationsItem_WithForeshoreProfile_CreatesEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -825,7 +825,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
                     calculationMock,
@@ -842,7 +842,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationsItem_WithoutCalculationOutputPerformClick_PerformsAction()
+        public void CreateUpdateForeshoreProfileOfCalculationsItem_WithoutCalculationOutputPerformClick_PerformsAction()
         {
             // Setup
             var mocks = new MockRepository();
@@ -863,7 +863,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
                     calculationMock,
@@ -881,7 +881,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationsItem_WithCalculationOutputPerformClickNoContinuation_DoesNotPerformAction()
+        public void CreateUpdateForeshoreProfileOfCalculationsItem_WithCalculationOutputPerformClickNoContinuation_DoesNotPerformAction()
         {
             // Setup
             string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
@@ -908,7 +908,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var actionPerformed = false;
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
                     calculationMock,
@@ -926,7 +926,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateUpdateForshoreProfileOfCalculationsItem_WithCalculationOutputPerformClickWithContinuation_PerformsAction()
+        public void CreateUpdateForeshoreProfileOfCalculationsItem_WithCalculationOutputPerformClickWithContinuation_PerformsAction()
         {
             // Setup
             string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
@@ -953,7 +953,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var actionPerformed = false;
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForshoreProfileOfCalculationsItem(
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
                     calculationMock,
