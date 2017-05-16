@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -176,7 +177,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             input.Structure = null;
 
             // Assert
-            AssertStabilityPointStructure(null, input);
+            AssertStabilityPointStructureInput(null, input);
         }
 
         [Test]
@@ -195,7 +196,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             // Pre-condition
-            AssertStabilityPointStructure(structure, input);
+            AssertStabilityPointStructureInput(structure, input);
 
             // When
             input.Structure = null;
@@ -329,7 +330,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             input.Structure = structure;
 
             // Assert
-            AssertStabilityPointStructure(structure, input);
+            AssertStabilityPointStructureInput(structure, input);
         }
 
         [Test]
@@ -386,6 +387,47 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.IsFalse(isStructureInputSynchronized);
+        }
+
+        [Test]
+        public void SynchronizeStructureInput_StructureNotSet_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            input.SynchronizeStructureInput();
+
+            // Assert
+            AssertStabilityPointStructureInput(null, input);
+        }
+
+        [Test]
+        public void SynchronizeStructureInput_ChangedStructure_ExpectedValues()
+        {
+            // Setup
+            var differentStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+            {
+                Id = "Test id",
+                Name = "Test name",
+                Location = new Point2D(-1, -1)
+            });
+
+            var input = new StabilityPointStructuresInput
+            {
+                Structure = new TestStabilityPointStructure()
+            };
+
+            input.Structure.CopyProperties(differentStructure);
+
+            // Precondition
+            AssertStabilityPointStructureInput(new TestStabilityPointStructure(), input);
+
+            // Call
+            input.SynchronizeStructureInput();
+
+            // Assert
+            AssertStabilityPointStructureInput(differentStructure, input);
         }
 
         #region Hydraulic data
@@ -922,7 +964,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
         #region Helpers
 
-        private static void AssertStabilityPointStructure(StabilityPointStructure expectedStructure, StabilityPointStructuresInput input)
+        private static void AssertStabilityPointStructureInput(StabilityPointStructure expectedStructure, StabilityPointStructuresInput input)
         {
             if (expectedStructure == null)
             {

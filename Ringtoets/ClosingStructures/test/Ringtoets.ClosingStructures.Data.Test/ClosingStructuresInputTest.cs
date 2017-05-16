@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -101,7 +102,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.Structure = null;
 
             // Assert
-            AssertClosingStructure(null, input);
+            AssertClosingStructureInput(null, input);
         }
 
         [Test]
@@ -120,7 +121,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             // Pre-condition
-            AssertClosingStructure(structure, input);
+            AssertClosingStructureInput(structure, input);
 
             // When
             input.Structure = null;
@@ -185,7 +186,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.Structure = structure;
 
             // Assert
-            AssertClosingStructure(structure, input);
+            AssertClosingStructureInput(structure, input);
         }
 
         [Test]
@@ -242,6 +243,47 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.IsFalse(isStructureInputSynchronized);
+        }
+
+        [Test]
+        public void SynchronizeStructureInput_StructureNotSet_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            input.SynchronizeStructureInput();
+
+            // Assert
+            AssertClosingStructureInput(null, input);
+        }
+
+        [Test]
+        public void SynchronizeStructureInput_ChangedStructure_ExpectedValues()
+        {
+            // Setup
+            var differentStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+            {
+                Id = "Test id",
+                Name = "Test name",
+                Location = new Point2D(-1, -1)
+            });
+
+            var input = new ClosingStructuresInput
+            {
+                Structure = new TestClosingStructure()
+            };
+
+            input.Structure.CopyProperties(differentStructure);
+
+            // Precondition
+            AssertClosingStructureInput(new TestClosingStructure(), input);
+
+            // Call
+            input.SynchronizeStructureInput();
+
+            // Assert
+            AssertClosingStructureInput(differentStructure, input);
         }
 
         #region Hydraulic data
@@ -544,7 +586,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
         #region Helpers
 
-        private static void AssertClosingStructure(ClosingStructure expectedClosingStructure, ClosingStructuresInput input)
+        private static void AssertClosingStructureInput(ClosingStructure expectedClosingStructure, ClosingStructuresInput input)
         {
             if (expectedClosingStructure == null)
             {

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -63,7 +64,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.Structure = null;
 
             // Assert
-            AssertHeightStructure(null, input);
+            AssertHeightStructureInput(null, input);
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
 
             // Pre-condition
-            AssertHeightStructure(structure, input);
+            AssertHeightStructureInput(structure, input);
 
             // When
             input.Structure = null;
@@ -108,7 +109,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.Structure = structure;
 
             // Assert
-            AssertHeightStructure(structure, input);
+            AssertHeightStructureInput(structure, input);
         }
 
         [Test]
@@ -165,6 +166,47 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.IsFalse(isStructureInputSynchronized);
+        }
+
+        [Test]
+        public void SynchronizeStructureInput_StructureNotSet_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            input.SynchronizeStructureInput();
+
+            // Assert
+            AssertHeightStructureInput(null, input);
+        }
+
+        [Test]
+        public void SynchronizeStructureInput_ChangedStructure_ExpectedValues()
+        {
+            // Setup
+            var differentStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Id = "Test id",
+                Name = "Test name",
+                Location = new Point2D(-1, -1)
+            });
+
+            var input = new HeightStructuresInput
+            {
+                Structure = new TestHeightStructure()
+            };
+
+            input.Structure.CopyProperties(differentStructure);
+
+            // Precondition
+            AssertHeightStructureInput(new TestHeightStructure(), input);
+
+            // Call
+            input.SynchronizeStructureInput();
+
+            // Assert
+            AssertHeightStructureInput(differentStructure, input);
         }
 
         #region Schematization
@@ -244,7 +286,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
         #region Helpers
 
-        private static void AssertHeightStructure(HeightStructure expectedHeightStructure, HeightStructuresInput input)
+        private static void AssertHeightStructureInput(HeightStructure expectedHeightStructure, HeightStructuresInput input)
         {
             if (expectedHeightStructure == null)
             {
