@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             SetDefaultSchematizationProperties();
         }
 
-        public override bool StructureParametersSynchronized
+        public override bool IsStructureInputSynchronized
         {
             get
             {
@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
         }
 
-        public override void SynchronizeStructureParameters()
+        public override void SynchronizeStructureInput()
         {
             if (Structure != null)
             {

@@ -333,20 +333,20 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void StructureParametersSynchronized_StructureNotSet_ReturnFalse()
+        public void IsStructureInputSynchronized_StructureNotSet_ReturnFalse()
         {
             // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsFalse(structureParametersSynchronized);
+            Assert.IsFalse(isStructureInputSynchronized);
         }
 
         [Test]
-        public void StructureParametersSynchronized_StructureAndInputInSync_ReturnTrue()
+        public void IsStructureInputSynchronized_StructureAndInputInSync_ReturnTrue()
         {
             // Setup
             var structure = new TestStabilityPointStructure();
@@ -356,10 +356,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             };
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsTrue(structureParametersSynchronized);
+            Assert.IsTrue(isStructureInputSynchronized);
         }
 
         [Test]
@@ -367,10 +367,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation),
             new object[]
             {
-                "StructureParametersSynchronized",
+                "IsStructureInputSynchronized",
                 "ReturnFalse"
             })]
-        public void StructureParametersSynchronized_StructureAndInputNotInSync_ReturnFalse(StabilityPointStructure modifiedStructure)
+        public void IsStructureInputSynchronized_StructureAndInputNotInSync_ReturnFalse(StabilityPointStructure modifiedStructure)
         {
             // Setup
             var structure = new TestStabilityPointStructure();
@@ -382,10 +382,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             structure.CopyProperties(modifiedStructure);
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsFalse(structureParametersSynchronized);
+            Assert.IsFalse(isStructureInputSynchronized);
         }
 
         #region Hydraulic data

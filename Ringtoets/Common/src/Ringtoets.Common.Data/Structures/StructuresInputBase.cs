@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
         /// </summary>
         /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
-        public abstract bool StructureParametersSynchronized { get; }
+        public abstract bool IsStructureInputSynchronized { get; }
 
         /// <summary>
         /// Gets or sets the structure.
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Data.Structures
                     SetDefaultCommonStructureSchematizationProperties();
                 }
 
-                SynchronizeStructureParameters();
+                SynchronizeStructureInput();
             }
         }
 
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Data.Structures
         /// Synchronizes the input parameters with the parameters of the structure.
         /// </summary>
         /// <remarks>When no structure is present, the input parameters are set to default values.</remarks>
-        public abstract void SynchronizeStructureParameters();
+        public abstract void SynchronizeStructureInput();
 
         private void SetDefaultCommonStructureSchematizationProperties()
         {

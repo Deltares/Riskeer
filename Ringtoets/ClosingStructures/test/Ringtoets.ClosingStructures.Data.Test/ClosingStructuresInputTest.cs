@@ -189,20 +189,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void StructureParametersSynchronized_StructureNotSet_ReturnFalse()
+        public void IsStructureInputSynchronized_StructureNotSet_ReturnFalse()
         {
             // Setup
             var input = new ClosingStructuresInput();
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsFalse(structureParametersSynchronized);
+            Assert.IsFalse(isStructureInputSynchronized);
         }
 
         [Test]
-        public void StructureParametersSynchronized_StructureAndInputInSync_ReturnTrue()
+        public void IsStructureInputSynchronized_StructureAndInputInSync_ReturnTrue()
         {
             // Setup
             var structure = new TestClosingStructure();
@@ -212,10 +212,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsTrue(structureParametersSynchronized);
+            Assert.IsTrue(isStructureInputSynchronized);
         }
 
         [Test]
@@ -223,10 +223,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation),
             new object[]
             {
-                "StructureParametersSynchronized",
+                "IsStructureInputSynchronized",
                 "ReturnFalse"
             })]
-        public void StructureParametersSynchronized_StructureAndInputNotInSync_ReturnFalse(ClosingStructure modifiedStructure)
+        public void IsStructureInputSynchronized_StructureAndInputNotInSync_ReturnFalse(ClosingStructure modifiedStructure)
         {
             // Setup
             var structure = new TestClosingStructure();
@@ -238,10 +238,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             structure.CopyProperties(modifiedStructure);
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsFalse(structureParametersSynchronized);
+            Assert.IsFalse(isStructureInputSynchronized);
         }
 
         #region Hydraulic data

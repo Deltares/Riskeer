@@ -830,9 +830,9 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void UpdateStructureDerivedCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            if (!calculation.InputParameters.StructureParametersSynchronized)
+            if (!calculation.InputParameters.IsStructureInputSynchronized)
             {
-                calculation.InputParameters.SynchronizeStructureParameters();
+                calculation.InputParameters.SynchronizeStructureInput();
 
                 var affectedObjects = new List<IObservable>
                 {

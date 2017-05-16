@@ -112,20 +112,20 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void StructureParametersSynchronized_StructureNotSet_ReturnFalse()
+        public void IsStructureInputSynchronized_StructureNotSet_ReturnFalse()
         {
             // Setup
             var input = new HeightStructuresInput();
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsFalse(structureParametersSynchronized);
+            Assert.IsFalse(isStructureInputSynchronized);
         }
 
         [Test]
-        public void StructureParametersSynchronized_StructureAndInputInSync_ReturnTrue()
+        public void IsStructureInputSynchronized_StructureAndInputInSync_ReturnTrue()
         {
             // Setup
             var structure = new TestHeightStructure();
@@ -135,10 +135,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             };
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsTrue(structureParametersSynchronized);
+            Assert.IsTrue(isStructureInputSynchronized);
         }
 
         [Test]
@@ -146,10 +146,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
             new object[]
             {
-                "StructureParametersSynchronized",
+                "IsStructureInputSynchronized",
                 "ReturnFalse"
             })]
-        public void StructureParametersSynchronized_StructureAndInputNotInSync_ReturnFalse(HeightStructure modifiedStructure)
+        public void IsStructureInputSynchronized_StructureAndInputNotInSync_ReturnFalse(HeightStructure modifiedStructure)
         {
             // Setup
             var structure = new TestHeightStructure();
@@ -161,10 +161,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             structure.CopyProperties(modifiedStructure);
 
             // Call
-            bool structureParametersSynchronized = input.StructureParametersSynchronized;
+            bool isStructureInputSynchronized = input.IsStructureInputSynchronized;
 
             // Assert
-            Assert.IsFalse(structureParametersSynchronized);
+            Assert.IsFalse(isStructureInputSynchronized);
         }
 
         #region Schematization

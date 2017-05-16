@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        public override bool StructureParametersSynchronized
+        public override bool IsStructureInputSynchronized
         {
             get
             {
@@ -107,7 +107,7 @@ namespace Ringtoets.ClosingStructures.Data
             }
         }
 
-        public override void SynchronizeStructureParameters()
+        public override void SynchronizeStructureInput()
         {
             if (Structure != null)
             {
