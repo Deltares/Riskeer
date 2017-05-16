@@ -107,9 +107,12 @@ namespace Ringtoets.Common.Data.Structures
         #endregion
 
         /// <summary>
-        /// Gets whether the structure input parameters are synchronized with the set <see cref="StructuresInputBase{T}.Structure"/>.
+        /// Gets the value <c>true</c> if the parameters of the instance of
+        /// <see cref="StructuresInputBase{T}"/> that are derived from
+        /// <see cref="Structure"/> match the properties of <see cref="Structure"/>;
+        /// or <c>false</c> if this is not the case, or if there is no
+        /// <see cref="Structure"/> assigned.
         /// </summary>
-        /// <remarks>Always returns <c>false</c> in case no structure is present.</remarks>
         public abstract bool IsStructureInputSynchronized { get; }
 
         /// <summary>
@@ -134,7 +137,8 @@ namespace Ringtoets.Common.Data.Structures
         }
 
         /// <summary>
-        /// Synchronizes the input parameters with the parameters of the structure.
+        /// Applies the properties of the <see cref="Structure"/> to the
+        /// parameters of the instance of <see cref="StructuresInputBase{T}"/>.
         /// </summary>
         /// <remarks>When no structure is present, the input parameters are set to default values.</remarks>
         public abstract void SynchronizeStructureInput();

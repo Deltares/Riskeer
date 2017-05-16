@@ -34,10 +34,10 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the value <c>true</c> if the parameters of the instance of 
         /// <see cref="IHasForeshoreProfile"/> that are derived from 
-        /// <see cref="ForeshoreProfile"/>, matches the properties of
+        /// <see cref="ForeshoreProfile"/> match the properties of
         /// <see cref="ForeshoreProfile"/>; or <c>false</c> if this 
         /// is not the case, or if there is no <see cref="ForeshoreProfile"/>
-        /// is assigned.
+        /// assigned.
         /// </summary>
         bool IsForeshoreProfileParametersSynchronized { get; }
 
@@ -45,6 +45,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// Applies the properties of the <see cref="ForeshoreProfile"/> to
         /// the parameters of the instance of <see cref="IHasForeshoreProfile"/>.
         /// </summary>
+        /// <remarks>When no foreshore profile is present, the input parameters are set to default values.</remarks>
         void SynchronizeForeshoreProfileParameters();
     }
 }

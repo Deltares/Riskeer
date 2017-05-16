@@ -667,7 +667,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            public override bool StructureParametersSynchronized
+            public override bool IsStructureInputSynchronized
             {
                 get
                 {
@@ -675,7 +675,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
                 }
             }
 
-            public override void SynchronizeStructureParameters() {}
+            public override void SynchronizeStructureInput() {}
         }
 
         #endregion

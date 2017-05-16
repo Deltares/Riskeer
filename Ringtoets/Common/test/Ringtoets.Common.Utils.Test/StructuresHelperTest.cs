@@ -224,7 +224,7 @@ namespace Ringtoets.Common.Utils.Test
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
         {
-            public override bool StructureParametersSynchronized
+            public override bool IsStructureInputSynchronized
             {
                 get
                 {
@@ -232,7 +232,7 @@ namespace Ringtoets.Common.Utils.Test
                 }
             }
 
-            public override void SynchronizeStructureParameters() {}
+            public override void SynchronizeStructureInput() {}
         }
 
         private class TestStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<TestStructuresInput>

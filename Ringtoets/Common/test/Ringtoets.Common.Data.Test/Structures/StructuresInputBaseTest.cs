@@ -276,7 +276,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         {
             public bool Synchronized { get; private set; }
 
-            public override bool StructureParametersSynchronized
+            public override bool IsStructureInputSynchronized
             {
                 get
                 {
@@ -284,7 +284,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 }
             }
 
-            public override void SynchronizeStructureParameters()
+            public override void SynchronizeStructureInput()
             {
                 Synchronized = true;
             }

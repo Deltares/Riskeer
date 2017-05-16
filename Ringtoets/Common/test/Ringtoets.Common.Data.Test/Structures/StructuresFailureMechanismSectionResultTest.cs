@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
         {
-            public override bool StructureParametersSynchronized
+            public override bool IsStructureInputSynchronized
             {
                 get
                 {
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 }
             }
 
-            public override void SynchronizeStructureParameters() {}
+            public override void SynchronizeStructureInput() {}
         }
     }
 }
