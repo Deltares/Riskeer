@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <PropertyGroup>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Common.Gui</RootNamespace>
+    <AssemblyName>Core.Common.Gui</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DebugSymbols>false</DebugSymbols>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>
+    </NoWarn>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fluent">
+      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
+    <Compile Include="Appenders\RenderedMessageLogAppender.cs" />
+    <Compile Include="Attributes\DynamicPropertyOrderEvaluationMethodAttribute.cs" />
+    <Compile Include="Attributes\DynamicPropertyOrderAttribute.cs" />
+    <Compile Include="Attributes\DynamicReadOnlyAttribute.cs" />
+    <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttribute.cs" />
+    <Compile Include="Attributes\DynamicVisibleAttribute.cs" />
+    <Compile Include="Attributes\DynamicVisibleValidationMethodAttribute.cs" />
+    <Compile Include="Attributes\PropertyOrderAttribute.cs" />
+    <Compile Include="Commands\ApplicationFeatureCommandHandler.cs" />
+    <Compile Include="Commands\GuiExportHandler.cs" />
+    <Compile Include="Commands\GuiUpdateHandler.cs" />
+    <Compile Include="Commands\GuiImportHandler.cs" />
+    <Compile Include="Commands\IApplicationFeatureCommands.cs" />
+    <Compile Include="Commands\ICommandsOwner.cs" />
+    <Compile Include="Commands\IExportCommandHandler.cs" />
+    <Compile Include="Commands\IUpdateCommandHandler.cs" />
+    <Compile Include="Commands\IImportCommandHandler.cs" />
+    <Compile Include="Commands\IStorageCommands.cs" />
+    <Compile Include="Commands\IViewCommands.cs" />
+    <Compile Include="Commands\StorageCommandHandler.cs" />
+    <Compile Include="Commands\ViewCommandHandler.cs" />
+    <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
+    <Compile Include="Converters\ExpandableArrayConverter.cs" />
+    <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
+    <Compile Include="Converters\PngToIconConverter.cs" />
+    <Compile Include="DialogBasedInquiryHelper.cs" />
+    <Compile Include="ExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExceptionDialog.Designer.cs">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NativeMethods.cs" />
+    <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
+    <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageWindow\MessageWindowDialog.Designer.cs">
+      <DependentUpon>MessageWindowDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RichTextFile.cs" />
+    <Compile Include="Forms\ViewHost\AvalonDockViewHost.xaml.cs">
+      <DependentUpon>AvalonDockViewHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ViewHost\IDocumentViewController.cs" />
+    <Compile Include="Forms\ViewHost\ToolViewLocation.cs" />
+    <Compile Include="Forms\ViewHost\ViewChangeEventArgs.cs" />
+    <Compile Include="IInquiryHelper.cs" />
+    <Compile Include="IViewController.cs" />
+    <Compile Include="IPluginsHost.cs" />
+    <Compile Include="IMainWindowController.cs" />
+    <Compile Include="IProjectOwner.cs" />
+    <Compile Include="OpenProjectActivity.cs" />
+    <Compile Include="OptionalStepResult.cs" />
+    <Compile Include="Plugin\ExportInfo.cs" />
+    <Compile Include="Plugin\UpdateInfo.cs" />
+    <Compile Include="Plugin\ImportInfo.cs" />
+    <Compile Include="Plugin\PluginBase.cs" />
+    <Compile Include="Plugin\PropertyInfo.cs" />
+    <Compile Include="Plugin\ViewInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
+    <Compile Include="PropertyBag\IObjectProperties.cs" />
+    <Compile Include="PropertyBag\ObjectProperties.cs" />
+    <Compile Include="PropertyBag\PropertySpec.cs" />
+    <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
+    <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecorator.cs" />
+    <Compile Include="SaveProjectActivity.cs" />
+    <Compile Include="Selection\IApplicationSelection.cs" />
+    <Compile Include="Settings\GuiCoreSettings.cs" />
+    <Compile Include="Settings\ISettingsOwner.cs" />
+    <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
+    <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
+    <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
+    <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
+    <Compile Include="ContextMenu\StrictContextMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ContextMenu\TreeViewContextMenuItemFactory.cs" />
+    <Compile Include="Forms\ProgressDialog\ActivityProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog\ActivityProgressDialog.Designer.cs">
+      <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PropertyGridView\IPropertyResolver.cs" />
+    <Compile Include="GuiCore.cs" />
+    <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />
+    <Compile Include="Forms\IRibbonCommandHandler.cs" />
+    <Compile Include="Forms\IProjectExplorer.cs" />
+    <Compile Include="Forms\MainWindow\IMainWindow.cs" />
+    <Compile Include="Forms\MainWindow\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MessageWindow\IMessageWindow.cs" />
+    <Compile Include="Forms\MessageWindow\MessageWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageWindow\MessageWindow.Designer.cs">
+      <DependentUpon>MessageWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MessageWindow\MessageWindowLogAppender.cs" />
+    <Compile Include="Forms\PropertyGridView\PropertyGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\PropertyGridView\PropertyResolver.cs" />
+    <Compile Include="Forms\RichTextView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\RichTextView.Designer.cs">
+      <DependentUpon>RichTextView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SelectItemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectItemDialog.Designer.cs">
+      <DependentUpon>SelectItemDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SelectViewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectViewDialog.Designer.cs">
+      <DependentUpon>SelectViewDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SplashScreen\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ViewHost\IViewHost.cs" />
+    <Compile Include="Forms\ViewHost\DocumentViewController.cs" />
+    <Compile Include="IGui.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UITypeEditors\SelectionEditor.cs" />
+    <Compile Include="ViewPropertyEditor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
+      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
+      <Name>Core.Common.Controls.TreeView</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
+      <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExceptionDialog.resx">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MessageWindow\MessageWindow.resx">
+      <DependentUpon>MessageWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MessageWindow\MessageWindowDialog.resx">
+      <DependentUpon>MessageWindowDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressDialog\ActivityProgressDialog.resx">
+      <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RichTextView.resx">
+      <DependentUpon>RichTextView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectItemDialog.resx">
+      <DependentUpon>SelectItemDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectViewDialog.resx">
+      <DependentUpon>SelectViewDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\arrow-000-medium.png" />
+    <None Include="Resources\Busy indicator.gif" />
+    <None Include="Resources\arrow.png" />
+    <None Include="Resources\arrow-stop-090.png" />
+    <None Include="Resources\arrow-stop-270.png" />
+    <None Include="Resources\table-import.png" />
+    <None Include="Resources\table-export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Forms\MainWindow\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\SplashScreen\SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ViewHost\AvalonDockViewHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\application_import_blue.ico" />
+    <Resource Include="Resources\application_import_blue.png" />
+    <Resource Include="Resources\application_view_list.png" />
+    <Resource Include="Resources\brick.png" />
+    <Resource Include="Resources\ClosePreviewHH.png" />
+    <Resource Include="Resources\Copy.png" />
+    <Resource Include="Resources\CopyHS.png" />
+    <Resource Include="Resources\DeleteHS.png" />
+    <Resource Include="Resources\DocumentHS.png" />
+    <Resource Include="Resources\error.png" />
+    <Resource Include="Resources\exclamation.png" />
+    <Resource Include="Resources\folder.png" />
+    <Resource Include="Resources\icon_clear_all_messages.PNG" />
+    <Resource Include="Resources\information.png" />
+    <Resource Include="Resources\manual.png" />
+    <Resource Include="Resources\map.png" />
+    <Resource Include="Resources\openfolderHS.png" />
+    <Resource Include="Resources\Paste.png" />
+    <Resource Include="Resources\PasteLarge.png" />
+    <Resource Include="Resources\PropertiesHS.png" />
+    <Resource Include="Resources\Ringtoets.ico" />
+    <Resource Include="Resources\SaveAsHH.png" />
+    <Resource Include="Resources\saveHS.png" />
+    <Resource Include="Resources\SplashScreenBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-000-medium-question-mark.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\project-16.png" />
+    <Content Include="Resources\broom.png" />
+    <None Include="Resources\table_refresh.png" />
+    <None Include="Resources\bug-exclamation.ico" />
+    <Content Include="Resources\textfield_rename.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,10 @@
+﻿<stochasten>
+  <stochast naam="normal">
+    <verwachtingswaarde>0.2</verwachtingswaarde>
+    <standaardafwijking>0.1</standaardafwijking>
+  </stochast>
+  <stochast naam="lognormal">
+    <verwachtingswaarde>0.4</verwachtingswaarde>
+    <standaardafwijking>0.3</standaardafwijking>
+  </stochast>
+</stochasten>

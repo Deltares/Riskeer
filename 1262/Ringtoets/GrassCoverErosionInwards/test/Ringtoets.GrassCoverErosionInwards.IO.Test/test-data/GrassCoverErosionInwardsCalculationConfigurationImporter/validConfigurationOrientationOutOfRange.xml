@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <dijkprofiel>Dijkprofiel ID</dijkprofiel>
+    <orientatie>380</orientatie>
+  </berekening>
+</configuratie>

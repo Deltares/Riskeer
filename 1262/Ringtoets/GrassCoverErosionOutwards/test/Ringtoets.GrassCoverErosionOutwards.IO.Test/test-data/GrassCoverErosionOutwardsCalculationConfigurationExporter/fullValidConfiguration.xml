@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <map naam="PK001_0001">
+    <berekening naam="Calculation A">
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <voorlandprofiel>ForeshoreA</voorlandprofiel>
+      <orientatie>0</orientatie>
+      <golfreductie>
+        <damgebruiken>false</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>0</damhoogte>
+        <voorlandgebruiken>false</voorlandgebruiken>
+      </golfreductie>
+    </berekening>
+    <map naam="PK001_0002">
+      <berekening naam="PK001_0002 W1-6_4_1D1">
+        <hrlocatie>HydraulicLocationA</hrlocatie>
+        <bovengrensbekleding>NaN</bovengrensbekleding>
+        <ondergrensbekleding>NaN</ondergrensbekleding>
+        <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+        <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+        <stapgrootte>0.5</stapgrootte>
+        <orientatie>NaN</orientatie>
+      </berekening>
+    </map>
+  </map>
+</configuratie>

@@ -1,0 +1,21 @@
+VERSIE	4.0
+ID	18000
+
+RICHTING	96
+
+DAM	0
+DAMHOOGTE	0
+
+VOORLAND	0
+
+DAMWAND	0
+KRUINHOOGTE 4.26
+DIJK	4
+-3.000	-3.000	0.900
+5.250	-0.010	1.000
+11.750	2.350	1.000
+17.000	4.260	1.000
+
+MEMO
+Eerste poging opstellen prfl-format.
+Geschematiseerd profiel 18000 uit traject 12_2.

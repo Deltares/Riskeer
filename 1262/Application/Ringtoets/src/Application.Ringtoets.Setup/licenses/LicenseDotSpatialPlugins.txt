@@ -1,0 +1,2 @@
+Ringtoets uses code based on DotSpatial.Plugins, whose source code can be found at: https://github.com/FObermaier/DotSpatial.Plugins
+The original work has been released under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)

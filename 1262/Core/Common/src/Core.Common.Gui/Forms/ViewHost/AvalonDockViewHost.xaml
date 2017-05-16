@@ -1,0 +1,82 @@
+﻿<!--
+Copyright (C) Stichting Deltares 2017. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<UserControl x:Class="Core.Common.Gui.Forms.ViewHost.AvalonDockViewHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+        <xcad:DockingManager x:Name="DockingManager" AllowMixedOrientation="True">
+            <xcad:DockingManager.Theme>
+                <xcad:GenericTheme/>
+            </xcad:DockingManager.Theme>
+            <xcad:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconSource}" Margin="0,0,4,0" Height="16" Width="16"/>
+                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentHeaderTemplate>
+            <xcad:DockingManager.AnchorableHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconSource}" Margin="0,0,4,0" Height="16" Width="16"/>
+                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.AnchorableHeaderTemplate>
+            <xcad:LayoutRoot>
+                <xcad:LayoutPanel Orientation="Horizontal" x:Name="LeftRightLayoutTarget">
+                    <xcad:LayoutAnchorablePaneGroup x:Name="LeftLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="260">
+                        <xcad:LayoutAnchorablePane />
+                    </xcad:LayoutAnchorablePaneGroup>
+                    <xcad:LayoutPanel Orientation="Vertical" x:Name="BottomLayoutTarget">
+                        <xcad:LayoutDocumentPaneGroup x:Name="LayoutDocumentPaneGroup">
+                        <xcad:LayoutDocumentPane />
+                        </xcad:LayoutDocumentPaneGroup>
+                        <xcad:LayoutAnchorablePaneGroup>
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable x:Name="DummyPanelA"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
+                        </xcad:LayoutAnchorablePane>
+                        </xcad:LayoutAnchorablePaneGroup>
+                        <xcad:LayoutAnchorablePaneGroup x:Name="BottomLayoutAnchorablePaneGroup" DockHeight="200">
+                            <xcad:LayoutAnchorablePane />
+                        </xcad:LayoutAnchorablePaneGroup>
+                    </xcad:LayoutPanel>
+                    <xcad:LayoutAnchorablePaneGroup>
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable x:Name="DummyPanelB"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+                    <xcad:LayoutAnchorablePaneGroup x:Name="RightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="220">
+                        <xcad:LayoutAnchorablePane />
+                    </xcad:LayoutAnchorablePaneGroup>
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+
+</UserControl>

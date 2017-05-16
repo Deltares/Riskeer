@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <golfreductie>
+      <damhoogte>string</damhoogte>
+    </golfreductie>
+  </berekening>
+</configuratie>

@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AssessmentSection_DisplayName" xml:space="preserve">
+    <value>Traject</value>
+  </data>
+  <data name="AssessmentSection_Name_Description" xml:space="preserve">
+    <value>Naam van het toetstraject.</value>
+  </data>
+  <data name="AssessmentSection_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AssessmentSectionFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-stand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssessmentSectionMap_DisplayName" xml:space="preserve">
+    <value>Trajectkaart</value>
+  </data>
+  <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calculations_Cleared" xml:space="preserve">
+    <value>De uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
+  </data>
+  <data name="Delete_Calculations_Text" xml:space="preserve">
+    <value>U heeft een ander hydraulische randvoorwaarden bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+    
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="DesignWaterLevel_Calculate_All" xml:space="preserve">
+    <value>Alles be&amp;rekenen</value>
+  </data>
+  <data name="DesignWaterLevel_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle toetspeilen berekenen.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
+    <value>&amp;Koppel aan database...</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
+    <value>Koppel aan hydraulische randvoorwaardendatabase.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
+    <value>Locatie van het hydraulische randvoorwaardendatabase bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
+    <value>Hydraulische randvoorwaardendatabase</value>
+  </data>
+  <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
+    <value>Database op pad '{0}' gekoppeld.</value>
+  </data>
+  <data name="SelectHydraulicBoundaryDatabaseFile_FilterName" xml:space="preserve">
+    <value>Hydraulische randvoorwaardendatabase</value>
+  </data>
+  <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
+    <value>n.v.t</value>
+  </data>
+  <data name="CalculationGroupContextProperties_DisplayName" xml:space="preserve">
+    <value>Berekeningsmap</value>
+  </data>
+  <data name="CalculationGroup_Name_Description" xml:space="preserve">
+    <value>Naam van de berekeningsmap.</value>
+  </data>
+  <data name="CalculationGroup_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="Calculation_Name_Description" xml:space="preserve">
+    <value>Naam van de berekening.</value>
+  </data>
+  <data name="Calculation_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="AssessmentSection_Id_Description" xml:space="preserve">
+    <value>ID van het traject.</value>
+  </data>
+  <data name="AssessmentSection_Id_DisplayName" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue" xml:space="preserve">
+    <value>Signaleringswaarde</value>
+  </data>
+  <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId" xml:space="preserve">
+    <value>Traject ID</value>
+  </data>
+  <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue" xml:space="preserve">
+    <value>Ondergrens</value>
+  </data>
+  <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection" xml:space="preserve">
+    <value>Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.</value>
+  </data>
+  <data name="AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file" xml:space="preserve">
+    <value>Er kunnen geen trajecten gelezen worden uit het shapebestand.</value>
+  </data>
+  <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed" xml:space="preserve">
+    <value>Het importeren van de referentielijn is mislukt.</value>
+  </data>
+  <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0" xml:space="preserve">
+    <value>De normwaarde {0} kan niet worden overgenomen. Normwaarden moeten positief zijn.</value>
+  </data>
+  <data name="AssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsProjectProperties_Description_Description" xml:space="preserve">
+    <value>Korte beschrijving van het project.</value>
+  </data>
+  <data name="RingtoetsProjectProperties_Description_DisplayName" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="RingtoetsProjectProperties_Name_Description" xml:space="preserve">
+    <value>Naam van het project.</value>
+  </data>
+  <data name="RingtoetsProjectProperties_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="AddAssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddFolder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsRibbon_AddAssessmentSection" xml:space="preserve">
+    <value>Traject Toevoegen</value>
+  </data>
+  <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
+    <value>T&amp;raject toevoegen...</value>
+  </data>
+  <data name="DesignWaterLevelLocationsContext_DisplayName" xml:space="preserve">
+    <value>Toetspeilen</value>
+  </data>
+  <data name="WaveHeightLocationsContext_DisplayName" xml:space="preserve">
+    <value>Golfhoogtes</value>
+  </data>
+  <data name="WaveHeight_Calculate_All" xml:space="preserve">
+    <value>Alles be&amp;rekenen</value>
+  </data>
+  <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle golfhoogtes berekenen.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de toetspeil berekening?</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_WaveHeight_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de golfhoogte berekening?</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description" xml:space="preserve">
+    <value>Berekend toetspeil.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName" xml:space="preserve">
+    <value>Toetspeil [m+NAP]</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_Description" xml:space="preserve">
+    <value>Berekende golfhoogte.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName" xml:space="preserve">
+    <value>Hs [m]</value>
+  </data>
+  <data name="FailureMechanismContribution_Composition_Description" xml:space="preserve">
+    <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
+  </data>
+  <data name="FailureMechanismContribution_Composition_DisplayName" xml:space="preserve">
+    <value>Trajecttype</value>
+  </data>
+  <data name="FailureMechanismContribution_ReturnPeriod_Description" xml:space="preserve">
+    <value>Terugkeertijd van de norm, gelijk aan 1/norm.</value>
+  </data>
+  <data name="FailureMechanismContribution_ReturnPeriod_DisplayName" xml:space="preserve">
+    <value>Norm (terugkeertijd) [jaar]</value>
+  </data>
+  <data name="FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de 'Norm (terugkeertijd)' moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_" xml:space="preserve">
+    <value>Norm: 1 / {0}</value>
+  </data>
+  <data name="FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_" xml:space="preserve">
+    <value>Trajecttype: {0}</value>
+  </data>
+  <data name="BackgroundDataProperties_IsVisible_Description" xml:space="preserve">
+    <value>Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven.</value>
+  </data>
+  <data name="BackgroundDataProperties_IsVisible_DisplayName" xml:space="preserve">
+    <value>Weergeven</value>
+  </data>
+  <data name="BackgroundDataProperties_Name_Description" xml:space="preserve">
+    <value>Omschrijving van de achtergrond kaartlaag.</value>
+  </data>
+  <data name="BackgroundDataProperties_Name_DisplayName" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="BackgroundDataProperties_Transparency_Description" xml:space="preserve">
+    <value>Transparantie waarmee de achtergrond kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="BackgroundDataProperties_Transparency_DisplayName" xml:space="preserve">
+    <value>Transparantie</value>
+  </data>
+  <data name="BackgroundDataProperties_Wmts_Url_Description" xml:space="preserve">
+    <value>Volledige URL naar de Web Map Tile Service (WMTS) die als achtergrond kaartlaag gebruikt wordt.</value>
+  </data>
+  <data name="BackgroundDataProperties_Wmts_Url_DisplayName" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BackgroundDataProperties_Wmts_PreferredFormat_Description" xml:space="preserve">
+    <value>Het type afbeelding die door de geselecteerde kaartlaag aangeleverd wordt.</value>
+  </data>
+  <data name="BackgroundDataProperties_Wmts_SelectedCapabilityIdentifier_Description" xml:space="preserve">
+    <value>De naam van de geselecteerde kaartlaag.</value>
+  </data>
+  <data name="BackgroundDataProperties_Wmts_Category" xml:space="preserve">
+    <value>WMTS</value>
+  </data>
+</root>

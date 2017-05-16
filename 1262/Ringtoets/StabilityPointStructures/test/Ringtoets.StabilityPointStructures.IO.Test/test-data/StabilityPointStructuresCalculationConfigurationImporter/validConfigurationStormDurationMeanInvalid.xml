@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <kunstwerk>kunstwerk1</kunstwerk>
+    <stochasten>
+      <stochast naam="stormduur">
+        <verwachtingswaarde>-0.2</verwachtingswaarde>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <bovengrensbekleding>NaN</bovengrensbekleding>
+	<ondergrensbekleding>NaN</ondergrensbekleding>
+	<bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+	<ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+	<orientatie>NaN</orientatie>
+	<golfreductie>
+	  <damhoogte>NaN</damhoogte>
+	</golfreductie>
+  </berekening>
+</configuratie>

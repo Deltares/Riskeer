@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="nl-NL" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+
+  <String Id='Language'>1043</String>
+  <!--Set X to 40 when only Deltares logo is displayed, set to 24 when also Rijkswaterstaat logo is displayed-->
+  <!--set X to 25 when no logos are displayed-->
+  <String Id='DescriptionBeforeLogosX'>25</String>
+  <!--Set Width to 220 when only Deltares logo is displayed, set to 136 when also Rijkswaterstaat logo is displayed-->
+  <!--Set Width to 320 when no logos are displayed-->
+  <String Id='DescriptionBeforeLogosWidth'>320</String>
+
+  <String Id="TitleDescriptionX">40</String>
+
+  <String Id="PrepareDlgTitle" />
+
+  <String Id="WelcomeUpdateDlgDescriptionUpdate" />
+  <String Id="WelcomeDlgTitle" />
+  <String Id="WixUICostingPopupOptOut" />
+
+  <String Id="VerifyReadyDlgUpdate" />
+  <String Id="VerifyReadyDlgUpdateTitle" />
+  <String Id="VerifyReadyDlgUpdateText" />
+  <String Id="ProgressDlgTextUpdating" />
+  <String Id="ProgressDlgTitleUpdating" />
+
+  <!-- Change the color of the description texts in the banners to white -->
+  <String Id="BrowseDlgDescription">{\WixUI_Font_Banner_Description}Configureer de installatie locatie.</String>
+  <String Id="DiskCostDlgDescription">{\WixUI_Font_Banner_Description}De hoeveelheid geheugen nodig voor de geconfigureerde installatie.</String>
+  <String Id="MaintenanceTypeDlgDescription">{\WixUI_Font_Banner_Description}Selecteer de operatie die u wenst uit te voeren.</String>
+  <String Id="FilesInUseDescription">{\WixUI_Font_Banner_Description}De bestanden die moeten worden bijgewerkt zijn in gebruik.</String>
+  <String Id="OutOfDiskDlgDescription">{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte.</String>
+  <String Id="OutOfRbDiskDlgDescription">{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte.</String>
+
+</WixLocalization>

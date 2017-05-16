@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <stochasten>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>80.5</verwachtingswaarde>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

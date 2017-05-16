@@ -1,0 +1,22 @@
+VERSIE	4.0
+ID			
+
+RICHTING	330
+
+DAM	0
+DAMHOOGTE	0
+
+VOORLAND	0
+
+DAMWAND	0
+KRUINHOOGTE	6
+DIJK	2
+0.000	0.000	1.000
+18.000	6.000	1.000
+
+MEMO
+Verkenning prfl format:
+Basis:
+geen dam
+geen voorland
+recht talud

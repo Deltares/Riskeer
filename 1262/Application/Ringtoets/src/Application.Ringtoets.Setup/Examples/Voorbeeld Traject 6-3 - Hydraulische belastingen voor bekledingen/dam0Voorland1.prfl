@@ -1,0 +1,26 @@
+VERSIE	4.0
+ID	profiel63dam0voorland1
+
+RICHTING	290
+
+DAM	0
+DAMHOOGTE	0.5
+
+VOORLAND	3
+-105	-4.2	1
+-100	-4	1
+-41.88	0	1
+
+DAMWAND	0
+KRUINHOOGTE	9.72
+DIJK	4
+-41.88	0	0.998141263941
+-23.88	4.5	0.998141263941
+-18.88	5	0.998141263941
+0	9.72	0.998141263941
+
+MEMO
+Verkenning prfl format:
+geen dam
+voorland
+talud met (ruwe) berm

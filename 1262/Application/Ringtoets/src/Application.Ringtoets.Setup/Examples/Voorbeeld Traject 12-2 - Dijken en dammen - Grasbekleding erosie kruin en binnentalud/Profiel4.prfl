@@ -1,0 +1,21 @@
+VERSIE	4.0
+ID	08000
+
+RICHTING	62
+
+DAM	0
+DAMHOOGTE	0
+
+VOORLAND	0
+
+DAMWAND	0
+KRUINHOOGTE 4.23
+DIJK	4
+-4.000	-3.000	0.900
+3.750	0.030	1.000
+10.750	2.760	1.000
+14.500	4.230	1.000
+
+MEMO
+Eerste poging opstellen prfl-format.
+Geschematiseerd profiel 08000 uit traject 12_2.

@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <PropertyGroup>
+    <ProjectGuid>{4D840673-3812-4338-A352-84854E32B8A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ringtoets.Common.Forms</RootNamespace>
+    <AssemblyName>Ringtoets.Common.Forms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\ObservablePropertyChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\PropertyChangeHelper.cs" />
+    <Compile Include="ChangeHandlers\CalculationChangeHandler.cs" />
+    <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
+    <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
+    <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
+    <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
+    <Compile Include="Helpers\NamingHelper.cs" />
+    <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
+    <Compile Include="Helpers\SynchronizeCalculationWithForeshoreProfileHelper.cs" />
+    <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
+    <Compile Include="IScenarioRow.cs" />
+    <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
+    <Compile Include="PresentationObjects\ICalculationContext.cs" />
+    <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PresentationObjects\FailureMechanismContributionContext.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismSectionResultContext.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\IFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\InputContextBase.cs" />
+    <Compile Include="PresentationObjects\MapCalculationData.cs" />
+    <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyClasses\ForeshoreProfileCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\StructureCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBase.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\IObservablePropertyChangeHandler.cs" />
+    <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\DistributionPropertiesBase.cs" />
+    <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\StructuresInputBaseProperties.cs" />
+    <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\ForeshoreGeometryProperties.cs" />
+    <Compile Include="PropertyClasses\DistributionPropertiesReadOnly.cs" />
+    <Compile Include="PropertyClasses\ForeshoreProfileProperties.cs" />
+    <Compile Include="PropertyClasses\TruncatedNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
+    <Compile Include="ExportInfos\RingtoetsExportInfoFactory.cs" />
+    <Compile Include="ScenarioSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenarioSelectionControl.Designer.cs">
+      <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectionDialogBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectionDialogBase.Designer.cs">
+      <DependentUpon>SelectionDialogBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HydraulicBoundaryLocationSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StructureSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditor.cs" />
+    <Compile Include="UITypeEditors\ForeshoreProfileEditor.cs" />
+    <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />
+    <Compile Include="UITypeEditors\IHasHydraulicBoundaryLocationProperty.cs" />
+    <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
+    <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
+    <Compile Include="UITypeEditors\StructureEditor.cs" />
+    <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\CalculatableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CalculatableView.Designer.cs">
+      <DependentUpon>CalculatableView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FailureMechanismView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismView.Designer.cs">
+      <DependentUpon>FailureMechanismView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
+    <Compile Include="Views\FailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
+    <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\HydraulicBoundaryLocationsView.Designer.cs">
+      <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
+    <Compile Include="Factories\RingtoetsChartDataFactory.cs" />
+    <Compile Include="Views\RingtoetsMapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\RingtoetsMapControl.Designer.cs">
+      <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\RingtoetsMapDataFeaturesFactory.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
+    <Compile Include="TypeConverters\NoProbabilityValueDoubleConverter.cs" />
+    <Compile Include="TypeConverters\NoValueRoundedDoubleConverter.cs" />
+    <Compile Include="Views\CommentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CommentView.Designer.cs">
+      <DependentUpon>CommentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismResultView.Designer.cs">
+      <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\RingtoetsMapDataFactory.cs" />
+    <Compile Include="Views\SelectableRow.cs" />
+    <Compile Include="Views\WaveHeightLocationRow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioSelectionControl.resx">
+      <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CalculatableView.resx">
+      <DependentUpon>CalculatableView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismView.resx">
+      <DependentUpon>FailureMechanismView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CommentView.resx">
+      <DependentUpon>CommentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismResultView.resx">
+      <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HydraulicBoundaryLocationsView.resx">
+      <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RingtoetsMapControl.resx">
+      <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
+      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
+      <Name>Core.Common.Controls.TreeView</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj">
+      <Project>{88665510-CE20-4EF5-BE4A-39800720AA2C}</Project>
+      <Name>Core.Common.Geometry</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Charting</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\tick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_input.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_output.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cards.png" />
+    <None Include="Resources\application_form.png" />
+    <None Include="Resources\DikeProfile.png" />
+    <None Include="Resources\calculation_icon.png" />
+    <None Include="Resources\Structures.png" />
+    <Resource Include="Resources\MapsIcon.png" />
+    <None Include="Resources\update.png" />
+    <None Include="Resources\warning.ico" />
+    <Content Include="Resources\wand-hat.png" />
+    <None Include="Resources\database.png" />
+    <None Include="Resources\chart_single_line.png" />
+    <None Include="Resources\blue-document-list.png" />
+    <None Include="Resources\blue-document--pencil.png" />
+    <None Include="Resources\document-task.png" />
+    <None Include="Resources\chart-pie-separate.png" />
+    <None Include="Resources\control_equalizer_blue.png" />
+    <None Include="Resources\folder_add.png" />
+    <None Include="Resources\Checkbox_empty.png" />
+    <None Include="Resources\Checkbox_ticked.png" />
+    <Content Include="Resources\PlayHS.png" />
+    <None Include="Resources\Sections.png" />
+    <None Include="Resources\table.png" />
+    <Content Include="Resources\tickAll.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

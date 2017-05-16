@@ -1,0 +1,21 @@
+VERSIE	4.0
+ID	15700
+
+RICHTING	95
+
+DAM	0
+DAMHOOGTE	0
+
+VOORLAND	0
+
+DAMWAND	0
+KRUINHOOGTE 4.26
+DIJK	4
+-3.000	-3.000	0.900
+4.750	-0.110	1.000
+12.750	2.860	1.000
+16.500	4.260	1.000
+
+MEMO
+Eerste poging opstellen prfl-format.
+Geschematiseerd profiel 15700 uit traject 12_2.

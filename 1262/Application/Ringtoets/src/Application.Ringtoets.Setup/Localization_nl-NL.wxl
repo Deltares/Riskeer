@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="nl-NL" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="ApplicationLongName">Ringtoets</String>
+  <String Id="ApplicationShortName">Ringtoets</String>
+  <String Id="ApplicationGroupShortName">WTI</String>
+  <String Id="Manufacturer">Deltares</String>
+  <String Id="NetFramework40Required">De installatie vereist dat Microsoft .NET Framework 4.0 geïnstalleerd is om verder te gaan.</String>
+  <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
+  <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
+
+  <String Id="UserManualName">Gebruikershandleiding</String>
+  <String Id="UserManualDescription">Open de gebruikershandleiding van Ringtoets.</String>
+
+  <String Id="Examples">Voorbeelden</String>
+  <String Id="InstallationVerification">Installatie verificatie</String>
+  <String Id="CalculationConfigurationXSD">Berekeningen importeren of exporteren - xsd</String>
+
+  <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
+  
+  <String Id="RtdDescription">!(loc.ApplicationShortName)-databasebestand</String>
+
+  <String Id="WelcomeDlgDescription">[ProductName] wordt geïnstalleerd op uw computer. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
+  <String Id="MaintenanceWelcomeDlgDescription">Met het installatiehulpprogramma kunt u de manier wijzigen waarop onderdelen van [ProductName] op uw computer worden geïnstalleerd of kunt u dit helemaal van uw computer verwijderen. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
+  <String Id="VerifyReadyDlgRemoveText">Klik op Verwijderen om [ProductName] van uw computer te verwijderen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
+  <String Id="VerifyReadyDlgInstallText">Klik op Installeren om de installatie te starten. Klik op Vorige om de gekozen installatiemap te bekijken of te wijzigen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten. </String>
+  <String Id="VerifyReadyDlgRepairText">Klik op Herstellen om de installatie van [ProductName] te herstellen. Klik op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
+  <String Id="CancelDlgText">Weet u zeker dat u het installatiehulpprogramma van [ProductName] wilt afsluiten?</String>
+  <String Id="FatalErrorDlgDescriptionCustom">Het installatiehulpprogramma van [ProductName] is voortijdig beëindigd vanwege een fout. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
+  <String Id="UserExitDescriptionCustom">De installatie van [ProductName] is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
+  <String Id="ExitDialogDescription">Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
+  
+  <String Id="MaintenanceTypeDlgTitle">{\WixUI_Font_Title}Installatie herstellen of verwijderen</String>
+  <String Id="InstallDirDlgTitle">{\WixUI_Font_Title}Installatiemap</String>
+  <String Id="InstallDirDlgFolderLabel">[ProductName] installeren in:</String>
+  <String Id="InstallDirDlgDescription">{\WixUI_Font_Banner_Description}Kies hier het pad waar u [ProductName] geïnstalleerd wilt hebben.</String>
+  <String Id="InstallDirDlgText">Klik op Volgende om in de bovenstaande map te installeren of klik op Wijzigen om een andere map te kiezen.</String>
+  
+  <String Id="BackButtonText">&amp;Vorige</String>
+  <String Id="NextButtonText">V&amp;olgende</String>
+  <String Id="CancelButtonText">A&amp;nnuleren</String>
+  <String Id="CompleetInstallationButtonText">Vo&amp;lledig</String>
+  <String Id="InstallButtonText">&amp;Installeren</String>
+  <String Id="MaintenanceTypeRepairButtonText">&amp;Herstellen</String>
+  <String Id="MaintenanceTypeRemoveButtonText">V&amp;erwijderen</String>
+  <String Id="DiskUsageButtonText">&amp;Schijfgebruik</String>
+  <String Id="NoButtonText">&amp;Nee</String>
+  <String Id="YesButtonText">&amp;Ja</String>
+  <String Id="FinishButtonText">&amp;Voltooien</String>
+</WixLocalization>

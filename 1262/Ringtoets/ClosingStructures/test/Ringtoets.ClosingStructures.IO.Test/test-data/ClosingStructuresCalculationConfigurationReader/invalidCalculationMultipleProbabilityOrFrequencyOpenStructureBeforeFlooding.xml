@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <kansopopenstaan>0.2</kansopopenstaan>
+    <kansopopenstaan>0.6</kansopopenstaan>
+  </berekening>
+</configuratie>
