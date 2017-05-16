@@ -228,7 +228,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private class SimpleStructuresInput : StructuresInputBase<SimpleStructure>
         {
-            public override bool StructureParametersSynchronized
+            public override bool IsStructureInputSynchronized
             {
                 get
                 {
@@ -236,7 +236,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             }
 
-            public override void SynchronizeStructureParameters() {}
+            public override void SynchronizeStructureInput() {}
         }
     }
 }
