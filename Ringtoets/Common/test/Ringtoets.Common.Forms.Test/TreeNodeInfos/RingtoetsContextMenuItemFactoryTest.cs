@@ -603,15 +603,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(null);
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(null);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
-                calculationMock,
-                inquiryHelperMock, c => {});
+                calculation,
+                inquiryHelper, c => {});
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
@@ -626,18 +626,18 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
-                calculationMock,
-                inquiryHelperMock, c => {});
+                calculation,
+                inquiryHelper, c => {});
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
@@ -652,26 +652,26 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
-            calculationMock.Expect(c => c.HasOutput).Return(false);
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.HasOutput).Return(false);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
-                calculationMock,
-                inquiryHelperMock,
+                calculation,
+                inquiryHelper,
                 c => { actionCalculation = c; });
 
             // Call
             toolStripItem.PerformClick();
 
             // Assert
-            Assert.AreSame(calculationMock, actionCalculation);
+            Assert.AreSame(calculation, actionCalculation);
             mocks.VerifyAll();
         }
 
@@ -685,20 +685,20 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                 "Weet u zeker dat u wilt doorgaan?";
 
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
-            calculationMock.Expect(c => c.HasOutput).Return(true);
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(false);
+            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.HasOutput).Return(true);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(false);
             mocks.ReplayAll();
 
             var actionPerformed = false;
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
-                calculationMock,
-                inquiryHelperMock,
+                calculation,
+                inquiryHelper,
                 c => { actionPerformed = true; });
 
             // Call
@@ -719,20 +719,20 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                 "Weet u zeker dat u wilt doorgaan?";
 
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
-            calculationMock.Expect(c => c.HasOutput).Return(true);
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(true);
+            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Expect(c => c.HasOutput).Return(true);
+            var helperMock = mocks.StrictMock<IInquiryHelper>();
+            helperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(true);
             mocks.ReplayAll();
 
             var actionPerformed = false;
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
-                calculationMock,
-                inquiryHelperMock,
+                calculation,
+                helperMock,
                 c => { actionPerformed = true; });
 
             // Call
@@ -755,30 +755,30 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             if (hasForeshoreProfile)
             {
-                inputMock.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-                inputMock.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
+                input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
+                input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
             }
             else
             {
-                inputMock.Expect(ci => ci.ForeshoreProfile).Return(null);
+                input.Expect(ci => ci.ForeshoreProfile).Return(null);
             }
 
-            calculationMock.Stub(c => c.InputParameters).Return(inputMock);
+            calculation.Stub(c => c.InputParameters).Return(input);
 
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
-                    calculationMock
+                    calculation
                 },
-                inquiryHelperMock, c => {});
+                inquiryHelper, c => {});
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);
@@ -808,23 +808,23 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                 $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputMock.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputMock.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationMock.Stub(c => c.InputParameters).Return(inputMock);
-            calculationMock.Expect(c => c.HasOutput).Return(hasOutput);
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(false);
+            calculation.Stub(c => c.InputParameters).Return(input);
+            calculation.Expect(c => c.HasOutput).Return(hasOutput);
 
-            var calculationWithoutChangesMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputWithoutChangesMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputWithoutChangesMock.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
-            calculationWithoutChangesMock.Stub(c => c.InputParameters).Return(inputWithoutChangesMock);
+            var calculationWithoutChanges = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var inputWithoutChanges = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            inputWithoutChanges.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
+            inputWithoutChanges.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
+            calculationWithoutChanges.Stub(c => c.InputParameters).Return(inputWithoutChanges);
 
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             if (hasOutput)
             {
-                inquiryHelperMock.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(continuation);
+                inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(continuation);
             }
             mocks.ReplayAll();
 
@@ -833,10 +833,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
                 {
-                    calculationMock,
-                    calculationWithoutChangesMock
+                    calculation,
+                    calculationWithoutChanges
                 },
-                inquiryHelperMock,
+                inquiryHelper,
                 c =>
                 {
                     actionCalculation = c;
@@ -855,7 +855,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             else
             {
                 Assert.IsTrue(actionPerformed);
-                Assert.AreSame(calculationMock, actionCalculation);
+                Assert.AreSame(calculation, actionCalculation);
             }
 
             mocks.VerifyAll();

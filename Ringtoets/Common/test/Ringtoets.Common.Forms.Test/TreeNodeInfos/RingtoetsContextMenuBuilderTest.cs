@@ -51,22 +51,22 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculationGroup = new CalculationGroup();
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -91,24 +91,24 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculationGroup = new CalculationGroup();
-                var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -133,14 +133,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
@@ -148,16 +148,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithOutputMock
+                    calculationWithOutput
                 }
             };
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup, treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
@@ -181,11 +181,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -193,11 +193,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -223,33 +223,33 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
-                calculationWithOutputMock
+                calculationWithOutput
             });
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                failureMechanismMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                failureMechanism,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -268,11 +268,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new List<ICalculation>());
 
@@ -280,11 +280,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanism,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -312,30 +312,30 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.IsRelevant).Return(isRelevant);
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContextMock.Expect(fmc => fmc.WrappedData).Return(failureMechanismMock);
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.IsRelevant).Return(isRelevant);
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fmc => fmc.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                failureMechanismMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                failureMechanism,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContextMock, null).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -354,30 +354,30 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                calculationWithOutputMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculationWithOutput,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutputMock).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutput).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -396,30 +396,30 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithoutOutputMock.Expect(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                calculationWithoutOutputMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculationWithoutOutput,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutputMock).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutput).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -439,13 +439,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddRenameItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddRenameItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddRenameItem();
@@ -459,13 +458,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddDeleteItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddDeleteItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddDeleteItem();
@@ -479,13 +477,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddExpandAllItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddExpandAllItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddExpandAllItem();
@@ -499,13 +496,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddCollapseAllItem());
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(cmb => cmb.AddCollapseAllItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(menuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddCollapseAllItem();
@@ -519,13 +515,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddOpenItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddOpenItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddOpenItem();
@@ -539,13 +534,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddExportItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddExportItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddExportItem();
@@ -559,13 +553,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddImportItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddImportItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddImportItem();
@@ -579,13 +572,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddPropertiesItem());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddPropertiesItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddPropertiesItem();
@@ -599,13 +591,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddSeparator());
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddSeparator());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddSeparator();
@@ -619,17 +610,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuItemMock = mocks.StrictMock<StrictContextMenuItem>();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            contextMenuBuilderMock.Expect(cmb => cmb.AddCustomItem(contextMenuItemMock));
+            var contextMenuItem = mocks.StrictMock<StrictContextMenuItem>();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(contextMenuItem));
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddCustomItem(contextMenuItemMock);
+            ringtoetsContextMenuBuilder.AddCustomItem(contextMenuItem);
 
             // Assert
             mocks.VerifyAll();
@@ -640,13 +630,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilderMock.Expect(cmb => cmb.Build());
+            contextMenuBuilder.Expect(cmb => cmb.Build());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.Build();
@@ -662,25 +652,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -705,25 +695,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -755,25 +745,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -798,25 +788,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -848,11 +838,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -873,11 +863,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -902,11 +892,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -916,11 +906,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -946,11 +936,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -971,11 +961,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1003,11 +993,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -1017,11 +1007,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1053,11 +1043,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -1078,11 +1068,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1107,11 +1097,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -1121,11 +1111,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1151,11 +1141,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -1176,11 +1166,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1208,11 +1198,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
             mocks.ReplayAll();
 
@@ -1222,11 +1212,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1258,28 +1248,28 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(new[]
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1303,25 +1293,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1346,28 +1336,28 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(new[]
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1394,25 +1384,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1443,28 +1433,28 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(new[]
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1488,25 +1478,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1531,28 +1521,28 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(new[]
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1582,25 +1572,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1637,36 +1627,36 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
             input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(synchronized);
-            calculationMock.Expect(c => c.InputParameters).Return(input).Repeat.Any();
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                calculationMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculation,
                                                                 treeViewControl);
 
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationItem(
-                    calculationMock,
-                    inquiryHelperMock,
+                    calculation,
+                    inquiryHelper,
                     c => {}).Build();
 
                 // Assert
@@ -1689,33 +1679,33 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Expect(c => c.InputParameters.ForeshoreProfile).Return(null);
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Expect(c => c.InputParameters.ForeshoreProfile).Return(null);
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                calculationMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculation,
                                                                 treeViewControl);
 
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationItem(
-                    calculationMock,
-                    inquiryHelperMock,
+                    calculation,
+                    inquiryHelper,
                     c => {}).Build();
 
                 // Assert
@@ -1743,35 +1733,35 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputMock.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputMock.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(synchronized);
-            calculationMock.Stub(c => c.InputParameters).Return(inputMock);
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(i => i.IsForeshoreProfileInputSynchronized).Return(synchronized);
+            calculation.Stub(c => c.InputParameters).Return(input);
 
-            var calculationWithoutChangesMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputWithoutChangesMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputWithoutChangesMock.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
-            calculationWithoutChangesMock.Stub(c => c.InputParameters).Return(inputWithoutChangesMock);
+            var calculationWithoutChanges = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var inputWithoutChanges = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            inputWithoutChanges.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
+            inputWithoutChanges.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
+            calculationWithoutChanges.Stub(c => c.InputParameters).Return(inputWithoutChanges);
 
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                calculationMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculation,
                                                                 treeViewControl);
 
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1780,10 +1770,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationsItem(
                     new[]
                     {
-                        calculationMock,
-                        calculationWithoutChangesMock
+                        calculation,
+                        calculationWithoutChanges
                     },
-                    inquiryHelperMock,
+                    inquiryHelper,
                     c => {}).Build();
 
                 // Assert
@@ -1806,34 +1796,34 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputMock.Expect(i => i.ForeshoreProfile).Return(null);
-            calculationMock.Expect(c => c.InputParameters).Return(inputMock);
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            input.Expect(i => i.ForeshoreProfile).Return(null);
+            calculation.Expect(c => c.InputParameters).Return(input);
 
-            var calculationWithoutChangesMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var inputWithoutChangesMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            inputWithoutChangesMock.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-            inputWithoutChangesMock.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
-            calculationWithoutChangesMock.Stub(c => c.InputParameters).Return(inputWithoutChangesMock);
+            var calculationWithoutChanges = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var inputWithoutChanges = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            inputWithoutChanges.Stub(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
+            inputWithoutChanges.Stub(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
+            calculationWithoutChanges.Stub(c => c.InputParameters).Return(inputWithoutChanges);
 
-            var inquiryHelperMock = mocks.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock,
-                                                                importHandlerMock,
-                                                                exportHandlerMock,
-                                                                updateHandlerMock,
-                                                                viewCommandsMock,
-                                                                calculationMock,
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculation,
                                                                 treeViewControl);
 
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
@@ -1842,10 +1832,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationsItem(
                     new[]
                     {
-                        calculationMock,
-                        calculationWithoutChangesMock
+                        calculation,
+                        calculationWithoutChanges
                     },
-                    inquiryHelperMock,
+                    inquiryHelper,
                     c => {}).Build();
 
                 // Assert
