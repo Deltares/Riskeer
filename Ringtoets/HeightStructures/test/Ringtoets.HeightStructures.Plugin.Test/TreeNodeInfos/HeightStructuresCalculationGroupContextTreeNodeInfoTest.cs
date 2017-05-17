@@ -1428,10 +1428,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.HasOutput);
                     Assert.IsFalse(calculation.InputParameters.IsStructureInputSynchronized);
 
-                    string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
-                                             $"worden verwijderd.{Environment.NewLine}{Environment.NewLine}" +
-                                             "Weet u zeker dat u wilt doorgaan?";
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
                     // Note: observer assertions are verified in the TearDown()
@@ -1492,10 +1490,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
-                    string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
-                                             $"worden verwijderd.{Environment.NewLine}{Environment.NewLine}" +
-                                             "Weet u zeker dat u wilt doorgaan?";
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
                     // Note: observer assertions are verified in the TearDown()

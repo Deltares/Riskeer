@@ -965,7 +965,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data" xml:space="preserve">
-    <value>Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze kunstwerken gebruiken, worden verwijderd.
+    <value>Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

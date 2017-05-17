@@ -2574,7 +2574,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze kunstwerken gebruiken, worden verwijderd.
+        ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
