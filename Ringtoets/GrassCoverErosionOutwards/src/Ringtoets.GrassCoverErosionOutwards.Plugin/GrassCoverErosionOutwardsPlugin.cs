@@ -657,7 +657,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group
                 .GetCalculations()
-                .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
+                .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                .ToArray();
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 

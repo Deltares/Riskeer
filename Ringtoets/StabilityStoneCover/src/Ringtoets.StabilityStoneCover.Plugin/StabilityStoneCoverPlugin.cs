@@ -362,7 +362,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             StabilityStoneCoverWaveConditionsCalculation[] calculations = group
                 .GetCalculations()
-                .OfType<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
+                .OfType<StabilityStoneCoverWaveConditionsCalculation>()
+                .ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()

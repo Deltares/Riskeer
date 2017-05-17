@@ -519,7 +519,8 @@ namespace Ringtoets.HeightStructures.Plugin
 
             StructuresCalculation<HeightStructuresInput>[] calculations = group
                 .GetCalculations()
-                .OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
+                .OfType<StructuresCalculation<HeightStructuresInput>>()
+                .ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()

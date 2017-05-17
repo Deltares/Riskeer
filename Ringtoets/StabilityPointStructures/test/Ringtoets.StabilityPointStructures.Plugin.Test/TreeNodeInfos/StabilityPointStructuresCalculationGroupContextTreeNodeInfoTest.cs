@@ -652,10 +652,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile()
+                    ForeshoreProfile = new TestForeshoreProfile(),
+                    UseBreakWater = true
                 }
             };
-            calculation.InputParameters.UseBreakWater = true;
 
             var nodeData = new StabilityPointStructuresCalculationGroupContext(
                 new CalculationGroup

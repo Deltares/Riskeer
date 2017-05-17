@@ -507,7 +507,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = group
                 .GetCalculations()
-                .OfType<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
+                .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
+                .ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
