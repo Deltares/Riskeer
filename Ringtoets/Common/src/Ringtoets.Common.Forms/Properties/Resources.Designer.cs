@@ -766,17 +766,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken..
-        /// </summary>
-        public static string CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip {
-            get {
-                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_no_ForeshorePr" +
-                        "ofile_changes_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekeningen bijwerken waar een voorlandprofiel geselecteerd is..
+        ///   Looks up a localized string similar to Alle berekeningen met een voorlandprofiel bijwerken..
         /// </summary>
         public static string CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip {
             get {
@@ -2574,18 +2564,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_u" +
-                        "pdating_Structure_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De ondergrens van de afgekapte normale verdeling..
         /// </summary>
         public static string TruncatedNormalDistribution_LowerBoundary_Description {
@@ -2652,18 +2630,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van de berekeningen worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string UpdateForeshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data {
-            get {
-                return ResourceManager.GetString("UpdateForeshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_upd" +
-                        "ating_ForeshoreProfile_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap UpdateItemIcon {
@@ -2726,6 +2692,17 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ValidateIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating {
+            get {
+                return ResourceManager.GetString("VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating", resourceCulture);
             }
         }
         

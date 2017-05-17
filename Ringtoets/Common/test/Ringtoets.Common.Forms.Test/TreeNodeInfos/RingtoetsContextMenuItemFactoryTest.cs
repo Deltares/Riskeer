@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => {});
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
 
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
@@ -611,7 +611,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
-                inquiryHelperMock, c => {});
+                inquiryHelperMock, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
@@ -637,7 +637,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculationMock,
-                inquiryHelperMock, c => {});
+                inquiryHelperMock, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
@@ -764,11 +764,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 {
                     calculationMock
                 },
-                inquiryHelperMock, c => {});
+                inquiryHelperMock, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);
-            Assert.AreEqual("De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Er zijn geen berekeningen om bij te werken.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -794,11 +794,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 {
                     calculationMock
                 },
-                inquiryHelperMock, c => {});
+                inquiryHelperMock, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);
-            Assert.AreEqual("De geselecteerde voorlandprofielen hebben geen wijzigingen om bij te werken.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Er zijn geen berekeningen om bij te werken.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -831,11 +831,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     calculationMock,
                     calculationWithoutChangesMock
                 },
-                inquiryHelperMock, c => {});
+                inquiryHelperMock, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);
-            Assert.AreEqual("Berekeningen bijwerken waar een voorlandprofiel geselecteerd is.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Alle berekeningen met een voorlandprofiel bijwerken.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -884,10 +884,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateUpdateForeshoreProfileOfCalculationsItem_WithCalculationOutputPerformClickNoContinuation_DoesNotPerformAction()
         {
             // Setup
-            string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
-                                                "zal het resultaat van de berekeningen worden verwijderd." +
-                                                $"{Environment.NewLine}{Environment.NewLine}" +
-                                                "Weet u zeker dat u wilt doorgaan?";
+            string inquireContinuationMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                                $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             var mocks = new MockRepository();
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
@@ -929,10 +927,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateUpdateForeshoreProfileOfCalculationsItem_WithCalculationOutputPerformClickWithContinuation_PerformsAction()
         {
             // Setup
-            string inquireContinuationMessage = "Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, " +
-                                                "zal het resultaat van de berekeningen worden verwijderd." +
-                                                $"{Environment.NewLine}{Environment.NewLine}" +
-                                                "Weet u zeker dat u wilt doorgaan?";
+            string inquireContinuationMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                                $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             var mocks = new MockRepository();
             var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();

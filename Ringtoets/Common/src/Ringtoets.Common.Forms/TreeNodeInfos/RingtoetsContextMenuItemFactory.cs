@@ -436,34 +436,32 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            ICalculation<TCalculationInput>[] calculationsWithForeshoreProfileChanges = calculations.Where(
-                c => c.InputParameters.ForeshoreProfile != null
-                     && !c.InputParameters.IsForeshoreProfileInputSynchronized).ToArray();
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip;
+            ICalculation<TCalculationInput>[] calculationsToUpdate = calculations
+                .Where(c => c.InputParameters.ForeshoreProfile != null && !c.InputParameters.IsForeshoreProfileInputSynchronized)
+                .ToArray();
 
-            bool hasForeshoreProfileChanges = calculationsWithForeshoreProfileChanges.Any();
+            if (!calculationsToUpdate.Any())
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = Resources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+            }
 
-            string toolTipMessage = hasForeshoreProfileChanges
-                                        ? Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip
-                                        : Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_no_ForeshoreProfile_changes_ToolTip;
-
-            string confirmOutputMessage = Resources.UpdateForeshoreProfileOfCalculations_Confirm_calculation_outputs_cleared_when_updating_ForeshoreProfile_dependent_data;
-
-            var menuItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data,
                 toolTipMessage,
                 Resources.UpdateItemIcon,
                 (o, args) =>
                 {
-                    UpdateForeshoreProfileDependentDataOfCalculation(calculationsWithForeshoreProfileChanges,
+                    UpdateForeshoreProfileDependentDataOfCalculation(calculationsToUpdate,
                                                                      inquiryHelper,
-                                                                     confirmOutputMessage,
+                                                                     Resources.VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating,
                                                                      updateAction);
                 })
             {
-                Enabled = hasForeshoreProfileChanges
+                Enabled = contextMenuEnabled
             };
-
-            return menuItem;
         }
 
         private static void UpdateForeshoreProfileDependentDataOfCalculation<TCalculationInput>(

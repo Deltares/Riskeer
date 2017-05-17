@@ -599,8 +599,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculations(IList<StructuresCalculation<HeightStructuresInput>> calculations)
         {
-            string message =
-                RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating;
             if (StructureDependentDataShouldUpdate(calculations, message))
             {
                 foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
