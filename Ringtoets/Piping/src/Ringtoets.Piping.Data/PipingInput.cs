@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Data
             set
             {
                 surfaceLine = value;
-                SynchronizeEntryAndExitPoint();
+                SynchronizeEntryAndExitPointInput();
             }
         }
 
@@ -211,29 +211,35 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets whether the entry and exit point are synchronized with the set <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Gets the value <c>true</c> if the entry point and exit point of the
+        /// instance of <see cref="PipingInput"/> match the entry point and
+        /// exit point of <see cref="SurfaceLine"/>; or <c>false</c> if this is
+        /// not the case, or if there is no <see cref="SurfaceLine"/> assigned.
         /// </summary>
-        /// <remarks>Always returns <c>false</c> in case no surface line is present.</remarks>
-        public bool EntryAndExitPointSynchronized()
+        public bool IsEntryAndExitPointInputSynchronized
         {
-            if (SurfaceLine == null)
+            get
             {
-                return false;
+                if (SurfaceLine == null)
+                {
+                    return false;
+                }
+
+                double newEntryPointL;
+                double newExitPointL;
+                GetEntryExitPointFromSurfaceLine(out newEntryPointL, out newExitPointL);
+
+                return Math.Abs(newEntryPointL - EntryPointL) < 1e-6
+                       && Math.Abs(newExitPointL - ExitPointL) < 1e-6;
             }
-
-            double newEntryPointL;
-            double newExitPointL;
-            GetEntryExitPointFromSurfaceLine(out newEntryPointL, out newExitPointL);
-
-            return Math.Abs(newEntryPointL - EntryPointL) < 1e-6
-                   && Math.Abs(newExitPointL - ExitPointL) < 1e-6;
         }
 
         /// <summary>
-        /// Synchronizes the entry and exit point with the parameters of the surface line.
+        /// Applies the entry point and exit point of the <see cref="SurfaceLine"/> to the
+        /// parameters of the instance of <see cref="PipingInput"/>.
         /// </summary>
         /// <remarks>When no surface line is present, the entry and exit point are set to <see cref="double.NaN"/>.</remarks>
-        public void SynchronizeEntryAndExitPoint()
+        public void SynchronizeEntryAndExitPointInput()
         {
             if (SurfaceLine == null)
             {
