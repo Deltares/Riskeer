@@ -1038,7 +1038,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void UpdateEntryAndExitPointsOfAllCalculations(IList<PipingCalculationScenario> calculations)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
                 foreach (PipingCalculationScenario calculation in calculations)

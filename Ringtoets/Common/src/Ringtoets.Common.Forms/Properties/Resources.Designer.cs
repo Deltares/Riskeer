@@ -2552,18 +2552,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_up" +
-                        "dating_Structure_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De ondergrens van de afgekapte normale verdeling..
         /// </summary>
         public static string TruncatedNormalDistribution_LowerBoundary_Description {
@@ -2696,13 +2684,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string VerifyUpdate_Confirm_calculation_output_cleared {
+            get {
+                return ResourceManager.GetString("VerifyUpdate_Confirm_calculation_output_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating {
+        public static string VerifyUpdate_Confirm_calculation_outputs_cleared {
             get {
-                return ResourceManager.GetString("VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating", resourceCulture);
+                return ResourceManager.GetString("VerifyUpdate_Confirm_calculation_outputs_cleared", resourceCulture);
             }
         }
         

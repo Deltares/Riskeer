@@ -456,7 +456,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 {
                     UpdateForeshoreProfileDependentDataOfCalculation(calculationsToUpdate,
                                                                      inquiryHelper,
-                                                                     Resources.VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating,
+                                                                     Resources.VerifyUpdate_Confirm_calculation_outputs_cleared,
                                                                      updateAction);
                 })
             {

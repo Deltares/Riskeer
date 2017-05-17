@@ -600,7 +600,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculations(IList<StructuresCalculation<HeightStructuresInput>> calculations)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (StructureDependentDataShouldUpdate(calculations, message))
             {
                 foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
@@ -823,8 +823,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<HeightStructuresInput> calculation)
         {
-            string message =
-                RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
             {
                 calculation

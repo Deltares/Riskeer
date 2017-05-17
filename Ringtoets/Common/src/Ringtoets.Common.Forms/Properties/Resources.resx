@@ -959,12 +959,12 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data" xml:space="preserve">
     <value>&amp;Bijwerken kunstwerk...</value>
   </data>
-  <data name="StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_output_cleared_when_updating_Structure_dependent_data" xml:space="preserve">
+  <data name="VerifyUpdate_Confirm_calculation_output_cleared" xml:space="preserve">
     <value>Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating" xml:space="preserve">
+  <data name="VerifyUpdate_Confirm_calculation_outputs_cleared" xml:space="preserve">
     <value>Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
