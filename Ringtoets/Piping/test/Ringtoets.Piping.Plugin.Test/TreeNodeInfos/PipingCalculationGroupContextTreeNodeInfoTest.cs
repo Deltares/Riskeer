@@ -1529,7 +1529,110 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationInNestedGroupWithOutputs_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointsClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationsInNestedGroupWithoutOutput_WhenSurfaceLineChangedAndUpdateClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var calculation1Observer = mocks.StrictMock<IObserver>();
+                var calculation1InputObserver = mocks.StrictMock<IObserver>();
+                var calculation2Observer = mocks.StrictMock<IObserver>();
+                var calculation2InputObserver = mocks.StrictMock<IObserver>();
+
+                calculation1InputObserver.Expect(obs => obs.UpdateObserver());
+                calculation2InputObserver.Expect(obs => obs.UpdateObserver());
+
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+
+                var calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    }
+                };
+                calculation1.Attach(calculation1Observer);
+                calculation1.InputParameters.Attach(calculation1InputObserver);
+
+                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    }
+                };
+                calculation2.Attach(calculation2Observer);
+                calculation2.InputParameters.Attach(calculation2InputObserver);
+
+                var childGroup = new CalculationGroup();
+                childGroup.Children.Add(calculation1);
+
+                var emptyChildGroup = new CalculationGroup();
+                var group = new CalculationGroup();
+                var parentGroup = new CalculationGroup();
+
+                group.Children.Add(childGroup);
+                group.Children.Add(emptyChildGroup);
+                group.Children.Add(calculation2);
+
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                    pipingFailureMechanism, mocks);
+
+                var nodeData = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSectionStub);
+                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<StochasticSoilModel>(),
+                                                                       pipingFailureMechanism,
+                                                                       assessmentSectionStub);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // When
+                    ChangeSurfaceLine(surfaceLine);
+
+                    contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
+
+                    // Then
+                    PipingInput inputParameters1 = calculation1.InputParameters;
+                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
+                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters1.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters1.ExitPointL);
+
+                    PipingInput inputParameters2 = calculation2.InputParameters;
+                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
+                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsInNestedGroupWithOutput_WhenSurfaceLineChangedAndUpdateClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1653,229 +1756,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationInNestedGroupWithoutOutputs_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointsClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation1InputObserver = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                var calculation2InputObserver = mocks.StrictMock<IObserver>();
-
-                calculation1InputObserver.Expect(obs => obs.UpdateObserver());
-                calculation2InputObserver.Expect(obs => obs.UpdateObserver());
-
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-
-                var calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    }
-                };
-                calculation1.Attach(calculation1Observer);
-                calculation1.InputParameters.Attach(calculation1InputObserver);
-
-                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    }
-                };
-                calculation2.Attach(calculation2Observer);
-                calculation2.InputParameters.Attach(calculation2InputObserver);
-
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
-
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
-
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    pipingFailureMechanism, mocks);
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionStub);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<StochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSectionStub);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // When
-                    ChangeSurfaceLine(surfaceLine);
-
-                    contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
-
-                    // Then
-                    PipingInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters1.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters1.ExitPointL);
-
-                    PipingInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationInNestedGroupWithOutputs_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointsClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var calculation1Observer = mocks.StrictMock<IObserver>();
-                var calculation1InputObserver = mocks.StrictMock<IObserver>();
-                var calculation2Observer = mocks.StrictMock<IObserver>();
-                var calculation2InputObserver = mocks.StrictMock<IObserver>();
-
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-
-                var calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 2,
-                        ExitPointL = (RoundedDouble) 3
-                    },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-                };
-                calculation1.Attach(calculation1Observer);
-                calculation1.InputParameters.Attach(calculation1InputObserver);
-
-                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 2,
-                        ExitPointL = (RoundedDouble) 3
-                    },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-                };
-                calculation2.Attach(calculation2Observer);
-                calculation2.InputParameters.Attach(calculation2InputObserver);
-
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
-
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
-
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    pipingFailureMechanism, mocks);
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionStub);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<StochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSectionStub);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
-                    helper.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // When
-                    ChangeSurfaceLine(surfaceLine);
-
-                    contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation1.HasOutput);
-                    Assert.IsTrue(calculation2.HasOutput);
-
-                    PipingInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters1.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters1.ExitPointL);
-
-                    PipingInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationInNestedGroupWithOutputs_WhenUpdatedEntryAndExitPointsHasChangeAndUpdateEntryAndExitPointsClickedAndDiscontinued_ThenCalculationsNotUpdated()
+        public void GivenCalculationsInNestedGroupWithOutput_WhenSurfaceLineChangedAndUpdateClickedAndCancelled_ThenCalculationsNotUpdated()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1994,7 +1875,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationInNestedGroupWithoutOutputs_WhenUpdatedEntryAndExitPoints_ThenNoInquiryAndCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationsInNestedGroupWithoutOutput_WhenUpdatedEntryAndExitPoints_ThenNoInquiryAndCalculationsUpdatedAndObserversNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
