@@ -28,7 +28,6 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -628,14 +627,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
-                AssertStructures(failureMechanism.HeightStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
+                                                          structuresData);
 
                 // Call
                 structure.CopyProperties(new TestHeightStructure(new Point2D(1, 1), "Id"));
                 structure.NotifyObservers();
 
                 // Assert
-                AssertStructures(failureMechanism.HeightStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
+                                                          structuresData);
             }
         }
 
@@ -661,7 +662,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
-                AssertStructures(failureMechanism.HeightStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
+                                                          structuresData);
 
                 // Call
                 failureMechanism.HeightStructures.AddRange(new[]
@@ -671,7 +673,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 failureMechanism.HeightStructures.NotifyObservers();
 
                 // Assert
-                AssertStructures(failureMechanism.HeightStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
+                                                          structuresData);
             }
         }
 
@@ -952,24 +955,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
-        }
-
-        private static void AssertStructures(IEnumerable<StructureBase> structures, MapData mapData)
-        {
-            Assert.NotNull(structures, "structures should never be null.");
-
-            var structuresData = (MapPointData) mapData;
-            StructureBase[] structuresArray = structures.ToArray();
-
-            Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
-
-            for (var i = 0; i < structuresArray.Length; i++)
-            {
-                MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
-                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
-            }
-
-            Assert.AreEqual("Kunstwerken", mapData.Name);
         }
 
         private static void AssertCalculationsMapData(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations, MapData mapData)

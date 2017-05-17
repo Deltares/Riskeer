@@ -27,6 +27,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -256,6 +257,39 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
 
             Assert.Fail("Unsupported background configuration.");
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative 
+        /// for the <paramref name="structures"/>.
+        /// </summary>
+        /// <param name="structures">The structures that contain the original data.</param>
+        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
+        /// <item>the name of the <see cref="MapData"/> is not <c>Kunstwerken</c>;</item>
+        /// <item>the amount of features in <paramref name="mapData"/> is not equal to the 
+        /// amount of the <paramref name="structures"/>;</item>
+        /// <item>the geometries of the features in <paramref name="mapData"/> are not equal to 
+        /// the expected geometry of the <paramref name="structures"/>.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertStructuresMapData(IEnumerable<StructureBase> structures, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            Assert.AreEqual("Kunstwerken", mapData.Name);
+
+            var structuresData = (MapPointData) mapData;
+            StructureBase[] structuresArray = structures.ToArray();
+
+            Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
+
+            for (var i = 0; i < structuresArray.Length; i++)
+            {
+                MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
+                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
+            }
         }
 
         private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)

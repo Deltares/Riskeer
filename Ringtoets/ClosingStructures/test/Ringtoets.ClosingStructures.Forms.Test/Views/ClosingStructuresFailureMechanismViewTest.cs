@@ -32,7 +32,6 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -612,14 +611,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
-                AssertStructures(failureMechanism.ClosingStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                          structuresData);
 
                 // Call
                 structure.CopyProperties(new TestClosingStructure(new Point2D(1, 1), "Id"));
                 structure.NotifyObservers();
 
                 // Assert
-                AssertStructures(failureMechanism.ClosingStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                          structuresData);
             }
         }
 
@@ -645,7 +646,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
-                AssertStructures(failureMechanism.ClosingStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                          structuresData);
 
                 // Call
                 failureMechanism.ClosingStructures.AddRange(new[]
@@ -655,7 +657,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 failureMechanism.ClosingStructures.NotifyObservers();
 
                 // Assert
-                AssertStructures(failureMechanism.ClosingStructures, structuresData);
+                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                          structuresData);
             }
         }
 
@@ -928,24 +931,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
-        }
-
-        private static void AssertStructures(IEnumerable<StructureBase> structures, MapData mapData)
-        {
-            Assert.NotNull(structures, "structures should never be null.");
-
-            var structuresData = (MapPointData) mapData;
-            StructureBase[] structuresArray = structures.ToArray();
-
-            Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
-
-            for (var i = 0; i < structuresArray.Length; i++)
-            {
-                MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
-                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
-            }
-
-            Assert.AreEqual("Kunstwerken", mapData.Name);
         }
 
         private static void AssertCalculationsMapData(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations, MapData mapData)

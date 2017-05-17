@@ -28,6 +28,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -1244,6 +1245,144 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var otherTransparency = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
             otherTransparency.Transparency = (RoundedDouble) ((otherTransparency.Transparency + 0.5) % 1);
             yield return new TestCaseData(otherTransparency).SetName("WellKnownTileSourceOtherTransparency");
+        }
+
+        #endregion
+
+        #region AssertStructuresMapData
+
+        [Test]
+        public void AssertStructuresMapData_MapDataNotMapPointData_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Kunstwerken");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(Enumerable.Empty<StructureBase>(), mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertStructuresMapData_MapDataNameNotCorrect_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Other name")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0)
+                            }
+                        })
+                    })
+                }
+            };
+            var structures = new[]
+            {
+                new TestStructure(new Point2D(0, 0))
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(structures, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertStructuresMapData_MapDataFeaturesLengthNotSameAsExpectedStructuresLength_ThrowsAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Kunstwerken")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
+            };
+            var structures = new[]
+            {
+                new TestStructure(),
+                new TestStructure()
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(structures, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertStructuresMapData_FeatureGeometryNotSameAsExpectedLocation_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapPointData("Kunstwerken")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0)
+                            }
+                        })
+                    })
+                }
+            };
+            var structures = new[]
+            {
+                new TestStructure(new Point2D(1, 1))
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(structures, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertStructuresMapData_DataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapPointData("Kunstwerken")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0),
+                                new Point2D(0, -1)
+                            }
+                        })
+                    })
+                }
+            };
+            var structures = new[]
+            {
+                new TestStructure(new Point2D(0, 0))
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(structures, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
         }
 
         #endregion
