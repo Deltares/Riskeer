@@ -223,35 +223,35 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                             failureMechanism,
                                                                                             assessmentSection);
 
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
@@ -341,34 +341,34 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
 
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -452,18 +452,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            importHandlerMock.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            importCommandHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandlerMock,
-                                                         exportHandlerMock,
-                                                         updateHandlerMock,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
@@ -547,18 +547,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            importHandlerMock.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
-            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
-            var updateHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            importCommandHandler.Expect(ihm => ihm.CanImportOn(nodeData)).Return(true);
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            exportCommandHandler.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandlerMock,
-                                                         exportHandlerMock,
-                                                         updateHandlerMock,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         updateCommandHandler,
                                                          viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
@@ -1217,11 +1217,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+                var viewCommands = mocks.StrictMock<IViewCommands>();
 
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
 
                 mocks.ReplayAll();
 
@@ -1282,11 +1282,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+                var viewCommands = mocks.StrictMock<IViewCommands>();
 
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
 
                 mocks.ReplayAll();
 
@@ -1364,16 +1364,16 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1413,16 +1413,16 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
