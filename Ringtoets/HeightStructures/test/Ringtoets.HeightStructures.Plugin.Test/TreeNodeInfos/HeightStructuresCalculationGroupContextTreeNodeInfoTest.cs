@@ -1235,7 +1235,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
                                                                   "&Bijwerken kunstwerken",
-                                                                  "Er zijn geen berekeningen met een kunstwerk.",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
@@ -1243,7 +1243,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructure_ContextMenuItemUpdateStructureAllEnabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructureAllDisabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -1278,8 +1278,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
                                                                   "&Bijwerken kunstwerken",
-                                                                  "Alle berekeningen bijwerken met het kunstwerk.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
                 }
             }
         }
@@ -1316,10 +1317,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -1393,10 +1395,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -1466,10 +1469,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -1486,149 +1490,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
                     Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
                     Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
-
-                    string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
-                                             $"worden verwijderd.{Environment.NewLine}{Environment.NewLine}" +
-                                             "Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureHasNoChangeAndUpdateClickedAndContinued_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var structure = new TestHeightStructure();
-            UpdateStructure(structure);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-                    Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-                    Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-                    Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-                    Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
-
-                    string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
-                                             $"worden verwijderd.{Environment.NewLine}{Environment.NewLine}" +
-                                             "Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructurePartiallyDifferentAndUpdateClicked_ThenInquiryAndUpdatesCalculationAndNotifiesObserver()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var structure = new TestHeightStructure();
-            UpdateStructure(structure);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(obs => obs.UpdateObserver());
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(obs => obs.UpdateObserver());
-            calculation.Attach(calculationObserver);
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiStub.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-                    inputParameters.StructureNormalOrientation = (RoundedDouble) 1.1;
-                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsFalse(calculation.HasOutput);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
 
                     string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
@@ -1933,48 +1794,15 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
-        private static void UpdateStructure(HeightStructure structure)
+        private static void ChangeStructure(HeightStructure structure)
         {
-            var structureToUpdateFrom = new HeightStructure(
-                new HeightStructure.ConstructionProperties
-                {
-                    Id = structure.Id,
-                    Name = structure.Name,
-                    Location = structure.Location,
-                    LevelCrestStructure =
-                    {
-                        Mean = (RoundedDouble) 1.0,
-                        StandardDeviation = (RoundedDouble) 2.0
-                    },
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) 3.0,
-                        StandardDeviation = (RoundedDouble) 4.0
-                    },
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) 5.0,
-                        CoefficientOfVariation = (RoundedDouble) 6.0
-                    },
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) 7.0,
-                        StandardDeviation = (RoundedDouble) 8.0
-                    },
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) 9.0,
-                        CoefficientOfVariation = (RoundedDouble) 10.0
-                    },
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) 11.0,
-                        StandardDeviation = (RoundedDouble) 12.0
-                    },
-                    FailureProbabilityStructureWithErosion = 0.13
-                });
-
-            structure.CopyProperties(structureToUpdateFrom);
+            structure.CopyProperties(new HeightStructure(
+                                         new HeightStructure.ConstructionProperties
+                                         {
+                                             Id = structure.Id,
+                                             Name = structure.Name,
+                                             Location = structure.Location
+                                         }));
         }
 
         public override void TearDown()

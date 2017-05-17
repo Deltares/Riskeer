@@ -385,16 +385,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            var isEnabled = true;
+            var contextMenuEnabled = true;
             string toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip;
             if (calculation.InputParameters.ForeshoreProfile == null)
             {
-                isEnabled = false;
+                contextMenuEnabled = false;
                 toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
             }
             else if (calculation.InputParameters.IsForeshoreProfileInputSynchronized)
             {
-                isEnabled = false;
+                contextMenuEnabled = false;
                 toolTipMessage = Resources.CalculationItem_No_changes_to_update_ToolTip;
             }
 
@@ -415,7 +415,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                                                                      updateAction);
                 })
             {
-                Enabled = isEnabled
+                Enabled = contextMenuEnabled
             };
 
             return menuItem;

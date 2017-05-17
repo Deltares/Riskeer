@@ -2497,16 +2497,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen met een kunstwerk..
-        /// </summary>
-        public static string StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_No_calculations_with_Structure_Tooltip" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip {
@@ -2516,7 +2506,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen bijwerken met het kunstwerk..
+        ///   Looks up a localized string similar to Alle berekeningen met een kunstwerk bijwerken..
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip {
             get {

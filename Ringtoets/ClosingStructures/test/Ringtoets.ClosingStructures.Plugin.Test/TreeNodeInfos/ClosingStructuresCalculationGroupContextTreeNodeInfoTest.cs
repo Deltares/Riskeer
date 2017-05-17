@@ -1083,7 +1083,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
                                                                   "&Bijwerken kunstwerken",
-                                                                  "Er zijn geen berekeningen met een kunstwerk.",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
@@ -1091,7 +1091,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructure_ContextMenuItemUpdateStructureAllEnabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructureAllDisabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -1126,8 +1126,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
                                                                   "&Bijwerken kunstwerken",
-                                                                  "Alle berekeningen bijwerken met het kunstwerk.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
                 }
             }
         }
@@ -1191,10 +1192,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -1271,149 +1273,17 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
+                ChangeStructure(structure);
+
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // When
-                    UpdateStructure(structure);
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
 
                     AssertClosingStructuresInput(structure, calculation.InputParameters);
-
-                    string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
-                                             $"worden verwijderd.{Environment.NewLine}{Environment.NewLine}" +
-                                             "Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureHasNoChangeAndUpdateClickedAndContinued_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var structure = new TestClosingStructure();
-            UpdateStructure(structure);
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-
-                    AssertClosingStructuresInput(structure, calculation.InputParameters);
-
-                    string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
-                                             $"worden verwijderd.{Environment.NewLine}{Environment.NewLine}" +
-                                             "Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructurePartiallyDifferentAndUpdateClicked_ThenInquiryAndUpdatesCalculationAndNotifiesObserver()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var structure = new TestClosingStructure();
-            UpdateStructure(structure);
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            inputObserver.Expect(obs => obs.UpdateObserver());
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(obs => obs.UpdateObserver());
-            calculation.Attach(calculationObserver);
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    ClosingStructuresInput inputParameters = calculation.InputParameters;
-                    inputParameters.StructureNormalOrientation = (RoundedDouble) 1.1;
-                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsFalse(calculation.HasOutput);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
 
                     string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
@@ -1719,68 +1589,15 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
-        private static void UpdateStructure(ClosingStructure structure)
+        private static void ChangeStructure(ClosingStructure structure)
         {
-            var structureToUpdateFrom = new ClosingStructure(
-                new ClosingStructure.ConstructionProperties
-                {
-                    Id = structure.Id,
-                    Name = structure.Name,
-                    Location = structure.Location,
-                    StructureNormalOrientation = (RoundedDouble) 1.0,
-                    LevelCrestStructureNotClosing =
-                    {
-                        Mean = (RoundedDouble) 2.0,
-                        StandardDeviation = (RoundedDouble) 3.0
-                    },
-                    FlowWidthAtBottomProtection =
-                    {
-                        Mean = (RoundedDouble) 4.0,
-                        StandardDeviation = (RoundedDouble) 5.0
-                    },
-                    CriticalOvertoppingDischarge =
-                    {
-                        Mean = (RoundedDouble) 6.0,
-                        CoefficientOfVariation = (RoundedDouble) 7.0
-                    },
-                    WidthFlowApertures =
-                    {
-                        Mean = (RoundedDouble) 8.0,
-                        StandardDeviation = (RoundedDouble) 9.0
-                    },
-                    StorageStructureArea =
-                    {
-                        Mean = (RoundedDouble) 10.0,
-                        CoefficientOfVariation = (RoundedDouble) 11.0
-                    },
-                    AllowedLevelIncreaseStorage =
-                    {
-                        Mean = (RoundedDouble) 12.0,
-                        StandardDeviation = (RoundedDouble) 13.0
-                    },
-                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
-                    AreaFlowApertures =
-                    {
-                        Mean = (RoundedDouble) 14.0,
-                        StandardDeviation = (RoundedDouble) 15.0
-                    },
-                    FailureProbabilityOpenStructure = 0.16,
-                    FailureProbabilityReparation = 0.17,
-                    IdenticalApertures = 18,
-                    InsideWaterLevel =
-                    {
-                        Mean = (RoundedDouble) 19.0,
-                        StandardDeviation = (RoundedDouble) 20.0
-                    },
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 0.21,
-                    ThresholdHeightOpenWeir =
-                    {
-                        Mean = (RoundedDouble) 22.0,
-                        StandardDeviation = (RoundedDouble) 23.0
-                    }
-                });
-
-            structure.CopyProperties(structureToUpdateFrom);
+            structure.CopyProperties(new ClosingStructure(
+                                         new ClosingStructure.ConstructionProperties
+                                         {
+                                             Id = structure.Id,
+                                             Name = structure.Name,
+                                             Location = structure.Location
+                                         }));
         }
 
         private static void AssertClosingStructuresInput(TestClosingStructure structure, ClosingStructuresInput inputParameters)
