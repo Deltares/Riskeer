@@ -591,7 +591,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_StructuresUpdated_MapDataUpdated()
+        public void UpdateObserver_StructureUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new ClosingStructuresFailureMechanismView())
@@ -601,9 +601,43 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                var structure = new TestClosingStructure(new Point2D(0, 0), "Id");
+                failureMechanism.ClosingStructures.AddRange(new[]
                 {
-                    new TestForeshoreProfile()
+                    structure
+                }, "path");
+
+                view.Data = failureMechanismContext;
+
+                MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
+
+                // Precondition
+                AssertStructures(failureMechanism.ClosingStructures, structuresData);
+
+                // Call
+                structure.CopyProperties(new TestClosingStructure(new Point2D(1, 1), "Id"));
+                structure.NotifyObservers();
+
+                // Assert
+                AssertStructures(failureMechanism.ClosingStructures, structuresData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_StructuresUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new ClosingStructuresFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism,
+                                                                                           new ObservableTestAssessmentSectionStub());
+
+                failureMechanism.ClosingStructures.AddRange(new[]
+                {
+                    new TestClosingStructure(new Point2D(0, 0), "Id1")
                 }, "path");
 
                 view.Data = failureMechanismContext;
@@ -616,7 +650,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Call
                 failureMechanism.ClosingStructures.AddRange(new[]
                 {
-                    new TestClosingStructure()
+                    new TestClosingStructure(new Point2D(1, 1), "Id2")
                 }, "some path");
                 failureMechanism.ClosingStructures.NotifyObservers();
 
@@ -908,7 +942,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             for (var i = 0; i < structuresArray.Length; i++)
             {
                 MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
-                Assert.AreEqual(structuresArray[0].Location, profileDataA.PointCollections.First().First());
+                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
             }
 
             Assert.AreEqual("Kunstwerken", mapData.Name);
