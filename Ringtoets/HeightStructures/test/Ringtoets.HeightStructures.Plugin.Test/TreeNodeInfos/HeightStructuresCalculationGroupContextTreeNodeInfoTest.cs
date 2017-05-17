@@ -1175,7 +1175,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithoutCalculations_ContextMenuItemUpdateStructureAllDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithoutCalculations_ContextMenuItemUpdateDisabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup();
@@ -1206,7 +1206,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutStructure_ContextMenuItemUpdateStructureAllDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutStructure_ContextMenuItemUpdateDisabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -1243,7 +1243,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructureAllDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputInSync_ContextMenuItemUpdateDisabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -1281,6 +1281,51 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputOutOfSync_ContextMenuItemUpdateEnabledAndToolTipSet()
+        {
+            // Setup
+            var testHeightStructure = new TestHeightStructure();
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            Structure = testHeightStructure
+                        }
+                    }
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiStub.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                ChangeStructure(testHeightStructure);
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
+                                                                  "&Bijwerken kunstwerken",
+                                                                  "Alle berekeningen met een kunstwerk bijwerken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
             }
         }
