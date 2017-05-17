@@ -248,12 +248,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
                                                               CoreCommonGuiResources.ImportIcon);
-
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexNestedGroup,
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
                                                               CoreCommonGuiResources.ExportIcon);
-
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -262,14 +260,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.CalculationIcon);
-
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
                                                               CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup,
-                                                              "&Bijwerken alle intrede- en uittredepunten",
-                                                              "Er zijn geen berekeningen met een profielschematisatie.",
+                                                              "&Bijwerken intrede- en uittredepunten",
+                                                              "Er zijn geen berekeningen om bij te werken.",
                                                               RingtoetsCommonFormsResources.UpdateItemIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
@@ -284,7 +281,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ClearIcon);
-
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDeleteCalculationGroupIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
@@ -391,8 +387,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                              "&Bijwerken alle intrede- en uittredepunten",
-                                                              "Er zijn geen berekeningen met een profielschematisatie.",
+                                                              "&Bijwerken intrede- en uittredepunten",
+                                                              "Er zijn geen berekeningen om bij te werken.",
                                                               RingtoetsCommonFormsResources.UpdateItemIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
@@ -689,7 +685,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken alle intrede- en uittredepunten",
+                                                                  "&Bijwerken intrede- en uittredepunten",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -731,8 +727,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken alle intrede- en uittredepunten",
-                                                                  "Er zijn geen berekeningen met een profielschematisatie.",
+                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
@@ -740,7 +736,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationsWithSurfaceLine_ContextMenuItemUpdateEntryAndExitPointEnabled()
+        public void ContextMenuStrip_CalculationsWithSurfaceLineAndInputInSync_ContextMenuItemUpdateEntryAndExitPointDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -773,8 +769,53 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken alle intrede- en uittredepunten",
-                                                                  "Alle berekeningen bijwerken met de karakteristieke punten.",
+                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationsWithSurfaceLineAndInputOutOfSync_ContextMenuItemUpdateEntryAndExitPointEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                var group = new CalculationGroup
+                {
+                    Children =
+                    {
+                        pipingCalculationScenario
+                    }
+                };
+
+                var nodeData = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                ChangeSurfaceLine(pipingCalculationScenario.InputParameters.SurfaceLine);
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
+                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "Alle berekeningen met een profielschematisatie bijwerken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
             }
@@ -950,10 +991,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
+                        StringAssert.StartsWith($"Validatie van '{validCalculation.Name}' gestart om: ", msgs[0]);
+                        StringAssert.StartsWith($"Validatie van '{validCalculation.Name}' beëindigd om: ", msgs[1]);
+                        StringAssert.StartsWith($"Validatie van '{invalidCalculation.Name}' gestart om: ", msgs[2]);
+                        StringAssert.StartsWith($"Validatie van '{invalidCalculation.Name}' beëindigd om: ", msgs[8]);
                     });
                 }
             }
@@ -1586,7 +1627,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
+                    ChangeSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1604,8 +1645,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
 
-                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
@@ -1697,7 +1737,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
+                    ChangeSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1809,7 +1849,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
+                    ChangeSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1827,8 +1867,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
 
-                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
@@ -1929,7 +1968,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
+                    ChangeSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -1939,16 +1978,15 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     PipingInput inputParameters1 = calculation1.InputParameters;
                     Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 0), inputParameters1.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(2), inputParameters1.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 1), inputParameters1.ExitPointL);
 
                     PipingInput inputParameters2 = calculation2.InputParameters;
                     Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 0), inputParameters2.EntryPointL);
+                    Assert.AreEqual(new RoundedDouble(2), inputParameters2.EntryPointL);
                     Assert.AreEqual(new RoundedDouble(3, 1), inputParameters2.ExitPointL);
 
-                    string expectedMessage = "Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
@@ -2037,7 +2075,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
+                    ChangeSurfaceLine(surfaceLine);
 
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
@@ -2058,7 +2096,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             }
         }
 
-        private static void UpdateSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        private static void ChangeSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
         {
             surfaceLine.SetGeometry(new[]
             {

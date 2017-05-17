@@ -82,27 +82,17 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen met een profielschematisatie..
+        ///   Looks up a localized string similar to Alle berekeningen met een profielschematisatie bijwerken..
         /// </summary>
-        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip {
+        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip {
             get {
-                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_T" +
-                        "ooltip", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surfa" +
+                        "ce_line_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen bijwerken met de karakteristieke punten..
-        /// </summary>
-        public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip {
-            get {
-                return ResourceManager.GetString("PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_chara" +
-                        "cteristic_points_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken alle intrede- en uittredepunten.
+        ///   Looks up a localized string similar to &amp;Bijwerken intrede- en uittredepunten.
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points {
             get {

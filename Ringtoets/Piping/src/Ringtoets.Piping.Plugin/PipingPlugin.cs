@@ -1013,35 +1013,32 @@ namespace Ringtoets.Piping.Plugin
 
         private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationGroupContext nodeData)
         {
-            IEnumerable<PipingCalculationScenario> calculations = nodeData.WrappedData.GetCalculations().OfType<PipingCalculationScenario>();
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
+            IList<PipingCalculationScenario> calculationsToUpdate = nodeData.WrappedData.GetCalculations()
+                                                                            .OfType<PipingCalculationScenario>()
+                                                                            .Where(c => c.InputParameters.SurfaceLine != null && !c.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                                            .ToList();
 
-            var isItemEnabled = true;
-            string toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip;
-            if (!calculations.Any())
+            if (!calculationsToUpdate.Any())
             {
-                isItemEnabled = false;
-                toolTipText = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
-            }
-            else if (calculations.All(calc => calc.InputParameters.SurfaceLine == null))
-            {
-                isItemEnabled = false;
-                toolTipText = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip;
+                contextMenuEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
-                toolTipText,
+                toolTipMessage,
                 RingtoetsCommonFormsResources.UpdateItemIcon,
-                (sender, args) => UpdateAllEntryAndExitPointsOfAllCalculations(calculations))
+                (sender, args) => UpdateEntryAndExitPointsOfAllCalculations(calculationsToUpdate))
             {
-                Enabled = isItemEnabled
+                Enabled = contextMenuEnabled
             };
         }
 
-        private void UpdateAllEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
+        private void UpdateEntryAndExitPointsOfAllCalculations(IList<PipingCalculationScenario> calculations)
         {
-            string message =
-                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared_when_updating;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
                 foreach (PipingCalculationScenario calculation in calculations)

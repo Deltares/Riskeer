@@ -211,14 +211,11 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip" xml:space="preserve">
     <value>Er moet een profielschematisatie geselecteerd zijn.</value>
   </data>
-  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_characteristic_points_ToolTip" xml:space="preserve">
-    <value>Alle berekeningen bijwerken met de karakteristieke punten.</value>
+  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip" xml:space="preserve">
+    <value>Alle berekeningen met een profielschematisatie bijwerken.</value>
   </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points" xml:space="preserve">
-    <value>&amp;Bijwerken alle intrede- en uittredepunten</value>
-  </data>
-  <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_No_calculations_with_surfaceline_Tooltip" xml:space="preserve">
-    <value>Er zijn geen berekeningen met een profielschematisatie.</value>
+    <value>&amp;Bijwerken intrede- en uittredepunten</value>
   </data>
   <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions" xml:space="preserve">
     <value>Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.

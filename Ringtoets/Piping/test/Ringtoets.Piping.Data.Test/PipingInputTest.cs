@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Data.Test
                 yield return new TestCaseData(new Point3D(3, 0, 0), new Point3D(3, 0, 0))
                     .SetName("DifferentDikeToeAtRiver");
                 yield return new TestCaseData(new Point3D(2, 0, 3), new Point3D(4, 0, 2))
-                    .SetName("DifferentDikeToeAtPolder"); ;
+                    .SetName("DifferentDikeToeAtPolder");
             }
         }
 
