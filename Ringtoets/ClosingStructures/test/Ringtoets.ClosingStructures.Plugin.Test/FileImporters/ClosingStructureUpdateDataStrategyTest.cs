@@ -253,9 +253,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             // Assert
             AssertClosingStructures(readStructure, structure);
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(new IObservable[]
             {
-                targetCollection
+                targetCollection,
+                structure
             }, affectedObjects);
         }
 
@@ -306,6 +307,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.ClosingStructures,
+                structure,
                 calculation.InputParameters,
                 calculation
             }, affectedObjects);
@@ -382,6 +384,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                affectedStructure,
                 affectedCalculation,
                 affectedCalculation.InputParameters,
                 targetDataCollection
@@ -435,6 +438,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 structures,
+                affectedStructure,
                 affectedCalculation,
                 affectedCalculation.InputParameters
             }, affectedObjects);
@@ -510,6 +514,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.ClosingStructures,
+                structure,
                 calculation.InputParameters,
                 sectionResults[0],
                 sectionResults[1]

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -138,6 +139,8 @@ namespace Ringtoets.Common.Data.Test
             });
 
             // Assert
+            Assert.IsInstanceOf<Observable>(structure);
+
             Assert.AreEqual("aName", structure.Name);
             Assert.AreEqual("anId", structure.Id);
             Assert.AreEqual(location.X, structure.Location.X);

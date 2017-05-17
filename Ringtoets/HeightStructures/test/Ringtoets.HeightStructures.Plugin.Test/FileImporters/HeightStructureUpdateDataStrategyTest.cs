@@ -253,9 +253,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 
             // Assert
             AssertHeightStructures(readStructure, structure);
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(new IObservable[]
             {
-                targetCollection
+                targetCollection,
+                structure
             }, affectedObjects);
         }
 
@@ -306,6 +307,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
+                structure,
                 calculation.InputParameters,
                 calculation
             }, affectedObjects);
@@ -382,6 +384,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                affectedStructure,
                 affectedCalculation,
                 affectedCalculation.InputParameters,
                 targetDataCollection
@@ -434,6 +437,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {
+                affectedStructure,
                 structures,
                 affectedCalculation,
                 affectedCalculation.InputParameters
@@ -510,6 +514,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
+                structure,
                 calculation.InputParameters,
                 sectionResults[0],
                 sectionResults[1]

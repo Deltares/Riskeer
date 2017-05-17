@@ -62,7 +62,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             if (!objectToUpdate.Equals(objectToUpdateFrom))
             {
                 objectToUpdate.CopyProperties(objectToUpdateFrom);
-                affectedObjects.Add(objectToUpdate);
 
                 IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
 

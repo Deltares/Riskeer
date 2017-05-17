@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -28,7 +29,7 @@ namespace Ringtoets.Common.Data
     /// <summary>
     /// Base definition of a structure.
     /// </summary>
-    public abstract class StructureBase
+    public abstract class StructureBase : Observable
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructureBase"/>.

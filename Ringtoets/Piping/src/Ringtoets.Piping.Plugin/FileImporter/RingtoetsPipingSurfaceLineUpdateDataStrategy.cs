@@ -100,10 +100,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             IEnumerable<PipingCalculation> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
 
-            var affectedObjects = new List<IObservable>
-            {
-                surfaceLine
-            };
+            var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation affectedCalculation in affectedCalculations)
             {
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
