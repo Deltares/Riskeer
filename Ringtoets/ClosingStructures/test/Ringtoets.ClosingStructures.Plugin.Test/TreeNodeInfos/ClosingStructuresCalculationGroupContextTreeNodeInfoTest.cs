@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
@@ -46,7 +45,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
@@ -1193,31 +1191,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Output = new TestStructuresOutput()
             };
 
-            ClosingStructuresInput calculationInput = calculation.InputParameters;
-
-            RoundedDouble expectedStructureNormalOrientation = calculationInput.StructureNormalOrientation;
-            NormalDistribution expectedLevelCrestStructureNotClosing = calculationInput.LevelCrestStructureNotClosing;
-            LogNormalDistribution expectedFlowWidthAtBottomProtection = calculationInput.FlowWidthAtBottomProtection;
-            VariationCoefficientLogNormalDistribution expectedCriticalOvertoppingDischarge = calculationInput.CriticalOvertoppingDischarge;
-            NormalDistribution expectedWidthFlowApertures = calculationInput.WidthFlowApertures;
-            VariationCoefficientLogNormalDistribution expectedStorageStructureArea = calculationInput.StorageStructureArea;
-            LogNormalDistribution expectedAllowedLevelIncreaseStorage = calculationInput.AllowedLevelIncreaseStorage;
-            ClosingStructureInflowModelType expectedInflowModelType = calculationInput.InflowModelType;
-            LogNormalDistribution expectedAreaFlowApertures = calculationInput.AreaFlowApertures;
-            double expectedFailureProbabilityOpenStructure = calculationInput.FailureProbabilityOpenStructure;
-            double expectedFailureProbabilityReparation = calculationInput.FailureProbabilityReparation;
-            int expectedIdenticalApertures = calculationInput.IdenticalApertures;
-            NormalDistribution expectedInsideWaterLevel = calculationInput.InsideWaterLevel;
-            double expectedProbabilityOrFrequencyOpenStructureBeforeFlooding = calculationInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
-            NormalDistribution expectedThresholdHeightOpenWeir = calculationInput.ThresholdHeightOpenWeir;
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
-            calculationInput.Attach(inputObserver);
+            calculation.InputParameters.Attach(inputObserver);
 
             var calculationObserver = mocks.StrictMock<IObserver>();
             calculation.Attach(calculationObserver);
@@ -1246,24 +1226,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.HasOutput);
-
-                    Assert.AreSame(structure, calculationInput.Structure);
-
-                    Assert.AreEqual(expectedStructureNormalOrientation, calculationInput.StructureNormalOrientation);
-                    Assert.AreEqual(expectedLevelCrestStructureNotClosing, calculationInput.LevelCrestStructureNotClosing);
-                    Assert.AreEqual(expectedFlowWidthAtBottomProtection, calculationInput.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(expectedCriticalOvertoppingDischarge, calculationInput.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(expectedWidthFlowApertures, calculationInput.WidthFlowApertures);
-                    Assert.AreEqual(expectedStorageStructureArea, calculationInput.StorageStructureArea);
-                    Assert.AreEqual(expectedAllowedLevelIncreaseStorage, calculationInput.AllowedLevelIncreaseStorage);
-                    Assert.AreEqual(expectedInflowModelType, calculationInput.InflowModelType);
-                    Assert.AreEqual(expectedAreaFlowApertures, calculationInput.AreaFlowApertures);
-                    Assert.AreEqual(expectedFailureProbabilityOpenStructure, calculationInput.FailureProbabilityOpenStructure);
-                    Assert.AreEqual(expectedFailureProbabilityReparation, calculationInput.FailureProbabilityReparation);
-                    Assert.AreEqual(expectedIdenticalApertures, calculationInput.IdenticalApertures);
-                    Assert.AreEqual(expectedInsideWaterLevel, calculationInput.InsideWaterLevel);
-                    Assert.AreEqual(expectedProbabilityOrFrequencyOpenStructureBeforeFlooding, calculationInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-                    Assert.AreEqual(expectedThresholdHeightOpenWeir, calculationInput.ThresholdHeightOpenWeir);
+                    Assert.IsFalse(calculation.InputParameters.IsStructureInputSynchronized);
 
                     string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
@@ -1327,8 +1290,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    AssertClosingStructuresInput(structure, calculation.InputParameters);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
@@ -1643,26 +1605,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                              Name = structure.Name,
                                              Location = structure.Location
                                          }));
-        }
-
-        private static void AssertClosingStructuresInput(TestClosingStructure structure, ClosingStructuresInput inputParameters)
-        {
-            Assert.AreSame(structure, inputParameters.Structure);
-            Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-            Assert.AreEqual(structure.LevelCrestStructureNotClosing, inputParameters.LevelCrestStructureNotClosing);
-            Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-            Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-            Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-            Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-            Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
-            Assert.AreEqual(structure.InflowModelType, inputParameters.InflowModelType);
-            Assert.AreEqual(structure.AreaFlowApertures, inputParameters.AreaFlowApertures);
-            Assert.AreEqual(structure.FailureProbabilityOpenStructure, inputParameters.FailureProbabilityOpenStructure);
-            Assert.AreEqual(structure.FailureProbabilityReparation, inputParameters.FailureProbabilityReparation);
-            Assert.AreEqual(structure.IdenticalApertures, inputParameters.IdenticalApertures);
-            Assert.AreEqual(structure.InsideWaterLevel, inputParameters.InsideWaterLevel);
-            Assert.AreEqual(structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            Assert.AreEqual(structure.ThresholdHeightOpenWeir, inputParameters.ThresholdHeightOpenWeir);
         }
     }
 }

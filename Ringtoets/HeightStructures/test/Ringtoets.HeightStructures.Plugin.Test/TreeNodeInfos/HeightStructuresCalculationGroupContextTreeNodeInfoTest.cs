@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
@@ -43,7 +42,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
@@ -541,7 +539,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
 
                     Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                    StringAssert.Contains(string.Format("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}", ""), contextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. ", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -727,7 +725,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndexRootGroup];
 
                     Assert.AreEqual("Alles &valideren", contextMenuItem.Text);
-                    StringAssert.Contains(string.Format("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}", ""), contextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. ", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -1371,17 +1369,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-                    Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-                    Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-                    Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-                    Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()
                 }
@@ -1403,24 +1391,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 Output = new TestStructuresOutput()
             };
 
-            HeightStructuresInput calculationInput = calculation.InputParameters;
-
-            RoundedDouble expectedStructureNormalOrientation = calculationInput.StructureNormalOrientation;
-            NormalDistribution expectedLevelCrestStructure = calculationInput.LevelCrestStructure;
-            LogNormalDistribution expectedFlowWidthAtBottomProtection = calculationInput.FlowWidthAtBottomProtection;
-            VariationCoefficientLogNormalDistribution expectedCriticalOvertoppingDischarge = calculationInput.CriticalOvertoppingDischarge;
-            NormalDistribution expectedWidthFlowApertures = calculationInput.WidthFlowApertures;
-            double expectedFailureProbabilityStructureWithErosion = calculationInput.FailureProbabilityStructureWithErosion;
-            VariationCoefficientLogNormalDistribution expectedStorageStructureArea = calculationInput.StorageStructureArea;
-            LogNormalDistribution expectedAllowedLevelIncreaseStorage = calculationInput.AllowedLevelIncreaseStorage;
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
-            calculationInput.Attach(inputObserver);
+            calculation.InputParameters.Attach(inputObserver);
 
             var calculationObserver = mocks.StrictMock<IObserver>();
             calculation.Attach(calculationObserver);
@@ -1449,17 +1426,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation.HasOutput);
-
-                    Assert.AreSame(structure, calculationInput.Structure);
-
-                    Assert.AreEqual(expectedStructureNormalOrientation, calculationInput.StructureNormalOrientation);
-                    Assert.AreEqual(expectedLevelCrestStructure, calculationInput.LevelCrestStructure);
-                    Assert.AreEqual(expectedFlowWidthAtBottomProtection, calculationInput.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(expectedCriticalOvertoppingDischarge, calculationInput.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(expectedWidthFlowApertures, calculationInput.WidthFlowApertures);
-                    Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, calculationInput.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(expectedStorageStructureArea, calculationInput.StorageStructureArea);
-                    Assert.AreEqual(expectedAllowedLevelIncreaseStorage, calculationInput.AllowedLevelIncreaseStorage);
+                    Assert.IsFalse(calculation.InputParameters.IsStructureInputSynchronized);
 
                     string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
@@ -1523,18 +1490,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
-
-                    HeightStructuresInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreSame(structure, inputParameters.Structure);
-                    Assert.AreEqual(structure.StructureNormalOrientation, inputParameters.StructureNormalOrientation);
-                    Assert.AreEqual(structure.LevelCrestStructure, inputParameters.LevelCrestStructure);
-                    Assert.AreEqual(structure.FlowWidthAtBottomProtection, inputParameters.FlowWidthAtBottomProtection);
-                    Assert.AreEqual(structure.CriticalOvertoppingDischarge, inputParameters.CriticalOvertoppingDischarge);
-                    Assert.AreEqual(structure.WidthFlowApertures, inputParameters.WidthFlowApertures);
-                    Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, inputParameters.FailureProbabilityStructureWithErosion);
-                    Assert.AreEqual(structure.StorageStructureArea, inputParameters.StorageStructureArea);
-                    Assert.AreEqual(structure.AllowedLevelIncreaseStorage, inputParameters.AllowedLevelIncreaseStorage);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     string expectedMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken, " +
                                              "zullen de resultaten van berekeningen die deze kunstwerken gebruiken, " +
