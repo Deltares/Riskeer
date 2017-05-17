@@ -823,9 +823,9 @@ namespace Ringtoets.Piping.Plugin
 
         private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
         {
-            if (!scenario.InputParameters.IsSurfaceLineInputSynchronized)
+            if (!scenario.InputParameters.EntryAndExitPointSynchronized())
             {
-                scenario.InputParameters.SynchronizeSurfaceLineInput();
+                scenario.InputParameters.SynchronizeEntryAndExitPoint();
 
                 var affectedObjects = new List<IObservable>
                 {

@@ -40,17 +40,6 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingInputTest
     {
-        private static IEnumerable<TestCaseData> DifferentSurfaceLineProperties
-        {
-            get
-            {
-                yield return new TestCaseData(new Point3D(3, 0, 0), new Point3D(3, 0, 0))
-                    .SetName("DifferentDikeToeAtRiver");
-                yield return new TestCaseData(new Point3D(2, 0, 3), new Point3D(4, 0, 2))
-                    .SetName("DifferentDikeToeAtPolder");
-            }
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -412,7 +401,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SynchronizeSurfaceLineInput_SurfaceLineNull_EntryPointLAndExitPointLNaN()
+        public void SynchronizeEntryAndExitPoint_SurfaceLineNull_EntryPointLAndExitPointLNaN()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput())
@@ -426,7 +415,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(5, input.ExitPointL.Value);
 
             // Call
-            input.SynchronizeSurfaceLineInput();
+            input.SynchronizeEntryAndExitPoint();
 
             // Assert
             Assert.IsNaN(input.EntryPointL);
@@ -434,7 +423,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SynchronizeSurfaceLineInput_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
+        public void SynchronizeEntryAndExitPoint_DikeToesBeyondSetExitPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
@@ -457,7 +446,7 @@ namespace Ringtoets.Piping.Data.Test
             input.ExitPointL = (RoundedDouble) 1;
 
             // Call
-            input.SynchronizeSurfaceLineInput();
+            input.SynchronizeEntryAndExitPoint();
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
@@ -465,7 +454,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SynchronizeSurfaceLineInput_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
+        public void SynchronizeEntryAndExitPoint_DikeToesBeforeSetEntryPointL_ExitPointLAndEntryPointLUpdated()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
@@ -488,7 +477,7 @@ namespace Ringtoets.Piping.Data.Test
             input.EntryPointL = (RoundedDouble) 4;
 
             // Call
-            input.SynchronizeSurfaceLineInput();
+            input.SynchronizeEntryAndExitPoint();
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
@@ -496,20 +485,20 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void IsSurfaceLineInputSynchronized_SurfaceLineNull_ReturnFalse()
+        public void EntryAndExitPointSynchronized_SurfaceLineNull_ReturnFalse()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
             // Call
-            bool synchronized = input.IsSurfaceLineInputSynchronized;
+            bool synchronized = input.EntryAndExitPointSynchronized();
 
             // Assert
             Assert.IsFalse(synchronized);
         }
 
         [Test]
-        public void IsSurfaceLineInputSynchronized_SurfaceLineAndInputInSync_ReturnTrue()
+        public void EntryAndExitPointSynchronized_SurfaceLineAndInputInSync_ReturnTrue()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -531,7 +520,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            bool synchronized = input.IsSurfaceLineInputSynchronized;
+            bool synchronized = input.EntryAndExitPointSynchronized();
 
             // Assert
             Assert.IsTrue(synchronized);
@@ -539,7 +528,7 @@ namespace Ringtoets.Piping.Data.Test
 
         [Test]
         [TestCaseSource(nameof(DifferentSurfaceLineProperties))]
-        public void IsSurfaceLineInputSynchronized_SurfaceLineAndInputNotInSync_ReturnFalse(Point3D newDikeToeAtRiver, Point3D newDikeToeAtPolder)
+        public void EntryAndExitPointSynchronized_SurfaceLineAndInputNotInSync_ReturnFalse(Point3D newDikeToeAtRiver, Point3D newDikeToeAtPolder)
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -564,10 +553,21 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine.SetDikeToeAtPolderAt(newDikeToeAtPolder);
 
             // Call
-            bool synchronized = input.IsSurfaceLineInputSynchronized;
+            bool synchronized = input.EntryAndExitPointSynchronized();
 
             // Assert
             Assert.IsFalse(synchronized);
+        }
+
+        private static IEnumerable<TestCaseData> DifferentSurfaceLineProperties
+        {
+            get
+            {
+                yield return new TestCaseData(new Point3D(3, 0, 0), new Point3D(3, 0, 0))
+                    .SetName("DifferentDikeToeAtRiver");
+                yield return new TestCaseData(new Point3D(2, 0, 3), new Point3D(4, 0, 2))
+                    .SetName("DifferentDikeToeAtPolder"); ;
+            }
         }
 
         [Test]
