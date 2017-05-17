@@ -567,7 +567,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationsToUpdate = calculations
+            IList<StructuresCalculation<ClosingStructuresInput>> calculationsToUpdate = calculations
                 .Where(c => c.InputParameters.Structure != null && !c.InputParameters.IsStructureInputSynchronized)
                 .ToList();
 
@@ -580,13 +580,13 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipMessage,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => UpdateStructureDependentDataOfCalculations(calculations))
+                                             (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
             {
                 Enabled = contextMenuEnabled
             };
         }
 
-        private void UpdateStructureDependentDataOfCalculations(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
+        private void UpdateStructureDependentDataOfCalculations(IList<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             string message =
                 RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data;

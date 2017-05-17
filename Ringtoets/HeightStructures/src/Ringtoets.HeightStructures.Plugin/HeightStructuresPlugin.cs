@@ -578,7 +578,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculationsToUpdate = calculations
+            IList<StructuresCalculation<HeightStructuresInput>> calculationsToUpdate = calculations
                 .Where(c => c.InputParameters.Structure != null && !c.InputParameters.IsStructureInputSynchronized)
                 .ToList();
 
@@ -597,7 +597,7 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private void UpdateStructureDependentDataOfCalculations(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+        private void UpdateStructureDependentDataOfCalculations(IList<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             string message =
                 RingtoetsCommonFormsResources.StructuresPlugin_VerifyStructureUpdate_Confirm_calculation_outputs_cleared_when_updating_Structure_dependent_data;

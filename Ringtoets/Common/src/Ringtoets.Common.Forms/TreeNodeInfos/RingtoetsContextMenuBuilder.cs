@@ -252,9 +252,9 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which is bound to the action 
-        /// when updating the <see cref="ForeshoreProfile"/> of a <paramref name="calculation"/>.
+        /// of updating the <see cref="ForeshoreProfile"/> of a <paramref name="calculation"/>.
         /// </summary>
-        /// <typeparam name="TCalculationInput">The type of calculation input that has can have 
+        /// <typeparam name="TCalculationInput">The type of calculation input that can have 
         /// a foreshore profile.</typeparam>
         /// <param name="calculation">The calculation to update.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
@@ -275,9 +275,9 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which is bound to the action 
-        /// when updating the <see cref="ForeshoreProfile"/> of the <paramref name="calculations"/>.
+        /// of updating the <see cref="ForeshoreProfile"/> of the <paramref name="calculations"/>.
         /// </summary>
-        /// <typeparam name="TCalculationInput">The type of calculation input that has can have 
+        /// <typeparam name="TCalculationInput">The type of calculation input that can have 
         /// a foreshore profile.</typeparam>
         /// <param name="calculations">The calculations to update.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
