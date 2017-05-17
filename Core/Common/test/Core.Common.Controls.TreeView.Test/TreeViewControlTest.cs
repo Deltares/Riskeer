@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -1633,6 +1634,57 @@ namespace Core.Common.Controls.TreeView.Test
 
                 // Then
                 Assert.AreEqual("newTest", node.Text);
+            }
+        }
+
+        [Test]
+        public void GivenObservableDataOnTreeControl_WhenObserversNotified_ThenNodeChildNodesOrderUpdated()
+        {
+            // Given
+            var observable = new TestObservable();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var a = new object();
+                var b = new object();
+                var c = new object();
+
+                object[] dataItems =
+                {
+                    a, b, c
+                };
+
+                var treeChildNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object)
+                };
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(IObservable),
+                    ChildNodeObjects = o => dataItems
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(treeChildNodeInfo);
+                treeViewControl.Data = observable;
+
+                TreeNode node = ((System.Windows.Forms.TreeView)treeViewControl.Controls[0]).Nodes[0];
+
+                dataItems[0] = c;
+                dataItems[1] = b;
+                dataItems[2] = a;
+
+                // Precondition
+                Assert.AreSame(a, node.Nodes[0].Tag);
+                Assert.AreSame(b, node.Nodes[1].Tag);
+                Assert.AreSame(c, node.Nodes[2].Tag);
+
+                // When
+                observable.NotifyObservers();
+
+                // Then
+                Assert.AreSame(c, node.Nodes[0].Tag);
+                Assert.AreSame(b, node.Nodes[1].Tag);
+                Assert.AreSame(a, node.Nodes[2].Tag);
             }
         }
 
