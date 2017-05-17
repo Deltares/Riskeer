@@ -30,7 +30,7 @@
       <Component Id="CalculationConfigurationStochastVarationCoefficientSchema" Guid="146F5AAB-1A4E-4D98-BBDF-58FADF2CC885">
         <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\StochastVariatiecoefficientSchema.xsd" KeyPath="yes"/>
       </Component>
-      <Component Id="CalculationConfigurationForshoreProfileSchema" Guid="D7A92C17-4079-4C8F-A572-6A1AB3656A0D">
+      <Component Id="CalculationConfigurationForeshoreProfileSchema" Guid="D7A92C17-4079-4C8F-A572-6A1AB3656A0D">
         <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\VoorlandProfielSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Structures -->
@@ -68,7 +68,7 @@
       <ComponentRef Id="CalculationConfigurationStochastSchema" />
       <ComponentRef Id="CalculationConfigurationStochastStandardDeviationSchema" />
       <ComponentRef Id="CalculationConfigurationStochastVarationCoefficientSchema" />
-      <ComponentRef Id="CalculationConfigurationForshoreProfileSchema" />
+      <ComponentRef Id="CalculationConfigurationForeshoreProfileSchema" />
       <ComponentRef Id="CalculationConfigurationClosingStructuresFile" />
       <ComponentRef Id="CalculationConfigurationHeightStructuresFile" />
       <ComponentRef Id="CalculationConfigurationStabilityPointStructuresFile" />
