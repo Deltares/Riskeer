@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -53,6 +54,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>> calculationObserver;
         private readonly RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
+        private readonly RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure> structureObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -92,6 +94,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>>(UpdateMapData, pcg => pcg.Children);
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);
+            structureObserver = new RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure>(UpdateMapData, coll => coll);
 
             mapDataCollection = new MapDataCollection(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -131,6 +134,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     foreshoreProfilesObserver.Observable = null;
                     foreshoreProfileObserver.Observable = null;
                     structuresObserver.Observable = null;
+                    structureObserver.Observable = null;
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
@@ -145,6 +149,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     structuresObserver.Observable = data.WrappedData.HeightStructures;
+                    structureObserver.Observable = data.WrappedData.HeightStructures;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -176,6 +181,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
             structuresObserver.Dispose();
+            structureObserver.Dispose();
 
             if (disposing)
             {

@@ -606,6 +606,40 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_StructureUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new HeightStructuresFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
+                                                                                          new ObservableTestAssessmentSectionStub());
+
+                var structure = new TestHeightStructure(new Point2D(0, 0), "Id");
+                failureMechanism.HeightStructures.AddRange(new[]
+                {
+                    structure
+                }, "path");
+
+                view.Data = failureMechanismContext;
+
+                MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
+
+                // Precondition
+                AssertStructures(failureMechanism.HeightStructures, structuresData);
+
+                // Call
+                structure.CopyProperties(new TestHeightStructure(new Point2D(1, 1), "Id"));
+                structure.NotifyObservers();
+
+                // Assert
+                AssertStructures(failureMechanism.HeightStructures, structuresData);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_StructuresUpdated_MapDataUpdated()
         {
             // Setup
@@ -617,9 +651,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                failureMechanism.HeightStructures.AddRange(new[]
                 {
-                    new TestForeshoreProfile()
+                    new TestHeightStructure(new Point2D(0, 0), "Id1")
                 }, "path");
 
                 view.Data = failureMechanismContext;
@@ -632,7 +666,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 // Call
                 failureMechanism.HeightStructures.AddRange(new[]
                 {
-                    new TestHeightStructure()
+                    new TestHeightStructure(new Point2D(1, 1), "Id2")
                 }, "some path");
                 failureMechanism.HeightStructures.NotifyObservers();
 
@@ -932,7 +966,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             for (var i = 0; i < structuresArray.Length; i++)
             {
                 MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
-                Assert.AreEqual(structuresArray[0].Location, profileDataA.PointCollections.First().First());
+                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
             }
 
             Assert.AreEqual("Kunstwerken", mapData.Name);

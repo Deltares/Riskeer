@@ -590,7 +590,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_StructuresUpdated_MapDataUpdated()
+        public void UpdateObserver_StructureUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new StabilityPointStructuresFailureMechanismView())
@@ -598,12 +598,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism,
+                                                                                                  new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    new TestForeshoreProfile()
-                }, "path");
+                var structure = new TestStabilityPointStructure(new Point2D(0, 0), "Id");
+                failureMechanism.StabilityPointStructures.Add(structure);
 
                 view.Data = failureMechanismContext;
 
@@ -613,7 +612,39 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssertStructures(failureMechanism.StabilityPointStructures, structuresData);
 
                 // Call
-                failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+                structure.CopyProperties(new TestStabilityPointStructure(new Point2D(1, 1), "Id"));
+                structure.NotifyObservers();
+
+                // Assert
+                AssertStructures(failureMechanism.StabilityPointStructures, structuresData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_StructuresUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new StabilityPointStructuresFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var failureMechanism = new StabilityPointStructuresFailureMechanism();
+                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism,
+                                                                                                  new ObservableTestAssessmentSectionStub());
+
+                failureMechanism.StabilityPointStructures.Add(
+                    new TestStabilityPointStructure(new Point2D(0, 0), "Id1"));
+
+                view.Data = failureMechanismContext;
+
+                MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
+
+                // Precondition
+                AssertStructures(failureMechanism.StabilityPointStructures, structuresData);
+
+                // Call
+                failureMechanism.StabilityPointStructures.Add(
+                    new TestStabilityPointStructure(new Point2D(1, 1), "Id2"));
                 failureMechanism.StabilityPointStructures.NotifyObservers();
 
                 // Assert
@@ -904,7 +935,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             for (var i = 0; i < structuresArray.Length; i++)
             {
                 MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
-                Assert.AreEqual(structuresArray[0].Location, profileDataA.PointCollections.First().First());
+                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
             }
 
             Assert.AreEqual("Kunstwerken", mapData.Name);

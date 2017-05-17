@@ -53,6 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>> calculationObserver;
         private readonly RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
+        private readonly RecursiveObserver<ObservableList<StabilityPointStructure>, StabilityPointStructure> structureObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -92,6 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>>(UpdateMapData, pcg => pcg.Children);
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);
+            structureObserver = new RecursiveObserver<ObservableList<StabilityPointStructure>, StabilityPointStructure>(UpdateMapData, coll => coll);
 
             mapDataCollection = new MapDataCollection(StabilityPointStructuresDataResources.StabilityPointStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -131,6 +133,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                     foreshoreProfilesObserver.Observable = null;
                     foreshoreProfileObserver.Observable = null;
                     structuresObserver.Observable = null;
+                    structureObserver.Observable = null;
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
@@ -145,6 +148,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     structuresObserver.Observable = data.WrappedData.StabilityPointStructures;
+                    structureObserver.Observable = data.WrappedData.StabilityPointStructures;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -175,6 +179,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
             structuresObserver.Dispose();
+            structureObserver.Dispose();
 
             if (disposing)
             {
