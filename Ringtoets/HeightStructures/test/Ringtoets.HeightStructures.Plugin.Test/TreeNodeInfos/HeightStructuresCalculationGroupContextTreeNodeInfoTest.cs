@@ -1329,7 +1329,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithStructureWithoutOutput_WhenStructureUpdatedAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        public void GivenCalculationWithStructureWithoutOutput_WhenStructureChangedAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1377,7 +1377,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureHasChangesAndUpdateClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        public void GivenCalculationWithStructureWithOutput_WhenStructureChangedAndUpdateClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1440,7 +1440,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureHasChangesUpdateStructureClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
+        public void GivenCalculationWithStructureWithOutput_WhenStructureChangedAndUpdateStructureClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
