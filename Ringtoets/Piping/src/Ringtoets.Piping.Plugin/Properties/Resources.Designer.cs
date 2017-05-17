@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken intrede- en uittredepunten.
+        ///   Looks up a localized string similar to &amp;Bijwerken intrede- en uittredepunten....
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points {
             get {
@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken intrede- en uittredepunt.
+        ///   Looks up a localized string similar to &amp;Bijwerken intrede- en uittredepunt....
         /// </summary>
         public static string PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point {
             get {

@@ -134,7 +134,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data" xml:space="preserve">
-    <value>&amp;Bijwerken dijkprofiel</value>
+    <value>&amp;Bijwerken dijkprofiel...</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met het dijkprofiel.</value>
@@ -154,7 +154,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Er zijn geen berekeningen met een dijkprofiel.</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles" xml:space="preserve">
-    <value>&amp;Bijwerken dijkprofielen</value>
+    <value>&amp;Bijwerken dijkprofielen...</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data" xml:space="preserve">
     <value>Wanneer de dijkprofielen wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze dijkprofielen gebruiken, worden verwijderd.

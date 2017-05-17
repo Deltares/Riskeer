@@ -203,7 +203,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point" xml:space="preserve">
-    <value>&amp;Bijwerken intrede- en uittredepunt</value>
+    <value>&amp;Bijwerken intrede- en uittredepunt...</value>
   </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met de karakteristieke punten.</value>
@@ -215,7 +215,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Alle berekeningen met een profielschematisatie bijwerken.</value>
   </data>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points" xml:space="preserve">
-    <value>&amp;Bijwerken intrede- en uittredepunten</value>
+    <value>&amp;Bijwerken intrede- en uittredepunten...</value>
   </data>
   <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions" xml:space="preserve">
     <value>Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.

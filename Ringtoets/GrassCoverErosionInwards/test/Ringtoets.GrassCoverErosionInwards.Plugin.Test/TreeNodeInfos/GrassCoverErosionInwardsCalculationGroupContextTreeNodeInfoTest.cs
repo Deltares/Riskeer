@@ -264,7 +264,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileAllIndexRootGroup,
-                                                                  "&Bijwerken dijkprofielen",
+                                                                  "&Bijwerken dijkprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -377,7 +377,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileAllIndexNestedGroup,
-                                                                  "&Bijwerken dijkprofielen",
+                                                                  "&Bijwerken dijkprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -476,7 +476,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateDikeProfileAllIndexRootGroup,
-                                                                  "&Bijwerken dijkprofielen",
+                                                                  "&Bijwerken dijkprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -514,7 +514,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateDikeProfileAllIndexRootGroup,
-                                                                  "&Bijwerken dijkprofielen",
+                                                                  "&Bijwerken dijkprofielen...",
                                                                   "Er zijn geen berekeningen met een dijkprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -558,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateDikeProfileAllIndexRootGroup,
-                                                                  "&Bijwerken dijkprofielen",
+                                                                  "&Bijwerken dijkprofielen...",
                                                                   "Alle berekeningen bijwerken met het dijkprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }

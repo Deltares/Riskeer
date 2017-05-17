@@ -2506,7 +2506,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerken.
+        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerken....
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
@@ -2525,7 +2525,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk.
+        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk....
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data {
             get {

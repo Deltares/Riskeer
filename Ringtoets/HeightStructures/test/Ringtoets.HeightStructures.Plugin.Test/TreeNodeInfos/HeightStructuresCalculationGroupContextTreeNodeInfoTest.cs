@@ -273,7 +273,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken",
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -432,7 +432,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateStructureAllIndexNestedGroup,
-                                                                  "&Bijwerken kunstwerken",
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1191,7 +1191,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken",
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1228,7 +1228,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken",
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1271,7 +1271,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken",
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -1317,7 +1317,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
-                                                                  "&Bijwerken kunstwerken",
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Alle berekeningen met een kunstwerk bijwerken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }

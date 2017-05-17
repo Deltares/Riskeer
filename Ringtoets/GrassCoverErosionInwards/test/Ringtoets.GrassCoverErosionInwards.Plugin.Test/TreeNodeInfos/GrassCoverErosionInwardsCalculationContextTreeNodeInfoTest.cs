@@ -251,7 +251,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(15, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel",
+                                                                  "&Bijwerken dijkprofiel...",
                                                                   "Er moet een dijkprofiel geselecteerd zijn.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -300,7 +300,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel",
+                                                                  "&Bijwerken dijkprofiel...",
                                                                   "Er moet een dijkprofiel geselecteerd zijn.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -339,7 +339,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel",
+                                                                  "&Bijwerken dijkprofiel...",
                                                                   "Berekening bijwerken met het dijkprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }

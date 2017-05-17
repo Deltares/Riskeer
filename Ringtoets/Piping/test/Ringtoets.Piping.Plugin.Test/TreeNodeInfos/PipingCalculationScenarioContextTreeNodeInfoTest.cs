@@ -420,7 +420,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointIndex,
-                                                                  "&Bijwerken intrede- en uittredepunt",
+                                                                  "&Bijwerken intrede- en uittredepunt...",
                                                                   "Er moet een profielschematisatie geselecteerd zijn.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointIndex,
-                                                                  "&Bijwerken intrede- en uittredepunt",
+                                                                  "&Bijwerken intrede- en uittredepunt...",
                                                                   "Berekening bijwerken met de karakteristieke punten.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }

@@ -121,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken dijkprofielen.
+        ///   Looks up a localized string similar to &amp;Bijwerken dijkprofielen....
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles {
             get {
@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken dijkprofiel.
+        ///   Looks up a localized string similar to &amp;Bijwerken dijkprofiel....
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data {
             get {

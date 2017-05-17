@@ -265,7 +265,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "Wijzig de naam van dit element.",
                                                               CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup,
-                                                              "&Bijwerken intrede- en uittredepunten",
+                                                              "&Bijwerken intrede- en uittredepunten...",
                                                               "Er zijn geen berekeningen om bij te werken.",
                                                               RingtoetsCommonFormsResources.UpdateItemIcon,
                                                               false);
@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                              "&Bijwerken intrede- en uittredepunten",
+                                                              "&Bijwerken intrede- en uittredepunten...",
                                                               "Er zijn geen berekeningen om bij te werken.",
                                                               RingtoetsCommonFormsResources.UpdateItemIcon,
                                                               false);
@@ -685,7 +685,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "&Bijwerken intrede- en uittredepunten...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -727,7 +727,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "&Bijwerken intrede- en uittredepunten...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -769,7 +769,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "&Bijwerken intrede- en uittredepunten...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -814,7 +814,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten",
+                                                                  "&Bijwerken intrede- en uittredepunten...",
                                                                   "Alle berekeningen met een profielschematisatie bijwerken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
