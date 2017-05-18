@@ -611,37 +611,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationGroupContext nodeData)
         {
-            IEnumerable<GrassCoverErosionInwardsCalculation> calculations = nodeData.WrappedData
-                                                                                    .GetCalculations()
-                                                                                    .OfType<GrassCoverErosionInwardsCalculation>();
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip;
+            IList<GrassCoverErosionInwardsCalculation> calculationsToUpdate = nodeData.WrappedData.GetCalculations()
+                                                                                      .OfType<GrassCoverErosionInwardsCalculation>()
+                                                                                      .Where(c => c.InputParameters.DikeProfile != null && !c.InputParameters.IsDikeProfileInputSynchronized)
+                                                                                      .ToList();
 
-            var isContextMenuItemEnabled = true;
-            string toolTipText =
-                Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip;
-            if (!calculations.Any())
+            if (!calculationsToUpdate.Any())
             {
-                toolTipText = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
-                isContextMenuItemEnabled = false;
-            }
-            else if (calculations.All(calc => calc.InputParameters.DikeProfile == null))
-            {
-                toolTipText = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_DikeProfile_ToolTip;
-                isContextMenuItemEnabled = false;
+                contextMenuEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles,
-                                             toolTipText,
+                                             toolTipMessage,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(calculations))
+                                             (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(calculationsToUpdate))
             {
-                Enabled = isContextMenuItemEnabled
+                Enabled = contextMenuEnabled
             };
         }
 
-        private void UpdateDikeProfileDependentDataOfAllCalculations(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        private void UpdateDikeProfileDependentDataOfAllCalculations(IList<GrassCoverErosionInwardsCalculation> calculations)
         {
-            string message =
-                Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (DikeProfileDependentDataShouldUpdate(calculations, message))
             {
                 foreach (GrassCoverErosionInwardsCalculation calculation in calculations)

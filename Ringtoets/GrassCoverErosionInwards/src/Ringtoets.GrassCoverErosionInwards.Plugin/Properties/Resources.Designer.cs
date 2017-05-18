@@ -101,17 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen met een dijkprofiel..
-        /// </summary>
-        internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_DikeProfile_ToolTip {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_No_calculations_with_D" +
-                        "ikeProfile_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen bijwerken met het dijkprofiel..
+        ///   Looks up a localized string similar to Alle berekeningen met een dijkprofiel bijwerken..
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip {
             get {
@@ -169,18 +159,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfile" +
                         "s_Calculation_output_will_be_cleared_confirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wanneer de dijkprofielen wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze dijkprofielen gebruiken, worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_outputs_cleared_when_updating_DikeProfile_dependent_data {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output" +
-                        "s_cleared_when_updating_DikeProfile_dependent_data", resourceCulture);
             }
         }
         
