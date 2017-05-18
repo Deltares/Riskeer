@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
@@ -42,7 +44,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdConstructor_ExpectedProperties()
+        public void IdConstructor_ValidParameters_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -59,7 +61,20 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNameConstructor_ExpectedProperties()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdConstructor_InvalidId_ThrowsArgumentException(string id)
+        {
+            // Call
+            TestDelegate call = () => new TestStructure(id);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void IdNameConstructor_ValidParameters_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -77,7 +92,23 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdLocationConstructor_ExpectedProperties()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdNameConstructor_InvalidName_ThrowsArgumentException(string name)
+        {
+            // Setup
+            const string id = "some Id";
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void IdLocationConstructor_ValidParameters_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -95,7 +126,37 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Point2DConstructor_ExpectedProperties()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdLocationConstructor_InvalidId_ThrowsArgumentException(string id)
+        {
+            // Setup
+            var location = new Point2D(1, 1);
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, location);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void IdLocationConstructor_LocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string id = "some Id";
+            Point2D location = null;
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, location);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void Point2DConstructor_ValidParameters_ExpectedProperties()
         {
             // Setup
             var location = new Point2D(1, 1);
@@ -112,7 +173,54 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNamePoint2DConstructor_ExpectedProperties()
+        public void Point2DConstructor_LocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            Point2D location = null;
+
+            // Call
+            TestDelegate call = () => new TestStructure(location);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdNamePoint2DConstructor_InvalidId_ThrowsArgumentException(string id)
+        {
+            // Setup
+            const string name = "some name";
+            var location = new Point2D(1, 1);
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name, location);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdNamePoint2DConstructor_InvalidName_ThrowsArgumentException(string name)
+        {
+            // Setup
+            const string id = "some id";
+            var location = new Point2D(1, 1);
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name, location);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void IdNamePoint2DConstructor_ValidParameters_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -128,6 +236,93 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreSame(location, structure.Location);
             Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
                             structure.StructureNormalOrientation.GetAccuracy());
+        }
+
+        [Test]
+        public void IdNamePoint2DConstructor_LocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string id = "some Id";
+            const string name = "some name";
+            Point2D location = null;
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name, location);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void IdNamePoint2DNormalConstructor_ValidParameters_ExpectedProperties()
+        {
+            // Setup
+            const string id = "some Id";
+            const string name = "some name";
+            var location = new Point2D(1, 1);
+            var normal = (RoundedDouble) 456;
+
+            // Call
+            var structure = new TestStructure(id, name, location, normal);
+
+            // Assert
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(name, structure.Name);
+            Assert.AreSame(location, structure.Location);
+            Assert.AreEqual(normal, structure.StructureNormalOrientation,
+                            structure.StructureNormalOrientation.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdNamePoint2DNormalConstructor_InvalidId_ThrowsArgumentException(string id)
+        {
+            // Setup
+            const string name = "some name";
+            var location = new Point2D(1, 1);
+            var normal = (RoundedDouble) 456;
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name, location, normal);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void IdNamePoint2DNormalConstructor_InvalidName_ThrowsArgumentException(string name)
+        {
+            // Setup
+            const string id = "some Id";
+            var location = new Point2D(1, 1);
+            var normal = (RoundedDouble) 456;
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name, location, normal);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void IdNamePoint2DNormalConstructor_LocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string id = "some Id";
+            const string name = "some name";
+            Point2D location = null;
+            var normal = (RoundedDouble) 456;
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name, location, normal);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
         }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="PropertyInfos\HeightStructureCollectionPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresInputContextPropertyInfoTest.cs" />
+    <Compile Include="StructureIdEqualityComparerTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationGroupContextTreeNodeInfoTest.cs" />

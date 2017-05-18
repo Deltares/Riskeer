@@ -894,22 +894,6 @@ namespace Ringtoets.HeightStructures.Plugin
                        RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm);
         }
 
-        /// <summary>
-        /// Class for comparing <see cref="StructureBase"/> by only the id.
-        /// </summary>
-        private class StructureIdEqualityComparer : IEqualityComparer<StructureBase>
-        {
-            public bool Equals(StructureBase x, StructureBase y)
-            {
-                return x.Id.Equals(y.Id);
-            }
-
-            public int GetHashCode(StructureBase obj)
-            {
-                return obj.Id.GetHashCode();
-            }
-        }
-
         private bool VerifyStructuresShouldUpdateOnUpdate(HeightStructuresContext context)
         {
             StructureCollection<HeightStructure> heightStructures = context.WrappedData;

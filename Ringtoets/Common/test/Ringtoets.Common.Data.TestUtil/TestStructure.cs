@@ -33,16 +33,16 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestStructure"/>.
         /// </summary>
-        public TestStructure() 
+        public TestStructure()
             : this("id") {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStructure"/>.
         /// </summary>
         /// <param name="id">The id of the structure.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/>
         /// is <c>null</c>, empty or consists of whitespace.</exception>
-        public TestStructure(string id) 
+        public TestStructure(string id)
             : this(id, "name") {}
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> or 
         /// <paramref name="name"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
         public TestStructure(string id, string name)
-            : this(id, name, new Point2D(0.0, 0.0)) { }
+            : this(id, name, new Point2D(0.0, 0.0)) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStructure"/>.
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
         /// is <c>null</c>.</exception>
         public TestStructure(string id, Point2D location)
-            : this(id, "name", location) { }
+            : this(id, "name", location) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestStructure"/>.
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="location">The location of the structure.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
         /// is <c>null</c>.</exception>
-        public TestStructure(Point2D location) 
+        public TestStructure(Point2D location)
             : this("id", "name", location) {}
 
         /// <summary>
@@ -87,12 +87,26 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
         /// is <c>null</c>.</exception>
         public TestStructure(string id, string name, Point2D location)
+            : this(id, name, location, (RoundedDouble) 0.12345) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStructure"/>.
+        /// </summary>
+        /// <param name="id">The id of the structure.</param>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="location">The location of the structure.</param>
+        /// <param name="structureNormalOrientation">The normal of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> or 
+        /// <paramref name="name"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
+        /// is <c>null</c>.</exception>
+        public TestStructure(string id, string name, Point2D location, RoundedDouble structureNormalOrientation)
             : base(new ConstructionProperties
             {
                 Name = name,
                 Id = id,
                 Location = location,
-                StructureNormalOrientation = (RoundedDouble) 0.12345
+                StructureNormalOrientation = structureNormalOrientation
             }) {}
     }
 }

@@ -64,22 +64,6 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
                 FailureMechanism.SectionResults);
         }
 
-        /// <summary>
-        /// Class for comparing <see cref="StructureBase"/> by only the id.
-        /// </summary>
-        private class StructureIdEqualityComparer : IEqualityComparer<StructureBase>
-        {
-            public bool Equals(StructureBase x, StructureBase y)
-            {
-                return x.Id.Equals(y.Id);
-            }
-
-            public int GetHashCode(StructureBase obj)
-            {
-                return obj.Id.GetHashCode();
-            }
-        }
-
         #region Updating Data Functions
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(HeightStructure objectToUpdate,
