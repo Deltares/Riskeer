@@ -817,8 +817,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
         {
-            string message =
-                Resources.PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_output_cleared_when_updating_entry_and_exit_points_definitions;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
             {
                 scenario

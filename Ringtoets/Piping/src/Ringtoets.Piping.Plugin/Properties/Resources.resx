@@ -222,11 +222,6 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_output_cleared_when_updating_entry_and_exit_points_definitions" xml:space="preserve">
-    <value>Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
-
-Weet u zeker dat u wilt doorgaan?</value>
-  </data>
   <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 

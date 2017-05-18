@@ -508,7 +508,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                UpdateSurfaceLine(surfaceLine);
+                ChangeSurfaceLine(surfaceLine);
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -524,7 +524,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineWithoutOutput_WhenEntryAndExitPointUpdatedAndUpdateEntryAndExitPointClicked_ThenNoInquiryAndPointsUpdatedAndInputObserverNotified()
+        public void GivenCalculationWithSurfaceLineWithoutOutput_WhenSurfaceLineChangedAndUpdateClicked_ThenNoInquiryAndPointsUpdatedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -556,19 +556,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                ChangeSurfaceLine(surfaceLine);
+
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
-
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
                     // Then
-                    PipingInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsFalse(calculation.HasOutput);
+                    Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                     // Note: observer assertions are verified in TearDown
                 }
@@ -576,7 +573,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClickedAndContinued_ThenPointsUpdatedOutputsRemovedAndObserversNotified()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineChangedAndUpdateClickedAndContinued_ThenPointsUpdatedOutputsRemovedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -618,22 +615,18 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     helper.ClickOk();
                 };
 
+                ChangeSurfaceLine(surfaceLine);
+
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
-
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
                     // Then
-                    PipingInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
                     Assert.IsFalse(calculation.HasOutput);
+                    Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    string expectedMessage = "Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -643,84 +636,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenUpdatedEntryAndExitPointsHasNoChangeAndUpdateEntryAndExitPointClickedAndContinued_ThenOutputNotRemovedAndObserversNotNotified()
-        {
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Given
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 2,
-                        ExitPointL = (RoundedDouble) 3
-                    },
-                    Output = new TestPipingOutput()
-                };
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new PipingCalculationScenarioContext(calculation,
-                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<StochasticSoilModel>(),
-                                                                    pipingFailureMechanism,
-                                                                    assessmentSection);
-
-                var inputObserver = mocks.StrictMock<IObserver>();
-                calculation.InputParameters.Attach(inputObserver);
-
-                var calculationObserver = mocks.StrictMock<IObserver>();
-                calculation.Attach(calculationObserver);
-
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
-                    helper.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    UpdateSurfaceLine(surfaceLine);
-
-                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
-
-                    // Then
-                    PipingInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters.ExitPointL);
-                    Assert.IsTrue(calculation.HasOutput);
-
-                    string expectedMessage = "Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in TearDown
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenEntryAndExitPointsUpdatedAndUpdateEntryAndExitPointClickedAndDiscontinued_ThenCalculationNotUpdatedAndObserversNotUpdated()
+        public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineChangedAndUpdateClickedAndCancelled_ThenCalculationNotUpdatedAndObserversNotUpdated()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -760,22 +676,18 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     helper.ClickCancel();
                 };
 
+                ChangeSurfaceLine(surfaceLine);
+
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    UpdateSurfaceLine(surfaceLine);
-
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
                     // Then
-                    PipingInput inputParameters = calculation.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 0), inputParameters.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 1), inputParameters.ExitPointL);
                     Assert.IsTrue(calculation.HasOutput);
+                    Assert.IsFalse(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    string expectedMessage = "Wanneer het intrede- of uittredepunt wijzigt als gevolg van het bijwerken, " +
-                                             "zal het resultaat van deze berekening worden " +
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
@@ -1120,7 +1032,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             }
         }
 
-        private static void UpdateSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        private static void ChangeSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
         {
             surfaceLine.SetGeometry(new[]
             {
@@ -1135,7 +1047,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
         }
 
-        private void CreateCalculationWithSurfaceLine(out PipingCalculationScenario calculation, out RingtoetsPipingSurfaceLine surfaceLine)
+        private static void CreateCalculationWithSurfaceLine(out PipingCalculationScenario calculation, out RingtoetsPipingSurfaceLine surfaceLine)
         {
             surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
