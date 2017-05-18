@@ -625,7 +625,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    UpdateDikeProfile(dikeProfile);
+                    ChangeDikeProfile(dikeProfile);
                     menu.Items[contextMenuUpdateDikeProfileAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -734,7 +734,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    UpdateDikeProfile(dikeProfile);
+                    ChangeDikeProfile(dikeProfile);
                     menu.Items[contextMenuUpdateDikeProfileAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -837,7 +837,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    UpdateDikeProfile(dikeProfile);
+                    ChangeDikeProfile(dikeProfile);
                     menu.Items[contextMenuUpdateDikeProfileAllIndexRootGroup].PerformClick();
 
                     // Then
@@ -852,141 +852,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(expectedUseForeshore1, inputParameters1.UseForeshore);
 
                     Assert.IsFalse(calculation2.HasOutput);
-                    GrassCoverErosionInwardsInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(dikeProfile, inputParameters2.DikeProfile);
-                    Assert.AreEqual(dikeProfile.Orientation, inputParameters2.Orientation);
-                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters2.DikeHeight);
-                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters2.UseBreakWater);
-                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters2.BreakWater);
-                    bool expectedUseForeshore2 = dikeProfile.ForeshoreGeometry.Count() > 1;
-                    Assert.AreEqual(expectedUseForeshore2, inputParameters2.UseForeshore);
-
-                    string expectedMessage = "Wanneer de dijkprofielen wijzigen als gevolg van het bijwerken, " +
-                                             "zullen de resultaten van berekeningen die deze dijkprofielen gebruiken, worden " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithDikeProfileWithOutput_WhenDikeProfileHasNoChangeAndUpdateClicked_ThenInquiresAndCalculationsNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var calculation1InputObserver = mocks.StrictMock<IObserver>();
-            var calculation2InputObserver = mocks.StrictMock<IObserver>();
-
-            var calculation1Observer = mocks.StrictMock<IObserver>();
-            var calculation2Observer = mocks.StrictMock<IObserver>();
-
-            var dikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(1.1, 2.2), 3),
-                                                  new RoughnessPoint(new Point2D(3.3, 4.4), 5)
-                                              },
-                                              new[]
-                                              {
-                                                  new Point2D(1.1, 2.2),
-                                                  new Point2D(3.3, 4.4)
-                                              },
-                                              new BreakWater(BreakWaterType.Caisson, 10),
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Id = "ID"
-                                              });
-            const double orientation = 10;
-            const double dikeHeight = 10;
-            const bool useBreakWater = true;
-            const bool useForeshore = true;
-            var calculation1 = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = dikeProfile,
-                    DikeHeight = (RoundedDouble) dikeHeight,
-                    Orientation = (RoundedDouble) orientation,
-                    UseForeshore = useForeshore,
-                    UseBreakWater = useBreakWater
-                },
-                Output = new TestGrassCoverErosionInwardsOutput()
-            };
-            calculation1.Attach(calculation1Observer);
-            calculation1.InputParameters.Attach(calculation1InputObserver);
-
-            var calculation2 = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = dikeProfile,
-                    DikeHeight = (RoundedDouble) dikeHeight,
-                    Orientation = (RoundedDouble) orientation,
-                    UseForeshore = useForeshore,
-                    UseBreakWater = useBreakWater
-                },
-                Output = new TestGrassCoverErosionInwardsOutput()
-            };
-            calculation2.Attach(calculation2Observer);
-            calculation2.InputParameters.Attach(calculation2InputObserver);
-
-            var childGroup = new CalculationGroup();
-            childGroup.Children.Add(calculation1);
-
-            var emptyChildGroup = new CalculationGroup();
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-
-            group.Children.Add(childGroup);
-            group.Children.Add(emptyChildGroup);
-            group.Children.Add(calculation2);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
-
-            string textBoxMessage = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                textBoxMessage = helper.Text;
-                helper.ClickOk();
-            };
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // When
-                    UpdateDikeProfile(dikeProfile);
-                    menu.Items[contextMenuUpdateDikeProfileAllIndexNestedGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation1.HasOutput);
-                    GrassCoverErosionInwardsInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(dikeProfile, inputParameters1.DikeProfile);
-                    Assert.AreEqual(dikeProfile.Orientation, inputParameters1.Orientation);
-                    Assert.AreEqual(dikeProfile.DikeHeight, inputParameters1.DikeHeight);
-                    Assert.AreEqual(dikeProfile.HasBreakWater, inputParameters1.UseBreakWater);
-                    Assert.AreEqual(dikeProfile.BreakWater, inputParameters1.BreakWater);
-                    bool expectedUseForeshore1 = dikeProfile.ForeshoreGeometry.Count() > 1;
-                    Assert.AreEqual(expectedUseForeshore1, inputParameters1.UseForeshore);
-
-                    Assert.IsTrue(calculation2.HasOutput);
                     GrassCoverErosionInwardsInput inputParameters2 = calculation2.InputParameters;
                     Assert.AreSame(dikeProfile, inputParameters2.DikeProfile);
                     Assert.AreEqual(dikeProfile.Orientation, inputParameters2.Orientation);
@@ -1094,7 +959,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    UpdateDikeProfile(dikeProfile);
+                    ChangeDikeProfile(dikeProfile);
                     menu.Items[contextMenuUpdateDikeProfileAllIndexNestedGroup].PerformClick();
 
                     // Then
@@ -2091,7 +1956,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNull(result.Calculation);
         }
 
-        private static void UpdateDikeProfile(DikeProfile dikeProfile)
+        private static void ChangeDikeProfile(DikeProfile dikeProfile)
         {
             var dikeProfileToUpdateFrom = new DikeProfile(dikeProfile.WorldReferencePoint,
                                                           dikeProfile.DikeGeometry,

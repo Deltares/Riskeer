@@ -173,18 +173,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer het dijkprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output_cleared_when_updating_DikeProfile_dependent_data {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output" +
-                        "_cleared_when_updating_DikeProfile_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Wanneer de dijkprofielen wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze dijkprofielen gebruiken, worden verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

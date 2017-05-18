@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -358,7 +357,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region GrassCoverErosionInwardsInputView  ViewInfo
+        #region GrassCoverErosionInwardsInputView ViewInfo
 
         private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
         {
@@ -831,12 +830,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationContext context)
         {
-            GrassCoverErosionInwardsInput inputParameters = context.WrappedData.InputParameters;
-            bool hasDikeProfile = inputParameters.DikeProfile != null;
-
-            string toolTipMessage = hasDikeProfile
-                                        ? Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip
-                                        : Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip;
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip;
+            if (context.WrappedData.InputParameters.DikeProfile == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsDikeProfileInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
 
             return new StrictContextMenuItem(
                 Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data,
@@ -844,14 +849,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 RingtoetsCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdateDikeProfileDependentDataOfCalculation(context.WrappedData))
             {
-                Enabled = hasDikeProfile
+                Enabled = contextMenuEnabled
             };
         }
 
         private void UpdateDikeProfileDependentDataOfCalculation(GrassCoverErosionInwardsCalculation calculation)
         {
-            string message =
-                Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_Confirm_calculation_output_cleared_when_updating_DikeProfile_dependent_data;
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (DikeProfileDependentDataShouldUpdate(new[]
             {
                 calculation
@@ -872,21 +876,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void UpdateDikeProfileDerivedCalculationInput(GrassCoverErosionInwardsCalculation calculation)
         {
-            if (!calculation.InputParameters.IsDikeProfileInputSynchronized)
+            calculation.InputParameters.SynchronizeDikeProfileInput();
+
+            var affectedObjects = new List<IObservable>
             {
-                calculation.InputParameters.SynchronizeDikeProfileInput();
+                calculation.InputParameters
+            };
 
-                var affectedObjects = new List<IObservable>
-                {
-                    calculation.InputParameters
-                };
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-
-                foreach (IObservable affectedObject in affectedObjects)
-                {
-                    affectedObject.NotifyObservers();
-                }
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
             }
         }
 
