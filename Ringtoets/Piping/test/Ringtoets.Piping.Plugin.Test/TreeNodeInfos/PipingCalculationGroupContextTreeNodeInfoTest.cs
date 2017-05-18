@@ -1529,7 +1529,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsInNestedGroupWithoutOutput_WhenSurfaceLineChangedAndUpdateClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationsInNestedGroupWithoutOutput_WhenSurfaceLineChangedAndUpdateClicked_ThenCalculationsUpdatedAndObserversNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1618,15 +1618,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
                     // Then
-                    PipingInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters1.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters1.ExitPointL);
-
-                    PipingInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
+                    Assert.IsFalse(calculation1.HasOutput);
+                    Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
+                    Assert.IsFalse(calculation2.HasOutput);
+                    Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
                 }
             }
         }
@@ -1736,17 +1731,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation1.HasOutput);
+                    Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
                     Assert.IsFalse(calculation2.HasOutput);
-
-                    PipingInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters1.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters1.ExitPointL);
-
-                    PipingInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
+                    Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
@@ -1855,17 +1842,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsTrue(calculation1.HasOutput);
+                    Assert.IsFalse(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
                     Assert.IsTrue(calculation2.HasOutput);
-
-                    PipingInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2), inputParameters1.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 1), inputParameters1.ExitPointL);
-
-                    PipingInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2), inputParameters2.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 1), inputParameters2.ExitPointL);
+                    Assert.IsFalse(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
