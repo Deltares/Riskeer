@@ -1529,7 +1529,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsInNestedGroupWithoutOutput_WhenSurfaceLineChangedAndUpdateClicked_ThenCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateEntryAndExitPointsClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1627,7 +1627,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsInNestedGroupWithOutput_WhenSurfaceLineChangedAndUpdateClickedAndContinued_ThenCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateEntryAndExitPointsClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1636,11 +1636,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var calculation1InputObserver = mocks.StrictMock<IObserver>();
                 var calculation2Observer = mocks.StrictMock<IObserver>();
                 var calculation2InputObserver = mocks.StrictMock<IObserver>();
-
-                calculation1Observer.Expect(obs => obs.UpdateObserver());
-                calculation1InputObserver.Expect(obs => obs.UpdateObserver());
-                calculation2Observer.Expect(obs => obs.UpdateObserver());
-                calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
                 var surfaceLine = new RingtoetsPipingSurfaceLine();
                 surfaceLine.SetGeometry(new[]
@@ -1653,9 +1648,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     InputParameters =
                     {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
+                        SurfaceLine = surfaceLine
                     },
                     Output = new TestPipingOutput(),
                     SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
@@ -1667,9 +1660,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     InputParameters =
                     {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
+                        SurfaceLine = surfaceLine
                     },
                     Output = new TestPipingOutput(),
                     SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
@@ -1714,36 +1705,22 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
-                    helper.ClickOk();
-                };
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
-                    ChangeSurfaceLine(surfaceLine);
-
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
                     // Then
-                    Assert.IsFalse(calculation1.HasOutput);
+                    Assert.IsTrue(calculation1.HasOutput);
                     Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
-                    Assert.IsFalse(calculation2.HasOutput);
+                    Assert.IsTrue(calculation2.HasOutput);
                     Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
             }
         }
 
         [Test]
-        public void GivenCalculationsInNestedGroupWithOutput_WhenSurfaceLineChangedAndUpdateClickedAndCancelled_ThenCalculationsNotUpdated()
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1854,7 +1831,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsInNestedGroupWithoutOutput_WhenUpdatedEntryAndExitPoints_ThenNoInquiryAndCalculationsUpdatedAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1863,6 +1840,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var calculation1InputObserver = mocks.StrictMock<IObserver>();
                 var calculation2Observer = mocks.StrictMock<IObserver>();
                 var calculation2InputObserver = mocks.StrictMock<IObserver>();
+
+                calculation1Observer.Expect(obs => obs.UpdateObserver());
+                calculation1InputObserver.Expect(obs => obs.UpdateObserver());
+                calculation2Observer.Expect(obs => obs.UpdateObserver());
+                calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
                 var surfaceLine = new RingtoetsPipingSurfaceLine();
                 surfaceLine.SetGeometry(new[]
@@ -1876,9 +1858,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     InputParameters =
                     {
                         SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 2,
-                        ExitPointL = (RoundedDouble) 3
-                    }
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    },
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
@@ -1888,9 +1872,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     InputParameters =
                     {
                         SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 2,
-                        ExitPointL = (RoundedDouble) 3
-                    }
+                        EntryPointL = (RoundedDouble) 0,
+                        ExitPointL = (RoundedDouble) 1
+                    },
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                 };
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
@@ -1932,6 +1918,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                };
+
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // When
@@ -1941,17 +1935,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsFalse(calculation1.HasOutput);
+                    Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
                     Assert.IsFalse(calculation2.HasOutput);
+                    Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    PipingInput inputParameters1 = calculation1.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters1.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters1.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters1.ExitPointL);
-
-                    PipingInput inputParameters2 = calculation2.InputParameters;
-                    Assert.AreSame(surfaceLine, inputParameters2.SurfaceLine);
-                    Assert.AreEqual(new RoundedDouble(2, 2), inputParameters2.EntryPointL);
-                    Assert.AreEqual(new RoundedDouble(3, 3), inputParameters2.ExitPointL);
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
             }
         }

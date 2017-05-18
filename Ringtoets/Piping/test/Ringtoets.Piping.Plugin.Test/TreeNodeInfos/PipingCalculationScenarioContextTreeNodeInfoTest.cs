@@ -524,7 +524,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineWithoutOutput_WhenSurfaceLineChangedAndUpdateClicked_ThenNoInquiryAndPointsUpdatedAndObserversNotified()
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateEntryAndExitPointClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -573,7 +573,127 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineChangedAndUpdateClickedAndContinued_ThenPointsUpdatedOutputsRemovedAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateEntryAndExitPointClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    },
+                    Output = new TestPipingOutput(),
+                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                };
+
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+                    Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
+
+                    // Note: observer assertions are verified in TearDown
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        {
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Given
+                RingtoetsPipingSurfaceLine surfaceLine;
+                PipingCalculationScenario calculation;
+                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
+                calculation.Output = new TestPipingOutput();
+
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var inputObserver = mocks.StrictMock<IObserver>();
+                calculation.InputParameters.Attach(inputObserver);
+
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculation.Attach(calculationObserver);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                string textBoxMessage = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    textBoxMessage = helper.Text;
+                    helper.ClickCancel();
+                };
+
+                ChangeSurfaceLine(surfaceLine);
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+                    Assert.IsFalse(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
+
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in TearDown
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -625,67 +745,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.IsFalse(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                    // Note: observer assertions are verified in TearDown
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithSurfaceLineAndOutput_WhenSurfaceLineChangedAndUpdateClickedAndCancelled_ThenCalculationNotUpdatedAndObserversNotUpdated()
-        {
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Given
-                RingtoetsPipingSurfaceLine surfaceLine;
-                PipingCalculationScenario calculation;
-                CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = new TestPipingOutput();
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new PipingCalculationScenarioContext(calculation,
-                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<StochasticSoilModel>(),
-                                                                    pipingFailureMechanism,
-                                                                    assessmentSection);
-
-                var inputObserver = mocks.StrictMock<IObserver>();
-                calculation.InputParameters.Attach(inputObserver);
-
-                var calculationObserver = mocks.StrictMock<IObserver>();
-                calculation.Attach(calculationObserver);
-
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
-                    helper.ClickCancel();
-                };
-
-                ChangeSurfaceLine(surfaceLine);
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    Assert.IsFalse(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                     string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
