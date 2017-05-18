@@ -65,16 +65,16 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
         }
 
         /// <summary>
-        /// Class for comparing <see cref="HeightStructure"/> by only the id.
+        /// Class for comparing <see cref="StructureBase"/> by only the id.
         /// </summary>
-        private class StructureIdEqualityComparer : IEqualityComparer<HeightStructure>
+        private class StructureIdEqualityComparer : IEqualityComparer<StructureBase>
         {
-            public bool Equals(HeightStructure x, HeightStructure y)
+            public bool Equals(StructureBase x, StructureBase y)
             {
                 return x.Id.Equals(y.Id);
             }
 
-            public int GetHashCode(HeightStructure obj)
+            public int GetHashCode(StructureBase obj)
             {
                 return obj.Id.GetHashCode();
             }
@@ -94,11 +94,8 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
         {
             var affectedObjects = new List<IObservable>();
 
-            foreach (StructuresCalculation<HeightStructuresInput> affectedCalculation in GetAffectedCalculationsWithHeightStructure(structure))
-            {
-                affectedObjects.Add(affectedCalculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
-            }
+            affectedObjects.AddRange(GetAffectedCalculationsWithHeightStructure(structure)
+                                         .Select(c => c.InputParameters));
 
             affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
                                          FailureMechanism.SectionResults,

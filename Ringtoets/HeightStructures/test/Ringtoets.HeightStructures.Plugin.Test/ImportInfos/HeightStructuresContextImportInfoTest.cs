@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -36,6 +37,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -45,6 +47,123 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
     [TestFixture]
     public class HeightStructuresContextImportInfoTest : NUnitFormTest
     {
+        private static IEnumerable<TestCaseData> CalculationsThatWhereOutputShouldNotBeRemoved
+        {
+            get
+            {
+                yield return new TestCaseData(new StructuresCalculation<HeightStructuresInput>
+                {
+                    Name = "OutputWithoutStructure",
+                    Output = new TestStructuresOutput()
+                });
+
+                yield return new TestCaseData(new StructuresCalculation<HeightStructuresInput>
+                {
+                    Name = "StructureWithoutOutput",
+                    InputParameters =
+                    {
+                        Structure = new TestHeightStructure()
+                    }
+                });
+            }
+        }
+
+        private static IEnumerable<TestCaseData> CalculationsThatWhereOutputShouldBeRemoved
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        Name = "NoImportedStructuresAndActionConfirmed",
+                        InputParameters =
+                        {
+                            Structure = new TestHeightStructure()
+                        },
+                        Output = new TestStructuresOutput()
+                    }, Enumerable.Empty<TestHeightStructure>()
+                    , true
+                );
+
+                yield return new TestCaseData(
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        Name = "NoImportedStructuresAndActionNotConfirmed",
+                        InputParameters =
+                        {
+                            Structure = new TestHeightStructure()
+                        },
+                        Output = new TestStructuresOutput()
+                    }, Enumerable.Empty<TestHeightStructure>()
+                    , true
+                );
+
+                yield return new TestCaseData(
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        Name = "StructureRemovedAndActionConfirmed",
+                        InputParameters =
+                        {
+                            Structure = new TestHeightStructure("id")
+                        },
+                        Output = new TestStructuresOutput()
+                    }, new[]
+                    {
+                        new TestHeightStructure("Different id")
+                    }
+                    , true
+                );
+
+                yield return new TestCaseData(
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        Name = "StructureRemovedAndActionNotConfirmed",
+                        InputParameters =
+                        {
+                            Structure = new TestHeightStructure("id")
+                        },
+                        Output = new TestStructuresOutput()
+                    }, new[]
+                    {
+                        new TestHeightStructure("Different id")
+                    }
+                    , true
+                );
+
+                yield return new TestCaseData(
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        Name = "StructureWithSameIdAndActionConfirmed",
+                        InputParameters =
+                        {
+                            Structure = new TestHeightStructure("id")
+                        },
+                        Output = new TestStructuresOutput()
+                    }, new[]
+                    {
+                        new TestHeightStructure("id")
+                    }
+                    , true
+                );
+
+                yield return new TestCaseData(
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        Name = "StructureWithSameIdAndActionNotConfirmed",
+                        InputParameters =
+                        {
+                            Structure = new TestHeightStructure("id")
+                        },
+                        Output = new TestStructuresOutput()
+                    }, new[]
+                    {
+                        new TestHeightStructure("id")
+                    }
+                    , true
+                );
+            }
+        }
+
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
@@ -191,7 +310,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        [TestCaseSource(nameof(CalculationsThatWhereOutputShouldNotBeRemoved))]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue(StructuresCalculation<HeightStructuresInput> calculation)
         {
             // Setup
             var mocks = new MockRepository();
@@ -205,8 +325,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             {
                 plugin.Gui = gui;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
+                var failureMechanism = new HeightStructuresFailureMechanism
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            calculation
+                        }
+                    }
+                };
 
                 var structures = new StructureCollection<HeightStructure>();
                 var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
@@ -223,9 +351,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
+        [TestCaseSource(nameof(CalculationsThatWhereOutputShouldBeRemoved))]
+        public void VerifyUpdates_CalculationsThatWhereOutputShouldBeRemoved_ReturnsExpectedInquiryMessage(
+            StructuresCalculation<HeightStructuresInput> calculation,
+            IEnumerable<TestHeightStructure> importedStructures,
+            bool isActionConfirmed)
         {
             // Setup
             var mocks = new MockRepository();
@@ -239,13 +369,19 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             {
                 plugin.Gui = gui;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
+                var failureMechanism = new HeightStructuresFailureMechanism
                 {
-                    Output = new TestStructuresOutput()
-                });
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            calculation
+                        }
+                    }
+                };
 
                 var structures = new StructureCollection<HeightStructure>();
+                structures.AddRange(importedStructures, "path");
                 var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
 
                 ImportInfo importInfo = GetImportInfo(plugin);

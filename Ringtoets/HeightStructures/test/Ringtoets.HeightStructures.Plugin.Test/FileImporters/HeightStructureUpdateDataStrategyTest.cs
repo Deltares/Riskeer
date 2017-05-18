@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithStructureImportedStructureWithSameId_UpdatesCalculation()
+        public void UpdateStructuresWithImportedData_CalculationWithStructureImportedStructureWithSameId_UpdatesCalculationInput()
         {
             // Setup
             const string sameId = "sameId";
@@ -302,19 +302,18 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                                                                                                  sourceFilePath);
 
             // Assert
-            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsTrue(calculation.HasOutput);
             AssertHeightStructures(readStructure, structure);
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.HeightStructures,
                 structure,
-                calculation.InputParameters,
-                calculation
+                calculation.InputParameters
             }, affectedObjects);
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_MultipleCalculationWithAssignedStructure_OnlyUpdatesCalculationWithUpdatedStructure()
+        public void UpdateStructuresWithImportedData_MultipleCalculationWithAssignedStructure_OnlyUpdatesCalculationInputWithUpdatedStructure()
         {
             // Setup
             const string affectedId = "affectedId";
@@ -372,7 +371,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                                                                                                      readUnaffectedStructure
                                                                                                  }, sourceFilePath);
             // Assert
-            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsTrue(affectedCalculation.HasOutput);
             HeightStructure inputParametersAffectedStructure = affectedCalculation.InputParameters.Structure;
             Assert.AreSame(affectedStructure, inputParametersAffectedStructure);
             AssertHeightStructures(affectedStructure, inputParametersAffectedStructure);
@@ -385,62 +384,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 affectedStructure,
-                affectedCalculation,
                 affectedCalculation.InputParameters,
                 targetDataCollection
-            }, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithSameReference_OnlyReturnsDistinctCalculation()
-        {
-            // Setup
-            const string affectedId = "affectedId";
-            var affectedStructure = new TestHeightStructure(affectedId, "Old name");
-            var affectedCalculation = new TestHeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    Structure = affectedStructure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        affectedCalculation,
-                        affectedCalculation
-                    }
-                }
-            };
-
-            StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
-            structures.AddRange(new[]
-            {
-                affectedStructure
-            }, sourceFilePath);
-
-            var structureToUpdateFrom = new TestHeightStructure(affectedId, "New name");
-
-            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
-                                                                                                 new[]
-                                                                                                 {
-                                                                                                     structureToUpdateFrom
-                                                                                                 }, sourceFilePath);
-            // Assert
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                affectedStructure,
-                structures,
-                affectedCalculation,
-                affectedCalculation.InputParameters
             }, affectedObjects);
         }
 
