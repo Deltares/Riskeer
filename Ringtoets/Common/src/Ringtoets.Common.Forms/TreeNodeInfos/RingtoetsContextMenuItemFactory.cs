@@ -386,11 +386,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
             var contextMenuEnabled = true;
-            string toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip;
+            string toolTipMessage = Resources.CreateUpdateForeshoreProfileItem_Update_calculation_with_ForeshoreProfile_ToolTip;
             if (calculation.InputParameters.ForeshoreProfile == null)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip;
+                toolTipMessage = Resources.CreateUpdateForeshoreProfileItem_Update_calculation_no_ForeshoreProfile_ToolTip;
             }
             else if (calculation.InputParameters.IsForeshoreProfileInputSynchronized)
             {
@@ -399,7 +399,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             }
 
             var menuItem = new StrictContextMenuItem(
-                Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data,
+                Resources.CreateUpdateForeshoreProfileItem_Update_ForeshoreProfile_data,
                 toolTipMessage,
                 Resources.UpdateItemIcon,
                 (o, args) =>

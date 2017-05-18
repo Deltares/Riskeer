@@ -975,16 +975,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip" xml:space="preserve">
     <value>Alle berekeningen met een kunstwerk bijwerken.</value>
   </data>
-  <data name="CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip" xml:space="preserve">
+  <data name="CreateUpdateForeshoreProfileItem_Update_calculation_with_ForeshoreProfile_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met het voorlandprofiel.</value>
   </data>
-  <data name="CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip" xml:space="preserve">
+  <data name="CreateUpdateForeshoreProfileItem_Update_calculation_no_ForeshoreProfile_ToolTip" xml:space="preserve">
     <value>Er moet een voorlandprofiel geselecteerd zijn.</value>
   </data>
   <data name="CalculationItem_No_changes_to_update_ToolTip" xml:space="preserve">
     <value>Er zijn geen wijzigingen om bij te werken.</value>
   </data>
-  <data name="CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data" xml:space="preserve">
+  <data name="CreateUpdateForeshoreProfileItem_Update_ForeshoreProfile_data" xml:space="preserve">
     <value>&amp;Bijwerken voorlandprofiel...</value>
   </data>
   <data name="CreateUpdateForeshoreProfileOfCalculationsItem_Update_ForeshoreProfile_data" xml:space="preserve">

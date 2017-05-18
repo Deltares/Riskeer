@@ -739,29 +739,28 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er moet een voorlandprofiel geselecteerd zijn..
         /// </summary>
-        public static string CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProfile_ToolTip {
+        public static string CreateUpdateForeshoreProfileItem_Update_calculation_no_ForeshoreProfile_ToolTip {
             get {
-                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_no_ForeshoreProf" +
-                        "ile_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileItem_Update_calculation_no_ForeshoreProfile_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekening bijwerken met het voorlandprofiel..
         /// </summary>
-        public static string CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshoreProfile_ToolTip {
+        public static string CreateUpdateForeshoreProfileItem_Update_calculation_with_ForeshoreProfile_ToolTip {
             get {
-                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationItem_Update_calculation_with_ForeshorePr" +
-                        "ofile_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileItem_Update_calculation_with_ForeshoreProfile_ToolTip" +
+                        "", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &amp;Bijwerken voorlandprofiel....
         /// </summary>
-        public static string CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data {
+        public static string CreateUpdateForeshoreProfileItem_Update_ForeshoreProfile_data {
             get {
-                return ResourceManager.GetString("CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data", resourceCulture);
+                return ResourceManager.GetString("CreateUpdateForeshoreProfileItem_Update_ForeshoreProfile_data", resourceCulture);
             }
         }
         
