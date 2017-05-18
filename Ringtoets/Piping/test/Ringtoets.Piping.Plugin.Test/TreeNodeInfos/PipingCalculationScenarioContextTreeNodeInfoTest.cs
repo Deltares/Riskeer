@@ -394,7 +394,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithoutSurfaceLine_ContextMenuItemUpdateEntryAndExitPointDisabled()
+        public void ContextMenuStrip_CalculationWithoutSurfaceLine_ContextMenuItemUpdateEntryAndExitPointDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -429,7 +429,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithSurfaceLineInputInSync_ContextMenuItemUpdateEntryAndExitPointDisabled()
+        public void ContextMenuStrip_CalculationWithSurfaceLineAndInputInSync_ContextMenuItemUpdateEntryAndExitPointDisabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -476,7 +476,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithSurfaceLineInputOutOfSync_ContextMenuItemUpdateEntryAndExitPointEnabled()
+        public void ContextMenuStrip_CalculationWithSurfaceLineAndInputOutOfSync_ContextMenuItemUpdateEntryAndExitPointEnabledAndToolTipSet()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())

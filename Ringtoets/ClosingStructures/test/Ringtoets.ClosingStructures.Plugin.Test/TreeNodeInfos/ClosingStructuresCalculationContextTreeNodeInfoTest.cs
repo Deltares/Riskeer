@@ -289,7 +289,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabled()
+        public void ContextMenuStrip_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -320,7 +320,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithInputInSync_ContextMenuItemUpdateStructureDisabled()
+        public void ContextMenuStrip_CalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructureDisabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -356,7 +356,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithInputOutOfSync_ContextMenuItemUpdateStructureEnabled()
+        public void ContextMenuStrip_CalculationWithStructureAndInputOutOfSync_ContextMenuItemUpdateStructureEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
