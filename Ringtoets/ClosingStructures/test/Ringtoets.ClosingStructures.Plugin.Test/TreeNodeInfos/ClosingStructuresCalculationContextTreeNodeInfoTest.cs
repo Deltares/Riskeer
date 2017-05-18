@@ -394,7 +394,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithStructureWithoutOutput_WhenStructureAndInputOutOfSyncAndUpdateClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -440,7 +440,53 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureAndInputOutOfSyncAndUpdateClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        {
+            // Given
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structure = new TestClosingStructure();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            ClosingStructuresInput calculationInput = calculation.InputParameters;
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
+            calculationInput.Attach(inputObserver);
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculation.Attach(calculationObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
+
+                    // Note: observer assertions are verified in the TearDown()
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructureClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -500,7 +546,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithStructureWithOutput_WhenStructureAndInputOutOfSyncAndUpdateClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructureClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
