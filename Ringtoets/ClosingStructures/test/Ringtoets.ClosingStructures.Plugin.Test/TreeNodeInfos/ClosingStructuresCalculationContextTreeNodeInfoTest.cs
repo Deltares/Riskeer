@@ -760,7 +760,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfileEnabled()
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -772,7 +772,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
-            calculation.InputParameters.UseBreakWater = true;
             var nodeData = new ClosingStructuresCalculationContext(calculation,
                                                                    failureMechanism,
                                                                    assessmentSectionStub);
@@ -784,6 +783,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                calculation.InputParameters.UseBreakWater = true;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -799,7 +800,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationUpdatedAndUpdateObserver()
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfileClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
@@ -816,7 +817,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile(true)
                 }
             };
-            calculation.InputParameters.UseBreakWater = false;
             var nodeData = new ClosingStructuresCalculationContext(calculation,
                                                                    failureMechanism,
                                                                    assessmentSectionStub);
@@ -831,6 +831,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {

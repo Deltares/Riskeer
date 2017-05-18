@@ -668,7 +668,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfilesEnabled()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -677,8 +677,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile(),
-                    UseBreakWater = true
+                    ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
 
@@ -701,6 +700,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                calculation.InputParameters.UseBreakWater = true;
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -715,7 +716,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationInputUpdatedAndObserverNotified()
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfilesClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
@@ -729,8 +730,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile(true),
-                    UseBreakWater = false
+                    ForeshoreProfile = new TestForeshoreProfile(true)
                 }
             };
 
@@ -755,6 +755,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                calculation.InputParameters.UseBreakWater = false;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
