@@ -59,13 +59,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(DikeProfile objectToUpdate, DikeProfile objectToUpdateFrom)
         {
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
+
             var affectedObjects = new List<IObservable>();
-            if (!objectToUpdate.Equals(objectToUpdateFrom))
-            {
-                objectToUpdate.CopyProperties(objectToUpdateFrom);
-                affectedObjects.Add(objectToUpdate);
-                affectedObjects.AddRange(UpdateDikeDependentData(objectToUpdate));
-            }
+            affectedObjects.AddRange(UpdateDikeDependentData(objectToUpdate));
 
             return affectedObjects;
         }

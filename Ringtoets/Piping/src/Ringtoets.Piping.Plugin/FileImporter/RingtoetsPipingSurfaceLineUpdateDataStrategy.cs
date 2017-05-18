@@ -81,17 +81,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(RingtoetsPipingSurfaceLine surfaceLineToUpdate,
                                                                                  RingtoetsPipingSurfaceLine matchingSurfaceLine)
         {
+            surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
+
             var affectedObjects = new List<IObservable>();
 
-            if (!surfaceLineToUpdate.Equals(matchingSurfaceLine))
-            {
-                surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
+            affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
+            affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
 
-                affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
-                affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
-
-                ValidateEntryAndExitPoints(surfaceLineToUpdate);
-            }
+            ValidateEntryAndExitPoints(surfaceLineToUpdate);
 
             return affectedObjects;
         }

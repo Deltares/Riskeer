@@ -85,16 +85,9 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ClosingStructure objectToUpdate,
                                                                                  ClosingStructure objectToUpdateFrom)
         {
-            var affectedObjects = new List<IObservable>();
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
 
-            if (!objectToUpdate.Equals(objectToUpdateFrom))
-            {
-                objectToUpdate.CopyProperties(objectToUpdateFrom);
-
-                affectedObjects.AddRange(UpdateClosingStructureDependentData(objectToUpdate));
-            }
-
-            return affectedObjects;
+            return UpdateClosingStructureDependentData(objectToUpdate);
         }
 
         private IEnumerable<IObservable> UpdateClosingStructureDependentData(ClosingStructure structure)

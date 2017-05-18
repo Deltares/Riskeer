@@ -83,10 +83,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(StochasticSoilModel soilModelToUpdate,
                                                                                  StochasticSoilModel soilModelToUpdateFrom)
         {
-            var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(UpdateStochasticSoilModel(soilModelToUpdate, soilModelToUpdateFrom));
-
-            return affectedObjects;
+            return UpdateStochasticSoilModel(soilModelToUpdate, soilModelToUpdateFrom);
         }
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel modelToUpdate, StochasticSoilModel modelToUpdateFrom)

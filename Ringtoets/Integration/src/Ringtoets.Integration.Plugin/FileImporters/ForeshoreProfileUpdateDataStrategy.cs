@@ -58,18 +58,16 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ForeshoreProfile objectToUpdate, ForeshoreProfile objectToUpdateFrom)
         {
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
+
             var affectedObjects = new List<IObservable>();
-            if (!objectToUpdate.Equals(objectToUpdateFrom))
+
+            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
+
+            foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
             {
-                objectToUpdate.CopyProperties(objectToUpdateFrom);
-
-                IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
-
-                foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
-                {
-                    affectedObjects.Add(calculation.InputParameters);
-                    affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-                }
+                affectedObjects.Add(calculation.InputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
             }
 
             return affectedObjects;

@@ -85,16 +85,9 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(HeightStructure objectToUpdate,
                                                                                  HeightStructure objectToUpdateFrom)
         {
-            var affectedObjects = new List<IObservable>();
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
 
-            if (!objectToUpdate.Equals(objectToUpdateFrom))
-            {
-                objectToUpdate.CopyProperties(objectToUpdateFrom);
-
-                affectedObjects.AddRange(UpdateHeightStructureDependentData(objectToUpdate));
-            }
-
-            return affectedObjects;
+            return UpdateHeightStructureDependentData(objectToUpdate);
         }
 
         private IEnumerable<IObservable> UpdateHeightStructureDependentData(HeightStructure structure)

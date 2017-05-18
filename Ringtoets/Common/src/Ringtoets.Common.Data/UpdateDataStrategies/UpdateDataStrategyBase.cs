@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
-        /// Updates the object and its dependent data with data from the imported data.
+        /// Updates the unequal object and its dependent data with data from the imported data.
         /// </summary>
         /// <param name="objectToUpdate">Object that needs to be updated.</param>
         /// <param name="objectToUpdateFrom">The object to update from.</param>
@@ -112,14 +112,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
 
-            try
-            {
-                return ModifyDataCollection(targetDataCollection, importedDataCollection, sourceFilePath);
-            }
-            catch (ArgumentException e)
-            {
-                throw new UpdateDataException(e.Message, e);
-            }
+            return ModifyDataCollection(targetDataCollection, importedDataCollection, sourceFilePath);
         }
 
         /// <summary>
@@ -132,10 +125,12 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// the <paramref name="targetDataCollection"/> </param>
         /// <param name="sourceFilePath">The source file path.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> with affected objects.</returns>
-        /// <exception cref="ArgumentException">Thrown when duplicate items are being added to the 
-        /// <paramref name="targetDataCollection"/>.</exception>
-        /// <exception cref="UpdateDataException">Thrown when duplicate items are found in the 
-        /// <paramref name="importedDataCollection"/>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when:
+        /// <list type="bullet">
+        /// <item>duplicate items are being added to the <paramref name="targetDataCollection"/>.</item>
+        /// <item>duplicate items are found in the <paramref name="importedDataCollection"/>.</item>
+        /// </list>
+        /// </exception>
         private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                               IEnumerable<TTargetData> importedDataCollection,
                                                               string sourceFilePath)
@@ -195,14 +190,20 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 TTargetData objectToUpdateFrom = importedDataCollection.Single(importedObject =>
                                                                                    equalityComparer.Equals(importedObject, objectToUpdate));
-                if (!objectToUpdate.Equals(objectToUpdateFrom))
+
+                if (IsUpdateObjectDataUnequal(objectToUpdate, objectToUpdateFrom))
                 {
                     affectedObjects.Add(objectToUpdate);
+                    affectedObjects.AddRange(UpdateObjectAndDependentData(objectToUpdate, objectToUpdateFrom));
                 }
-                affectedObjects.AddRange(UpdateObjectAndDependentData(objectToUpdate, objectToUpdateFrom));
             }
 
             return affectedObjects;
+        }
+
+        private static bool IsUpdateObjectDataUnequal(TTargetData objectToUpdate, TTargetData objectToUpdateFrom)
+        {
+            return !objectToUpdate.Equals(objectToUpdateFrom);
         }
 
         /// <summary>
