@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             orientation = new RoundedDouble(orientationNumberOfDecimals);
             dikeHeight = new RoundedDouble(2);
 
-            SynchronizeDikeProfileParameters();
+            SynchronizeDikeProfileInput();
 
             criticalFlowRate = new LogNormalDistribution(4)
             {
@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             set
             {
                 dikeProfile = value;
-                SynchronizeDikeProfileParameters();
+                SynchronizeDikeProfileInput();
             }
         }
 
@@ -168,6 +168,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public OvertoppingRateCalculationType OvertoppingRateCalculationType { get; set; }
 
+        /// <summary>
+        /// Gets the value <c>true</c> if the parameters of the instance of
+        /// <see cref="GrassCoverErosionInwardsInput"/> that are derived from
+        /// <see cref="DikeProfile"/> match the properties of
+        /// <see cref="DikeProfile"/>; or <c>false</c> if this is not the case,
+        /// or if there is no <see cref="DikeProfile"/> assigned.
+        /// </summary>
+        public bool IsDikeProfileInputSynchronized
+        {
+            get
+            {
+                if (dikeProfile == null)
+                {
+                    return false;
+                }
+
+                BreakWater breakwater = dikeProfile.HasBreakWater
+                                            ? new BreakWater(dikeProfile.BreakWater.Type, dikeProfile.BreakWater.Height)
+                                            : GetDefaultBreakWater();
+
+                return Equals(UseBreakWater, dikeProfile.HasBreakWater)
+                       && Equals(BreakWater, breakwater)
+                       && Equals(Orientation, dikeProfile.Orientation)
+                       && Equals(DikeHeight, dikeProfile.DikeHeight)
+                       && UseForeshore == dikeProfile.ForeshoreGeometry.Count() > 1;
+            }
+        }
+
         public bool UseBreakWater { get; set; }
 
         public BreakWater BreakWater { get; private set; }
@@ -185,35 +213,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets whether the input parameters are synchronized with the set <see cref="DikeProfile"/>.
-        /// </summary>
-        /// <remarks>Always returns <c>false</c> in case no dike profile is present.</remarks>
-        public bool DikeProfileParametersSynchronized
-        {
-            get
-            {
-                if (dikeProfile == null)
-                {
-                    return false;
-                }
-
-                BreakWater defaultBreakwater = dikeProfile.HasBreakWater
-                                                   ? new BreakWater(dikeProfile.BreakWater.Type, dikeProfile.BreakWater.Height)
-                                                   : GetDefaultBreakWater();
-
-                return Equals(UseBreakWater, dikeProfile.HasBreakWater)
-                  && Equals(BreakWater, defaultBreakwater)
-                  && Equals(Orientation, dikeProfile.Orientation)
-                  && Equals(DikeHeight, dikeProfile.DikeHeight)
-                  && UseForeshore == dikeProfile.ForeshoreGeometry.Count() > 1;
-            }
-        }
-
-        /// <summary>
-        /// Synchronizes the input parameters with the parameters of the dike profile.
+        /// Applies the properties of the <see cref="DikeProfile"/> to the
+        /// parameters of the instance of <see cref="GrassCoverErosionInwardsInput"/>.
         /// </summary>
         /// <remarks>When no dike profile is present, the input parameters are set to default values.</remarks>
-        public void SynchronizeDikeProfileParameters()
+        public void SynchronizeDikeProfileInput()
         {
             if (dikeProfile != null)
             {

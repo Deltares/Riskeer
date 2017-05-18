@@ -872,9 +872,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void UpdateDikeProfileDerivedCalculationInput(GrassCoverErosionInwardsCalculation calculation)
         {
-            if (!calculation.InputParameters.DikeProfileParametersSynchronized)
+            if (!calculation.InputParameters.IsDikeProfileInputSynchronized)
             {
-                calculation.InputParameters.SynchronizeDikeProfileParameters();
+                calculation.InputParameters.SynchronizeDikeProfileInput();
 
                 var affectedObjects = new List<IObservable>
                 {
