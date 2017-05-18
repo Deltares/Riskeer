@@ -792,11 +792,18 @@ namespace Ringtoets.Piping.Plugin
 
         private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
         {
-            bool hasSurfaceLine = context.WrappedData.InputParameters.SurfaceLine != null;
-
-            string toolTipMessage = hasSurfaceLine
-                                        ? Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip
-                                        : Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
+            if (context.WrappedData.InputParameters.SurfaceLine == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
 
             return new StrictContextMenuItem(
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
@@ -804,7 +811,7 @@ namespace Ringtoets.Piping.Plugin
                 RingtoetsCommonFormsResources.UpdateItemIcon,
                 (o, args) => { UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData); })
             {
-                Enabled = hasSurfaceLine
+                Enabled = contextMenuEnabled
             };
         }
 

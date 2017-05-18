@@ -429,7 +429,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithSurfaceLine_ContextMenuItemUpdateEntryAndExitPointEnabled()
+        public void ContextMenuStrip_CalculationWithSurfaceLineInputInSync_ContextMenuItemUpdateEntryAndExitPointDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -460,6 +460,55 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuUpdateEntryAndExitPointIndex,
+                                                                  "&Bijwerken intrede- en uittredepunt...",
+                                                                  "Er zijn geen wijzigingen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithSurfaceLineInputOutOfSync_ContextMenuItemUpdateEntryAndExitPointEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(1, 2, 3),
+                    new Point3D(4, 5, 6)
+                });
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine
+                    }
+                };
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(calculation,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                UpdateSurfaceLine(surfaceLine);
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
