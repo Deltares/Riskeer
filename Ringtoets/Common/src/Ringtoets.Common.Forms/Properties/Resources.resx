@@ -984,11 +984,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculationItem_No_changes_to_update_ToolTip" xml:space="preserve">
     <value>Er zijn geen wijzigingen om bij te werken.</value>
   </data>
-  <data name="UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data" xml:space="preserve">
-    <value>Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
-
-Weet u zeker dat u wilt doorgaan?</value>
-  </data>
   <data name="CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data" xml:space="preserve">
     <value>&amp;Bijwerken voorlandprofiel...</value>
   </data>

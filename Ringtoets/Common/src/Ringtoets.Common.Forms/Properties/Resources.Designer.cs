@@ -2606,18 +2606,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer het voorlandprofiel wijzigt als gevolg van het bijwerken, zal het resultaat van deze berekening worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data {
-            get {
-                return ResourceManager.GetString("UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updat" +
-                        "ing_ForeshoreProfile_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap UpdateItemIcon {

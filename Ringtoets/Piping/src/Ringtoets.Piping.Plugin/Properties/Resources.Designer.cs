@@ -130,18 +130,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wanneer de intrede- of uittredepunten wijzigen als gevolg van het bijwerken, zullen de resultaten van berekeningen die deze profielschematisaties gebruiken, worden verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_when_updating_entry_and_exit_points_definitions {
-            get {
-                return ResourceManager.GetString("PipingPlugin_VerifyEntryAndExitPointUpdates_Confirm_calculation_outputs_cleared_w" +
-                        "hen_updating_entry_and_exit_points_definitions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

@@ -199,7 +199,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCoverFailureMechanismView ViewInfo
 
-        private bool CloseWaveImpactAsphaltCoverFailureMechanismViewForData(WaveImpactAsphaltCoverFailureMechanismView view, object o)
+        private static bool CloseWaveImpactAsphaltCoverFailureMechanismViewForData(WaveImpactAsphaltCoverFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as WaveImpactAsphaltCoverFailureMechanism;

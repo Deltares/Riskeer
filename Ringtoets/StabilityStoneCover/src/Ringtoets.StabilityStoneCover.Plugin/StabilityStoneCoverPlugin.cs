@@ -197,7 +197,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverFailureMechanismView ViewInfo
 
-        private bool CloseStabilityStoneCoverFailureMechanismViewForData(StabilityStoneCoverFailureMechanismView view, object o)
+        private static bool CloseStabilityStoneCoverFailureMechanismViewForData(StabilityStoneCoverFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityStoneCoverFailureMechanism;

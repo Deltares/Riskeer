@@ -398,8 +398,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 toolTipMessage = Resources.CalculationItem_No_changes_to_update_ToolTip;
             }
 
-            string confirmOutputMessage = Resources.UpdateForeshoreProfileOfCalculation_Confirm_calculation_output_cleared_when_updating_ForeshoreProfile_dependent_data;
-
             var menuItem = new StrictContextMenuItem(
                 Resources.CreateUpdateForeshoreProfileOfCalculationItem_Update_ForeshoreProfile_data,
                 toolTipMessage,
@@ -411,7 +409,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                                                                          calculation
                                                                      },
                                                                      inquiryHelper,
-                                                                     confirmOutputMessage,
+                                                                     Resources.VerifyUpdate_Confirm_calculation_output_cleared,
                                                                      updateAction);
                 })
             {

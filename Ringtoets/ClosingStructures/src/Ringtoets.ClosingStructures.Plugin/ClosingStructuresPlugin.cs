@@ -833,21 +833,18 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void UpdateStructureDerivedCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            if (!calculation.InputParameters.IsStructureInputSynchronized)
+            calculation.InputParameters.SynchronizeStructureInput();
+
+            var affectedObjects = new List<IObservable>
             {
-                calculation.InputParameters.SynchronizeStructureInput();
+                calculation.InputParameters
+            };
 
-                var affectedObjects = new List<IObservable>
-                {
-                    calculation.InputParameters
-                };
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-
-                foreach (IObservable affectedObject in affectedObjects)
-                {
-                    affectedObject.NotifyObservers();
-                }
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
             }
         }
 
