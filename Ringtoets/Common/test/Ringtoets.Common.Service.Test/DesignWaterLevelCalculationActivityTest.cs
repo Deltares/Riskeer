@@ -431,11 +431,9 @@ namespace Ringtoets.Common.Service.Test
             hydraulicBoundaryLocation.Attach(observer);
             mockRepository.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
-            const double norm = 1.0;
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
-                                                                   validFilePath,
-                                                                   norm,
+                                                                   Path.Combine(testDataPath, validFile),
+                                                                   1.0,
                                                                    calculationMessageProvider);
 
             // Call

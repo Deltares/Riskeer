@@ -154,7 +154,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentCustomDashStyles_AppliesStyleToSeries()
+        public void ConvertSeriesProperties_ChartLineStyleSetWithCustomDashStyle_AppliesStyleToSeries()
         {
             // Setup
             var converter = new ChartMultipleLineDataConverter();

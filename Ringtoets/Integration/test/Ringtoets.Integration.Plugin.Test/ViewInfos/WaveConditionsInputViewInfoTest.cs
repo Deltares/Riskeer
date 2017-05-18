@@ -438,17 +438,17 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
 
-            var revetmentChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentChartDataIndex);
-            var revetmentBaseChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentBaseChartDataIndex);
             var lowerBoundaryRevetmentChartData = (ChartLineData) chartData.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
             var upperBoundaryRevetmentChartData = (ChartLineData) chartData.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
+            var revetmentBaseChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentBaseChartDataIndex);
+            var revetmentChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentChartDataIndex);
 
-            Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
-            Assert.AreEqual(Color.FromArgb(120, revetmentLineColor), revetmentBaseChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, lowerBoundaryRevetmentChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, upperBoundaryRevetmentChartData.Style.Color);
             Assert.AreEqual(designWaterLevelName, designWaterLevelChartData.Name);
+            Assert.AreEqual(Color.FromArgb(120, revetmentLineColor), revetmentBaseChartData.Style.Color);
+            Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
         }
 
         #region TestCaseData

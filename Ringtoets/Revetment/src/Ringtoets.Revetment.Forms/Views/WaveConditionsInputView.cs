@@ -45,13 +45,12 @@ namespace Ringtoets.Revetment.Forms.Views
         private readonly ChartLineData foreshoreChartData;
         private readonly ChartLineData lowerBoundaryRevetmentChartData;
         private readonly ChartLineData upperBoundaryRevetmentChartData;
-        private readonly ChartLineData revetmentChartData;
-        private readonly ChartLineData revetmentBaseChartData;
-
         private readonly ChartLineData lowerBoundaryWaterLevelsChartData;
         private readonly ChartLineData upperBoundaryWaterLevelsChartData;
         private readonly ChartLineData designWaterLevelChartData;
         private readonly ChartMultipleLineData waterLevelsChartData;
+        private readonly ChartLineData revetmentBaseChartData;
+        private readonly ChartLineData revetmentChartData;
 
         private ICalculation<WaveConditionsInput> data;
 
@@ -94,12 +93,6 @@ namespace Ringtoets.Revetment.Forms.Views
             chartDataCollection.Add(waterLevelsChartData);
             chartDataCollection.Add(revetmentBaseChartData);
             chartDataCollection.Add(revetmentChartData);
-        }
-
-        private void UpdateCalculationInput()
-        {
-            hydraulicBoundaryLocationObserver.Observable = data?.InputParameters.HydraulicBoundaryLocation;
-            UpdateChartData();
         }
 
         public object Data
@@ -152,19 +145,25 @@ namespace Ringtoets.Revetment.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void UpdateCalculationInput()
+        {
+            hydraulicBoundaryLocationObserver.Observable = data?.InputParameters.HydraulicBoundaryLocation;
+            UpdateChartData();
+        }
+
         private void UpdateChartData()
         {
             SetChartData();
 
             foreshoreChartData.NotifyObservers();
-            revetmentBaseChartData.NotifyObservers();
-            revetmentChartData.NotifyObservers();
             lowerBoundaryRevetmentChartData.NotifyObservers();
             upperBoundaryRevetmentChartData.NotifyObservers();
             lowerBoundaryWaterLevelsChartData.NotifyObservers();
             upperBoundaryWaterLevelsChartData.NotifyObservers();
             designWaterLevelChartData.NotifyObservers();
             waterLevelsChartData.NotifyObservers();
+            revetmentBaseChartData.NotifyObservers();
+            revetmentChartData.NotifyObservers();
         }
 
         private void UpdateChartTitle()
@@ -179,14 +178,14 @@ namespace Ringtoets.Revetment.Forms.Views
             WaveConditionsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
 
             foreshoreChartData.Points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
-            revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
-            revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
             lowerBoundaryRevetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
             upperBoundaryRevetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
             lowerBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
             upperBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
             designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
             waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+            revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+            revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
         }
     }
 }
