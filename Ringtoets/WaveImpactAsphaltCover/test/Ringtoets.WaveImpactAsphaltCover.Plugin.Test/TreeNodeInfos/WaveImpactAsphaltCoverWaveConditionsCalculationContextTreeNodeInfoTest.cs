@@ -686,7 +686,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithForeshoreProfileAndChanges_ContextMenuItemUpdateForeshoreProfileEnabled()
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
@@ -698,7 +698,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
-            calculation.InputParameters.UseBreakWater = true;
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                       failureMechanism,
                                                                                       assessmentSectionStub);
@@ -712,6 +711,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                calculation.InputParameters.UseBreakWater = true;
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -721,6 +722,60 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   "&Bijwerken voorlandprofiel...",
                                                                   "Berekening bijwerken met het voorlandprofiel.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfileClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            calculationInputObserver.Expect(o => o.UpdateObserver());
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                }
+            };
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                      failureMechanism,
+                                                                                      assessmentSectionStub);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var guiStub = mocks.Stub<IGui>();
+                guiStub.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiStub.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = guiStub;
+
+                calculation.InputParameters.UseBreakWater = false;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
+                                                                  contextMenuUpdateForeshoreProfileIndex,
+                                                                  "&Bijwerken voorlandprofiel...",
+                                                                  "Berekening bijwerken met het voorlandprofiel.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
                 }
             }
         }
@@ -981,59 +1036,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithForeshoreProfileSet_WhenUpdatingForeshoreProfileFromContextMenu_ThenCalculationUpdatedAndUpdateObserver()
-        {
-            // Given
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-            calculationInputObserver.Expect(o => o.UpdateObserver());
-
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile(true)
-                }
-            };
-            calculation.InputParameters.UseBreakWater = false;
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
-                                                                                      failureMechanism,
-                                                                                      assessmentSectionStub);
-
-            calculation.Attach(calculationObserver);
-            calculation.InputParameters.Attach(calculationInputObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var guiStub = mocks.Stub<IGui>();
-                guiStub.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiStub.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = guiStub;
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken met het voorlandprofiel.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
-
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
                 }
             }
         }

@@ -454,7 +454,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
-            calculation.InputParameters.UseBreakWater = true;
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
                                                                           failureMechanism,
                                                                           assessmentSectionStub);
@@ -467,6 +466,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+
+                calculation.InputParameters.UseBreakWater = true;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
