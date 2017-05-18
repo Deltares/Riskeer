@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -32,7 +33,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Enumerable = System.Linq.Enumerable;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                new TestStructure("id", new Point2D(0,0)), 
+                new TestStructure(new Point2D(0, 0)),
                 null,
                 new StructureCollection<TestStructure>(),
                 Enumerable.Empty<TestSectionResult>());
@@ -255,7 +255,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                new TestStructure("id", new Point2D(0, 0)),
+                new TestStructure(new Point2D(0, 0)),
                 Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
                 null,
                 Enumerable.Empty<TestSectionResult>());
@@ -270,7 +270,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                new TestStructure("id", new Point2D(0, 0)),
+                new TestStructure(new Point2D(0, 0)),
                 Enumerable.Empty<StructuresCalculation<TestStructureInput>>(),
                 new StructureCollection<TestStructure>(),
                 null);
@@ -534,16 +534,6 @@ namespace Ringtoets.Common.Service.Test
             }
 
             public override void SynchronizeStructureInput() {}
-        }
-
-        private class TestStructure : StructureBase
-        {
-            public TestStructure(string id, Point2D location) : base(new ConstructionProperties
-            {
-                Name = $"{id} name",
-                Id = id,
-                Location = location
-            }) {}
         }
     }
 }

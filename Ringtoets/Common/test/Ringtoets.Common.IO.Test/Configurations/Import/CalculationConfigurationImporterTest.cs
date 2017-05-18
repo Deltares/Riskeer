@@ -26,7 +26,6 @@ using System.Linq;
 using System.Xml.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -678,7 +677,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         public void TryReadStructure_WithStructureToFindStructuresContainsStructure_ReturnsTrue()
         {
             // Setup
-            const string structureName = "someName";
+            const string structureId = "someId";
             const string calculationName = "name";
 
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
@@ -688,17 +687,17 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var importer = new CalculationConfigurationImporter(filePath,
                                                                 calculationGroup);
 
-            var expectedProfile = new TestStructure(structureName);
+            var expectedProfile = new TestStructure(structureId);
             StructureBase structure;
 
             // Call
-            bool valid = importer.PublicTryReadStructure(structureName,
+            bool valid = importer.PublicTryReadStructure(structureId,
                                                          calculationName,
                                                          new[]
                                                          {
-                                                             new TestStructure("otherNameA"),
+                                                             new TestStructure("otherIdA"),
                                                              expectedProfile,
-                                                             new TestStructure("otherNameB")
+                                                             new TestStructure("otherIdB")
                                                          },
                                                          out structure);
 
@@ -863,17 +862,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                     Assert.AreEqual(innerCalculation.Name, ((TestCalculation) actualCalculationGroup.Children[i]).Name);
                 }
             }
-        }
-
-        private class TestStructure : StructureBase
-        {
-            public TestStructure(string Id) : base(new ConstructionProperties
-            {
-                Name = "Name",
-                Id = Id,
-                Location = new Point2D(0, 0),
-                StructureNormalOrientation = (RoundedDouble) 2
-            }) {}
         }
 
         private class TestInputWithForeshoreProfileAndBreakWater : Observable, IUseBreakWater, IUseForeshore

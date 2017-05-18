@@ -22,12 +22,11 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test
 {
@@ -113,36 +112,25 @@ namespace Ringtoets.Common.Forms.Test
         {
             // Setup
             const string testname = "Test";
-            var constructionProperties = new StructureBase.ConstructionProperties
-            {
-                Name = testname,
-                Id = "anId",
-                Location = new Point2D(0, 0),
-                StructureNormalOrientation = (RoundedDouble) 0.0
-            };
-            var structure = new TestStructure(constructionProperties);
+            var structure = new TestStructure("id", testname);
 
             using (var viewParent = new Form())
-
+            {
                 // Call
-            using (var dialog = new StructureSelectionDialog(viewParent, new[]
-            {
-                structure
-            }))
-            {
-                // Assert
-                dialog.Show();
+                using (var dialog = new StructureSelectionDialog(viewParent, new[]
+                {
+                    structure
+                }))
+                {
+                    // Assert
+                    dialog.Show();
 
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl").TheObject;
-                Assert.AreEqual(1, dataGridViewControl.Rows.Count);
-                Assert.IsFalse((bool) dataGridViewControl.Rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
+                    var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl").TheObject;
+                    Assert.AreEqual(1, dataGridViewControl.Rows.Count);
+                    Assert.IsFalse((bool) dataGridViewControl.Rows[0].Cells[selectItemColumnIndex].Value);
+                    Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
+                }
             }
-        }
-
-        private class TestStructure : StructureBase
-        {
-            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
         }
     }
 }

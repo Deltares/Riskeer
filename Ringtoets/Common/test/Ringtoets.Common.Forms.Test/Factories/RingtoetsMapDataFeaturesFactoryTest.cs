@@ -431,8 +431,8 @@ namespace Ringtoets.Common.Forms.Test.Factories
         public void CreateStructuresFeatures_WithStructures_ReturnsCollectionWithFeatures()
         {
             // Setup
-            var structure1 = new SimpleStructure(new Point2D(1.1, 2.2), "A");
-            var structure2 = new SimpleStructure(new Point2D(3.3, 4.4), "B");
+            var structure1 = new TestStructure("id", "A", new Point2D(1.1, 2.2));
+            var structure2 = new TestStructure("id", "B", new Point2D(3.3, 4.4));
 
             var structures = new[]
             {
@@ -498,7 +498,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                    Structure = new SimpleStructure(calculationLocationA)
+                    Structure = new TestStructure(calculationLocationA)
                 }
             };
 
@@ -507,7 +507,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
-                    Structure = new SimpleStructure(calculationLocationB)
+                    Structure = new TestStructure(calculationLocationB)
                 }
             };
 
@@ -858,16 +858,5 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         private class SimpleStructuresCalculation : StructuresCalculation<SimpleStructuresInput> {}
-
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure(Point2D location, string name = "name")
-                : base(new ConstructionProperties
-                {
-                    Location = location,
-                    Name = name,
-                    Id = "id"
-                }) {}
-        }
     }
 }

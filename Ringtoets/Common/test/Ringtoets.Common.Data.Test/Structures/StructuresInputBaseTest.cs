@@ -122,13 +122,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Structure_Always_ExpectedValues()
         {
             // Setup
-            var structure = new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Name = "<awesome name>",
-                Location = new Point2D(0, 0),
-                Id = "id"
-            });
-
+            var structure = new TestStructure();
             var input = new SimpleStructuresInput();
 
             // Precondition
@@ -148,12 +142,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Setup
             var input = new SimpleStructuresInput
             {
-                Structure = new SimpleStructure(new StructureBase.ConstructionProperties
-                {
-                    Name = "<awesome name>",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                })
+                Structure = new TestStructure()
             };
 
             // Call
@@ -167,13 +156,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void GivenInputWithStructure_WhenStructureNull_ThenSchematizationPropertiesSynedToDefaults()
         {
             // Given
-            var structure = new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Name = "<awesome name>",
-                Location = new Point2D(0, 0),
-                Id = "id"
-            });
-
+            var structure = new TestStructure();
             var input = new SimpleStructuresInput
             {
                 Structure = structure,
@@ -310,11 +293,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             {
                 Synchronized = true;
             }
-        }
-
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
         }
 
         #region Schematization

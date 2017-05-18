@@ -45,22 +45,22 @@ namespace Ringtoets.Common.Data.Test
 
                 StructureBase.ConstructionProperties differentId = CreateFullyConfiguredConstructionProperties();
                 differentId.Id = "differentId";
-                yield return new TestCaseData(structure, new TestStructure(differentId), false)
+                yield return new TestCaseData(structure, new TestStructureBase(differentId), false)
                     .SetName(nameof(differentId));
 
                 StructureBase.ConstructionProperties differentName = CreateFullyConfiguredConstructionProperties();
                 differentName.Name = "differentName";
-                yield return new TestCaseData(structure, new TestStructure(differentName), false)
+                yield return new TestCaseData(structure, new TestStructureBase(differentName), false)
                     .SetName(nameof(differentName));
 
                 StructureBase.ConstructionProperties differentLocation = CreateFullyConfiguredConstructionProperties();
                 differentLocation.Location = new Point2D(9, 9);
-                yield return new TestCaseData(structure, new TestStructure(differentLocation), false)
+                yield return new TestCaseData(structure, new TestStructureBase(differentLocation), false)
                     .SetName(nameof(differentLocation));
 
                 StructureBase.ConstructionProperties differentOrientation = CreateFullyConfiguredConstructionProperties();
                 differentOrientation.StructureNormalOrientation = (RoundedDouble) 90;
-                yield return new TestCaseData(structure, new TestStructure(differentOrientation), false)
+                yield return new TestCaseData(structure, new TestStructureBase(differentOrientation), false)
                     .SetName(nameof(differentOrientation));
             }
         }
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_NameNullOrWhiteSpace_ThrowArgumentException(string name)
         {
             // Call
-            TestDelegate call = () => new TestStructure(new StructureBase.ConstructionProperties
+            TestDelegate call = () => new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = name,
                 Id = "anId",
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_IdNullOrWhiteSpace_ThrowArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new TestStructure(new StructureBase.ConstructionProperties
+            TestDelegate call = () => new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = id,
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_LocationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestStructure(new StructureBase.ConstructionProperties
+            TestDelegate call = () => new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = "anId",
@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Data.Test
             const double structureNormalOrientation = 0.0;
 
             // Call
-            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            var structure = new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = "anId",
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            var structure = new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = "anId",
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Data.Test
         public void CopyProperties_FromStructureNull_ThrowsArgumentNullException()
         {
             // Setup
-            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            var structure = new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = "anId",
@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Data.Test
         public void CopyProperties_FromStructure_UpdatesProperties()
         {
             // Setup
-            var structure = new TestStructure(new StructureBase.ConstructionProperties
+            var structure = new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = "anId",
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Data.Test
                 StructureNormalOrientation = RoundedDouble.NaN
             });
 
-            var otherStructure = new TestStructure(new StructureBase.ConstructionProperties
+            var otherStructure = new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "otherName",
                 Id = "otherId",
@@ -293,7 +293,7 @@ namespace Ringtoets.Common.Data.Test
 
         private static StructureBase CreateFullyDefinedStructure()
         {
-            return new TestStructure(CreateFullyConfiguredConstructionProperties());
+            return new TestStructureBase(CreateFullyConfiguredConstructionProperties());
         }
 
         private static StructureBase.ConstructionProperties CreateFullyConfiguredConstructionProperties()
@@ -309,13 +309,13 @@ namespace Ringtoets.Common.Data.Test
             };
         }
 
-        private class TestStructure : StructureBase
+        private class TestStructureBase : StructureBase
         {
-            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+            public TestStructureBase(ConstructionProperties constructionProperties) : base(constructionProperties) {}
 
-            public void CopyProperties(TestStructure fromStructure)
+            public void CopyProperties(TestStructureBase fromStructureBase)
             {
-                base.CopyProperties(fromStructure);
+                base.CopyProperties(fromStructureBase);
             }
         }
     }

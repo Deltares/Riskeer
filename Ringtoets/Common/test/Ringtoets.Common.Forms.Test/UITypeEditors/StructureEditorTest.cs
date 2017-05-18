@@ -23,13 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 
 namespace Ringtoets.Common.Forms.Test.UITypeEditors
@@ -49,20 +47,20 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void DefaultConstructor_ReturnsNewInstance()
         {
             // Call
-            var editor = new StructureEditor<SimpleStructure>();
+            var editor = new StructureEditor<TestStructure>();
 
             // Assert
-            Assert.IsInstanceOf<SelectionEditor<IHasStructureProperty<SimpleStructure>, SimpleStructure>>(editor);
+            Assert.IsInstanceOf<SelectionEditor<IHasStructureProperty<TestStructure>, TestStructure>>(editor);
         }
 
         [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var simpleStructure = new SimpleStructure();
-            var properties = new ObjectPropertiesWithStructure(simpleStructure, new SimpleStructure[0]);
+            var simpleStructure = new TestStructure();
+            var properties = new ObjectPropertiesWithStructure(simpleStructure, new TestStructure[0]);
             var propertyBag = new DynamicPropertyBag(properties);
-            var editor = new StructureEditor<SimpleStructure>();
+            var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
             var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
             var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
@@ -83,13 +81,13 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var simpleStructure = new SimpleStructure();
+            var simpleStructure = new TestStructure();
             var properties = new ObjectPropertiesWithStructure(simpleStructure, new[]
             {
                 simpleStructure
             });
             var propertyBag = new DynamicPropertyBag(properties);
-            var editor = new StructureEditor<SimpleStructure>();
+            var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
             var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
             var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
@@ -106,22 +104,11 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
-        private class SimpleStructure : StructureBase
+        private class ObjectPropertiesWithStructure : IHasStructureProperty<TestStructure>
         {
-            public SimpleStructure() : base(new ConstructionProperties
-            {
-                Name = "Name",
-                Id = "Id",
-                Location = new Point2D(0, 0),
-                StructureNormalOrientation = (RoundedDouble) 0
-            }) {}
-        }
+            private readonly IEnumerable<TestStructure> availableStructures;
 
-        private class ObjectPropertiesWithStructure : IHasStructureProperty<SimpleStructure>
-        {
-            private readonly IEnumerable<SimpleStructure> availableStructures;
-
-            public ObjectPropertiesWithStructure(SimpleStructure structure, IEnumerable<SimpleStructure> availableStructures)
+            public ObjectPropertiesWithStructure(TestStructure structure, IEnumerable<TestStructure> availableStructures)
             {
                 Structure = structure;
                 this.availableStructures = availableStructures;
@@ -129,9 +116,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
             public object Data { get; set; }
 
-            public SimpleStructure Structure { get; }
+            public TestStructure Structure { get; }
 
-            public IEnumerable<SimpleStructure> GetAvailableStructures()
+            public IEnumerable<TestStructure> GetAvailableStructures()
             {
                 return availableStructures;
             }

@@ -221,12 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());
         }
 
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
-        }
-
-        private class SimpleStructuresInput : StructuresInputBase<SimpleStructure>
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
             public override bool IsStructureInputSynchronized
             {

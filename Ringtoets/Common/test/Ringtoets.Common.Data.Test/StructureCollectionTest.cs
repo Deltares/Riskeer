@@ -32,92 +32,60 @@ namespace Ringtoets.Common.Data.Test
     [TestFixture]
     public class StructureCollectionTest :
         CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
-            ObservableUniqueItemCollectionWithSourcePath<SimpleStructure>, SimpleStructure>
+            ObservableUniqueItemCollectionWithSourcePath<TestStructure>, TestStructure>
     {
-        protected override ObservableUniqueItemCollectionWithSourcePath<SimpleStructure> CreateCollection()
+        protected override ObservableUniqueItemCollectionWithSourcePath<TestStructure> CreateCollection()
         {
-            return new StructureCollection<SimpleStructure>();
+            return new StructureCollection<TestStructure>();
         }
 
-        protected override IEnumerable<SimpleStructure> UniqueElements()
+        protected override IEnumerable<TestStructure> UniqueElements()
         {
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = "Structure Id",
-                Name = "Structure with name",
-                Location = new Point2D(0, 0)
-            });
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = "Other structure Id",
-                Name = "Structure with name",
-                Location = new Point2D(0, 0)
-            });
+            yield return new TestStructure("Structure Id");
+            yield return new TestStructure("Other structure Id");
         }
 
-        protected override IEnumerable<SimpleStructure> SingleNonUniqueElements()
+        protected override IEnumerable<TestStructure> SingleNonUniqueElements()
         {
-            const string id = "Structure Id";
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = id,
-                Name = "Structure name",
-                Location = new Point2D(0, 0)
-            });
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = id,
-                Name = "Other structure name",
-                Location = new Point2D(1, 1)
-            });
+            yield return new TestStructure("Structure Id");
+            yield return new TestStructure("Structure Id",
+                                           "Other structure name",
+                                           new Point2D(1, 1));
         }
 
-        protected override IEnumerable<SimpleStructure> MultipleNonUniqueElements()
+        protected override IEnumerable<TestStructure> MultipleNonUniqueElements()
         {
             const string id = "Structure Id";
             const string otherId = "Other structure Id";
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = id,
-                Name = "Structure name A",
-                Location = new Point2D(1, 0)
-            });
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = id,
-                Name = "Structure name B",
-                Location = new Point2D(2, 0)
-            });
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = otherId,
-                Name = "Structure name C",
-                Location = new Point2D(3, 0)
-            });
-            yield return new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Id = otherId,
-                Name = "Structure name D",
-                Location = new Point2D(4, 0)
-            });
+            yield return new TestStructure(id,
+                                           "Structure name A",
+                                           new Point2D(1, 0));
+            yield return new TestStructure(id,
+                                           "Structure name B",
+                                           new Point2D(2, 0));
+            yield return new TestStructure(otherId,
+                                           "Structure name C",
+                                           new Point2D(3, 0));
+            yield return new TestStructure(otherId,
+                                           "Structure name D",
+                                           new Point2D(4, 0));
         }
 
-        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<SimpleStructure> itemsToAdd)
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception,
+                                                              IEnumerable<TestStructure> itemsToAdd)
         {
             string someId = itemsToAdd.First().Id;
-            Assert.AreEqual($"Kunstwerken moeten een unieke id hebben. Gevonden dubbele elementen: {someId}.", exception.Message);
+            Assert.AreEqual($"Kunstwerken moeten een unieke id hebben. Gevonden dubbele elementen: {someId}.",
+                            exception.Message);
         }
 
-        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<SimpleStructure> itemsToAdd)
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception,
+                                                                IEnumerable<TestStructure> itemsToAdd)
         {
             string someId = itemsToAdd.First().Id;
             string someOtherId = itemsToAdd.First(i => i.Id != someId).Id;
-            Assert.AreEqual($"Kunstwerken moeten een unieke id hebben. Gevonden dubbele elementen: {someId}, {someOtherId}.", exception.Message);
+            Assert.AreEqual($"Kunstwerken moeten een unieke id hebben. Gevonden dubbele elementen: {someId}, {someOtherId}.",
+                            exception.Message);
         }
-    }
-
-    public class SimpleStructure : StructureBase
-    {
-        public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
     }
 }

@@ -31,7 +31,6 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -91,10 +90,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             StructuresInputBaseProperties<
-                    SimpleStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
+                TestStructure, 
+                SimpleStructureInput, 
+                StructuresCalculation<SimpleStructureInput>, 
+                IFailureMechanism>
                 .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
 
             // Call
@@ -111,10 +110,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             StructuresInputBaseProperties<
-                    SimpleStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
+                TestStructure, 
+                SimpleStructureInput, 
+                StructuresCalculation<SimpleStructureInput>, 
+                IFailureMechanism>
                 .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -137,10 +136,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             StructuresInputBaseProperties<
-                    SimpleStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
+                TestStructure, 
+                SimpleStructureInput, 
+                StructuresCalculation<SimpleStructureInput>, 
+                IFailureMechanism>
                 .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -157,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<InputContextBase<SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
-            Assert.IsInstanceOf<IHasStructureProperty<SimpleStructure>>(properties);
+            Assert.IsInstanceOf<IHasStructureProperty<TestStructure>>(properties);
             Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
             Assert.AreSame(inputContext, properties.Data);
 
@@ -291,10 +290,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             StructuresInputBaseProperties<
-                    SimpleStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
+                TestStructure, 
+                SimpleStructureInput, 
+                StructuresCalculation<SimpleStructureInput>, 
+                IFailureMechanism>
                 .ConstructionProperties constructionProperties = GetRandomConstructionProperties();
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -304,7 +303,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             if (hasStructure)
             {
-                calculation.InputParameters.Structure = new SimpleStructure();
+                calculation.InputParameters.Structure = new TestStructure();
             }
 
             // Call
@@ -342,10 +341,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 handler);
 
@@ -379,7 +378,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    Structure = new SimpleStructure(new Point2D(200620.173572981, 503401.652985217))
+                    Structure = new TestStructure(new Point2D(200620.173572981, 503401.652985217))
                 }
             };
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -390,10 +389,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 handler);
 
@@ -428,7 +427,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    Structure = new SimpleStructure(new Point2D(200620.173572981, 503401.652985217))
+                    Structure = new TestStructure(new Point2D(200620.173572981, 503401.652985217))
                 }
             };
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -439,10 +438,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 handler);
 
@@ -483,7 +482,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    Structure = new SimpleStructure(new Point2D(200620.173572981, 503401.652985217))
+                    Structure = new TestStructure(new Point2D(200620.173572981, 503401.652985217))
                 }
             };
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -494,10 +493,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 handler);
 
@@ -540,10 +539,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 handler);
 
@@ -583,7 +582,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    Structure = new SimpleStructure()
+                    Structure = new TestStructure()
                 }
             };
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -593,10 +592,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 handler);
 
@@ -639,7 +638,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    Structure = new SimpleStructure()
+                    Structure = new TestStructure()
                 }
             };
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -647,7 +646,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            var newStructure = new SimpleStructure(new Point2D(0, 190));
+            var newStructure = new TestStructure(new Point2D(0, 190));
 
             CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables();
@@ -655,10 +654,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 customHandler);
 
@@ -699,7 +698,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    Structure = new SimpleStructure()
+                    Structure = new TestStructure()
                 }
             };
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -710,10 +709,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 new ObservablePropertyChangeHandler(inputContext.Calculation, calculation.InputParameters));
 
@@ -721,7 +720,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var random = new Random(100);
             double newStructureNormalOrientation = random.NextDouble();
-            var newStructure = new SimpleStructure();
+            var newStructure = new TestStructure();
             ForeshoreProfile newForeshoreProfile = new TestForeshoreProfile();
             HydraulicBoundaryLocation newHydraulicBoundaryLocation = CreateHydraulicBoundaryLocation();
             var newSelectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newHydraulicBoundaryLocation, null);
@@ -746,7 +745,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Structure_Always_InputChangedAndObservablesNotified()
         {
-            var structure = new SimpleStructure();
+            var structure = new TestStructure();
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.Structure = structure);
         }
@@ -873,10 +872,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>,
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 customHandler);
 
@@ -902,17 +901,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
 
-            var newStructure = new SimpleStructure();
+            var newStructure = new TestStructure();
             CalculationInputSetPropertyValueAfterConfirmationParameterTester customHandler =
                 CreateCustomHandlerForCalculationReturningNoObservables();
 
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 customHandler);
 
@@ -947,10 +946,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 customHandler);
 
@@ -984,10 +983,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 customHandler);
 
@@ -1019,10 +1018,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleStructuresInputProperties(
                 inputContext,
                 new StructuresInputBaseProperties<
-                        SimpleStructure,
-                        SimpleStructureInput,
-                        StructuresCalculation<SimpleStructureInput>,
-                        IFailureMechanism>
+                    TestStructure, 
+                    SimpleStructureInput, 
+                    StructuresCalculation<SimpleStructureInput>, 
+                    IFailureMechanism>
                     .ConstructionProperties(),
                 customHandler);
 
@@ -1042,10 +1041,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private static StructuresInputBaseProperties<
-                SimpleStructure,
-                SimpleStructureInput,
-                StructuresCalculation<SimpleStructureInput>,
-                IFailureMechanism>
+            TestStructure, 
+            SimpleStructureInput, 
+            StructuresCalculation<SimpleStructureInput>, 
+            IFailureMechanism>
             .ConstructionProperties
             GetRandomConstructionProperties()
         {
@@ -1087,28 +1086,28 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                  .ToList();
 
             return new StructuresInputBaseProperties<
-                    SimpleStructure,
-                    SimpleStructureInput,
-                    StructuresCalculation<SimpleStructureInput>,
-                    IFailureMechanism>
+                TestStructure, 
+                SimpleStructureInput, 
+                StructuresCalculation<SimpleStructureInput>, 
+                IFailureMechanism>
                 .ConstructionProperties
-                {
-                    StructurePropertyIndex = randomObjectLookup.IndexOf(structureObject),
-                    StructureLocationPropertyIndex = randomObjectLookup.IndexOf(structureLocationObject),
-                    StructureNormalOrientationPropertyIndex = randomObjectLookup.IndexOf(structureNormalOrientationObject),
-                    FlowWidthAtBottomProtectionPropertyIndex = randomObjectLookup.IndexOf(flowWidthAtBottomProtectionObject),
-                    WidthFlowAperturesPropertyIndex = randomObjectLookup.IndexOf(widthFlowAperturesObject),
-                    StorageStructureAreaPropertyIndex = randomObjectLookup.IndexOf(storageStructureAreaObject),
-                    AllowedLevelIncreaseStoragePropertyIndex = randomObjectLookup.IndexOf(allowedLevelIncreaseStorageObject),
-                    CriticalOvertoppingDischargePropertyIndex = randomObjectLookup.IndexOf(criticalOvertoppingDischargeObject),
-                    FailureProbabilityStructureWithErosionPropertyIndex = randomObjectLookup.IndexOf(failureProbabilityStructureWithErosionObject),
-                    ForeshoreProfilePropertyIndex = randomObjectLookup.IndexOf(foreshoreProfileObject),
-                    UseBreakWaterPropertyIndex = randomObjectLookup.IndexOf(useBreakWaterObject),
-                    UseForeshorePropertyIndex = randomObjectLookup.IndexOf(useForeshoreObject),
-                    ModelFactorSuperCriticalFlowPropertyIndex = randomObjectLookup.IndexOf(modelFactorSuperCriticalFlowObject),
-                    HydraulicBoundaryLocationPropertyIndex = randomObjectLookup.IndexOf(hydraulicBoundaryLocationObject),
-                    StormDurationPropertyIndex = randomObjectLookup.IndexOf(stormDurationObject)
-                };
+            {
+                StructurePropertyIndex = randomObjectLookup.IndexOf(structureObject),
+                StructureLocationPropertyIndex = randomObjectLookup.IndexOf(structureLocationObject),
+                StructureNormalOrientationPropertyIndex = randomObjectLookup.IndexOf(structureNormalOrientationObject),
+                FlowWidthAtBottomProtectionPropertyIndex = randomObjectLookup.IndexOf(flowWidthAtBottomProtectionObject),
+                WidthFlowAperturesPropertyIndex = randomObjectLookup.IndexOf(widthFlowAperturesObject),
+                StorageStructureAreaPropertyIndex = randomObjectLookup.IndexOf(storageStructureAreaObject),
+                AllowedLevelIncreaseStoragePropertyIndex = randomObjectLookup.IndexOf(allowedLevelIncreaseStorageObject),
+                CriticalOvertoppingDischargePropertyIndex = randomObjectLookup.IndexOf(criticalOvertoppingDischargeObject),
+                FailureProbabilityStructureWithErosionPropertyIndex = randomObjectLookup.IndexOf(failureProbabilityStructureWithErosionObject),
+                ForeshoreProfilePropertyIndex = randomObjectLookup.IndexOf(foreshoreProfileObject),
+                UseBreakWaterPropertyIndex = randomObjectLookup.IndexOf(useBreakWaterObject),
+                UseForeshorePropertyIndex = randomObjectLookup.IndexOf(useForeshoreObject),
+                ModelFactorSuperCriticalFlowPropertyIndex = randomObjectLookup.IndexOf(modelFactorSuperCriticalFlowObject),
+                HydraulicBoundaryLocationPropertyIndex = randomObjectLookup.IndexOf(hydraulicBoundaryLocationObject),
+                StormDurationPropertyIndex = randomObjectLookup.IndexOf(stormDurationObject)
+            };
         }
 
         private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
@@ -1116,20 +1115,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             return new HydraulicBoundaryLocation(0, "", 0, 0);
         }
 
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure() : this(new Point2D(0, 0)) {}
-
-            public SimpleStructure(Point2D location) : base(new ConstructionProperties
-            {
-                Name = "Name",
-                Id = "Id",
-                Location = location,
-                StructureNormalOrientation = (RoundedDouble) 0
-            }) {}
-        }
-
-        private class SimpleStructureInput : StructuresInputBase<SimpleStructure>
+        private class SimpleStructureInput : StructuresInputBase<TestStructure>
         {
             public override bool IsStructureInputSynchronized
             {
@@ -1143,7 +1129,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         private class SimpleStructuresInputProperties : StructuresInputBaseProperties<
-            SimpleStructure,
+            TestStructure,
             SimpleStructureInput,
             StructuresCalculation<SimpleStructureInput>,
             IFailureMechanism>
@@ -1162,9 +1148,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 yield return new TestForeshoreProfile();
             }
 
-            public override IEnumerable<SimpleStructure> GetAvailableStructures()
+            public override IEnumerable<TestStructure> GetAvailableStructures()
             {
-                yield return new SimpleStructure();
+                yield return new TestStructure();
             }
 
             protected override void AfterSettingStructure()
@@ -1194,7 +1180,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             SimpleStructureInput input = calculation.InputParameters;
             input.ForeshoreProfile = new TestForeshoreProfile();
-            input.Structure = new SimpleStructure();
+            input.Structure = new TestStructure();
 
             var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
             {

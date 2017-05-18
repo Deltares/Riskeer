@@ -22,13 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Utils.Test
 {
@@ -257,11 +257,6 @@ namespace Ringtoets.Common.Utils.Test
         private static readonly TestStructuresFailureMechanismSectionResult sectionResult = new TestStructuresFailureMechanismSectionResult(
             failureMechanismSectionA);
 
-        private readonly FailureMechanismSection[] oneSection =
-        {
-            failureMechanismSectionA
-        };
-
         private readonly FailureMechanismSection[] twoSections =
         {
             failureMechanismSectionA,
@@ -272,7 +267,7 @@ namespace Ringtoets.Common.Utils.Test
         {
             InputParameters =
             {
-                Structure = new TestStructure("aName", "anId", new Point2D(1.1, 2.2), 0.0)
+                Structure = new TestStructure("anId", "aName", new Point2D(1.1, 2.2))
             }
         };
 
@@ -280,20 +275,9 @@ namespace Ringtoets.Common.Utils.Test
         {
             InputParameters =
             {
-                Structure = new TestStructure("aName", "anId", new Point2D(50.0, 66.0), 0.0)
+                Structure = new TestStructure("anId", "aName", new Point2D(50.0, 66.0))
             }
         };
-
-        private class TestStructure : StructureBase
-        {
-            public TestStructure(string name, string id, Point2D location, double normal) : base(new ConstructionProperties
-            {
-                Name = name,
-                Id = id,
-                Location = location,
-                StructureNormalOrientation = (RoundedDouble) normal
-            }) {}
-        }
 
         #endregion
     }

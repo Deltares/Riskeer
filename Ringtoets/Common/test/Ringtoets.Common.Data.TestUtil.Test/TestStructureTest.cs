@@ -34,9 +34,62 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure();
 
             // Assert
-            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual("id", structure.Id);
+            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(new Point2D(0.0, 0.0), structure.Location);
+            Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
+                            structure.StructureNormalOrientation.GetAccuracy());
+        }
+
+        [Test]
+        public void IdConstructor_ExpectedProperties()
+        {
+            // Setup
+            const string id = "some Id";
+
+            // Call
+            var structure = new TestStructure(id);
+
+            // Assert
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual("name", structure.Name);
+            Assert.AreEqual(new Point2D(0.0, 0.0), structure.Location);
+            Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
+                            structure.StructureNormalOrientation.GetAccuracy());
+        }
+
+        [Test]
+        public void IdNameConstructor_ExpectedProperties()
+        {
+            // Setup
+            const string id = "some Id";
+            const string name = "some name";
+
+            // Call
+            var structure = new TestStructure(id, name);
+
+            // Assert
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(name, structure.Name);
+            Assert.AreEqual(new Point2D(0.0, 0.0), structure.Location);
+            Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
+                            structure.StructureNormalOrientation.GetAccuracy());
+        }
+
+        [Test]
+        public void IdLocationConstructor_ExpectedProperties()
+        {
+            // Setup
+            const string id = "some Id";
+            var location = new Point2D(1, 1);
+
+            // Call
+            var structure = new TestStructure(id, location);
+
+            // Assert
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual("name", structure.Name);
+            Assert.AreSame(location, structure.Location);
             Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
                             structure.StructureNormalOrientation.GetAccuracy());
         }
@@ -51,9 +104,28 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(location);
 
             // Assert
-            Assert.AreEqual("name", structure.Name);
             Assert.AreEqual("id", structure.Id);
-            Assert.AreEqual(location, structure.Location);
+            Assert.AreEqual("name", structure.Name);
+            Assert.AreSame(location, structure.Location);
+            Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
+                            structure.StructureNormalOrientation.GetAccuracy());
+        }
+
+        [Test]
+        public void IdNamePoint2DConstructor_ExpectedProperties()
+        {
+            // Setup
+            const string id = "some Id";
+            const string name = "some name";
+            var location = new Point2D(1, 1);
+
+            // Call
+            var structure = new TestStructure(id, name, location);
+
+            // Assert
+            Assert.AreEqual(id, structure.Id);
+            Assert.AreEqual(name, structure.Name);
+            Assert.AreSame(location, structure.Location);
             Assert.AreEqual(0.12345, structure.StructureNormalOrientation,
                             structure.StructureNormalOrientation.GetAccuracy());
         }
