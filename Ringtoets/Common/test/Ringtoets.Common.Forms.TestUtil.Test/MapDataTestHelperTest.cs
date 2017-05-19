@@ -1252,6 +1252,29 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         #region AssertStructuresMapData
 
         [Test]
+        public void AssertStructuresMapData_StructuresNull_ThrowAssertionException()
+        {
+            // Setup
+            var mapData = new MapLineData("Kunstwerken");
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(null, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertStructuresMapData_MapDataNull_ThrowAssertionException()
+        {
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(Enumerable.Empty<StructureBase>(), null);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
         public void AssertStructuresMapData_MapDataNotMapPointData_ThrowAssertionException()
         {
             // Setup
@@ -1353,7 +1376,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void AssertStructuresMapData_DataCorrect_DoesNotThrow()
+        public void AssertStructuresMapData_MultiplePointsInGeometry_ThrowAssertionException()
         {
             // Setup
             var mapData = new MapPointData("Kunstwerken")
@@ -1368,6 +1391,38 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                             {
                                 new Point2D(0, 0),
                                 new Point2D(0, -1)
+                            }
+                        })
+                    })
+                }
+            };
+            var structures = new[]
+            {
+                new TestStructure(new Point2D(0, 0))
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertStructuresMapData(structures, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertStructuresMapData_DataCorrect_DoesNotThrow()
+        {
+            // Setup
+            var mapData = new MapPointData("Kunstwerken")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0, 0)
                             }
                         })
                     })

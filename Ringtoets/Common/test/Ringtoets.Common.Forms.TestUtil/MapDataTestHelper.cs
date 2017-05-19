@@ -267,7 +267,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
+        /// <item><paramref name="mapData"/> is not an instance of <see cref="MapPointData"/>;</item>
+        /// <item><paramref name="structures"/> is <c>null</c>.</item>
         /// <item>the name of the <see cref="MapData"/> is not <c>Kunstwerken</c>;</item>
         /// <item>the amount of features in <paramref name="mapData"/> is not equal to the 
         /// amount of the <paramref name="structures"/>;</item>
@@ -277,6 +278,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </exception>
         public static void AssertStructuresMapData(IEnumerable<StructureBase> structures, MapData mapData)
         {
+            Assert.NotNull(structures);
             Assert.IsInstanceOf<MapPointData>(mapData);
             Assert.AreEqual("Kunstwerken", mapData.Name);
 
@@ -284,12 +286,8 @@ namespace Ringtoets.Common.Forms.TestUtil
             StructureBase[] structuresArray = structures.ToArray();
 
             Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
-
-            for (var i = 0; i < structuresArray.Length; i++)
-            {
-                MapGeometry profileDataA = structuresData.Features[i].MapGeometries.First();
-                Assert.AreEqual(structuresArray[i].Location, profileDataA.PointCollections.First().First());
-            }
+            CollectionAssert.AreEqual(structuresArray.Select(hrp => hrp.Location),
+                                      structuresData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
         }
 
         private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)

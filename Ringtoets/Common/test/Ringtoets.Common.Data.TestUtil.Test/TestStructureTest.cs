@@ -30,12 +30,13 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class TestStructureTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        public void DefaultConstructor_ExpectedProperties()
         {
             // Call
             var structure = new TestStructure();
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual("id", structure.Id);
             Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(new Point2D(0.0, 0.0), structure.Location);
@@ -44,7 +45,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdConstructor_ValidParameters_ExpectedProperties()
+        public void Constructor_WithId_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -53,6 +54,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(id);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual(id, structure.Id);
             Assert.AreEqual("name", structure.Name);
             Assert.AreEqual(new Point2D(0.0, 0.0), structure.Location);
@@ -64,7 +66,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdConstructor_InvalidId_ThrowsArgumentException(string id)
+        public void Constructor_WithInvalidId_ThrowsArgumentException(string id)
         {
             // Call
             TestDelegate call = () => new TestStructure(id);
@@ -74,7 +76,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNameConstructor_ValidParameters_ExpectedProperties()
+        public void Constructor_WithNameAndId_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -84,6 +86,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(id, name);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual(id, structure.Id);
             Assert.AreEqual(name, structure.Name);
             Assert.AreEqual(new Point2D(0.0, 0.0), structure.Location);
@@ -95,7 +98,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdNameConstructor_InvalidName_ThrowsArgumentException(string name)
+        public void Constructor_WithIdAndInvalidName_ThrowsArgumentException(string name)
         {
             // Setup
             const string id = "some Id";
@@ -108,7 +111,23 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdLocationConstructor_ValidParameters_ExpectedProperties()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Constructor_WithNameAndInvalidId_ThrowsArgumentException(string id)
+        {
+            // Setup
+            const string name = "some Name";
+
+            // Call
+            TestDelegate call = () => new TestStructure(id, name);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void Constructor_WithIdAndLocation_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -118,6 +137,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(id, location);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual(id, structure.Id);
             Assert.AreEqual("name", structure.Name);
             Assert.AreSame(location, structure.Location);
@@ -129,7 +149,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdLocationConstructor_InvalidId_ThrowsArgumentException(string id)
+        public void Constructor_WithLocationAndInvalidId_ThrowsArgumentException(string id)
         {
             // Setup
             var location = new Point2D(1, 1);
@@ -142,7 +162,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdLocationConstructor_LocationNull_ThrowsArgumentNullException()
+        public void Constructor_WithIdAndLocationNull_ThrowsArgumentNullException()
         {
             // Setup
             const string id = "some Id";
@@ -156,7 +176,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Point2DConstructor_ValidParameters_ExpectedProperties()
+        public void Constructor_WithLocation_ExpectedProperties()
         {
             // Setup
             var location = new Point2D(1, 1);
@@ -165,6 +185,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(location);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual("id", structure.Id);
             Assert.AreEqual("name", structure.Name);
             Assert.AreSame(location, structure.Location);
@@ -173,7 +194,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Point2DConstructor_LocationNull_ThrowsArgumentNullException()
+        public void Constructor_LocationNull_ThrowsArgumentNullException()
         {
             // Setup
             Point2D location = null;
@@ -189,7 +210,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdNamePoint2DConstructor_InvalidId_ThrowsArgumentException(string id)
+        public void Constructor_WithNameAndLocationAndInvalidId_ThrowsArgumentException(string id)
         {
             // Setup
             const string name = "some name";
@@ -206,7 +227,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdNamePoint2DConstructor_InvalidName_ThrowsArgumentException(string name)
+        public void Constructor_WithIdAndLocationAndInvalidName_ThrowsArgumentException(string name)
         {
             // Setup
             const string id = "some id";
@@ -220,7 +241,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNamePoint2DConstructor_ValidParameters_ExpectedProperties()
+        public void Constructor_WithIdAndNameAndLocation_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -231,6 +252,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(id, name, location);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual(id, structure.Id);
             Assert.AreEqual(name, structure.Name);
             Assert.AreSame(location, structure.Location);
@@ -239,7 +261,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNamePoint2DConstructor_LocationNull_ThrowsArgumentNullException()
+        public void Constructor_WithIdAndNameAndLocationNull_ThrowsArgumentNullException()
         {
             // Setup
             const string id = "some Id";
@@ -254,7 +276,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNamePoint2DNormalConstructor_ValidParameters_ExpectedProperties()
+        public void Constructor_WithIdAndNameAndLocationAndNormal_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";
@@ -266,6 +288,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var structure = new TestStructure(id, name, location, normal);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual(id, structure.Id);
             Assert.AreEqual(name, structure.Name);
             Assert.AreSame(location, structure.Location);
@@ -277,7 +300,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdNamePoint2DNormalConstructor_InvalidId_ThrowsArgumentException(string id)
+        public void Constructor_WithNameAndLocationAndNormalAndInvalidId_ThrowsArgumentException(string id)
         {
             // Setup
             const string name = "some name";
@@ -295,7 +318,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void IdNamePoint2DNormalConstructor_InvalidName_ThrowsArgumentException(string name)
+        public void Constructor_WithIdAndLocationAndNormalAndInvalidName_ThrowsArgumentException(string name)
         {
             // Setup
             const string id = "some Id";
@@ -310,7 +333,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void IdNamePoint2DNormalConstructor_LocationNull_ThrowsArgumentNullException()
+        public void Constructor_WithIdAndNameAndNormalAndLocationNull_ThrowsArgumentNullException()
         {
             // Setup
             const string id = "some Id";
