@@ -140,6 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             {
                 expectedAffectedObjects.Add(failureMechanism.HydraulicBoundaryLocations);
             }
+            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedLocations);
             expectedAffectedObjects.Add(failureMechanism);
             CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }

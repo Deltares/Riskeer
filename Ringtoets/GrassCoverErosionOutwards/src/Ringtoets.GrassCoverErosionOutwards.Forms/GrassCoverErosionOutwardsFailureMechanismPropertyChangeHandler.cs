@@ -54,12 +54,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
             var affectedObjects = new List<IObservable>(base.PropertyChanged(failureMechanism));
 
             IEnumerable<IObservable> affectedLocations = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                failureMechanism.HydraulicBoundaryLocations);
+                failureMechanism.HydraulicBoundaryLocations).ToArray();
 
             if (affectedLocations.Any())
             {
                 affectedObjects.Add(failureMechanism.HydraulicBoundaryLocations);
             }
+            affectedObjects.AddRange(affectedLocations);
             return affectedObjects;
         }
     }
