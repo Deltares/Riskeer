@@ -33,6 +33,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.TestUtil;
 using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.TestUtil;
@@ -53,6 +54,46 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int waterLevelsChartDataIndex = 6;
         private const int revetmentBaseChartDataIndex = 7;
         private const int revetmentChartDataIndex = 8;
+
+        public static IEnumerable<TestCaseData> WaterLevelUpdateFunctions
+        {
+            get
+            {
+                yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
+                {
+                    var expectedWaterLevel = 5.2;
+                    wci.HydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
+                    wci.HydraulicBoundaryLocation.NotifyObservers();
+                    return expectedWaterLevel;
+                })).SetName("UpdateWaterLevel");
+
+                yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
+                {
+                    var expectedWaterLevel = 2.66;
+
+                    var newLocation = new TestHydraulicBoundaryLocation();
+                    wci.HydraulicBoundaryLocation = newLocation;
+                    wci.NotifyObservers();
+
+                    newLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
+                    newLocation.NotifyObservers();
+
+                    return expectedWaterLevel;
+                })).SetName("UpdateLocationAndWaterLevel");
+
+                yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
+                {
+                    var expectedWaterLevel = 8.33;
+
+                    var newLocation = new TestHydraulicBoundaryLocation();
+                    newLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
+                    wci.HydraulicBoundaryLocation = newLocation;
+                    wci.NotifyObservers();
+
+                    return expectedWaterLevel;
+                })).SetName("UpdateLocation");
+            }
+        }
 
         [Test]
         public void Constructor_WaveConditionsInputViewStyleNull_ThrowArgumentNullException()
@@ -403,14 +444,45 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_WaterLevelUpdated_ChartDataUpdatedAndObserversNotified()
+        public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChartDataLayers);
             mocks.ReplayAll();
 
+            var calculation1 = new TestWaveConditionsCalculation();
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            {
+                Data = calculation1
+            })
+            {
+                ((ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex)).Attach(observer);
+
+                var calculation2 = new TestWaveConditionsCalculation();
+                ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(3, 3),
+                    new Point2D(8, 8)
+                });
+
+                calculation2.InputParameters.ForeshoreProfile = profile2;
+
+                // Call
+                calculation2.InputParameters.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(calculation1, view.Data);
+            }
+            mocks.VerifyAll(); // no update observer expected
+        }
+
+        [Test]
+        [TestCaseSource(nameof(WaterLevelUpdateFunctions))]
+        public void GivenViewWithInputData_WhenWaterLevelForCalculationUpdated_ThenUpdatedDataIsShownInChart(Func<WaveConditionsInput, double> updateWaterLevelOnInput)
+        {
+            // Given
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var profile = new TestForeshoreProfile(new[]
             {
@@ -446,23 +518,10 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
 
-                foreshoreChartData.Attach(observer);
-                lowerBoundaryRevetmentChartData.Attach(observer);
-                upperBoundaryRevetmentChartData.Attach(observer);
-                lowerBoundaryWaterLevelsChartData.Attach(observer);
-                upperBoundaryWaterLevelsChartData.Attach(observer);
-                designWaterLevelChartData.Attach(observer);
-                waterLevelsChartData.Attach(observer);
-                revetmentBaseChartData.Attach(observer);
-                revetmentChartData.Attach(observer);
+                // When
+                double expectedWaterLevel = updateWaterLevelOnInput(calculation.InputParameters);
 
-                var expectedWaterLevel = 6.0;
-                testHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
-
-                // Call
-                calculation.InputParameters.HydraulicBoundaryLocation.NotifyObservers();
-
-                // Assert
+                // Then
                 Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex));
                 Assert.AreSame(lowerBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
@@ -499,42 +558,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertRevetmentChartData(profile.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
             }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var calculation1 = new TestWaveConditionsCalculation();
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
-            {
-                Data = calculation1
-            })
-            {
-                ((ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex)).Attach(observer);
-
-                var calculation2 = new TestWaveConditionsCalculation();
-                ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(3, 3),
-                    new Point2D(8, 8)
-                });
-
-                calculation2.InputParameters.ForeshoreProfile = profile2;
-
-                // Call
-                calculation2.InputParameters.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(calculation1, view.Data);
-            }
-            mocks.VerifyAll(); // no update observer expected
         }
 
         private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
