@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -1651,7 +1650,9 @@ namespace Core.Common.Controls.TreeView.Test
 
                 object[] dataItems =
                 {
-                    a, b, c
+                    a,
+                    b,
+                    c
                 };
 
                 var treeChildNodeInfo = new TreeNodeInfo
@@ -1667,7 +1668,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.RegisterTreeNodeInfo(treeChildNodeInfo);
                 treeViewControl.Data = observable;
 
-                TreeNode node = ((System.Windows.Forms.TreeView)treeViewControl.Controls[0]).Nodes[0];
+                TreeNode node = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes[0];
 
                 dataItems[0] = c;
                 dataItems[1] = b;

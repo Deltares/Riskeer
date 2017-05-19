@@ -571,46 +571,36 @@ namespace Core.Common.Controls.TreeView
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
-            var newTreeNodes = new List<TreeNode>();
-            List<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().ToList();
-            Dictionary<object, TreeNode> currentTreeNodesPerTag = outdatedTreeNodes.ToDictionary(ctn => ctn.Tag, ctn => ctn);
+            var refreshedTreeNodes = new List<TreeNode>();
+            IEnumerable<TreeNode> currentTreeNodes = treeNode.Nodes.Cast<TreeNode>().ToList();
+            Dictionary<object, TreeNode> currentTreeNodesPerTag = currentTreeNodes.ToDictionary(ctn => ctn.Tag, ctn => ctn);
             object[] newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                                ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
                                                : new object[0];
 
-            // Create a list of outdated tree nodes and new tree nodes
+            // Obtain a collection of refreshed nodes, recycling any existing nodes
             foreach (object childNodeObject in newChildNodeObjects)
             {
-                if (currentTreeNodesPerTag.ContainsKey(childNodeObject))
-                {
-                    // Remove any node from the list of outdated nodes that should remain part of the node collection
-                    TreeNode node = currentTreeNodesPerTag[childNodeObject];
-                    outdatedTreeNodes.Remove(node);
-                    newTreeNodes.Add(node);
-                }
-                else
-                {
-                    // If there's no existing node yet, create a new one and add it to the list of new nodes
-                    newTreeNodes.Add(CreateTreeNode(treeNode, childNodeObject));
-                }
+                refreshedTreeNodes.Add(currentTreeNodesPerTag.ContainsKey(childNodeObject)
+                    ? currentTreeNodesPerTag[childNodeObject]
+                    : CreateTreeNode(treeNode, childNodeObject));
             }
 
             // Remove any outdated nodes
-            foreach (TreeNode removedNode in outdatedTreeNodes)
+            foreach (TreeNode removedNode in currentTreeNodes.Except(refreshedTreeNodes))
             {
                 RemoveTreeNodeFromLookupRecursively(removedNode);
             }
 
             treeNode.Nodes.Clear();
 
-            // Insert any new nodes
-            foreach (TreeNode node in newTreeNodes)
+            foreach (TreeNode node in refreshedTreeNodes)
             {
                 treeNode.Nodes.Add(node);
             }
 
             // If relevant, set selection to the last of the added nodes
-            SelectLastNewNode(newTreeNodes);
+            SelectLastNewNode(refreshedTreeNodes);
         }
 
         private void SelectLastNewNode(IEnumerable<TreeNode> newTreeNodes)
