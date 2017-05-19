@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Plugin.Test
+namespace Ringtoets.Common.Forms.Test
 {
     [TestFixture]
     public class StructureIdEqualityComparerTest

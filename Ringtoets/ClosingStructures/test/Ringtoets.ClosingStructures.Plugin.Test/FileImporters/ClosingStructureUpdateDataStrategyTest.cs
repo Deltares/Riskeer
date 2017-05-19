@@ -261,7 +261,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithStructureImportedStructureWithSameId_UpdatesCalculation()
+        public void UpdateStructuresWithImportedData_CalculationWithStructureImportedStructureWithSameId_UpdatesCalculationInput()
         {
             // Setup
             const string sameId = "sameId";
@@ -302,19 +302,18 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                                                                                                  sourceFilePath);
 
             // Assert
-            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsTrue(calculation.HasOutput);
             AssertClosingStructures(readStructure, structure);
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism.ClosingStructures,
                 structure,
-                calculation.InputParameters,
-                calculation
+                calculation.InputParameters
             }, affectedObjects);
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_MultipleCalculationWithAssignedStructure_OnlyUpdatesCalculationWithUpdatedStructure()
+        public void UpdateStructuresWithImportedData_MultipleCalculationWithAssignedStructure_OnlyUpdatesCalculationInputWithUpdatedStructure()
         {
             // Setup
             const string affectedId = "affectedId";
@@ -372,7 +371,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                                                                                                      readUnaffectedStructure
                                                                                                  }, sourceFilePath);
             // Assert
-            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsTrue(affectedCalculation.HasOutput);
             ClosingStructure inputParametersAffectedStructure = affectedCalculation.InputParameters.Structure;
             Assert.AreSame(affectedStructure, inputParametersAffectedStructure);
             AssertClosingStructures(affectedStructure, inputParametersAffectedStructure);
@@ -385,14 +384,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 affectedStructure,
-                affectedCalculation,
                 affectedCalculation.InputParameters,
                 targetDataCollection
             }, affectedObjects);
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithSameReference_OnlyReturnsDistinctCalculation()
+        public void UpdateStructuresWithImportedData_CalculationWithSameReference_OnlyReturnsDistinctCalculationInput()
         {
             // Setup
             const string affectedId = "affectedId";
@@ -439,13 +437,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             {
                 structures,
                 affectedStructure,
-                affectedCalculation,
                 affectedCalculation.InputParameters
             }, affectedObjects);
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_SectionResultWithStructureImportedStructureWithSameId_UpdatesCalculation()
+        public void UpdateStructuresWithImportedData_SectionResultWithStructureImportedStructureWithSameId_UpdatesCalculationInput()
         {
             // Setup
             const string sameId = "sameId";

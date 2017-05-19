@@ -116,6 +116,7 @@
     <Compile Include="HydraulicBoundaryLocationSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="StructureIdEqualityComparer.cs" />
     <Compile Include="StructureSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

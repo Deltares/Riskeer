@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.HeightStructures.Plugin
+namespace Ringtoets.Common.Forms
 {
     /// <summary>
     /// Class for comparing <see cref="StructureBase"/> by the id only.

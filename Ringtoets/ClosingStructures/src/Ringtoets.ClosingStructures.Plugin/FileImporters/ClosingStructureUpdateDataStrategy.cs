@@ -27,6 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
@@ -64,22 +65,6 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
                 FailureMechanism.SectionResults);
         }
 
-        /// <summary>
-        /// Class for comparing <see cref="ClosingStructure"/> by only the id.
-        /// </summary>
-        private class StructureIdEqualityComparer : IEqualityComparer<ClosingStructure>
-        {
-            public bool Equals(ClosingStructure x, ClosingStructure y)
-            {
-                return x.Id.Equals(y.Id);
-            }
-
-            public int GetHashCode(ClosingStructure obj)
-            {
-                return obj.Id.GetHashCode();
-            }
-        }
-
         #region Updating Data Functions
 
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ClosingStructure objectToUpdate,
@@ -94,11 +79,8 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
         {
             var affectedObjects = new List<IObservable>();
 
-            foreach (StructuresCalculation<ClosingStructuresInput> affectedCalculation in GetAffectedCalculationsWithClosingStructure(structure))
-            {
-                affectedObjects.Add(affectedCalculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
-            }
+            affectedObjects.AddRange(GetAffectedCalculationsWithClosingStructure(structure)
+                                         .Select(affectedCalculation => affectedCalculation.InputParameters));
 
             affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
                                          FailureMechanism.SectionResults,

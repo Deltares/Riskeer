@@ -105,6 +105,7 @@
     <Compile Include="ScenarioSelectionControlTest.cs" />
     <Compile Include="SelectionDialogBaseTest.cs" />
     <Compile Include="HydraulicBoundaryLocationSelectionDialogTest.cs" />
+    <Compile Include="StructureIdEqualityComparerTest.cs" />
     <Compile Include="StructureSelectionDialogTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactoryTest.cs" />
