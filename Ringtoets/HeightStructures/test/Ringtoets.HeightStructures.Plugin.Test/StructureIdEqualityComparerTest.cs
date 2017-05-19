@@ -30,6 +30,22 @@ namespace Ringtoets.HeightStructures.Plugin.Test
     [TestFixture]
     public class StructureIdEqualityComparerTest
     {
+        private static IEnumerable<TestCaseData> SameIdDifferentProperties
+        {
+            get
+            {
+                var reference = new TestStructure();
+                yield return new TestCaseData(new TestStructure(reference.Id,
+                                                                new Point2D(1, 1)));
+                yield return new TestCaseData(new TestStructure(reference.Id,
+                                                                "different name"));
+                yield return new TestCaseData(new TestStructure(reference.Id,
+                                                                reference.Name,
+                                                                reference.Location,
+                                                                RoundedDouble.NaN));
+            }
+        }
+
         [Test]
         public void Equals_SameInstance_ReturnTrue()
         {
@@ -59,22 +75,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             // Assert
             Assert.IsTrue(firstEqualsSecond);
             Assert.IsTrue(secondEqualsFirst);
-        }
-
-        private static IEnumerable<TestCaseData> SameIdDifferentProperties
-        {
-            get
-            {
-                var reference = new TestStructure();
-                yield return new TestCaseData(new TestStructure(reference.Id, 
-                    new Point2D(1,1)));
-                yield return new TestCaseData(new TestStructure(reference.Id, 
-                    "different name"));
-                yield return new TestCaseData(new TestStructure(reference.Id, 
-                    reference.Name, 
-                    reference.Location, 
-                    RoundedDouble.NaN));
-            }
         }
 
         [Test]

@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
     [TestFixture]
     public class HeightStructuresContextImportInfoTest : NUnitFormTest
     {
-        private static IEnumerable<TestCaseData> CalculationsThatWhereOutputShouldNotBeRemoved
+        private static IEnumerable<TestCaseData> CalculationsWhereOutputShouldNotBeRemoved
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             }
         }
 
-        private static IEnumerable<TestCaseData> CalculationsThatWhereOutputShouldBeRemoved
+        private static IEnumerable<TestCaseData> CalculationsWhereOutputShouldBeRemoved
         {
             get
             {
@@ -310,8 +310,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationsThatWhereOutputShouldNotBeRemoved))]
-        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue(StructuresCalculation<HeightStructuresInput> calculation)
+        [TestCaseSource(nameof(CalculationsWhereOutputShouldNotBeRemoved))]
+        public void VerifyUpdates_CalculationsWhereOutputShouldNotBeRemoved_ReturnsTrue(StructuresCalculation<HeightStructuresInput> calculation)
         {
             // Setup
             var mocks = new MockRepository();
@@ -351,8 +351,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationsThatWhereOutputShouldBeRemoved))]
-        public void VerifyUpdates_CalculationsThatWhereOutputShouldBeRemoved_ReturnsExpectedInquiryMessage(
+        [TestCaseSource(nameof(CalculationsWhereOutputShouldBeRemoved))]
+        public void VerifyUpdates_CalculationsWhereOutputShouldBeRemoved_ReturnsExpectedInquiryMessage(
             StructuresCalculation<HeightStructuresInput> calculation,
             IEnumerable<TestHeightStructure> importedStructures,
             bool isActionConfirmed)

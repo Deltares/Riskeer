@@ -49,7 +49,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private HeightStructuresPlugin plugin;
 
-        private static IEnumerable<TestCaseData> CalculationsThatWhereOutputShouldBeRemoved
+        private static IEnumerable<TestCaseData> CalculationsWhereOutputShouldBeRemoved
         {
             get
             {
@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
             }
         }
 
-        private static IEnumerable<TestCaseData> CalculationsThatWhereOutputShouldNotBeRemoved
+        private static IEnumerable<TestCaseData> CalculationsWhereOutputShouldNotBeRemoved
         {
             get
             {
@@ -264,8 +264,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationsThatWhereOutputShouldNotBeRemoved))]
-        public void VerifyUpdates_CalculationsThatWhereOutputShouldNotBeRemoved_ReturnsTrue(
+        [TestCaseSource(nameof(CalculationsWhereOutputShouldNotBeRemoved))]
+        public void VerifyUpdates_CalculationsWhereOutputShouldNotBeRemoved_ReturnsTrue(
             StructuresCalculation<HeightStructuresInput> calculation)
         {
             // Setup
@@ -306,8 +306,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationsThatWhereOutputShouldBeRemoved))]
-        public void VerifyUpdates_CalculationsThatWhereOutputShouldBeRemoved_ReturnsExpectedInquiryMessage(
+        [TestCaseSource(nameof(CalculationsWhereOutputShouldBeRemoved))]
+        public void VerifyUpdates_CalculationsWhereOutputShouldBeRemoved_ReturnsExpectedInquiryMessage(
             StructuresCalculation<HeightStructuresInput> calculation,
             IEnumerable<TestHeightStructure> importedStructures,
             bool isActionConfirmed)
