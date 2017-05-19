@@ -101,7 +101,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism)),
-                VerifyUpdates = VerifyStructuresShouldUpdateOnImport
+                VerifyUpdates = context =>
+                    VerifyStructuresShouldUpdate(
+                        context.FailureMechanism,
+                        RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
@@ -126,7 +129,10 @@ namespace Ringtoets.HeightStructures.Plugin
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new UpdateMessageProvider(), new HeightStructureUpdateDataStrategy(context.FailureMechanism)),
                 CurrentPath = context => context.WrappedData.SourcePath,
-                VerifyUpdates = VerifyStructuresShouldUpdateOnUpdate
+                VerifyUpdates = context =>
+                    VerifyStructuresShouldUpdate(
+                        context.FailureMechanism,
+                        RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
         }
 
@@ -877,39 +883,6 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                            RingtoetsCommonIOResources.Shape_file_filter_Description);
-        }
-
-        private bool VerifyStructuresShouldUpdateOnImport(HeightStructuresContext context)
-        {
-            IFailureMechanism failureMechanism = context.FailureMechanism;
-
-            bool hasStructureAndOutput = failureMechanism.Calculations
-                                                         .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                                         .Any(c => c.InputParameters.Structure != null
-                                                                   && c.HasOutput);
-
-            return !hasStructureAndOutput
-                   || VerifyStructuresShouldUpdate(
-                       failureMechanism,
-                       RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm);
-        }
-
-        private bool VerifyStructuresShouldUpdateOnUpdate(HeightStructuresContext context)
-        {
-            StructureCollection<HeightStructure> heightStructures = context.WrappedData;
-            IFailureMechanism failureMechanism = context.FailureMechanism;
-            var comparer = new StructureIdEqualityComparer();
-
-            bool hasRemovedStructure = context.FailureMechanism.Calculations
-                                              .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                              .Any(c => c.InputParameters.Structure != null
-                                                        && c.HasOutput
-                                                        && !heightStructures.Contains(c.InputParameters.Structure, comparer));
-
-            return !hasRemovedStructure
-                   || VerifyStructuresShouldUpdate(
-                       failureMechanism,
-                       RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm);
         }
 
         private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)

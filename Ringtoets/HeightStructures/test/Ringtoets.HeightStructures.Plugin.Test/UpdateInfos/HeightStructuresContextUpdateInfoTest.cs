@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -36,7 +35,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -48,101 +46,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
     {
         private UpdateInfo updateInfo;
         private HeightStructuresPlugin plugin;
-
-        private static IEnumerable<TestCaseData> CalculationsWhereOutputShouldBeRemoved
-        {
-            get
-            {
-                yield return new TestCaseData(
-                    new StructuresCalculation<HeightStructuresInput>
-                    {
-                        Name = "NoImportedStructuresAndActionConfirmed",
-                        InputParameters =
-                        {
-                            Structure = new TestHeightStructure()
-                        },
-                        Output = new TestStructuresOutput()
-                    }, Enumerable.Empty<TestHeightStructure>()
-                    , true
-                );
-
-                yield return new TestCaseData(
-                    new StructuresCalculation<HeightStructuresInput>
-                    {
-                        Name = "NoImportedStructuresAndActionNotConfirmed",
-                        InputParameters =
-                        {
-                            Structure = new TestHeightStructure()
-                        },
-                        Output = new TestStructuresOutput()
-                    }, Enumerable.Empty<TestHeightStructure>()
-                    , true
-                );
-
-                yield return new TestCaseData(
-                    new StructuresCalculation<HeightStructuresInput>
-                    {
-                        Name = "StructureRemovedAndActionConfirmed",
-                        InputParameters =
-                        {
-                            Structure = new TestHeightStructure("id")
-                        },
-                        Output = new TestStructuresOutput()
-                    }, new[]
-                    {
-                        new TestHeightStructure("Different id")
-                    }
-                    , true
-                );
-
-                yield return new TestCaseData(
-                    new StructuresCalculation<HeightStructuresInput>
-                    {
-                        Name = "StructureRemovedAndActionNotConfirmed",
-                        InputParameters =
-                        {
-                            Structure = new TestHeightStructure("id")
-                        },
-                        Output = new TestStructuresOutput()
-                    }, new[]
-                    {
-                        new TestHeightStructure("Different id")
-                    }
-                    , true
-                );
-            }
-        }
-
-        private static IEnumerable<TestCaseData> CalculationsWhereOutputShouldNotBeRemoved
-        {
-            get
-            {
-                yield return new TestCaseData(new StructuresCalculation<HeightStructuresInput>
-                {
-                    Name = "OutputWithoutStructure",
-                    Output = new TestStructuresOutput()
-                });
-
-                yield return new TestCaseData(new StructuresCalculation<HeightStructuresInput>
-                {
-                    Name = "StructureWithoutOutput",
-                    InputParameters =
-                    {
-                        Structure = new TestHeightStructure()
-                    }
-                });
-
-                yield return new TestCaseData(new StructuresCalculation<HeightStructuresInput>
-                {
-                    Name = "OutputAndStructureWithSameId",
-                    InputParameters =
-                    {
-                        Structure = new TestHeightStructure()
-                    },
-                    Output = new TestStructuresOutput()
-                });
-            }
-        }
 
         [SetUp]
         public void SetUp()
@@ -264,9 +167,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationsWhereOutputShouldNotBeRemoved))]
-        public void VerifyUpdates_CalculationsWhereOutputShouldNotBeRemoved_ReturnsTrue(
-            StructuresCalculation<HeightStructuresInput> calculation)
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -278,23 +179,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
 
             plugin.Gui = gui;
 
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                }
-            };
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var structures = new StructureCollection<HeightStructure>();
-            structures.AddRange(new[]
-            {
-                new TestHeightStructure()
-            }, "path");
-
             var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
 
             // Call
@@ -306,11 +194,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(CalculationsWhereOutputShouldBeRemoved))]
-        public void VerifyUpdates_CalculationsWhereOutputShouldBeRemoved_ReturnsExpectedInquiryMessage(
-            StructuresCalculation<HeightStructuresInput> calculation,
-            IEnumerable<TestHeightStructure> importedStructures,
-            bool isActionConfirmed)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
             var mocks = new MockRepository();
@@ -322,19 +208,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
 
             plugin.Gui = gui;
 
-            var failureMechanism = new HeightStructuresFailureMechanism
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
             {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                }
-            };
+                Output = new TestStructuresOutput()
+            });
 
             var structures = new StructureCollection<HeightStructure>();
-            structures.AddRange(importedStructures, "path");
             var context = new HeightStructuresContext(structures, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
