@@ -40,7 +40,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// to be updated.</param>
         /// <param name="importedDataCollection">The imported foreshore profiles.</param>
         /// <param name="sourceFilePath">The source path from where the foreshore 
-        /// profiles were imported from.</param>
+        /// profiles were imported.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input argument
         /// is <c>null</c>.</exception>

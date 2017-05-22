@@ -122,16 +122,17 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_SourcePathSet_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
+            foreshoreProfiles.AddRange(Enumerable.Empty<ForeshoreProfile>(),
+                                       "path");
 
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
@@ -149,12 +150,11 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNotSet_ReturnFalse()
+        public void IsEnabled_SourcePathNotSet_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = null;
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
@@ -201,13 +201,13 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             const string expectedFilePath = "some/path";
-            var surfaceLines = new ForeshoreProfileCollection();
-            surfaceLines.AddRange(new[]
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            foreshoreProfiles.AddRange(new[]
             {
                 new TestForeshoreProfile()
             }, expectedFilePath);
 
-            var context = new ForeshoreProfilesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -331,7 +331,7 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
 
         private static UpdateInfo GetUpdateInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetUpdateInfos().First(ii => ii.DataType == typeof(ForeshoreProfilesContext));
+            return plugin.GetUpdateInfos().First(ui => ui.DataType == typeof(ForeshoreProfilesContext));
         }
     }
 }

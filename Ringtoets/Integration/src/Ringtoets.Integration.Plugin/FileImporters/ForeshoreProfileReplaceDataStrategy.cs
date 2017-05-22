@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>
-    /// to replace foreshore profiles with imported dike profiles.
+    /// to replace foreshore profiles with imported foreshore profiles.
     /// </summary>
     public class ForeshoreProfileReplaceDataStrategy : ReplaceDataStrategyBase<ForeshoreProfile, IFailureMechanism>,
                                                        IForeshoreProfileUpdateDataStrategy

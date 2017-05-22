@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
-    /// This interface describes if an object has a foreshore profile.
+    /// Interface for objects which can have a foreshore profile.
     /// </summary>
     public interface IHasForeshoreProfile
     {

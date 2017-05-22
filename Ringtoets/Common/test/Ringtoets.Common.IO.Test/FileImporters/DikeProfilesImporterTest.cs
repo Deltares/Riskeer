@@ -554,7 +554,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var importer = new DikeProfilesImporter(new DikeProfileCollection(),
                                                     referenceLine,
                                                     filePath,
-                                                    strategy, messageProvider);
+                                                    strategy,
+                                                    messageProvider);
             var importResult = true;
 
             // Call

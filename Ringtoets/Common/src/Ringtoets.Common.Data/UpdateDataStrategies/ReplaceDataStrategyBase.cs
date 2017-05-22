@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
-        /// Clears all the dependent data of the target items that within the failure mechanism.
+        /// Clears all the dependent data of the target items that are within the failure mechanism.
         /// </summary>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> with all the items that are affected within the failure mechanism
         /// after clearing all the within the target collection.</returns>

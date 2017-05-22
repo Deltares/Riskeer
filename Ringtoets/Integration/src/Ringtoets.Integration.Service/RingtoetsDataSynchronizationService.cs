@@ -587,7 +587,7 @@ namespace Ringtoets.Integration.Service
         /// and the <paramref name="foreshoreProfiles"/> in addition to clearing all data that depends 
         /// on it, either directly or indirectly.
         /// </summary>
-        /// <param name="calculations">The calculations that need to be updated</param>
+        /// <param name="calculations">The calculations that need to be updated.</param>
         /// <param name="foreshoreProfiles">The collection containing the foreshore profiles.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with affected objects.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is 

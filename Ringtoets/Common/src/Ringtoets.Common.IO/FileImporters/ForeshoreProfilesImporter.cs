@@ -47,11 +47,11 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="importTarget">The foreshore profiles to import on.</param>
         /// <param name="referenceLine">The reference line used to check if the <see cref="ForeshoreProfile"/>
-        ///     objects found in the file are intersecting it.</param>
+        /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="foreshoreProfileUpdateStrategy">The strategy to update the 
-        ///     foreshore profiles with the imported data.</param>
-        /// <param name="messageProvider"></param>
+        /// foreshore profiles with the imported data.</param>
+        /// <param name="messageProvider">The message provider to provide messages during the import.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ForeshoreProfilesImporter(ForeshoreProfileCollection importTarget,
                                          ReferenceLine referenceLine,

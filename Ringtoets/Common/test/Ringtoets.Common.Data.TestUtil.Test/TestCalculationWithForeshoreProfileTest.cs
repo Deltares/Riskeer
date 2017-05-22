@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateCalculationWithOutput_ReturnsExpectedValues()
+        public void CreateCalculationWithOutput_WithForeshoreProfile_ReturnsExpectedValues()
         {
             // Setup
             var foreshoreProfile = new TestForeshoreProfile();
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateCalculationWithoutOutput_ReturnsExpectedValues()
+        public void CreateCalculationWithoutOutput_WithForeshoreProfile_ReturnsExpectedValues()
         {
             // Setup
             var foreshoreProfile = new TestForeshoreProfile();
@@ -85,32 +85,45 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void GivenCalculationWithOutPut_WhenClearOutputCalled_ThenOutputCleared()
+        public void CreateCalculationWithoutOutput_ForeshoreProfileNull_ReturnsExpectedValues()
         {
-            // Given
+            // Call
+            TestCalculationWithForeshoreProfile calculation =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(null);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+            Assert.IsNull(calculation.Comments);
+        }
+
+        [Test]
+        public void ClearOutput_CalculationWithOutput_OutputClear()
+        {
+            // Setup
             var foreshoreProfile = new TestForeshoreProfile();
             TestCalculationWithForeshoreProfile calculation =
                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
 
-            // When
+            // Call
             calculation.ClearOutput();
 
-            // Then
+            // Assert
             Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
-        public void GivenCalculationWithoutOutPut_WhenClearOutputCalled_ThenOutputStillClear()
+        public void ClearOutput_WithoutOutput_OutputClear()
         {
-            // Given
+            // Setup
             var foreshoreProfile = new TestForeshoreProfile();
             TestCalculationWithForeshoreProfile calculation =
                 TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
 
-            // When
+            // Call
             calculation.ClearOutput();
 
-            // Then
+            // Assert
             Assert.IsFalse(calculation.HasOutput);
         }
     }
