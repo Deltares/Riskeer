@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -51,42 +52,23 @@ namespace Ringtoets.Integration.Test.FileImporters
         private const string sourceFilePath = "path/to/foreshoreProfiles";
 
         [Test]
-        public void UpdateForeshoreProfilesWithImportedData_FullyConfiguredWaveImpactAsphaltCoverFailureMechanism_UpdatesAffectedCalculation()
+        [TestCaseSource(nameof(GetSupportedFailureMechanisms))]
+        public void UpdateForeshoreProfilesWithImportedData_SupportedFailureMechanisms_UpdatesAffectedCalculationAndReturnsAffectedData(
+            IFailureMechanism failureMechanism,
+            ForeshoreProfileCollection foreshoreProfiles,
+            ForeshoreProfile unaffectedForeshoreProfile)
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism =
-                TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
-
-            ForeshoreProfile profileToBeUpdated = failureMechanism.ForeshoreProfiles[0];
+            ForeshoreProfile profileToBeUpdated = foreshoreProfiles[0];
             ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
-            ForeshoreProfile profileToBeRemoved = failureMechanism.ForeshoreProfiles[1];
-
-            const string unaffectedProfileName = "Custom Profile";
-            const string unaffectedProfileId = "Custom ID";
-            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                unaffectedProfile
-            }, sourceFilePath);
-            var unaffectedCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = unaffectedProfile
-                },
-                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
-                {
-                    new TestWaveConditionsOutput()
-                })
-            };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            ForeshoreProfile profileToBeRemoved = foreshoreProfiles[1];
 
             var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
 
             ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
                 failureMechanism.Calculations
                                 .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
+                                .Where(calc => ReferenceEquals(GetForeshoreProfile(calc),
                                                                profileToBeUpdated))
                                 .ToArray();
 
@@ -97,7 +79,7 @@ namespace Ringtoets.Integration.Test.FileImporters
             ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfile =
                 failureMechanism.Calculations
                                 .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
+                                .Where(calc => ReferenceEquals(GetForeshoreProfile(calc),
                                                                profileToBeRemoved))
                                 .ToArray();
 
@@ -105,20 +87,35 @@ namespace Ringtoets.Integration.Test.FileImporters
                 calculationsWithRemovedForeshoreProfile.Where(calc => calc.HasOutput)
                                                        .ToArray();
 
+            ICalculation<ICalculationInput>[] calculationsWithUnaffectedForeshoreProfile =
+                failureMechanism.Calculations
+                                .Cast<ICalculation<ICalculationInput>>()
+                                .Where(calc => ReferenceEquals(GetForeshoreProfile(calc),
+                                                               unaffectedForeshoreProfile))
+                                .ToArray();
+
+            ICalculation<ICalculationInput>[] calculationsWithUnaffectedForeshoreProfileAndOutput =
+                failureMechanism.Calculations
+                                .Cast<ICalculation<ICalculationInput>>()
+                                .Where(calc => ReferenceEquals(GetForeshoreProfile(calc),
+                                                               unaffectedForeshoreProfile))
+                                .ToArray();
+
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
+                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
                                                                  new[]
                                                                  {
                                                                      profileToUpdateFrom,
-                                                                     new TestForeshoreProfile(unaffectedProfileName,
-                                                                                              unaffectedProfileId)
+                                                                     new TestForeshoreProfile(unaffectedForeshoreProfile.Name,
+                                                                                              unaffectedForeshoreProfile.Id)
                                                                  },
                                                                  sourceFilePath);
 
             // Assert
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
-            Assert.AreSame(unaffectedProfile, unaffectedCalculation.InputParameters.ForeshoreProfile);
+            Assert.IsTrue(calculationsWithUnaffectedForeshoreProfileAndOutput.All(calc => calc.HasOutput));
+            Assert.IsTrue(calculationsWithUnaffectedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
+                                                                                                 unaffectedForeshoreProfile)));
 
             Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => !calc.HasOutput));
             Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
@@ -129,451 +126,7 @@ namespace Ringtoets.Integration.Test.FileImporters
 
             var expectedAffectedObjects = new List<IObservable>
             {
-                failureMechanism.ForeshoreProfiles,
-                profileToBeUpdated
-            };
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfile.Select(calc => calc.InputParameters));
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfile.Select(calc => calc.InputParameters));
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_FullyConfiguredGrassCoverOutwardsFailureMechanism_UpdatesAffectedCalculation()
-        {
-            // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism =
-                TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
-
-            ForeshoreProfile profileToBeUpdated = failureMechanism.ForeshoreProfiles[0];
-            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
-            ForeshoreProfile profileToBeRemoved = failureMechanism.ForeshoreProfiles[1];
-
-            const string unaffectedProfileName = "Custom Profile";
-            const string unaffectedProfileId = "Custom ID";
-            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                unaffectedProfile
-            }, sourceFilePath);
-            var unaffectedCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = unaffectedProfile
-                },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
-                {
-                    new TestWaveConditionsOutput()
-                })
-            };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
-
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeUpdated))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfileWithOutputs =
-                calculationsWithUpdatedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeRemoved))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfileWithOutputs =
-                calculationsWithRemovedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 new[]
-                                                                 {
-                                                                     profileToUpdateFrom,
-                                                                     new TestForeshoreProfile(unaffectedProfileName,
-                                                                                              unaffectedProfileId)
-                                                                 },
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
-            Assert.AreSame(unaffectedProfile, unaffectedCalculation.InputParameters.ForeshoreProfile);
-
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
-                                                                                              profileToBeUpdated)));
-
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => GetForeshoreProfile(calc) == null));
-
-            var expectedAffectedObjects = new List<IObservable>
-            {
-                failureMechanism.ForeshoreProfiles,
-                profileToBeUpdated
-            };
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfile.Select(calc => calc.InputParameters));
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfile.Select(calc => calc.InputParameters));
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_FullyConfiguredStabilityStoneCoverFailureMechanism_UpdatesAffectedCalculation()
-        {
-            // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism =
-                TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
-
-            ForeshoreProfile profileToBeUpdated = failureMechanism.ForeshoreProfiles[0];
-            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
-            ForeshoreProfile profileToBeRemoved = failureMechanism.ForeshoreProfiles[1];
-
-            const string unaffectedProfileName = "Custom Profile";
-            const string unaffectedProfileId = "Custom ID";
-            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                unaffectedProfile
-            }, sourceFilePath);
-            var unaffectedCalculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = unaffectedProfile
-                },
-                Output = new StabilityStoneCoverWaveConditionsOutput(new[]
-                {
-                    new TestWaveConditionsOutput()
-                }, new[]
-                {
-                    new TestWaveConditionsOutput()
-                })
-            };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
-
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeUpdated))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfileWithOutputs =
-                calculationsWithUpdatedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeRemoved))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfileWithOutputs =
-                calculationsWithRemovedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 new[]
-                                                                 {
-                                                                     profileToUpdateFrom,
-                                                                     new TestForeshoreProfile(unaffectedProfileName,
-                                                                                              unaffectedProfileId)
-                                                                 },
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
-            Assert.AreSame(unaffectedProfile, unaffectedCalculation.InputParameters.ForeshoreProfile);
-
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
-                                                                                              profileToBeUpdated)));
-
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => GetForeshoreProfile(calc) == null));
-
-            var expectedAffectedObjects = new List<IObservable>
-            {
-                failureMechanism.ForeshoreProfiles,
-                profileToBeUpdated
-            };
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfile.Select(calc => calc.InputParameters));
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfile.Select(calc => calc.InputParameters));
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_FullyConfiguredHeightStructuresFailureMechanism_UpdatesAffectedCalculation()
-        {
-            // Setup
-            HeightStructuresFailureMechanism failureMechanism =
-                TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
-
-            ForeshoreProfile profileToBeUpdated = failureMechanism.ForeshoreProfiles[0];
-            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
-            ForeshoreProfile profileToBeRemoved = failureMechanism.ForeshoreProfiles[1];
-
-            const string unaffectedProfileName = "Custom Profile";
-            const string unaffectedProfileId = "Custom ID";
-            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                unaffectedProfile
-            }, sourceFilePath);
-            var unaffectedCalculation = new TestHeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = unaffectedProfile
-                },
-                Output = new TestStructuresOutput()
-            };
-            failureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
-
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeUpdated))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfileWithOutputs =
-                calculationsWithUpdatedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeRemoved))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfileWithOutputs =
-                calculationsWithRemovedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 new[]
-                                                                 {
-                                                                     profileToUpdateFrom,
-                                                                     new TestForeshoreProfile(unaffectedProfileName,
-                                                                                              unaffectedProfileId)
-                                                                 },
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
-            Assert.AreSame(unaffectedProfile, unaffectedCalculation.InputParameters.ForeshoreProfile);
-
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
-                                                                                              profileToBeUpdated)));
-
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => GetForeshoreProfile(calc) == null));
-
-            var expectedAffectedObjects = new List<IObservable>
-            {
-                failureMechanism.ForeshoreProfiles,
-                profileToBeUpdated
-            };
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfile.Select(calc => calc.InputParameters));
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfile.Select(calc => calc.InputParameters));
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_FullyConfiguredStabilityPointStructuresFailureMechanism_UpdatesAffectedCalculation()
-        {
-            // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism =
-                TestDataGenerator.GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations();
-
-            ForeshoreProfile profileToBeUpdated = failureMechanism.ForeshoreProfiles[0];
-            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
-            ForeshoreProfile profileToBeRemoved = failureMechanism.ForeshoreProfiles[1];
-
-            const string unaffectedProfileName = "Custom Profile";
-            const string unaffectedProfileId = "Custom ID";
-            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                unaffectedProfile
-            }, sourceFilePath);
-            var unaffectedCalculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = unaffectedProfile
-                },
-                Output = new TestStructuresOutput()
-            };
-            failureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
-
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeUpdated))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfileWithOutputs =
-                calculationsWithUpdatedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeRemoved))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfileWithOutputs =
-                calculationsWithRemovedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 new[]
-                                                                 {
-                                                                     profileToUpdateFrom,
-                                                                     new TestForeshoreProfile(unaffectedProfileName,
-                                                                                              unaffectedProfileId)
-                                                                 },
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
-            Assert.AreSame(unaffectedProfile, unaffectedCalculation.InputParameters.ForeshoreProfile);
-
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
-                                                                                              profileToBeUpdated)));
-
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => GetForeshoreProfile(calc) == null));
-
-            var expectedAffectedObjects = new List<IObservable>
-            {
-                failureMechanism.ForeshoreProfiles,
-                profileToBeUpdated
-            };
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfileWithOutputs);
-            expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfile.Select(calc => calc.InputParameters));
-            expectedAffectedObjects.AddRange(calculationsWithRemovedForeshoreProfile.Select(calc => calc.InputParameters));
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_FullyConfiguredClosingStructuresFailureMechanism_UpdatesAffectedCalculation()
-        {
-            // Setup
-            ClosingStructuresFailureMechanism failureMechanism =
-                TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations();
-
-            ForeshoreProfile profileToBeUpdated = failureMechanism.ForeshoreProfiles[0];
-            ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
-            ForeshoreProfile profileToBeRemoved = failureMechanism.ForeshoreProfiles[1];
-
-            const string unaffectedProfileName = "Custom Profile";
-            const string unaffectedProfileId = "Custom ID";
-            var unaffectedProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                unaffectedProfile
-            }, sourceFilePath);
-            var unaffectedCalculation = new TestClosingStructuresCalculation
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = unaffectedProfile
-                },
-                Output = new TestStructuresOutput()
-            };
-            failureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
-
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeUpdated))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfileWithOutputs =
-                calculationsWithUpdatedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfile =
-                failureMechanism.Calculations
-                                .Cast<ICalculation<ICalculationInput>>()
-                                .Where(calc => ReferenceEquals(((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile,
-                                                               profileToBeRemoved))
-                                .ToArray();
-
-            ICalculation<ICalculationInput>[] calculationsWithRemovedForeshoreProfileWithOutputs =
-                calculationsWithRemovedForeshoreProfile.Where(calc => calc.HasOutput)
-                                                       .ToArray();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 new[]
-                                                                 {
-                                                                     profileToUpdateFrom,
-                                                                     new TestForeshoreProfile(unaffectedProfileName,
-                                                                                              unaffectedProfileId)
-                                                                 },
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsTrue(unaffectedCalculation.HasOutput);
-            Assert.AreSame(unaffectedProfile, unaffectedCalculation.InputParameters.ForeshoreProfile);
-
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithUpdatedForeshoreProfile.All(calc => ReferenceEquals(GetForeshoreProfile(calc),
-                                                                                              profileToBeUpdated)));
-
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => !calc.HasOutput));
-            Assert.IsTrue(calculationsWithRemovedForeshoreProfile.All(calc => GetForeshoreProfile(calc) == null));
-
-            var expectedAffectedObjects = new List<IObservable>
-            {
-                failureMechanism.ForeshoreProfiles,
+                foreshoreProfiles,
                 profileToBeUpdated
             };
             expectedAffectedObjects.AddRange(calculationsWithUpdatedForeshoreProfileWithOutputs);
@@ -624,5 +177,204 @@ namespace Ringtoets.Integration.Test.FileImporters
                                             X0 = modifiedX0
                                         });
         }
+
+        #region TestData
+
+        private static IEnumerable<TestCaseData> GetSupportedFailureMechanisms()
+        {
+            const string unaffectedProfileName = "Custom Profile";
+            const string unaffectedProfileId = "Custom ID";
+
+            var unaffectedForeshoreProfile = new TestForeshoreProfile(unaffectedProfileName, unaffectedProfileId);
+
+            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism =
+                CreateWaveImpactAsphaltCoverFailureMechanismWithAllUpdateForeshoreProfileScenarios(unaffectedForeshoreProfile);
+            yield return new TestCaseData(
+                    waveImpactAsphaltCoverFailureMechanism,
+                    waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles,
+                    unaffectedForeshoreProfile)
+                .SetName("WaveImpactAsphaltCoverFailureMechanism");
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism =
+                CreateGrassCoverErosionOutwardsFailureMechanismWithAllUpdateForeshoreProfileScenarios(unaffectedForeshoreProfile);
+            yield return new TestCaseData(
+                    grassCoverErosionOutwardsFailureMechanism,
+                    grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles,
+                    unaffectedForeshoreProfile)
+                .SetName("GrassCoverErosionOutwardsFailureMechanism");
+
+            StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism =
+                CreateStabilityStoneCoverFailureMechanismWithAllUpdateForeshoreProfileScenarios(unaffectedForeshoreProfile);
+            yield return new TestCaseData(
+                    stabilityStoneCoverFailureMechanism,
+                    stabilityStoneCoverFailureMechanism.ForeshoreProfiles,
+                    unaffectedForeshoreProfile)
+                .SetName("StabilityStoneCoverFailureMechanism");
+
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism =
+                CreateStabilityPointStructuresFailureMechanismWithAllUpdateForeshoreProfileScenarios(unaffectedForeshoreProfile);
+            yield return new TestCaseData(
+                    stabilityPointStructuresFailureMechanism,
+                    stabilityPointStructuresFailureMechanism.ForeshoreProfiles,
+                    unaffectedForeshoreProfile)
+                .SetName("StabilityPointStructuresFailureMechanism");
+
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism =
+                CreateClosingStructuresFailureMechanismWithAllUpdateForeshoreProfileScenarios(unaffectedForeshoreProfile);
+            yield return new TestCaseData(
+                    closingStructuresFailureMechanism,
+                    closingStructuresFailureMechanism.ForeshoreProfiles,
+                    unaffectedForeshoreProfile)
+                .SetName("ClosingStructuresFailureMechanism");
+
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism =
+                CreateHeightStructuresFailureMechanismWithAllUpdateForeshoreProfileScenarios(unaffectedForeshoreProfile);
+            yield return new TestCaseData(
+                    heightStructuresFailureMechanism,
+                    heightStructuresFailureMechanism.ForeshoreProfiles,
+                    unaffectedForeshoreProfile)
+                .SetName("HeightStructuresFailureMechanism");
+        }
+
+        private static WaveImpactAsphaltCoverFailureMechanism CreateWaveImpactAsphaltCoverFailureMechanismWithAllUpdateForeshoreProfileScenarios(
+            ForeshoreProfile unaffectedForeshoreProfile)
+        {
+            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism =
+                TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
+            waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                unaffectedForeshoreProfile
+            }, sourceFilePath);
+            var unaffectedCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = unaffectedForeshoreProfile
+                },
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
+                {
+                    new TestWaveConditionsOutput()
+                })
+            };
+            waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            return waveImpactAsphaltCoverFailureMechanism;
+        }
+
+        private static GrassCoverErosionOutwardsFailureMechanism CreateGrassCoverErosionOutwardsFailureMechanismWithAllUpdateForeshoreProfileScenarios(
+            ForeshoreProfile unaffectedForeshoreProfile)
+        {
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism =
+                TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
+            grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                unaffectedForeshoreProfile
+            }, sourceFilePath);
+            var unaffectedCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = unaffectedForeshoreProfile
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
+                {
+                    new TestWaveConditionsOutput()
+                })
+            };
+            grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            return grassCoverErosionOutwardsFailureMechanism;
+        }
+
+        private static StabilityStoneCoverFailureMechanism CreateStabilityStoneCoverFailureMechanismWithAllUpdateForeshoreProfileScenarios(
+            ForeshoreProfile unaffectedForeshoreProfile)
+        {
+            StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism =
+                TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
+            stabilityStoneCoverFailureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                unaffectedForeshoreProfile
+            }, sourceFilePath);
+            var unaffectedCalculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = unaffectedForeshoreProfile
+                },
+                Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                                                                     {
+                                                                         new TestWaveConditionsOutput()
+                                                                     },
+                                                                     new[]
+                                                                     {
+                                                                         new TestWaveConditionsOutput()
+                                                                     })
+            };
+            stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            return stabilityStoneCoverFailureMechanism;
+        }
+
+        private static HeightStructuresFailureMechanism CreateHeightStructuresFailureMechanismWithAllUpdateForeshoreProfileScenarios(
+            ForeshoreProfile unaffectedForeshoreProfile)
+        {
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism =
+                TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
+            heightStructuresFailureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                unaffectedForeshoreProfile
+            }, sourceFilePath);
+            var unaffectedCalculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = unaffectedForeshoreProfile
+                },
+                Output = new TestStructuresOutput()
+            };
+            heightStructuresFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
+            return heightStructuresFailureMechanism;
+        }
+
+        private static ClosingStructuresFailureMechanism CreateClosingStructuresFailureMechanismWithAllUpdateForeshoreProfileScenarios(
+            ForeshoreProfile unaffectedForeshoreProfile)
+        {
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism =
+                TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations();
+            closingStructuresFailureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                unaffectedForeshoreProfile
+            }, sourceFilePath);
+            var unaffectedCalculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = unaffectedForeshoreProfile
+                },
+                Output = new TestStructuresOutput()
+            };
+            closingStructuresFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
+            return closingStructuresFailureMechanism;
+        }
+
+        private static StabilityPointStructuresFailureMechanism CreateStabilityPointStructuresFailureMechanismWithAllUpdateForeshoreProfileScenarios(
+            ForeshoreProfile unaffectedForeshoreProfile)
+        {
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism =
+                TestDataGenerator.GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations();
+            stabilityPointStructuresFailureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                unaffectedForeshoreProfile
+            }, sourceFilePath);
+            var unaffectedCalculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = unaffectedForeshoreProfile
+                },
+                Output = new TestStructuresOutput()
+            };
+            stabilityPointStructuresFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
+            return stabilityPointStructuresFailureMechanism;
+        }
+
+        #endregion
     }
 }

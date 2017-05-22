@@ -24,8 +24,9 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -42,266 +43,87 @@ namespace Ringtoets.Integration.Test.FileImporters
         private const string sourceFilePath = "path/to/foreshoreProfiles";
 
         [Test]
-        public void UpdateForeshoreProfilesWithImportedData_WaveImpactAsphaltCoverCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
+        [TestCaseSource(nameof(GetSupportedFailureMechanisms))]
+        public void UpdateForeshoreProfilesWithImportedData_SupportedFailureMechanism_CalculationUpdatedAndReturnsAffectedData(
+            IFailureMechanism failureMechanism,
+            ForeshoreProfileCollection foreshoreProfiles)
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism =
+            ICalculation<ICalculationInput>[] calculationsWithForeshoreProfiles =
+                failureMechanism.Calculations
+                                .Cast<ICalculation<ICalculationInput>>()
+                                .Where(calc => ((IHasForeshoreProfile) calc.InputParameters).ForeshoreProfile != null)
+                                .ToArray();
+
+            ICalculation<ICalculationInput>[] calculationsWithOutput =
+                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
+                                                 .ToArray();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
+            CollectionAssert.IsNotEmpty(calculationsWithOutput);
+
+            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, foreshoreProfiles);
+
+            // Call 
+            IEnumerable<IObservable> affectedObjects =
+                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
+                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                 sourceFilePath);
+
+            // Assert
+            Assert.IsFalse(calculationsWithOutput.All(calc => calc.HasOutput));
+            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => ((IHasForeshoreProfile) calc.InputParameters)
+                                                                        .ForeshoreProfile == null));
+            CollectionAssert.IsEmpty(foreshoreProfiles);
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
+                                                 .Concat(new IObservable[]
+                                                             {
+                                                                 foreshoreProfiles
+                                                             }
+                                                             .Concat(calculationsWithOutput));
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        private static IEnumerable<TestCaseData> GetSupportedFailureMechanisms()
+        {
+            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism =
                 TestDataGenerator.GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations();
+            yield return new TestCaseData(
+                    waveImpactAsphaltCoverFailureMechanism, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles)
+                .SetName("WaveImpactAsphaltCoverFailureMechanism");
 
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithForeshoreProfiles =
-                failureMechanism.Calculations
-                                .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
-                                .ToArray();
-
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculationsWithOutput =
-                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
-                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, failureMechanism.ForeshoreProfiles);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsFalse(calculationsWithOutput.All(calc => calc.HasOutput));
-            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => calc.InputParameters
-                                                                            .ForeshoreProfile == null));
-            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-
-            IEnumerable<IObservable> expectedAffectedObjects =
-                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
-                                                 .Concat(new IObservable[]
-                                                             {
-                                                                 failureMechanism.ForeshoreProfiles
-                                                             }
-                                                             .Concat(calculationsWithOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_GrassCoverErosionOutwardsCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism =
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism =
                 TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
+            yield return new TestCaseData(
+                    grassCoverErosionOutwardsFailureMechanism, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles)
+                .SetName("GrassCoverErosionOutwardsFailureMechanism");
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithForeshoreProfiles =
-                failureMechanism.Calculations
-                                .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
-                                .ToArray();
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculationsWithOutput =
-                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
-                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, failureMechanism.ForeshoreProfiles);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsFalse(calculationsWithOutput.All(calc => calc.HasOutput));
-            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => calc.InputParameters
-                                                                            .ForeshoreProfile == null));
-            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-
-            IEnumerable<IObservable> expectedAffectedObjects =
-                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
-                                                 .Concat(new IObservable[]
-                                                             {
-                                                                 failureMechanism.ForeshoreProfiles
-                                                             }
-                                                             .Concat(calculationsWithOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_StabilityStoneCoverCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism =
+            StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism =
                 TestDataGenerator.GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations();
+            yield return new TestCaseData(
+                    stabilityStoneCoverFailureMechanism, stabilityStoneCoverFailureMechanism.ForeshoreProfiles)
+                .SetName("StabilityStoneCoverFailureMechanism");
 
-            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithForeshoreProfiles =
-                failureMechanism.Calculations
-                                .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
-                                .ToArray();
-
-            StabilityStoneCoverWaveConditionsCalculation[] calculationsWithOutput =
-                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
-                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, failureMechanism.ForeshoreProfiles);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsFalse(calculationsWithOutput.All(calc => calc.HasOutput));
-            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => calc.InputParameters
-                                                                            .ForeshoreProfile == null));
-            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-
-            IEnumerable<IObservable> expectedAffectedObjects =
-                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
-                                                 .Concat(new IObservable[]
-                                                             {
-                                                                 failureMechanism.ForeshoreProfiles
-                                                             }
-                                                             .Concat(calculationsWithOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_HeightStructuresCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            HeightStructuresFailureMechanism failureMechanism =
-                TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
-
-            StructuresCalculation<HeightStructuresInput>[] calculationsWithForeshoreProfiles =
-                failureMechanism.Calculations
-                                .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
-                                .ToArray();
-
-            StructuresCalculation<HeightStructuresInput>[] calculationsWithOutput =
-                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
-                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, failureMechanism.ForeshoreProfiles);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsFalse(calculationsWithOutput.All(calc => calc.HasOutput));
-            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => calc.InputParameters
-                                                                            .ForeshoreProfile == null));
-            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-
-            IEnumerable<IObservable> expectedAffectedObjects =
-                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
-                                                 .Concat(new IObservable[]
-                                                             {
-                                                                 failureMechanism.ForeshoreProfiles
-                                                             }
-                                                             .Concat(calculationsWithOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_StabilityPointStructuresCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism =
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism =
                 TestDataGenerator.GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations();
+            yield return new TestCaseData(
+                    stabilityPointStructuresFailureMechanism, stabilityPointStructuresFailureMechanism.ForeshoreProfiles)
+                .SetName("StabilityPointStructuresFailureMechanism");
 
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithForeshoreProfiles =
-                failureMechanism.Calculations
-                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
-                                .ToArray();
-
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput =
-                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
-                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, failureMechanism.ForeshoreProfiles);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsFalse(calculationsWithOutput.All(calc => calc.HasOutput));
-            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => calc.InputParameters
-                                                                            .ForeshoreProfile == null));
-            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-
-            IEnumerable<IObservable> expectedAffectedObjects =
-                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
-                                                 .Concat(new IObservable[]
-                                                             {
-                                                                 failureMechanism.ForeshoreProfiles
-                                                             }
-                                                             .Concat(calculationsWithOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_ClosingStructuresCalculationWithForeshoreProfile_CalculationUpdatedAndReturnsAffectedData()
-        {
-            // Setup
-            ClosingStructuresFailureMechanism failureMechanism =
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism =
                 TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations();
+            yield return new TestCaseData(
+                    closingStructuresFailureMechanism, closingStructuresFailureMechanism.ForeshoreProfiles)
+                .SetName("ClosingStructuresFailureMechanism");
 
-            StructuresCalculation<ClosingStructuresInput>[] calculationsWithForeshoreProfiles =
-                failureMechanism.Calculations
-                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                .Where(calc => calc.InputParameters.ForeshoreProfile != null)
-                                .ToArray();
-
-            StructuresCalculation<ClosingStructuresInput>[] calculationsWithOutput =
-                calculationsWithForeshoreProfiles.Where(calc => calc.HasOutput)
-                                                 .ToArray();
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfiles);
-
-            var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, failureMechanism.ForeshoreProfiles);
-
-            // Call 
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(failureMechanism.ForeshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput == false));
-            Assert.IsTrue(calculationsWithForeshoreProfiles.All(calc => calc.InputParameters
-                                                                            .ForeshoreProfile == null));
-            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-
-            IEnumerable<IObservable> expectedAffectedObjects =
-                calculationsWithForeshoreProfiles.Select(calc => calc.InputParameters)
-                                                 .Concat(new IObservable[]
-                                                 {
-                                                     failureMechanism.ForeshoreProfiles
-                                                 }).Concat(calculationsWithOutput);
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism =
+                TestDataGenerator.GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations();
+            yield return new TestCaseData(
+                    heightStructuresFailureMechanism, heightStructuresFailureMechanism.ForeshoreProfiles)
+                .SetName("HeightStructuresFailureMechanism");
         }
     }
 }
