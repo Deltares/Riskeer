@@ -55,13 +55,13 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int revetmentBaseChartDataIndex = 7;
         private const int revetmentChartDataIndex = 8;
 
-        public static IEnumerable<TestCaseData> WaterLevelUpdateFunctions
+        private static IEnumerable<TestCaseData> WaterLevelUpdateFunctions
         {
             get
             {
                 yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
                 {
-                    var expectedWaterLevel = 5.2;
+                    const double expectedWaterLevel = 5.2;
                     wci.HydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
                     wci.HydraulicBoundaryLocation.NotifyObservers();
                     return expectedWaterLevel;
@@ -69,7 +69,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
                 {
-                    var expectedWaterLevel = 2.66;
+                    const double expectedWaterLevel = 2.66;
 
                     var newLocation = new TestHydraulicBoundaryLocation();
                     wci.HydraulicBoundaryLocation = newLocation;
@@ -83,10 +83,12 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
                 {
-                    var expectedWaterLevel = 8.33;
+                    const double expectedWaterLevel = 8.33;
 
-                    var newLocation = new TestHydraulicBoundaryLocation();
-                    newLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
+                    var newLocation = new TestHydraulicBoundaryLocation
+                    {
+                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged)
+                    };
                     wci.HydraulicBoundaryLocation = newLocation;
                     wci.NotifyObservers();
 
