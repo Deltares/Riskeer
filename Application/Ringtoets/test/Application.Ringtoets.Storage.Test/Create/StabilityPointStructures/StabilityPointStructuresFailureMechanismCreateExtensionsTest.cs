@@ -214,7 +214,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             StabilityPointStructure structure = new TestStabilityPointStructure();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.StabilityPointStructures.Add(structure);
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                structure
+            }, "path");
 
             var persistenceRegistry = new PersistenceRegistry();
 

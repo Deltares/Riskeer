@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Structures");
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO);
 
-        private readonly ObservableList<StabilityPointStructure> testImportTarget = new ObservableList<StabilityPointStructure>();
+        private readonly StructureCollection<StabilityPointStructure> testImportTarget = new StructureCollection<StabilityPointStructure>();
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
@@ -72,7 +72,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             var importer = new StabilityPointStructuresImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider);
 
             // Assert
-            Assert.IsInstanceOf<StructuresImporter<ObservableList<StabilityPointStructure>>>(importer);
+            Assert.IsInstanceOf<StructuresImporter<StructureCollection<StabilityPointStructure>>>(importer);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var importTarget = new ObservableList<StabilityPointStructure>();
+            var importTarget = new StructureCollection<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -114,7 +114,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<StabilityPointStructure>();
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+            ;
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -178,7 +179,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            var importTarget = new ObservableList<StabilityPointStructure>();
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+            ;
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -217,7 +219,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<StabilityPointStructure>();
+            var importTarget = new StructureCollection<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -239,7 +241,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importTarget = new ObservableList<StabilityPointStructure>();
+            var importTarget = new StructureCollection<StabilityPointStructure>();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             // Call
@@ -278,11 +280,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
-        public void Import_StructureWithSameIdAlreadyImporterd_FalseAndImportTargetNotUpdated()
+        public void Import_StructureWithSameIdAlreadyImported_FalseAndImportTargetNotUpdated()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var errorText = "Failed";
+            const string errorText = "Failed";
             messageProvider.Stub(m => m.GetUpdateDataFailedLogMessageText(null)).IgnoreArguments().Return(errorText);
             messageProvider.Stub(m => m.GetAddDataToModelProgressText()).Return("Progress");
             mocks.ReplayAll();
@@ -298,11 +300,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new ObservableList<StabilityPointStructure>
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+            importTarget.AddRange(new[]
             {
                 new TestStabilityPointStructure("KWK_3"),
                 new TestStabilityPointStructure("KWK_4")
-            };
+            }, filePath);
             var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
 
             var importResult = true;

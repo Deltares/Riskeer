@@ -233,8 +233,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(2, 0),
                 new Point2D(4, 0)
             });
-            var structure1 = new TestStabilityPointStructure(new Point2D(1, 0));
-            var structure2 = new TestStabilityPointStructure(new Point2D(3, 0));
+            var structure1 = new TestStabilityPointStructure(new Point2D(1, 0), "id structure1");
+            var structure2 = new TestStabilityPointStructure(new Point2D(3, 0), "id structure2");
             var profile = new TestForeshoreProfile();
             StructuresCalculation<StabilityPointStructuresInput> calculation1 = new TestStabilityPointStructuresCalculation
             {
@@ -263,11 +263,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             };
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                StabilityPointStructures =
-                {
-                    structure1,
-                    structure2
-                },
                 CalculationsGroup =
                 {
                     Children =
@@ -284,6 +279,12 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     }
                 }
             };
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                structure1,
+                structure2
+            }, "path");
+
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 profile

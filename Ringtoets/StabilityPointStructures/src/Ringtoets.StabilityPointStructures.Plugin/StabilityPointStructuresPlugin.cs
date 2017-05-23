@@ -30,6 +30,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -564,7 +565,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private StrictContextMenuItem CreateGenerateStabilityPointStructuresCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
         {
-            ObservableList<StabilityPointStructure> stabilityPointStructures = nodeData.FailureMechanism.StabilityPointStructures;
+            StructureCollection<StabilityPointStructure> stabilityPointStructures = nodeData.FailureMechanism.StabilityPointStructures;
             bool structuresAvailable = stabilityPointStructures.Any();
 
             string stabilityPointStructuresCalculationGroupContextToolTip = structuresAvailable

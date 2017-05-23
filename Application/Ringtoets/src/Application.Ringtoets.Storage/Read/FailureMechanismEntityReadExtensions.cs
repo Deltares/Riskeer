@@ -33,7 +33,6 @@ using Application.Ringtoets.Storage.Read.PipingStructures;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
-using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -934,10 +933,14 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadStabilityPointStructures(this FailureMechanismEntity entity,
-                                                         ObservableList<StabilityPointStructure> stabilityPointStructures,
+                                                         StructureCollection<StabilityPointStructure> stabilityPointStructures,
                                                          ReadConversionCollector collector)
         {
-            stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
+            // TODO: WTI 1183 Add storage functionality
+            stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities
+                                                    .OrderBy(fpe => fpe.Order)
+                                                    .Select(structureEntity => structureEntity.Read(collector)),
+                                              "path");
         }
 
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)

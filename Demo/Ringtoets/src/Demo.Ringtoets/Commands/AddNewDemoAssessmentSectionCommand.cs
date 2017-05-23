@@ -582,7 +582,10 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeStabilityPointStructuresData(AssessmentSection demoAssessmentSection)
         {
             StabilityPointStructuresFailureMechanism failureMechanism = demoAssessmentSection.StabilityPointStructures;
-            failureMechanism.StabilityPointStructures.Add(CreateDemoStabilityPointStructure());
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                CreateDemoStabilityPointStructure()
+            }, "stabilityPointStructurePath");
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);

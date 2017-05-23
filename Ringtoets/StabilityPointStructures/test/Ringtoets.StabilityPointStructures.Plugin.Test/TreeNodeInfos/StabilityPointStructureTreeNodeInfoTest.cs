@@ -168,9 +168,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 TreeNodeInfo info = GetInfo(plugin);
 
-                var nodeData = new TestStabilityPointStructure(new Point2D(1, 0));
-                var otherProfile1 = new TestStabilityPointStructure(new Point2D(2, 0));
-                var otherProfile2 = new TestStabilityPointStructure(new Point2D(6, 0));
+                var nodeData = new TestStabilityPointStructure(new Point2D(1, 0), "id nodeData");
+                var otherStructure1 = new TestStabilityPointStructure(new Point2D(2, 0), "id otherStructure1");
+                var otherStructure2 = new TestStabilityPointStructure(new Point2D(6, 0), "id otherStructure2");
 
                 var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
                 {
@@ -184,7 +184,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 {
                     InputParameters =
                     {
-                        Structure = otherProfile1
+                        Structure = otherStructure1
                     }
                 };
                 calculation2.InputParameters.Attach(calculation2Observer);
@@ -192,19 +192,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 {
                     InputParameters =
                     {
-                        Structure = otherProfile2
+                        Structure = otherStructure2
                     }
                 };
                 calculation3.InputParameters.Attach(calculation3Observer);
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {
-                    StabilityPointStructures =
-                    {
-                        nodeData,
-                        otherProfile1,
-                        otherProfile2
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -215,6 +209,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.StabilityPointStructures.AddRange(new[]
+                {
+                    nodeData,
+                    otherStructure1,
+                    otherStructure2
+                }, "path");
+
                 failureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0),

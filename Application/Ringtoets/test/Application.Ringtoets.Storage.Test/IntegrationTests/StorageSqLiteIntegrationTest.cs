@@ -27,7 +27,6 @@ using System.Threading;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
@@ -945,8 +944,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertStabilityPointStructures(ObservableList<StabilityPointStructure> expectedStabilityPointStructures,
-                                                           ObservableList<StabilityPointStructure> actualStabilityPointStructures)
+        private static void AssertStabilityPointStructures(StructureCollection<StabilityPointStructure> expectedStabilityPointStructures,
+                                                           StructureCollection<StabilityPointStructure> actualStabilityPointStructures)
         {
             Assert.AreEqual(expectedStabilityPointStructures.Count, actualStabilityPointStructures.Count);
             for (var i = 0; i < expectedStabilityPointStructures.Count; i++)

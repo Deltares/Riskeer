@@ -68,6 +68,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     AssertClosingStructures(reader);
                     AssertHeightStructures(reader);
+                    AssertStabilityPointStructures(reader);
                     AssertForeshoreProfiles(reader);
 
                     AssertVersions(reader);
@@ -313,6 +314,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM ClosingStructureEntity " +
                 "GROUP BY [FailureMechanismEntityId]";
             reader.AssertReturnedDataIsValid(validateClosingStructures);
+        }
+
+        private static void AssertStabilityPointStructures(MigratedDatabaseReader reader)
+        {
+            const string validateStabilityPointStructures =
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM StabilityPointStructureEntity " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateStabilityPointStructures);
         }
 
         /// <summary>

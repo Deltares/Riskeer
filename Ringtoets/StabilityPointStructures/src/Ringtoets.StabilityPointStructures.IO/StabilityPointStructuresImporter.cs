@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
@@ -39,7 +40,7 @@ namespace Ringtoets.StabilityPointStructures.IO
     /// Imports point shapefiles containing stability point structure locations
     /// and csv files containing stability point structure schematizations.
     /// </summary>
-    public class StabilityPointStructuresImporter : StructuresImporter<ObservableList<StabilityPointStructure>>
+    public class StabilityPointStructuresImporter : StructuresImporter<StructureCollection<StabilityPointStructure>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresImporter"/>.
@@ -50,7 +51,7 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public StabilityPointStructuresImporter(ObservableList<StabilityPointStructure> importTarget,
+        public StabilityPointStructuresImporter(StructureCollection<StabilityPointStructure> importTarget,
                                                 ReferenceLine referenceLine, string filePath, IImporterMessageProvider messageProvider)
             : base(importTarget, referenceLine, filePath, messageProvider) {}
 
@@ -71,7 +72,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                     duplicateFeatures);
                 throw new UpdateDataException(exceptionMessage);
             }
-            ImportTarget.AddRange(importedStabilityPointStructures);
+            ImportTarget.AddRange(importedStabilityPointStructures, FilePath);
             return Enumerable.Empty<IObservable>();
         }
 

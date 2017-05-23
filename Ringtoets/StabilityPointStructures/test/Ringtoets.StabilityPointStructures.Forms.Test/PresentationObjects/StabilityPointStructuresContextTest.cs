@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StructureCollection<StabilityPointStructure>>>(context);
             Assert.AreSame(failureMechanism, failureMechanism);
             Assert.AreSame(failureMechanism.StabilityPointStructures, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
@@ -62,7 +62,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var structures = new ObservableList<StabilityPointStructure>();
+            var structures = new StructureCollection<StabilityPointStructure>();
 
             // Call
             TestDelegate call = () => new StabilityPointStructuresContext(structures, null, assessmentSection);

@@ -20,28 +20,28 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="StabilityPointStructure"/>.
+    /// The presentation object for an <see cref="StructureCollection{TStructure}"/> containing <see cref="StabilityPointStructure"/>.
     /// </summary>
-    public class StabilityPointStructuresContext : ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>
+    public class StabilityPointStructuresContext : ObservableWrappedObjectContextBase<StructureCollection<StabilityPointStructure>>
     {
         /// <summary>
         /// Creates an instance of <see cref="StabilityPointStructuresContext"/>.
         /// </summary>
-        /// <param name="stabilityPointStructures">The wrapped <see cref="ObservableList{T}"/> 
+        /// <param name="stabilityPointStructures">The wrapped <see cref="StructureCollection{T}"/> 
         /// containing <see cref="StabilityPointStructure"/>.</param>
         /// <param name="failureMechanism"></param>
         /// <param name="assessmentSection">The assessment section which the <paramref name="stabilityPointStructures"/> 
         /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
-        public StabilityPointStructuresContext(ObservableList<StabilityPointStructure> stabilityPointStructures,
+        public StabilityPointStructuresContext(StructureCollection<StabilityPointStructure> stabilityPointStructures,
                                                StabilityPointStructuresFailureMechanism failureMechanism,
                                                IAssessmentSection assessmentSection)
             : base(stabilityPointStructures)

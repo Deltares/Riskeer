@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralStabilityPointStructuresInput();
-            StabilityPointStructures = new ObservableList<StabilityPointStructure>();
+            StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
             sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
@@ -68,7 +68,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the available stability point structures for this instance.
         /// </summary>
-        public ObservableList<StabilityPointStructure> StabilityPointStructures { get; private set; }
+        public StructureCollection<StabilityPointStructure> StabilityPointStructures { get; private set; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.

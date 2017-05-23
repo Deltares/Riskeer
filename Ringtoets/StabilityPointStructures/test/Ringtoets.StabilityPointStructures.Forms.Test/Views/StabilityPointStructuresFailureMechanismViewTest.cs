@@ -601,7 +601,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                                                                                                   new ObservableTestAssessmentSectionStub());
 
                 var structure = new TestStabilityPointStructure(new Point2D(0, 0), "Id");
-                failureMechanism.StabilityPointStructures.Add(structure);
+                failureMechanism.StabilityPointStructures.AddRange(new[]
+                {
+                    structure
+                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -633,8 +636,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism,
                                                                                                   new ObservableTestAssessmentSectionStub());
 
-                failureMechanism.StabilityPointStructures.Add(
-                    new TestStabilityPointStructure(new Point2D(0, 0), "Id1"));
+                failureMechanism.StabilityPointStructures.AddRange(
+                    new[]
+                    {
+                        new TestStabilityPointStructure(new Point2D(0, 0), "Id1")
+                    }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -645,8 +651,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                                                           structuresData);
 
                 // When
-                failureMechanism.StabilityPointStructures.Add(
-                    new TestStabilityPointStructure(new Point2D(1, 1), "Id2"));
+                failureMechanism.StabilityPointStructures.AddRange(
+                    new[]
+                    {
+                        new TestStabilityPointStructure(new Point2D(1, 1), "Id2")
+                    }, "path");
                 failureMechanism.StabilityPointStructures.NotifyObservers();
 
                 // Then

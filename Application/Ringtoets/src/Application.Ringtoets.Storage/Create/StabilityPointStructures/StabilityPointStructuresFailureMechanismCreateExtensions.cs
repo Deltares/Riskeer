@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -77,7 +78,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         }
 
         private static void AddEntitiesForStabilityPointStructures(
-            IList<StabilityPointStructure> structures,
+            StructureCollection<StabilityPointStructure> structures,
             FailureMechanismEntity entity,
             PersistenceRegistry registry)
         {

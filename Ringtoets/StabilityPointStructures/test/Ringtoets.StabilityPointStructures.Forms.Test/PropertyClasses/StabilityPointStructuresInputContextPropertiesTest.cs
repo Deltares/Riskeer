@@ -1202,13 +1202,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.StabilityPointStructures.AddRange(new[]
             {
-                StabilityPointStructures =
-                {
-                    new TestStabilityPointStructure()
-                }
-            };
+                new TestStabilityPointStructure()
+            }, "path/to/structures");
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
                                                                         calculation,

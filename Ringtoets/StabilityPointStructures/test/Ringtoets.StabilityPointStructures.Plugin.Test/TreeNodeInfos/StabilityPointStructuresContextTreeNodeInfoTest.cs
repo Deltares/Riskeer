@@ -129,13 +129,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.StabilityPointStructures.AddRange(new[]
             {
-                StabilityPointStructures =
-                {
-                    new TestStabilityPointStructure()
-                }
-            };
+                new TestStabilityPointStructure()
+            }, "path");
 
             // Precondition
             CollectionAssert.IsNotEmpty(failureMechanism.StabilityPointStructures);
@@ -164,16 +162,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            StabilityPointStructure structure1 = new TestStabilityPointStructure();
-            StabilityPointStructure structure2 = new TestStabilityPointStructure();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            StabilityPointStructure structure1 = new TestStabilityPointStructure("id structure1");
+            StabilityPointStructure structure2 = new TestStabilityPointStructure("id structure2");
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.StabilityPointStructures.AddRange(new[]
             {
-                StabilityPointStructures =
-                {
-                    structure1,
-                    structure2
-                }
-            };
+                structure1,
+                structure2
+            }, "path");
 
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
                                                               failureMechanism,

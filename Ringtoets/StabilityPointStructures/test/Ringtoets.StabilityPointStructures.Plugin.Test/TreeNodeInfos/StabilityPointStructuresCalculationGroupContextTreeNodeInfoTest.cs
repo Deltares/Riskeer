@@ -290,7 +290,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                new TestStabilityPointStructure()
+            }, "path");
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
@@ -1003,18 +1006,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                StabilityPointStructure structure1 = new TestStabilityPointStructure();
-                StabilityPointStructure structure2 = new TestStabilityPointStructure();
+                StabilityPointStructure structure1 = new TestStabilityPointStructure("id structure1");
+                StabilityPointStructure structure2 = new TestStabilityPointStructure("id structure2");
 
                 var existingCalculationGroup = new CalculationGroup();
                 var existingCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {
-                    StabilityPointStructures =
-                    {
-                        structure1,
-                        structure2
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -1024,6 +1022,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.StabilityPointStructures.AddRange(new[]
+                {
+                    structure1,
+                    structure2
+                }, "path");
 
                 var nodeData = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,
@@ -1074,17 +1077,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                StabilityPointStructure structure1 = new TestStabilityPointStructure();
-                StabilityPointStructure structure2 = new TestStabilityPointStructure();
+                StabilityPointStructure structure1 = new TestStabilityPointStructure("id structure1");
+                StabilityPointStructure structure2 = new TestStabilityPointStructure("id structure2");
 
-                var failureMechanism = new StabilityPointStructuresFailureMechanism
+                var failureMechanism = new StabilityPointStructuresFailureMechanism();
+                failureMechanism.StabilityPointStructures.AddRange(new[]
                 {
-                    StabilityPointStructures =
-                    {
-                        structure1,
-                        structure2
-                    }
-                };
+                    structure1,
+                    structure2
+                }, "path");
 
                 var nodeData = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,
@@ -1135,10 +1136,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {
-                    StabilityPointStructures =
-                    {
-                        stabilityPointStructure
-                    },
                     CalculationsGroup =
                     {
                         Children =
@@ -1150,6 +1147,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         }
                     }
                 };
+                failureMechanism.StabilityPointStructures.AddRange(new[]
+                {
+                    stabilityPointStructure
+                }, "path");
 
                 var nodeData = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,

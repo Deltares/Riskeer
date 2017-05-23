@@ -355,9 +355,12 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N = 8;
 
-            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
-            failureMechanism.StabilityPointStructures.Add(stabilityPointStructure);
-            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure("id structure1");
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                stabilityPointStructure,
+                new TestStabilityPointStructure("id structure2")
+            }, "path");
 
             var random = new Random(56);
 
@@ -442,11 +445,11 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.GeneralInput.N2A = 6;
 
             ClosingStructure closingStructure = new TestClosingStructure("structureA");
-            failureMechanism.ClosingStructures.AddRange(new []
+            failureMechanism.ClosingStructures.AddRange(new[]
             {
                 closingStructure,
                 new TestClosingStructure("structureB")
-            }, @"C:\Folder" );
+            }, @"C:\Folder");
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydroLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
