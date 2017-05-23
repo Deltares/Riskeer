@@ -40,23 +40,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateCalculationWithOutput_ForeshoreProfileNull_ReturnsExpectedValues()
-        {
-            // Call
-            TestCalculationWithForeshoreProfile calculation =
-                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(null);
-
-            // Assert
-            Assert.IsTrue(calculation.HasOutput);
-            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-            Assert.IsNull(calculation.Comments);
-        }
-
-        [Test]
-        public void CreateCalculationWithOutput_WithForeshoreProfile_ReturnsExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateCalculationWithOutput_WithOrWithoutForeshoreProfile_ReturnsExpectedValues(bool hasForeshoreProfile)
         {
             // Setup
-            var foreshoreProfile = new TestForeshoreProfile();
+            TestForeshoreProfile foreshoreProfile = null;
+
+            if (hasForeshoreProfile)
+            {
+                foreshoreProfile = new TestForeshoreProfile();
+            }
 
             // Call
             TestCalculationWithForeshoreProfile calculation =
@@ -69,10 +63,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateCalculationWithoutOutput_WithForeshoreProfile_ReturnsExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateCalculationWithoutOutput_WithOrWithoutForeshoreProfile_ReturnsExpectedValues(bool hasForeshoreProfile)
         {
             // Setup
-            var foreshoreProfile = new TestForeshoreProfile();
+            TestForeshoreProfile foreshoreProfile = null;
+
+            if (hasForeshoreProfile)
+            {
+                foreshoreProfile = new TestForeshoreProfile();
+            }
 
             // Call
             TestCalculationWithForeshoreProfile calculation =
@@ -81,19 +82,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsFalse(calculation.HasOutput);
             Assert.AreSame(foreshoreProfile, calculation.InputParameters.ForeshoreProfile);
-            Assert.IsNull(calculation.Comments);
-        }
-
-        [Test]
-        public void CreateCalculationWithoutOutput_ForeshoreProfileNull_ReturnsExpectedValues()
-        {
-            // Call
-            TestCalculationWithForeshoreProfile calculation =
-                TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(null);
-
-            // Assert
-            Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
             Assert.IsNull(calculation.Comments);
         }
 
@@ -113,7 +101,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void ClearOutput_WithoutOutput_OutputClear()
+        public void ClearOutput_WithoutOutput_DoesNotThrow()
         {
             // Setup
             var foreshoreProfile = new TestForeshoreProfile();
@@ -121,9 +109,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
 
             // Call
-            calculation.ClearOutput();
+            TestDelegate test = () => calculation.ClearOutput();
 
             // Assert
+            Assert.DoesNotThrow(test);
             Assert.IsFalse(calculation.HasOutput);
         }
     }
