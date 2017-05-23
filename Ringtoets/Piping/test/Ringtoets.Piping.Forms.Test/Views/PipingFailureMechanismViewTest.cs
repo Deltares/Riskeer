@@ -337,9 +337,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdatedAndObserversNotified()
+        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -384,21 +384,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
 
+                // When
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
-
-                // Call
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdatedAndObserversNotified()
+        public void GivenViewWithHydraulicBoundaryDatabaseData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -428,11 +427,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
-                // Call
+                // When
                 hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
                 hydraulicBoundaryDatabase.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
@@ -498,9 +497,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -542,21 +541,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
+                // When
                 assessmentSection.ReferenceLine.SetGeometry(points2);
-
-                // Call
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_SurfaceLinesUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -576,29 +574,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
 
-                failureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    surfaceLine
-                }, "path");
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                failureMechanism.SurfaceLines.AddRange(new[]
+                {
+                    surfaceLine
+                }, "path");
                 failureMechanism.SurfaceLines.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_SurfaceLineUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -612,21 +609,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = failureMechanismContext;
 
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(7, 8, 9),
-                    new Point3D(10, 11, 12)
-                });
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                surfaceLine.SetGeometry(new[]
+                {
+                    new Point3D(7, 8, 9),
+                    new Point3D(10, 11, 12)
+                });
                 surfaceLine.NotifyObservers();
 
-                // Assert
+                // Then
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
                 AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
                 mocks.VerifyAll();
@@ -634,9 +630,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -650,12 +646,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
-                failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                }));
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
@@ -668,10 +658,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                }));
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
@@ -680,9 +675,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_StochasticSoilModelsUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -701,29 +696,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
 
-                failureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    stochasticSoilModel
-                }, "path");
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                failureMechanism.StochasticSoilModels.AddRange(new[]
+                {
+                    stochasticSoilModel
+                }, "path");
                 failureMechanism.StochasticSoilModels.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -757,26 +751,25 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), calculationMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationInputUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -808,26 +801,25 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
-                calculationA.InputParameters.SurfaceLine = surfaceLineB;
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                calculationA.InputParameters.SurfaceLine = surfaceLineB;
                 calculationA.InputParameters.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), calculationMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationUpdated_MapDataUpdatedAndObserverNotified()
+        public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -859,17 +851,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
-                calculationA.Name = "new name";
-
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                // Call
+                // When
+                calculationA.Name = "new name";
                 calculationA.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), calculationMapData);
                 mocks.VerifyAll();
             }

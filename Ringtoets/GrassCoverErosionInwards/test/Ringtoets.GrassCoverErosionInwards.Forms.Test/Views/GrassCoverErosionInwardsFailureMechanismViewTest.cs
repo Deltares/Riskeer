@@ -286,9 +286,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyObservers_AssessmentSectionUpdated_MapDataUpdated()
+        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -334,12 +334,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
 
+                // When
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
-
-                // Call
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
 
                 mocks.VerifyAll();
@@ -347,9 +346,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyObservers_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryDatabaseData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -381,14 +380,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
+                // When
                 hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
-
-                // Call
                 hydraulicBoundaryDatabase.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
-
                 mocks.VerifyAll();
             }
         }
@@ -454,9 +451,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyObservers_ReferenceLineUpdated_MapDataUpdated()
+        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -500,21 +497,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
+                // When
                 assessmentSection.ReferenceLine.SetGeometry(points2);
-
-                // Call
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void NotifyObservers_FailureMechanismSectionsUpdated_MapDataUpdated()
+        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -540,28 +536,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
+                // When
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
                 {
                     new Point2D(1, 2),
                     new Point2D(1, 2)
                 }));
-
-                // Call
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void NotifyObservers_DikeProfilesUpdated_MapDataUpdated()
+        public void GivenViewWithDikeProfilesData_WhenDikeProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -586,24 +580,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
+                // When
                 failureMechanism.DikeProfiles.AddRange(new[]
                 {
                     new TestDikeProfile(string.Empty, "id2")
                 }, "path");
-
-                // Call
                 failureMechanism.DikeProfiles.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void NotifyObservers_DikeProfileUpdated_MapDataUpdated()
+        public void GivenViewWithDikeProfileData_WhenDikeProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -630,22 +623,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
+                // When
                 var dikeProfileToUpdateFrom = new TestDikeProfile("A new name", "id1");
                 dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
-
-                // Call
                 dikeProfile.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void NotifyObservers_ForeshoreProfilesUpdated_MapDataUpdated()
+        public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -676,28 +668,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
 
+                // When
                 var dikeProfileToUpdateFrom = new TestDikeProfile(new[]
                 {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
                 }, "id1");
-
                 dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
-
-                // Call
                 failureMechanism.DikeProfiles.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
-
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdated()
+        public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -734,22 +723,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
+                // When
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
-
-                // Call
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationInputUpdated_MapDataUpdated()
+        public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -778,22 +765,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
+                // When
                 calculationA.InputParameters.DikeProfile = dikeProfileB;
-
-                // Call
                 calculationA.InputParameters.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationUpdated_MapDataUpdated()
+        public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -821,14 +806,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
+                // When
                 calculationA.Name = "new name";
-
-                // Call
                 calculationA.NotifyObservers();
 
-                // Assert
+                // Then 
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-
                 mocks.VerifyAll();
             }
         }

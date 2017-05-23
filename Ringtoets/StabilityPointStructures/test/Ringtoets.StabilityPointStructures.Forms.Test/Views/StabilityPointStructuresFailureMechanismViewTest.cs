@@ -297,9 +297,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
+        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -333,19 +333,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
 
-                // Call
+                // When
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_MapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryDatabaseData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -372,11 +372,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
-                // Call
+                // When
                 hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
                 hydraulicBoundaryDatabase.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
             }
         }
@@ -428,9 +428,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
+        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -462,19 +462,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
-                // Call
+                // When
                 assessmentSection.ReferenceLine.SetGeometry(points2);
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             }
         }
 
         [Test]
-        public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
+        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -488,7 +488,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
-                // Call
+                // When
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
                 {
                     new Point2D(1, 2),
@@ -496,7 +496,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 }));
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
@@ -504,9 +504,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_ForeshoreProfileUpdate_MapDataUpdated()
+        public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -531,7 +531,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
-                // Call
+                // When
                 var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
                 {
                     new Point2D(2, 2),
@@ -540,15 +540,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
                 foreshoreProfile.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             }
         }
 
         [Test]
-        public void UpdateObserver_ForeshoreProfilesUpdated_MapDataUpdated()
+        public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -572,7 +572,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Precondition
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
 
-                // Call
+                // When
                 failureMechanism.ForeshoreProfiles.AddRange(new[]
                 {
                     new TestForeshoreProfile("newProfile ID", new[]
@@ -583,15 +583,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 }, "path");
                 failureMechanism.ForeshoreProfiles.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             }
         }
 
         [Test]
-        public void UpdateObserver_StructureUpdated_MapDataUpdated()
+        public void GivenViewWithStructureData_WhenStructureUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -611,20 +611,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 MapDataTestHelper.AssertStructuresMapData(failureMechanism.StabilityPointStructures,
                                                           structuresData);
 
-                // Call
+                // When
                 structure.CopyProperties(new TestStabilityPointStructure(new Point2D(1, 1), "Id"));
                 structure.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertStructuresMapData(failureMechanism.StabilityPointStructures,
                                                           structuresData);
             }
         }
 
         [Test]
-        public void UpdateObserver_StructuresUpdated_MapDataUpdated()
+        public void GivenViewWithStructuresData_WhenStructuresUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -644,21 +644,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 MapDataTestHelper.AssertStructuresMapData(failureMechanism.StabilityPointStructures,
                                                           structuresData);
 
-                // Call
+                // When
                 failureMechanism.StabilityPointStructures.Add(
                     new TestStabilityPointStructure(new Point2D(1, 1), "Id2"));
                 failureMechanism.StabilityPointStructures.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertStructuresMapData(failureMechanism.StabilityPointStructures,
                                                           structuresData);
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationGroupUpdated_MapDataUpdated()
+        public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -700,20 +700,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
                                           calculationMapData);
 
+                // When
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
-
-                // Call
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(), calculationMapData);
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationInputUpdated_MapDataUpdated()
+        public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -744,20 +743,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
                                           calculationMapData);
 
+                // When
                 calculationA.InputParameters.Structure = new TestStabilityPointStructure(calculationLocationB);
-
-                // Call
                 calculationA.InputParameters.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(), calculationMapData);
             }
         }
 
         [Test]
-        public void UpdateObserver_CalculationUpdated_MapDataUpdated()
+        public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
-            // Setup
+            // Given
             using (var view = new StabilityPointStructuresFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
@@ -787,12 +785,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
                                           calculationMapData);
 
+                // When
                 calculationA.Name = "new name";
-
-                // Call
                 calculationA.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>(), calculationMapData);
             }
         }
