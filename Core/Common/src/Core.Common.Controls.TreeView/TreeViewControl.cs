@@ -571,7 +571,6 @@ namespace Core.Common.Controls.TreeView
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
-            var refreshedTreeNodes = new List<TreeNode>();
             IEnumerable<TreeNode> currentTreeNodes = treeNode.Nodes.Cast<TreeNode>().ToList();
             Dictionary<object, TreeNode> currentTreeNodesPerTag = currentTreeNodes.ToDictionary(ctn => ctn.Tag, ctn => ctn);
             object[] newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
@@ -579,12 +578,10 @@ namespace Core.Common.Controls.TreeView
                                                : new object[0];
 
             // Obtain a collection of refreshed nodes, recycling any existing nodes
-            foreach (object childNodeObject in newChildNodeObjects)
-            {
-                refreshedTreeNodes.Add(currentTreeNodesPerTag.ContainsKey(childNodeObject)
-                    ? currentTreeNodesPerTag[childNodeObject]
-                    : CreateTreeNode(treeNode, childNodeObject));
-            }
+            List<TreeNode> refreshedTreeNodes = newChildNodeObjects.Select(
+                cno => currentTreeNodesPerTag.ContainsKey(cno)
+                           ? currentTreeNodesPerTag[cno]
+                           : CreateTreeNode(treeNode, cno)).ToList();
 
             // Remove any outdated nodes
             foreach (TreeNode removedNode in currentTreeNodes.Except(refreshedTreeNodes))
