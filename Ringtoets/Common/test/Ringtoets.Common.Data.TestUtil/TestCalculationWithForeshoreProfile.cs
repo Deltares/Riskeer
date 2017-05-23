@@ -54,15 +54,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="foreshoreProfile">The foreshore profile assigned to the calculation.</param>
         /// <returns>A <see cref="TestCalculationWithForeshoreProfile"/> with a foreshore and 
         /// calculation output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreProfile"/>
-        /// is <c>null</c>.</exception>
         public static TestCalculationWithForeshoreProfile CreateCalculationWithOutput(ForeshoreProfile foreshoreProfile)
         {
-            if (foreshoreProfile == null)
-            {
-                throw new ArgumentNullException(nameof(foreshoreProfile));
-            }
-
             return new TestCalculationWithForeshoreProfile(true)
             {
                 InputParameters =
