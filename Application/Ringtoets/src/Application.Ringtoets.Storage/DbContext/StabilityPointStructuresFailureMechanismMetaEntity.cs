@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismEntityId { get; set; }
         public int N { get; set; }
         public string ForeshoreProfileCollectionSourcePath { get; set; }
+        public string StabilityPointStructureCollectionSourcePath { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

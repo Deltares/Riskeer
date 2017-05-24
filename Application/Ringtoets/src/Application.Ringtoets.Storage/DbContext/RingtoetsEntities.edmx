@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\wti\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -879,6 +879,7 @@
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="N" Type="int" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="StabilityPointStructureCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresOutputEntity">
           <Key>
@@ -4152,6 +4153,7 @@
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="N" Type="Int32" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="StabilityPointStructureCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="StabilityPointStructuresFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresOutputEntity">
@@ -6447,6 +6449,7 @@
           <EntitySetMapping Name="StabilityPointStructuresFailureMechanismMetaEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresFailureMechanismMetaEntity">
+                <ScalarProperty Name="StabilityPointStructureCollectionSourcePath" ColumnName="StabilityPointStructureCollectionSourcePath" />
                 <ScalarProperty Name="ForeshoreProfileCollectionSourcePath" ColumnName="ForeshoreProfileCollectionSourcePath" />
                 <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
