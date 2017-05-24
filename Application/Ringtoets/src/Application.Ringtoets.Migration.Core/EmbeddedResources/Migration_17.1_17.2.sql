@@ -397,10 +397,11 @@ SELECT
 	[StrengthStabilityPointConstructionFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END,
 	CASE WHEN COUNT([StabilityPointStructureEntityId]) THEN "Onbekend" ELSE NULL END
 	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	LEFT JOIN StabilityPointStructureEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityId;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
