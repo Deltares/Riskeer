@@ -27,6 +27,7 @@ using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
@@ -58,7 +59,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -74,6 +75,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                     propertyInfos,
                     typeof(StabilityPointStructuresInputContext),
                     typeof(StabilityPointStructuresInputContextProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(StabilityPointStructuresContext),
+                    typeof(StructureCollectionProperties<StabilityPointStructure>));
             }
         }
 

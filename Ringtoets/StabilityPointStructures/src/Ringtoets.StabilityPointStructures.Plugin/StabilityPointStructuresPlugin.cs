@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
@@ -76,6 +77,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>
             {
                 CreateInstance = context => new StabilityPointStructuresInputContextProperties(context, new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
+            };
+            yield return new PropertyInfo<StabilityPointStructuresContext, StructureCollectionProperties<StabilityPointStructure>>
+            {
+                CreateInstance = context => new StructureCollectionProperties<StabilityPointStructure>(context.WrappedData)
             };
         }
 
@@ -141,6 +146,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
