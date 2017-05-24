@@ -2092,6 +2092,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Given
+            using (new UseCustomSettingsHelper(testSettingsHelper))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
                 BackgroundMapData = backgroundMapData
@@ -2132,6 +2134,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Given
+            using (new UseCustomSettingsHelper(testSettingsHelper))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
                 BackgroundMapData = backgroundMapData
@@ -2171,6 +2175,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Given
+            using (new UseCustomSettingsHelper(testSettingsHelper))
+            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var map = new MapControl
             {
                 BackgroundMapData = backgroundMapData
