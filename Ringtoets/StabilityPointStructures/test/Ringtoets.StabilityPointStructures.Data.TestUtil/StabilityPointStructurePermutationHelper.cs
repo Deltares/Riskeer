@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -41,13 +40,15 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
+        /// <code>
         /// [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
-        ///                 nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        ///     nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentStabilityPointStructures(string targetName, string testResultDescription)
         {
@@ -70,13 +71,15 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
+        /// <code>
         /// [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
-        ///                 nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        ///     nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentStabilityPointStructuresWithSameId(string targetName, string testResultDescription)
         {
@@ -103,13 +106,16 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
-        ///                 nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(StabilityPointStructurePermutationHelper),
+        ///     nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentStabilityPointStructuresWithSameIdNameAndLocation(string targetName, string testResultDescription)
         {

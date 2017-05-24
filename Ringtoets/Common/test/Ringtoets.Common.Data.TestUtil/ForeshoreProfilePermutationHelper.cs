@@ -42,13 +42,14 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>The collection of test case data.</returns>
         /// <example>
         /// <code>
-        /// [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-        /// nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0),
-        /// new object[]
-        /// {
-        ///     "TargetMethodName",
-        ///     "TestResult"
-        /// })]
+        /// [TestCaseSource(
+        ///     typeof(ForeshoreProfilePermutationHelper),
+        ///     nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
         /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentForeshoreProfilesWithSameIdNameAndX0(string targetName, string testResultDescription)
@@ -87,13 +88,14 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>The collection of test case data.</returns>
         /// <example>
         /// <code>
-        /// [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-        /// nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0),
-        /// new object[]
-        /// {
-        ///     "TargetMethodName",
-        ///     "TestResult"
-        /// })]
+        /// [TestCaseSource(
+        ///     typeof(ForeshoreProfilePermutationHelper),
+        ///     nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
         /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentForeshoreProfilesWithSameIdNameOrientationAndX0(string targetName, string testResultDescription)

@@ -40,13 +40,16 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
-        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructures),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(HeightStructurePermutationHelper),
+        ///     nameof(HeightStructurePermutationHelper.DifferentHeightStructures),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentHeightStructures(string targetName, string testResultDescription)
         {
@@ -69,13 +72,16 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
-        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(HeightStructurePermutationHelper),
+        ///     nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameId),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameId(string targetName, string testResultDescription)
         {
@@ -102,13 +108,16 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(HeightStructurePermutationHelper),
-        ///                 nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(HeightStructurePermutationHelper),
+        ///     nameof(HeightStructurePermutationHelper.DifferentHeightStructuresWithSameIdNameAndLocation),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameIdNameAndLocation(string targetName, string testResultDescription)
         {

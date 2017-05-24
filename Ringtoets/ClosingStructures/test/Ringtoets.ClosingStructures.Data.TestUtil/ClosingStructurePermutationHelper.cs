@@ -40,13 +40,16 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(ClosingStructurePermutationHelper),
-        ///                 nameof(ClosingStructurePermutationHelper.DifferentClosingStructures),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(ClosingStructurePermutationHelper),
+        ///     nameof(ClosingStructurePermutationHelper.DifferentClosingStructures),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentClosingStructures(string targetName, string testResultDescription)
         {
@@ -69,13 +72,16 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(ClosingStructurePermutationHelper),
-        ///                 nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(ClosingStructurePermutationHelper),
+        ///     nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameId(string targetName, string testResultDescription)
         {
@@ -102,13 +108,16 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
-        /// [TestCaseSource(typeof(ClosingStructurePermutationHelper),
-        ///                 nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// <code>
+        /// [TestCaseSource(
+        ///     typeof(ClosingStructurePermutationHelper),
+        ///     nameof(ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation),
+        ///     new object[]
+        ///     {
+        ///         "TargetMethodName",
+        ///         "TestResult"
+        ///     })]
+        /// </code>
         /// </example>
         public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameIdNameAndLocation(string targetName, string testResultDescription)
         {
