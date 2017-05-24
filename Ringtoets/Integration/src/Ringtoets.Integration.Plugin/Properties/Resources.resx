@@ -170,7 +170,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Selecteer een achtergrondkaart.</value>
   </data>
   <data name="RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Als u voorlandprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+    <value>Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit toetsspoor die voorlandprofielen gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

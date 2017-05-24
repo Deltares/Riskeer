@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit toetsspoor die voorlandprofielen gebruiken verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>

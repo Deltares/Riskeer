@@ -289,7 +289,8 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.AreEqual(isActionConfirmed, updatesVerified);
                 string expectedInquiryMessage = "Als u voorlandprofielen importeert, " +
-                                                "dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                                                "dan worden de  resultaten van alle berekeningen in dit toetsspoor " +
+                                                "die voorlandprofielen gebruiken verwijderd." +
                                                 $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             }
