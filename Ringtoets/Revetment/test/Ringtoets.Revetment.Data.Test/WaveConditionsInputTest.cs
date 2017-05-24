@@ -312,7 +312,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameAndX0),
+            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0),
             new object[]
             {
                 "IsForeshoreProfileInputSynchronized",

@@ -41,15 +41,17 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
+        /// <code>
         /// [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-        ///                 nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameOrientationAndX0),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0),
+        /// new object[]
+        /// {
+        ///     "TargetMethodName",
+        ///     "TestResult"
+        /// })]
+        /// </code>
         /// </example>
-        public static IEnumerable<TestCaseData> DifferentForeshoreProfileWithSameIdNameAndX0(string targetName, string testResultDescription)
+        public static IEnumerable<TestCaseData> DifferentForeshoreProfilesWithSameIdNameAndX0(string targetName, string testResultDescription)
         {
             var random = new Random(532);
 
@@ -71,7 +73,7 @@ namespace Ringtoets.Common.Data.TestUtil
                     .SetName($"{targetName}_differentOrientationProfileConstructionProperties_{testResultDescription}")
             };
 
-            testCaseData.AddRange(DifferentForeshoreProfileWithSameIdNameOrientationAndX0(targetName, testResultDescription));
+            testCaseData.AddRange(DifferentForeshoreProfilesWithSameIdNameOrientationAndX0(targetName, testResultDescription));
 
             return testCaseData;
         }
@@ -84,15 +86,17 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="testResultDescription">A description of the result of the test while using the test case source.</param>
         /// <returns>The collection of test case data.</returns>
         /// <example>
+        /// <code>
         /// [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-        ///                 nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameOrientationAndX0),
-        ///                 new object[]
-        ///                 {
-        ///                     "TargetMethodName",
-        ///                     "TestResult"
-        ///                 })]
+        /// nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0),
+        /// new object[]
+        /// {
+        ///     "TargetMethodName",
+        ///     "TestResult"
+        /// })]
+        /// </code>
         /// </example>
-        public static IEnumerable<TestCaseData> DifferentForeshoreProfileWithSameIdNameOrientationAndX0(string targetName, string testResultDescription)
+        public static IEnumerable<TestCaseData> DifferentForeshoreProfilesWithSameIdNameOrientationAndX0(string targetName, string testResultDescription)
         {
             var referenceProfile = new TestForeshoreProfile();
 

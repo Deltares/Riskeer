@@ -637,13 +637,13 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         [Test]
         [TestCaseSource(typeof(ForeshoreProfilePermutationHelper),
-            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameOrientationAndX0),
+            nameof(ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0),
             new object[]
             {
                 "IsForeshoreProfileInputSynchronized",
                 "ReturnFalse"
             })]
-        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputInSync_ReturnTrue(ForeshoreProfile modifiedProfile)
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfilesOutOfSync_ReturnFalse(ForeshoreProfile modifiedProfile)
         {
             // Setup
             var input = new SimpleStructuresInput
@@ -679,7 +679,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.SynchronizeForeshoreProfileInput();
 
             // Assert
-            AssertSimpleStructuresInput(null, input);
+            AssertForeshoreProfilePropertiesOfInput(null, input);
         }
 
         [Test]
@@ -695,20 +695,20 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.ForeshoreProfile.CopyProperties(differentProfile);
 
             // Precondition
-            AssertSimpleStructuresInput(new TestForeshoreProfile(), input);
+            AssertForeshoreProfilePropertiesOfInput(new TestForeshoreProfile(), input);
 
             // Call
             input.SynchronizeForeshoreProfileInput();
 
             // Assert
-            AssertSimpleStructuresInput(differentProfile, input);
+            AssertForeshoreProfilePropertiesOfInput(differentProfile, input);
         }
 
         #endregion
 
         #region Helpers
 
-        private static void AssertSimpleStructuresInput(ForeshoreProfile expectedForeshoreProfile, SimpleStructuresInput input)
+        private static void AssertForeshoreProfilePropertiesOfInput(ForeshoreProfile expectedForeshoreProfile, SimpleStructuresInput input)
         {
             var defaultInput = new SimpleStructuresInput();
             if (expectedForeshoreProfile == null)

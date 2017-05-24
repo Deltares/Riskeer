@@ -23,9 +23,8 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Service;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Helper for updating parameters of calculation input with values taken from 
@@ -43,16 +42,17 @@ namespace Ringtoets.Common.Forms.Helpers
         public static void UpdateForeshoreProfileDerivedCalculationInput<TInput>(ICalculation<TInput> calculation)
             where TInput : ICalculationInput, IHasForeshoreProfile
         {
-            if (calculation.InputParameters.IsForeshoreProfileInputSynchronized)
+            TInput input = calculation.InputParameters;
+            if (input.IsForeshoreProfileInputSynchronized)
             {
                 return;
             }
 
-            calculation.InputParameters.SynchronizeForeshoreProfileInput();
+            input.SynchronizeForeshoreProfileInput();
 
             var affectedObjects = new List<IObservable>
             {
-                calculation.InputParameters
+                input
             };
 
             affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));

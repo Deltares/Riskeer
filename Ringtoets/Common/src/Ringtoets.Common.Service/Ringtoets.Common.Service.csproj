@@ -49,6 +49,7 @@
     <Compile Include="HydraRingSettingsDatabaseHelper.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidator.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
+    <Compile Include="SynchronizeCalculationWithForeshoreProfileHelper.cs" />
     <Compile Include="ValidationRules\NumericInputRule.cs" />
     <Compile Include="ValidationRules\UseBreakWaterRule.cs" />
     <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRule.cs" />

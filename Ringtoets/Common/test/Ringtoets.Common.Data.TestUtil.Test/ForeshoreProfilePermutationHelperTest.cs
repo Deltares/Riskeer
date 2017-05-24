@@ -37,12 +37,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             const string testResultDescription = "D";
 
             // Call
-            List<TestCaseData> testCaseDatas = ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameAndX0(
+            TestCaseData[] testCaseDatas = ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0(
                 targetName,
-                testResultDescription).ToList();
+                testResultDescription).ToArray();
 
             // Assert
-            Assert.AreEqual(5, testCaseDatas.Count);
+            Assert.AreEqual(5, testCaseDatas.Length);
             AssertTestNames(testCaseDatas, targetName, testResultDescription);
             AssertProperties(testCaseDatas, true);
         }
@@ -55,12 +55,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             const string testResultDescription = "D";
 
             // Call
-            List<TestCaseData> testCaseDatas = ForeshoreProfilePermutationHelper.DifferentForeshoreProfileWithSameIdNameOrientationAndX0(
+            TestCaseData[] testCaseDatas = ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0(
                 targetName,
-                testResultDescription).ToList();
+                testResultDescription).ToArray();
 
             // Assert
-            Assert.AreEqual(4, testCaseDatas.Count);
+            Assert.AreEqual(4, testCaseDatas.Length);
             AssertTestNames(testCaseDatas, targetName, testResultDescription);
             AssertProperties(testCaseDatas, false);
         }
@@ -110,7 +110,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             differentProfiles.Add(profiles.Single(p => p.BreakWater != null
                                                        && p.BreakWater.Type.Equals(BreakWaterType.Caisson)
                                                        && p.BreakWater.Height.Equals(defaultBreakWater.Height)));
-
             differentProfiles.Add(profiles.Single(p => p.BreakWater != null
                                                        && p.BreakWater.Type.Equals(BreakWaterType.Wall)
                                                        && p.BreakWater.Height.Equals(defaultBreakWater.Height)));

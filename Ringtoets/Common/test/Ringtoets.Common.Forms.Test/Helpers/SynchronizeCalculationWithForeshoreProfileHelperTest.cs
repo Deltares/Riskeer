@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Service;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
 {
@@ -35,15 +35,15 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationInputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            calculationInputMock.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
+            var calculationInput = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            calculationInput.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(true);
 
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Stub(c => c.InputParameters).Return(calculationInputMock);
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Stub(c => c.InputParameters).Return(calculationInput);
             mocks.ReplayAll();
 
             // Call
-            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculationMock);
+            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 
             // Assert
             mocks.VerifyAll();
@@ -56,23 +56,23 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationInputMock = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-            calculationInputMock.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(false);
-            calculationInputMock.Expect(ci => ci.SynchronizeForeshoreProfileInput());
-            calculationInputMock.Expect(ci => ci.NotifyObservers());
+            var calculationInput = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+            calculationInput.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(false);
+            calculationInput.Expect(ci => ci.SynchronizeForeshoreProfileInput());
+            calculationInput.Expect(ci => ci.NotifyObservers());
 
-            var calculationMock = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            calculationMock.Stub(c => c.InputParameters).Return(calculationInputMock);
-            calculationMock.Expect(c => c.HasOutput).Return(hasOutput);
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            calculation.Stub(c => c.InputParameters).Return(calculationInput);
+            calculation.Expect(c => c.HasOutput).Return(hasOutput);
             if (hasOutput)
             {
-                calculationMock.Expect(c => c.ClearOutput());
-                calculationMock.Expect(c => c.NotifyObservers());
+                calculation.Expect(c => c.ClearOutput());
+                calculation.Expect(c => c.NotifyObservers());
             }
             mocks.ReplayAll();
 
             // Call
-            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculationMock);
+            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 
             // Assert
             mocks.VerifyAll();
