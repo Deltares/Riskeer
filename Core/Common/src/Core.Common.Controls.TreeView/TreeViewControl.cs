@@ -37,7 +37,7 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// A <see cref="UserControl"/> that encapulates a <see cref="DoubleBufferedTreeView"/>
+    /// A <see cref="UserControl"/> that encapsulates a <see cref="DoubleBufferedTreeView"/>
     /// in such a way that <see cref="TreeNodeInfo"/> objects can be registered for configuring
     /// the way tree nodes are drawn and can be interacted with. A general implementation is
     /// provided when it comes to:

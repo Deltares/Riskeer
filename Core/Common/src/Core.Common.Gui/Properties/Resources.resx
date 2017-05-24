@@ -250,7 +250,7 @@
   <data name="GuiImportHandler_RunImportActivity_Start_importing_data" xml:space="preserve">
     <value>Begonnen met het importeren van gegevens.</value>
   </data>
-  <data name="GuiUpdateHandler_RunUpdateActivity_Start_importing_data" xml:space="preserve">
+  <data name="GuiUpdateHandler_RunUpdateActivity_Start_updating_data" xml:space="preserve">
     <value>Begonnen met het bijwerken van gegevens.</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">

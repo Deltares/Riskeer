@@ -1003,9 +1003,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Begonnen met het bijwerken van gegevens..
         /// </summary>
-        public static string GuiUpdateHandler_RunUpdateActivity_Start_importing_data {
+        public static string GuiUpdateHandler_RunUpdateActivity_Start_updating_data {
             get {
-                return ResourceManager.GetString("GuiUpdateHandler_RunUpdateActivity_Start_importing_data", resourceCulture);
+                return ResourceManager.GetString("GuiUpdateHandler_RunUpdateActivity_Start_updating_data", resourceCulture);
             }
         }
         

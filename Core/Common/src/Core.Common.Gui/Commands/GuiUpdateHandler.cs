@@ -159,7 +159,7 @@ namespace Core.Common.Gui.Commands
 
         private void RunUpdateActivity(IFileImporter importer, string importName)
         {
-            log.Info(Resources.GuiUpdateHandler_RunUpdateActivity_Start_importing_data);
+            log.Info(Resources.GuiUpdateHandler_RunUpdateActivity_Start_updating_data);
 
             var activity = new FileImportActivity(importer, importName ?? string.Empty);
             ActivityProgressDialogRunner.Run(dialogParent, activity);
