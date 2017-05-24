@@ -655,6 +655,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        [Combinatorial]
         public void CreateUpdateForeshoreProfileOfCalculationItem_WithVariousOutputPerformClick_ExpectedAction(
             [Values(true, false)] bool hasOutput,
             [Values(true, false)] bool continuation)

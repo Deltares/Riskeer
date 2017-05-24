@@ -761,21 +761,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
+        [Combinatorial]
+        public void ContextMenuStripm_ForeshoreProfileStates_CreatesExpectedItem(
+            [Values(true, false)] bool hasForeshoreProfile,
+            [Values(true, false)] bool isSynchronized)
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+
+            if (hasForeshoreProfile)
             {
-                InputParameters =
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+                if (!isSynchronized)
                 {
-                    ForeshoreProfile = new TestForeshoreProfile()
+                    calculation.InputParameters.UseBreakWater = true;
                 }
-            };
+            }
+
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                          failureMechanism,
-                                                                                         assessmentSectionStub);
+                                                                                         assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -786,17 +793,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                calculation.InputParameters.UseBreakWater = true;
-
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken met het voorlandprofiel.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                    if (hasForeshoreProfile)
+                    {
+                        if (isSynchronized)
+                        {
+                            TestHelper.AssertContextMenuStripContainsItem(
+                                menu,
+                                contextMenuUpdateForeshoreProfileIndex,
+                                "&Bijwerken voorlandprofiel...",
+                                "Er zijn geen wijzigingen om bij te werken.",
+                                RingtoetsCommonFormsResources.UpdateItemIcon,
+                                false);
+                        }
+                        else
+                        {
+                            TestHelper.AssertContextMenuStripContainsItem(
+                                menu,
+                                contextMenuUpdateForeshoreProfileIndex,
+                                "&Bijwerken voorlandprofiel...",
+                                "Berekening bijwerken met het voorlandprofiel.",
+                                RingtoetsCommonFormsResources.UpdateItemIcon);
+                        }
+                    }
+                    else
+                    {
+                        TestHelper.AssertContextMenuStripContainsItem(
+                            menu,
+                            contextMenuUpdateForeshoreProfileIndex,
+                            "&Bijwerken voorlandprofiel...",
+                            "Er moet een voorlandprofiel geselecteerd zijn.",
+                            RingtoetsCommonFormsResources.UpdateItemIcon,
+                            false);
+                    }
                 }
             }
         }
@@ -846,6 +878,85 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenCalculationWithOutputAndWithInputOutOfSync_WhenPerformClick_ThenInquiryAndExpectedOutputAndNotifications(bool continuation)
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                },
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                         failureMechanism,
+                                                                                         assessmentSectionStub);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            if (continuation)
+            {
+                calculationObserver.Expect(o => o.UpdateObserver());
+                calculationInputObserver.Expect(o => o.UpdateObserver());
+            }
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                if (continuation)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                calculation.InputParameters.UseBreakWater = false;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(continuation, calculation.InputParameters.UseBreakWater);
+                    Assert.AreEqual(!continuation, calculation.HasOutput);
+                }
+            }
+
+            string expectedMessageBoxText = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                            $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+
+            Assert.AreEqual(expectedMessageBoxText, messageBoxText);
         }
 
         [Test]
