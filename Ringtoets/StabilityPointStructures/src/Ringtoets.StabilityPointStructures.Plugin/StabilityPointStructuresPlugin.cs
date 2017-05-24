@@ -704,6 +704,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                          .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
@@ -754,6 +755,69 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                     context.FailureMechanism.SectionResults,
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
+            }
+        }
+
+        private StrictContextMenuItem CreateUpdateStructureItem(StabilityPointStructuresCalculationContext context)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip;
+            if (context.WrappedData.InputParameters.Structure == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data,
+                toolTipMessage,
+                RingtoetsCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = contextMenuEnabled
+            };
+        }
+
+        private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<StabilityPointStructuresInput> calculation)
+        {
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            if (StructureDependentDataShouldUpdate(new[]
+            {
+                calculation
+            }, message))
+            {
+                UpdateStructureDerivedCalculationInput(calculation);
+            }
+        }
+
+        private bool StructureDependentDataShouldUpdate(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, string query)
+        {
+            var changeHandler = new CalculationChangeHandler(calculations,
+                                                             query,
+                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static void UpdateStructureDerivedCalculationInput(ICalculation<StabilityPointStructuresInput> calculation)
+        {
+            calculation.InputParameters.SynchronizeStructureInput();
+
+            var affectedObjects = new List<IObservable>
+            {
+                calculation.InputParameters
+            };
+
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
             }
         }
 

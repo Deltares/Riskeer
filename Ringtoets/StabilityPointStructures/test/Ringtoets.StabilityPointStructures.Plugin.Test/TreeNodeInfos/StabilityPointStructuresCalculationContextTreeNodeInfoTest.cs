@@ -56,9 +56,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
     public class StabilityPointStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuUpdateForeshoreProfileIndex = 3;
-        private const int contextMenuValidateIndex = 5;
-        private const int contextMenuCalculateIndex = 6;
-        private const int contextMenuClearIndex = 8;
+        private const int contextMenuUpdateStructureIndex = 4;
+        private const int contextMenuValidateIndex = 6;
+        private const int contextMenuCalculateIndex = 7;
+        private const int contextMenuClearIndex = 9;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
@@ -186,6 +187,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -247,11 +249,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionStub, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(16, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
                                                                   "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Er moet een kunstwerk geselecteerd zijn.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
@@ -272,6 +280,294 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   false);
                 }
             }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithoutStructure_ContextMenuItemUpdateStructureDisabledAndToolTipSet()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Er moet een kunstwerk geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructureDisabledAndToolTipSet()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure()
+                }
+            };
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Er zijn geen wijzigingen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithStructureAndInputOutOfSync_ContextMenuItemUpdateStructureEnabledAndToolTipSet()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure()
+                }
+            };
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            ChangeStructure(calculation.InputParameters.Structure);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                  contextMenuUpdateStructureIndex,
+                                                                  "&Bijwerken kunstwerk...",
+                                                                  "Berekening bijwerken met het kunstwerk.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            calculationInputObserver.Expect(o => o.UpdateObserver());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure()
+                }
+            };
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                ChangeStructure(calculation.InputParameters.Structure);
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateStructureIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        {
+            // Given
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structure = new TestStabilityPointStructure();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            StabilityPointStructuresInput calculationInput = calculation.InputParameters;
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+
+            var inputObserver = mocks.StrictMock<IObserver>();
+            calculationInput.Attach(inputObserver);
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculation.Attach(calculationObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
+
+                    // Note: observer assertions are verified in the TearDown()
+                }
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenCalculationWithOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenInquiryAndExpectedOutputAndNotifications(bool continuation)
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStabilityPointStructure()
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          failureMechanism,
+                                                                          assessmentSectionStub);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            if (continuation)
+            {
+                calculationObserver.Expect(o => o.UpdateObserver());
+                calculationInputObserver.Expect(o => o.UpdateObserver());
+            }
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                if (continuation)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                ChangeStructure(calculation.InputParameters.Structure);
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateStructureIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(continuation, calculation.InputParameters.IsStructureInputSynchronized);
+                    Assert.AreEqual(!continuation, calculation.HasOutput);
+                }
+            }
+
+            string expectedMessageBoxText = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                            $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+
+            Assert.AreEqual(expectedMessageBoxText, messageBoxText);
         }
 
         [Test]
@@ -443,7 +739,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void ContextMenuStripm_ForeshoreProfileStates_CreatesExpectedItem(
+        public void ContextMenuStrip_ForeshoreProfileStates_CreatesExpectedItem(
             [Values(true, false)] bool hasForeshoreProfile,
             [Values(true, false)] bool isSynchronized)
         {
@@ -564,7 +860,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenCalculationWithOutputAndWithInputOutOfSync_WhenPerformClick_ThenInquiryAndExpectedOutputAndNotifications(bool continuation)
+        public void GivenCalculationWithOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfileClicked_ThenInquiryAndExpectedOutputAndNotifications(bool continuation)
         {
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
@@ -854,6 +1150,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
 
             base.TearDown();
+        }
+
+        private static void ChangeStructure(StabilityPointStructure structure)
+        {
+            structure.CopyProperties(new StabilityPointStructure(
+                                         new StabilityPointStructure.ConstructionProperties
+                                         {
+                                             Id = structure.Id,
+                                             Name = structure.Name,
+                                             Location = structure.Location
+                                         }));
         }
     }
 }
