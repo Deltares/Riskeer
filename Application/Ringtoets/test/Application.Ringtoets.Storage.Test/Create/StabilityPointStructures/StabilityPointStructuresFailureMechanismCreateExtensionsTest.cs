@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -90,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            StabilityPointStructuresFailureMechanismMetaEntity metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.First();
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
@@ -101,6 +102,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
+            const string originalForeshoreProfilesSourcePath = "some/foreshoreProfile/sourcePath";
+            const string originalStructuresSourcePath = "some/structures/sourcePath";
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 InputComments =
@@ -116,6 +119,11 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                     Body = originalNotRelevantText
                 }
             };
+            failureMechanism.ForeshoreProfiles.AddRange(Enumerable.Empty<ForeshoreProfile>(),
+                                                        originalForeshoreProfilesSourcePath);
+            failureMechanism.StabilityPointStructures.AddRange(Enumerable.Empty<StabilityPointStructure>(),
+                                                               originalStructuresSourcePath);
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -131,6 +139,15 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
+            Assert.AreNotSame(originalForeshoreProfilesSourcePath, metaEntity.ForeshoreProfileCollectionSourcePath,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalForeshoreProfilesSourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);
+
+            Assert.AreNotSame(originalStructuresSourcePath, metaEntity.StabilityPointStructureCollectionSourcePath,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalStructuresSourcePath, metaEntity.StabilityPointStructureCollectionSourcePath);
         }
 
         [Test]
@@ -208,16 +225,34 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         }
 
         [Test]
+        public void Create_WithoutStabilityPointStructures_EmptyStabilityPointStructuresEntities()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsEmpty(entity.StabilityPointStructureEntities);
+
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
+                entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
+            Assert.IsNull(metaEntity.StabilityPointStructureCollectionSourcePath);
+        }
+
+        [Test]
         public void Create_WithStabilityPointStructures_StabilityPointStructureEntitiesCreated()
         {
             // Setup
             StabilityPointStructure structure = new TestStabilityPointStructure();
 
+            const string sourcePath = "path/to/structures";
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.StabilityPointStructures.AddRange(new[]
             {
                 structure
-            }, "path");
+            }, sourcePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -227,6 +262,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Assert
             Assert.AreEqual(1, entity.StabilityPointStructureEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(structure));
+
+            StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
+                entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(sourcePath, metaEntity.StabilityPointStructureCollectionSourcePath);
         }
 
         [Test]

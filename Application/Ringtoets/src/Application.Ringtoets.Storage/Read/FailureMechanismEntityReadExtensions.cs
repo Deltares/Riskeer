@@ -914,7 +914,9 @@ namespace Application.Ringtoets.Storage.Read
                                          metaEntity.ForeshoreProfileCollectionSourcePath,
                                          collector);
 
-            entity.ReadStabilityPointStructures(failureMechanism.StabilityPointStructures, collector);
+            entity.ReadStabilityPointStructures(failureMechanism.StabilityPointStructures,
+                                                metaEntity.StabilityPointStructureCollectionSourcePath,
+                                                collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
             ReadStabilityPointStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -934,13 +936,16 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadStabilityPointStructures(this FailureMechanismEntity entity,
                                                          StructureCollection<StabilityPointStructure> stabilityPointStructures,
+                                                         string stabilityPointStructuresSourcePath,
                                                          ReadConversionCollector collector)
         {
-            // TODO: WTI 1183 Add storage functionality
-            stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities
-                                                    .OrderBy(fpe => fpe.Order)
-                                                    .Select(structureEntity => structureEntity.Read(collector)),
-                                              "path");
+            if (stabilityPointStructuresSourcePath != null)
+            {
+                stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities
+                                                        .OrderBy(fpe => fpe.Order)
+                                                        .Select(structureEntity => structureEntity.Read(collector)),
+                                                  stabilityPointStructuresSourcePath);
+            }
         }
 
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)

@@ -391,12 +391,14 @@ INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity (
 	[StabilityPointStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	[ForeshoreProfileCollectionSourcePath])
+	[ForeshoreProfileCollectionSourcePath],
+	[StabilityPointStructureCollectionSourcePath])
 SELECT 
 	[StrengthStabilityPointConstructionFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
 	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([StabilityPointStructureEntityId]) THEN "Onbekend" ELSE NULL END
 	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityId;

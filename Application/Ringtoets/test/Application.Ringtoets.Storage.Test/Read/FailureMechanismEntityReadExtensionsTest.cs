@@ -1825,9 +1825,40 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithoutStabilityPointStructuresWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string path = "path/to/stabilityPointStructues";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = 7,
+                        StabilityPointStructureCollectionSourcePath = path
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            StructureCollection<StabilityPointStructure> stabilityPointStructures =
+                failureMechanism.StabilityPointStructures;
+            Assert.AreEqual(0, stabilityPointStructures.Count);
+            Assert.AreEqual(path, stabilityPointStructures.SourcePath);
+        }
+
+        [Test]
         public void ReadAsStabilityPointStructuresFailureMechanism_WithStabilityPointStructures_ReturnFailureMechanismWithStabilityPointStructuresSet()
         {
             // Setup
+            const string path = "path/to/stabilityPointStructures";
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -1850,7 +1881,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = 7
+                        N = 7,
+                        StabilityPointStructureCollectionSourcePath = path
                     }
                 }
             };
@@ -1861,12 +1893,15 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.StabilityPointStructures.Count);
+            StructureCollection<StabilityPointStructure> stabilityPointStructures =
+                failureMechanism.StabilityPointStructures;
+            Assert.AreEqual(2, stabilityPointStructures.Count);
+            Assert.AreEqual(path, stabilityPointStructures.SourcePath);
 
-            StabilityPointStructure child1 = failureMechanism.StabilityPointStructures[0];
+            StabilityPointStructure child1 = stabilityPointStructures[0];
             Assert.AreEqual("Child2", child1.Name);
 
-            StabilityPointStructure child2 = failureMechanism.StabilityPointStructures[1];
+            StabilityPointStructure child2 = stabilityPointStructures[1];
             Assert.AreEqual("Child1", child2.Name);
         }
 

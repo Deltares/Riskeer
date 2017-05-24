@@ -89,12 +89,15 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(StabilityPointStructuresFailureMechanism generalInput, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(
+            StabilityPointStructuresFailureMechanism failureMechanism,
+            FailureMechanismEntity entity)
         {
             var metaEntity = new StabilityPointStructuresFailureMechanismMetaEntity
             {
-                ForeshoreProfileCollectionSourcePath = generalInput.ForeshoreProfiles.SourcePath.DeepClone(),
-                N = generalInput.GeneralInput.N
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
+                StabilityPointStructureCollectionSourcePath = failureMechanism.StabilityPointStructures.SourcePath.DeepClone(),
+                N = failureMechanism.GeneralInput.N
             };
             entity.StabilityPointStructuresFailureMechanismMetaEntities.Add(metaEntity);
         }
