@@ -564,7 +564,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
 
                     // Then
-                    Assert.IsFalse(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                     // Note: observer assertions are verified in TearDown

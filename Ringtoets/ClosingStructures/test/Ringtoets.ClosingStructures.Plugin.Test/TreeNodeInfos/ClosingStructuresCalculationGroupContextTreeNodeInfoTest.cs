@@ -760,18 +760,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
-                                                                  "&Bijwerken voorlandprofielen...",
-                                                                  "Alle berekeningen met een voorlandprofiel bijwerken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
-
                     // When
                     contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
         }
@@ -1211,7 +1204,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.IsFalse(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()

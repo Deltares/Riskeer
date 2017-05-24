@@ -520,18 +520,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken met het voorlandprofiel.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
-
                     // When
                     contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
         }

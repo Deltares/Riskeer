@@ -765,10 +765,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 5
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
@@ -813,10 +810,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 5
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -845,18 +839,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken met het voorlandprofiel.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
-
                     // When
                     contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
         }
@@ -920,13 +907,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
-
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
                     Action call = () => validateMenuItem.PerformClick();
@@ -1228,13 +1208,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  calculateMenuItemIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
-
                     // When
                     ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
                     Action call = () => calculateMenuItem.PerformClick();
@@ -1402,13 +1375,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  clearOutputMenuItemIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Wis de uitvoer van deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon);
-
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[clearOutputMenuItemIndex];
                     validateMenuItem.PerformClick();

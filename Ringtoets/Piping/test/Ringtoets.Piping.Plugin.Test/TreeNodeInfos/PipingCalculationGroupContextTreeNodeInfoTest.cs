@@ -1618,9 +1618,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
                     // Then
-                    Assert.IsFalse(calculation1.HasOutput);
                     Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
-                    Assert.IsFalse(calculation2.HasOutput);
                     Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
                 }
             }

@@ -350,7 +350,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk...",
                                                                   "Er zijn geen wijzigingen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon, false);
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
                 }
             }
         }
@@ -437,7 +438,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
                     // Then
-                    Assert.IsFalse(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()
@@ -982,18 +982,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Berekening bijwerken met het voorlandprofiel.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
-
                     // When
                     contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
         }

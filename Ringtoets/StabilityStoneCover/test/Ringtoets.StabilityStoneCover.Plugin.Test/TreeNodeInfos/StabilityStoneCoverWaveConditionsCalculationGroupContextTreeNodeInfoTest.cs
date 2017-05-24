@@ -1428,13 +1428,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuAddCalculationIndexRootGroup,
-                                                                  "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
-
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
                     validateMenuItem.PerformClick();
@@ -1536,18 +1529,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
-                                                                  "&Bijwerken voorlandprofielen...",
-                                                                  "Alle berekeningen met een voorlandprofiel bijwerken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
-
                     // When
                     contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.UseBreakWater);
+                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
         }

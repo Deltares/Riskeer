@@ -428,7 +428,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
 
                     // Then
-                    Assert.IsFalse(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsDikeProfileInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()
