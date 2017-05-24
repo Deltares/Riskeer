@@ -51,7 +51,7 @@ All rights reserved.
             </xcad:DockingManager.AnchorableHeaderTemplate>
             <xcad:LayoutRoot>
                 <xcad:LayoutPanel Orientation="Horizontal" x:Name="LeftRightLayoutTarget">
-                    <xcad:LayoutAnchorablePaneGroup x:Name="LeftLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="260">
+                    <xcad:LayoutAnchorablePaneGroup x:Name="LeftLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="400">
                         <xcad:LayoutAnchorablePane />
                     </xcad:LayoutAnchorablePaneGroup>
                     <xcad:LayoutPanel Orientation="Vertical" x:Name="BottomLayoutTarget">
@@ -72,7 +72,7 @@ All rights reserved.
                             <xcad:LayoutAnchorable x:Name="DummyPanelB"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
                         </xcad:LayoutAnchorablePane>
                     </xcad:LayoutAnchorablePaneGroup>
-                    <xcad:LayoutAnchorablePaneGroup x:Name="RightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="220">
+                    <xcad:LayoutAnchorablePaneGroup x:Name="RightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="400">
                         <xcad:LayoutAnchorablePane />
                     </xcad:LayoutAnchorablePaneGroup>
                 </xcad:LayoutPanel>
