@@ -318,7 +318,8 @@ namespace Ringtoets.Revetment.Data.Test
                 "IsForeshoreProfileInputSynchronized",
                 "ReturnFalse"
             })]
-        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputNotInSync_ReturnFalse(ForeshoreProfile modifiedProfile)
+        public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputNotInSync_ReturnFalse(
+            ForeshoreProfile modifiedProfile)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -354,7 +355,7 @@ namespace Ringtoets.Revetment.Data.Test
             input.SynchronizeForeshoreProfileInput();
 
             // Assert
-            AssertWaveConditionsInput(null, input);
+            AssertForeshoreProfileInputProperties(null, input);
         }
 
         [Test]
@@ -381,13 +382,13 @@ namespace Ringtoets.Revetment.Data.Test
             input.ForeshoreProfile.CopyProperties(differentProfile);
 
             // Precondition
-            AssertWaveConditionsInput(new TestForeshoreProfile(), input);
+            AssertForeshoreProfileInputProperties(new TestForeshoreProfile(), input);
 
             // Call
             input.SynchronizeForeshoreProfileInput();
 
             // Assert
-            AssertWaveConditionsInput(differentProfile, input);
+            AssertForeshoreProfileInputProperties(differentProfile, input);
         }
 
         [Test]
@@ -426,7 +427,8 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate call = () => input.Orientation = (RoundedDouble) invalidValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
+            const string message = "De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
         [Test]
@@ -494,7 +496,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
-        public void LowerBoundaryRevetment_ValidValueAccordingtoUpperBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
+        public void LowerBoundaryRevetment_ValidValueAccordingtoUpperBoundaryRevetment_ValueIsSet(
+            double lowerBoundaryRevetment,
+            double upperBoundaryRevetment)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -513,7 +517,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(5.0, 4.0)]
         [TestCase(4.0, 4.0)]
         [TestCase(3.995, 4.0)]
-        public void LowerBoundaryRevetment_InvalidValueAccordingtoUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
+        public void LowerBoundaryRevetment_InvalidValueAccordingtoUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException(
+            double lowerBoundaryRevetment,
+            double upperBoundaryRevetment)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -525,7 +531,7 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
-            var expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
+            const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -566,7 +572,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
-        public void UpperBoundaryRevetment_ValidValueAccordingtoLowerBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
+        public void UpperBoundaryRevetment_ValidValueAccordingtoLowerBoundaryRevetment_ValueIsSet(
+            double lowerBoundaryRevetment,
+            double upperBoundaryRevetment)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -585,7 +593,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(4.0, 3.0)]
         [TestCase(4.0, 4.0)]
         [TestCase(4.0, 4.004)]
-        public void UpperBoundaryRevetment_InvalidValueAccordingtoLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
+        public void UpperBoundaryRevetment_InvalidValueAccordingtoLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException(
+            double lowerBoundaryRevetment,
+            double upperBoundaryRevetment)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -638,7 +648,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
-        public void LowerBoundaryWaterLevels_ValidValueAccordingtoUpperBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
+        public void LowerBoundaryWaterLevels_ValidValueAccordingtoUpperBoundaryWaterLevels_ValueIsSet(
+            double lowerBoundaryWaterLevels,
+            double upperBoundaryWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -657,7 +669,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(5.0, 4.0)]
         [TestCase(4.0, 4.0)]
         [TestCase(3.995, 4.0)]
-        public void LowerBoundaryWaterLevels_InvalidValueAccordingtoUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
+        public void LowerBoundaryWaterLevels_InvalidValueAccordingtoUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(
+            double lowerBoundaryWaterLevels,
+            double upperBoundaryWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -710,7 +724,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
-        public void UpperBoundaryWaterLevels_ValidValueAccordingtoLowerBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
+        public void UpperBoundaryWaterLevels_ValidValueAccordingtoLowerBoundaryWaterLevels_ValueIsSet(
+            double lowerBoundaryWaterLevels,
+            double upperBoundaryWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -729,7 +745,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(4.0, 3.0)]
         [TestCase(4.0, 4.0)]
         [TestCase(4.0, 4.004)]
-        public void UpperBoundaryWaterLevels_InvalidValueAccordingtoLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
+        public void UpperBoundaryWaterLevels_InvalidValueAccordingtoLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(
+            double lowerBoundaryWaterLevels,
+            double upperBoundaryWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -764,7 +782,9 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(double.NaN, 10.0, 12.0)]
         [TestCase(1.0, double.NaN, 12.0)]
         [TestCase(1.0, 10.0, double.NaN)]
-        public void WaterLevels_InvalidInput_NoWaterLevels(double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
+        public void WaterLevels_InvalidInput_NoWaterLevels(double lowerBoundaryRevetments,
+                                                           double upperBoundaryRevetments,
+                                                           double designWaterLevel)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -833,9 +853,13 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCaseSource(nameof(WaterLevels))]
-        public void WaterLevels_ValidInput_ReturnsWaterLevels(WaveConditionsInputStepSize stepSize, double lowerBoundaryRevetment, double upperBoundaryRevetment,
-                                                              double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels,
-                                                              double designWaterLevel, IEnumerable<RoundedDouble> expectedWaterLevels)
+        public void WaterLevels_ValidInput_ReturnsWaterLevels(WaveConditionsInputStepSize stepSize,
+                                                              double lowerBoundaryRevetment,
+                                                              double upperBoundaryRevetment,
+                                                              double lowerBoundaryWaterLevels,
+                                                              double upperBoundaryWaterLevels,
+                                                              double designWaterLevel,
+                                                              IEnumerable<RoundedDouble> expectedWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -858,7 +882,8 @@ namespace Ringtoets.Revetment.Data.Test
             CollectionAssert.AreEqual(expectedWaterLevels, waterLevels);
         }
 
-        private static void AssertWaveConditionsInput(ForeshoreProfile expectedForeshoreProfile, WaveConditionsInput input)
+        private static void AssertForeshoreProfileInputProperties(ForeshoreProfile expectedForeshoreProfile,
+                                                                  WaveConditionsInput input)
         {
             var defaultInput = new WaveConditionsInput();
             if (expectedForeshoreProfile == null)
