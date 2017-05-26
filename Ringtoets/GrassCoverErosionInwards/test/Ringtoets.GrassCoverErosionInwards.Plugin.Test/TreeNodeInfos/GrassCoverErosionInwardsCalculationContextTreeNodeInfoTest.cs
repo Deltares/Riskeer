@@ -546,7 +546,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateDikeProfileClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateDikeProfileClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();

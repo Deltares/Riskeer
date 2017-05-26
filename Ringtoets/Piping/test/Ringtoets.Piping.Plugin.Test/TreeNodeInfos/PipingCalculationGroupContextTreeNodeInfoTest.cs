@@ -1829,7 +1829,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())

@@ -169,9 +169,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                                 pipingFailureMechanism,
                                                                                 assessmentSection);
 
-            // Precondition
-            Assert.IsFalse(pipingCalculationContext.WrappedData.HasOutput);
-
             // Call
             object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
@@ -640,6 +637,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = new TestPipingOutput();
+                calculation.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -692,7 +690,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndContinued_ThenInquiryAndUpdatesCalculationAndObserversNotified()
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             using (var treeViewControl = new TreeViewControl())
             {
@@ -701,6 +699,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = new TestPipingOutput();
+                calculation.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
