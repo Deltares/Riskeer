@@ -1024,12 +1024,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateForeshoreProfileIndexRootGroup,
-                                                                  "&Bijwerken voorlandprofielen...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
                                                                   "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",

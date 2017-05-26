@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -60,16 +61,18 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
         private const int contextMenuAddCalculationIndexRootGroup = 6;
         private const int contextMenuUpdateForeshoreProfileIndexRootGroup = 8;
-        private const int contextMenuValidateAllIndexRootGroup = 10;
-        private const int contextMenuCalculateAllIndexRootGroup = 11;
-        private const int contextMenuClearAllIndexRootGroup = 13;
+        private const int contextMenuUpdateStructureAllIndexRootGroup = 9;
+        private const int contextMenuValidateAllIndexRootGroup = 11;
+        private const int contextMenuCalculateAllIndexRootGroup = 12;
+        private const int contextMenuClearAllIndexRootGroup = 14;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
         private const int contextMenuAddCalculationIndexNestedGroup = 4;
         private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 7;
-        private const int contextMenuValidateAllIndexNestedGroup = 9;
-        private const int contextMenuCalculateAllIndexNestedGroup = 10;
-        private const int contextMenuClearAllIndexNestedGroup = 12;
+        private const int contextMenuUpdateStructureAllIndexNestedGroup = 8;
+        private const int contextMenuValidateAllIndexNestedGroup = 10;
+        private const int contextMenuCalculateAllIndexNestedGroup = 11;
+        private const int contextMenuClearAllIndexNestedGroup = 13;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui gui;
@@ -88,6 +91,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresCalculationGroupContext));
+        }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         [Test]
@@ -193,6 +205,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -245,7 +258,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(20, menu.Items.Count);
+                    Assert.AreEqual(21, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
@@ -262,6 +275,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureAllIndexRootGroup,
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -312,7 +330,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(20, menu.Items.Count);
+                    Assert.AreEqual(21, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
@@ -561,6 +579,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -611,7 +630,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(19, menu.Items.Count);
+                    Assert.AreEqual(20, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
@@ -623,6 +642,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureAllIndexNestedGroup,
+                                                                  "&Bijwerken kunstwerken...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
                                                                   RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
@@ -641,6 +665,413 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithoutCalculation_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
+                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithoutStructure_ContextMenuItemUpdateStructuresDisabledAndTooltipSet()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
+                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithInputInSynchAndStructure_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
+        {
+            // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
+                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Er zijn geen berekeningen om bij te werken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithInputOutOfSyncAndStructure_ContextMenuItemUpdateStructuresEnabledAndToolTipSet()
+        {
+            // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
+            ChangeStructure(calculation.InputParameters.Structure);
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuUpdateStructureAllIndexRootGroup,
+                                                                  "&Bijwerken kunstwerken...",
+                                                                  "Alle berekeningen met een kunstwerk bijwerken.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateAllStructuresClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        {
+            // Given
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structure = new TestStabilityPointStructure();
+
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            var calculation1InputObserver = mocks.StrictMock<IObserver>();
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            var calculation2InputObserver = mocks.StrictMock<IObserver>();
+
+            calculation1InputObserver.Expect(obs => obs.UpdateObserver());
+            calculation2InputObserver.Expect(obs => obs.UpdateObserver());
+
+            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                }
+            };
+            calculation1.Attach(calculation1Observer);
+            calculation1.InputParameters.Attach(calculation1InputObserver);
+
+            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                }
+            };
+            calculation2.Attach(calculation2Observer);
+            calculation2.InputParameters.Attach(calculation2InputObserver);
+
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    childGroup,
+                    emptyChildGroup,
+                    calculation2
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                ChangeStructure(structure);
+
+                // Precondition
+                Assert.IsFalse(calculation1.InputParameters.IsStructureInputSynchronized);
+                Assert.IsFalse(calculation2.InputParameters.IsStructureInputSynchronized);
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation1.InputParameters.IsStructureInputSynchronized);
+                    Assert.IsTrue(calculation2.InputParameters.IsStructureInputSynchronized);
+
+                    // Note: observer assertions are verified in the TearDown()
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructuresClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
+        {
+            // Given
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structure = new TestStabilityPointStructure();
+
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            var calculation1InputObserver = mocks.StrictMock<IObserver>();
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            var calculation2InputObserver = mocks.StrictMock<IObserver>();
+
+            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+            calculation1.Attach(calculation1Observer);
+            calculation1.InputParameters.Attach(calculation1InputObserver);
+
+            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+            calculation2.Attach(calculation2Observer);
+            calculation2.InputParameters.Attach(calculation2InputObserver);
+
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    childGroup,
+                    emptyChildGroup,
+                    calculation2
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                ChangeStructure(structure);
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.IsFalse(calculation1.InputParameters.IsStructureInputSynchronized);
+                    Assert.IsTrue(calculation1.HasOutput);
+
+                    Assert.IsFalse(calculation2.InputParameters.IsStructureInputSynchronized);
+                    Assert.IsTrue(calculation2.HasOutput);
+
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in the TearDown()
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructuresClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
+        {
+            // Given
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structure = new TestStabilityPointStructure();
+
+            var calculation1Observer = mocks.StrictMock<IObserver>();
+            var calculation1InputObserver = mocks.StrictMock<IObserver>();
+            var calculation2Observer = mocks.StrictMock<IObserver>();
+            var calculation2InputObserver = mocks.StrictMock<IObserver>();
+
+            calculation1Observer.Expect(obs => obs.UpdateObserver());
+            calculation1InputObserver.Expect(obs => obs.UpdateObserver());
+            calculation2Observer.Expect(obs => obs.UpdateObserver());
+            calculation2InputObserver.Expect(obs => obs.UpdateObserver());
+
+            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+            calculation1.Attach(calculation1Observer);
+            calculation1.InputParameters.Attach(calculation1InputObserver);
+
+            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+            calculation2.Attach(calculation2Observer);
+            calculation2.InputParameters.Attach(calculation2InputObserver);
+
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    childGroup,
+                    emptyChildGroup,
+                    calculation2
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                mocks.ReplayAll();
+
+                ChangeStructure(structure);
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // When
+                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation1.InputParameters.IsStructureInputSynchronized);
+                    Assert.IsFalse(calculation1.HasOutput);
+
+                    Assert.IsTrue(calculation2.InputParameters.IsStructureInputSynchronized);
+                    Assert.IsFalse(calculation2.HasOutput);
+
+                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                    Assert.AreEqual(expectedMessage, textBoxMessage);
+
+                    // Note: observer assertions are verified in the TearDown()
                 }
             }
         }
@@ -1289,12 +1720,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
-        public override void TearDown()
+        private static void ChangeStructure(StabilityPointStructure structure)
         {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
+            structure.CopyProperties(new StabilityPointStructure(
+                                         new StabilityPointStructure.ConstructionProperties
+                                         {
+                                             Id = structure.Id,
+                                             Name = structure.Name,
+                                             Location = structure.Location
+                                         }));
         }
     }
 }

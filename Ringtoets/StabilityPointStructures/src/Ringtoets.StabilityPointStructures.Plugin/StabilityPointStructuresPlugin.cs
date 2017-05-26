@@ -540,6 +540,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
                                                                 inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddCustomItem(CreateUpdateStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -568,6 +569,43 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateUpdateStructuresItem(StructuresCalculation<StabilityPointStructuresInput>[] calculations)
+        {
+            var enabled = true;
+            string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
+
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationsToBeUpdated =
+                calculations.Where(calc => calc.InputParameters.Structure != null
+                                           && !calc.InputParameters.IsStructureInputSynchronized)
+                            .ToArray();
+
+            if (!calculationsToBeUpdated.Any())
+            {
+                enabled = false;
+                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
+                                             toolTipMessage,
+                                             RingtoetsCommonFormsResources.UpdateItemIcon,
+                                             (sender, args) => UpdateStructureDependentDataOfCalculation(calculationsToBeUpdated))
+            {
+                Enabled = enabled
+            };
+        }
+
+        private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<StabilityPointStructuresInput>[] calculations)
+        {
+            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
+            if (StructureDependentDataShouldUpdate(calculations, message))
+            {
+                foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
+                {
+                    UpdateStructureDerivedCalculationInput(calculation);
+                }
+            }
         }
 
         private StrictContextMenuItem CreateGenerateStabilityPointStructuresCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
