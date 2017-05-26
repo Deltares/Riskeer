@@ -445,55 +445,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var structure = new TestStabilityPointStructure();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            StabilityPointStructuresInput calculationInput = calculation.InputParameters;
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculationInput.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenCalculationWithOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenInquiryAndExpectedOutputAndNotifications(bool continuation)

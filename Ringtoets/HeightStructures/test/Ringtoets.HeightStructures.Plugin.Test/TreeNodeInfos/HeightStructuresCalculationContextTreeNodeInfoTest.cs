@@ -446,53 +446,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var structure = new TestHeightStructure();
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructureClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given

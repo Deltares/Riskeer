@@ -350,7 +350,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk...",
                                                                   "Er zijn geen wijzigingen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon, 
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -432,52 +432,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var structure = new TestClosingStructure();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            ClosingStructuresInput calculationInput = calculation.InputParameters;
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculationInput.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()
@@ -948,7 +902,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             string expectedMessageBoxText = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
-                                     $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                                            $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
         }
