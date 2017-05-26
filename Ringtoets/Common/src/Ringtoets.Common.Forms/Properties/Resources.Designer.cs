@@ -1348,6 +1348,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Genereer berekeningen op basis van geselecteerde kunstwerken..
+        /// </summary>
+        public static string Generate_Calculations_for_selected_Structures {
+            get {
+                return ResourceManager.GetString("Generate_Calculations_for_selected_Structures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap GenerateScenariosIcon {
@@ -1645,6 +1654,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string MetaData_WaveHeight {
             get {
                 return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren..
+        /// </summary>
+        public static string No_Structures_to_generate_Calculations_for {
+            get {
+                return ResourceManager.GetString("No_Structures_to_generate_Calculations_for", resourceCulture);
             }
         }
         
@@ -2260,6 +2278,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
+        /// </summary>
+        public static string Structure_must_be_selected_ToolTip {
+            get {
+                return ResourceManager.GetString("Structure_must_be_selected_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De naam van het kunstwerk..
         /// </summary>
         public static string Structure_Name_Description {
@@ -2486,15 +2513,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet een kunstwerk geselecteerd zijn..
-        /// </summary>
-        public static string StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen met een kunstwerk bijwerken..
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip {
@@ -2510,43 +2528,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
                 return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening bijwerken met het kunstwerk..
-        /// </summary>
-        public static string StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_Tool" +
-                        "Tip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk....
-        /// </summary>
-        public static string StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genereer berekeningen op basis van geselecteerde kunstwerken..
-        /// </summary>
-        public static string StructuresPlugin_Generate_calculations_for_selected_structures {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_Generate_calculations_for_selected_structures", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren..
-        /// </summary>
-        public static string StructuresPlugin_No_structures_to_generate_for {
-            get {
-                return ResourceManager.GetString("StructuresPlugin_No_structures_to_generate_for", resourceCulture);
             }
         }
         
@@ -2601,6 +2582,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string TruncatedNormalDistribution_UpperBoundary_DisplayName {
             get {
                 return ResourceManager.GetString("TruncatedNormalDistribution_UpperBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening bijwerken met het kunstwerk..
+        /// </summary>
+        public static string Update_Calculation_with_Structure_ToolTip {
+            get {
+                return ResourceManager.GetString("Update_Calculation_with_Structure_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Bijwerken kunstwerk....
+        /// </summary>
+        public static string Update_Structure_data {
+            get {
+                return ResourceManager.GetString("Update_Structure_data", resourceCulture);
             }
         }
         

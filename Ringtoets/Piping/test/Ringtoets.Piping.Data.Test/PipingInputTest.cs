@@ -410,10 +410,6 @@ namespace Ringtoets.Piping.Data.Test
                 ExitPointL = (RoundedDouble) 5
             };
 
-            // Precondition
-            Assert.AreEqual(3, input.EntryPointL.Value);
-            Assert.AreEqual(5, input.ExitPointL.Value);
-
             // Call
             input.SynchronizeEntryAndExitPointInput();
 

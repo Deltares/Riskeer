@@ -102,12 +102,8 @@ namespace Ringtoets.HeightStructures.Data
         {
             get
             {
-                if (Structure == null)
-                {
-                    return false;
-                }
-
-                return Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
+                return Structure != null
+                       && Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
                        && Equals(LevelCrestStructure, Structure.LevelCrestStructure)
                        && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
                        && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)

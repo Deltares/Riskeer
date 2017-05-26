@@ -85,13 +85,13 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         /// </example>
         public static IEnumerable<TestCaseData> DifferentClosingStructuresWithSameId(string targetName, string testResultDescription)
         {
-            var referenceStructure = new TestClosingStructure();
+            string referenceStructureId = new TestClosingStructure().Id;
 
             var testCaseData = new List<TestCaseData>
             {
-                new TestCaseData(new TestClosingStructure(referenceStructure.Id, "Different name"))
+                new TestCaseData(new TestClosingStructure(referenceStructureId, "Different name"))
                     .SetName($"{targetName}_DifferentName_{testResultDescription}"),
-                new TestCaseData(new TestClosingStructure(new Point2D(1, 1), referenceStructure.Id))
+                new TestCaseData(new TestClosingStructure(new Point2D(1, 1), referenceStructureId))
                     .SetName($"{targetName}_DifferentLocation_{testResultDescription}")
             };
 

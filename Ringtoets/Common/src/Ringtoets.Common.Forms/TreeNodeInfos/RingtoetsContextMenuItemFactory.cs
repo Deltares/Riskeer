@@ -387,12 +387,14 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.CreateUpdateForeshoreProfileItem_Update_calculation_with_ForeshoreProfile_ToolTip;
-            if (calculation.InputParameters.ForeshoreProfile == null)
+            TCalculationInput calculationInputParameters = calculation.InputParameters;
+
+            if (calculationInputParameters.ForeshoreProfile == null)
             {
                 contextMenuEnabled = false;
                 toolTipMessage = Resources.CreateUpdateForeshoreProfileItem_Update_calculation_no_ForeshoreProfile_ToolTip;
             }
-            else if (calculation.InputParameters.IsForeshoreProfileInputSynchronized)
+            else if (calculationInputParameters.IsForeshoreProfileInputSynchronized)
             {
                 contextMenuEnabled = false;
                 toolTipMessage = Resources.CalculationItem_No_changes_to_update_ToolTip;

@@ -576,8 +576,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             bool structuresAvailable = stabilityPointStructures.Any();
 
             string stabilityPointStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                                ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
-                                                                                : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
+                                                                                ? RingtoetsCommonFormsResources.Generate_Calculations_for_selected_Structures
+                                                                                : RingtoetsCommonFormsResources.No_Structures_to_generate_Calculations_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              stabilityPointStructuresCalculationGroupContextToolTip,
@@ -761,11 +761,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         private StrictContextMenuItem CreateUpdateStructureItem(StabilityPointStructuresCalculationContext context)
         {
             var contextMenuEnabled = true;
-            string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip;
+            string toolTipMessage = RingtoetsCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
             if (context.WrappedData.InputParameters.Structure == null)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip;
+                toolTipMessage = RingtoetsCommonFormsResources.Structure_must_be_selected_ToolTip;
             }
             else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
             {
@@ -774,7 +774,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
 
             return new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data,
+                RingtoetsCommonFormsResources.Update_Structure_data,
                 toolTipMessage,
                 RingtoetsCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))

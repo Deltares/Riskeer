@@ -85,13 +85,13 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         /// </example>
         public static IEnumerable<TestCaseData> DifferentHeightStructuresWithSameId(string targetName, string testResultDescription)
         {
-            var referenceStructure = new TestHeightStructure();
+            string referenceStructureId = new TestHeightStructure().Id;
 
             var testCaseData = new List<TestCaseData>
             {
-                new TestCaseData(new TestHeightStructure(referenceStructure.Id, "Different name"))
+                new TestCaseData(new TestHeightStructure(referenceStructureId, "Different name"))
                     .SetName($"{targetName}_DifferentName_{testResultDescription}"),
-                new TestCaseData(new TestHeightStructure(new Point2D(1, 1), referenceStructure.Id))
+                new TestCaseData(new TestHeightStructure(new Point2D(1, 1), referenceStructureId))
                     .SetName($"{targetName}_DifferentLocation_{testResultDescription}")
             };
 

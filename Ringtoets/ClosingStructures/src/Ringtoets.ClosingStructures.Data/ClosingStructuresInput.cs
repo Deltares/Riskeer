@@ -84,12 +84,8 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                if (Structure == null)
-                {
-                    return false;
-                }
-
-                return Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
+                return Structure != null
+                       && Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
                        && Equals(LevelCrestStructureNotClosing, Structure.LevelCrestStructureNotClosing)
                        && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
                        && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)

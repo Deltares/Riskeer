@@ -96,12 +96,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             get
             {
-                if (Structure == null)
-                {
-                    return false;
-                }
-
-                return Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage)
+                return Structure != null
+                       && Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage)
                        && Equals(AreaFlowApertures, Structure.AreaFlowApertures)
                        && Equals(BankWidth, Structure.BankWidth)
                        && Equals(ConstructiveStrengthLinearLoadModel, Structure.ConstructiveStrengthLinearLoadModel)

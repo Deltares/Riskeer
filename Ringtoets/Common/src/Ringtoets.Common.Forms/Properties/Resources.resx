@@ -787,10 +787,10 @@
   <data name="StructureSelectionDialog_Select_Structures" xml:space="preserve">
     <value>Selecteer kunstwerken</value>
   </data>
-  <data name="StructuresPlugin_Generate_calculations_for_selected_structures" xml:space="preserve">
+  <data name="Generate_Calculations_for_selected_Structures" xml:space="preserve">
     <value>Genereer berekeningen op basis van geselecteerde kunstwerken.</value>
   </data>
-  <data name="StructuresPlugin_No_structures_to_generate_for" xml:space="preserve">
+  <data name="No_Structures_to_generate_Calculations_for" xml:space="preserve">
     <value>Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.</value>
   </data>
   <data name="Structure_DrainCoefficient_Description" xml:space="preserve">
@@ -950,13 +950,13 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="Structure_Id_Description" xml:space="preserve">
     <value>ID van het kunstwerk.</value>
   </data>
-  <data name="StructuresPlugin_CreateUpdateStructureItem_No_Structure_ToolTip" xml:space="preserve">
+  <data name="Structure_must_be_selected_ToolTip" xml:space="preserve">
     <value>Er moet een kunstwerk geselecteerd zijn.</value>
   </data>
-  <data name="StructuresPlugin_CreateUpdateStructureItem_Update_calculation_with_Structure_ToolTip" xml:space="preserve">
+  <data name="Update_Calculation_with_Structure_ToolTip" xml:space="preserve">
     <value>Berekening bijwerken met het kunstwerk.</value>
   </data>
-  <data name="StructuresPlugin_CreateUpdateStructureItem_Update_Structure_data" xml:space="preserve">
+  <data name="Update_Structure_data" xml:space="preserve">
     <value>&amp;Bijwerken kunstwerk...</value>
   </data>
   <data name="VerifyUpdate_Confirm_calculation_output_cleared" xml:space="preserve">
