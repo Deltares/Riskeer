@@ -443,6 +443,38 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
+        public void UpdateTargetCollectionData_CollectionOrderChangedAndElementAdded_UpdatesCollectionInCorrectOrder()
+        {
+            // Setup
+            var currentCollection = new[]
+            {
+                new TestItem("Item one"),
+                new TestItem("Item two"),
+                new TestItem("Item three")
+            };
+            var collection = new TestUniqueItemCollection();
+            collection.AddRange(currentCollection, sourceFilePath);
+
+            var importedItems = new[]
+            {
+                new TestItem("Item three"),
+                new TestItem("Item four"),
+                new TestItem("Item two"),
+                new TestItem("Item one")
+            };
+
+            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            strategy.ConcreteUpdateData(collection,
+                                        importedItems,
+                                        sourceFilePath);
+
+            // Assert
+            CollectionAssert.AreEqual(importedItems, collection);
+        }
+
+        [Test]
         public void UpdateTargetCollectionData_CollectionNotEmptyAndImportedDataHasDuplicateDefinitions_ThrowsUpdateDataException()
         {
             // Setup

@@ -136,36 +136,20 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                                                               string sourceFilePath)
         {
             TTargetData[] importedObjects = importedDataCollection.ToArray();
-            TTargetData[] objectsToBeAdded = GetObjectsToBeAdded(targetDataCollection, importedObjects).ToArray();
-            TTargetData[] objectsToBeRemoved = GetObjectsToBeRemoved(targetDataCollection, importedObjects).ToArray();
-            TTargetData[] objectsToBeUpdated = GetObjectsToBeUpdated(targetDataCollection, importedObjects).ToArray();
+
+            var modification = new Modification(targetDataCollection, importedObjects, equalityComparer);
 
             var affectedObjects = new List<IObservable>();
-            if (objectsToBeAdded.Any() || objectsToBeRemoved.Any() || objectsToBeUpdated.Any())
+            if (modification.HasUpdates())
             {
                 affectedObjects.Add(targetDataCollection);
             }
-            affectedObjects.AddRange(UpdateData(objectsToBeUpdated, importedObjects));
-            affectedObjects.AddRange(RemoveData(objectsToBeRemoved));
+            affectedObjects.AddRange(UpdateData(modification.ObjectsToBeUpdated.Values, importedObjects));
+            affectedObjects.AddRange(RemoveData(modification.ObjectsToBeRemoved));
             targetDataCollection.Clear();
-            targetDataCollection.AddRange(objectsToBeUpdated.Union(objectsToBeAdded), sourceFilePath);
+            targetDataCollection.AddRange(modification.GetModifiedCollection(), sourceFilePath);
 
             return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
-        }
-
-        private IEnumerable<TTargetData> GetObjectsToBeRemoved(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataOjects)
-        {
-            return existingCollection.Except(importedDataOjects, equalityComparer);
-        }
-
-        private IEnumerable<TTargetData> GetObjectsToBeUpdated(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
-        {
-            return existingCollection.Intersect(importedDataObjects, equalityComparer);
-        }
-
-        private IEnumerable<TTargetData> GetObjectsToBeAdded(IEnumerable<TTargetData> existingCollection, IEnumerable<TTargetData> importedDataObjects)
-        {
-            return importedDataObjects.Where(source => !existingCollection.Contains(source, equalityComparer));
         }
 
         /// <summary>
@@ -220,6 +204,130 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                 affectedObjects.AddRange(RemoveObjectAndDependentData(objectToRemove));
             }
             return affectedObjects;
+        }
+
+        /// <summary>
+        /// Inner class for obtaining the modifications of an update action.
+        /// </summary>
+        private class Modification
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="Modification"/>.
+            /// </summary>
+            /// <param name="existingObjects">The current collection of objects.</param>
+            /// <param name="updatedObjects">The collection of objects that were imported.</param>
+            /// <param name="equalityComparer">The comparer to test whether elements in
+            /// <paramref name="existingObjects"/> have a matching element in 
+            /// <paramref name="updatedObjects"/>.</param>
+            public Modification(IEnumerable<TTargetData> existingObjects,
+                                IEnumerable<TTargetData> updatedObjects,
+                                IEqualityComparer<TTargetData> equalityComparer)
+            {
+                TTargetData[] existingArray = existingObjects.ToArray();
+
+                var index = 0;
+                foreach (TTargetData importedObject in updatedObjects)
+                {
+                    int existingObjectIndex = FindIndex(existingArray, importedObject, equalityComparer);
+                    if (existingObjectIndex > -1)
+                    {
+                        ObjectsToBeUpdated.Add(index, existingArray[existingObjectIndex]);
+                        existingArray[existingObjectIndex] = null;
+                    }
+                    else
+                    {
+                        ObjectsToBeAdded.Add(index, importedObject);
+                    }
+                    index++;
+                }
+
+                ObjectsToBeRemoved = existingArray.Where(e => e != null);
+            }
+
+            /// <summary>
+            /// Gets the objects that were updated.
+            /// </summary>
+            public Dictionary<int, TTargetData> ObjectsToBeUpdated { get; } = new Dictionary<int, TTargetData>();
+
+            /// <summary>
+            /// Gets the objects that were removed.
+            /// </summary>
+            public IEnumerable<TTargetData> ObjectsToBeRemoved { get; }
+
+            /// <summary>
+            /// Gets a collection of updated objects from the existing object collection and the
+            /// added objects from the imported object collection, in the same order that was
+            /// found in the imported object collection.
+            /// </summary>
+            /// <returns>An ordered collection of updated and added elements.</returns>
+            public IEnumerable<TTargetData> GetModifiedCollection()
+            {
+                TTargetData[] remainingObjects = ObjectsToBeUpdated.Values.Union(ObjectsToBeAdded.Values).ToArray();
+                int[] indices = GetElementOrder();
+
+                foreach (int i in Enumerable.Range(0, remainingObjects.Length))
+                {
+                    TTargetData x = remainingObjects[i];
+                    int j = i;
+                    while (true)
+                    {
+                        int k = indices[j];
+                        indices[j] = j;
+                        if (k == i)
+                        {
+                            break;
+                        }
+                        remainingObjects[j] = remainingObjects[k];
+                        j = k;
+                    }
+                    remainingObjects[j] = x;
+                }
+
+                return remainingObjects;
+            }
+
+            /// <summary>
+            /// Finds out whether there was a difference between the existing and the imported
+            /// object collections.
+            /// </summary>
+            /// <returns></returns>
+            public bool HasUpdates()
+            {
+                return ObjectsToBeRemoved.Any() || ObjectsToBeAdded.Any() || ObjectsToBeUpdated.Any();
+            }
+
+            private Dictionary<int, TTargetData> ObjectsToBeAdded { get; } = new Dictionary<int, TTargetData>();
+
+            private int[] GetElementOrder()
+            {
+                int[] keys = ObjectsToBeUpdated.Keys.Union(ObjectsToBeAdded.Keys).ToArray();
+
+                int orderLength = keys.Length;
+                var order = new int[orderLength];
+                for (var valueToInsert = 0; valueToInsert < orderLength; valueToInsert++)
+                {
+                    order[keys[valueToInsert]] = valueToInsert;
+                }
+
+                return order;
+            }
+
+            private static int FindIndex(TTargetData[] collectionToLookIn, TTargetData objectToFind, IEqualityComparer<TTargetData> equalityComparer)
+            {
+                if (objectToFind == null)
+                {
+                    throw new ArgumentNullException(nameof(objectToFind));
+                }
+                for (var i = 0; i < collectionToLookIn.Length; i++)
+                {
+                    TTargetData targetData = collectionToLookIn[i];
+                    if (targetData != null && equalityComparer.Equals(targetData, objectToFind))
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
         }
     }
 }

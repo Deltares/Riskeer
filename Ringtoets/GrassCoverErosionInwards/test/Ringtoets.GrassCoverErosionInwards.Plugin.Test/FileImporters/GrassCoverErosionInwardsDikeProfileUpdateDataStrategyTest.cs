@@ -393,18 +393,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             Assert.AreEqual(2, dikeProfiles.Count);
             var expectedDikeProfiles = new[]
             {
-                dikeProfileToBeUpdated,
-                dikeProfileToBeAdded
+                dikeProfileToBeAdded,
+                dikeProfileToBeUpdated
             };
             CollectionAssert.AreEqual(expectedDikeProfiles, dikeProfiles);
 
-            DikeProfile updatedDikeProfile = dikeProfiles[0];
-            Assert.AreSame(dikeProfileToBeUpdated, updatedDikeProfile);
-            AssertDikeProfile(dikeProfileToUpdateFrom, updatedDikeProfile);
-
-            DikeProfile addedDikeProfile = dikeProfiles[1];
+            DikeProfile addedDikeProfile = dikeProfiles[0];
             Assert.AreSame(dikeProfileToBeAdded, addedDikeProfile);
             AssertDikeProfile(dikeProfileToBeAdded, addedDikeProfile);
+
+            DikeProfile updatedDikeProfile = dikeProfiles[1];
+            Assert.AreSame(dikeProfileToBeUpdated, updatedDikeProfile);
+            AssertDikeProfile(dikeProfileToUpdateFrom, updatedDikeProfile);
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
