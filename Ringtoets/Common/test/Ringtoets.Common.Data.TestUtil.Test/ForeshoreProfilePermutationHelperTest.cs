@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class ForeshoreProfilePermutationHelperTest
     {
         [Test]
-        public void DifferentForeshoreProfileWithSameIdNameAndX0_ReturnsExpectedTestCaseData()
+        public void DifferentForeshoreProfilesWithSameIdNameAndX0_ReturnsExpectedTestCaseData()
         {
             // Setup
             const string targetName = "C";
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void DifferentForeshoreProfileWithSameIdNameOrientationAndX0_ReturnsExpectedTestCaseData()
+        public void DifferentForeshoreProfilesWithSameIdNameOrientationAndX0_ReturnsExpectedTestCaseData()
         {
             // Setup
             const string targetName = "C";

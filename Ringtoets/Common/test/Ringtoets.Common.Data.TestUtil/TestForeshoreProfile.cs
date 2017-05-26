@@ -128,5 +128,31 @@ namespace Ringtoets.Common.Data.TestUtil
                        Id = profileId,
                        Name = profileName
                    }) {}
+
+        /// <summary>
+        /// Modifies some properties of the current instance of the foreshore profile 
+        /// to different values.
+        /// </summary>
+        /// <param name="foreshoreProfile">The current instance of which the properties which 
+        /// need to be modified.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreProfile"/>
+        /// is <c>null</c>.</exception>
+        public static void ModifyForeshoreProfileProperties(TestForeshoreProfile foreshoreProfile)
+        {
+            if (foreshoreProfile == null)
+            {
+                throw new ArgumentNullException(nameof(foreshoreProfile));
+            }
+
+            BreakWater differentBreakWater = null;
+            if (!foreshoreProfile.HasBreakWater)
+            {
+                differentBreakWater = new BreakWater(BreakWaterType.Caisson, 12.34);
+            }
+
+            var foreshoreProfileToUpdateFrom = new TestForeshoreProfile(differentBreakWater);
+
+            foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
+        }
     }
 }

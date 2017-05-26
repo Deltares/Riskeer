@@ -728,24 +728,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [Combinatorial]
-        public void ContextMenuStripm_ForeshoreProfileStates_CreatesExpectedItem(
-            [Values(true, false)] bool hasForeshoreProfile,
-            [Values(true, false)] bool isSynchronized)
+        public void ContextMenuStrip_CalculationWithoutForeshoreProfile_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-
-            if (hasForeshoreProfile)
-            {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
-                if (!isSynchronized)
-                {
-                    calculation.InputParameters.UseBreakWater = true;
-                }
-            }
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                    failureMechanism,
@@ -764,38 +752,89 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    if (hasForeshoreProfile)
-                    {
-                        if (isSynchronized)
-                        {
-                            TestHelper.AssertContextMenuStripContainsItem(
-                                menu,
-                                contextMenuUpdateForeshoreProfileIndex,
-                                "&Bijwerken voorlandprofiel...",
-                                "Er zijn geen wijzigingen om bij te werken.",
-                                RingtoetsCommonFormsResources.UpdateItemIcon,
-                                false);
-                        }
-                        else
-                        {
-                            TestHelper.AssertContextMenuStripContainsItem(
-                                menu,
-                                contextMenuUpdateForeshoreProfileIndex,
-                                "&Bijwerken voorlandprofiel...",
-                                "Berekening bijwerken met het voorlandprofiel.",
-                                RingtoetsCommonFormsResources.UpdateItemIcon);
-                        }
-                    }
-                    else
-                    {
-                        TestHelper.AssertContextMenuStripContainsItem(
-                            menu,
-                            contextMenuUpdateForeshoreProfileIndex,
-                            "&Bijwerken voorlandprofiel...",
-                            "Er moet een voorlandprofiel geselecteerd zijn.",
-                            RingtoetsCommonFormsResources.UpdateItemIcon,
-                            false);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(
+                        menu,
+                        contextMenuUpdateForeshoreProfileIndex,
+                        "&Bijwerken voorlandprofiel...",
+                        "Er moet een voorlandprofiel geselecteerd zijn.",
+                        RingtoetsCommonFormsResources.UpdateItemIcon,
+                        false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputInSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(
+                        menu,
+                        contextMenuUpdateForeshoreProfileIndex,
+                        "&Bijwerken voorlandprofiel...",
+                        "Er zijn geen wijzigingen om bij te werken.",
+                        RingtoetsCommonFormsResources.UpdateItemIcon,
+                        false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var foreshoreProfileInput = new TestForeshoreProfile();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
+            TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(
+                        menu,
+                        contextMenuUpdateForeshoreProfileIndex,
+                        "&Bijwerken voorlandprofiel...",
+                        "Berekening bijwerken met het voorlandprofiel.",
+                        RingtoetsCommonFormsResources.UpdateItemIcon);
                 }
             }
         }
@@ -811,11 +850,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
+            var foreshoreProfileInput = new TestForeshoreProfile(true);
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    ForeshoreProfile = foreshoreProfileInput
                 }
             };
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
@@ -834,7 +874,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                calculation.InputParameters.UseBreakWater = false;
+                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+
+                // Precondition
+                Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -858,11 +901,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
+            var foreshoreProfileInput = new TestForeshoreProfile(true);
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    ForeshoreProfile = foreshoreProfileInput
                 },
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
             };
@@ -905,7 +949,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                calculation.InputParameters.UseBreakWater = false;
+                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+
+                // Precondition
+                Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -913,7 +960,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
                     // Then
-                    Assert.AreEqual(continuation, calculation.InputParameters.UseBreakWater);
+                    Assert.AreEqual(continuation, calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                     Assert.AreEqual(!continuation, calculation.HasOutput);
                 }
             }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -168,7 +169,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0.0, profile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
         }
-        
+
         [Test]
         public void Constructor_WithGeometryAndId_ReturnsExpectedForeshoreProfileProperties()
         {
@@ -192,6 +193,43 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
+        }
+
+        [Test]
+        public void ChangeForeshoreProfile_ForeshoreProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TestForeshoreProfile.ModifyForeshoreProfileProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("foreshoreProfile", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChangeForeshoreProfile_ForeshoreProfileHasBreakWater_ChangesProperties(bool hasBreakWater)
+        {
+            // Setup
+            TestForeshoreProfile profile = hasBreakWater
+                                               ? new TestForeshoreProfile(
+                                                   new BreakWater(BreakWaterType.Caisson,
+                                                                  12.34))
+                                               : new TestForeshoreProfile("WithoutBreakWater");
+
+            // Call
+            TestForeshoreProfile.ModifyForeshoreProfileProperties(profile);
+
+            // Assert
+            if (hasBreakWater)
+            {
+                Assert.IsNull(profile.BreakWater);
+            }
+            else
+            {
+                Assert.IsNotNull(profile.BreakWater);
+            }
         }
     }
 }

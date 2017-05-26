@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => {});
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
 
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
@@ -599,25 +599,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         #region CreateUpdateForeshoreProfileOfCalculationItem
 
         [Test]
-        [Combinatorial]
-        public void CreateUpdateForeshoreProfileOfCalculationItem_ForeshoreProfileStates_CreatesExpectedItem(
-            [Values(true, false)] bool hasForeshoreProfile,
-            [Values(true, false)] bool isSynchronized)
+        public void CreateUpdateForeshoreProfileOfCalculationItem_NoForeshoreProfile_CreatesExpectedItem()
         {
             // Setup
             var mocks = new MockRepository();
             var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
-
-            if (hasForeshoreProfile)
-            {
-                input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
-                input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
-            }
-            else
-            {
-                input.Expect(ci => ci.ForeshoreProfile).Return(null);
-            }
+            input.Expect(ci => ci.ForeshoreProfile).Return(null);
 
             calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
@@ -626,29 +614,53 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
-                inquiryHelper, c => {});
+                inquiryHelper, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
 
-            if (hasForeshoreProfile)
+            Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
+            Assert.IsFalse(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateUpdateForeshoreProfileOfCalculationItem_ForeshoreProfileIsSynchronizedStates_CreatesExpectedItem(bool isSynchronized)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.StrictMock<ICalculation<ICalculationInputWithForeshoreProfile>>();
+            var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
+
+            input.Expect(ci => ci.ForeshoreProfile).Return(new TestForeshoreProfile());
+            input.Expect(ci => ci.IsForeshoreProfileInputSynchronized).Return(isSynchronized);
+
+            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
+                calculation,
+                inquiryHelper, c => { });
+
+            // Assert
+            Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
+
+            if (isSynchronized)
             {
-                if (isSynchronized)
-                {
-                    Assert.AreEqual("Er zijn geen wijzigingen om bij te werken.", toolStripItem.ToolTipText);
-                    Assert.IsFalse(toolStripItem.Enabled);
-                }
-                else
-                {
-                    Assert.AreEqual("Berekening bijwerken met het voorlandprofiel.", toolStripItem.ToolTipText);
-                    Assert.IsTrue(toolStripItem.Enabled);
-                }
+                Assert.AreEqual("Er zijn geen wijzigingen om bij te werken.", toolStripItem.ToolTipText);
+                Assert.IsFalse(toolStripItem.Enabled);
             }
             else
             {
-                Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
-                Assert.IsFalse(toolStripItem.Enabled);
+                Assert.AreEqual("Berekening bijwerken met het voorlandprofiel.", toolStripItem.ToolTipText);
+                Assert.IsTrue(toolStripItem.Enabled);
             }
 
             mocks.VerifyAll();
@@ -656,7 +668,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CreateUpdateForeshoreProfileOfCalculationItem_WithVariousOutputPerformClick_ExpectedAction(
+        public void CreateUpdateForeshoreProfileOfCalculationItem_WithForeshoreProfileAndVariousOutputPerformClick_ExpectedAction(
             [Values(true, false)] bool hasOutput,
             [Values(true, false)] bool continuation)
         {
@@ -742,7 +754,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 {
                     calculation
                 },
-                inquiryHelper, c => {});
+                inquiryHelper, c => { });
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);

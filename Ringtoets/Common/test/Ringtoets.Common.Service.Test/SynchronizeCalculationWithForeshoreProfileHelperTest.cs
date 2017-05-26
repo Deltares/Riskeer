@@ -23,9 +23,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Service;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
     public class SynchronizeCalculationWithForeshoreProfileHelperTest
