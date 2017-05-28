@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void DikeProfile_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
-            var dikeProfile = CreateTestDikeProfile();
+            DikeProfile dikeProfile = CreateTestDikeProfile();
 
             var input = new GrassCoverErosionInwardsInput
             {
@@ -310,7 +310,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void IsDikeProfileInputSynchronized_InputParametersAndDikeProfileNotInSync_ReturnFalse(DikeProfile newDikeProfile)
         {
             // Setup
-            var dikeProfile = CreateTestDikeProfile();
+            DikeProfile dikeProfile = CreateTestDikeProfile();
 
             var input = new GrassCoverErosionInwardsInput
             {
@@ -344,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SynchronizeDikeProfileInput_ChangedDikeProfile_ExpectedValues(DikeProfile newDikeProfile)
         {
             // Setup
-            var dikeProfile = CreateTestDikeProfile();
+            DikeProfile dikeProfile = CreateTestDikeProfile();
 
             var input = new GrassCoverErosionInwardsInput
             {

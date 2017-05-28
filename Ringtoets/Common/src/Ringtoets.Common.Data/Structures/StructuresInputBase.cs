@@ -384,13 +384,12 @@ namespace Ringtoets.Common.Data.Structures
         {
             get
             {
-                return
-                    foreshoreProfile != null
-                    && UseForeshore == foreshoreProfile.Geometry.Count() > 1
-                    && UseBreakWater == foreshoreProfile.HasBreakWater
-                    && BreakWater.Equals(foreshoreProfile.HasBreakWater
-                                             ? foreshoreProfile.BreakWater
-                                             : GetDefaultBreakWater());
+                return foreshoreProfile != null
+                       && UseForeshore == foreshoreProfile.Geometry.Count() > 1
+                       && UseBreakWater == foreshoreProfile.HasBreakWater
+                       && BreakWater.Equals(foreshoreProfile.HasBreakWater
+                                                ? foreshoreProfile.BreakWater
+                                                : GetDefaultBreakWater());
             }
         }
 

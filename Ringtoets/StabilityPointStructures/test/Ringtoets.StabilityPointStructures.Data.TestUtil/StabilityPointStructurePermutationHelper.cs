@@ -83,13 +83,13 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
         /// </example>
         public static IEnumerable<TestCaseData> DifferentStabilityPointStructuresWithSameId(string targetName, string testResultDescription)
         {
-            var referenceStructure = new TestStabilityPointStructure();
+            string referenceStructureId = new TestStabilityPointStructure().Id;
 
             var testCaseData = new List<TestCaseData>
             {
-                new TestCaseData(new TestStabilityPointStructure("Different name", referenceStructure.Id))
+                new TestCaseData(new TestStabilityPointStructure("Different name", referenceStructureId))
                     .SetName($"{targetName}_DifferentName_{testResultDescription}"),
-                new TestCaseData(new TestStabilityPointStructure(new Point2D(1, 1), referenceStructure.Id))
+                new TestCaseData(new TestStabilityPointStructure(new Point2D(1, 1), referenceStructureId))
                     .SetName($"{targetName}_DifferentLocation_{testResultDescription}")
             };
 

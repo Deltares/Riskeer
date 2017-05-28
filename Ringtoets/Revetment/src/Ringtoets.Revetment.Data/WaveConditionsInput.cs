@@ -260,18 +260,13 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                if (foreshoreProfile == null)
-                {
-                    return false;
-                }
-
-                return
-                    Orientation == foreshoreProfile.Orientation
-                    && UseForeshore == foreshoreProfile.Geometry.Count() > 1
-                    && UseBreakWater == foreshoreProfile.HasBreakWater
-                    && BreakWater.Equals(foreshoreProfile.HasBreakWater
-                                             ? foreshoreProfile.BreakWater
-                                             : GetDefaultBreakWater());
+                return foreshoreProfile != null
+                       && Orientation == foreshoreProfile.Orientation
+                       && UseForeshore == foreshoreProfile.Geometry.Count() > 1
+                       && UseBreakWater == foreshoreProfile.HasBreakWater
+                       && BreakWater.Equals(foreshoreProfile.HasBreakWater
+                                                ? foreshoreProfile.BreakWater
+                                                : GetDefaultBreakWater());
             }
         }
 
