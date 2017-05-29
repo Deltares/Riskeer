@@ -119,11 +119,12 @@ namespace Application.Ringtoets.Storage
                 {
                     ValidateDatabaseVersion(dbContext, databaseFilePath);
 
-                    ProjectEntity projectEntity;
+                    dbContext.LoadTablesIntoContext();
 
+                    ProjectEntity projectEntity;
                     try
                     {
-                        projectEntity = dbContext.ProjectEntities.Single();
+                        projectEntity = dbContext.ProjectEntities.Local.Single();
                     }
                     catch (InvalidOperationException exception)
                     {

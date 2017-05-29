@@ -54,6 +54,7 @@ namespace Application.Ringtoets.Storage.Test.DbContext
                 // Assert
                 Assert.IsInstanceOf<System.Data.Entity.DbContext>(ringtoetsEntities);
                 Assert.AreEqual(connectionString, ringtoetsEntities.Database.Connection.ConnectionString);
+                Assert.IsFalse(ringtoetsEntities.Configuration.LazyLoadingEnabled);
             }
         }
 
