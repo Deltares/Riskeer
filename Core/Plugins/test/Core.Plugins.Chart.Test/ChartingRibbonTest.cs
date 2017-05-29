@@ -139,7 +139,7 @@ namespace Core.Plugins.Chart.Test
 
             chart.Expect(c => c.IsPanningEnabled).Return(true);
             chart.Expect(c => c.IsRectangleZoomingEnabled).Return(true);
-            chart.Expect(c => c.ZoomToAll());
+            chart.Expect(c => c.ZoomToAllVisibleLayers());
 
             mocks.ReplayAll();
 

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Controls.Commands;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Plugins.Chart.Commands;
 using Core.Plugins.Chart.Legend;
@@ -51,6 +52,7 @@ namespace Core.Plugins.Chart.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var viewController = mocks.StrictMock<IViewController>();
 
             if (open)
@@ -67,7 +69,7 @@ namespace Core.Plugins.Chart.Test.Commands
 
             mocks.ReplayAll();
 
-            var controller = new ChartLegendController(viewController);
+            var controller = new ChartLegendController(viewController, contextMenuBuilderProvider);
             var command = new ToggleLegendViewCommand(controller);
 
             if (open)
@@ -88,6 +90,7 @@ namespace Core.Plugins.Chart.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var viewController = mocks.StrictMock<IViewController>();
             var viewHost = mocks.Stub<IViewHost>();
             var toolViewList = new List<IView>();
@@ -104,7 +107,7 @@ namespace Core.Plugins.Chart.Test.Commands
 
             mocks.ReplayAll();
 
-            var controller = new ChartLegendController(viewController);
+            var controller = new ChartLegendController(viewController, contextMenuBuilderProvider);
             var command = new ToggleLegendViewCommand(controller);
 
             // Call

@@ -66,5 +66,10 @@ namespace Core.Components.Charting.Data
         /// Gets or sets a value indicating whether the <see cref="ChartData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the <see cref="ChartData"/> has data.
+        /// </summary>
+        public virtual bool HasData { get; }
     }
 }

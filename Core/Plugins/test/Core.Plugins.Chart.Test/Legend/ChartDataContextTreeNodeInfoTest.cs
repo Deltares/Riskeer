@@ -23,8 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
@@ -41,8 +45,12 @@ namespace Core.Plugins.Chart.Test.Legend
     [TestFixture]
     public class ChartDataContextTreeNodeInfoTest
     {
+        private const int contextMenuZoomToAllIndex = 0;
+
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
+        private MockRepository mocks;
+        private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         private static IEnumerable<TestCaseData> ChartDataLegendImages
         {
@@ -107,7 +115,11 @@ namespace Core.Plugins.Chart.Test.Legend
         [SetUp]
         public void SetUp()
         {
-            chartLegendView = new ChartLegendView();
+            mocks = new MockRepository();
+            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            chartLegendView = new ChartLegendView(contextMenuBuilderProvider);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
@@ -119,6 +131,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void TearDown()
         {
             chartLegendView.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -128,7 +141,7 @@ namespace Core.Plugins.Chart.Test.Legend
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
-            Assert.IsNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNotNull(info.ChildNodeObjects);
@@ -289,7 +302,6 @@ namespace Core.Plugins.Chart.Test.Legend
         public void OnNodeChecked_Always_SetsPointDataVisibilityAndNotifiesParentObservers(ChartData chartData, bool initialVisibleState)
         {
             // Setup
-            var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -418,7 +430,6 @@ namespace Core.Plugins.Chart.Test.Legend
         public void OnDrop_ChartDataMovedToPositionInsideRange_SetsNewReverseOrder(int position)
         {
             // Setup
-            var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -459,7 +470,6 @@ namespace Core.Plugins.Chart.Test.Legend
         public void OnDrop_ChartDataMovedToPositionOutsideRange_ThrowsException(int position)
         {
             // Setup
-            var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
@@ -479,7 +489,7 @@ namespace Core.Plugins.Chart.Test.Legend
             chartDataCollection.Attach(observer);
             chartLegendView.Data = chartDataCollection;
 
-            ChartDataContext context1 = GetContext(chartData1);
+            ChartDataContext context = GetContext(chartData1);
             ChartDataContext collectionContext = GetContext(chartDataCollection);
 
             chartDataCollection.Attach(observer);
@@ -487,12 +497,114 @@ namespace Core.Plugins.Chart.Test.Legend
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => info.OnDrop(context1, collectionContext, collectionContext, position, treeViewControl);
+                TestDelegate test = () => info.OnDrop(context, collectionContext, collectionContext, position, treeViewControl);
 
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(test);
 
                 mocks.VerifyAll(); // Expect no update observer.
+            }
+        }
+        [Test]
+        [TestCaseSource(nameof(NoChartDataCollection))]
+        public void ContextMenuStrip_DifferentTypesOfChartData_CallsBuilder(ChartData chartData)
+        {
+            // Setup
+            var builder = mocks.StrictMock<IContextMenuBuilder>();
+            using (mocks.Ordered())
+            {
+                builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
+                builder.Expect(mb => mb.Build()).Return(null);
+            }
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.ContextMenuStrip(GetContext(chartData), null, null);
+
+            // Assert
+            // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ContextMenuStrip_VisibleMapData_ZoomToAllItemEnabled()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            var mapData = new ChartLineData("A")
+            {
+                IsVisible = true,
+                Points = new[]
+                {
+                    new Point2D(0, 1)
+                }
+            };
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Zet het zoomniveau van de grafiek dusdanig dat deze gegevensreeks precies in het beeld past.",
+                                                              Resources.ZoomToAllIcon);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_InvisibleMapData_ZoomToAllItemDisabled()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            var mapData = new ChartLineData("A")
+            {
+                IsVisible = false
+            };
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Om het zoomniveau aan te passen moet de gegevensreeks zichtbaar zijn.",
+                                                              Resources.ZoomToAllIcon,
+                                                              false);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_MapDataWithoutFeatures_ZoomToAllItemDisabled()
+        {
+            // Setup
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+
+            mocks.ReplayAll();
+
+            var mapData = new ChartLineData("A")
+            {
+                IsVisible = true
+            };
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten.",
+                                                              Resources.ZoomToAllIcon,
+                                                              false);
             }
         }
 

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Components.Charting.Data
 {
@@ -98,6 +99,14 @@ namespace Core.Components.Charting.Data
         public void Clear()
         {
             chartDataList.Clear();
+        }
+
+        public override bool HasData
+        {
+            get
+            {
+                return chartDataList.Any(c => c.HasData);
+            }
         }
     }
 }

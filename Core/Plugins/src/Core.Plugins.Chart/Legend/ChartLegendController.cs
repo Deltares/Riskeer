@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Charting.Data;
 using Core.Plugins.Chart.Properties;
@@ -35,6 +36,7 @@ namespace Core.Plugins.Chart.Legend
     public class ChartLegendController
     {
         private readonly IViewController viewController;
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         /// <summary>
         /// Fired when the chart legend has been opened.
@@ -47,13 +49,23 @@ namespace Core.Plugins.Chart.Legend
         /// Creates a new instance of <see cref="ChartLegendController"/>.
         /// </summary>
         /// <param name="viewController">The <see cref="IViewController"/> to invoke actions upon.</param>
-        public ChartLegendController(IViewController viewController)
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewController"/> 
+        /// or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public ChartLegendController(IViewController viewController, IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException(nameof(viewController), @"Cannot create a ChartLegendController when the view controller is null.");
+                throw new ArgumentNullException(nameof(viewController),
+                                                $@"Cannot create a {typeof(ChartLegendController).Name} when the view controller is null.");
+            }
+            if (contextMenuBuilderProvider == null)
+            {
+                throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
+                                                $@"Cannot create a {typeof(ChartLegendController).Name} when the context menu builder provider is null.");
             }
             this.viewController = viewController;
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }
 
         /// <summary>
@@ -100,7 +112,7 @@ namespace Core.Plugins.Chart.Legend
         /// </summary>
         private void OpenLegendView()
         {
-            legendView = new ChartLegendView();
+            legendView = new ChartLegendView(contextMenuBuilderProvider);
 
             viewController.ViewHost.AddToolView(legendView, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(legendView, Resources.ChartIcon);

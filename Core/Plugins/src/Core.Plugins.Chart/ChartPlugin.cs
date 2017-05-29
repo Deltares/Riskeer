@@ -76,7 +76,7 @@ namespace Core.Plugins.Chart
         /// <returns>A new <see cref="ChartLegendController"/> instance.</returns>
         private ChartLegendController CreateLegendController(IViewController viewController)
         {
-            var controller = new ChartLegendController(viewController);
+            var controller = new ChartLegendController(viewController, Gui);
             controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveDocumentView();
             return controller;
         }

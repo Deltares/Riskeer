@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -140,9 +141,79 @@ namespace Core.Components.OxyPlot.Forms
             plotController.ToggleRectangleZooming();
         }
 
-        public void ZoomToAll()
+        public void ZoomToAllVisibleLayers()
         {
-            plotView.ZoomToAll();
+            ZoomToAllVisibleLayers(Data);
+        }
+
+        public void ZoomToAllVisibleLayers(ChartData layerData)
+        {
+            Extent extent = CreateEnvelopeForAllVisibleLayers(layerData);
+            if (!extent.IsNaN)
+            {
+                Extent extentWithPadding = extent.AddPadding(0.01);
+                plotView.Model.DefaultXAxis.Zoom(extentWithPadding.XMin, extentWithPadding.XMax);
+                plotView.Model.DefaultYAxis.Zoom(extentWithPadding.YMin, extentWithPadding.YMax);
+                plotView.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// Defines the area taken up by the visible map-data based on the provided map-data.
+        /// </summary>
+        /// <param name="chartData">The data to determine the visible extent for.</param>
+        /// <returns>The area definition.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/> is
+        /// not part of the drawn map features.</exception>
+        private Extent CreateEnvelopeForAllVisibleLayers(ChartData chartData)
+        {
+            var collection = chartData as ChartDataCollection;
+            if (collection != null)
+            {
+                return CreateEnvelopeForAllVisibleLayers(collection);
+            }
+
+            DrawnChartData drawnMapData = drawnChartDataList.FirstOrDefault(dmd => dmd.ItemBasedChartData.Equals(chartData));
+            if (drawnMapData == null)
+            {
+                throw new ArgumentException($@"Can only zoom to {typeof(ChartData).Name} that is part of this {typeof(ChartControl).Name}s drawn {nameof(chartData)}.",
+                                            nameof(chartData));
+            }
+
+            Extent extent = new Extent();
+            if (drawnMapData.ItemBasedChartData.IsVisible)
+            {
+                extent.ExpandToInclude(CreateExtentFor(drawnMapData.ItemBasedChartDataSeries as XYAxisSeries));
+            }
+            return extent;
+        }
+
+        private Extent CreateExtentFor(XYAxisSeries itemBasedChartData)
+        {
+            return new Extent
+            (
+                itemBasedChartData.MinX,
+                itemBasedChartData.MaxX,
+                itemBasedChartData.MinY,
+                itemBasedChartData.MaxY
+            );
+        }
+
+        /// <summary>
+        /// Defines the area taken up by the visible map-data based on the provided map-data.
+        /// </summary>
+        /// <param name="chartData">The data to determine the visible extent for.</param>
+        /// <returns>The area definition.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/> or
+        /// any of its children is not part of the drawn map features.</exception>
+        private Extent CreateEnvelopeForAllVisibleLayers(ChartDataCollection chartData)
+        {
+            var envelope = new Extent();
+            foreach (ChartData childMapData in chartData.Collection)
+            {
+                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));
+            }
+            return envelope;
         }
 
         protected override void Dispose(bool disposing)

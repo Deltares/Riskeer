@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
@@ -42,11 +43,16 @@ namespace Core.Plugins.Chart.Test.Legend
     {
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
+        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
-            chartLegendView = new ChartLegendView();
+            mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            chartLegendView = new ChartLegendView(contextMenuBuilderProvider);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(chartLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
@@ -58,6 +64,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void TearDown()
         {
             chartLegendView.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -67,7 +74,7 @@ namespace Core.Plugins.Chart.Test.Legend
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
-            Assert.IsNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNotNull(info.ChildNodeObjects);

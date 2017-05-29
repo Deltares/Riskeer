@@ -175,4 +175,22 @@
   <data name="OxyPlotPlugin_GetViewInfos_Diagram" xml:space="preserve">
     <value>Diagram</value>
   </data>
+  <data name="ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip" xml:space="preserve">
+    <value>Zet het zoomniveau van de grafiek dusdanig dat deze gegevensreeks precies in het beeld past.</value>
+  </data>
+  <data name="ChartLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+    <value>Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten.</value>
+  </data>
+  <data name="ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+    <value>Om het zoomniveau aan te passen moet de gegevensreeks zichtbaar zijn.</value>
+  </data>
+  <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+    <value>Om het zoomniveau aan te passen moet minstens één van de zichtbare gegevensreeksen in deze map met gegevensreeksen elementen bevatten.</value>
+  </data>
+  <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+    <value>Om het zoomniveau aan te passen moet er minstens één gegevensreeks in deze map met gegevensreeksen zichtbaar zijn.</value>
+  </data>
+  <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip" xml:space="preserve">
+    <value>Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen.</value>
+  </data>
 </root>

@@ -329,6 +329,45 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
+                var testData = new ChartLineData("test data")
+                {
+                    Points = new[]
+                    {
+                        new Point2D(2, 3)
+                    }
+                };
+                var collection = new ChartDataCollection("collection");
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                var invalidated = 0;
+
+                collection.Add(testData);
+
+                chart.Data = collection;
+
+                List<Series> series = view.Model.Series.ToList();
+
+                form.Controls.Add(chart);
+                view.Invalidated += (sender, args) => invalidated++;
+
+                form.Show();
+                view.Update();
+
+                // Call
+                chart.ZoomToAllVisibleLayers();
+
+                // Assert
+                Assert.AreEqual(1, invalidated);
+                CollectionAssert.AreEqual(series, view.Model.Series);
+            }
+        }
+
+        [Test]
+        public void ZoomToAll_ChartWithoutDataInForm_ViewNotInvalidated()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
                 var testData = new ChartLineData("test data");
                 var collection = new ChartDataCollection("collection");
                 var view = TypeUtils.GetField<PlotView>(chart, "plotView");
@@ -344,12 +383,13 @@ namespace Core.Components.OxyPlot.Forms.Test
                 view.Invalidated += (sender, args) => invalidated++;
 
                 form.Show();
+                view.Update();
 
                 // Call
-                chart.ZoomToAll();
+                chart.ZoomToAllVisibleLayers();
 
                 // Assert
-                Assert.AreEqual(1, invalidated);
+                Assert.AreEqual(0, invalidated);
                 CollectionAssert.AreEqual(series, view.Model.Series);
             }
         }

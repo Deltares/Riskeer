@@ -25,12 +25,14 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PresentationObjects;
 using Core.Plugins.Chart.Properties;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Chart.Test.Legend
 {
@@ -38,10 +40,25 @@ namespace Core.Plugins.Chart.Test.Legend
     public class ChartLegendViewTest
     {
         [Test]
-        public void DefaultConstructor_CreatesUserControl()
+        public void Constructor_WithoutContextMenuBuilderProvider_CreatesUserControl()
         {
             // Call 
-            using (var view = new ChartLegendView())
+            var exception = Assert.Throws<ArgumentNullException>(() => new ChartLegendView(null));
+
+            // Assert
+            Assert.AreEqual("contextMenuBuilderProvider", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithBuilderProvider_CreatesUserControl()
+        {
+            // Setup 
+            var mocks = new MockRepository();
+            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            // Call 
+            using (var view = new ChartLegendView(menuBuilderProvider))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -49,13 +66,19 @@ namespace Core.Plugins.Chart.Test.Legend
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(Resources.General_Chart, view.Text);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_ChartControl_DataSet()
         {
             // Setup 
-            using (var view = new ChartLegendView())
+            var mocks = new MockRepository();
+            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            using (var view = new ChartLegendView(menuBuilderProvider))
             {
                 var chartDataCollection = new ChartDataCollection("test data");
 
@@ -65,13 +88,19 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 Assert.AreSame(chartDataCollection, view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_ForNull_NullSet()
         {
             // Setup 
-            using (var view = new ChartLegendView())
+            var mocks = new MockRepository();
+            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            using (var view = new ChartLegendView(menuBuilderProvider))
             {
                 // Call
                 view.Data = null;
@@ -79,13 +108,19 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 Assert.IsNull(view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_OtherObject_ThrowsInvalidCastException()
         {
             // Setup 
-            using (var view = new ChartLegendView())
+            var mocks = new MockRepository();
+            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            using (var view = new ChartLegendView(menuBuilderProvider))
             {
                 // Call
                 TestDelegate test = () => view.Data = new object();
@@ -93,6 +128,8 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 Assert.Throws<InvalidCastException>(test);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -102,6 +139,10 @@ namespace Core.Plugins.Chart.Test.Legend
         public void GivenChartDataContainingCollection_WhenDragDroppingFromRootToRoot_ThenDataPositionChanged(int index)
         {
             // Given
+            var mocks = new MockRepository();
+            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
             ChartData chartLineData = CreateChartLineData();
             var rootCollection = new ChartDataCollection("test data");
 
@@ -109,7 +150,7 @@ namespace Core.Plugins.Chart.Test.Legend
             rootCollection.Add(CreateChartLineData());
             rootCollection.Add(CreateChartLineData());
 
-            using (var chartLegendView = new ChartLegendView
+            using (var chartLegendView = new ChartLegendView(menuBuilderProvider)
             {
                 Data = rootCollection
             })
@@ -126,6 +167,8 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Then
                 Assert.AreEqual(2 - index, rootCollection.Collection.ToList().IndexOf(chartLineData));
             }
+
+            mocks.VerifyAll();
         }
 
         private ChartData CreateChartLineData()

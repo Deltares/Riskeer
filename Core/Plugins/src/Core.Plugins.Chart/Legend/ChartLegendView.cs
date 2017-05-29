@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.ContextMenu;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Core.Plugins.Chart.PresentationObjects;
@@ -38,15 +41,40 @@ namespace Core.Plugins.Chart.Legend
     /// </summary>
     public sealed partial class ChartLegendView : UserControl, IView
     {
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private IChartControl chartControl;
+
         /// <summary>
         /// Creates a new instance of <see cref="ChartLegendView"/>.
         /// </summary>
-        public ChartLegendView()
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public ChartLegendView(IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
+            if (contextMenuBuilderProvider == null)
+            {
+                throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
+                                                $@"Cannot create a {typeof(ChartLegendView).Name} when the context menu builder provider is null.");
+            }
+
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             InitializeComponent();
             Text = ChartResources.General_Chart;
 
             RegisterTreeNodeInfos();
+        }
+
+        public IChartControl ChartControl
+        {
+            get
+            {
+                return chartControl;
+            }
+            set
+            {
+                chartControl = value;
+                Data = value?.Data;
+            }
         }
 
         public object Data
@@ -74,7 +102,10 @@ namespace Core.Plugins.Chart.Legend
                 OnNodeChecked = ChartDataContextOnNodeChecked,
                 CanDrop = ChartDataContextCanDropAndInsert,
                 CanInsert = ChartDataContextCanDropAndInsert,
-                OnDrop = ChartDataContextOnDrop
+                OnDrop = ChartDataContextOnDrop,
+                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData.WrappedData))
+                                                                                                 .Build()
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
@@ -85,8 +116,114 @@ namespace Core.Plugins.Chart.Legend
                 CanDrag = (multipleAreaData, parentData) => true,
                 CanDrop = ChartDataCollectionCanDropAndInsert,
                 CanInsert = ChartDataCollectionCanDropAndInsert,
-                OnDrop = ChartDataCollectionOnDrop
+                OnDrop = ChartDataCollectionOnDrop,
+                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
+                                                                                                 .Build()
             });
+        }
+
+        private StrictContextMenuItem CreateZoomToExtentsItem(ChartData nodeData)
+        {
+            bool hasFeatures = nodeData.HasData;
+            bool enabled = nodeData.IsVisible && hasFeatures;
+            string toolTip;
+
+            if (nodeData.IsVisible)
+            {
+                toolTip = hasFeatures
+                              ? ChartResources.ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip
+                              : ChartResources.ChartLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
+            }
+            else
+            {
+                toolTip = ChartResources.ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
+            }
+
+            return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
+        }
+
+        private StrictContextMenuItem CreateZoomToExtentsItem(ChartData nodeData, string toolTip, bool isEnabled)
+        {
+            return new StrictContextMenuItem($"&{ChartResources.Ribbon_ZoomToAll}",
+                                             toolTip,
+                                             ChartResources.ZoomToAllIcon,
+                                             (sender, args) =>
+                                             {
+                                                 ChartControl?.ZoomToAllVisibleLayers(nodeData);
+                                             })
+            {
+                Enabled = isEnabled
+            };
+        }
+
+        private StrictContextMenuItem CreateZoomToExtentsItem(ChartDataCollection nodeData)
+        {
+            ChartData[] chartDatas = GetChartDataRecursively(nodeData).ToArray();
+            var isVisible = false;
+            var hasFeatures = false;
+            foreach (ChartData chartData in chartDatas)
+            {
+
+                if (chartData.IsVisible)
+                {
+                    isVisible = true;
+
+                    if (chartData.HasData)
+                    {
+                        hasFeatures = true;
+                        break;
+                    }
+                }
+            }
+
+            bool enabled = isVisible && hasFeatures;
+
+            string toolTip;
+
+            if (isVisible)
+            {
+                toolTip = hasFeatures
+                              ? ChartResources.ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip
+                              : ChartResources.ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisabled_Tooltip;
+            }
+            else
+            {
+                toolTip = ChartResources.ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Tooltip;
+            }
+
+            return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
+        }
+
+
+        /// <summary>
+        /// Gets all the <see cref="ChartData"/> recursively in the given <paramref name="chartDataCollection"/>.
+        /// </summary>
+        /// <param name="chartDataCollection">The collection to get all <see cref="ChartData"/> from.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ChartData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartDataCollection"/> is <c>null</c>.</exception>
+        public static IEnumerable<ChartData> GetChartDataRecursively(ChartDataCollection chartDataCollection)
+        {
+            if (chartDataCollection == null)
+            {
+                throw new ArgumentNullException(nameof(chartDataCollection));
+            }
+
+            var chartDataList = new List<ChartData>();
+
+            foreach (ChartData chartData in chartDataCollection.Collection)
+            {
+                var nestedChartDataCollection = chartData as ChartDataCollection;
+                if (nestedChartDataCollection != null)
+                {
+                    chartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
+                    continue;
+                }
+
+                chartDataList.Add(chartData);
+            }
+
+            return chartDataList;
         }
 
         private static object[] GetChildNodeObjects(ChartDataCollection chartDataCollection)

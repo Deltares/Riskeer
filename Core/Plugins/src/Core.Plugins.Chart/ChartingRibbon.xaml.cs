@@ -119,7 +119,7 @@ namespace Core.Plugins.Chart
 
         private void ButtonZoomToAll_Click(object sender, RoutedEventArgs e)
         {
-            Chart.ZoomToAll();
+            Chart.ZoomToAllVisibleLayers();
         }
     }
 }

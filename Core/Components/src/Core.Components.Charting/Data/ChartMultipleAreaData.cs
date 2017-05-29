@@ -76,5 +76,13 @@ namespace Core.Components.Charting.Data
         /// Gets or sets the style of the <see cref="ChartMultipleAreaData"/>.
         /// </summary>
         public ChartAreaStyle Style { get; set; }
+
+        public override bool HasData
+        {
+            get
+            {
+                return areas.Any(l => l.Any());
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.Charting.Data;
 
 namespace Core.Components.Charting.Forms
@@ -71,6 +72,14 @@ namespace Core.Components.Charting.Forms
         /// <summary>
         /// Zooms to a level so that everything is in view.
         /// </summary>
-        void ZoomToAll();
+        void ZoomToAllVisibleLayers();
+
+        /// <summary>
+        /// Zooms to a level such that the given chart data is in view.
+        /// </summary>
+        /// <param name="layerData">The data to zoom to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="layerData"/>
+        /// is not part of <see cref="Data"/>.</exception>
+        void ZoomToAllVisibleLayers(ChartData layerData);
     }
 }

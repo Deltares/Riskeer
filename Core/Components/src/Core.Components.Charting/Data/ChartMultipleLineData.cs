@@ -78,5 +78,13 @@ namespace Core.Components.Charting.Data
         /// Gets or sets the style of the <see cref="ChartMultipleLineData"/>.
         /// </summary>
         public ChartLineStyle Style { get; set; }
+
+        public override bool HasData
+        {
+            get
+            {
+                return lines.Any(l => l.Any());
+            }
+        }
     }
 }

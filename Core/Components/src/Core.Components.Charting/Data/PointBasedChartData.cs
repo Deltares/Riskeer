@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
 
 namespace Core.Components.Charting.Data
@@ -60,6 +61,14 @@ namespace Core.Components.Charting.Data
                 }
 
                 points = value;
+            }
+        }
+
+        public override bool HasData
+        {
+            get
+            {
+                return Points.Any();
             }
         }
     }
