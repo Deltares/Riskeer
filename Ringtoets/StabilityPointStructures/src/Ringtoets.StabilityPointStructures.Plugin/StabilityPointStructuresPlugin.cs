@@ -142,8 +142,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
-                                                                                 .AddDeleteChildrenItem()
-                                                                                 .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
                                                                                  .AddSeparator()
@@ -156,12 +154,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Text = structure => structure.Name,
                 Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
-                                                                                  .AddDeleteItem()
-                                                                                  .AddSeparator()
                                                                                   .AddPropertiesItem()
-                                                                                  .Build(),
-                CanRemove = CanRemoveStabilityPointStructure,
-                OnNodeRemoved = OnStabilityPointStructureRemoved
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<StabilityPointStructuresScenariosContext>
@@ -337,26 +331,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         #endregion
 
         #region TreeNodeInfo
-
-        #region StabilityPointStructure TreeNodeInfo
-
-        private static bool CanRemoveStabilityPointStructure(StabilityPointStructure nodeData, object parentData)
-        {
-            return parentData is StabilityPointStructuresContext;
-        }
-
-        private static void OnStabilityPointStructureRemoved(StabilityPointStructure nodeData, object parentData)
-        {
-            var parentContext = (StabilityPointStructuresContext) parentData;
-            IEnumerable<IObservable> changedObservables = StabilityPointStructuresDataSynchronizationService.RemoveStructure(parentContext.FailureMechanism,
-                                                                                                                             nodeData);
-            foreach (IObservable observable in changedObservables)
-            {
-                observable.NotifyObservers();
-            }
-        }
-
-        #endregion
 
         #region StabilityPointStructuresFailureMechanismContext TreeNodeInfo
 
