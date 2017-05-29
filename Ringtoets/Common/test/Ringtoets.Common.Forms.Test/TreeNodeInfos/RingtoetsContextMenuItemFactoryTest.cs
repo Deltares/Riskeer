@@ -607,7 +607,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var input = mocks.StrictMock<ICalculationInputWithForeshoreProfile>();
             input.Expect(ci => ci.ForeshoreProfile).Return(null);
 
-            calculation.Expect(c => c.InputParameters).Return(input).Repeat.Any();
+            calculation.Stub(c => c.InputParameters).Return(input);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 

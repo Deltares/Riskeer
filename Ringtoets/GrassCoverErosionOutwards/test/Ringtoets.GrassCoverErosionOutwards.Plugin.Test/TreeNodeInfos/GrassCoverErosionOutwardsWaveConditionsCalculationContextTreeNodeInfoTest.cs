@@ -834,7 +834,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -843,7 +843,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var foreshoreProfileInput = new TestForeshoreProfile();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
-            TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                          failureMechanism,
@@ -907,7 +907,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = guiStub;
 
-                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
                 // Precondition
                 Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
@@ -982,7 +982,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
                 // Precondition
                 Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);

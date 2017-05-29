@@ -130,14 +130,14 @@ namespace Ringtoets.Common.Data.TestUtil
                    }) {}
 
         /// <summary>
-        /// Modifies some properties of the current instance of the foreshore profile 
-        /// to different values.
+        /// Modifies <see cref="BreakWater"/> properties of the current instance 
+        /// of the foreshore profile to different values.
         /// </summary>
-        /// <param name="foreshoreProfile">The current instance of which the properties which 
+        /// <param name="foreshoreProfile">The current instance of which the properties 
         /// need to be modified.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreProfile"/>
         /// is <c>null</c>.</exception>
-        public static void ModifyForeshoreProfileProperties(TestForeshoreProfile foreshoreProfile)
+        public static void ChangeBreakWaterProperties(TestForeshoreProfile foreshoreProfile)
         {
             if (foreshoreProfile == null)
             {

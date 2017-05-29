@@ -939,7 +939,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -948,7 +948,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var foreshoreProfileInput = new TestForeshoreProfile();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
-            TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new HeightStructuresCalculationContext(calculation,
                                                                   failureMechanism,
@@ -1012,7 +1012,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
                 // Precondition
                 Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
@@ -1087,7 +1087,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
                 // Precondition
                 Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);

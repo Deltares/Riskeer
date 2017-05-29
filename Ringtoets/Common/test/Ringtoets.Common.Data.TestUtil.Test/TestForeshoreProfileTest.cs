@@ -196,10 +196,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void ChangeForeshoreProfile_ForeshoreProfileNull_ThrowsArgumentNullException()
+        public void ChangeBreakWaterProperties_ForeshoreProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => TestForeshoreProfile.ModifyForeshoreProfileProperties(null);
+            TestDelegate call = () => TestForeshoreProfile.ChangeBreakWaterProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ChangeForeshoreProfile_ForeshoreProfileHasBreakWater_ChangesProperties(bool hasBreakWater)
+        public void ChangeBreakWaterProperties_ForeshoreProfileHasBreakWater_ChangesProperties(bool hasBreakWater)
         {
             // Setup
             TestForeshoreProfile profile = hasBreakWater
@@ -219,7 +219,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                                                : new TestForeshoreProfile("WithoutBreakWater");
 
             // Call
-            TestForeshoreProfile.ModifyForeshoreProfileProperties(profile);
+            TestForeshoreProfile.ChangeBreakWaterProperties(profile);
 
             // Assert
             if (hasBreakWater)

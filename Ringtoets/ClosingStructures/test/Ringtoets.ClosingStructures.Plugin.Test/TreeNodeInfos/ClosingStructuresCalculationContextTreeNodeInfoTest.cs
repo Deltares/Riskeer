@@ -785,7 +785,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -794,7 +794,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var foreshoreProfileInput = new TestForeshoreProfile();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
-            TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new ClosingStructuresCalculationContext(calculation,
                                                                    failureMechanism,
@@ -856,7 +856,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
                 // Precondition
                 Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
@@ -930,7 +930,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                TestForeshoreProfile.ModifyForeshoreProfileProperties(foreshoreProfileInput);
+                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
                 // Precondition
                 Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
