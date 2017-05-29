@@ -936,15 +936,15 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadStabilityPointStructures(this FailureMechanismEntity entity,
                                                          StructureCollection<StabilityPointStructure> stabilityPointStructures,
-                                                         string stabilityPointStructuresSourcePath,
+                                                         string sourcePath,
                                                          ReadConversionCollector collector)
         {
-            if (stabilityPointStructuresSourcePath != null)
+            if (sourcePath != null)
             {
                 stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities
                                                         .OrderBy(fpe => fpe.Order)
                                                         .Select(structureEntity => structureEntity.Read(collector)),
-                                                  stabilityPointStructuresSourcePath);
+                                                  sourcePath);
             }
         }
 

@@ -1401,6 +1401,36 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadAsHeightStructuresFailureMechanism_WithoutHeightStructuresWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string path = "path/to/closingStructues";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = 7,
+                        HeightStructureCollectionSourcePath = path
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            StructureCollection<HeightStructure> heightStructures =
+                failureMechanism.HeightStructures;
+            Assert.AreEqual(0, heightStructures.Count);
+            Assert.AreEqual(path, heightStructures.SourcePath);
+        }
+
+        [Test]
         public void ReadAsHeightStructuresFailureMechanism_WithHeightStructures_ReturnFailureMechanismWithHeightStructuresSet()
         {
             // Setup
@@ -1599,6 +1629,35 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual("Child1", child2.Id);
 
             Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
+        }
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_WithoutClosingStructuresWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string path = "path/to/closingStructues";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ClosingStructuresFailureMechanismMetaEntities =
+                {
+                    new ClosingStructuresFailureMechanismMetaEntity
+                    {
+                        ClosingStructureCollectionSourcePath = path
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            StructureCollection<ClosingStructure> closingStructures =
+                failureMechanism.ClosingStructures;
+            Assert.AreEqual(0, closingStructures.Count);
+            Assert.AreEqual(path, closingStructures.SourcePath);
         }
 
         [Test]

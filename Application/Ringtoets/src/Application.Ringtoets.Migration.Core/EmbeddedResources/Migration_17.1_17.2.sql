@@ -385,7 +385,6 @@ SELECT
                      AND SPS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) AS Suffix
 	FROM [SOURCEPROJECT].StabilityPointStructureEntity SPS
 	JOIN (SELECT MAX(LENGTH([Id])) AS MaxLength FROM [SOURCEPROJECT].StabilityPointStructureEntity));
-SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity (
 	[StabilityPointStructuresFailureMechanismMetaEntityId],
@@ -401,7 +400,7 @@ SELECT
 	CASE WHEN COUNT([StabilityPointStructureEntityId]) THEN "Onbekend" ELSE NULL END
 	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
-	LEFT JOIN StabilityPointStructureEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].StabilityPointStructureEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityId;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
