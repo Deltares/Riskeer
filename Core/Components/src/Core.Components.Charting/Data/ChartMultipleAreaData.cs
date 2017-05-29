@@ -30,7 +30,7 @@ namespace Core.Components.Charting.Data
     /// <summary>
     /// This class represents data in 2D space which forms multiple closed areas.
     /// </summary>
-    public class ChartMultipleAreaData : ItemBasedChartData
+    public class ChartMultipleAreaData : ChartData
     {
         private IEnumerable<Point2D[]> areas;
 

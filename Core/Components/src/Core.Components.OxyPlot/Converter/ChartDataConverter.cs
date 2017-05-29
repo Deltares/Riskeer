@@ -26,12 +26,12 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
-    /// Abstract base class for transforming <see cref="ItemBasedChartData"/> data into <see cref="Series"/> data.
+    /// Abstract base class for transforming <see cref="ChartData"/> data into <see cref="Series"/> data.
     /// </summary>
-    /// <typeparam name="TItemBasedChartData">The type of item based chart data to convert.</typeparam>
+    /// <typeparam name="TChartData">The type of item based chart data to convert.</typeparam>
     /// <typeparam name="TSeries">The type of series to set the converted data to.</typeparam>
-    public abstract class ItemBasedChartDataConverter<TItemBasedChartData, TSeries>
-        where TItemBasedChartData : ItemBasedChartData
+    public abstract class ChartDataConverter<TChartData, TSeries>
+        where TChartData : ChartData
         where TSeries : Series
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace Core.Components.OxyPlot.Converter
         /// <param name="data">The data to convert the item related data from.</param>
         /// <param name="series">The series to convert the item related data to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="series"/> is <c>null</c>.</exception>
-        public void ConvertSeriesItems(TItemBasedChartData data, TSeries series)
+        public void ConvertSeriesItems(TChartData data, TSeries series)
         {
             ValidateParameters(data, series);
 
@@ -48,13 +48,13 @@ namespace Core.Components.OxyPlot.Converter
         }
 
         /// <summary>
-        /// Converts all general properties (like <see cref="ItemBasedChartData.Name"/> and <see cref="ItemBasedChartData.IsVisible"/>) 
+        /// Converts all general properties (like <see cref="ChartData.Name"/> and <see cref="ChartData.IsVisible"/>) 
         /// from <paramref name="data"/> to <paramref name="series"/>.
         /// </summary>
         /// <param name="data">The data to convert the general properties from.</param>
         /// <param name="series">The series to convert the general properties to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="series"/> is <c>null</c>.</exception>
-        public void ConvertSeriesProperties(TItemBasedChartData data, TSeries series)
+        public void ConvertSeriesProperties(TChartData data, TSeries series)
         {
             ValidateParameters(data, series);
 
@@ -69,16 +69,16 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         /// <param name="data">The data to create the items from.</param>
         /// <param name="series">The series to set the items to.</param>
-        protected abstract void SetSeriesItems(TItemBasedChartData data, TSeries series);
+        protected abstract void SetSeriesItems(TChartData data, TSeries series);
 
         /// <summary>
         /// Set a style to <paramref name="series"/> based on <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The data to create the style from.</param>
         /// <param name="series">The series to set the style to.</param>
-        protected abstract void SetSeriesStyle(TItemBasedChartData data, TSeries series);
+        protected abstract void SetSeriesStyle(TChartData data, TSeries series);
 
-        private static void ValidateParameters(TItemBasedChartData data, TSeries series)
+        private static void ValidateParameters(TChartData data, TSeries series)
         {
             if (data == null)
             {

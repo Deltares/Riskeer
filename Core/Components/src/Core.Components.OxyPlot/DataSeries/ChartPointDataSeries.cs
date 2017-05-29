@@ -30,7 +30,7 @@ namespace Core.Components.OxyPlot.DataSeries
     /// <summary>
     /// A <see cref="LineSeries"/> based on and updated according to the wrapped <see cref="ChartPointData"/>.
     /// </summary>
-    public class ChartPointDataSeries : LineSeries, IItemBasedChartDataSeries
+    public class ChartPointDataSeries : LineSeries, IChartDataSeries
     {
         private readonly ChartPointData chartPointData;
         private readonly ChartPointDataConverter converter = new ChartPointDataConverter();

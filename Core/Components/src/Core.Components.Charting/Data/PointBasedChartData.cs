@@ -26,9 +26,9 @@ using Core.Common.Base.Geometry;
 namespace Core.Components.Charting.Data
 {
     /// <summary>
-    /// Base class for <see cref="ItemBasedChartData"/> that is based on an array of points in 2D space.
+    /// Base class for <see cref="ChartData"/> that is based on an array of points in 2D space.
     /// </summary>
-    public abstract class PointBasedChartData : ItemBasedChartData
+    public abstract class PointBasedChartData : ChartData
     {
         private Point2D[] points;
 

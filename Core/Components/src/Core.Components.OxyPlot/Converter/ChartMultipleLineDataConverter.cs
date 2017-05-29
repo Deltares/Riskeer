@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -32,7 +31,7 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// The converter that converts <see cref="ChartMultipleLineData"/> data into <see cref="MultipleLineSeries"/> data.
     /// </summary>
-    public class ChartMultipleLineDataConverter : ItemBasedChartDataConverter<ChartMultipleLineData, MultipleLineSeries>
+    public class ChartMultipleLineDataConverter : ChartDataConverter<ChartMultipleLineData, MultipleLineSeries>
     {
         protected override void SetSeriesItems(ChartMultipleLineData data, MultipleLineSeries series)
         {

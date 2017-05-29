@@ -60,12 +60,12 @@
     <Compile Include="DataSeries\ChartLineDataSeries.cs" />
     <Compile Include="DataSeries\ChartMultipleAreaDataSeries.cs" />
     <Compile Include="DataSeries\ChartMultipleLineDataSeries.cs" />
-    <Compile Include="DataSeries\IItemBasedChartDataSeries.cs" />
+    <Compile Include="DataSeries\IChartDataSeries.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
     <Compile Include="DynamicPlotController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Converter\ItemBasedChartDataConverter.cs" />
-    <Compile Include="DataSeries\ItemBasedChartDataSeriesFactory.cs" />
+    <Compile Include="Converter\ChartDataConverter.cs" />
+    <Compile Include="DataSeries\ChartDataSeriesFactory.cs" />
     <Compile Include="DataSeries\ChartPointDataSeries.cs" />
   </ItemGroup>
   <ItemGroup>

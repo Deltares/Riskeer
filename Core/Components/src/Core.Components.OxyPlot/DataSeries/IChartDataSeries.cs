@@ -24,7 +24,7 @@ namespace Core.Components.OxyPlot.DataSeries
     /// <summary>
     /// Interface for item based chart data series.
     /// </summary>
-    public interface IItemBasedChartDataSeries
+    public interface IChartDataSeries
     {
         /// <summary>
         /// Updates the chart data series.

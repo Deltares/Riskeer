@@ -59,7 +59,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
 
             // Assert
             Assert.IsInstanceOf<MultipleAreaSeries>(chartMultipleAreaDataSeries);
-            Assert.IsInstanceOf<IItemBasedChartDataSeries>(chartMultipleAreaDataSeries);
+            Assert.IsInstanceOf<IChartDataSeries>(chartMultipleAreaDataSeries);
             AssertChartMultipleAreaDataSeriesTestProperties(chartMultipleAreaDataSeries);
         }
 

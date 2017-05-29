@@ -37,13 +37,13 @@ namespace Core.Components.OxyPlot.Test.Converter
     public class ChartPointDataConverterTest
     {
         [Test]
-        public void DefaultConstructor_IsItemBasedChartDataConverter()
+        public void DefaultConstructor_IsChartDataConverter()
         {
             // Call
             var converter = new ChartPointDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ItemBasedChartDataConverter<ChartPointData, LineSeries>>(converter);
+            Assert.IsInstanceOf<ChartDataConverter<ChartPointData, LineSeries>>(converter);
         }
 
         [Test]

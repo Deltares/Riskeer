@@ -30,7 +30,7 @@ namespace Core.Components.Charting.Data
     /// <summary>
     /// This class represents data in 2D space which forms multiple lines.
     /// </summary>
-    public class ChartMultipleLineData : ItemBasedChartData
+    public class ChartMultipleLineData : ChartData
     {
         private IEnumerable<Point2D[]> lines;
 

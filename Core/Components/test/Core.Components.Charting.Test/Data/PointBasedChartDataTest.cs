@@ -37,7 +37,7 @@ namespace Core.Components.Charting.Test.Data
             var data = new TestPointBasedChartData("test data");
 
             // Assert
-            Assert.IsInstanceOf<ItemBasedChartData>(data);
+            Assert.IsInstanceOf<ChartData>(data);
             Assert.AreEqual("test data", data.Name);
             Assert.IsEmpty(data.Points);
         }

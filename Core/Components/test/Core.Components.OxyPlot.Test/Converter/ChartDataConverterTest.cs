@@ -29,13 +29,13 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Test.Converter
 {
     [TestFixture]
-    public class ItemBasedChartDataConverterTest
+    public class ChartDataConverterTest
     {
         [Test]
         public void ConvertSeriesItems_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestItemBasedChartDataConverter();
+            var testConverter = new TestChartDataConverter();
             var series = new TestSeries();
 
             // Call
@@ -50,8 +50,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void ConvertSeriesItems_TargetSeriesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestItemBasedChartDataConverter();
-            var chartData = new TestItemBasedChartData("test data");
+            var testConverter = new TestChartDataConverter();
+            var chartData = new TestChartData("test data");
 
             // Call
             TestDelegate test = () => testConverter.ConvertSeriesItems(chartData, null);
@@ -65,7 +65,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void ConvertSeriesProperties_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestItemBasedChartDataConverter();
+            var testConverter = new TestChartDataConverter();
             var series = new TestSeries();
 
             // Call
@@ -80,8 +80,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void ConvertSeriesProperties_TargetSeriesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var testConverter = new TestItemBasedChartDataConverter();
-            var chartData = new TestItemBasedChartData("test data");
+            var testConverter = new TestChartDataConverter();
+            var chartData = new TestChartData("test data");
 
             // Call
             TestDelegate test = () => testConverter.ConvertSeriesProperties(chartData, null);
@@ -96,8 +96,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             const string name = "<Some name>";
-            var testConverter = new TestItemBasedChartDataConverter();
-            var chartData = new TestItemBasedChartData(name);
+            var testConverter = new TestChartDataConverter();
+            var chartData = new TestChartData(name);
             var chartSeries = new TestSeries();
 
             // Call
@@ -112,8 +112,8 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void ConvertSeriesProperties_ChartData_IsVisibleSetToSeries(bool isVisible)
         {
             // Setup
-            var testConverter = new TestItemBasedChartDataConverter();
-            var chartData = new TestItemBasedChartData("test data")
+            var testConverter = new TestChartDataConverter();
+            var chartData = new TestChartData("test data")
             {
                 IsVisible = isVisible
             };
@@ -128,16 +128,16 @@ namespace Core.Components.OxyPlot.Test.Converter
 
         private class TestSeries : LineSeries {}
 
-        private class TestItemBasedChartData : ItemBasedChartData
+        private class TestChartData : ChartData
         {
-            public TestItemBasedChartData(string name) : base(name) {}
+            public TestChartData(string name) : base(name) {}
         }
 
-        private class TestItemBasedChartDataConverter : ItemBasedChartDataConverter<TestItemBasedChartData, TestSeries>
+        private class TestChartDataConverter : ChartDataConverter<TestChartData, TestSeries>
         {
-            protected override void SetSeriesItems(TestItemBasedChartData data, TestSeries series) {}
+            protected override void SetSeriesItems(TestChartData data, TestSeries series) {}
 
-            protected override void SetSeriesStyle(TestItemBasedChartData data, TestSeries series) {}
+            protected override void SetSeriesStyle(TestChartData data, TestSeries series) {}
         }
     }
 }

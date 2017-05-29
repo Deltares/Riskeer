@@ -29,7 +29,7 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// The converter that converts <see cref="ChartPointData"/> data into <see cref="LineSeries"/> data.
     /// </summary>
-    public class ChartPointDataConverter : ItemBasedChartDataConverter<ChartPointData, LineSeries>
+    public class ChartPointDataConverter : ChartDataConverter<ChartPointData, LineSeries>
     {
         protected override void SetSeriesItems(ChartPointData data, LineSeries series)
         {

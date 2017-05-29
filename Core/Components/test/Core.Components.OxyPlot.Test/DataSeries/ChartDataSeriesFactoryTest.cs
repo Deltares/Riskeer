@@ -27,13 +27,13 @@ using NUnit.Framework;
 namespace Core.Components.OxyPlot.Test.DataSeries
 {
     [TestFixture]
-    public class ItemBasedChartDataSeriesFactoryTest
+    public class ChartDataSeriesFactoryTest
     {
         [Test]
         public void Create_ChartPointData_ReturnChartPointDataSeries()
         {
             // Call
-            IItemBasedChartDataSeries series = ItemBasedChartDataSeriesFactory.Create(new ChartPointData("test data"));
+            IChartDataSeries series = ChartDataSeriesFactory.Create(new ChartPointData("test data"));
 
             // Assert
             Assert.IsInstanceOf<ChartPointDataSeries>(series);
@@ -43,7 +43,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Create_ChartLineData_ReturnChartLineDataSeries()
         {
             // Call
-            IItemBasedChartDataSeries series = ItemBasedChartDataSeriesFactory.Create(new ChartLineData("test data"));
+            IChartDataSeries series = ChartDataSeriesFactory.Create(new ChartLineData("test data"));
 
             // Assert
             Assert.IsInstanceOf<ChartLineDataSeries>(series);
@@ -53,7 +53,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Create_ChartAreaData_ReturnChartAreaDataSeries()
         {
             // Call
-            IItemBasedChartDataSeries series = ItemBasedChartDataSeriesFactory.Create(new ChartAreaData("test data"));
+            IChartDataSeries series = ChartDataSeriesFactory.Create(new ChartAreaData("test data"));
 
             // Assert
             Assert.IsInstanceOf<ChartAreaDataSeries>(series);
@@ -63,7 +63,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Create_ChartMultipleAreaData_ReturnChartMultipleAreaDataSeries()
         {
             // Call
-            IItemBasedChartDataSeries series = ItemBasedChartDataSeriesFactory.Create(new ChartMultipleAreaData("test data"));
+            IChartDataSeries series = ChartDataSeriesFactory.Create(new ChartMultipleAreaData("test data"));
 
             // Assert
             Assert.IsInstanceOf<ChartMultipleAreaDataSeries>(series);
@@ -73,7 +73,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Create_ChartMultipleLineData_ReturnChartMultipleLineDataSeries()
         {
             // Call
-            IItemBasedChartDataSeries series = ItemBasedChartDataSeriesFactory.Create(new ChartMultipleLineData("test data"));
+            IChartDataSeries series = ChartDataSeriesFactory.Create(new ChartMultipleLineData("test data"));
 
             // Assert
             Assert.IsInstanceOf<ChartMultipleLineDataSeries>(series);
@@ -83,10 +83,10 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Create_OtherData_ThrowsNotSupportedException()
         {
             // Setup
-            var testData = new TestItemBasedChartData("test data");
+            var testData = new TestChartData("test data");
 
             // Call
-            TestDelegate test = () => ItemBasedChartDataSeriesFactory.Create(testData);
+            TestDelegate test = () => ChartDataSeriesFactory.Create(testData);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -96,15 +96,15 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Create_NullData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ItemBasedChartDataSeriesFactory.Create(null);
+            TestDelegate test = () => ChartDataSeriesFactory.Create(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
         }
 
-        private class TestItemBasedChartData : ItemBasedChartData
+        private class TestChartData : ChartData
         {
-            public TestItemBasedChartData(string name) : base(name) {}
+            public TestChartData(string name) : base(name) {}
         }
     }
 }

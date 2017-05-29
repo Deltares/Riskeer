@@ -31,7 +31,7 @@ namespace Core.Components.OxyPlot.DataSeries
     /// <summary>
     /// A <see cref="MultipleAreaSeries"/> based on and updated according to the wrapped <see cref="ChartMultipleAreaData"/>.
     /// </summary>
-    public class ChartMultipleAreaDataSeries : MultipleAreaSeries, IItemBasedChartDataSeries
+    public class ChartMultipleAreaDataSeries : MultipleAreaSeries, IChartDataSeries
     {
         private readonly ChartMultipleAreaData chartMultipleAreaData;
         private readonly ChartMultipleAreaDataConverter converter = new ChartMultipleAreaDataConverter();

@@ -61,7 +61,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
 
             // Assert
             Assert.IsInstanceOf<LineSeries>(chartLineDataSeries);
-            Assert.IsInstanceOf<IItemBasedChartDataSeries>(chartLineDataSeries);
+            Assert.IsInstanceOf<IChartDataSeries>(chartLineDataSeries);
             AssertChartLineDataSeriesTestProperties(chartLineDataSeries);
         }
 

@@ -173,7 +173,7 @@ namespace Core.Components.OxyPlot.Forms
                 return CreateEnvelopeForAllVisibleLayers(collection);
             }
 
-            DrawnChartData drawnMapData = drawnChartDataList.FirstOrDefault(dmd => dmd.ItemBasedChartData.Equals(chartData));
+            DrawnChartData drawnMapData = drawnChartDataList.FirstOrDefault(dmd => dmd.ChartData.Equals(chartData));
             if (drawnMapData == null)
             {
                 throw new ArgumentException($@"Can only zoom to {typeof(ChartData).Name} that is part of this {typeof(ChartControl).Name}s drawn {nameof(chartData)}.",
@@ -181,21 +181,21 @@ namespace Core.Components.OxyPlot.Forms
             }
 
             Extent extent = new Extent();
-            if (drawnMapData.ItemBasedChartData.IsVisible)
+            if (drawnMapData.ChartData.IsVisible)
             {
-                extent.ExpandToInclude(CreateExtentFor(drawnMapData.ItemBasedChartDataSeries as XYAxisSeries));
+                extent.ExpandToInclude(CreateExtentFor(drawnMapData.ChartDataSeries as XYAxisSeries));
             }
             return extent;
         }
 
-        private Extent CreateExtentFor(XYAxisSeries itemBasedChartData)
+        private Extent CreateExtentFor(XYAxisSeries ChartData)
         {
             return new Extent
             (
-                itemBasedChartData.MinX,
-                itemBasedChartData.MaxX,
-                itemBasedChartData.MinY,
-                itemBasedChartData.MaxY
+                ChartData.MinX,
+                ChartData.MaxX,
+                ChartData.MinY,
+                ChartData.MaxY
             );
         }
 
@@ -241,66 +241,66 @@ namespace Core.Components.OxyPlot.Forms
             Controls.Add(plotView);
         }
 
-        private static IEnumerable<ItemBasedChartData> GetItemBasedChartDataRecursively(ChartDataCollection chartDataCollection)
+        private static IEnumerable<ChartData> GetChartDataRecursively(ChartDataCollection chartDataCollection)
         {
-            var itemBasedChartDataList = new List<ItemBasedChartData>();
+            var ChartDataList = new List<ChartData>();
 
             foreach (ChartData chartData in chartDataCollection.Collection)
             {
                 var nestedChartDataCollection = chartData as ChartDataCollection;
                 if (nestedChartDataCollection != null)
                 {
-                    itemBasedChartDataList.AddRange(GetItemBasedChartDataRecursively(nestedChartDataCollection));
+                    ChartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
                     continue;
                 }
 
-                itemBasedChartDataList.Add((ItemBasedChartData) chartData);
+                ChartDataList.Add((ChartData) chartData);
             }
 
-            return itemBasedChartDataList;
+            return ChartDataList;
         }
 
         private void HandleChartDataCollectionChange()
         {
-            List<ItemBasedChartData> chartDataThatShouldBeDrawn = GetItemBasedChartDataRecursively(Data).ToList();
-            Dictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ItemBasedChartData, dcd => dcd);
+            List<ChartData> chartDataThatShouldBeDrawn = GetChartDataRecursively(Data).ToList();
+            Dictionary<ChartData, DrawnChartData> drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ChartData, dcd => dcd);
 
             DrawMissingChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
             RemoveRedundantChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
 
-            drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ItemBasedChartData, dcd => dcd);
+            drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ChartData, dcd => dcd);
 
             ReorderChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
 
             plotView.InvalidatePlot(true);
         }
 
-        private void DrawMissingChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
-                                                            IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
+        private void DrawMissingChartDataOnCollectionChange(IEnumerable<ChartData> chartDataThatShouldBeDrawn,
+                                                            IDictionary<ChartData, DrawnChartData> drawnChartDataLookup)
         {
-            foreach (ItemBasedChartData chartDataToDraw in chartDataThatShouldBeDrawn.Where(chartDataToDraw => !drawnChartDataLookup.ContainsKey(chartDataToDraw)))
+            foreach (ChartData chartDataToDraw in chartDataThatShouldBeDrawn.Where(chartDataToDraw => !drawnChartDataLookup.ContainsKey(chartDataToDraw)))
             {
                 DrawChartData(chartDataToDraw);
             }
         }
 
-        private void RemoveRedundantChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
-                                                                IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
+        private void RemoveRedundantChartDataOnCollectionChange(IEnumerable<ChartData> chartDataThatShouldBeDrawn,
+                                                                IDictionary<ChartData, DrawnChartData> drawnChartDataLookup)
         {
-            foreach (ItemBasedChartData itemBasedChartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
+            foreach (ChartData ChartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
             {
-                RemoveChartData(drawnChartDataLookup[itemBasedChartData]);
+                RemoveChartData(drawnChartDataLookup[ChartData]);
             }
         }
 
-        private void ReorderChartDataOnCollectionChange(IEnumerable<ItemBasedChartData> chartDataThatShouldBeDrawn,
-                                                        IDictionary<ItemBasedChartData, DrawnChartData> drawnChartDataLookup)
+        private void ReorderChartDataOnCollectionChange(IEnumerable<ChartData> chartDataThatShouldBeDrawn,
+                                                        IDictionary<ChartData, DrawnChartData> drawnChartDataLookup)
         {
             plotView.Model.Series.Clear();
 
-            foreach (ItemBasedChartData itemBasedChartData in chartDataThatShouldBeDrawn)
+            foreach (ChartData ChartData in chartDataThatShouldBeDrawn)
             {
-                plotView.Model.Series.Add((Series) drawnChartDataLookup[itemBasedChartData].ItemBasedChartDataSeries);
+                plotView.Model.Series.Add((Series) drawnChartDataLookup[ChartData].ChartDataSeries);
             }
         }
 
@@ -309,41 +309,41 @@ namespace Core.Components.OxyPlot.Forms
             drawnChartDataToRemove.Observer.Dispose();
             drawnChartDataList.Remove(drawnChartDataToRemove);
 
-            plotView.Model.Series.Remove((Series) drawnChartDataToRemove.ItemBasedChartDataSeries);
+            plotView.Model.Series.Remove((Series) drawnChartDataToRemove.ChartDataSeries);
         }
 
         private void DrawInitialChartData()
         {
-            foreach (ItemBasedChartData itemBasedChartData in GetItemBasedChartDataRecursively(Data))
+            foreach (ChartData ChartData in GetChartDataRecursively(Data))
             {
-                DrawChartData(itemBasedChartData);
+                DrawChartData(ChartData);
             }
 
             plotView.InvalidatePlot(true);
         }
 
-        private void DrawChartData(ItemBasedChartData itemBasedChartData)
+        private void DrawChartData(ChartData ChartData)
         {
-            IItemBasedChartDataSeries itemBasedChartDataSeries = ItemBasedChartDataSeriesFactory.Create(itemBasedChartData);
+            IChartDataSeries chartDataSeries = ChartDataSeriesFactory.Create(ChartData);
 
             var drawnChartData = new DrawnChartData
             {
-                ItemBasedChartData = itemBasedChartData,
-                ItemBasedChartDataSeries = itemBasedChartDataSeries
+                ChartData = ChartData,
+                ChartDataSeries = chartDataSeries
             };
 
             drawnChartData.Observer = new Observer(() =>
             {
-                drawnChartData.ItemBasedChartDataSeries.Update();
+                drawnChartData.ChartDataSeries.Update();
                 plotView.InvalidatePlot(true);
             })
             {
-                Observable = itemBasedChartData
+                Observable = ChartData
             };
 
             drawnChartDataList.Add(drawnChartData);
 
-            plotView.Model.Series.Add((Series) itemBasedChartDataSeries);
+            plotView.Model.Series.Add((Series) chartDataSeries);
         }
 
         private void ClearChartData()
@@ -364,17 +364,17 @@ namespace Core.Components.OxyPlot.Forms
         private class DrawnChartData
         {
             /// <summary>
-            /// The item based chart data which the drawn <see cref="ItemBasedChartDataSeries"/> is based upon.
+            /// The item based chart data which the drawn <see cref="ChartDataSeries"/> is based upon.
             /// </summary>
-            public ItemBasedChartData ItemBasedChartData { get; set; }
+            public ChartData ChartData { get; set; }
 
             /// <summary>
             /// The drawn chart data series.
             /// </summary>
-            public IItemBasedChartDataSeries ItemBasedChartDataSeries { get; set; }
+            public IChartDataSeries ChartDataSeries { get; set; }
 
             /// <summary>
-            /// The observer attached to <see cref="ItemBasedChartData"/> and responsible for updating <see cref="ItemBasedChartDataSeries"/>.
+            /// The observer attached to <see cref="ChartData"/> and responsible for updating <see cref="ChartDataSeries"/>.
             /// </summary>
             public Observer Observer { get; set; }
         }

@@ -38,7 +38,7 @@ namespace Core.Components.Charting.Test.Data
             var data = new ChartMultipleLineData("test data");
 
             // Assert
-            Assert.IsInstanceOf<ItemBasedChartData>(data);
+            Assert.IsInstanceOf<ChartData>(data);
             CollectionAssert.IsEmpty(data.Lines);
             Assert.IsNull(data.Style);
         }

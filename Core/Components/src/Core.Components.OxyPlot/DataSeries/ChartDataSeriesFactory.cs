@@ -26,18 +26,18 @@ using Core.Components.Charting.Data;
 namespace Core.Components.OxyPlot.DataSeries
 {
     /// <summary>
-    /// A factory to create <see cref="IItemBasedChartDataSeries"/> based on <see cref="ItemBasedChartData"/>.
+    /// A factory to create <see cref="IChartDataSeries"/> based on <see cref="ChartData"/>.
     /// </summary>
-    internal static class ItemBasedChartDataSeriesFactory
+    internal static class ChartDataSeriesFactory
     {
         /// <summary>
-        /// Creates a <see cref="IItemBasedChartDataSeries"/> based on <paramref name="data"/>.
+        /// Creates a <see cref="IChartDataSeries"/> based on <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="ItemBasedChartData"/> to create a <see cref="IItemBasedChartDataSeries"/> from.</param>
-        /// <returns>A <see cref="IItemBasedChartDataSeries"/> instance.</returns>
+        /// <param name="data">The <see cref="ChartData"/> to create a <see cref="IChartDataSeries"/> from.</param>
+        /// <returns>A <see cref="IChartDataSeries"/> instance.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the given <paramref name="data"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public static IItemBasedChartDataSeries Create(ItemBasedChartData data)
+        public static IChartDataSeries Create(ChartData data)
         {
             if (data == null)
             {
@@ -74,7 +74,7 @@ namespace Core.Components.OxyPlot.DataSeries
                 return new ChartMultipleLineDataSeries(chartMultipleLineData);
             }
 
-            throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, "ItemBasedChartData of type {0} is not supported.", data.GetType().Name));
+            throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, "ChartData of type {0} is not supported.", data.GetType().Name));
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Core.Components.Charting.Test.Data
 
             // Assert
             Assert.AreEqual("test data", data.Name);
-            Assert.IsInstanceOf<ItemBasedChartData>(data);
+            Assert.IsInstanceOf<ChartData>(data);
         }
 
         [Test]

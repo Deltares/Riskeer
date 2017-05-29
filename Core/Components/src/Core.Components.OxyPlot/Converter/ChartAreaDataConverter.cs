@@ -29,7 +29,7 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// The converter that converts <see cref="ChartAreaData"/> data into <see cref="AreaSeries"/> data.
     /// </summary>
-    public class ChartAreaDataConverter : ItemBasedChartDataConverter<ChartAreaData, AreaSeries>
+    public class ChartAreaDataConverter : ChartDataConverter<ChartAreaData, AreaSeries>
     {
         protected override void SetSeriesItems(ChartAreaData data, AreaSeries series)
         {

@@ -31,7 +31,7 @@ namespace Core.Components.OxyPlot.DataSeries
     /// <summary>
     /// A <see cref="MultipleLineSeries"/> based on and updated according to the wrapped <see cref="ChartMultipleLineData"/>.
     /// </summary>
-    public class ChartMultipleLineDataSeries : MultipleLineSeries, IItemBasedChartDataSeries
+    public class ChartMultipleLineDataSeries : MultipleLineSeries, IChartDataSeries
     {
         private readonly ChartMultipleLineData chartMultipleLineData;
         private readonly ChartMultipleLineDataConverter converter = new ChartMultipleLineDataConverter();
