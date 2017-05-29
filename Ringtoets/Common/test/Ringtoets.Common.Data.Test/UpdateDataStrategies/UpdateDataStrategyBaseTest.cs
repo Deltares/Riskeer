@@ -86,14 +86,30 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
-            var collection = new TestUniqueItemCollection();
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(collection, null, string.Empty);
+            TestDelegate call = () => strategy.ConcreteUpdateData(new TestUniqueItemCollection(), null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("importedDataCollection", paramName);
+        }
+
+        [Test]
+        public void UpdateTargetCollectionData_ImportedDataCollectionContainsNullElement_ThrowsArgumentException()
+        {
+            // Setup
+            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            TestDelegate call = () => strategy.ConcreteUpdateData(new TestUniqueItemCollection(), new TestItem[]
+            {
+                null
+            }, string.Empty);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("updatedObjects", paramName);
         }
 
         [Test]
@@ -460,6 +476,36 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item three"),
                 new TestItem("Item four"),
                 new TestItem("Item two"),
+                new TestItem("Item one")
+            };
+
+            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+
+            // Call
+            strategy.ConcreteUpdateData(collection,
+                                        importedItems,
+                                        sourceFilePath);
+
+            // Assert
+            CollectionAssert.AreEqual(importedItems, collection);
+        }
+
+        [Test]
+        public void UpdateTargetCollectionData_CollectionOrderChangedAndElementRemoved_UpdatesCollectionInCorrectOrder()
+        {
+            // Setup
+            var currentCollection = new[]
+            {
+                new TestItem("Item one"),
+                new TestItem("Item two"),
+                new TestItem("Item three")
+            };
+            var collection = new TestUniqueItemCollection();
+            collection.AddRange(currentCollection, sourceFilePath);
+
+            var importedItems = new[]
+            {
+                new TestItem("Item three"),
                 new TestItem("Item one")
             };
 

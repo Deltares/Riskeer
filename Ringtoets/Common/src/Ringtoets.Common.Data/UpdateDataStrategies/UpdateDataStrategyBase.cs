@@ -95,6 +95,8 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <param name="sourceFilePath">The source file path.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of affected objects.</returns>
         /// <exception cref="UpdateDataException">Thrown when an error occurred while updating the data.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="importedDataCollection"/> contains 
+        /// <c>null</c> elements.</exception>
         protected IEnumerable<IObservable> UpdateTargetCollectionData(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                                       IEnumerable<TTargetData> importedDataCollection,
                                                                       string sourceFilePath)
@@ -122,7 +124,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// </summary>
         /// <param name="targetDataCollection">The target data collection which needs to be updated.</param>
         /// <param name="importedDataCollection">The imported data collection which is used to update 
-        /// the <paramref name="targetDataCollection"/> </param>
+        /// the <paramref name="targetDataCollection"/>.</param>
         /// <param name="sourceFilePath">The source file path.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> with affected objects.</returns>
         /// <exception cref="UpdateDataException">Thrown when:
@@ -131,13 +133,17 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <item>duplicate items are found in the <paramref name="importedDataCollection"/>.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="targetDataCollection"/> 
+        /// or <paramref name="importedDataCollection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="importedDataCollection"/> contains 
+        /// <c>null</c> elements.</exception>
         private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
                                                               IEnumerable<TTargetData> importedDataCollection,
                                                               string sourceFilePath)
         {
             TTargetData[] importedObjects = importedDataCollection.ToArray();
 
-            var modification = new Modification(targetDataCollection, importedObjects, equalityComparer);
+            var modification = new CollectionModification(targetDataCollection, importedObjects, equalityComparer);
 
             var affectedObjects = new List<IObservable>();
             if (modification.HasUpdates())
@@ -209,20 +215,45 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <summary>
         /// Inner class for obtaining the modifications of an update action.
         /// </summary>
-        private class Modification
+        private class CollectionModification
         {
             /// <summary>
-            /// Creates a new instance of <see cref="Modification"/>.
+            /// Creates a new instance of <see cref="CollectionModification"/>.
             /// </summary>
             /// <param name="existingObjects">The current collection of objects.</param>
-            /// <param name="updatedObjects">The collection of objects that were imported.</param>
+            /// <param name="updatedObjects">The collection containing objects that were imported
+            /// and thus could contain updates for the existing objects.</param>
             /// <param name="equalityComparer">The comparer to test whether elements in
             /// <paramref name="existingObjects"/> have a matching element in 
             /// <paramref name="updatedObjects"/>.</param>
-            public Modification(IEnumerable<TTargetData> existingObjects,
+            /// <exception cref="ArgumentNullException">Thrown if any parameter is <c>null</c>.</exception>
+            /// <exception cref="ArgumentException">Thrown when <paramref name="existingObjects"/>
+            /// or <paramref name="updatedObjects"/> contains a <c>null</c> element.</exception>
+            public CollectionModification(IEnumerable<TTargetData> existingObjects,
                                 IEnumerable<TTargetData> updatedObjects,
                                 IEqualityComparer<TTargetData> equalityComparer)
             {
+                if (existingObjects == null)
+                {
+                    throw new ArgumentNullException(nameof(existingObjects));
+                }
+                if (updatedObjects == null)
+                {
+                    throw new ArgumentNullException(nameof(updatedObjects));
+                }
+                if (equalityComparer == null)
+                {
+                    throw new ArgumentNullException(nameof(equalityComparer));
+                }
+                if (existingObjects.Contains(null))
+                {
+                    throw new ArgumentException(@"Cannot determine modifications from a collection which contain null.", nameof(existingObjects));
+                }
+                if (updatedObjects.Contains(null))
+                {
+                    throw new ArgumentException(@"Cannot determine modifications with a collection which contain null.", nameof(updatedObjects));
+                }
+
                 TTargetData[] existingArray = existingObjects.ToArray();
 
                 var index = 0;
@@ -256,68 +287,38 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
 
             /// <summary>
             /// Gets a collection of updated objects from the existing object collection and the
-            /// added objects from the imported object collection, in the same order that was
+            /// added objects from the imported object collection in the same order that was
             /// found in the imported object collection.
             /// </summary>
             /// <returns>An ordered collection of updated and added elements.</returns>
             public IEnumerable<TTargetData> GetModifiedCollection()
             {
-                TTargetData[] remainingObjects = ObjectsToBeUpdated.Values.Union(ObjectsToBeAdded.Values).ToArray();
-                int[] indices = GetElementOrder();
+                KeyValuePair<int, TTargetData>[] remainingObjects = ObjectsToBeUpdated.Union(ObjectsToBeAdded).ToArray();
 
-                foreach (int i in Enumerable.Range(0, remainingObjects.Length))
+                var orderedObjects = new TTargetData[remainingObjects.Length];
+
+                foreach (KeyValuePair<int, TTargetData> remainingObject in remainingObjects)
                 {
-                    TTargetData x = remainingObjects[i];
-                    int j = i;
-                    while (true)
-                    {
-                        int k = indices[j];
-                        indices[j] = j;
-                        if (k == i)
-                        {
-                            break;
-                        }
-                        remainingObjects[j] = remainingObjects[k];
-                        j = k;
-                    }
-                    remainingObjects[j] = x;
+                    orderedObjects[remainingObject.Key] = remainingObject.Value;
                 }
 
-                return remainingObjects;
+                return orderedObjects;
             }
 
             /// <summary>
             /// Finds out whether there was a difference between the existing and the imported
             /// object collections.
             /// </summary>
-            /// <returns></returns>
+            /// <returns><c>true</c> if there were any updates, <c>false</c> otherwise.</returns>
             public bool HasUpdates()
             {
                 return ObjectsToBeRemoved.Any() || ObjectsToBeAdded.Any() || ObjectsToBeUpdated.Any();
             }
 
             private Dictionary<int, TTargetData> ObjectsToBeAdded { get; } = new Dictionary<int, TTargetData>();
-
-            private int[] GetElementOrder()
-            {
-                int[] keys = ObjectsToBeUpdated.Keys.Union(ObjectsToBeAdded.Keys).ToArray();
-
-                int orderLength = keys.Length;
-                var order = new int[orderLength];
-                for (var valueToInsert = 0; valueToInsert < orderLength; valueToInsert++)
-                {
-                    order[keys[valueToInsert]] = valueToInsert;
-                }
-
-                return order;
-            }
-
+            
             private static int FindIndex(TTargetData[] collectionToLookIn, TTargetData objectToFind, IEqualityComparer<TTargetData> equalityComparer)
             {
-                if (objectToFind == null)
-                {
-                    throw new ArgumentNullException(nameof(objectToFind));
-                }
                 for (var i = 0; i < collectionToLookIn.Length; i++)
                 {
                     TTargetData targetData = collectionToLookIn[i];
