@@ -106,6 +106,87 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
+        public void SetExtent_RangeLargerThanMinimumRange_AxesUpdated()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+
+                form.Show();
+
+                const int xMin = 3;
+                const int xMax = 5;
+                const int yMin = 1;
+                const int yMax = 2;
+
+                // Call
+                view.SetExtent(new Extent(xMin, xMax, yMin, yMax));
+
+                // Assert
+                Assert.AreEqual(xMin, view.Model.Axes[0].ActualMinimum);
+                Assert.AreEqual(xMax, view.Model.Axes[0].ActualMaximum);
+                Assert.AreEqual(yMin, view.Model.Axes[1].ActualMinimum);
+                Assert.AreEqual(yMax, view.Model.Axes[1].ActualMaximum);
+            }
+        }
+
+        [Test]
+        public void SetExtent_DataRangeInXSmallerThanMinimumRange_AxesUpdatedWithCorrectionForX()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+
+                form.Show();
+
+                const double range = 0.02;
+                const int xMin = 3;
+                const int yMin = 1;
+                const int yMax = 4;
+
+                // Call
+                view.SetExtent(new Extent(xMin, xMin + range, yMin, yMax));
+
+                // Assert
+                Assert.AreEqual(xMin - 0.04, view.Model.Axes[0].ActualMinimum);
+                Assert.AreEqual(xMin + 0.06, view.Model.Axes[0].ActualMaximum);
+                Assert.AreEqual(yMin, view.Model.Axes[1].ActualMinimum);
+                Assert.AreEqual(yMax, view.Model.Axes[1].ActualMaximum);
+            }
+        }
+
+        [Test]
+        public void SetExtent_DataRangeInYSmallerThanMinimumRange_AxesUpdatedWithCorrectionForY()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+
+                form.Show();
+
+                const double range = 0.02;
+                const int xMin = 3;
+                const int xMax = 7;
+                const int yMin = 1;
+
+                // Call
+                view.SetExtent(new Extent(xMin, xMax, yMin, yMin + range));
+
+                // Assert
+                Assert.AreEqual(xMin, view.Model.Axes[0].ActualMinimum);
+                Assert.AreEqual(xMax, view.Model.Axes[0].ActualMaximum);
+                Assert.AreEqual(yMin - 0.04, view.Model.Axes[1].ActualMinimum);
+                Assert.AreEqual(yMin + 0.06, view.Model.Axes[1].ActualMaximum);
+            }
+        }
+
+        [Test]
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]

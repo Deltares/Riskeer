@@ -110,6 +110,34 @@ namespace Core.Components.OxyPlot.Forms
             InvalidatePlot(false);
         }
 
+        public void SetExtent(Extent extentWithPadding)
+        {
+            Axis xAxis = GetAxisOnPosition(AxisPosition.Bottom);
+            Axis yAxis = GetAxisOnPosition(AxisPosition.Left);
+
+            double xMin = extentWithPadding.XMin;
+            double xMax = extentWithPadding.XMax;
+            double yMin = extentWithPadding.YMin;
+            double yMax = extentWithPadding.YMax;
+
+            double xCorrection = AxisMinimumRangeCorrection(xAxis, xMin, xMax);
+            if (xCorrection > 0)
+            {
+                xMin -= xCorrection;
+                xMax += xCorrection;
+            }
+
+            double yCorrection = AxisMinimumRangeCorrection(yAxis, yMin, yMax);
+            if (yCorrection > 0)
+            {
+                yMin -= yCorrection;
+                yMax += yCorrection;
+            }
+
+            xAxis.Zoom(xMin, xMax);
+            yAxis.Zoom(yMin, yMax);
+        }
+
         private void SetAxisTitle(AxisPosition axisPosition, string value)
         {
             Axis axis = GetAxisOnPosition(axisPosition);
@@ -156,6 +184,11 @@ namespace Core.Components.OxyPlot.Forms
         private Axis GetAxisOnPosition(AxisPosition position)
         {
             return Model.Axes.First(a => a.Position == position);
+        }
+
+        private static double AxisMinimumRangeCorrection(Axis axis, double xMin, double xMax)
+        {
+            return (axis.MinimumRange - xMax + xMin) / 2;
         }
     }
 }

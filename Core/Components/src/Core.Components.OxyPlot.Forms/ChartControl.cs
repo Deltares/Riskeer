@@ -152,8 +152,7 @@ namespace Core.Components.OxyPlot.Forms
             if (!extent.IsNaN)
             {
                 Extent extentWithPadding = extent.AddPadding(0.01);
-                plotView.Model.DefaultXAxis.Zoom(extentWithPadding.XMin, extentWithPadding.XMax);
-                plotView.Model.DefaultYAxis.Zoom(extentWithPadding.YMin, extentWithPadding.YMax);
+                plotView.SetExtent(extentWithPadding);
                 plotView.Refresh();
             }
         }
@@ -188,14 +187,14 @@ namespace Core.Components.OxyPlot.Forms
             return extent;
         }
 
-        private Extent CreateExtentFor(XYAxisSeries ChartData)
+        private static Extent CreateExtentFor(XYAxisSeries chartData)
         {
             return new Extent
             (
-                ChartData.MinX,
-                ChartData.MaxX,
-                ChartData.MinY,
-                ChartData.MaxY
+                chartData.MinX,
+                chartData.MaxX,
+                chartData.MinY,
+                chartData.MaxY
             );
         }
 
@@ -243,21 +242,21 @@ namespace Core.Components.OxyPlot.Forms
 
         private static IEnumerable<ChartData> GetChartDataRecursively(ChartDataCollection chartDataCollection)
         {
-            var ChartDataList = new List<ChartData>();
+            var chartDataList = new List<ChartData>();
 
             foreach (ChartData chartData in chartDataCollection.Collection)
             {
                 var nestedChartDataCollection = chartData as ChartDataCollection;
                 if (nestedChartDataCollection != null)
                 {
-                    ChartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
+                    chartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
                     continue;
                 }
 
-                ChartDataList.Add((ChartData) chartData);
+                chartDataList.Add(chartData);
             }
 
-            return ChartDataList;
+            return chartDataList;
         }
 
         private void HandleChartDataCollectionChange()

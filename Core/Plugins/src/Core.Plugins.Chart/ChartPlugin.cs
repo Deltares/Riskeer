@@ -110,7 +110,7 @@ namespace Core.Plugins.Chart
             if (chartView != null)
             {
                 chartingRibbon.Chart = chartView.Chart;
-                chartLegendController.Update(chartView.Chart.Data);
+                chartLegendController.Update(chartView.Chart);
             }
             else
             {

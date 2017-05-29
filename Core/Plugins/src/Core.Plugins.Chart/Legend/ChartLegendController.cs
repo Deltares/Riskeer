@@ -26,6 +26,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Forms;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.Legend
@@ -43,7 +44,7 @@ namespace Core.Plugins.Chart.Legend
         /// </summary>
         public EventHandler<EventArgs> OnOpenLegend;
 
-        private IView legendView;
+        private ChartLegendView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartLegendController"/>.
@@ -97,13 +98,13 @@ namespace Core.Plugins.Chart.Legend
         /// <summary>
         /// Updates the data for the <see cref="ChartLegendView"/> if it is open.
         /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to show. If <c>null</c> the 
-        /// data will be cleared.</param>
-        public void Update(ChartData data)
+        /// <param name="chartControl">The <see cref="IChartControl"/> for which to show a
+        /// legend. If <c>null</c> the data will be cleared.</param>
+        public void Update(IChartControl chartControl)
         {
             if (IsLegendViewOpen)
             {
-                legendView.Data = data;
+                legendView.ChartControl = chartControl;
             }
         }
 
