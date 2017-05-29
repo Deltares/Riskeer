@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
@@ -233,7 +234,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_MapLegendViewHasMapControlAndClickZoomToAll_DoZoomToAllVisibleLayersForMapData()
+        public void ContextMenuStrip_EnabledZoomToAllContextMenuItemClicked_DoZoomToVisibleData()
         {
             // Setup
             var mapData = new MapPointData("A")
@@ -247,8 +248,12 @@ namespace Core.Plugins.Map.Test.Legend
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-
+            var mapControl = mocks.StrictMock<IMapControl>();
+            mapControl.Expect(c => c.Data).Return(new MapDataCollection("name"));
+            mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
             mocks.ReplayAll();
+
+            mapLegendView.MapControl = mapControl;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapData, null, null))
             {
@@ -261,15 +266,13 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_MapLegendViewWithoutMapControlAndClickZoomToAll_DoNothing()
+        public void ContextMenuStrip_NoChartControlAndEnabledZoomToAllContextMenuItemClicked_DoesNotThrow()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
 
             mocks.ReplayAll();
-
-            mapLegendView.MapControl = null;
 
             var mapData = new MapPointData("A")
             {

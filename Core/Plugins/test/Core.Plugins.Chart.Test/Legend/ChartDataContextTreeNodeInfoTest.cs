@@ -32,6 +32,7 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Forms;
 using Core.Components.Charting.TestUtil;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PresentationObjects;
@@ -505,6 +506,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 mocks.VerifyAll(); // Expect no update observer.
             }
         }
+
         [Test]
         [TestCaseSource(nameof(NoChartDataCollection))]
         public void ContextMenuStrip_DifferentTypesOfChartData_CallsBuilder(ChartData chartData)
@@ -536,7 +538,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
             mocks.ReplayAll();
 
-            var mapData = new ChartLineData("A")
+            var lineData = new ChartLineData("A")
             {
                 IsVisible = true,
                 Points = new[]
@@ -546,7 +548,7 @@ namespace Core.Plugins.Chart.Test.Legend
             };
 
             // Call
-            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
             {
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
@@ -565,13 +567,13 @@ namespace Core.Plugins.Chart.Test.Legend
 
             mocks.ReplayAll();
 
-            var mapData = new ChartLineData("A")
+            var lineData = new ChartLineData("A")
             {
                 IsVisible = false
             };
 
             // Call
-            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
             {
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
@@ -591,13 +593,13 @@ namespace Core.Plugins.Chart.Test.Legend
 
             mocks.ReplayAll();
 
-            var mapData = new ChartLineData("A")
+            var lineData = new ChartLineData("A")
             {
                 IsVisible = true
             };
 
             // Call
-            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
             {
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
@@ -605,6 +607,65 @@ namespace Core.Plugins.Chart.Test.Legend
                                                               "Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten.",
                                                               Resources.ZoomToAllIcon,
                                                               false);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_EnabledZoomToAllContextMenuItemClicked_DoZoomToVisibleData()
+        {
+            // Setup
+            var lineData = new ChartLineData("A")
+            {
+                IsVisible = true,
+                Points = new[]
+                {
+                    new Point2D(0, 1)
+                }
+            };
+
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+            var chartControl = mocks.StrictMock<IChartControl>();
+            chartControl.Expect(c => c.Data).Return(new ChartDataCollection("name"));
+            chartControl.Expect(c => c.ZoomToAllVisibleLayers(lineData));
+            mocks.ReplayAll();
+
+            chartLegendView.ChartControl = chartControl;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
+            {
+                // Call
+                contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+
+                // Assert
+                // Assert expectancies are called in TearDown()
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoChartControlAndEnabledZoomToAllContextMenuItemClicked_DoesNotThrow()
+        {
+            // Setup
+            var lineData = new ChartLineData("A")
+            {
+                IsVisible = true,
+                Points = new[]
+                {
+                    new Point2D(0, 1)
+                }
+            };
+
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
+            mocks.ReplayAll();
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
+            {
+                // Call
+                TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+
+                // Assert
+                Assert.DoesNotThrow(call);
             }
         }
 
