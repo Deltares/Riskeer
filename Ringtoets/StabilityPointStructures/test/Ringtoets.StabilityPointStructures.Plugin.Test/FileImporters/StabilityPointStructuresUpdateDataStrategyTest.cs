@@ -67,23 +67,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var targetCollection = new StructureCollection<StabilityPointStructure>();
-            var strategy = new StabilityPointStructureUpdateDataStrategy(new StabilityPointStructuresFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                                 Enumerable.Empty<StabilityPointStructure>(),
-                                                                                                 sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_WithoutCurrentStructuresAndReadStructuresHaveDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
@@ -110,29 +93,121 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             CollectionAssert.IsEmpty(targetCollection);
         }
-
+        
         [Test]
-        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedDataEmpty_StructuresRemoved()
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasNoOverlap_UpdatesTargetCollection()
         {
             // Setup
+            var targetStructure = new TestStabilityPointStructure("target id");
+
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             StructureCollection<StabilityPointStructure> structures = failureMechanism.StabilityPointStructures;
             structures.AddRange(new[]
             {
-                new TestStabilityPointStructure("id", "name"),
-                new TestStabilityPointStructure("other id", "other name")
+                targetStructure
             }, sourceFilePath);
+
+            var readStructure = new TestStabilityPointStructure("read id");
+            var importedStructures = new[]
+            {
+                readStructure
+            };
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                structures, Enumerable.Empty<StabilityPointStructure>(), sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, 
+                                                                                                 sourceFilePath);
 
             // Assert
-            CollectionAssert.IsEmpty(structures);
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(importedStructures, structures);
+            Assert.AreSame(readStructure, structures[0]);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasFullOverlap_UpdatesTargetCollection()
+        {
+            // Setup
+            const string commonId = "common id";
+            var targetStructure = new TestStabilityPointStructure(commonId, "old name");
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            StructureCollection<StabilityPointStructure> structures = failureMechanism.StabilityPointStructures;
+            structures.AddRange(new[]
+            {
+                targetStructure
+            }, sourceFilePath);
+
+            var readStructure = new TestStabilityPointStructure(commonId, "new name");
+            var importedStructures = new[]
+            {
+                readStructure
+            };
+
+            var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(1, structures.Count);
+            Assert.AreSame(targetStructure, structures[0]);
+            AssertStabilityPointStructure(readStructure, targetStructure);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                targetStructure,
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasPartialOverlap_UpdatesTargetCollection()
+        {
+            // Setup
+            const string commonId = "common id";
+            var updatedStructure = new TestStabilityPointStructure(commonId, "old name");
+            var removedStructure = new TestStabilityPointStructure("removed id");
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            StructureCollection<StabilityPointStructure> structures = failureMechanism.StabilityPointStructures;
+            structures.AddRange(new[]
+            {
+                removedStructure,
+                updatedStructure
+            }, sourceFilePath);
+
+            var structureToUpdateFrom = new TestStabilityPointStructure(commonId, "new name");
+            var addedStructure = new TestStabilityPointStructure("added id");
+            var importedStructures = new[]
+            {
+                structureToUpdateFrom,
+                addedStructure
+            };
+
+            var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(2, structures.Count);
+            Assert.AreSame(updatedStructure, structures[0]);
+            AssertStabilityPointStructure(structureToUpdateFrom, updatedStructure);
+
+            Assert.AreSame(addedStructure, structures[1]);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                updatedStructure,
                 structures
             }, affectedObjects);
         }

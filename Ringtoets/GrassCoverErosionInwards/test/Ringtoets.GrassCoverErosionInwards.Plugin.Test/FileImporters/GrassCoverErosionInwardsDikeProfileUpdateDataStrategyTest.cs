@@ -116,23 +116,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateDikeProfilesWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var targetCollection = new DikeProfileCollection();
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(targetCollection,
-                                                                                                   Enumerable.Empty<DikeProfile>(),
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void UpdateDikeProfilesWithImportedData_DikeProfilePropertiesChanged_UpdateRelevantProperties()
         {
             // Setup
@@ -188,34 +171,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateDikeProfilesWithImportedData_CurrentCollectionEmptyAndImportedCollectionNotEmpty_NewProfilesAdded()
-        {
-            // Setup 
-            var dikeProfileOne = new TestDikeProfile(string.Empty, "ID One");
-            var dikeProfileTwo = new TestDikeProfile(string.Empty, "ID Two");
-            var importedDataCollection = new[]
-            {
-                dikeProfileOne,
-                dikeProfileTwo
-            };
-
-            var targetCollection = new DikeProfileCollection();
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(targetCollection,
-                                                                                                   importedDataCollection,
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.AreEqual(importedDataCollection, targetCollection);
-            CollectionAssert.AreEqual(new IObservable[]
-            {
-                targetCollection
-            }, affectedObjects);
-        }
-
-        [Test]
         public void UpdateDikeProfilesWithImportedData_WithCurrentDikeProfileAndImportedMultipleDikeProfilesWithSameId_ThrowsUpdateException()
         {
             // Setup
@@ -249,34 +204,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             CollectionAssert.AreEqual(expectedTargetCollection, targetCollection);
             AssertDikeProfile(expectedDikeProfile, targetCollection[0]);
-        }
-
-        [Test]
-        public void UpdateDikeProfilesWithImportedData_WithCurrentDikeProfilesAndImportedDataEmpty_RemovesDikeProfiles()
-        {
-            // Setup   
-            var dikeProfile = new TestDikeProfile();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            DikeProfileCollection dikeProfileCollection = failureMechanism.DikeProfiles;
-            dikeProfileCollection.AddRange(new[]
-            {
-                dikeProfile
-            }, sourceFilePath);
-
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfileCollection,
-                                                                                                   Enumerable.Empty<DikeProfile>(),
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(dikeProfileCollection);
-            CollectionAssert.AreEqual(new[]
-            {
-                dikeProfileCollection
-            }, affectedObjects);
         }
 
         [Test]

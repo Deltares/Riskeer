@@ -175,56 +175,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_WithoutCurrentModelAndModelsImported_NewModelsAdded()
-        {
-            // Setup
-            var importedStochasticSoilModels = new[]
-            {
-                new TestStochasticSoilModel("A"),
-                new TestStochasticSoilModel("B")
-            };
-            var strategy = new StochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
-            var targetCollection = new StochasticSoilModelCollection();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
-
-            // Assert
-            CollectionAssert.AreEqual(importedStochasticSoilModels, targetCollection);
-            CollectionAssert.AreEqual(new[]
-            {
-                targetCollection
-            }, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateModelWithImportedData_WithCurrentModelsAndImportedDataEmpty_ModelsRemoved()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            StochasticSoilModelCollection stochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
-            stochasticSoilModelCollection.AddRange(new[]
-            {
-                new TestStochasticSoilModel("A"),
-                new TestStochasticSoilModel("B")
-            }, sourceFilePath);
-
-            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(stochasticSoilModelCollection,
-                                                                                            new List<StochasticSoilModel>(),
-                                                                                            sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(stochasticSoilModelCollection);
-            CollectionAssert.AreEquivalent(new[]
-            {
-                stochasticSoilModelCollection
-            }, affectedObjects);
-        }
-
-        [Test]
         public void UpdateModelWithImportedData_WithCurrentModelAndImportedModelWithOtherName_ModelReplaced()
         {
             // Setup

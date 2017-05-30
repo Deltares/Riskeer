@@ -117,23 +117,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var targetCollection = new StructureCollection<HeightStructure>();
-            var strategy = new HeightStructureUpdateDataStrategy(new HeightStructuresFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                                 Enumerable.Empty<HeightStructure>(),
-                                                                                                 sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_WithoutCurrentStructuresAndReadStructuresHaveDuplicateIds_ThrowsUpdateDataException()
         {
             // Setup
@@ -198,27 +181,119 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedDataEmpty_StructuresRemoved()
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasNoOverlap_UpdatesTargetCollection()
         {
             // Setup
+            var targetStructure = new TestHeightStructure("target id");
+
             var failureMechanism = new HeightStructuresFailureMechanism();
             StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
             structures.AddRange(new[]
             {
-                new TestHeightStructure("id", "name"),
-                new TestHeightStructure("other id", "other name")
+                targetStructure
             }, sourceFilePath);
+
+            var readStructure = new TestHeightStructure("read id");
+            var importedStructures = new[]
+            {
+                readStructure
+            };
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                structures, Enumerable.Empty<HeightStructure>(), sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures,
+                                                                                                 sourceFilePath);
 
             // Assert
-            CollectionAssert.IsEmpty(structures);
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(importedStructures, structures);
+            Assert.AreSame(readStructure, structures[0]);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasFullOverlap_UpdatesTargetCollection()
+        {
+            // Setup
+            const string commonId = "common id";
+            var targetStructure = new TestHeightStructure(commonId, "old name");
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
+            structures.AddRange(new[]
+            {
+                targetStructure
+            }, sourceFilePath);
+
+            var readStructure = new TestHeightStructure(commonId, "new name");
+            var importedStructures = new[]
+            {
+                readStructure
+            };
+
+            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(1, structures.Count);
+            Assert.AreSame(targetStructure, structures[0]);
+            AssertHeightStructures(readStructure, targetStructure);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                targetStructure,
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasPartialOverlap_UpdatesTargetCollection()
+        {
+            // Setup
+            const string commonId = "common id";
+            var updatedStructure = new TestHeightStructure(commonId, "old name");
+            var removedStructure = new TestHeightStructure("removed id");
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
+            structures.AddRange(new[]
+            {
+                removedStructure,
+                updatedStructure
+            }, sourceFilePath);
+
+            var structureToUpdateFrom = new TestHeightStructure(commonId, "new name");
+            var addedStructure = new TestHeightStructure("added id");
+            var importedStructures = new[]
+            {
+                structureToUpdateFrom,
+                addedStructure
+            };
+
+            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(2, structures.Count);
+            Assert.AreSame(updatedStructure, structures[0]);
+            AssertHeightStructures(structureToUpdateFrom, updatedStructure);
+
+            Assert.AreSame(addedStructure, structures[1]);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                updatedStructure,
                 structures
             }, affectedObjects);
         }

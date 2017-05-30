@@ -117,23 +117,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var targetCollection = new StructureCollection<ClosingStructure>();
-            var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                                 Enumerable.Empty<ClosingStructure>(),
-                                                                                                 sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_WithoutCurrentStructuresAndReadStructuresHaveDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
@@ -198,27 +181,119 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedDataEmpty_StructuresRemoved()
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasNoOverlap_UpdatesTargetCollection()
         {
             // Setup
+            var targetStructure = new TestClosingStructure("target id");
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
             StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
             structures.AddRange(new[]
             {
-                new TestClosingStructure("id", "name"),
-                new TestClosingStructure("other id", "other name")
+                targetStructure
             }, sourceFilePath);
+
+            var readStructure = new TestClosingStructure("read id");
+            var importedStructures = new[]
+            {
+                readStructure
+            };
 
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                structures, Enumerable.Empty<ClosingStructure>(), sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures,
+                                                                                                 sourceFilePath);
 
             // Assert
-            CollectionAssert.IsEmpty(structures);
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(importedStructures, structures);
+            Assert.AreSame(readStructure, structures[0]);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
             {
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasFullOverlap_UpdatesTargetCollection()
+        {
+            // Setup
+            const string commonId = "common id";
+            var targetStructure = new TestClosingStructure(commonId, "old name");
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
+            structures.AddRange(new[]
+            {
+                targetStructure
+            }, sourceFilePath);
+
+            var readStructure = new TestClosingStructure(commonId, "new name");
+            var importedStructures = new[]
+            {
+                readStructure
+            };
+
+            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(1, structures.Count);
+            Assert.AreSame(targetStructure, structures[0]);
+            AssertClosingStructures(readStructure, targetStructure);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                targetStructure,
+                structures
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedHasPartialOverlap_UpdatesTargetCollection()
+        {
+            // Setup
+            const string commonId = "common id";
+            var updatedStructure = new TestClosingStructure(commonId, "old name");
+            var removedStructure = new TestClosingStructure("removed id");
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
+            structures.AddRange(new[]
+            {
+                removedStructure,
+                updatedStructure
+            }, sourceFilePath);
+
+            var structureToUpdateFrom = new TestClosingStructure(commonId, "new name");
+            var addedStructure = new TestClosingStructure("added id");
+            var importedStructures = new[]
+            {
+                structureToUpdateFrom,
+                addedStructure
+            };
+
+            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
+                                                                                                 importedStructures, sourceFilePath);
+
+            // Assert
+            Assert.AreEqual(2, structures.Count);
+            Assert.AreSame(updatedStructure, structures[0]);
+            AssertClosingStructures(structureToUpdateFrom, updatedStructure);
+
+            Assert.AreSame(addedStructure, structures[1]);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                updatedStructure,
                 structures
             }, affectedObjects);
         }

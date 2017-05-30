@@ -191,25 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreSame(profileToBeUpdated, targetCollection[0]);
             AssertForeshoreProfile(readForeshoreProfile, profileToBeUpdated);
         }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_CurrentAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedObjects);
-            CollectionAssert.IsEmpty(foreshoreProfiles);
-        }
-
+        
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionEmptyImportedCollectionContainDuplicateIDs_ThrowUpdateException()
         {
@@ -236,60 +218,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             CollectionAssert.IsEmpty(foreshoreProfiles);
         }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionEmptyAndImportedCollectionNotEmpty_NewProfilesAdded()
-        {
-            // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-
-            var importedForeshoreProfiles = new[]
-            {
-                new TestForeshoreProfile("Name A", "ID A"),
-                new TestForeshoreProfile("Name B", "ID B")
-            };
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 importedForeshoreProfiles,
-                                                                 sourceFilePath);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                foreshoreProfiles
-            }, affectedObjects);
-            CollectionAssert.AreEqual(importedForeshoreProfiles, foreshoreProfiles);
-        }
-
-        [Test]
-        public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionNotEmptyAndImportedCollectionEmpty_RemovesProfiles()
-        {
-            // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
-            var foreshoreProfiles = new ForeshoreProfileCollection();
-            foreshoreProfiles.AddRange(new[]
-            {
-                new TestForeshoreProfile("Name A", "ID A"),
-                new TestForeshoreProfile("Name B", "ID B")
-            }, sourceFilePath);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                 sourceFilePath);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                foreshoreProfiles
-            }, affectedObjects);
-            CollectionAssert.IsEmpty(foreshoreProfiles);
-        }
-
+        
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionNotEmptyAndImportedCollectionHasProfilesWithSameId_ThrowsUpdateException()
         {

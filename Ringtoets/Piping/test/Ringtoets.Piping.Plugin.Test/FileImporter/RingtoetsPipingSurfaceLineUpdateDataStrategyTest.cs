@@ -111,23 +111,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void UpdateSurfaceLinesWithImportedData_OnlyGeometryChanged_UpdatesGeometryOnly()
         {
             // Setup
@@ -307,41 +290,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_CurrentCollectionEmptyAndImportedDataNotEmpty_NewSurfaceLinesAdded()
-        {
-            // Setup
-            const string collectionSurfaceLineOneName = "Name A";
-            const string collectionSurfaceLineTwoName = "Name B";
-
-            var importedSurfaceLines = new[]
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = collectionSurfaceLineOneName
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = collectionSurfaceLineTwoName
-                }
-            };
-
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                                   importedSurfaceLines,
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.AreEqual(importedSurfaceLines, targetCollection);
-            CollectionAssert.AreEqual(new[]
-            {
-                targetCollection
-            }, affectedObjects);
-        }
-
-        [Test]
         public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsUpdateDataException()
         {
             // Setup
@@ -395,38 +343,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             CollectionAssert.AreEqual(expectedGeometry, actualSurfaceLine.Points);
         }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedDataEmpty_SurfaceLinesRemoved()
-        {
-            // Setup
-            const string collectionSurfaceLineName = "Name A";
-
-            var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
-            surfaceLineCollection.AddRange(new[]
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = collectionSurfaceLineName
-                }
-            }, sourceFilePath);
-
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(surfaceLineCollection);
-            CollectionAssert.AreEqual(new[]
-            {
-                surfaceLineCollection
-            }, affectedObjects);
-        }
-
+        
         [Test]
         public void UpdateSurfaceLinesWithImportedData_WithCurrentCollectionNotEmptyAndImportedDataHasFullOverlap_UpdatesTargetCollection()
         {
