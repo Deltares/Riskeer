@@ -157,6 +157,8 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void RunActivity(int stepNumberForProgressNotification, int activityCount)
         {
+            runningActivity.LogMessages.Clear();
+
             if (InvokeRequired)
             {
                 UpdateActivityStepControlsDelegate updateDelegate = UpdateProgressControls;

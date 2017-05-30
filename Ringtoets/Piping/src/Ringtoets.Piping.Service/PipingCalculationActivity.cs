@@ -74,7 +74,6 @@ namespace Ringtoets.Piping.Service
                 return;
             }
 
-            LogMessages.Clear();
             PipingDataSynchronizationService.ClearCalculationOutput(calculation);
 
             PipingCalculationService.Calculate(calculation);
