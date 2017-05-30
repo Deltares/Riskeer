@@ -202,7 +202,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                VerifyUpdates = context => VerifyStructuresShouldUpdate(
+                    context.FailureMechanism,
+                    RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityPointStructuresCalculationGroupContext>(
@@ -242,7 +245,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
                 IsEnabled = context => context.WrappedData.SourcePath != null,
-                CurrentPath = context => context.WrappedData.SourcePath
+                CurrentPath = context => context.WrappedData.SourcePath,
+                VerifyUpdates = context => VerifyStructuresShouldUpdate(
+                    context.FailureMechanism,
+                    RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
         }
 
@@ -875,6 +881,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                            RingtoetsCommonIOResources.Shape_file_filter_Description);
+        }
+
+        private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)
+        {
+            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism,
+                                                                             query,
+                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion

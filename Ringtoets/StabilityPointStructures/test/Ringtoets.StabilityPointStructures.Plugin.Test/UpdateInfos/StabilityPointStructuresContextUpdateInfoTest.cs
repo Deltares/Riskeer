@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -29,6 +32,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.IO;
@@ -37,158 +42,233 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresContextUpdateInfoTest
+    public class StabilityPointStructuresContextUpdateInfoTest : NUnitFormTest
     {
-        [TestFixture]
-        public class ClosingStructuresContextUpdateInfoTest : NUnitFormTest
+        private UpdateInfo updateInfo;
+        private StabilityPointStructuresPlugin plugin;
+
+        [SetUp]
+        public void SetUp()
         {
-            private UpdateInfo updateInfo;
-            private StabilityPointStructuresPlugin plugin;
+            plugin = new StabilityPointStructuresPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StabilityPointStructuresContext));
+        }
 
-            [SetUp]
-            public void SetUp()
+        [TearDown]
+        public override void TearDown()
+        {
+            plugin.Dispose();
+        }
+
+        [Test]
+        public void Name_Always_ReturnExpectedName()
+        {
+            // Call
+            string name = updateInfo.Name;
+
+            // Assert
+            Assert.AreEqual("Kunstwerken", name);
+        }
+
+        [Test]
+        public void Category_Always_ReturnExpectedCategory()
+        {
+            // Call
+            string category = updateInfo.Category;
+
+            // Assert
+            Assert.AreEqual("Algemeen", category);
+        }
+
+        [Test]
+        public void Image_Always_ReturnExpectedIcon()
+        {
+            // Call
+            Image image = updateInfo.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+        }
+
+        [Test]
+        public void IsEnabled_SourcePathNull_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var structures = new StructureCollection<StabilityPointStructure>();
+
+            var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEnabled = updateInfo.IsEnabled(context);
+
+            // Assert
+            Assert.IsFalse(isEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsEnabled_SourcePathSet_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.StabilityPointStructures.AddRange(Enumerable.Empty<StabilityPointStructure>(), "some path");
+
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
+                                                              assessmentSection);
+
+            // Call
+            bool isEnabled = updateInfo.IsEnabled(context);
+
+            // Assert
+            Assert.IsTrue(isEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
+        {
+            // Call
+            string fileFilter = updateInfo.FileFilterGenerator.Filter;
+
+            // Assert
+            Assert.AreEqual(@"Shapebestand (*.shp)|*.shp", fileFilter);
+        }
+
+        [Test]
+        public void CurrentPath_StructureCollectionHasPathSet_ReturnsExpectedPath()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            const string expectedFilePath = "some/path";
+            var structures = new StructureCollection<StabilityPointStructure>();
+            structures.AddRange(Enumerable.Empty<StabilityPointStructure>(), expectedFilePath);
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
+
+            // Call
+            string currentPath = updateInfo.CurrentPath(context);
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, currentPath);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFileImporter_ValidInput_ReturnFileImporter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var structures = new StructureCollection<StabilityPointStructure>();
+
+            var importTarget = new StabilityPointStructuresContext(structures,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            // Call
+            IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "This is valid");
+
+            // Assert
+            Assert.IsInstanceOf<StabilityPointStructuresImporter>(importer);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+
+            var structures = new StructureCollection<StabilityPointStructure>();
+            var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
+
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
+
+            // Assert
+            Assert.IsTrue(updatesVerified);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>
             {
-                plugin = new StabilityPointStructuresPlugin();
-                updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StabilityPointStructuresContext));
-            }
+                Output = new TestStructuresOutput()
+            });
 
-            [TearDown]
-            public override void TearDown()
+            var structures = new StructureCollection<StabilityPointStructure>();
+            var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
             {
-                plugin.Dispose();
-            }
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
 
-            [Test]
-            public void Name_Always_ReturnExpectedName()
-            {
-                // Call
-                string name = updateInfo.Name;
+                if (isActionConfirmed)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
 
-                // Assert
-                Assert.AreEqual("Kunstwerken", name);
-            }
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
 
-            [Test]
-            public void Category_Always_ReturnExpectedCategory()
-            {
-                // Call
-                string category = updateInfo.Category;
-
-                // Assert
-                Assert.AreEqual("Algemeen", category);
-            }
-
-            [Test]
-            public void Image_Always_ReturnExpectedIcon()
-            {
-                // Call
-                Image image = updateInfo.Image;
-
-                // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
-            }
-
-            [Test]
-            public void IsEnabled_SourcePathNull_ReturnFalse()
-            {
-                // Setup
-                var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                mocks.ReplayAll();
-
-                var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var structures = new StructureCollection<StabilityPointStructure>();
-
-                var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
-
-                // Call
-                bool isEnabled = updateInfo.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-                mocks.VerifyAll();
-            }
-
-            [Test]
-            public void IsEnabled_SourcePathSet_ReturnTrue()
-            {
-                // Setup
-                var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                mocks.ReplayAll();
-
-                var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                failureMechanism.StabilityPointStructures.AddRange(Enumerable.Empty<StabilityPointStructure>(), "some path");
-
-                var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
-                                                                  failureMechanism,
-                                                                  assessmentSection);
-
-                // Call
-                bool isEnabled = updateInfo.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-                mocks.VerifyAll();
-            }
-
-            [Test]
-            public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
-            {
-                // Call
-                string fileFilter = updateInfo.FileFilterGenerator.Filter;
-
-                // Assert
-                Assert.AreEqual(@"Shapebestand (*.shp)|*.shp", fileFilter);
-            }
-
-            [Test]
-            public void CurrentPath_StructureCollectionHasPathSet_ReturnsExpectedPath()
-            {
-                // Setup
-                var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                mocks.ReplayAll();
-
-                const string expectedFilePath = "some/path";
-                var structures = new StructureCollection<StabilityPointStructure>();
-                structures.AddRange(Enumerable.Empty<StabilityPointStructure>(), expectedFilePath);
-
-                var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
-
-                // Call
-                string currentPath = updateInfo.CurrentPath(context);
-
-                // Assert
-                Assert.AreEqual(expectedFilePath, currentPath);
-                mocks.VerifyAll();
-            }
-
-            [Test]
-            public void CreateFileImporter_ValidInput_ReturnFileImporter()
-            {
-                // Setup
-                var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                mocks.ReplayAll();
-
-                assessmentSection.ReferenceLine = new ReferenceLine();
-
-                var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var structures = new StructureCollection<StabilityPointStructure>();
-
-                var importTarget = new StabilityPointStructuresContext(structures,
-                                                                       failureMechanism,
-                                                                       assessmentSection);
-
-                // Call
-                IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "This is valid");
-
-                // Assert
-                Assert.IsInstanceOf<StabilityPointStructuresImporter>(importer);
-                mocks.VerifyAll();
-            }
+            // Assert
+            string expectedInquiryMessage = "Wanneer de kunstwerken wijzigen als gevolg van het bijwerken " +
+                                            "zullen de resultaten van berekeningen die deze kunstwerken gebruiken worden verwijderd." +
+                                            $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+            Assert.AreEqual(isActionConfirmed, updatesVerified);
+            mocks.VerifyAll();
         }
     }
 }

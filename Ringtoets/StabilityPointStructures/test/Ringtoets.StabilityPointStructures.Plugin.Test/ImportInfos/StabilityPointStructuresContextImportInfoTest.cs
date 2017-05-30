@@ -19,15 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.IO;
@@ -36,7 +43,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresContextImportInfoTest
+    public class StabilityPointStructuresContextImportInfoTest :NUnitFormTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
@@ -184,6 +191,93 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
                 Assert.IsFalse(isEnabled);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void VerifyUpdates_CalculationWithoutOutputs_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+
+            var structures = new StructureCollection<StabilityPointStructure>();
+            var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                plugin.Gui = gui;
+
+                ImportInfo importInfo = GetImportInfo(plugin);
+
+                // Call
+                bool updatesVerified = importInfo.VerifyUpdates(context);
+
+                // Assert
+                Assert.IsTrue(updatesVerified);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            });
+
+            var structures = new StructureCollection<StabilityPointStructure>();
+            var context = new StabilityPointStructuresContext(structures, failureMechanism, assessmentSection);
+
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+
+                if (isActionConfirmed)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                plugin.Gui = gui;
+                ImportInfo importInfo = GetImportInfo(plugin);
+                
+                // Call
+                bool updatesVerified = importInfo.VerifyUpdates(context);
+
+                // Assert
+                string expectedInquiryMessage = "Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                                                $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+                Assert.AreEqual(isActionConfirmed, updatesVerified);
+                mocks.VerifyAll();
+            }
         }
 
         private static ImportInfo GetImportInfo(StabilityPointStructuresPlugin plugin)
