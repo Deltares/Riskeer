@@ -1143,10 +1143,7 @@ namespace Ringtoets.Piping.Data.Test
             TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,
                                      actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
-            for (var i = 0; i < expectedSurfaceLine.Points.Length; i++)
-            {
-                Assert.AreNotSame(expectedSurfaceLine.Points[i], actualSurfaceLine.Points[i]);
-            }
+            TestHelper.AssertCollectionAreNotSame(expectedSurfaceLine.Points, actualSurfaceLine.Points);
             TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
             TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
             TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);

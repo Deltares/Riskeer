@@ -731,6 +731,222 @@ namespace Core.Common.TestUtil.Test
             }
         }
 
+        [Test]
+        public void AssertCollectionAreSame_ExpectedCollectionShorterThanActual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreSame(new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreSame_ExpectedCollectionLongerThanActual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreSame(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreSame_CollectionsDifferent_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreSame(new[]
+            {
+                objectA,
+                objectB,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreSame_CollectionsSame_DoesNotThrowException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreSame(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            });
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreNotSame_ExpectedCollectionShorterThanActual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreNotSame(new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreNotSame_ExpectedCollectionLongerThanActual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreNotSame(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreNotSame_CollectionsDifferent_DoesNotThrowException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreNotSame(new[]
+            {
+                objectA,
+                objectB,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreNotSame_CollectionsSame_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreNotSame(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
         public class TestEqualSameObject
         {
             private readonly int someInt;

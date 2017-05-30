@@ -391,11 +391,17 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Determines whether to objects are copies of eachother by verifying that they are
+        /// Determines whether objects are copies of eachother by verifying that they are
         /// equal, but not the same.
         /// </summary>
         /// <param name="objectA">The object which should be equal, but not same as <paramref name="objectB"/>.</param>
         /// <param name="objectB">The object which should be equal, but not same as <paramref name="objectA"/>.</param>
+        /// <exception cref="AssertionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="objectA"/> is not equal to <paramref name="objectB"/></item>
+        /// <item><paramref name="objectA"/> is the same as <paramref name="objectB"/></item>
+        /// </list>
+        /// </exception>
         public static void AssertAreEqualButNotSame(object objectA, object objectB)
         {
             Assert.AreEqual(objectA, objectB, "Objects should be equal.");
@@ -404,6 +410,60 @@ namespace Core.Common.TestUtil
             {
                 Assert.AreNotSame(objectA, objectB, "Objects should not be the same.");
             }
+        }
+
+        /// <summary>
+        /// Asserts that all elements in the collections are the same.
+        /// </summary>
+        /// <param name="expected">The expected collection of elements.</param>
+        /// <param name="actual">The actual collection of elements.</param>
+        /// <exception cref="AssertionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/></item>
+        /// <item><paramref name="expected"/> contains an element at a position that is not the same
+        /// element in <paramref name="actual"/> at that position.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertCollectionAreSame(System.Collections.IEnumerable expected, System.Collections.IEnumerable actual)
+        {
+            var expectedEnumerator = expected.GetEnumerator();
+            var actualEnumerator = actual.GetEnumerator();
+
+            while (expectedEnumerator.MoveNext())
+            {
+                Assert.IsTrue(actualEnumerator.MoveNext());
+                {
+                    Assert.AreSame(expectedEnumerator.Current, actualEnumerator.Current);
+                }
+            }
+            Assert.IsFalse(actualEnumerator.MoveNext());
+        }
+
+        /// <summary>
+        /// Asserts that all elements in the collections are not the same.
+        /// </summary>
+        /// <param name="expected">The expected collection of elements.</param>
+        /// <param name="actual">The actual collection of elements.</param>
+        /// <exception cref="AssertionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/></item>
+        /// <item><paramref name="expected"/> contains an element at a position that is the same
+        /// element in <paramref name="actual"/> at that position.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertCollectionAreNotSame(System.Collections.IEnumerable expected, System.Collections.IEnumerable actual)
+        {
+            var expectedEnumerator = expected.GetEnumerator();
+            var actualEnumerator = actual.GetEnumerator();
+
+            while (expectedEnumerator.MoveNext())
+            {
+                Assert.IsTrue(actualEnumerator.MoveNext());
+                {
+                    Assert.AreNotSame(expectedEnumerator.Current, actualEnumerator.Current);
+                }
+            }
+            Assert.IsFalse(actualEnumerator.MoveNext());
         }
 
         private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)

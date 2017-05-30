@@ -782,15 +782,9 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             // Assert
             TestHelper.AssertAreEqualButNotSame(expectedWorldReferencePoint, dikeProfileToUpdate.WorldReferencePoint);
             CollectionAssert.AreEqual(expectedForeshoreGeometry, dikeProfileToUpdate.ForeshoreGeometry);
-            for (var i = 0; i < expectedForeshoreGeometry.Length; i++)
-            {
-                Assert.AreNotSame(expectedForeshoreGeometry[i], dikeProfileToUpdate.ForeshoreGeometry.ElementAt(i));
-            }
+            TestHelper.AssertCollectionAreNotSame(expectedForeshoreGeometry, dikeProfileToUpdate.ForeshoreGeometry);
             CollectionAssert.AreEqual(expectedDikeGeometry, dikeProfileToUpdate.DikeGeometry);
-            for (var i = 0; i < expectedDikeGeometry.Length; i++)
-            {
-                Assert.AreNotSame(expectedDikeGeometry[i], dikeProfileToUpdate.DikeGeometry.ElementAt(i));
-            }
+            TestHelper.AssertCollectionAreNotSame(expectedDikeGeometry, dikeProfileToUpdate.DikeGeometry);
             TestHelper.AssertAreEqualButNotSame(expectedBreakWater, dikeProfileToUpdate.BreakWater);
 
             Assert.AreEqual(expectedId, dikeProfileToUpdate.Id);
