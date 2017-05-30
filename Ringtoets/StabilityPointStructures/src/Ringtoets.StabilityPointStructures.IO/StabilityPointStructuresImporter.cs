@@ -24,10 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
@@ -40,8 +38,10 @@ namespace Ringtoets.StabilityPointStructures.IO
     /// Imports point shapefiles containing stability point structure locations
     /// and csv files containing stability point structure schematizations.
     /// </summary>
-    public class StabilityPointStructuresImporter : StructuresImporter<StructureCollection<StabilityPointStructure>>
+    public class StabilityPointStructuresImporter : StructuresImporter<StabilityPointStructure>
     {
+        private readonly IStructureUpdateStrategy<StabilityPointStructure> structureUpdateStrategy;
+
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresImporter"/>.
         /// </summary>
@@ -50,30 +50,25 @@ namespace Ringtoets.StabilityPointStructures.IO
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
+        /// <param name="updateStrategy">The strategy to update the imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public StabilityPointStructuresImporter(StructureCollection<StabilityPointStructure> importTarget,
-                                                ReferenceLine referenceLine, string filePath, IImporterMessageProvider messageProvider)
-            : base(importTarget, referenceLine, filePath, messageProvider) {}
+                                                ReferenceLine referenceLine,
+                                                string filePath,
+                                                IImporterMessageProvider messageProvider,
+                                                IStructureUpdateStrategy<StabilityPointStructure> updateStrategy)
+            : base(importTarget, referenceLine, filePath, messageProvider, updateStrategy)
+        {
+            structureUpdateStrategy = updateStrategy;
+        }
 
         protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
                                                                                 Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            IEnumerable<StabilityPointStructure> importedStabilityPointStructures =
-                CreateStabilityPointStructures(structureLocations.ToList(), groupedStructureParameterRows).ToArray();
-
-            IEnumerable<string> knownIds = ImportTarget.Select(t => t.Id).Intersect(importedStabilityPointStructures.Select(s => s.Id)).ToArray();
-            if (knownIds.Any())
-            {
-                string duplicateFeatures = string.Join(", ", knownIds);
-                string exceptionMessage = string.Format(
-                    Resources.ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2,
-                    RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
-                    RingtoetsCommonDataResources.StructureCollection_UniqueFeature_id_FeatureDescription,
-                    duplicateFeatures);
-                throw new UpdateDataException(exceptionMessage);
-            }
-            ImportTarget.AddRange(importedStabilityPointStructures, FilePath);
-            return Enumerable.Empty<IObservable>();
+            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
+                                                                            CreateStabilityPointStructures(structureLocations.ToList(),
+                                                                                                           groupedStructureParameterRows),
+                                                                            FilePath);
         }
 
         private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IEnumerable<StructureLocation> structureLocations,

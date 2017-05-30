@@ -31,6 +31,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.Exceptions;
@@ -45,8 +46,9 @@ namespace Ringtoets.Common.IO.FileImporters
     /// Abstract class for structure importers, providing an implementation of importing point shapefiles 
     /// containing structure locations and csv files containing structure schematizations.
     /// </summary>
-    /// <typeparam name="TCollection">Object type that is the target for this importer.</typeparam>
-    public abstract class StructuresImporter<TCollection> : FileImporterBase<TCollection>
+    /// <typeparam name="TStructure">Object type that is the target for this importer.</typeparam>
+    public abstract class StructuresImporter<TStructure> : FileImporterBase<StructureCollection<TStructure>>
+        where TStructure : StructureBase
     {
         private readonly ReferenceLine referenceLine;
         private readonly IImporterMessageProvider messageProvider;
@@ -59,14 +61,22 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="referenceLine">The reference line used to check if the imported structures are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
+        /// <param name="structureUpdateStrategy">The strategy to update the imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        protected StructuresImporter(TCollection importTarget, ReferenceLine referenceLine, string filePath,
-                                     IImporterMessageProvider messageProvider)
+        protected StructuresImporter(StructureCollection<TStructure> importTarget,
+                                     ReferenceLine referenceLine,
+                                     string filePath,
+                                     IImporterMessageProvider messageProvider,
+                                     IStructureUpdateStrategy<TStructure> structureUpdateStrategy)
             : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
+            }
+            if (structureUpdateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(structureUpdateStrategy));
             }
             if (messageProvider == null)
             {

@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.IO
     /// Imports point shapefiles containing height structure locations
     /// and csv files containing height structure schematizations.
     /// </summary>
-    public class HeightStructuresImporter : StructuresImporter<StructureCollection<HeightStructure>>
+    public class HeightStructuresImporter : StructuresImporter<HeightStructure>
     {
         private readonly IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy;
 
@@ -54,7 +54,7 @@ namespace Ringtoets.HeightStructures.IO
         public HeightStructuresImporter(StructureCollection<HeightStructure> importTarget, ReferenceLine referenceLine,
                                         string filePath, IImporterMessageProvider messageProvider,
                                         IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy)
-            : base(importTarget, referenceLine, filePath, messageProvider)
+            : base(importTarget, referenceLine, filePath, messageProvider, structureUpdateStrategy)
         {
             if (structureUpdateStrategy == null)
             {

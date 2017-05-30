@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                                                         messageProvider, replaceDataStrategy);
 
             // Assert
-            Assert.IsInstanceOf<StructuresImporter<StructureCollection<HeightStructure>>>(importer);
+            Assert.IsInstanceOf<StructuresImporter<HeightStructure>>(importer);
         }
 
         [Test]

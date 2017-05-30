@@ -32,8 +32,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.IO.Test
 {
@@ -66,13 +66,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new StabilityPointStructuresImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider);
+            var importer = new StabilityPointStructuresImporter(testImportTarget,
+                                                                testReferenceLine,
+                                                                testFilePath,
+                                                                messageProvider,
+                                                                updateStrategy);
 
             // Assert
-            Assert.IsInstanceOf<StructuresImporter<StructureCollection<StabilityPointStructure>>>(importer);
+            Assert.IsInstanceOf<StructuresImporter<StabilityPointStructure>>(importer);
         }
 
         [Test]
@@ -80,13 +85,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
             mocks.ReplayAll();
 
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectFiles", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new StructureCollection<StabilityPointStructure>();
-            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
 
             // Call
             var importResult = false;
@@ -107,16 +117,48 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void Import_VarianceValuesNeedConversion_WarnUserAboutConversion()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
             string filePath = Path.Combine(testDataPath, "StructuresVarianceValueConversion", "Kunstwerken.shp");
 
-            ReferenceLine referenceLine = CreateReferenceLine();
-
             var importTarget = new StructureCollection<StabilityPointStructure>();
-            ;
-            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+
+                var structures = (IEnumerable<StabilityPointStructure>) i.Arguments[1];
+
+                Assert.AreEqual(1, structures.Count());
+                StabilityPointStructure structure = structures.First();
+                Assert.AreEqual(0.5, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                Assert.AreEqual(2, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+                Assert.AreEqual(4, structure.WidthFlowApertures.StandardDeviation.Value);
+                Assert.AreEqual(4, structure.InsideWaterLevel.StandardDeviation.Value);
+                Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+                Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                Assert.AreEqual(8, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+                Assert.AreEqual(2, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value);
+                Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value);
+                Assert.AreEqual(10, structure.BankWidth.StandardDeviation.Value);
+                Assert.AreEqual(12, structure.InsideWaterLevelFailureConstruction.StandardDeviation.Value);
+                Assert.AreEqual(14, structure.LevelCrestStructure.StandardDeviation.Value);
+                Assert.AreEqual(3.5, structure.FailureCollisionEnergy.CoefficientOfVariation.Value);
+                Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
+                Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
+                Assert.AreEqual(5, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
+                Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
+                Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
+            });
+            mocks.ReplayAll();
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
 
             // Call
             var importResult = false;
@@ -146,27 +188,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-
-            Assert.AreEqual(1, importTarget.Count);
-            StabilityPointStructure structure = importTarget[0];
-            Assert.AreEqual(0.5, structure.StorageStructureArea.CoefficientOfVariation.Value);
-            Assert.AreEqual(2, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            Assert.AreEqual(4, structure.WidthFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual(4, structure.InsideWaterLevel.StandardDeviation.Value);
-            Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
-            Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-            Assert.AreEqual(8, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(2, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value);
-            Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value);
-            Assert.AreEqual(10, structure.BankWidth.StandardDeviation.Value);
-            Assert.AreEqual(12, structure.InsideWaterLevelFailureConstruction.StandardDeviation.Value);
-            Assert.AreEqual(14, structure.LevelCrestStructure.StandardDeviation.Value);
-            Assert.AreEqual(3.5, structure.FailureCollisionEnergy.CoefficientOfVariation.Value);
-            Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
-            Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
-            Assert.AreEqual(5, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
-            Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
-            Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
         }
 
         [Test]
@@ -174,14 +195,19 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
             mocks.ReplayAll();
 
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpIncompleteCsv", "Kunstwerken.shp");
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var importTarget = new StructureCollection<StabilityPointStructure>();
-            ;
-            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
 
             // Call
             var importResult = false;
@@ -205,10 +231,19 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void Import_ParameterIdsWithVaryingCase_TrueAndImportTargetUpdated()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
             string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv", "Kunstwerken.shp");
+
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i.Arguments[1]).Count());
+            });
+            mocks.ReplayAll();
 
             var referencePoints = new List<Point2D>
             {
@@ -219,30 +254,59 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var importTarget = new StructureCollection<StabilityPointStructure>();
-            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
 
             // Call
             bool importResult = structuresImporter.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, importTarget.Count);
         }
 
         [Test]
         public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
         {
             // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
             string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter), "Kunstwerken.shp");
 
-            ReferenceLine referenceLine = CreateReferenceLine();
-
             var importTarget = new StructureCollection<StabilityPointStructure>();
-            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+
+                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[1];
+
+                Assert.AreEqual(1, readStructures.Count());
+                StabilityPointStructure importedStructure = readStructures.First();
+                var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = "test",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                });
+                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
+                DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
+                Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
+                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+            });
+            mocks.ReplayAll();
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
 
             // Call
             var importResult = false;
@@ -264,59 +328,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
-            Assert.AreEqual(1, importTarget.Count);
-            StabilityPointStructure importedStructure = importTarget.First();
-            var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
-            {
-                Name = "test",
-                Location = new Point2D(0, 0),
-                Id = "id"
-            });
-            DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
-            DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
-            DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
-            Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
-            DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
-        }
-
-        [Test]
-        public void Import_StructureWithSameIdAlreadyImported_FalseAndImportTargetNotUpdated()
-        {
-            // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            const string errorText = "Failed";
-            messageProvider.Stub(m => m.GetUpdateDataFailedLogMessageText(null)).IgnoreArguments().Return(errorText);
-            messageProvider.Stub(m => m.GetAddDataToModelProgressText()).Return("Progress");
-            mocks.ReplayAll();
-
-            string filePath = Path.Combine(commonIoTestDataPath, "CorrectShpRandomCaseHeaderCsv", "Kunstwerken.shp");
-
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(154493.618, 568995.991),
-                new Point2D(156844.169, 574771.498),
-                new Point2D(157910.502, 579115.458),
-                new Point2D(163625.153, 585151.261)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var importTarget = new StructureCollection<StabilityPointStructure>();
-            importTarget.AddRange(new[]
-            {
-                new TestStabilityPointStructure("KWK_3"),
-                new TestStabilityPointStructure("KWK_4")
-            }, filePath);
-            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider);
-
-            var importResult = true;
-
-            // Call
-            Action import = () => importResult = structuresImporter.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(import, Tuple.Create(errorText, LogLevelConstant.Error));
-            Assert.IsFalse(importResult);
-            Assert.AreEqual(2, importTarget.Count);
         }
 
         private static ReferenceLine CreateReferenceLine()

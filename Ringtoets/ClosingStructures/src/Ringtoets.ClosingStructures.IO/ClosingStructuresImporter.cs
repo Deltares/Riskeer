@@ -37,7 +37,7 @@ namespace Ringtoets.ClosingStructures.IO
     /// Imports point shapefiles containing closing structure locations
     /// and csv files containing closing structure schematizations.
     /// </summary>
-    public class ClosingStructuresImporter : StructuresImporter<StructureCollection<ClosingStructure>>
+    public class ClosingStructuresImporter : StructuresImporter<ClosingStructure>
     {
         private readonly IStructureUpdateStrategy<ClosingStructure> structureUpdateStrategy;
 
@@ -56,7 +56,7 @@ namespace Ringtoets.ClosingStructures.IO
                                          string filePath,
                                          IImporterMessageProvider messageProvider,
                                          IStructureUpdateStrategy<ClosingStructure> updateStrategy)
-            : base(importTarget, referenceLine, filePath, messageProvider)
+            : base(importTarget, referenceLine, filePath, messageProvider, updateStrategy)
         {
             if (updateStrategy == null)
             {

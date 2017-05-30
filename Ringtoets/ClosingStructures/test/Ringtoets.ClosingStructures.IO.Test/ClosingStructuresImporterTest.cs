@@ -75,7 +75,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("updateStrategy", exception.ParamName);
+            Assert.AreEqual("structureUpdateStrategy", exception.ParamName);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                 updateStrategy);
 
             // Assert
-            Assert.IsInstanceOf<StructuresImporter<StructureCollection<ClosingStructure>>>(importer);
+            Assert.IsInstanceOf<StructuresImporter<ClosingStructure>>(importer);
         }
 
         [Test]

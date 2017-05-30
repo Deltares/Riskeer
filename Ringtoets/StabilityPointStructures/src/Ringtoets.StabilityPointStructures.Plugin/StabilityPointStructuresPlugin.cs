@@ -53,6 +53,7 @@ using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 using Ringtoets.StabilityPointStructures.IO;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
+using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
 using Ringtoets.StabilityPointStructures.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -194,7 +195,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 CreateFileImporter = (context, filePath) => new StabilityPointStructuresImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
                                                                                                  filePath,
-                                                                                                 new ImportMessageProvider()),
+                                                                                                 new ImportMessageProvider(),
+                                                                                                 new StabilityPointStructureReplaceStrategy(context.FailureMechanism)),
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
