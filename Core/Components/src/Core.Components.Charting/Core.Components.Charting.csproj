@@ -41,6 +41,7 @@
     <Compile Include="Data\ChartAreaData.cs" />
     <Compile Include="Data\ChartData.cs" />
     <Compile Include="Data\ChartDataCollection.cs" />
+    <Compile Include="Data\ChartDataCollectionExtensions.cs" />
     <Compile Include="Data\ChartLineData.cs" />
     <Compile Include="Data\ChartMultipleAreaData.cs" />
     <Compile Include="Data\ChartMultipleLineData.cs" />

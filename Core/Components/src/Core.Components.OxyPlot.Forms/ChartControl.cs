@@ -157,6 +157,14 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            plotView.Dispose();
+            chartDataCollectionObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         /// <summary>
         /// Defines the area taken up by the visible map-data based on the provided map-data.
         /// </summary>
@@ -217,14 +225,6 @@ namespace Core.Components.OxyPlot.Forms
             return envelope;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            plotView.Dispose();
-            chartDataCollectionObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
         private void InitializePlotView()
         {
             plotView = new LinearPlotView
@@ -242,28 +242,9 @@ namespace Core.Components.OxyPlot.Forms
             Controls.Add(plotView);
         }
 
-        private static IEnumerable<ChartData> GetChartDataRecursively(ChartDataCollection chartDataCollection)
-        {
-            var chartDataList = new List<ChartData>();
-
-            foreach (ChartData chartData in chartDataCollection.Collection)
-            {
-                var nestedChartDataCollection = chartData as ChartDataCollection;
-                if (nestedChartDataCollection != null)
-                {
-                    chartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
-                    continue;
-                }
-
-                chartDataList.Add(chartData);
-            }
-
-            return chartDataList;
-        }
-
         private void HandleChartDataCollectionChange()
         {
-            List<ChartData> chartDataThatShouldBeDrawn = GetChartDataRecursively(Data).ToList();
+            List<ChartData> chartDataThatShouldBeDrawn = Data.GetChartDataRecursively().ToList();
             Dictionary<ChartData, DrawnChartData> drawnChartDataLookup = drawnChartDataList.ToDictionary(dcd => dcd.ChartData, dcd => dcd);
 
             DrawMissingChartDataOnCollectionChange(chartDataThatShouldBeDrawn, drawnChartDataLookup);
