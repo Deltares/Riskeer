@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Utils;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
@@ -58,29 +59,51 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
             return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
         }
 
+        #region Removing Data Functions
+
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StabilityPointStructure removedObject)
+        {
+            return RingtoetsCommonDataSynchronizationService.RemoveStructure(removedObject,
+                                                                             FailureMechanism.Calculations
+                                                                                             .Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
+                                                                             FailureMechanism.StabilityPointStructures,
+                                                                             FailureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #region Updating Data Functions
+
         protected override IEnumerable<IObservable> UpdateObjectAndDependentData(StabilityPointStructure objectToUpdate, StabilityPointStructure objectToUpdateFrom)
         {
             objectToUpdate.CopyProperties(objectToUpdateFrom);
 
-            var affectedObjects = new List<IObservable>
-            {
-                objectToUpdate
-            };
-            affectedObjects.AddRange(FailureMechanism.Calculations
-                                                     .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                     .Select(calc => calc.InputParameters)
-                                                     .Where(inp => ReferenceEquals(inp.Structure, objectToUpdate)));
+            return UpdateStabilityPointStructureDependentData(objectToUpdate);
+        }
+
+        private IEnumerable<IObservable> UpdateStabilityPointStructureDependentData(StabilityPointStructure structure)
+        {
+            var affectedObjects = new List<IObservable>();
+
+            affectedObjects.AddRange(GetAffectedCalculationsWithStabilityPointStructure(structure)
+                                         .Select(affectedCalculation => affectedCalculation.InputParameters));
+
+            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults,
+                                         FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()));
 
             return affectedObjects;
         }
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StabilityPointStructure removedObject)
+        private IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> GetAffectedCalculationsWithStabilityPointStructure(StabilityPointStructure structure)
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveStructure(removedObject, FailureMechanism.Calculations
-                                                                                                            .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                            .Where(calc => ReferenceEquals(calc.InputParameters.Structure, removedObject)),
-                                                                             FailureMechanism.StabilityPointStructures,
-                                                                             FailureMechanism.SectionResults);
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> affectedCalculations =
+                FailureMechanism.Calculations
+                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                .Where(calc => ReferenceEquals(calc.InputParameters.Structure, structure));
+            return affectedCalculations;
         }
+
+        #endregion
     }
 }

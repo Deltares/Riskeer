@@ -23,12 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
+using Ringtoets.Common.Utils;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
@@ -609,6 +613,89 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 affectedStructure,
                 affectedCalculation.InputParameters
             }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_SectionResultWithStructureImportedStructureWithSameId_UpdatesCalculationInput()
+        {
+            // Setup
+            const string sameId = "sameId";
+            var originalMatchingPoint = new Point2D(0, 0);
+            var updatedMatchingPoint = new Point2D(20, 20);
+            StabilityPointStructure readStructure = new TestStabilityPointStructure(updatedMatchingPoint, sameId);
+            StabilityPointStructure structure = new TestStabilityPointStructure(originalMatchingPoint, sameId);
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                }
+            };
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                }
+            };
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                structure
+            }, sourceFilePath);
+
+            var intersectionPoint = new Point2D(10, 10);
+            failureMechanism.AddSection(new FailureMechanismSection("OldSection", new[]
+            {
+                originalMatchingPoint,
+                intersectionPoint
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("NewSection", new[]
+            {
+                intersectionPoint,
+                updatedMatchingPoint
+            }));
+
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
+                                                                         failureMechanism.Calculations
+                                                                                         .Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+
+            var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
+
+            // Precondition
+            Assert.AreSame(calculation, sectionResults[0].Calculation);
+            Assert.IsNull(sectionResults[1].Calculation);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                failureMechanism.StabilityPointStructures,
+                new[]
+                {
+                    readStructure
+                },
+                sourceFilePath);
+
+            // Assert
+            AssertStabilityPointStructure(readStructure, structure);
+
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                failureMechanism.StabilityPointStructures,
+                structure,
+                calculation.InputParameters,
+                sectionResults[0],
+                sectionResults[1]
+            }, affectedObjects);
+
+            sectionResults = failureMechanism.SectionResults.ToArray();
+            Assert.AreEqual(2, sectionResults.Length);
+            Assert.IsNull(sectionResults[0].Calculation);
+            Assert.AreSame(calculation, sectionResults[1].Calculation);
         }
 
         private static void AssertStabilityPointStructure(StabilityPointStructure expectedStabilityPointStructure,
