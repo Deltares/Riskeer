@@ -14,7 +14,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
-//
+//  
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]

@@ -202,7 +202,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
                 if (callCount <= expectedNumberOfSurfaceLines)
                 {
-                    Assert.AreEqual($"Inlezen \'{twovalidsurfacelinesCsv}\'", currentStepName);
+                    Assert.AreEqual($"Inlezen '{twovalidsurfacelinesCsv}'", currentStepName);
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
                 {
@@ -281,9 +281,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Assert
             var mesages = new[]
             {
-                $"Begonnen met het inlezen van profielschematisaties uit bestand \'{validFilePath}\'.",
+                $"Begonnen met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
                 "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.",
-                $"Klaar met het inlezen van profielschematisaties uit bestand \'{validFilePath}\'."
+                $"Klaar met het inlezen van profielschematisaties uit bestand '{validFilePath}'."
             };
 
             TestHelper.AssertLogMessagesAreGenerated(call, mesages, 3);
@@ -571,9 +571,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build("Het bestand bestaat niet.");
             var expectedLogMessagesAndLevels = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info)
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevels, 3);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -603,8 +603,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 .Build("Het bestand is leeg.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
@@ -635,9 +635,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info)
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -674,8 +674,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 string internalErrorMessage = new FileReaderErrorMessageBuilder(copyTargetPath).Build("Het bestand bestaat niet.");
                 var expectedLogMessagesAndLevel = new[]
                 {
-                    Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{copyTargetPath}\'.", LogLevelConstant.Info),
-                    Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{copyTargetPath}\'.", LogLevelConstant.Info),
+                    Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
                     Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
@@ -718,11 +718,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            const string duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie \'Rotterdam1\'. Alleen de eerste definitie wordt geïmporteerd.";
+            const string duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn)
             };
 
@@ -770,8 +770,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{corruptPath}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
@@ -824,8 +824,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{path}\'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{path}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
@@ -864,8 +864,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand \'{path}\'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand \'{path}\'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);

@@ -25,7 +25,6 @@ using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.SoilProfile.Schema;
 
@@ -90,7 +89,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -118,8 +117,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
-                .Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                .WithSubject($"ondergrondschematisatie '{profileName}'")
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();

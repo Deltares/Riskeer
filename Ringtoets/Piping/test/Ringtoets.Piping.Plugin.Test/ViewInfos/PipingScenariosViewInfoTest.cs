@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(view, pipingCalculationsGroup);
 
                 // Assert
-                Assert.AreEqual(RingtoetsCommonFormsResources.Scenarios_DisplayName, viewName);
+                Assert.AreEqual("Scenario's", viewName);
             }
         }
 

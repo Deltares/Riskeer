@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            string message = $"Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel \'{name}\'.";
+            string message = $"Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{name}'.";
             Assert.AreEqual(message, exception.Message);
         }
 

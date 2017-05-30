@@ -27,7 +27,6 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
-using PrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -69,7 +68,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            string expectedMessage = PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers;
+            const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -80,7 +79,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            string expectedMessage = PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers;
+            const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 

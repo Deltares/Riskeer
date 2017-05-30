@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Builders
@@ -831,7 +830,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
+            Assert.AreEqual($"Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {atX}.", exception.Message);
         }
 
         [Test]
@@ -869,7 +868,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
+            Assert.AreEqual($"Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {atX}.", exception.Message);
         }
 
         [Test]

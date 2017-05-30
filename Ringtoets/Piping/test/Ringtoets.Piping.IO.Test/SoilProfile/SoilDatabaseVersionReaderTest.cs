@@ -24,9 +24,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -49,7 +47,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -77,7 +75,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             const string version = "15.0.6.0";
-            string expectedVersionMessage = string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version);
+            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
             const string dbName = "incorrectversion.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 

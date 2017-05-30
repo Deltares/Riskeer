@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]

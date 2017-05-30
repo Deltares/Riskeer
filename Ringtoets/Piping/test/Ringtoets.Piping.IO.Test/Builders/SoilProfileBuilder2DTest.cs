@@ -27,7 +27,6 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Builders
@@ -45,7 +44,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            string message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, name);
+            string message = $"Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{name}'.";
             Assert.AreEqual(message, exception.Message);
         }
 

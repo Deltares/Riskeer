@@ -681,7 +681,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
-                    .Build($"Ontbrekend scheidingsteken \'{';'}\'.");
+                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -704,7 +704,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
-                    .Build($"Ontbrekend scheidingsteken \'{';'}\'.");
+                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

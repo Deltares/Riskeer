@@ -32,7 +32,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -103,7 +102,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             string text = info.Text(pipingInputContext);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, text);
+            Assert.AreEqual("Invoer", text);
         }
 
         [Test]

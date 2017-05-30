@@ -453,7 +453,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &scenario\'s...",
+                                                                  "Genereer &scenario's...",
                                                                   "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
@@ -495,7 +495,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &scenario\'s...",
+                                                                  "Genereer &scenario's...",
                                                                   "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
@@ -540,8 +540,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &scenario\'s...",
-                                                                  "Genereer scenario\'s op basis van geselecteerde profielschematisaties.",
+                                                                  "Genereer &scenario's...",
+                                                                  "Genereer scenario's op basis van geselecteerde profielschematisaties.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }
             }

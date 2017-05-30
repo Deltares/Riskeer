@@ -28,10 +28,8 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -54,7 +52,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -85,7 +83,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build(string.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, dbName));
+                Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -124,7 +122,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             const string version = "15.0.6.0";
-            string expectedVersionMessage = string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version);
+            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
             const string dbName = "incorrectversion.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
@@ -208,7 +206,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, dbName);
             const long stochasticProfileId = 1;
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
+                .Build("De ondergrondschematisatie verwijst naar een ongeldige waarde.");
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
             {
@@ -232,7 +230,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, dbName);
             const long stochasticProfileId = 1;
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
+                .Build("De ondergrondschematisatie verwijst naar een ongeldige waarde.");
 
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
             {

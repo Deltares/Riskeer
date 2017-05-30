@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.Test.TestHelpers;
 
@@ -59,7 +58,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
         }
 
         [Test]
@@ -74,7 +73,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
         }
 
         [Test]
@@ -89,7 +88,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
         }
 
         [Test]
@@ -104,7 +103,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
         }
 
         [Test]
@@ -142,7 +141,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
+            Assert.AreEqual("Coördinaat van een punt bevat ongeldige waarde.", exception.Message);
         }
 
         [Test]
@@ -161,7 +160,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
+            Assert.AreEqual("Coördinaat van een punt bevat ongeldige waarde.", exception.Message);
         }
 
         [Test]

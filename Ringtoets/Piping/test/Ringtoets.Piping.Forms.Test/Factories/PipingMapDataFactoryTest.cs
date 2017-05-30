@@ -25,7 +25,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Piping.Forms.Factories;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Factories
 {
@@ -40,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor, data.Name);
+            Assert.AreEqual("Profielschematisaties", data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
@@ -53,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(PipingDataResources.StochasticSoilModelCollection_TypeDescriptor, data.Name);
+            Assert.AreEqual("Stochastische ondergrondmodellen", data.Name);
             AssertEqualStyle(data.Style, Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }

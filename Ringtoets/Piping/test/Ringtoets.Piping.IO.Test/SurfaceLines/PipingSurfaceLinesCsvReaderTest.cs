@@ -30,8 +30,6 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
-using IOResources = Ringtoets.Piping.IO.Properties.Resources;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SurfaceLines
 {
@@ -50,7 +48,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(path);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
+            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -81,7 +79,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build("Bestandspad mag niet verwijzen naar een lege bestandsnaam.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -163,7 +161,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                string expectedError = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
+                string expectedError = new FileReaderErrorMessageBuilder(path).Build("Het bestand bestaat niet.");
                 Assert.AreEqual(expectedError, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
@@ -185,7 +183,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Het bestandspad verwijst naar een map die niet bestaat.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -207,7 +205,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                string expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build("Het bestand is leeg.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -230,7 +228,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
+                    .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -443,7 +441,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Het bestand bestaat niet.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
@@ -465,7 +463,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Het bestandspad verwijst naar een map die niet bestaat.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -489,7 +487,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
-                    .Build(UtilsResources.Error_File_empty);
+                    .Build("Het bestand is leeg.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -512,7 +510,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
+                    .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -566,7 +564,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
-                    .Build(IOResources.Error_SurfaceLine_has_not_double);
+                    .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -597,7 +595,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
-                    .Build(IOResources.Error_SurfaceLine_parsing_causes_overflow);
+                    .Build("Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
@@ -622,13 +620,13 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                    .Build("Regel heeft geen ID.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 3")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                    .Build("Regel heeft geen ID.");
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -653,13 +651,13 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                    .Build("Regel heeft geen ID.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 4")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                    .Build("Regel heeft geen ID.");
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -683,7 +681,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
-                    .Build(string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_, ';'));
+                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -706,7 +704,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
-                    .Build(string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_, ';'));
+                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -731,7 +729,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'LacksOneCoordinate'")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
+                    .Build("Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
@@ -739,7 +737,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 3")
                     .WithSubject("profielschematisatie 'LacksTwoCoordinates'")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
+                    .Build("Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -763,7 +761,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'ArtificialLocal'")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
+                    .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -789,7 +787,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'Rotterdam1'")
-                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
+                    .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

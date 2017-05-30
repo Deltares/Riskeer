@@ -167,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
         {
             // Setup
             const string version = "15.0.6.0";
-            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is \'{version}\'.";
+            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
             const string dbName = "incorrectversion.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 

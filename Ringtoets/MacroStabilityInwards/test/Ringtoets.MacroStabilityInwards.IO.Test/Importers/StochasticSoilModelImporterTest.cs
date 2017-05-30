@@ -543,11 +543,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(pathToCorruptFile)
                 .WithSubject("ondergrondschematisatie 'Profile'")
-                .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom \'IntersectionX\'.");
+                .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'IntersectionX'.");
             var expectedLogMessagesAndLevel = new[]
             {
                 Tuple.Create($"{internalErrorMessage} {Environment.NewLine}Deze ondergrondschematisatie wordt overgeslagen.", LogLevelConstant.Error),
-                Tuple.Create("Het stochastische ondergrondmodel \'Name\' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.", LogLevelConstant.Warn)
+                Tuple.Create("Het stochastische ondergrondmodel 'Name' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
             Assert.AreEqual(8, progress);

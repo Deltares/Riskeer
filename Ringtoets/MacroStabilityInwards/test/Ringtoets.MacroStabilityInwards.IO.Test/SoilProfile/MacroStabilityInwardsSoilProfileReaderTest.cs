@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual($"De database heeft niet de vereiste versie informatie. Vereiste versie is \'{version}\'.", exception.Message);
+            Assert.AreEqual($"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.", exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 

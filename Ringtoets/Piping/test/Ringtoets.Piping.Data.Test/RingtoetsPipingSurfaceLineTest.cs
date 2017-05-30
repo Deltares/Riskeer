@@ -28,10 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;
-using PipingPrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -206,7 +204,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            StringAssert.StartsWith(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null, exception.Message);
+            StringAssert.StartsWith("De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.", exception.Message);
         }
 
         [Test]
@@ -223,7 +221,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            StringAssert.StartsWith(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
+            StringAssert.StartsWith("Een punt in de geometrie voor de profielschematisatie heeft geen waarde.", exception.Message);
         }
 
         [Test]
@@ -238,7 +236,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             string exceptionMessage = Assert.Throws<InvalidOperationException>(test).Message;
-            Assert.AreEqual(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry, exceptionMessage);
+            Assert.AreEqual("De profielschematisatie heeft geen geometrie.", exceptionMessage);
         }
 
         [Test]
@@ -311,7 +309,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineException>(test);
-            string message = string.Format(PipingPrimitivesResources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            string message = $"Kan geen hoogte bepalen op het punt met de lokale coördinaat {l}, omdat de profielschematisatie verticaal loopt op dat punt.";
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -363,8 +361,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(testPoint);
 
             // Assert
-            string expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                                   testPoint, Resources.CharacteristicPoint_DitchPolderSide);
+            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Insteek sloot polderzijde' in te stellen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -413,8 +410,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(testPoint);
 
             // Assert
-            string expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                                   testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
+            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Slootbodem polderzijde' in te stellen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -463,8 +459,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(testPoint);
 
             // Assert
-            string expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                                   testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
+            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Slootbodem dijkzijde' in te stellen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -513,8 +508,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(testPoint);
 
             // Assert
-            string message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                           testPoint, Resources.CharacteristicPoint_DitchDikeSide);
+            string message = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Insteek sloot dijkzijde' in te stellen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -563,8 +557,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(testPoint);
 
             // Assert
-            string expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                                   testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
+            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Teen dijk buitenwaarts' in te stellen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -613,8 +606,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(testPoint);
 
             // Assert
-            string expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                                   testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
+            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Teen dijk binnenwaarts' in te stellen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 

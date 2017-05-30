@@ -62,8 +62,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action test = () => result = surfaceLine.TrySetDitchPolderSide(testPoint);
 
             // Assert
-            string message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
-                                           testPoint, Resources.CharacteristicPoint_DitchPolderSide);
+            string message = $"Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {testPoint} om als 'Insteek sloot polderzijde' in te stellen.";
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -123,8 +122,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action test = () => result = surfaceLine.TrySetBottomDitchDikeSide(testPoint);
 
             // Assert
-            string message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
-                                           testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
+            string message = $"Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {testPoint} om als 'Slootbodem dijkzijde' in te stellen.";
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -184,8 +182,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action test = () => result = surfaceLine.TrySetBottomDitchPolderSide(testPoint);
 
             // Assert
-            string message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
-                                           testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
+            string message = $"Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {testPoint} om als 'Slootbodem polderzijde' in te stellen.";
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -245,8 +242,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action test = () => result = surfaceLine.TrySetDitchDikeSide(testPoint);
 
             // Assert
-            string message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
-                                           testPoint, Resources.CharacteristicPoint_DitchDikeSide);
+            string message = $"Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {testPoint} om als 'Insteek sloot dijkzijde' in te stellen.";
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -306,8 +302,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action test = () => result = surfaceLine.TrySetDikeToeAtPolder(testPoint);
 
             // Assert
-            string message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
-                                           testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
+            string message = $"Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {testPoint} om als 'Teen dijk binnenwaarts' in te stellen.";
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -367,8 +362,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action test = () => result = surfaceLine.TrySetDikeToeAtRiver(testPoint);
 
             // Assert
-            string message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
-                                           testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
+            string message = $"Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {testPoint} om als 'Teen dijk buitenwaarts' in te stellen.";
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }

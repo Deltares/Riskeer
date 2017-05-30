@@ -38,10 +38,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
-using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
-using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
@@ -214,7 +210,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
                 if (callCount <= expectedNumberOfSurfaceLines)
                 {
-                    Assert.AreEqual(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
+                    Assert.AreEqual($"Inlezen '{twovalidsurfacelinesCsv}'", currentStepName);
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
                 {
@@ -293,13 +289,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var mesages = new[]
             {
-                string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                              validFilePath),
+                $"Begonnen met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
                 "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.",
-                string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                              validFilePath),
-                string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                              Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv"))
+                $"Klaar met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
+                $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv")})"
             };
 
             TestHelper.AssertLogMessagesAreGenerated(call, mesages, 4);
@@ -557,8 +550,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
-            string expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                                      internalErrorMessage);
+            string expectedLogMessage = $"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -584,15 +576,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(UtilsResources.Error_File_does_not_exist);
+            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build("Het bestand bestaat niet.");
             var expectedLogMessagesAndLevels = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                           internalErrorMessage), LogLevelConstant.Error),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevels, 3);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -619,15 +608,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 1")
-                .Build(UtilsResources.Error_File_empty);
+                .Build("Het bestand is leeg.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                           internalErrorMessage), LogLevelConstant.Error)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -654,15 +640,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 1")
-                .Build(PipingIOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
+                .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                           internalErrorMessage), LogLevelConstant.Error),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -696,15 +679,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Action call = () => importResult = importer.Import();
 
                 // Assert
-                string internalErrorMessage = new FileReaderErrorMessageBuilder(copyTargetPath).Build(UtilsResources.Error_File_does_not_exist);
+                string internalErrorMessage = new FileReaderErrorMessageBuilder(copyTargetPath).Build("Het bestand bestaat niet.");
                 var expectedLogMessagesAndLevel = new[]
                 {
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                               copyTargetPath), LogLevelConstant.Info),
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                               copyTargetPath), LogLevelConstant.Info),
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                               internalErrorMessage), LogLevelConstant.Error)
+                    Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
                 AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -747,17 +727,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string duplicateDefinitionMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_,
-                                                              "Rotterdam1");
+            string duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                                           expectedCharacteristicPointsFile), LogLevelConstant.Info)
+                Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {expectedCharacteristicPointsFile})", LogLevelConstant.Info)
             };
 
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
@@ -801,18 +777,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 3")
                 .WithSubject("profielschematisatie 'InvalidRow'")
-                .Build(PipingIOResources.Error_SurfaceLine_has_not_double);
+                .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
             string characteristicPointsFilePath = Path.Combine(ioTestDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.krp.csv");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
-                                           internalErrorMessage), LogLevelConstant.Error),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                                           characteristicPointsFilePath), LogLevelConstant.Info)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {characteristicPointsFilePath})", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
 
@@ -861,17 +833,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string internalErrorMessage = new FileReaderErrorMessageBuilder(path)
                 .WithLocation("op regel 2")
                 .WithSubject("profielschematisatie 'Rotterdam1'")
-                .Build(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
+                .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           path), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           path), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
-                                           internalErrorMessage), LogLevelConstant.Error),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                                           Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv")), LogLevelConstant.Info)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv")})", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
             AssertSuccessfulImport(importResult, 0, path, surfaceLineUpdateStrategy);
@@ -906,17 +874,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string internalErrorMessage = new FileReaderErrorMessageBuilder(path)
                 .WithLocation("op regel 2")
                 .WithSubject("profielschematisatie 'Rotterdam1'")
-                .Build(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
+                .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           path), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           path), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
-                                           internalErrorMessage), LogLevelConstant.Error),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                                           Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv")), LogLevelConstant.Info)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv")})", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
             AssertSuccessfulImport(importResult, 0, path, surfaceLineUpdateStrategy);
@@ -959,8 +923,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
-                                                      nonExistingCharacteristicFile);
+            string expectedLogMessage = $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {nonExistingCharacteristicFile})";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 3);
 
@@ -991,20 +954,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 1")
-                .Build(UtilsResources.Error_File_empty);
+                .Build("Het bestand is leeg.");
 
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                           internalErrorMessage), LogLevelConstant.Error)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -1034,20 +992,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 1")
-                .Build(PipingIOResources.CharacteristicPointsCsvReader_File_invalid_header);
+                .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
 
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                           internalErrorMessage), LogLevelConstant.Error)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
             };
 
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
@@ -1082,8 +1035,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 importer.SetProgressChanged((name, step, steps) =>
                 {
                     // Delete the file being read by the import during the import itself:
-                    if (name == string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
-                                              copyCharacteristicPointsTargetFileName))
+                    if (name == $"Inlezen '{copyCharacteristicPointsTargetFileName}'")
                     {
                         File.Delete(copyCharacteristicPointsTargetPath);
                     }
@@ -1095,19 +1047,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Action call = () => importResult = importer.Import();
 
                 // Assert
-                string internalErrorMessage = new FileReaderErrorMessageBuilder(copyCharacteristicPointsTargetPath).Build(UtilsResources.Error_File_does_not_exist);
+                string internalErrorMessage = new FileReaderErrorMessageBuilder(copyCharacteristicPointsTargetPath).Build("Het bestand bestaat niet.");
                 var expectedLogMessagesAndLevel = new[]
                 {
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                               copyTargetPath), LogLevelConstant.Info),
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                               copyTargetPath), LogLevelConstant.Info),
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                               copyCharacteristicPointsTargetPath), LogLevelConstant.Info),
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                               copyCharacteristicPointsTargetPath), LogLevelConstant.Info),
-                    Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                               internalErrorMessage), LogLevelConstant.Error)
+                    Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'.", LogLevelConstant.Info),
+                    Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
                 AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -1157,18 +1104,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string duplicateDefinitionMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
-                                                              "Rotterdam1");
+            const string duplicateDefinitionMessage = "Meerdere karakteristieke punten definities gevonden voor locatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
@@ -1215,21 +1157,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 2")
                 .WithSubject("locatie 'Rotterdam1Invalid'")
-                .Build(PipingIOResources.Error_CharacteristicPoint_has_not_double);
+                .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesFile), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
-                                           internalErrorMessage), LogLevelConstant.Error),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_,
-                                           "Rotterdam1Invalid"), LogLevelConstant.Warn),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"{internalErrorMessage} \r\nDeze locatie met karakteristieke punten wordt overgeslagen.", LogLevelConstant.Error),
+                Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1Invalid'.", LogLevelConstant.Warn),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
 
@@ -1287,16 +1223,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_,
-                                           "Rotterdam1"), LogLevelConstant.Warn)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1'.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
 
@@ -1354,16 +1285,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var expectedLogMessagesAndLevel = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_,
-                                           "Extra"), LogLevelConstant.Warn)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie 'Extra'.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
 
@@ -1424,22 +1350,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                               new Point3D(0, 1, 2),
-                                               characteristicPointName);
+            string pointFormat = $"De geometrie bevat geen punt op locatie {new Point3D(0, 1, 2)} om als '{characteristicPointName}' in te stellen.";
             var expectedLogMessages = new[]
             {
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                                           surfaceLinesPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                                           surfaceLinesPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                                           corruptPath), LogLevelConstant.Info),
-                Tuple.Create(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
-                                           "Rotterdam1Invalid",
-                                           pointFormat), LogLevelConstant.Error)
+                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
+                Tuple.Create($"Karakteristiek punt van profielschematisatie 'Rotterdam1Invalid' is overgeslagen. {pointFormat}", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessages);
 
@@ -1709,8 +1627,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string message = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_,
-                                           "ArtifcialLocal");
+            const string message = "Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie ArtifcialLocal.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(message, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
 

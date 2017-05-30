@@ -30,10 +30,8 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -56,7 +54,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -85,7 +83,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                .Build(string.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, dbName));
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -153,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version), exception.Message);
+            Assert.AreEqual($"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.", exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -243,7 +241,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 string expectedMessage = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
+                    .Build("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // Call
@@ -272,7 +270,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 string message = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2));
+                    .Build($"Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {85.2}.");
                 Assert.AreEqual(message, exception.Message);
 
                 // Call
