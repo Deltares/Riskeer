@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             string calculationName = provider.GetCalculationName(name);
 
             // Assert
-            string expectedName = string.Format("Golfhoogte bij doorsnede-eis voor locatie '{0}'", name);
+            string expectedName = $"Golfhoogte bij doorsnede-eis voor locatie '{name}'";
             Assert.AreEqual(expectedName, calculationName);
         }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             string activityName = provider.GetActivityName(name);
 
             // Assert
-            string expectedName = string.Format("Golfhoogte bij doorsnede-eis berekenen voor locatie '{0}'", name);
+            string expectedName = $"Golfhoogte bij doorsnede-eis berekenen voor locatie '{name}'";
             Assert.AreEqual(expectedName, activityName);
         }
 
@@ -87,7 +87,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{name}'. Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
+            string expectedMessage = $"Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{name}'. " +
+                                     $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -104,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = string.Format("Golfhoogte bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.", name);
+            string expectedMessage = $"Golfhoogte bij doorsnede-eis berekening voor locatie '{name}' is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -121,7 +122,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedUnexplainedMessage(name);
 
             // Assert
-            string expectedMessage = string.Format("Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{0}'. Er is geen foutrapport beschikbaar", name);
+            string expectedMessage = $"Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{name}'. " +
+                                     "Er is geen foutrapport beschikbaar.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

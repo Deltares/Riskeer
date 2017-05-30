@@ -626,7 +626,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 calculator.LastErrorFileContent = "An error occurred";
                 calculator.EndInFailure = true;
 
-                var exception = false;
+                HydraRingCalculationException exception = null;
 
                 // Call
                 Action call = () =>
@@ -638,9 +638,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                   assessmentSectionStub,
                                                                                                   validFilePath);
                     }
-                    catch (HydraRingCalculationException)
+                    catch (HydraRingCalculationException e)
                     {
-                        exception = true;
+                        exception = e;
                     }
                 };
 
@@ -648,21 +648,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(15, msgs.Length);
 
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
 
-                    RoundedDouble waterLevel = calculation.InputParameters.WaterLevels.First();
+                    const string detailedReport = " Bekijk het foutrapport door op details te klikken.";
+                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' gestart.", msgs[1]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[1]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[2]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' beëindigd.", msgs[4]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[4]);
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[5]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[6]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[10]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", msgs[13]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[14]);
                 });
+                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
+                Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);
                 Assert.IsNull(calculation.Output);
-                Assert.IsTrue(exception);
             }
             mockRepository.VerifyAll();
         }
@@ -688,7 +704,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
-                var exception = false;
+                HydraRingCalculationException exception = null;
 
                 // Call
                 Action call = () =>
@@ -700,9 +716,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                   assessmentSectionStub,
                                                                                                   validFilePath);
                     }
-                    catch (HydraRingCalculationException)
+                    catch (HydraRingCalculationException e)
                     {
-                        exception = true;
+                        exception = e;
                     }
                 };
 
@@ -710,20 +726,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(15, msgs.Length);
 
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
 
-                    RoundedDouble waterLevel = calculation.InputParameters.WaterLevels.First();
+                    const string detailedReport = " Er is geen foutrapport beschikbaar.";
+                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' gestart.", msgs[1]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[1]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[2]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' beëindigd.", msgs[4]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[4]);
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[5]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[6]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[10]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", msgs[13]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[14]);
                 });
-                Assert.IsTrue(exception);
+                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
+                Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);
                 Assert.IsNull(calculation.Output);
             }
             mockRepository.VerifyAll();
@@ -751,8 +783,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 calculator.EndInFailure = false;
                 calculator.LastErrorFileContent = "An error occurred";
 
-                var exception = false;
-                string exceptionMessage = string.Empty;
+                HydraRingCalculationException exception = null;
 
                 // Call
                 Action call = () =>
@@ -766,8 +797,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     }
                     catch (HydraRingCalculationException e)
                     {
-                        exception = true;
-                        exceptionMessage = e.Message;
+                        exception = e;
                     }
                 };
 
@@ -775,21 +805,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(15, msgs.Length);
 
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
 
-                    RoundedDouble waterLevel = calculation.InputParameters.WaterLevels.First();
+                    const string detailedReport = " Bekijk het foutrapport door op details te klikken.";
+                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' gestart.", msgs[1]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[1]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[2]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' beëindigd.", msgs[4]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[4]);
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[5]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[6]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
+                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[10]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", msgs[13]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[14]);
                 });
-                Assert.IsTrue(exception);
-                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
+                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
+                Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);
                 Assert.IsNull(calculation.Output);
             }
             mockRepository.VerifyAll();
