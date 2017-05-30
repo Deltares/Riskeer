@@ -42,6 +42,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="FileImporters\StabilityPointStructureReplaceStrategy.cs" />
+    <Compile Include="FileImporters\StabilityPointStructureUpdateDataStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StabilityPointStructuresPlugin.cs" />
   </ItemGroup>

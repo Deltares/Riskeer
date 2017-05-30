@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void UpdateTargetCollectionData_WithEmptyCollectionAndImportedData_DoesNothing()
+        public void UpdateTargetCollectionData_WithEmptyCollectionAndImportedData_SetsSourcePath()
         {
             // Setup
             var collection = new TestUniqueItemCollection();

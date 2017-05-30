@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
         /// Creates a new instance of <see cref="StabilityPointStructureReplaceStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the 
-        /// <see cref="StabilityPointStructure"/> are updated.</param>
+        /// structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public StabilityPointStructureReplaceStrategy(StabilityPointStructuresFailureMechanism failureMechanism)

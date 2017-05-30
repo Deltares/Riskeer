@@ -390,6 +390,132 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void UpdateStructuresWithImportedData_CalculationWithRemovedStructure_UpdatesCalculation()
+        {
+            // Setup
+            const string removedId = "sameId";
+            HeightStructure structure = new TestHeightStructure(removedId, "original structure");
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                }
+            };
+
+            StructureCollection<HeightStructure> targetDataCollection =
+                failureMechanism.HeightStructures;
+            targetDataCollection.AddRange(new[]
+            {
+                structure
+            }, sourceFilePath);
+
+            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                targetDataCollection,
+                Enumerable.Empty<HeightStructure>(),
+                sourceFilePath);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.InputParameters.Structure);
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                targetDataCollection,
+                calculation,
+                calculation.InputParameters
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_MultipleCalculationWithStructuresOneWithRemovedStructure_OnlyUpdatesCalculationWithRemovedStructure()
+        {
+            // Setup
+            const string removedId = "affectedId";
+            const string unaffectedId = "unaffectedId";
+            const string unaffectedStructureName = "unaffectedStructure";
+            var removedStructure = new TestHeightStructure(removedId, "Old name");
+            var unaffectedStructure = new TestHeightStructure(unaffectedId, unaffectedStructureName);
+
+            var affectedCalculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = removedStructure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var unaffectedCalculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = unaffectedStructure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        affectedCalculation,
+                        unaffectedCalculation
+                    }
+                }
+            };
+            StructureCollection<HeightStructure> targetDataCollection = failureMechanism.HeightStructures;
+            targetDataCollection.AddRange(new[]
+            {
+                removedStructure,
+                unaffectedStructure
+            }, sourceFilePath);
+
+            var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
+
+            HeightStructure readUnaffectedStructure = new TestHeightStructure(unaffectedId, unaffectedStructureName);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetDataCollection,
+                                                                                                 new[]
+                                                                                                 {
+                                                                                                     readUnaffectedStructure
+                                                                                                 }, sourceFilePath);
+            // Assert
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsNull(affectedCalculation.InputParameters.Structure);
+
+            Assert.IsTrue(unaffectedCalculation.HasOutput);
+            HeightStructure inputParametersUnaffectedStructure = unaffectedCalculation.InputParameters.Structure;
+            Assert.AreSame(unaffectedStructure, inputParametersUnaffectedStructure);
+            AssertHeightStructures(readUnaffectedStructure, inputParametersUnaffectedStructure);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                targetDataCollection
+            }, affectedObjects);
+        }
+
+        [Test]
         public void UpdateStructuresWithImportedData_SectionResultWithStructureImportedStructureWithSameId_UpdatesCalculation()
         {
             // Setup

@@ -148,7 +148,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
+        public void UpdateStructuresWithImportedData_NoCurrentStructures_SetsSourcePath()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -168,6 +168,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 targetCollection
             }, affectedObjects);
+            Assert.AreEqual(sourcePath, targetCollection.SourcePath);
         }
 
         [Test]
@@ -198,7 +199,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionEmptyAndImportedCollectionNotEmpty_AddsNewStructures()
+        public void UpdateStructuresWithImportedData_NoCurrentStructuresWithImportedData_AddsNewStructure()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -227,7 +228,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionNotEmptyAndImportedCollectionEmpty_ClearsCollection()
+        public void UpdateStructuresWithImportedData_WithCurrentStructuresAndImportedCollectionEmpty_ClearsCollection()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -255,7 +256,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CurrentCollectionNotEmptyAndImportedCollectionNotEmpty_ReplacesCurrentWithImportedData()
+        public void UpdateStructuresWithImportedData_WithCurrentAndImportedDataAreDifferent_ReplacesCurrentWithImportedData()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

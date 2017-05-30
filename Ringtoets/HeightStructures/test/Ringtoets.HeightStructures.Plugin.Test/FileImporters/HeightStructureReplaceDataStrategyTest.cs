@@ -140,6 +140,30 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void UpdateStructuresWithImportedData_NoCurrentStructures_SetsSourcePath()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var targetCollection = new StructureCollection<HeightStructure>();
+
+            var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                targetCollection,
+                Enumerable.Empty<HeightStructure>(),
+                sourceFilePath);
+
+            // Assert
+            CollectionAssert.IsEmpty(targetCollection);
+            CollectionAssert.AreEqual(new[]
+            {
+                targetCollection
+            }, affectedObjects);
+            Assert.AreEqual(sourceFilePath, targetCollection.SourcePath);
+        }
+
+        [Test]
         public void UpdateStructuresWithImportedData_NoCurrentStructuresWithImportedData_AddsNewStructure()
         {
             // Setup

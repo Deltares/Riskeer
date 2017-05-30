@@ -523,6 +523,69 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void UpdateDikeProfilesWithImportedData_MultipleCalculationWithAssignedProfileOneRemovedProfile_OnlyUpdatesCalculationWithRemovedProfile()
+        {
+            // Setup
+            var removedProfile = new TestDikeProfile("Profile to be removed", "ID of removed profile");
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = removedProfile
+                },
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            const string unaffectedProfileName = "Unaffected Profile";
+            const string unaffectedProfileId = "unaffected profile Id";
+            var unaffectedProfile = new TestDikeProfile(unaffectedProfileName, unaffectedProfileId);
+            var unaffectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = unaffectedProfile
+                },
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
+            dikeProfiles.AddRange(new[]
+            {
+                removedProfile,
+                unaffectedProfile
+            }, sourceFilePath);
+            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
+
+            var importedUnaffectedProfile = new TestDikeProfile(unaffectedProfileName, unaffectedProfileId);
+
+            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       importedUnaffectedProfile
+                                                                                                   }, sourceFilePath);
+            // Assert
+            Assert.IsTrue(unaffectedCalculation.HasOutput);
+            DikeProfile inputParametersUnaffectedDikeProfile = unaffectedCalculation.InputParameters.DikeProfile;
+            Assert.AreSame(unaffectedProfile, inputParametersUnaffectedDikeProfile);
+            AssertDikeProfile(unaffectedProfile, inputParametersUnaffectedDikeProfile);
+
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsNull(affectedCalculation.InputParameters.DikeProfile);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                dikeProfiles
+            }, affectedObjects);
+        }
+
+        [Test]
         public void UpdateDikeProfilesWithImportedData_CalculationWithSameReference_OnlyReturnsDistinctCalculation()
         {
             // Setup

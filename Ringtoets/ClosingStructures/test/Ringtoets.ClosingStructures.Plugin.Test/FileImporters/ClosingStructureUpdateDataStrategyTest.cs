@@ -390,6 +390,133 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void UpdateStructuresWithImportedData_CalculationWithRemovedStructure_UpdatesCalculation()
+        {
+            // Setup
+            const string sameId = "sameId";
+            ClosingStructure structure = new TestClosingStructure(sameId, "original structure");
+
+            var calculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                }
+            };
+
+            StructureCollection<ClosingStructure> targetDataCollection =
+                failureMechanism.ClosingStructures;
+            targetDataCollection.AddRange(new[]
+            {
+                structure
+            }, sourceFilePath);
+
+            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                targetDataCollection,
+                Enumerable.Empty<ClosingStructure>(),
+                sourceFilePath);
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.InputParameters.Structure);
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                targetDataCollection,
+                calculation,
+                calculation.InputParameters
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateStructuresWithImportedData_MultipleCalculationWithStructureOneWithRemovedStructure_OnlyUpdatesCalculationWithRemovedStructure()
+        {
+            // Setup
+            const string removedId = "affectedId";
+            const string unaffectedId = "unaffectedId";
+            const string unaffectedStructureName = "unaffectedStructure";
+            var removedStructure = new TestClosingStructure(removedId, "Old name");
+            var unaffectedStructure = new TestClosingStructure(unaffectedId, unaffectedStructureName);
+
+            var affectedCalculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = removedStructure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var unaffectedCalculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = unaffectedStructure
+                },
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        affectedCalculation,
+                        unaffectedCalculation
+                    }
+                }
+            };
+
+            StructureCollection<ClosingStructure> targetDataCollection = failureMechanism.ClosingStructures;
+            targetDataCollection.AddRange(new[]
+            {
+                removedStructure,
+                unaffectedStructure
+            }, sourceFilePath);
+
+            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
+
+            ClosingStructure readUnaffectedStructure = new TestClosingStructure(unaffectedId, unaffectedStructureName);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetDataCollection,
+                                                                                                 new[]
+                                                                                                 {
+                                                                                                     readUnaffectedStructure
+                                                                                                 }, sourceFilePath);
+            // Assert
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsNull(affectedCalculation.InputParameters.Structure);
+
+            Assert.IsTrue(unaffectedCalculation.HasOutput);
+            ClosingStructure inputParametersUnaffectedStructure = unaffectedCalculation.InputParameters.Structure;
+            Assert.AreSame(unaffectedStructure, inputParametersUnaffectedStructure);
+            AssertClosingStructures(readUnaffectedStructure, inputParametersUnaffectedStructure);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                targetDataCollection
+            }, affectedObjects);
+        }
+
+        [Test]
         public void UpdateStructuresWithImportedData_CalculationWithSameReference_OnlyReturnsDistinctCalculationInput()
         {
             // Setup

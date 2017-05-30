@@ -140,6 +140,30 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void UpdateStructuresWithImportedData_NoCurrentStructures_SetsSourcePath()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var targetCollection = new StructureCollection<ClosingStructure>();
+
+            var strategy = new ClosingStructureReplaceDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                targetCollection,
+                Enumerable.Empty<ClosingStructure>(),
+                sourceFilePath);
+
+            // Assert
+            CollectionAssert.IsEmpty(targetCollection);
+            CollectionAssert.AreEqual(new[]
+            {
+                targetCollection
+            }, affectedObjects);
+            Assert.AreEqual(sourceFilePath, targetCollection.SourcePath);
+        }
+
+        [Test]
         public void UpdateStructuresWithImportedData_NoCurrentStructuresWithImportedData_AddsNewStructure()
         {
             // Setup
