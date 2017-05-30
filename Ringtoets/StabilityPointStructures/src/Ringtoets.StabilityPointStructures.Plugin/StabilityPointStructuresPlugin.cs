@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils;
 using Ringtoets.StabilityPointStructures.Data;
@@ -192,16 +193,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             yield return new ImportInfo<StabilityPointStructuresContext>
             {
-                CreateFileImporter = (context, filePath) => new StabilityPointStructuresImporter(context.WrappedData,
-                                                                                                 context.AssessmentSection.ReferenceLine,
-                                                                                                 filePath,
-                                                                                                 new ImportMessageProvider(),
-                                                                                                 new StabilityPointStructureReplaceStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => CreateStabilityPointStructuresImporter(
+                    context,
+                    filePath,
+                    new ImportMessageProvider(),
+                    new StabilityPointStructureReplaceStrategy(context.FailureMechanism)),
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
 
@@ -226,6 +226,24 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 {
                     context.WrappedData
                 }, filePath));
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return new UpdateInfo<StabilityPointStructuresContext>
+            {
+                CreateFileImporter = (context, filePath) => CreateStabilityPointStructuresImporter(
+                    context,
+                    filePath,
+                    new UpdateMessageProvider(),
+                    new StabilityPointStructureUpdateDataStrategy(context.FailureMechanism)),
+                Name = RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
+                IsEnabled = context => context.WrappedData.SourcePath != null,
+                CurrentPath = context => context.WrappedData.SourcePath
+            };
         }
 
         #region ViewInfo
@@ -836,6 +854,28 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         }
 
         #endregion
+
+        #endregion
+
+        #region Importers
+
+        private static StabilityPointStructuresImporter CreateStabilityPointStructuresImporter(StabilityPointStructuresContext context,
+                                                                                               string filePath,
+                                                                                               IImporterMessageProvider messageProvider,
+                                                                                               IStructureUpdateStrategy<StabilityPointStructure> updateStrategy)
+        {
+            return new StabilityPointStructuresImporter(context.WrappedData,
+                                                        context.AssessmentSection.ReferenceLine,
+                                                        filePath,
+                                                        messageProvider,
+                                                        updateStrategy);
+        }
+
+        private static FileFilterGenerator CreateStabilityPointStructureFileFilter()
+        {
+            return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
+                                           RingtoetsCommonIOResources.Shape_file_filter_Description);
+        }
 
         #endregion
     }

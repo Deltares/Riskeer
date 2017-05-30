@@ -78,6 +78,7 @@
     <Compile Include="TreeNodeInfos\StabilityPointStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructureTreeNodeInfoTest.cs" />
+    <Compile Include="UpdateInfos\StabilityPointStructuresContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresScenariosViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresResultViewInfoTest.cs" />

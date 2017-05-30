@@ -153,6 +153,20 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         }
 
         [Test]
+        public void GetUpdateInfos_ReturnSupportedUpdateInfos()
+        {
+            using (var plugin = new HeightStructuresPlugin())
+            {
+                // Call
+                UpdateInfo[] updateInfo = plugin.GetUpdateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, updateInfo.Length);
+                Assert.IsTrue(updateInfo.Any(i => i.DataType == typeof(HeightStructuresContext)));
+            }
+        }
+
+        [Test]
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup

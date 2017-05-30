@@ -153,6 +153,20 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         }
 
         [Test]
+        public void GetUpdateInfos_ReturnSupportedUpdateInfos()
+        {
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                // Call
+                UpdateInfo[] updateInfo = plugin.GetUpdateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, updateInfo.Length);
+                Assert.IsTrue(updateInfo.Any(i => i.DataType == typeof(ClosingStructuresContext)));
+            }
+        }
+
+        [Test]
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
