@@ -369,8 +369,7 @@ namespace Ringtoets.Piping.Primitives
 
             Name = fromSurfaceLine.Name;
             ReferenceLineIntersectionWorldPoint = fromSurfaceLine.ReferenceLineIntersectionWorldPoint != null
-                                                      ? new Point2D(fromSurfaceLine.ReferenceLineIntersectionWorldPoint.X,
-                                                                    fromSurfaceLine.ReferenceLineIntersectionWorldPoint.Y)
+                                                      ? new Point2D(fromSurfaceLine.ReferenceLineIntersectionWorldPoint)
                                                       : null;
             SetGeometry(fromSurfaceLine.Points);
             ClearCharacteristicPoints();

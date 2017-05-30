@@ -100,8 +100,8 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreNotSame(sourceData, surfaceLine.Points);
             CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            Assert.AreEqual(sourceData[0], surfaceLine.StartingWorldPoint);
-            Assert.AreEqual(sourceData[0], surfaceLine.EndingWorldPoint);
+            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.StartingWorldPoint);
+            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.EndingWorldPoint);
         }
 
         [Test]
@@ -1140,29 +1140,19 @@ namespace Ringtoets.Piping.Data.Test
         private static void AssertPropertiesUpdated(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
         {
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
-            AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,
                                      actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
             for (var i = 0; i < expectedSurfaceLine.Points.Length; i++)
             {
                 Assert.AreNotSame(expectedSurfaceLine.Points[i], actualSurfaceLine.Points[i]);
             }
-            AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
-            AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
-            AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
-            AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
-            AssertAreEqualButNotSame(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
-            AssertAreEqualButNotSame(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
-        }
-
-        private static void AssertAreEqualButNotSame(object expected, object actual)
-        {
-            Assert.AreEqual(expected, actual, "Objects not equal");
-
-            if (expected != null)
-            {
-                Assert.AreNotSame(expected, actual, "Objects the same");
-            }
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
         }
     }
 }

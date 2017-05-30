@@ -579,31 +579,31 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreNotEqual(otherStructure.Id, structure.Id);
             Assert.AreEqual(otherStructure.Name, structure.Name);
-            AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
-            AssertAreEqualButNotSame(otherStructure.StorageStructureArea, structure.StorageStructureArea);
-            AssertAreEqualButNotSame(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
-            AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
-            AssertAreEqualButNotSame(otherStructure.InsideWaterLevel, structure.InsideWaterLevel);
-            AssertAreEqualButNotSame(otherStructure.ThresholdHeightOpenWeir, structure.ThresholdHeightOpenWeir);
-            AssertAreEqualButNotSame(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
-            AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
-            AssertAreEqualButNotSame(otherStructure.ConstructiveStrengthLinearLoadModel, structure.ConstructiveStrengthLinearLoadModel);
-            AssertAreEqualButNotSame(otherStructure.ConstructiveStrengthQuadraticLoadModel, structure.ConstructiveStrengthQuadraticLoadModel);
-            AssertAreEqualButNotSame(otherStructure.BankWidth, structure.BankWidth);
-            AssertAreEqualButNotSame(otherStructure.InsideWaterLevelFailureConstruction, structure.InsideWaterLevelFailureConstruction);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.StorageStructureArea, structure.StorageStructureArea);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.InsideWaterLevel, structure.InsideWaterLevel);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.ThresholdHeightOpenWeir, structure.ThresholdHeightOpenWeir);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.ConstructiveStrengthLinearLoadModel, structure.ConstructiveStrengthLinearLoadModel);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.ConstructiveStrengthQuadraticLoadModel, structure.ConstructiveStrengthQuadraticLoadModel);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.BankWidth, structure.BankWidth);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.InsideWaterLevelFailureConstruction, structure.InsideWaterLevelFailureConstruction);
             Assert.AreEqual(otherStructure.EvaluationLevel, structure.EvaluationLevel);
-            AssertAreEqualButNotSame(otherStructure.LevelCrestStructure, structure.LevelCrestStructure);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.LevelCrestStructure, structure.LevelCrestStructure);
             Assert.AreEqual(otherStructure.VerticalDistance, structure.VerticalDistance);
             Assert.AreEqual(otherStructure.FailureProbabilityRepairClosure, structure.FailureProbabilityRepairClosure);
-            AssertAreEqualButNotSame(otherStructure.FailureCollisionEnergy, structure.FailureCollisionEnergy);
-            AssertAreEqualButNotSame(otherStructure.ShipMass, structure.ShipMass);
-            AssertAreEqualButNotSame(otherStructure.ShipVelocity, structure.ShipVelocity);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.FailureCollisionEnergy, structure.FailureCollisionEnergy);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.ShipMass, structure.ShipMass);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.ShipVelocity, structure.ShipVelocity);
             Assert.AreEqual(otherStructure.LevellingCount, structure.LevellingCount);
             Assert.AreEqual(otherStructure.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure);
-            AssertAreEqualButNotSame(otherStructure.FlowVelocityStructureClosable, structure.FlowVelocityStructureClosable);
-            AssertAreEqualButNotSame(otherStructure.StabilityLinearLoadModel, structure.StabilityLinearLoadModel);
-            AssertAreEqualButNotSame(otherStructure.StabilityQuadraticLoadModel, structure.StabilityQuadraticLoadModel);
-            AssertAreEqualButNotSame(otherStructure.AreaFlowApertures, structure.AreaFlowApertures);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.FlowVelocityStructureClosable, structure.FlowVelocityStructureClosable);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.StabilityLinearLoadModel, structure.StabilityLinearLoadModel);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.StabilityQuadraticLoadModel, structure.StabilityQuadraticLoadModel);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.AreaFlowApertures, structure.AreaFlowApertures);
             Assert.AreEqual(otherStructure.InflowModelType, structure.InflowModelType);
         }
 
@@ -684,12 +684,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        private static void AssertAreEqualButNotSame(object expected, object actual)
-        {
-            Assert.AreEqual(expected, actual, "Objects not equal");
-            Assert.AreNotSame(expected, actual, "Objects the same");
         }
     }
 }

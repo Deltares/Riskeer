@@ -390,6 +390,22 @@ namespace Core.Common.TestUtil
             Assert.IsTrue(typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName);
         }
 
+        /// <summary>
+        /// Determines whether to objects are copies of eachother by verifying that they are
+        /// equal, but not the same.
+        /// </summary>
+        /// <param name="objectA">The object which should be equal, but not same as <paramref name="objectB"/>.</param>
+        /// <param name="objectB">The object which should be equal, but not same as <paramref name="objectA"/>.</param>
+        public static void AssertAreEqualButNotSame(object objectA, object objectB)
+        {
+            Assert.AreEqual(objectA, objectB, "Objects should be equal.");
+
+            if (objectA != null)
+            {
+                Assert.AreNotSame(objectA, objectB, "Objects should not be the same.");
+            }
+        }
+
         private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
         {
             var stopwatch = new Stopwatch();

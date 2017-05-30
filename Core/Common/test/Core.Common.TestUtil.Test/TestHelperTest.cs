@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -35,6 +36,22 @@ namespace Core.Common.TestUtil.Test
     public class TestHelperTest
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(TestHelperTest));
+
+        private static IEnumerable<TestCaseData> AssertObjectsEqualButNotSameSource
+        {
+            get
+            {
+                var objectA = new TestEqualSameObject(1);
+                var objectB = new TestEqualSameObject(1);
+                var objectC = new TestEqualSameObject(2);
+                yield return new TestCaseData(objectA, objectA, false).SetName("EqualsAndSameObjects_False");
+                yield return new TestCaseData(objectA, objectB, true).SetName("EqualsNotSameObjects_True");
+                yield return new TestCaseData(objectA, objectC, false).SetName("NotEqualsNotSameObjects_False");
+                yield return new TestCaseData(null, null, true).SetName("BothNull_True");
+                yield return new TestCaseData(objectA, null, false).SetName("ObjectBNull_False");
+                yield return new TestCaseData(null, objectB, false).SetName("ObjectBNull_False");
+            }
+        }
 
         [Test]
         public void CanOpenFileForWrite_PathDoesNotExist_DoesNotThrowAnyExceptions()
@@ -694,6 +711,52 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(AssertObjectsEqualButNotSameSource))]
+        public void AssertObjectsEqualButNotSame_DifferentObjects_ReturnExpectedValues(object objectA, object objectB, bool shouldSucceed)
+        {
+            // Call
+            TestDelegate test = () => TestHelper.AssertAreEqualButNotSame(objectA, objectB);
+
+            // Assert
+            if (shouldSucceed)
+            {
+                Assert.DoesNotThrow(test);
+            }
+            else
+            {
+                Assert.Throws<AssertionException>(test);
+            }
+        }
+
+        public class TestEqualSameObject
+        {
+            private readonly int someInt;
+
+            public TestEqualSameObject(int someInt)
+            {
+                this.someInt = someInt;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                if (obj.GetType() != GetType()) return false;
+                return Equals((TestEqualSameObject) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                return someInt;
+            }
+
+            protected bool Equals(TestEqualSameObject other)
+            {
+                return someInt == other.someInt;
+            }
         }
 
         private static ToolStripMenuItem CreateContextMenuItem()

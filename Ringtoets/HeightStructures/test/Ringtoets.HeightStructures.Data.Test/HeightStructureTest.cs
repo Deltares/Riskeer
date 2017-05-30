@@ -271,15 +271,15 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.AreNotEqual(otherStructure.Id, structure.Id);
             Assert.AreEqual(otherStructure.Name, structure.Name);
-            AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
             Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-            AssertAreEqualButNotSame(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
-            AssertAreEqualButNotSame(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
             Assert.AreEqual(otherStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-            AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
-            AssertAreEqualButNotSame(otherStructure.LevelCrestStructure, structure.LevelCrestStructure);
-            AssertAreEqualButNotSame(otherStructure.StorageStructureArea, structure.StorageStructureArea);
-            AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.LevelCrestStructure, structure.LevelCrestStructure);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.StorageStructureArea, structure.StorageStructureArea);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
         }
 
         [Test]
@@ -359,12 +359,6 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        private static void AssertAreEqualButNotSame(object expected, object actual)
-        {
-            Assert.AreEqual(expected, actual, "Objects not equal");
-            Assert.AreNotSame(expected, actual, "Objects the same");
         }
     }
 }
