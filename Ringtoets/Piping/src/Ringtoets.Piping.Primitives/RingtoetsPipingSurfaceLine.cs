@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw new ArgumentException(Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null);
             }
-            Points = points.ToArray();
+            Points = points.Select(p => new Point3D(p.X, p.Y, p.Z)).ToArray();
 
             if (Points.Length > 0)
             {
@@ -368,7 +368,8 @@ namespace Ringtoets.Piping.Primitives
             }
 
             Name = fromSurfaceLine.Name;
-            ReferenceLineIntersectionWorldPoint = fromSurfaceLine.ReferenceLineIntersectionWorldPoint;
+            ReferenceLineIntersectionWorldPoint = new Point2D(fromSurfaceLine.ReferenceLineIntersectionWorldPoint.X,
+                                                              fromSurfaceLine.ReferenceLineIntersectionWorldPoint.Y);
             SetGeometry(fromSurfaceLine.Points);
             ClearCharacteristicPoints();
             SetCharacteristicPoints(fromSurfaceLine);

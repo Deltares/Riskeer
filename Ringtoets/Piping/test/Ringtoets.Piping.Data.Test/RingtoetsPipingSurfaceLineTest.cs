@@ -102,8 +102,8 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreNotSame(sourceData, surfaceLine.Points);
             CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            Assert.AreSame(sourceData[0], surfaceLine.StartingWorldPoint);
-            Assert.AreSame(sourceData[0], surfaceLine.EndingWorldPoint);
+            Assert.AreEqual(sourceData[0], surfaceLine.StartingWorldPoint);
+            Assert.AreEqual(sourceData[0], surfaceLine.EndingWorldPoint);
         }
 
         [Test]
@@ -126,8 +126,8 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreNotSame(sourceData, surfaceLine.Points);
             CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            Assert.AreSame(sourceData[0], surfaceLine.StartingWorldPoint);
-            Assert.AreSame(sourceData[3], surfaceLine.EndingWorldPoint);
+            Assert.AreEqual(sourceData[0], surfaceLine.StartingWorldPoint);
+            Assert.AreEqual(sourceData[3], surfaceLine.EndingWorldPoint);
         }
 
         [Test]
@@ -761,11 +761,7 @@ namespace Ringtoets.Piping.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(expectedGeometry, surfaceLine.Points);
-            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -784,11 +780,7 @@ namespace Ringtoets.Piping.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
-            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -805,10 +797,7 @@ namespace Ringtoets.Piping.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(expectedIntersectionPoint, surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
-            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -822,11 +811,7 @@ namespace Ringtoets.Piping.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
-            AssertCharacteristicPoints(surfaceLineToUpdateFrom, surfaceLine);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -1148,16 +1133,6 @@ namespace Ringtoets.Piping.Data.Test
             return surfaceLine;
         }
 
-        private static void AssertCharacteristicPoints(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
-        {
-            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
-            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
-            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
-        }
-
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
         {
             var random = new Random(21);
@@ -1168,6 +1143,36 @@ namespace Ringtoets.Piping.Data.Test
                 new Point3D(2 + random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             surfaceLine.SetGeometry(points);
+        }
+
+        private static void AssertPropertiesUpdated(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
+            AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,
+                                     actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
+            CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
+
+            for (var i = 0; i < expectedSurfaceLine.Points.Length; i++)
+            {
+                Assert.AreNotSame(expectedSurfaceLine.Points[i], actualSurfaceLine.Points[i]);
+            }
+
+            AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            AssertAreEqualButNotSame(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            AssertAreEqualButNotSame(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+        }
+
+        private static void AssertAreEqualButNotSame(object expected, object actual)
+        {
+            Assert.AreEqual(expected, actual, "Objects not equal");
+
+            if (expected != null)
+            {
+                Assert.AreNotSame(expected, actual, "Objects the same");
+            }
         }
     }
 }
