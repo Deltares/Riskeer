@@ -424,7 +424,7 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(ActivityState.Failed)]
         [TestCase(ActivityState.Canceled)]
         [TestCase(ActivityState.Skipped)]
-        public void Finish_CalculationWithCertainState_NotifyHydraulicBoundaryLocation(ActivityState state)
+        public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocation(ActivityState state)
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();

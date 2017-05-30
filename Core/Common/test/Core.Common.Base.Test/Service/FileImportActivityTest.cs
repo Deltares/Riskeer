@@ -196,7 +196,11 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_FileImportActivityWithFileImporterAndObservableTarget_ObserversOfTargetAreNotified()
+        [TestCase(ActivityState.Executed)]
+        [TestCase(ActivityState.Failed)]
+        [TestCase(ActivityState.Canceled)]
+        [TestCase(ActivityState.Skipped)]
+        public void Finish_FileImportActivityWithFileImporterObservableTargetAndSpecificState_ObserversOfTargetAreNotified(ActivityState state)
         {
             // Setup
             var mocks = new MockRepository();
@@ -208,7 +212,7 @@ namespace Core.Common.Base.Test.Service
             target.Attach(observer);
 
             var fileImporter = new SimpleFileImporter<ObservableList<object>>(target);
-            var fileImportActivity = new FileImportActivity(fileImporter, "");
+            var fileImportActivity = new TestFileImportActivity(fileImporter, "", state);
 
             // Call
             fileImportActivity.Finish();
@@ -228,6 +232,15 @@ namespace Core.Common.Base.Test.Service
                 NotifyProgress("Step description", 1, 10);
 
                 return false;
+            }
+        }
+
+        private class TestFileImportActivity : FileImportActivity
+        {
+            public TestFileImportActivity(IFileImporter fileImporter, string name, ActivityState state)
+                : base(fileImporter, name)
+            {
+                State = state;
             }
         }
     }

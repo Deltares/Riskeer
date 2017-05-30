@@ -132,7 +132,7 @@ namespace Core.Common.Base.Test.Service
         [TestCase(ActivityState.Failed, "Uitvoeren van '' is mislukt.")]
         [TestCase(ActivityState.Canceled, "Uitvoeren van '' is geannuleerd.")]
         [TestCase(ActivityState.Skipped, "Uitvoeren van '' is overgeslagen.")]
-        public void Finish_ActivityWithCertainStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsPreserved(ActivityState state, string message)
+        public void Finish_ActivityWithSpecificStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsPreserved(ActivityState state, string message)
         {
             // Setup
             var activity = new SimpleActivity(false, false, false, state);
@@ -161,7 +161,7 @@ namespace Core.Common.Base.Test.Service
         [TestCase(ActivityState.Executed)]
         [TestCase(ActivityState.Canceled)]
         [TestCase(ActivityState.Skipped)]
-        public void Finish_ActivityWithCertainStateAndFailingFinish_MessageIsSendToLogAndStateIsChangedToFailed(ActivityState state)
+        public void Finish_ActivityWithSpecificStateAndFailingFinish_MessageIsSendToLogAndStateIsChangedToFailed(ActivityState state)
         {
             // Setup
             var activity = new SimpleActivity(false, false, true, state);
