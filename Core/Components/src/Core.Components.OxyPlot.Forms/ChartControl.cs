@@ -296,7 +296,7 @@ namespace Core.Components.OxyPlot.Forms
 
         private void DrawInitialChartData()
         {
-            foreach (ChartData chartData in GetChartDataRecursively(Data))
+            foreach (ChartData chartData in Data.GetChartDataRecursively())
             {
                 DrawChartData(chartData);
             }
