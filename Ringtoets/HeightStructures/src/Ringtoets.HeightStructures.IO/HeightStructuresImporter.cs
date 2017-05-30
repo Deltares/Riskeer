@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -39,8 +38,6 @@ namespace Ringtoets.HeightStructures.IO
     /// </summary>
     public class HeightStructuresImporter : StructuresImporter<HeightStructure>
     {
-        private readonly IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresImporter"/>.
         /// </summary>
@@ -54,26 +51,10 @@ namespace Ringtoets.HeightStructures.IO
         public HeightStructuresImporter(StructureCollection<HeightStructure> importTarget, ReferenceLine referenceLine,
                                         string filePath, IImporterMessageProvider messageProvider,
                                         IStructureUpdateStrategy<HeightStructure> structureUpdateStrategy)
-            : base(importTarget, referenceLine, filePath, messageProvider, structureUpdateStrategy)
-        {
-            if (structureUpdateStrategy == null)
-            {
-                throw new ArgumentNullException(nameof(structureUpdateStrategy));
-            }
-            this.structureUpdateStrategy = structureUpdateStrategy;
-        }
+            : base(importTarget, referenceLine, filePath, messageProvider, structureUpdateStrategy) {}
 
-        protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
-        {
-            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
-                                                                            CreateHeightStructures(structureLocations.ToList(),
-                                                                                                   groupedStructureParameterRows),
-                                                                            FilePath);
-        }
-
-        private IEnumerable<HeightStructure> CreateHeightStructures(IEnumerable<StructureLocation> structureLocations,
-                                                                    IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+        protected override IEnumerable<HeightStructure> CreateStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                         IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var heightStructures = new List<HeightStructure>();
             foreach (StructureLocation structureLocation in structureLocations)

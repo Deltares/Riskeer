@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -30,7 +29,6 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.IO
 {
@@ -40,8 +38,6 @@ namespace Ringtoets.StabilityPointStructures.IO
     /// </summary>
     public class StabilityPointStructuresImporter : StructuresImporter<StabilityPointStructure>
     {
-        private readonly IStructureUpdateStrategy<StabilityPointStructure> structureUpdateStrategy;
-
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresImporter"/>.
         /// </summary>
@@ -57,22 +53,10 @@ namespace Ringtoets.StabilityPointStructures.IO
                                                 string filePath,
                                                 IImporterMessageProvider messageProvider,
                                                 IStructureUpdateStrategy<StabilityPointStructure> updateStrategy)
-            : base(importTarget, referenceLine, filePath, messageProvider, updateStrategy)
-        {
-            structureUpdateStrategy = updateStrategy;
-        }
+            : base(importTarget, referenceLine, filePath, messageProvider, updateStrategy) {}
 
-        protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
-        {
-            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
-                                                                            CreateStabilityPointStructures(structureLocations.ToList(),
-                                                                                                           groupedStructureParameterRows),
-                                                                            FilePath);
-        }
-
-        private IEnumerable<StabilityPointStructure> CreateStabilityPointStructures(IEnumerable<StructureLocation> structureLocations,
-                                                                                    IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+        protected override IEnumerable<StabilityPointStructure> CreateStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                                 IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var stabilityPointStructures = new List<StabilityPointStructure>();
             foreach (StructureLocation structureLocation in structureLocations)

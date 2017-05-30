@@ -52,6 +52,7 @@ namespace Ringtoets.Common.IO.FileImporters
     {
         private readonly ReferenceLine referenceLine;
         private readonly IImporterMessageProvider messageProvider;
+        private readonly IStructureUpdateStrategy<TStructure> structureUpdateStrategy;
         private IEnumerable<IObservable> updatedInstances;
 
         /// <summary>
@@ -85,6 +86,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             this.referenceLine = referenceLine;
             this.messageProvider = messageProvider;
+            this.structureUpdateStrategy = structureUpdateStrategy;
         }
 
         protected override bool OnImport()
@@ -137,17 +139,6 @@ namespace Ringtoets.Common.IO.FileImporters
             base.DoPostImportUpdates();
         }
 
-        /// <summary>
-        /// Create structure objects from location and geometry data and use this to update the current data model.
-        /// </summary>
-        /// <param name="structureLocations">The read structure locations.</param>
-        /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
-        /// <returns>Collection of all objects that were changed due to the update.</returns>
-        /// <exception cref="CriticalFileValidationException">Thrown when the validation of the structure fails.</exception>
-        /// <exception cref="UpdateDataException">Thrown when updating the structures failed.</exception>
-        protected abstract IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
-
         protected RoundedDouble GetStandardDeviation(StructuresParameterRow structuresParameterRow, string structureName)
         {
             if (structuresParameterRow.VarianceType == VarianceType.CoefficientOfVariation)
@@ -197,6 +188,9 @@ namespace Ringtoets.Common.IO.FileImporters
                                        key, structureName, structureId));
             }
         }
+
+        protected abstract IEnumerable<TStructure> CreateStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                    IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
         private string GetStructureDataCsvFilePath()
         {
@@ -371,6 +365,22 @@ namespace Ringtoets.Common.IO.FileImporters
         private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
         {
             return Math2D.ConvertLinePointsToLineSegments(linePoints);
+        }
+
+        /// <summary>
+        /// Updates the import target with the imported structures.
+        /// </summary>
+        /// <param name="structureLocations">The read structure locations.</param>
+        /// <param name="groupedStructureParameterRows">The read structure properties.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with affected items.</returns>
+        /// <exception cref="UpdateDataException">Thrown when applying the strategy failed.</exception>
+        private IEnumerable<IObservable> UpdateWithCreatedStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                     IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+        {
+            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
+                                                                            CreateStructures(structureLocations.ToList(),
+                                                                                             groupedStructureParameterRows),
+                                                                            FilePath);
         }
     }
 }

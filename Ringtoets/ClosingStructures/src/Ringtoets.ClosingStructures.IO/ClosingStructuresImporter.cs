@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -39,8 +38,6 @@ namespace Ringtoets.ClosingStructures.IO
     /// </summary>
     public class ClosingStructuresImporter : StructuresImporter<ClosingStructure>
     {
-        private readonly IStructureUpdateStrategy<ClosingStructure> structureUpdateStrategy;
-
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresImporter"/>.
         /// </summary>
@@ -56,26 +53,10 @@ namespace Ringtoets.ClosingStructures.IO
                                          string filePath,
                                          IImporterMessageProvider messageProvider,
                                          IStructureUpdateStrategy<ClosingStructure> updateStrategy)
-            : base(importTarget, referenceLine, filePath, messageProvider, updateStrategy)
-        {
-            if (updateStrategy == null)
-            {
-                throw new ArgumentNullException(nameof(updateStrategy));
-            }
-            structureUpdateStrategy = updateStrategy;
-        }
+            : base(importTarget, referenceLine, filePath, messageProvider, updateStrategy) {}
 
-        protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                                                Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
-        {
-            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
-                                                                            CreateClosingStructures(structureLocations.ToList(),
-                                                                                                    groupedStructureParameterRows),
-                                                                            FilePath);
-        }
-
-        private IEnumerable<ClosingStructure> CreateClosingStructures(IEnumerable<StructureLocation> structureLocations,
-                                                                      IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+        protected override IEnumerable<ClosingStructure> CreateStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                          IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var closingStructures = new List<ClosingStructure>();
             foreach (StructureLocation structureLocation in structureLocations)

@@ -595,6 +595,52 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_ValidImportFile_CallsUpdateStrategyWithExpectedArguments()
+        {
+            // Setup
+            var targetCollection = new StructureCollection<TestStructure>();
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles",
+                                                                      "Kunstwerken.shp"));
+
+            var createdStructures = new[]
+            {
+                new TestStructure()
+            };
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<TestStructure>>();
+            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(null, null, null))
+                          .IgnoreArguments()
+                          .WhenCalled(i =>
+                          {
+                              Assert.AreSame(targetCollection, i.Arguments[0]);
+                              Assert.AreSame(createdStructures, i.Arguments[1]);
+                              Assert.AreSame(filePath, i.Arguments[2]);
+                          });
+            mocks.ReplayAll();
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+
+            var importer = new TestStructuresImporter(targetCollection,
+                                                      referenceLine,
+                                                      filePath,
+                                                      updateStrategy,
+                                                      messageProvider)
+            {
+                CreatedTestStructures = createdStructures
+            };
+
+            // Call
+            importer.Import();
+
+            // Assert
+            Assert.IsTrue(importer.CreateStructuresCalled);
+
+            // Further assertions done in the TearDown
+        }
+
+        [Test]
         public void Import_IllegalCsvFile_ReturnsFalse()
         {
             // Setup
@@ -627,6 +673,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return("");
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Kunstwerken")).Return("error {0}");
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
+            updateStrategy.Expect(us => us.UpdateStructuresWithImportedData(null, null, null))
+                          .IgnoreArguments()
+                          .Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -638,10 +687,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                       referenceLine,
                                                       filePath,
                                                       updateStrategy,
-                                                      messageProvider)
-            {
-                UpdateWithCreatedStructuresAction = () => { throw new UpdateDataException("Exception message"); }
-            };
+                                                      messageProvider);
 
             var importResult = true;
 
@@ -659,11 +705,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
+
             var observableA = mocks.StrictMock<IObservable>();
             observableA.Expect(o => o.NotifyObservers());
             var observableB = mocks.StrictMock<IObservable>();
             observableB.Expect(o => o.NotifyObservers());
+
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<TestStructure>>();
+            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(null, null, null))
+                          .IgnoreArguments()
+                          .Return(new[]
+                          {
+                              observableA,
+                              observableB
+                          });
             mocks.ReplayAll();
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -671,19 +726,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                       "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
-            IObservable[] observables =
-            {
-                observableA,
-                observableB
-            };
+
             var importer = new TestStructuresImporter(new StructureCollection<TestStructure>(),
                                                       referenceLine,
                                                       filePath,
                                                       updateStrategy,
-                                                      messageProvider)
-            {
-                UpdateWithCreatedStructuresAction = () => observables
-            };
+                                                      messageProvider);
 
             importer.Import();
 
@@ -884,14 +932,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestStructuresImporter : StructuresImporter<TestStructure>
         {
-            public Func<IEnumerable<IObservable>> UpdateWithCreatedStructuresAction;
-
             public TestStructuresImporter(StructureCollection<TestStructure> importTarget,
                                           ReferenceLine referenceLine,
                                           string filePath,
                                           IStructureUpdateStrategy<TestStructure> structureUpdateStrategy,
                                           IImporterMessageProvider messageProvider)
                 : base(importTarget, referenceLine, filePath, messageProvider, structureUpdateStrategy) {}
+
+            public IEnumerable<TestStructure> CreatedTestStructures { private get; set; } = Enumerable.Empty<TestStructure>();
+
+            public bool CreateStructuresCalled { get; private set; }
 
             public new RoundedDouble GetStandardDeviation(StructuresParameterRow parameter, string structureName)
             {
@@ -903,10 +953,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 return base.GetCoefficientOfVariation(parameter, structureName);
             }
 
-            protected override IEnumerable<IObservable> UpdateWithCreatedStructures(ICollection<StructureLocation> structureLocations,
-                                                                                    Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
+            protected override IEnumerable<TestStructure> CreateStructures(IEnumerable<StructureLocation> structureLocations,
+                                                                           IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
             {
-                return UpdateWithCreatedStructuresAction?.Invoke();
+                CreateStructuresCalled = true;
+
+                return CreatedTestStructures;
             }
         }
     }
