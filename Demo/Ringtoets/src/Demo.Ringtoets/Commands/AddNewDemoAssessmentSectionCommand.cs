@@ -157,7 +157,7 @@ namespace Demo.Ringtoets.Commands
         private static FailureMechanismSection DeepCloneSection(FailureMechanismSection section)
         {
             return new FailureMechanismSection(section.Name,
-                                               section.Points.Select(p => new Point2D(p.X, p.Y)));
+                                               section.Points.Select(p => new Point2D(p)));
         }
 
         #region FailureMechanisms

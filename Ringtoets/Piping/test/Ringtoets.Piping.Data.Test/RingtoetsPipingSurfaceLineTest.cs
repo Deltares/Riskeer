@@ -1131,7 +1131,7 @@ namespace Ringtoets.Piping.Data.Test
             var points = new[]
             {
                 new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
-                new Point3D(testPoint.X, testPoint.Y, testPoint.Z),
+                new Point3D(testPoint),
                 new Point3D(2 + random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             surfaceLine.SetGeometry(points);

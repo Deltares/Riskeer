@@ -211,7 +211,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 return Enumerable.Empty<Point2D>();
             }
 
-            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p.X, p.Y));
+            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p));
         }
 
         private static string GetAssessmentSectionId(MapFeature lineFeature)

@@ -1016,7 +1016,7 @@ namespace Ringtoets.Integration.TestUtils
         {
             var duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
                                                 hydraulicBoundaryLocation.Name,
-                                                new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
+                                                new Point2D(hydraulicBoundaryLocation.Location),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 7,
@@ -1027,7 +1027,7 @@ namespace Ringtoets.Integration.TestUtils
 
             var duneLocationWithOutput = new DuneLocation(hydraulicBoundaryLocation.Id,
                                                           hydraulicBoundaryLocation.Name,
-                                                          new Point2D(hydraulicBoundaryLocation.Location.X, hydraulicBoundaryLocation.Location.Y),
+                                                          new Point2D(hydraulicBoundaryLocation.Location),
                                                           new DuneLocation.ConstructionProperties
                                                           {
                                                               CoastalAreaId = 7,

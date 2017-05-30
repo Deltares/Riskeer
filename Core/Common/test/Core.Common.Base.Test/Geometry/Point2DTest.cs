@@ -48,6 +48,23 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
+        public void CopyConstructor_WithPointWithXandY_SetPropeties()
+        {
+            // Setup
+            var random = new Random(22);
+            double x = random.NextDouble();
+            double y = random.NextDouble();
+            var pointToCopy = new Point2D(x, y);
+
+            // Call
+            var point = new Point2D(pointToCopy);
+
+            // Assert
+            Assert.AreEqual(x, point.X);
+            Assert.AreEqual(y, point.Y);
+        }
+
+        [Test]
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup

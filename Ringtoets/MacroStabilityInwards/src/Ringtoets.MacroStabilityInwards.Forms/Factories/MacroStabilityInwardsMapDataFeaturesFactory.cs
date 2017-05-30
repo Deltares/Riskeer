@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         private static IEnumerable<Point2D> GetWorldPoints(StochasticSoilModel stochasticSoilModel)
         {
-            return stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y));
+            return stochasticSoilModel.Geometry.Select(p => new Point2D(p));
         }
     }
 }

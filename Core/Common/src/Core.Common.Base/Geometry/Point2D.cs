@@ -45,6 +45,13 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> and <see cref="Y"/>
+        /// taken from <paramref name="point"/>.
+        /// </summary>
+        /// <param name="point">The <see cref="Point2D"/> to take the properties from.</param>
+        public Point2D(Point2D point) : this(point.X, point.Y) {}
+
+        /// <summary>
         /// Gets or sets the x coordinate.
         /// </summary>
         public double X { get; }

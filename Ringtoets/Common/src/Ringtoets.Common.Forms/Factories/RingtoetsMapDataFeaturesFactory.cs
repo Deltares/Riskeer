@@ -387,7 +387,7 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 new MapGeometry(new[]
                 {
-                    section.Points.Select(p => new Point2D(p.X, p.Y))
+                    section.Points.Select(p => new Point2D(p))
                 })
             });
 

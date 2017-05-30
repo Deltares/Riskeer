@@ -324,7 +324,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
 
             var expectedGeometry = new[]
             {
-                new Point2D(lastGeometryPoint.X, lastGeometryPoint.Y),
+                new Point2D(lastGeometryPoint),
                 new Point2D(deltaY / 3 + lastGeometryPoint.X, input.LowerBoundaryRevetment)
             };
 
@@ -361,7 +361,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             var expectedGeometry = new[]
             {
                 new Point2D((lowerBoundaryWaterLevels - lastGeometryPoint.Y) / 3 + lastGeometryPoint.X, lowerBoundaryWaterLevels),
-                new Point2D(lastGeometryPoint.X, lastGeometryPoint.Y),
+                new Point2D(lastGeometryPoint),
                 new Point2D((lowerBoundaryRevetment - lastGeometryPoint.Y) / 3 + lastGeometryPoint.X, lowerBoundaryRevetment)
             };
 

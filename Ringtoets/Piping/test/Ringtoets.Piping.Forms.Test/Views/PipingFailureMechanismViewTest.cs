@@ -1024,7 +1024,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 Assert.AreEqual(1, soilModelsFeatures[index].MapGeometries.Count());
                 StochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
-                CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
+                CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);
         }

@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Data
             }
 
             Name = fromStructure.Name;
-            Location = new Point2D(fromStructure.Location.X, fromStructure.Location.Y);
+            Location = new Point2D(fromStructure.Location);
             StructureNormalOrientation = fromStructure.StructureNormalOrientation;
         }
 

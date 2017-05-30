@@ -158,7 +158,7 @@ namespace Ringtoets.Common.IO
                 throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
-            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p.X, p.Y));
+            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p));
         }
 
         private CriticalFileReadException CreateCriticalFileReadException(string message)

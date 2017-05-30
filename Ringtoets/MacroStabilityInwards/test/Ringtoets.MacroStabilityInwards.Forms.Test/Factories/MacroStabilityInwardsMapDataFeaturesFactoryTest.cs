@@ -219,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());
+            CollectionAssert.AreEqual(points.Select(p => new Point2D(p)), geometry.PointCollections.First());
         }
     }
 }

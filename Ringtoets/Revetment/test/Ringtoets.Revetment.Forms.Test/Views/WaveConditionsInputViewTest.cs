@@ -668,7 +668,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             expectedGeometry.AddRange(new[]
             {
-                new Point2D(lastForeshorePoint.X, lastForeshorePoint.Y),
+                new Point2D(lastForeshorePoint),
                 new Point2D(GetPointX(lowerBoundaryRevetment, lastForeshorePoint), lowerBoundaryRevetment)
             });
 

@@ -46,6 +46,24 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
+        public void CopyConstructor_WithPointWithXandY_SetPropeties()
+        {
+            // Setup
+            const double x = 1.1;
+            const double y = 2.2;
+            const double z = -1.1;
+            var pointToCopy = new Point3D(x, y, z);
+
+            // Call
+            var point = new Point3D(pointToCopy);
+
+            // Assert
+            Assert.AreEqual(x, point.X);
+            Assert.AreEqual(y, point.Y);
+            Assert.AreEqual(z, point.Z);
+        }
+
+        [Test]
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
