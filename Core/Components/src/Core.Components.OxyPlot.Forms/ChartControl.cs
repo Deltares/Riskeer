@@ -172,17 +172,19 @@ namespace Core.Components.OxyPlot.Forms
                 return CreateEnvelopeForAllVisibleLayers(collection);
             }
 
-            DrawnChartData drawnMapData = drawnChartDataList.FirstOrDefault(dmd => dmd.ChartData.Equals(chartData));
-            if (drawnMapData == null)
+            DrawnChartData drawnChartData = drawnChartDataList.FirstOrDefault(dmd => dmd.ChartData.Equals(chartData));
+            if (drawnChartData == null)
             {
                 throw new ArgumentException($@"Can only zoom to {typeof(ChartData).Name} that is part of this {typeof(ChartControl).Name}s drawn {nameof(chartData)}.",
                                             nameof(chartData));
             }
 
-            Extent extent = new Extent();
-            if (drawnMapData.ChartData.IsVisible)
+            var extent = new Extent();
+
+            ChartData chartDataDrawn = drawnChartData.ChartData;
+            if (chartDataDrawn.IsVisible && chartDataDrawn.HasData)
             {
-                extent.ExpandToInclude(CreateExtentFor(drawnMapData.ChartDataSeries as XYAxisSeries));
+                extent.ExpandToInclude(CreateExtentFor(drawnChartData.ChartDataSeries as XYAxisSeries));
             }
             return extent;
         }
@@ -286,9 +288,9 @@ namespace Core.Components.OxyPlot.Forms
         private void RemoveRedundantChartDataOnCollectionChange(IEnumerable<ChartData> chartDataThatShouldBeDrawn,
                                                                 IDictionary<ChartData, DrawnChartData> drawnChartDataLookup)
         {
-            foreach (ChartData ChartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
+            foreach (ChartData chartData in drawnChartDataLookup.Keys.Except(chartDataThatShouldBeDrawn))
             {
-                RemoveChartData(drawnChartDataLookup[ChartData]);
+                RemoveChartData(drawnChartDataLookup[chartData]);
             }
         }
 
@@ -297,9 +299,9 @@ namespace Core.Components.OxyPlot.Forms
         {
             plotView.Model.Series.Clear();
 
-            foreach (ChartData ChartData in chartDataThatShouldBeDrawn)
+            foreach (ChartData chartData in chartDataThatShouldBeDrawn)
             {
-                plotView.Model.Series.Add((Series) drawnChartDataLookup[ChartData].ChartDataSeries);
+                plotView.Model.Series.Add((Series) drawnChartDataLookup[chartData].ChartDataSeries);
             }
         }
 
@@ -313,21 +315,21 @@ namespace Core.Components.OxyPlot.Forms
 
         private void DrawInitialChartData()
         {
-            foreach (ChartData ChartData in GetChartDataRecursively(Data))
+            foreach (ChartData chartData in GetChartDataRecursively(Data))
             {
-                DrawChartData(ChartData);
+                DrawChartData(chartData);
             }
 
             plotView.InvalidatePlot(true);
         }
 
-        private void DrawChartData(ChartData ChartData)
+        private void DrawChartData(ChartData chartData)
         {
-            IChartDataSeries chartDataSeries = ChartDataSeriesFactory.Create(ChartData);
+            IChartDataSeries chartDataSeries = ChartDataSeriesFactory.Create(chartData);
 
             var drawnChartData = new DrawnChartData
             {
-                ChartData = ChartData,
+                ChartData = chartData,
                 ChartDataSeries = chartDataSeries
             };
 
@@ -337,7 +339,7 @@ namespace Core.Components.OxyPlot.Forms
                 plotView.InvalidatePlot(true);
             })
             {
-                Observable = ChartData
+                Observable = chartData
             };
 
             drawnChartDataList.Add(drawnChartData);

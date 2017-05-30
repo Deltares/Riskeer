@@ -2227,7 +2227,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewInvalidatedLayersSame()
+        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewNotInvalidatedLayersSame()
         {
             // Setup
             using (var map = new MapControl())
@@ -2336,60 +2336,6 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        [TestCase(5.0, 5.0)]
-        [TestCase(5.0, 1.0)]
-        [TestCase(1.0, 5.0)]
-        [TestCase(double.MaxValue * 0.96, double.MaxValue * 0.96)]
-        [TestCase(double.MaxValue, double.MaxValue)]
-        public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                Map mapView = map.Controls.OfType<Map>().First();
-                var mapDataCollection = new MapDataCollection("Test data");
-
-                mapDataCollection.Add(new MapPointData("Test data")
-                {
-                    Features = new[]
-                    {
-                        new MapFeature(new[]
-                        {
-                            new MapGeometry(new[]
-                            {
-                                new[]
-                                {
-                                    new Point2D(0.0, 0.0),
-                                    new Point2D(xMax, yMax)
-                                }
-                            })
-                        })
-                    }
-                });
-
-                map.Data = mapDataCollection;
-
-                var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
-                ExtendWithExpectedMargin(expectedExtent);
-
-                // Call
-                map.ZoomToAllVisibleLayers();
-
-                // Assert
-                if (double.IsInfinity(expectedExtent.Height) || double.IsInfinity(expectedExtent.Width))
-                {
-                    Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                    Assert.AreNotEqual(expectedExtent, mapView.ViewExtents);
-                }
-                else
-                {
-                    Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                    Assert.AreEqual(expectedExtent, mapView.ViewExtents);
-                }
-            }
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void ZoomToAllVisibleLayers_WithNonChildMapData_ThrowArgumentException()
         {
@@ -2414,7 +2360,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSetAndForChildMapData_ViewInvalidatedLayersSame()
+        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSetAndForChildMapData_ViewNotInvalidatedLayersSame()
         {
             // Setup
             using (var map = new MapControl())
@@ -2535,8 +2481,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Data = dataCollection;
 
                 MapData mapData = dataCollection.Collection.ElementAt(2);
-                Extent expectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
-                ExtendWithExpectedMargin(expectedExtent);
+                Extent unexpectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
+                ExtendWithExpectedMargin(unexpectedExtent);
 
                 // Precondition
                 Assert.IsFalse(mapData.IsVisible);
@@ -2547,7 +2493,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
-                Assert.AreNotEqual(expectedExtent, mapView.ViewExtents,
+                Assert.AreNotEqual(unexpectedExtent, mapView.ViewExtents,
                                    "Do not set extent based on the invisible layer.");
                 Assert.AreEqual(originalViewExtents, mapView.ViewExtents);
             }

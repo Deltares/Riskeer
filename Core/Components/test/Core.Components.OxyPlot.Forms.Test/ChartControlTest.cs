@@ -19,16 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using NUnit.Framework;
 using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 
@@ -323,78 +327,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void ZoomToAll_ChartInForm_ViewInvalidatedSeriesSame()
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var chart = new ChartControl();
-                var testData = new ChartLineData("test data")
-                {
-                    Points = new[]
-                    {
-                        new Point2D(2, 3)
-                    }
-                };
-                var collection = new ChartDataCollection("collection");
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
-                var invalidated = 0;
-
-                collection.Add(testData);
-
-                chart.Data = collection;
-
-                List<Series> series = view.Model.Series.ToList();
-
-                form.Controls.Add(chart);
-                view.Invalidated += (sender, args) => invalidated++;
-
-                form.Show();
-                view.Update();
-
-                // Call
-                chart.ZoomToAllVisibleLayers();
-
-                // Assert
-                Assert.AreEqual(1, invalidated);
-                CollectionAssert.AreEqual(series, view.Model.Series);
-            }
-        }
-
-        [Test]
-        public void ZoomToAll_ChartWithoutDataInForm_ViewNotInvalidated()
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var chart = new ChartControl();
-                var testData = new ChartLineData("test data");
-                var collection = new ChartDataCollection("collection");
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
-                var invalidated = 0;
-
-                collection.Add(testData);
-
-                chart.Data = collection;
-
-                List<Series> series = view.Model.Series.ToList();
-
-                form.Controls.Add(chart);
-                view.Invalidated += (sender, args) => invalidated++;
-
-                form.Show();
-                view.Update();
-
-                // Call
-                chart.ZoomToAllVisibleLayers();
-
-                // Assert
-                Assert.AreEqual(0, invalidated);
-                CollectionAssert.AreEqual(series, view.Model.Series);
-            }
-        }
-
-        [Test]
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
@@ -474,5 +406,335 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual(1, invalidated);
             }
         }
+
+        #region ZoomToAllVisibleLayers
+
+        [Test]
+        public void ZoomToAllVisibleLayers_ChartInForm_ViewInvalidatedSeriesSame()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var testData = new ChartLineData("test data")
+                {
+                    Points = new[]
+                    {
+                        new Point2D(2, 3)
+                    }
+                };
+                var collection = new ChartDataCollection("collection");
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                var invalidated = 0;
+
+                collection.Add(testData);
+
+                chart.Data = collection;
+
+                List<Series> series = view.Model.Series.ToList();
+
+                form.Controls.Add(chart);
+                view.Invalidated += (sender, args) => invalidated++;
+
+                form.Show();
+                view.Update();
+
+                // Call
+                chart.ZoomToAllVisibleLayers();
+
+                // Assert
+                Assert.AreEqual(1, invalidated);
+                CollectionAssert.AreEqual(series, view.Model.Series);
+            }
+        }
+
+        [Test]
+        public void ZoomToAllVisibleLayers_ChartWithoutDataInForm_ViewNotInvalidated()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var testData = new ChartLineData("test data");
+                var collection = new ChartDataCollection("collection");
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                var invalidated = 0;
+
+                collection.Add(testData);
+
+                chart.Data = collection;
+
+                List<Series> series = view.Model.Series.ToList();
+
+                form.Controls.Add(chart);
+                view.Invalidated += (sender, args) => invalidated++;
+
+                form.Show();
+                view.Update();
+
+                // Call
+                chart.ZoomToAllVisibleLayers();
+
+                // Assert
+                Assert.AreEqual(0, invalidated);
+                CollectionAssert.AreEqual(series, view.Model.Series);
+            }
+        }
+
+        [Test]
+        public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                form.Controls.Add(chart);
+                form.Show();
+
+                var collection = new ChartDataCollection("collection");
+                collection.Add(new ChartLineData("test data")
+                {
+                    Points = new[]
+                    {
+                        new Point2D(1, 5),
+                        new Point2D(4, 3)
+                    }
+                });
+                collection.Add(new ChartPointData("test data")
+                {
+                    Points = new[]
+                    {
+                        new Point2D(8, 2),
+                        new Point2D(1, 1),
+                        new Point2D(1, 4)
+                    }
+                });
+                collection.Add(new ChartAreaData("test data")
+                {
+                    IsVisible = false,
+                    Points = new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(2, 3),
+                        new Point2D(3, 3),
+                        new Point2D(2, -1)
+                    }
+                });
+                chart.Data = collection;
+                chart.Update();
+
+                var expectedExtent = new Extent(1 - 0.07, 8 + 0.07, 1 - 0.04, 5 + 0.04);
+
+                // Precondition
+                Assert.AreEqual(3, view.Model.Series.Count, "Precondition failed: expected 3 series.");
+                Assert.IsFalse(view.Model.Series.All(l => l.IsVisible), "Precondition failed: not all series should be visible.");
+
+                // Call
+                chart.ZoomToAllVisibleLayers();
+
+                // Assert
+                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+            }
+        }
+
+        private void AssertExpectedExtent(ElementCollection<Axis> modelAxes, Extent expectedExtent)
+        {
+            const double accuracy = 1e-8;
+            Assert.AreEqual(expectedExtent.XMin, modelAxes[0].ActualMinimum, Math.Abs(expectedExtent.XMin * accuracy));
+            Assert.AreEqual(expectedExtent.XMax, modelAxes[0].ActualMaximum, Math.Abs(expectedExtent.XMax * accuracy));
+            Assert.AreEqual(expectedExtent.YMin, modelAxes[1].ActualMinimum, Math.Abs(expectedExtent.YMin * accuracy));
+            Assert.AreEqual(expectedExtent.YMax, modelAxes[1].ActualMaximum, Math.Abs(expectedExtent.YMax * accuracy));
+        }
+
+        [Test]
+        [TestCase(5.0, 5.0)]
+        [TestCase(45.3, 1.0)]
+        [TestCase(1.0, 122.9)]
+        [TestCase(double.MaxValue * 0.55, double.MaxValue * 0.55)]
+        public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                form.Controls.Add(chart);
+                form.Show();
+
+                var collection = new ChartDataCollection("collection");
+                collection.Add(new ChartLineData("test data")
+                {
+                    IsVisible = true,
+                    Points = new[]
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(xMax, yMax)
+                    }
+                });
+
+                chart.Data = collection;
+                chart.Update();
+
+                double xMargin = xMax * 0.01;
+                double yMargin = yMax * 0.01;
+                var expectedExtent = new Extent(-xMargin, xMax + xMargin, -yMargin, yMax + yMargin);
+
+                // Call
+                chart.ZoomToAllVisibleLayers();
+
+                // Assert
+                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ZoomToAllVisibleLayers_WithNonChildChartData_ThrowArgumentException()
+        {
+            // Setup
+            using (var chart = new ChartControl())
+            {
+                var chartDataCollection = new ChartDataCollection("Collection");
+                var chartData = new ChartLineData("Test data");
+
+                chart.Data = chartDataCollection;
+                chart.Update();
+
+                // Call
+                TestDelegate call = () => chart.ZoomToAllVisibleLayers(chartData);
+
+                // Assert
+                const string message = "Can only zoom to ChartData that is part of this ChartControls drawn chartData.";
+                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+                Assert.AreEqual("chartData", paramName);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ZoomToAllVisibleLayers_ChartInFormWithEmptyDataSetAndZoomChildChartData_ViewNotInvalidated()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                form.Controls.Add(chart);
+                form.Show();
+
+                var chartDataCollection = new ChartDataCollection("Collection");
+                var chartData = new ChartPointData("Test data");
+                var invalidated = 0;
+
+                chartDataCollection.Add(chartData);
+
+                chart.Data = chartDataCollection;
+                chart.Update();
+
+                var expectedExtent = new Extent(
+                    view.Model.Axes[0].ActualMinimum,
+                    view.Model.Axes[0].ActualMaximum,
+                    view.Model.Axes[1].ActualMinimum,
+                    view.Model.Axes[1].ActualMaximum);
+
+                view.Invalidated += (sender, args) => { invalidated++; };
+
+                // Call
+                chart.ZoomToAllVisibleLayers(chartData);
+
+                // Assert
+                Assert.AreEqual(0, invalidated);
+                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ZoomToAllVisibleLayers_ChartInFormForChildChartData_ViewInvalidatedLayersSame()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                form.Controls.Add(chart);
+                form.Show();
+
+                var chartDataCollection = new ChartDataCollection("Collection");
+                var chartData = new ChartLineData("test data")
+                {
+                    IsVisible = true,
+                    Points = new[]
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(1.0, 1.0)
+                    }
+                };
+                chartDataCollection.Add(chartData);
+                var invalidated = 0;
+
+                chart.Data = chartDataCollection;
+                chart.Update();
+
+                view.Invalidated += (sender, args) => { invalidated++; };
+
+                // Call
+                chart.ZoomToAllVisibleLayers(chartData);
+
+                // Assert
+                Assert.AreEqual(1, invalidated);
+
+                var expectedExtent = new Extent(
+                    -0.01,
+                    1.01,
+                    -0.01,
+                    1.01);
+
+                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+            }
+        }
+                        
+        [Test]
+        public void ZoomToAllVisibleLayers_ForInvisibleChildChartData_DoNotChangeViewExtentsOfChartView()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new ChartControl();
+                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                form.Controls.Add(chart);
+                form.Show();
+
+                var chartDataCollection = new ChartDataCollection("Collection");
+                var chartData = new ChartLineData("test data")
+                {
+                    IsVisible = false,
+                    Points = new[]
+                    {
+                        new Point2D(3.2, 4.1),
+                        new Point2D(11.2, 5.8)
+                    }
+                };
+
+                chartDataCollection.Add(chartData);
+                chart.Data = chartDataCollection;
+                chart.Update();
+
+                var expectedExtent = new Extent(
+                    view.Model.Axes[0].ActualMinimum,
+                    view.Model.Axes[0].ActualMaximum,
+                    view.Model.Axes[1].ActualMinimum,
+                    view.Model.Axes[1].ActualMaximum);
+
+                // Call
+                chart.ZoomToAllVisibleLayers(chartData);
+
+                // Assert
+                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+            }
+        }
+
+        #endregion
     }
 }
