@@ -204,10 +204,10 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_SkippedActivityWithcSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
+        public void Finish_SkippedActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false, true);
+            var activity = new SimpleActivity(false, false, false, ActivityState.Skipped);
 
             activity.Run();
 
@@ -223,19 +223,30 @@ namespace Core.Common.Base.Test.Service
             Assert.AreEqual(ActivityState.Skipped, activity.State);
         }
 
+        [Test]
+        public void Finish_NoneActivityWithSuccessfulFinish_NoMessageIsSendToLogAndPreviousStateIsPreserved()
+        {
+            // Setup
+            var activity = new SimpleActivity(false, false, false, ActivityState.None);
+
+            // Call / Assert
+            TestHelper.AssertLogMessagesCount(() => activity.Finish(), 0);
+            Assert.AreEqual(ActivityState.None, activity.State);
+        }
+
         private class SimpleActivity : Activity
         {
             private readonly bool throwOnRun;
             private readonly bool throwOnCancel;
             private readonly bool throwOnFinish;
-            private readonly bool skipped;
+            private readonly ActivityState? specialStateAfterRun;
 
-            public SimpleActivity(bool throwOnRun, bool throwOnCancel, bool throwOnFinish, bool skipped = false)
+            public SimpleActivity(bool throwOnRun, bool throwOnCancel, bool throwOnFinish, ActivityState? specialStateAfterRun = null)
             {
                 this.throwOnRun = throwOnRun;
                 this.throwOnCancel = throwOnCancel;
                 this.throwOnFinish = throwOnFinish;
-                this.skipped = skipped;
+                this.specialStateAfterRun = specialStateAfterRun;
             }
 
             public void SetProgressText(string progressText)
@@ -245,9 +256,9 @@ namespace Core.Common.Base.Test.Service
 
             protected override void OnRun()
             {
-                if (skipped)
+                if (specialStateAfterRun != null)
                 {
-                    State = ActivityState.Skipped;
+                    State = (ActivityState) specialStateAfterRun;
                     return;
                 }
 

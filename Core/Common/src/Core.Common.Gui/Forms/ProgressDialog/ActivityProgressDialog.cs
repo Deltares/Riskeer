@@ -157,8 +157,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void RunActivity(int stepNumberForProgressNotification, int activityCount)
         {
-            runningActivity.LogMessages.Clear();
-
             if (InvokeRequired)
             {
                 UpdateActivityStepControlsDelegate updateDelegate = UpdateProgressControls;
@@ -171,6 +169,8 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
             try
             {
+                runningActivity.LogMessages.Clear();
+
                 if (RenderedMessageLogAppender.Instance != null)
                 {
                     RenderedMessageLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);

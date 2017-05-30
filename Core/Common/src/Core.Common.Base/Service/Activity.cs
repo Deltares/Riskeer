@@ -122,6 +122,11 @@ namespace Core.Common.Base.Service
         /// </summary>
         public void Finish()
         {
+            if (State == ActivityState.None)
+            {
+                return;
+            }
+
             ChangeState(OnFinish, State == ActivityState.Executed ? ActivityState.Finished : State); // If relevant, preserve the previous state
 
             if (State == ActivityState.Finished)
