@@ -114,15 +114,10 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_ActivityWithSuccessfulFinish_MessageIsSendToLogAndStateIsChangedToFinished()
+        public void Finish_ActivityWithExecutedStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsChangedToFinished()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false);
-
-            activity.Run();
-
-            // Precondition
-            Assert.AreEqual(ActivityState.Executed, activity.State);
+            var activity = new SimpleActivity(false, false, false, ActivityState.Executed);
 
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
@@ -134,65 +129,42 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_ActivityWithFailingFinish_MessageIsSendToLogAndStateIsChangedToFailed()
+        [TestCase(ActivityState.Failed, "Uitvoeren van '' is mislukt.")]
+        [TestCase(ActivityState.Canceled, "Uitvoeren van '' is geannuleerd.")]
+        [TestCase(ActivityState.Skipped, "Uitvoeren van '' is overgeslagen.")]
+        public void Finish_ActivityWithCertainStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsPreserved(ActivityState state, string message)
         {
             // Setup
-            var activity = new SimpleActivity(false, false, true);
-
-            activity.Run();
-
-            // Precondition
-            Assert.AreEqual(ActivityState.Executed, activity.State);
+            var activity = new SimpleActivity(false, false, false, state);
 
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van '' is mislukt."
+                message
             });
 
-            Assert.AreEqual(ActivityState.Failed, activity.State);
+            Assert.AreEqual(state, activity.State);
         }
 
         [Test]
-        public void Finish_NotExecutedActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
+        public void Finish_ActivityWithNoneStateAndSuccessfulFinish_NoMessageIsSendToLogAndStateIsPreserved()
         {
             // Setup
             var activity = new SimpleActivity(false, false, false);
 
-            // Call
-            activity.Finish();
-
-            // Assert
+            // Call / Assert
+            TestHelper.AssertLogMessagesCount(() => activity.Finish(), 0);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
 
         [Test]
-        public void Finish_CanceledActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
+        [TestCase(ActivityState.Executed)]
+        [TestCase(ActivityState.Canceled)]
+        [TestCase(ActivityState.Skipped)]
+        public void Finish_ActivityWithCertainStateAndFailingFinish_MessageIsSendToLogAndStateIsChangedToFailed(ActivityState state)
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false);
-
-            activity.Cancel();
-
-            // Call / Assert
-            TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
-            {
-                "Uitvoeren van '' is geannuleerd."
-            });
-
-            Assert.AreEqual(ActivityState.Canceled, activity.State);
-        }
-
-        [Test]
-        public void Finish_FailedActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
-        {
-            // Setup
-            var activity = new SimpleActivity(true, false, false);
-
-            activity.Run();
-
-            // Precondition
-            Assert.AreEqual(ActivityState.Failed, activity.State);
+            var activity = new SimpleActivity(false, false, true, state);
 
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
@@ -204,30 +176,10 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_SkippedActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
+        public void Finish_ActivityWithNoneStateAndFailingFinish_NoMessageIsSendToLogAndStateIsPreserved()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false, ActivityState.Skipped);
-
-            activity.Run();
-
-            // Precondition
-            Assert.AreEqual(ActivityState.Skipped, activity.State);
-
-            // Call / Assert
-            TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
-            {
-                "Uitvoeren van '' is overgeslagen."
-            });
-
-            Assert.AreEqual(ActivityState.Skipped, activity.State);
-        }
-
-        [Test]
-        public void Finish_NoneActivityWithSuccessfulFinish_NoMessageIsSendToLogAndPreviousStateIsPreserved()
-        {
-            // Setup
-            var activity = new SimpleActivity(false, false, false, ActivityState.None);
+            var activity = new SimpleActivity(false, false, true);
 
             // Call / Assert
             TestHelper.AssertLogMessagesCount(() => activity.Finish(), 0);
@@ -239,14 +191,14 @@ namespace Core.Common.Base.Test.Service
             private readonly bool throwOnRun;
             private readonly bool throwOnCancel;
             private readonly bool throwOnFinish;
-            private readonly ActivityState? specialStateAfterRun;
 
-            public SimpleActivity(bool throwOnRun, bool throwOnCancel, bool throwOnFinish, ActivityState? specialStateAfterRun = null)
+            public SimpleActivity(bool throwOnRun, bool throwOnCancel, bool throwOnFinish, ActivityState state = ActivityState.None)
             {
                 this.throwOnRun = throwOnRun;
                 this.throwOnCancel = throwOnCancel;
                 this.throwOnFinish = throwOnFinish;
-                this.specialStateAfterRun = specialStateAfterRun;
+
+                State = state;
             }
 
             public void SetProgressText(string progressText)
@@ -256,12 +208,6 @@ namespace Core.Common.Base.Test.Service
 
             protected override void OnRun()
             {
-                if (specialStateAfterRun != null)
-                {
-                    State = (ActivityState) specialStateAfterRun;
-                    return;
-                }
-
                 if (throwOnRun)
                 {
                     throw new Exception("Error during run");
