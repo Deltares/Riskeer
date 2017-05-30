@@ -420,7 +420,11 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Finish_Always_NotifyHydraulicBoundaryLocation()
+        [TestCase(ActivityState.Executed)]
+        [TestCase(ActivityState.Failed)]
+        [TestCase(ActivityState.Canceled)]
+        [TestCase(ActivityState.Skipped)]
+        public void Finish_CalculationWithCertainState_NotifyHydraulicBoundaryLocation(ActivityState state)
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -431,16 +435,33 @@ namespace Ringtoets.Common.Service.Test
             hydraulicBoundaryLocation.Attach(observer);
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
-                                                                   Path.Combine(testDataPath, validFile),
-                                                                   1.0,
-                                                                   calculationMessageProvider);
+            var activity = new TestDesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+                                                                       Path.Combine(testDataPath, validFile),
+                                                                       1.0,
+                                                                       calculationMessageProvider,
+                                                                       state);
 
             // Call
             activity.Finish();
 
             // Assert
             mockRepository.VerifyAll();
+        }
+
+        private class TestDesignWaterLevelCalculationActivity : DesignWaterLevelCalculationActivity
+        {
+            public TestDesignWaterLevelCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                           double norm,
+                                                           ICalculationMessageProvider messageProvider,
+                                                           ActivityState state)
+                : base(hydraulicBoundaryLocation,
+                       hydraulicBoundaryDatabaseFilePath,
+                       norm,
+                       messageProvider)
+            {
+                State = state;
+            }
         }
     }
 }

@@ -85,19 +85,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Finish_Always_FinishedTrue()
-        {
-            // Setup
-            var activity = new TestHydraRingActivity();
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            Assert.IsTrue(activity.Finished);
-        }
-
-        [Test]
         public void UpdateProgressText_Always_SetsProgressTextWithFormat()
         {
             // Setup
