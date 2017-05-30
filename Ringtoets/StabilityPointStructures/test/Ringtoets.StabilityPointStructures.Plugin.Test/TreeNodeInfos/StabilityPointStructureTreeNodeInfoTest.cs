@@ -71,7 +71,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string name = "a nice name";
-            StabilityPointStructure structure = new TestStabilityPointStructure(name, "id");
+            StabilityPointStructure structure = new TestStabilityPointStructure("id", name);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {

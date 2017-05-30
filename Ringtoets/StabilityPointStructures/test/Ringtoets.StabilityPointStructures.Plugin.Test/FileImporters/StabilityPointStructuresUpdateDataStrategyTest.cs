@@ -90,8 +90,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             const string duplicateId = "I am a duplicate id";
             var readStructures = new[]
             {
-                new TestStabilityPointStructure("First Name", duplicateId),
-                new TestStabilityPointStructure("Second Name", duplicateId),
+                new TestStabilityPointStructure(duplicateId, "First Name"),
+                new TestStabilityPointStructure(duplicateId, "Second Name")
             };
 
             var targetCollection = new StructureCollection<StabilityPointStructure>();
@@ -119,8 +119,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             StructureCollection<StabilityPointStructure> structures = failureMechanism.StabilityPointStructures;
             structures.AddRange(new[]
             {
-                new TestStabilityPointStructure("name", "id"),
-                new TestStabilityPointStructure("other name", "other id"),
+                new TestStabilityPointStructure("id", "name"),
+                new TestStabilityPointStructure("other id", "other name")
             }, sourceFilePath);
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
@@ -179,8 +179,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             const string sameId = "sameId";
-            StabilityPointStructure readStructure = new TestStabilityPointStructure("new structure", sameId);
-            StabilityPointStructure structure = new TestStabilityPointStructure("original structure", sameId);
+            StabilityPointStructure readStructure = new TestStabilityPointStructure(sameId, "new structure");
+            StabilityPointStructure structure = new TestStabilityPointStructure(sameId, "original structure");
 
             var calculation = new TestStabilityPointStructuresCalculation
             {
@@ -238,8 +238,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             const string affectedId = "affectedId";
             const string unaffectedId = "unaffectedId";
             const string unaffectedStructureName = "unaffectedStructure";
-            var affectedStructure = new TestStabilityPointStructure("Old name", affectedId);
-            var unaffectedStructure = new TestStabilityPointStructure(unaffectedStructureName, unaffectedId);
+            var affectedStructure = new TestStabilityPointStructure(affectedId, "Old name");
+            var unaffectedStructure = new TestStabilityPointStructure(unaffectedId, unaffectedStructureName);
 
             var affectedCalculation = new TestStabilityPointStructuresCalculation
             {
@@ -280,8 +280,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
 
-            StabilityPointStructure readAffectedStructure = new TestStabilityPointStructure("New name", affectedId);
-            StabilityPointStructure readUnaffectedStructure = new TestStabilityPointStructure(unaffectedStructureName, unaffectedId);
+            StabilityPointStructure readAffectedStructure = new TestStabilityPointStructure(affectedId, "New name");
+            StabilityPointStructure readUnaffectedStructure = new TestStabilityPointStructure(unaffectedId, unaffectedStructureName);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetDataCollection,
@@ -314,7 +314,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             const string removedId = "sameId";
-            StabilityPointStructure structure = new TestStabilityPointStructure("original structure", removedId);
+            StabilityPointStructure structure = new TestStabilityPointStructure(removedId, "original structure");
 
             var calculation = new TestStabilityPointStructuresCalculation
             {
@@ -369,8 +369,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             const string removedId = "removedId";
             const string unaffectedId = "unaffectedId";
             const string unaffectedStructureName = "unaffectedStructure";
-            var removedStructure = new TestStabilityPointStructure("Old name", removedId);
-            var unaffectedStructure = new TestStabilityPointStructure(unaffectedStructureName, unaffectedId);
+            var removedStructure = new TestStabilityPointStructure(removedId, "Old name");
+            var unaffectedStructure = new TestStabilityPointStructure(unaffectedId, unaffectedStructureName);
 
             var affectedCalculation = new TestStabilityPointStructuresCalculation
             {
@@ -411,7 +411,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
 
-            StabilityPointStructure readUnaffectedStructure = new TestStabilityPointStructure(unaffectedStructureName, unaffectedId);
+            StabilityPointStructure readUnaffectedStructure = new TestStabilityPointStructure(unaffectedId, unaffectedStructureName);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetDataCollection,
@@ -441,7 +441,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             const string affectedId = "affectedId";
-            var affectedStructure = new TestStabilityPointStructure("Old name", affectedId);
+            var affectedStructure = new TestStabilityPointStructure(affectedId, "Old name");
             var affectedCalculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
@@ -469,7 +469,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 affectedStructure
             }, sourceFilePath);
 
-            var structureToUpdateFrom = new TestStabilityPointStructure("New name", affectedId);
+            var structureToUpdateFrom = new TestStabilityPointStructure(affectedId, "New name");
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
 

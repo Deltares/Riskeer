@@ -178,8 +178,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             const string duplicateId = "I am a duplicate id";
             StabilityPointStructure[] importedClosingStructures =
             {
-                new TestStabilityPointStructure("name", duplicateId),
-                new TestStabilityPointStructure("Other name", duplicateId)
+                new TestStabilityPointStructure(duplicateId, "name"),
+                new TestStabilityPointStructure(duplicateId, "Other name")
             };
 
             var targetCollection = new StructureCollection<StabilityPointStructure>();

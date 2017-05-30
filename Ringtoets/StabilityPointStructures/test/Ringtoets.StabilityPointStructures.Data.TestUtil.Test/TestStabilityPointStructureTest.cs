@@ -68,7 +68,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             const string name = "cool name too!";
 
             // Call
-            var structure = new TestStabilityPointStructure(name, id);
+            var structure = new TestStabilityPointStructure(id, name);
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructure>(structure);

@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 
             var testCaseData = new List<TestCaseData>
             {
-                new TestCaseData(new TestStabilityPointStructure("Different name", referenceStructureId))
+                new TestCaseData(new TestStabilityPointStructure(referenceStructureId, "Different name"))
                     .SetName($"{targetName}_DifferentName_{testResultDescription}"),
                 new TestCaseData(new TestStabilityPointStructure(new Point2D(1, 1), referenceStructureId))
                     .SetName($"{targetName}_DifferentLocation_{testResultDescription}")
