@@ -338,12 +338,12 @@ namespace Ringtoets.StabilityPointStructures.Data
             InsideWaterLevelFailureConstruction.Mean = fromStructure.InsideWaterLevelFailureConstruction.Mean;
             InsideWaterLevelFailureConstruction.StandardDeviation = fromStructure.InsideWaterLevelFailureConstruction.StandardDeviation;
 
-            EvaluationLevel = new RoundedDouble(2, fromStructure.EvaluationLevel);
+            EvaluationLevel = fromStructure.EvaluationLevel;
 
             LevelCrestStructure.Mean = fromStructure.LevelCrestStructure.Mean;
             LevelCrestStructure.StandardDeviation = fromStructure.LevelCrestStructure.StandardDeviation;
 
-            VerticalDistance = new RoundedDouble(2, fromStructure.VerticalDistance);
+            VerticalDistance = fromStructure.VerticalDistance;
             FailureProbabilityRepairClosure = fromStructure.FailureProbabilityRepairClosure;
 
             FailureCollisionEnergy.Mean = fromStructure.FailureCollisionEnergy.Mean;
@@ -359,7 +359,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             ProbabilityCollisionSecondaryStructure = fromStructure.ProbabilityCollisionSecondaryStructure;
 
             FlowVelocityStructureClosable.Mean = fromStructure.FlowVelocityStructureClosable.Mean;
-            FlowVelocityStructureClosable.CoefficientOfVariation = (RoundedDouble) 0.2;
 
             StabilityLinearLoadModel.Mean = fromStructure.StabilityLinearLoadModel.Mean;
             StabilityLinearLoadModel.CoefficientOfVariation = fromStructure.StabilityLinearLoadModel.CoefficientOfVariation;

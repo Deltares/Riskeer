@@ -271,21 +271,15 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.AreNotEqual(otherStructure.Id, structure.Id);
             Assert.AreEqual(otherStructure.Name, structure.Name);
-            Assert.AreEqual(otherStructure.Location, structure.Location);
+            AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
             Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
-            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            AssertAreEqualButNotSame(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
+            AssertAreEqualButNotSame(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
             Assert.AreEqual(otherStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
-            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.AreEqual(otherStructure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean);
-            Assert.AreEqual(otherStructure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation);
-            Assert.AreEqual(otherStructure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
-            Assert.AreEqual(otherStructure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
-            Assert.AreEqual(otherStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
-            Assert.AreEqual(otherStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
+            AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+            AssertAreEqualButNotSame(otherStructure.LevelCrestStructure, structure.LevelCrestStructure);
+            AssertAreEqualButNotSame(otherStructure.StorageStructureArea, structure.StorageStructureArea);
+            AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
         }
 
         [Test]
@@ -365,6 +359,12 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static void AssertAreEqualButNotSame(object expected, object actual)
+        {
+            Assert.AreEqual(expected, actual, "Objects not equal");
+            Assert.AreNotSame(expected, actual, "Objects the same");
         }
     }
 }

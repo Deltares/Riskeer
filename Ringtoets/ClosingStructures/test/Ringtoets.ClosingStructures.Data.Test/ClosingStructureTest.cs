@@ -353,30 +353,21 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.AreNotEqual(otherStructure.Id, structure.Id);
             Assert.AreEqual(otherStructure.Name, structure.Name);
-            Assert.AreEqual(otherStructure.Location, structure.Location);
+            AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
             Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean);
-            Assert.AreEqual(otherStructure.AllowedLevelIncreaseStorage.StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.AreEqual(otherStructure.AreaFlowApertures.Mean, structure.AreaFlowApertures.Mean);
-            Assert.AreEqual(otherStructure.AreaFlowApertures.StandardDeviation, structure.AreaFlowApertures.StandardDeviation);
-            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(otherStructure.CriticalOvertoppingDischarge.CoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            AssertAreEqualButNotSame(otherStructure.AllowedLevelIncreaseStorage, structure.AllowedLevelIncreaseStorage);
+            AssertAreEqualButNotSame(otherStructure.AreaFlowApertures, structure.AreaFlowApertures);
+            AssertAreEqualButNotSame(otherStructure.CriticalOvertoppingDischarge, structure.CriticalOvertoppingDischarge);
             Assert.AreEqual(otherStructure.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(otherStructure.FailureProbabilityReparation, structure.FailureProbabilityReparation);
             Assert.AreEqual(otherStructure.IdenticalApertures, structure.IdenticalApertures);
             Assert.AreEqual(otherStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean);
-            Assert.AreEqual(otherStructure.FlowWidthAtBottomProtection.StandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.AreEqual(otherStructure.InsideWaterLevel.Mean, structure.InsideWaterLevel.Mean);
-            Assert.AreEqual(otherStructure.InsideWaterLevel.StandardDeviation, structure.InsideWaterLevel.StandardDeviation);
-            Assert.AreEqual(otherStructure.LevelCrestStructureNotClosing.Mean, structure.LevelCrestStructureNotClosing.Mean);
-            Assert.AreEqual(otherStructure.LevelCrestStructureNotClosing.StandardDeviation, structure.LevelCrestStructureNotClosing.StandardDeviation);
-            Assert.AreEqual(otherStructure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean);
-            Assert.AreEqual(otherStructure.StorageStructureArea.CoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation);
-            Assert.AreEqual(otherStructure.ThresholdHeightOpenWeir.Mean, structure.ThresholdHeightOpenWeir.Mean);
-            Assert.AreEqual(otherStructure.ThresholdHeightOpenWeir.StandardDeviation, structure.ThresholdHeightOpenWeir.StandardDeviation);
-            Assert.AreEqual(otherStructure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean);
-            Assert.AreEqual(otherStructure.WidthFlowApertures.StandardDeviation, structure.WidthFlowApertures.StandardDeviation);
+            AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+            AssertAreEqualButNotSame(otherStructure.InsideWaterLevel, structure.InsideWaterLevel);
+            AssertAreEqualButNotSame(otherStructure.LevelCrestStructureNotClosing, structure.LevelCrestStructureNotClosing);
+            AssertAreEqualButNotSame(otherStructure.StorageStructureArea, structure.StorageStructureArea);
+            AssertAreEqualButNotSame(otherStructure.ThresholdHeightOpenWeir, structure.ThresholdHeightOpenWeir);
+            AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
         }
 
         [Test]
@@ -456,6 +447,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static void AssertAreEqualButNotSame(object expected, object actual)
+        {
+            Assert.AreEqual(expected, actual, "Objects not equal");
+            Assert.AreNotSame(expected, actual, "Objects the same");
         }
     }
 }
