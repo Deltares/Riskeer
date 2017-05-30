@@ -147,8 +147,10 @@ namespace Ringtoets.Common.Data.DikeProfiles
             X0 = fromForeshoreProfile.X0;
             Orientation = fromForeshoreProfile.Orientation;
 
-            BreakWater = fromForeshoreProfile.BreakWater;
-            WorldReferencePoint = fromForeshoreProfile.WorldReferencePoint;
+            BreakWater = fromForeshoreProfile.BreakWater != null
+                             ? new BreakWater(fromForeshoreProfile.BreakWater.Type, fromForeshoreProfile.BreakWater.Height)
+                             : null;
+            WorldReferencePoint = new Point2D(fromForeshoreProfile.WorldReferencePoint.X, fromForeshoreProfile.WorldReferencePoint.Y);
             SetGeometry(fromForeshoreProfile.Geometry);
         }
 
@@ -219,7 +221,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 throw new ArgumentException(Resources.ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
-            Geometry = new RoundedPoint2DCollection(2, foreshorePoints);
+            Geometry = new RoundedPoint2DCollection(2, foreshorePoints.Select(p => new Point2D(p.X, p.Y)));
         }
 
         private bool EqualGeometry(Point2D[] otherGeometry)

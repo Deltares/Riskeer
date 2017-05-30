@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -780,9 +781,19 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             Assert.AreEqual(expectedWorldReferencePoint, dikeProfileToUpdate.WorldReferencePoint);
+            Assert.AreNotSame(expectedWorldReferencePoint, dikeProfileToUpdate.WorldReferencePoint);
             CollectionAssert.AreEqual(expectedForeshoreGeometry, dikeProfileToUpdate.ForeshoreGeometry);
+            for (var i = 0; i < expectedForeshoreGeometry.Length; i++)
+            {
+                Assert.AreNotSame(expectedForeshoreGeometry[i], dikeProfileToUpdate.ForeshoreGeometry.ElementAt(i));
+            }
             CollectionAssert.AreEqual(expectedDikeGeometry, dikeProfileToUpdate.DikeGeometry);
+            for (var i = 0; i < expectedDikeGeometry.Length; i++)
+            {
+                Assert.AreNotSame(expectedDikeGeometry[i], dikeProfileToUpdate.DikeGeometry.ElementAt(i));
+            }
             Assert.AreEqual(expectedBreakWater, dikeProfileToUpdate.BreakWater);
+            Assert.AreNotSame(expectedBreakWater, dikeProfileToUpdate.BreakWater);
 
             Assert.AreEqual(expectedId, dikeProfileToUpdate.Id);
             Assert.AreEqual(expectedName, dikeProfileToUpdate.Name);

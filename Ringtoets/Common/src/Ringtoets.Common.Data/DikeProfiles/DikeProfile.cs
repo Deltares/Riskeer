@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the foreshore profile.
         /// </summary>
-        public ForeshoreProfile ForeshoreProfile { get; private set; }
+        public ForeshoreProfile ForeshoreProfile { get; }
 
         /// <summary>
         /// Gets the ID of the dike profile.
@@ -243,16 +243,16 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         private void CopyForeshoreProfileProperties(DikeProfile fromDikeProfile)
         {
-            ForeshoreProfile = new ForeshoreProfile(fromDikeProfile.WorldReferencePoint,
-                                                    fromDikeProfile.ForeshoreGeometry,
-                                                    fromDikeProfile.BreakWater,
-                                                    new ForeshoreProfile.ConstructionProperties
-                                                    {
-                                                        Id = fromDikeProfile.Id,
-                                                        Name = fromDikeProfile.Name,
-                                                        Orientation = fromDikeProfile.Orientation,
-                                                        X0 = fromDikeProfile.X0
-                                                    });
+            ForeshoreProfile.CopyProperties(new ForeshoreProfile(fromDikeProfile.WorldReferencePoint,
+                                                                 fromDikeProfile.ForeshoreGeometry,
+                                                                 fromDikeProfile.BreakWater,
+                                                                 new ForeshoreProfile.ConstructionProperties
+                                                                 {
+                                                                     Id = fromDikeProfile.Id,
+                                                                     Name = fromDikeProfile.Name,
+                                                                     Orientation = fromDikeProfile.Orientation,
+                                                                     X0 = fromDikeProfile.X0
+                                                                 }));
         }
 
         private bool Equals(DikeProfile other)
@@ -269,13 +269,12 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 throw new ArgumentNullException(nameof(points), Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
             }
 
-            RoughnessPoint[] roughnessPoints = points.ToArray();
-            if (roughnessPoints.Any(p => p == null))
+            if (points.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
-            DikeGeometry = roughnessPoints;
+            DikeGeometry = points.Select(p => new RoughnessPoint(p.Point, p.Roughness)).ToArray();
         }
 
         private bool EqualDikeGeometry(RoughnessPoint[] otherPoints)
