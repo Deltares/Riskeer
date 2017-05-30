@@ -66,14 +66,6 @@ namespace Ringtoets.Piping.Plugin
     /// </summary>
     public class PipingPlugin : PluginBase
     {
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return new PipingRibbon();
-            }
-        }
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>

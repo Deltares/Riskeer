@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="SurfaceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\u48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Name_Description" xml:space="preserve">
+    <value>Naam van de profielschematisatie.</value>
+  </data>
+  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Points_Description" xml:space="preserve">
+    <value>De punten die de geometrie van de profielschematisatie definiëren.</value>
+  </data>
+  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Points_DisplayName" xml:space="preserve">
+    <value>Geometriepunten</value>
+  </data>
+  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName" xml:space="preserve">
+    <value>Profielschematisatie</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_SurfaceLine_Description" xml:space="preserve">
+    <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_SurfaceLine_DisplayName" xml:space="preserve">
+    <value>Profielschematisatie</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculation_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="StochasticSoilProfile_Bottom_Description" xml:space="preserve">
+    <value>Het niveau van de onderkant van de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Bottom_DisplayName" xml:space="preserve">
+    <value>Bodemniveau</value>
+  </data>
+  <data name="StochasticSoilProfile_Name_Description" xml:space="preserve">
+    <value>De naam van de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="StochasticSoilProfileProperties_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisatie</value>
+  </data>
+  <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
+    <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Tops_DisplayName" xml:space="preserve">
+    <value>Topniveaus</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_StochasticSoilProfile_Description" xml:space="preserve">
+    <value>De opbouw van de ondergrond.</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisatie</value>
+  </data>
+  <data name="MacroStabilityInwardsInputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-document-list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
+    <value>Locatie met hydraulische randvoorwaarden</value>
+  </data>
+  <data name="Categories_SemiProbabilisticParameters" xml:space="preserve">
+    <value>Semi-probabilistische parameters</value>
+  </data>
+  <data name="GeneralMacroStabilityInwardsInput_A_Description" xml:space="preserve">
+    <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
+  </data>
+  <data name="GeneralMacroStabilityInwardsInput_A_DisplayName" xml:space="preserve">
+    <value>a [-]</value>
+  </data>
+  <data name="GeneralMacroStabilityInwardsInput_B_Description" xml:space="preserve">
+    <value>De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
+  </data>
+  <data name="GeneralMacroStabilityInwardsInput_B_DisplayName" xml:space="preserve">
+    <value>b [m]</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_MacroStabilityInwardsFactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor deze berekening.</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_MacroStabilityInwardsFactorOfSafety_DisplayName" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards" xml:space="preserve">
+    <value>Macrostabiliteit binnenwaarts</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_MacroStabilityInwardsProbability_Description" xml:space="preserve">
+    <value>De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening.</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_MacroStabilityInwardsProbability_DisplayName" xml:space="preserve">
+    <value>Benaderde faalkans [1/jaar]</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_MacroStabilityInwardsReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_MacroStabilityInwardsReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkans [-]</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_RequiredProbability_Description" xml:space="preserve">
+    <value>De maximaal toegestane kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt.</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_RequiredProbability_DisplayName" xml:space="preserve">
+    <value>Faalkanseis [1/jaar]</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_RequiredReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor macrostabiliteit binnenwaarts.</value>
+  </data>
+  <data name="MacroStabilityInwardsOutputContext_RequiredReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkanseis [-]</value>
+  </data>
+  <data name="StochasticSoilModelIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shovel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StochasticSoilProfile_Probability_Description" xml:space="preserve">
+    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.</value>
+  </data>
+  <data name="StochasticSoilProfile_Probability_DisplayName" xml:space="preserve">
+    <value>Aandeel [%]</value>
+  </data>
+  <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
+    <value>Het type van de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Type_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="StochasticSoilModel_Geometry_Description" xml:space="preserve">
+    <value>Geometrie uit de database.</value>
+  </data>
+  <data name="StochasticSoilModel_Geometry_DisplayName" xml:space="preserve">
+    <value>Geometrie</value>
+  </data>
+  <data name="StochasticSoilModel_Id_Description" xml:space="preserve">
+    <value>ID van het stochastische ondergrondmodel in de database.</value>
+  </data>
+  <data name="StochasticSoilModel_Id_DisplayName" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="StochasticSoilModel_Name_Description" xml:space="preserve">
+    <value>Naam van het stochastische ondergrondmodel.</value>
+  </data>
+  <data name="StochasticSoilModel_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="StochasticSoilModel_SegmentName_Description" xml:space="preserve">
+    <value>Naam van het stochastische ondergrondmodel segment.</value>
+  </data>
+  <data name="StochasticSoilModel_SegmentName_DisplayName" xml:space="preserve">
+    <value>Segment naam</value>
+  </data>
+  <data name="StochasticSoilModel_StochasticSoilProfiles_Description" xml:space="preserve">
+    <value>Ondergrondschematisaties uit de database.</value>
+  </data>
+  <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisaties</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationGroup_Generate_MacroStabilityInwardsCalculations_ToolTip" xml:space="preserve">
+    <value>Genereer scenario's op basis van geselecteerde profielschematisaties.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationGroup_Generate_MacroStabilityInwardsCalculations_NoSurfaceLinesOrSoilModels_ToolTip" xml:space="preserve">
+    <value>Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_StochasticSoilModel_DisplayName" xml:space="preserve">
+    <value>Stochastisch ondergrondmodel</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_StochasticSoilModel_Description" xml:space="preserve">
+    <value>De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_RingtoetsMacroStabilityInwardsSurfaceLine_0_skipped" xml:space="preserve">
+    <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
+    <value>In oordeel</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
+    <value>Bijdrage aan scenario [%]</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
+    <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
+  </data>
+  <data name="MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStabilityInwardsProbability" xml:space="preserve">
+    <value>Faalkans [1/jaar]</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
+    <value>Selecteer profielschematisaties</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description" xml:space="preserve">
+    <value>Sta toe om het toetspeil handmatig te specificeren?</value>
+  </data>
+  <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
+    <value>Handmatig toetspeil invoeren</value>
+  </data>
+  <data name="StochasticSoilModelCollection_SourcePath_Description" xml:space="preserve">
+    <value>De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_MaterialName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_Color" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_Top" xml:space="preserve">
+    <value>Topniveau [m+NAP]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_IsAquifer" xml:space="preserve">
+    <value>Is aquifer</value>
+  </data>
+  <data name="RingtoetsMacroStabilityInwardsSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
+    <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
+  </data>
+</root>

@@ -126,17 +126,11 @@
   <data name="AssessmentSection_DisplayName" xml:space="preserve">
     <value>Traject</value>
   </data>
-  <data name="MacrostabilityInwardFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit binnenwaarts</value>
-  </data>
   <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding afschuiven buitentalud</value>
   </data>
   <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Piping bij kunstwerk</value>
-  </data>
-  <data name="MacrostabilityInwardFailureMechanism_Code" xml:space="preserve">
-    <value>STBI</value>
   </data>
   <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
     <value>GABU</value>

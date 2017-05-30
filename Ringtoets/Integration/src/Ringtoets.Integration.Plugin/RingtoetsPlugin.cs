@@ -85,6 +85,8 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
@@ -212,9 +214,9 @@ namespace Ringtoets.Integration.Plugin
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
-                typeof(MacrostabilityInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                typeof(MacroStabilityInwardsFailureMechanism),
+                (mechanism, assessmentSection) => new MacroStabilityInwardsFailureMechanismContext(
+                    (MacroStabilityInwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -396,9 +398,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<
                 WaterPressureAsphaltCoverFailureMechanismSectionResult,
                 WaterPressureAsphaltCoverResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
-                MacrostabilityInwardsFailureMechanismSectionResult,
-                MacrostabilityInwardsResultView>();
             yield return CreateFailureMechanismResultViewInfo<
                 MacrostabilityOutwardsFailureMechanismSectionResult,
                 MacrostabilityOutwardsResultView>();
@@ -690,7 +689,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
@@ -1234,7 +1232,7 @@ namespace Ringtoets.Integration.Plugin
             var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
             var waveImpactAsphaltCover = nodeData as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
             var closingStructures = nodeData as IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>;
-            var macrostabilityInwards = nodeData as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
+            var macrostabilityInwards = nodeData as IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>;
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
             var stabilityPointConstruction = nodeData as IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>;
 
@@ -1297,7 +1295,7 @@ namespace Ringtoets.Integration.Plugin
             if (macrostabilityInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<MacrostabilityInwardsFailureMechanismSectionResult>(macrostabilityInwards.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(macrostabilityInwards.SectionResults, nodeData);
             }
             if (macrostabilityOutwards != null)
             {

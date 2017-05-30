@@ -26,18 +26,18 @@ using Application.Ringtoets.Storage.Create.MacrostabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
 {
     [TestFixture]
-    public class MacrostabilityInwardsFailureMechanismCreateExtensionsTest
+    public class MacroStabilityInwardsFailureMechanismCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
             TestDelegate test = () => failureMechanism.Create(null);
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = isRelevant,
                 InputComments =
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short) FailureMechanismType.MacrostabilityInwards, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.MacroStabilityInwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 InputComments =
                 {
@@ -126,7 +126,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
-            var failureMechanism = new MacrostabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call

@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
 {
@@ -40,13 +40,11 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
             // Setup
             var random = new Random();
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            const double assessmentLayerTwoAResult = 0.2;
             const double assessmentLayerThreeResult = 3.2;
 
-            var sectionResult = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult,
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
             };
 
@@ -55,31 +53,14 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerTwoAResult, result.LayerTwoA);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
-        }
-
-        [Test]
-        public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
-        {
-            // Setup
-            var sectionResult = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerTwoA = RoundedDouble.NaN
-            };
-
-            // Call
-            MacrostabilityInwardsSectionResultEntity result = sectionResult.Create();
-
-            // Assert
-            Assert.IsNull(result.LayerTwoA);
         }
 
         [Test]
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerThree = RoundedDouble.NaN
             };

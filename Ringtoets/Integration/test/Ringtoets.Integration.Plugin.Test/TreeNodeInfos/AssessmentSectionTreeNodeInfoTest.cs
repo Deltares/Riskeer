@@ -39,6 +39,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -206,8 +207,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionInwardsFailureMechanismContext.Parent);
 
-                var macrostabilityInwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[7];
-                Assert.AreSame(assessmentSection.MacrostabilityInwards, macrostabilityInwardsFailureMechanismContext.WrappedData);
+                var macrostabilityInwardsFailureMechanismContext = (MacroStabilityInwardsFailureMechanismContext) objects[7];
+                Assert.AreSame(assessmentSection.MacroStabilityInwards, macrostabilityInwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, macrostabilityInwardsFailureMechanismContext.Parent);
                 var macrostabilityOutwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[8];
                 Assert.AreSame(assessmentSection.MacrostabilityOutwards, macrostabilityOutwardsFailureMechanismContext.WrappedData);

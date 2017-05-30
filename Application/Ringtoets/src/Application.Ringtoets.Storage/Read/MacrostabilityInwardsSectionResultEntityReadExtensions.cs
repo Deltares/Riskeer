@@ -23,25 +23,25 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> based on the
     /// <see cref="MacrostabilityInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacrostabilityInwardsSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="MacrostabilityInwardsSectionResultEntity"/> and use the information to update a 
-        /// <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/>.
+        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacrostabilityInwardsSectionResultEntity"/> to create <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="MacrostabilityInwardsSectionResultEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this MacrostabilityInwardsSectionResultEntity entity, MacrostabilityInwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this MacrostabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -49,7 +49,6 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble) entity.LayerTwoA.ToNullAsNaN();
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }

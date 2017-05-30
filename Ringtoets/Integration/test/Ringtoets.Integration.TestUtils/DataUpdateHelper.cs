@@ -62,5 +62,32 @@ namespace Ringtoets.Integration.TestUtils
                 activity.Finish();
             }
         }
+
+        /// <summary>
+        /// Imports the <see cref="MacroStabilityInwards.Data.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwards.Data.MacroStabilityInwardsFailureMechanism"/>
+        /// of the given <see cref="IAssessmentSection"/> and updates existing data based upon the imported
+        /// data.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <remarks>When data from <see cref="DataImportHelper.ImportMacroStabilityInwardsStochasticSoilModels"/> is added first,
+        /// then calling this method will remove soil model 'PK001_0004_Piping', stochastic soil profile 'W1-6_4_1D1'
+        /// and update the probability of stochastic soil profile '6-3_22' (100% to 50%).</remarks>
+        public static void UpdateMacroStabilityInwardsStochasticSoilModels(AssessmentSection assessmentSection)
+        {
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataUpdateHelper).Assembly,
+                                                                                   true,
+                                                                                   "DR6_updated.soil"))
+            {
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_updated.soil");
+                var activity = new FileImportActivity(new MacroStabilityInwards.IO.Importers.StochasticSoilModelImporter(
+                                                          assessmentSection.MacroStabilityInwards.StochasticSoilModels,
+                                                          filePath,
+                                                          new UpdateMessageProvider(),
+                                                          new MacroStabilityInwards.Plugin.FileImporter.StochasticSoilModelUpdateDataStrategy(assessmentSection.MacroStabilityInwards)),
+                                                      "StochasticSoilModelUpdater");
+                activity.Run();
+                activity.Finish();
+            }
+        }
     }
 }

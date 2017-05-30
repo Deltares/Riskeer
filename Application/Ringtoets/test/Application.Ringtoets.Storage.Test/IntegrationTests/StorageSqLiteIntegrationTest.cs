@@ -51,12 +51,22 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using PipingCalculationScenario = Ringtoets.Piping.Data.PipingCalculationScenario;
+using PipingInput = Ringtoets.Piping.Data.PipingInput;
+using PipingOutput = Ringtoets.Piping.Data.PipingOutput;
+using PipingProbabilityAssessmentInput = Ringtoets.Piping.Data.PipingProbabilityAssessmentInput;
+using PipingSemiProbabilisticOutput = Ringtoets.Piping.Data.PipingSemiProbabilisticOutput;
+using RingtoetsPipingSurfaceLineCollection = Ringtoets.Piping.Data.RingtoetsPipingSurfaceLineCollection;
+using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
+using StochasticSoilModelCollection = Ringtoets.Piping.Data.StochasticSoilModelCollection;
+using StochasticSoilProfile = Ringtoets.Piping.Data.StochasticSoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.IntegrationTests
 {
@@ -316,8 +326,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.MacrostabilityOutwards.SectionResults,
                     actualAssessmentSection.MacrostabilityOutwards.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.MacrostabilityInwards.SectionResults,
-                    actualAssessmentSection.MacrostabilityInwards.SectionResults);
+                    expectedAssessmentSection.MacroStabilityInwards.SectionResults,
+                    actualAssessmentSection.MacroStabilityInwards.SectionResults);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.WaveImpactAsphaltCover.SectionResults,
                     actualAssessmentSection.WaveImpactAsphaltCover.SectionResults);
@@ -406,21 +416,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> actualSectionResults)
         {
-            MacrostabilityInwardsFailureMechanismSectionResult[] expectedSectionResultsArray = expectedSectionResults.ToArray();
-            MacrostabilityInwardsFailureMechanismSectionResult[] actualSectionResultsArray = actualSectionResults.ToArray();
+            MacroStabilityInwardsFailureMechanismSectionResult[] expectedSectionResultsArray = expectedSectionResults.ToArray();
+            MacroStabilityInwardsFailureMechanismSectionResult[] actualSectionResultsArray = actualSectionResults.ToArray();
 
             Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
 
             for (var i = 0; i < expectedSectionResultsArray.Length; i++)
             {
-                MacrostabilityInwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                MacrostabilityInwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+                MacroStabilityInwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                MacroStabilityInwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
             }
         }

@@ -65,14 +65,12 @@
     <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffOutwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\WaterPressureAsphaltCoverFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\MacrostabilityOutwardsFailureMechanismSectionResultTest.cs" />
-    <Compile Include="StandAlone\SectionResults\MacrostabilityInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismTest.cs" />
     <Compile Include="StandAlone\WaterPressureAsphaltCoverFailureMechanismTest.cs" />
     <Compile Include="StandAlone\TechnicalInnovationFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MicrostabilityFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\MacrostabilityInwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +86,10 @@
     <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
       <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>

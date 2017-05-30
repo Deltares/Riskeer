@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_" xml:space="preserve">
+    <value>Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
+  </data>
+  <data name="Error_SurfaceLine_has_not_double" xml:space="preserve">
+    <value>Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.</value>
+  </data>
+  <data name="Error_SurfaceLine_parsing_causes_overflow" xml:space="preserve">
+    <value>Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.</value>
+  </data>
+  <data name="Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN" xml:space="preserve">
+    <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>
+  </data>
+  <data name="Error_SoilProfile_read_from_database" xml:space="preserve">
+    <value>Kon geen ondergrondschematisaties verkrijgen uit de database.</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
+    <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
+    <value>Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry" xml:space="preserve">
+    <value>Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
+    <value>Ontbrekend scheidingsteken '{0}'.</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet" xml:space="preserve">
+    <value>Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
+    <value>Regel heeft geen ID.</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilProfileReader_Database_incorrect_version_requires_Version_0_" xml:space="preserve">
+    <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
+  </data>
+  <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
+    <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilProfileReader_Critical_Unexpected_value_on_column" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.</value>
+  </data>
+  <data name="SoilLayer2DReader_Geometry_contains_no_valid_xml" xml:space="preserve">
+    <value>Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.</value>
+  </data>
+  <data name="SoilLayer2DReader_Geometry_is_null" xml:space="preserve">
+    <value>De geometrie is leeg.</value>
+  </data>
+  <data name="SoilLayer2DReader_Could_not_parse_point_location" xml:space="preserve">
+    <value>Coördinaat van een punt bevat ongeldige waarde.</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
+    <value>profielschematisatie '{0}'</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilProfileReader_SoilProfileName_0_" xml:space="preserve">
+    <value>ondergrondschematisatie '{0}'</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length" xml:space="preserve">
+    <value>Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
+  </data>
+  <data name="StochasticSoilModelDatabaseReader_Failed_to_read_database" xml:space="preserve">
+    <value>Kon geen stochastische ondergrondmodellen verkrijgen uit de database.</value>
+  </data>
+  <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
+    <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
+    <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'. Dit model wordt overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
+    <value>De som van de kansen van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added" xml:space="preserve">
+    <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" xml:space="preserve">
+    <value>Controleren van ondergrondschematisaties.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model" xml:space="preserve">
+    <value>De uitgelezen ondergrondschematisatie '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
+    <value>{0} 
+Het bestand wordt overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_Reading_database" xml:space="preserve">
+    <value>Inlezen van de D-Soil Model database.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
+    <value>Inlezen van de stochastische ondergrondmodellen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped" xml:space="preserve">
+    <value>{0} Dit stochastische ondergrondmodel wordt overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ReadingSoilProfiles" xml:space="preserve">
+    <value>Inlezen van de ondergrondschematisatie uit de D-Soil Model database.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped" xml:space="preserve">
+    <value>{0} 
+Deze ondergrondschematisatie wordt overgeslagen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing" xml:space="preserve">
+    <value>Kan geen ondergrondmodellen lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing" xml:space="preserve">
+    <value>Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names" xml:space="preserve">
+    <value>Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_names" xml:space="preserve">
+    <value>Namen van ondergrondmodellen zijn niet uniek.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability" xml:space="preserve">
+    <value>Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability" xml:space="preserve">
+    <value>Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist" xml:space="preserve">
+    <value>De profielschematisatie '{0}' bestaat niet.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}'doorkruist de profielschematisatie '{1}' niet.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}' bestaat niet.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1" xml:space="preserve">
+    <value>De ondergrondschematisatie '{0}' bestaat niet binnen het stochastische ondergrondmodel '{1}'.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0" xml:space="preserve">
+    <value>Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie '{0}'.</value>
+  </data>
+  <data name="MacroStabiliteitBinnenwaartsConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+</root>

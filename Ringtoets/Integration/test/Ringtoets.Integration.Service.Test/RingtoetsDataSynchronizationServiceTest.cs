@@ -42,11 +42,16 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.TestUtils;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using GeneralPipingInput = Ringtoets.Piping.Data.GeneralPipingInput;
+using PipingCalculation = Ringtoets.Piping.Data.PipingCalculation;
+using PipingCalculationScenario = Ringtoets.Piping.Data.PipingCalculationScenario;
+using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
 
 namespace Ringtoets.Integration.Service.Test
 {
@@ -554,7 +559,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
 
-            MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
+            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
 
@@ -655,7 +660,7 @@ namespace Ringtoets.Integration.Service.Test
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism);
 
-            MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
+            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macrostabilityInwardsFailureMechanism);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
@@ -752,7 +757,7 @@ namespace Ringtoets.Integration.Service.Test
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism);
 
-            MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
+            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macrostabilityInwardsFailureMechanism);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
@@ -1396,7 +1401,7 @@ namespace Ringtoets.Integration.Service.Test
             var expectedRemovedObjects = new List<object>();
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingFailureMechanism));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionInwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacrostabilityInwards));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacrostabilityOutwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Microstability));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityStoneCover));

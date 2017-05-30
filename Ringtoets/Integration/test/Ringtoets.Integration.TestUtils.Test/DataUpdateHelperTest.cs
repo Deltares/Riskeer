@@ -71,5 +71,40 @@ namespace Ringtoets.Integration.TestUtils.Test
                 "W1-7_0_1D1"
             }, dikeSection.PipingFailureMechanism.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
         }
+
+        [Test]
+        public void UpdateMacroStabilityInwardsStochasticSoilModels_ValidAssessmentSection_AddsThreeSoilModelsWithProfiles()
+        {
+            // Call
+            DataUpdateHelper.UpdateMacroStabilityInwardsStochasticSoilModels(dikeSection);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "PK001_0001_Piping",
+                "PK001_0002_Piping",
+                "PK001_0003_Piping"
+            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                2,
+                1
+            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.StochasticSoilProfiles.Count));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.5,
+                0.5,
+                0.5,
+                1.0
+            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
+            CollectionAssert.AreEqual(new[]
+            {
+                "W1-6_0_1D1",
+                "W1-6_0_1D1",
+                "W1-7_0_1D1",
+                "W1-7_0_1D1"
+            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
+        }
     }
 }

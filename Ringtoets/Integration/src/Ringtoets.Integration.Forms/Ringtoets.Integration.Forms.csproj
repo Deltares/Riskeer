@@ -109,7 +109,6 @@
     <Compile Include="PropertyClasses\IFailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MicrostabilitySectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\PipingStructureSectionResultRow.cs" />
@@ -120,9 +119,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SectionResultViews\MacrostabilityInwardsResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultViews\MacrostabilityOutwardsResultView.cs">

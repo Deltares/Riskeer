@@ -96,7 +96,6 @@
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\MacrostabilityInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\MacrostabilityOutwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\MicrostabilityResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\PipingStructureResultViewTest.cs" />
@@ -110,7 +109,6 @@
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultViewTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />

@@ -55,6 +55,7 @@ using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Plugin;
+using Ringtoets.MacroStabilityInwards.Plugin;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityStoneCover.Plugin;
@@ -170,6 +171,7 @@ namespace Application.Ringtoets
                     new HeightStructuresPlugin(),
                     new StabilityStoneCoverPlugin(),
                     new DuneErosionPlugin(),
+                    new MacroStabilityInwardsPlugin(),
                     new ChartPlugin(),
                     new MapPlugin()
 #if INCLUDE_DEMOPROJECT

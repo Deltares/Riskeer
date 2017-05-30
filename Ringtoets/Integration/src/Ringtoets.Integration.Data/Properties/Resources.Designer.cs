@@ -154,24 +154,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STBI.
-        /// </summary>
-        public static string MacrostabilityInwardFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("MacrostabilityInwardFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit binnenwaarts.
-        /// </summary>
-        public static string MacrostabilityInwardFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("MacrostabilityInwardFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to STBU.
         /// </summary>
         public static string MacrostabilityOutwardFailureMechanism_Code {

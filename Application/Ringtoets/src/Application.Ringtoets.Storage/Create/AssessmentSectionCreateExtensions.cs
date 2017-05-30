@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.ClosingStructures.Create(registry));
-            entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(registry));
+            entity.FailureMechanismEntities.Add(section.MacroStabilityInwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(registry));

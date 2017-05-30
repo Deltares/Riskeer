@@ -25,7 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -74,7 +74,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA ?? double.NaN, sectionResult.AssessmentLayerTwoA, 1e-6);
             Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
         }
     }

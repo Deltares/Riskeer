@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.NotNull(section.PipingFailureMechanism);
             Assert.NotNull(section.GrassCoverErosionInwards);
-            Assert.NotNull(section.MacrostabilityInwards);
+            Assert.NotNull(section.MacroStabilityInwards);
             Assert.NotNull(section.MacrostabilityOutwards);
             Assert.NotNull(section.Microstability);
             Assert.NotNull(section.StabilityStoneCover);
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Data.Test
             {
                 assessmentSection.PipingFailureMechanism,
                 assessmentSection.GrassCoverErosionInwards,
-                assessmentSection.MacrostabilityInwards,
+                assessmentSection.MacroStabilityInwards,
                 assessmentSection.MacrostabilityOutwards,
                 assessmentSection.Microstability,
                 assessmentSection.StabilityStoneCover,
@@ -345,7 +345,7 @@ namespace Ringtoets.Integration.Data.Test
             {
                 section.PipingFailureMechanism,
                 section.GrassCoverErosionInwards,
-                section.MacrostabilityInwards,
+                section.MacroStabilityInwards,
                 section.StabilityStoneCover,
                 section.WaveImpactAsphaltCover,
                 section.GrassCoverErosionOutwards,
@@ -363,7 +363,7 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual(contributions[0], assessmentSection.PipingFailureMechanism.Contribution);
             Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
-            Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInwards.Contribution);
+            Assert.AreEqual(contributions[2], assessmentSection.MacroStabilityInwards.Contribution);
             Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
             Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
             Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);

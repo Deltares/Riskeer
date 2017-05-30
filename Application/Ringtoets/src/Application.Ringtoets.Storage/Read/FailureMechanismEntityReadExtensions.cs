@@ -45,10 +45,13 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using GeneralPipingInput = Ringtoets.Piping.Data.GeneralPipingInput;
+using PipingFailureMechanismSectionResult = Ringtoets.Piping.Data.PipingFailureMechanismSectionResult;
 
 namespace Application.Ringtoets.Storage.Read
 {
@@ -484,16 +487,16 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region Macrostability Inwards
+        #region MacroStability Inwards
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacrostabilityInwardsFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacrostabilityInwardsFailureMechanism"/> for.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsMacrostabilityInwardsFailureMechanism(this FailureMechanismEntity entity,
-                                                                         MacrostabilityInwardsFailureMechanism failureMechanism,
+        internal static void ReadAsMacroStabilityInwardsFailureMechanism(this FailureMechanismEntity entity,
+                                                                         MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                          ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
@@ -501,13 +504,13 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadMacrostabilityInwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                             MacrostabilityInwardsFailureMechanism failureMechanism,
+                                                                             MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
         {
             foreach (MacrostabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityInwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MacrostabilityInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                MacroStabilityInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }

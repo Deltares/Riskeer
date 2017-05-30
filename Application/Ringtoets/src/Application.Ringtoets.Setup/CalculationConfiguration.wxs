@@ -47,6 +47,10 @@
       <Component Id="CalculationConfigurationGrassCoverErosionInwardsFile" Guid="5EE832D1-2CDF-4EAB-BD93-B0F2033F79C6">
         <File Source="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.IO\Resources\GEKBConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
+      <!-- MacroStabilityInwards -->
+      <Component Id="CalculationConfigurationMacroStabilityInwardsFile" Guid="024995CD-95A8-4238-AE2E-DA8CB8EEEFF2">
+        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd" KeyPath="yes"/>
+      </Component>
       <!-- Piping -->
       <Component Id="CalculationConfigurationPipingFile" Guid="1A1DBB40-B07E-4B64-89A4-33167EB944F9">
         <File Source="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.IO\Resources\PipingConfiguratieSchema.xsd" KeyPath="yes"/>
@@ -73,6 +77,7 @@
       <ComponentRef Id="CalculationConfigurationHeightStructuresFile" />
       <ComponentRef Id="CalculationConfigurationStabilityPointStructuresFile" />
       <ComponentRef Id="CalculationConfigurationGrassCoverErosionInwardsFile" />
+      <ComponentRef Id="CalculationConfigurationMacroStabilityInwardsFile" />
       <ComponentRef Id="CalculationConfigurationPipingFile" />
       <ComponentRef Id="CalculationConfigurationRevetmentFile" />
     </ComponentGroup>

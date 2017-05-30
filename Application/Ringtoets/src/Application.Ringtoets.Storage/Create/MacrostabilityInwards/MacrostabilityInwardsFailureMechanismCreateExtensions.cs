@@ -22,36 +22,35 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="MacrostabilityInwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    internal static class MacrostabilityInwardsFailureMechanismCreateExtensions
+    internal static class MacroStabilityInwardsFailureMechanismCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="MacrostabilityInwardsFailureMechanism"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this MacrostabilityInwardsFailureMechanism mechanism, PersistenceRegistry registry)
+        internal static FailureMechanismEntity Create(this MacroStabilityInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacrostabilityInwards, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacroStabilityInwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (MacrostabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
                 MacrostabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

@@ -35,6 +35,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -68,7 +69,7 @@ namespace Ringtoets.Integration.Data
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
 
-            MacrostabilityInwards = new MacrostabilityInwardsFailureMechanism();
+            MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
             MacrostabilityOutwards = new MacrostabilityOutwardsFailureMechanism();
             Microstability = new MicrostabilityFailureMechanism();
             StabilityStoneCover = new StabilityStoneCoverFailureMechanism();
@@ -106,7 +107,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public MacrostabilityInwardsFailureMechanism MacrostabilityInwards { get; }
+        public MacroStabilityInwardsFailureMechanism MacroStabilityInwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
@@ -214,7 +215,7 @@ namespace Ringtoets.Integration.Data
         {
             yield return PipingFailureMechanism;
             yield return GrassCoverErosionInwards;
-            yield return MacrostabilityInwards;
+            yield return MacroStabilityInwards;
             yield return MacrostabilityOutwards;
             yield return Microstability;
             yield return StabilityStoneCover;
@@ -239,7 +240,7 @@ namespace Ringtoets.Integration.Data
                 case AssessmentSectionComposition.Dike:
                     PipingFailureMechanism.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
-                    MacrostabilityInwards.Contribution = 4;
+                    MacroStabilityInwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
@@ -253,7 +254,7 @@ namespace Ringtoets.Integration.Data
                 case AssessmentSectionComposition.Dune:
                     PipingFailureMechanism.Contribution = 0;
                     GrassCoverErosionInwards.Contribution = 0;
-                    MacrostabilityInwards.Contribution = 0;
+                    MacroStabilityInwards.Contribution = 0;
                     StabilityStoneCover.Contribution = 0;
                     WaveImpactAsphaltCover.Contribution = 0;
                     GrassCoverErosionOutwards.Contribution = 0;
@@ -267,7 +268,7 @@ namespace Ringtoets.Integration.Data
                 case AssessmentSectionComposition.DikeAndDune:
                     PipingFailureMechanism.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
-                    MacrostabilityInwards.Contribution = 4;
+                    MacroStabilityInwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
@@ -290,7 +291,7 @@ namespace Ringtoets.Integration.Data
         {
             yield return PipingFailureMechanism;
             yield return GrassCoverErosionInwards;
-            yield return MacrostabilityInwards;
+            yield return MacroStabilityInwards;
             yield return StabilityStoneCover;
             yield return WaveImpactAsphaltCover;
             yield return GrassCoverErosionOutwards;

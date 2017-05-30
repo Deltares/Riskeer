@@ -32,9 +32,9 @@ namespace Application.Ringtoets.Storage.DbContext
         Piping = 1,
 
         /// <summary>
-        /// Macrostability binnenwaarts - STBI
+        /// Macrostabiliteit binnenwaarts - STBI
         /// </summary>
-        MacrostabilityInwards = 2,
+        MacroStabilityInwards = 2,
 
         /// <summary>
         /// Golfklappen op asfaltbekleding - AGK

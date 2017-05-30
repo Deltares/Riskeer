@@ -46,7 +46,6 @@ namespace Ringtoets.Piping.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
-                Assert.IsInstanceOf<PipingRibbon>(plugin.RibbonCommandHandler);
             }
         }
 

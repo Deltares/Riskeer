@@ -1169,7 +1169,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             FailureMechanismEntity macrostabilityInwards = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.MacrostabilityInwards);
+                isRelevant, FailureMechanismType.MacroStabilityInwards);
             FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.MacrostabilityOutwards);
             FailureMechanismEntity microstability = CreateFailureMechanismEntity(
@@ -1203,7 +1203,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             AssertFailureMechanismEqual(isRelevant, 2, macrostabilityInwards.InputComments,
                                         macrostabilityInwards.OutputComments, macrostabilityInwards.NotRelevantComments,
-                                        section.MacrostabilityInwards);
+                                        section.MacroStabilityInwards);
             AssertFailureMechanismEqual(isRelevant, 2, macrostabilityOutwards.InputComments,
                                         macrostabilityOutwards.OutputComments, macrostabilityOutwards.NotRelevantComments,
                                         section.MacrostabilityOutwards);

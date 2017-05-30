@@ -37,6 +37,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtils;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -240,7 +241,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism);
 
-            MacrostabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacrostabilityInwards;
+            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macrostabilityInwardsFailureMechanism);

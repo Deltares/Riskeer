@@ -43,6 +43,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -51,6 +52,10 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using PipingCalculationScenario = Ringtoets.Piping.Data.PipingCalculationScenario;
+using PipingSemiProbabilisticOutput = Ringtoets.Piping.Data.PipingSemiProbabilisticOutput;
+using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
+using StochasticSoilProfile = Ringtoets.Piping.Data.StochasticSoilProfile;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
@@ -127,8 +132,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
-            AddSections(assessmentSection.MacrostabilityInwards);
-            SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
+            AddSections(assessmentSection.MacroStabilityInwards);
+            SetSectionResults(assessmentSection.MacroStabilityInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityOutwards);
             SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
             AddSections(assessmentSection.Microstability);
@@ -200,13 +205,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (MacrostabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }

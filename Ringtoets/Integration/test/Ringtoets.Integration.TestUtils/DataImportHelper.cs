@@ -35,10 +35,14 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
+using StochasticSoilModelReplaceDataStrategy = Ringtoets.Piping.Plugin.FileImporter.StochasticSoilModelReplaceDataStrategy;
 
 namespace Ringtoets.Integration.TestUtils
 {
@@ -198,7 +202,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Imports the <see cref="StochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
+        /// Imports the <see cref="Piping.Data.StochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
@@ -215,6 +219,58 @@ namespace Ringtoets.Integration.TestUtils
                                                           filePath,
                                                           new ImportMessageProvider(),
                                                           new StochasticSoilModelReplaceDataStrategy(assessmentSection.PipingFailureMechanism)),
+                                                      "StochasticSoilModelImporter");
+                activity.Run();
+                activity.Finish();
+            }
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards Specific Imports
+
+        /// <summary>
+        /// Imports the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> data for the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// of the given <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <remarks>This will import 4 surface lines.</remarks>
+        public static void ImportMacroStabilityInwardsSurfaceLines(AssessmentSection assessmentSection)
+        {
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
+                                                                                   true,
+                                                                                   "DR6_surfacelines.csv"))
+            {
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
+                var activity = new FileImportActivity(new MacroStabilityInwardsSurfaceLinesCsvImporter(assessmentSection.MacroStabilityInwards.SurfaceLines,
+                                                                                        assessmentSection.ReferenceLine,
+                                                                                        filePath,
+                                                                                        new ImportMessageProvider(),
+                                                                                        new RingtoetsMacroStabilityInwardsSurfaceLineReplaceDataStrategy(assessmentSection.MacroStabilityInwards)),
+                                                      "MacroStabilityInwardsSurfaceLinesCsvImporter");
+                activity.Run();
+                activity.Finish();
+            }
+        }
+
+        /// <summary>
+        /// Imports the <see cref="MacroStabilityInwards.Data.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// of the given <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <remarks>This will import 4 soil models with one profile each.</remarks>
+        public static void ImportMacroStabilityInwardsStochasticSoilModels(AssessmentSection assessmentSection)
+        {
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
+                                                                                   true,
+                                                                                   "DR6.soil"))
+            {
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
+                var activity = new FileImportActivity(new MacroStabilityInwards.IO.Importers.StochasticSoilModelImporter(
+                                                          assessmentSection.MacroStabilityInwards.StochasticSoilModels,
+                                                          filePath,
+                                                          new ImportMessageProvider(),
+                                                          new MacroStabilityInwards.Plugin.FileImporter.StochasticSoilModelReplaceDataStrategy(assessmentSection.MacroStabilityInwards)),
                                                       "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();
