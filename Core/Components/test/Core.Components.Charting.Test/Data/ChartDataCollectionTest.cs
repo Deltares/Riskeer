@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Data

@@ -33,7 +33,7 @@ namespace Core.Components.OxyPlot.Converter
     /// </summary>
     public class ChartMultipleLineDataConverter : ChartDataConverter<ChartMultipleLineData, MultipleLineSeries>
     {
-        protected override void SetSeriesItems(ChartMultipleLineData data, MultipleLineSeries series)
+        protected override void SetSeriesData(ChartMultipleLineData data, MultipleLineSeries series)
         {
             series.Lines.Clear();
 

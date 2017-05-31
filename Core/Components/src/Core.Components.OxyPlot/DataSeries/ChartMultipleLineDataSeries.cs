@@ -61,7 +61,7 @@ namespace Core.Components.OxyPlot.DataSeries
         {
             if (!ReferenceEquals(chartMultipleLineData.Lines, drawnLines))
             {
-                converter.ConvertSeriesItems(chartMultipleLineData, this);
+                converter.ConvertSeriesData(chartMultipleLineData, this);
 
                 drawnLines = chartMultipleLineData.Lines;
             }

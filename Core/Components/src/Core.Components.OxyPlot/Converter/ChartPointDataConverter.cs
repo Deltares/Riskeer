@@ -31,7 +31,7 @@ namespace Core.Components.OxyPlot.Converter
     /// </summary>
     public class ChartPointDataConverter : ChartDataConverter<ChartPointData, LineSeries>
     {
-        protected override void SetSeriesItems(ChartPointData data, LineSeries series)
+        protected override void SetSeriesData(ChartPointData data, LineSeries series)
         {
             series.ItemsSource = data.Points.Select(p => new DataPoint(p.X, p.Y));
         }

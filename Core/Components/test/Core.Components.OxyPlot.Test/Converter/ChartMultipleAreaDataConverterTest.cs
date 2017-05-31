@@ -77,7 +77,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             };
 
             // Call
-            converter.ConvertSeriesItems(areaData, multipleAreaSeries);
+            converter.ConvertSeriesData(areaData, multipleAreaSeries);
 
             // Assert
             Assert.AreEqual(2, multipleAreaSeries.Areas.Count);

@@ -125,15 +125,15 @@ namespace Core.Plugins.Chart.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(ChartData nodeData)
         {
-            bool hasFeatures = nodeData.HasData;
-            bool enabled = nodeData.IsVisible && hasFeatures;
+            bool hasData = nodeData.HasData;
+            bool enabled = nodeData.IsVisible && hasData;
             string toolTip;
 
             if (nodeData.IsVisible)
             {
-                toolTip = hasFeatures
+                toolTip = hasData
                               ? ChartResources.ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip
-                              : ChartResources.ChartLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
+                              : ChartResources.ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip;
             }
             else
             {
@@ -159,9 +159,9 @@ namespace Core.Plugins.Chart.Legend
 
         private StrictContextMenuItem CreateZoomToExtentsItem(ChartDataCollection nodeData)
         {
-            ChartData[] chartDatas = GetChartDataRecursively(nodeData).ToArray();
+            ChartData[] chartDatas = nodeData.GetChartDataRecursively().ToArray();
             var isVisible = false;
-            var hasFeatures = false;
+            var hasData = false;
             foreach (ChartData chartData in chartDatas)
             {
 
@@ -171,19 +171,19 @@ namespace Core.Plugins.Chart.Legend
 
                     if (chartData.HasData)
                     {
-                        hasFeatures = true;
+                        hasData = true;
                         break;
                     }
                 }
             }
 
-            bool enabled = isVisible && hasFeatures;
+            bool enabled = isVisible && hasData;
 
             string toolTip;
 
             if (isVisible)
             {
-                toolTip = hasFeatures
+                toolTip = hasData
                               ? ChartResources.ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip
                               : ChartResources.ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisabled_Tooltip;
             }
@@ -193,37 +193,6 @@ namespace Core.Plugins.Chart.Legend
             }
 
             return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
-        }
-
-
-        /// <summary>
-        /// Gets all the <see cref="ChartData"/> recursively in the given <paramref name="chartDataCollection"/>.
-        /// </summary>
-        /// <param name="chartDataCollection">The collection to get all <see cref="ChartData"/> from.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ChartData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartDataCollection"/> is <c>null</c>.</exception>
-        public static IEnumerable<ChartData> GetChartDataRecursively(ChartDataCollection chartDataCollection)
-        {
-            if (chartDataCollection == null)
-            {
-                throw new ArgumentNullException(nameof(chartDataCollection));
-            }
-
-            var chartDataList = new List<ChartData>();
-
-            foreach (ChartData chartData in chartDataCollection.Collection)
-            {
-                var nestedChartDataCollection = chartData as ChartDataCollection;
-                if (nestedChartDataCollection != null)
-                {
-                    chartDataList.AddRange(GetChartDataRecursively(nestedChartDataCollection));
-                    continue;
-                }
-
-                chartDataList.Add(chartData);
-            }
-
-            return chartDataList;
         }
 
         private static object[] GetChildNodeObjects(ChartDataCollection chartDataCollection)

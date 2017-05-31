@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Data
@@ -95,10 +96,5 @@ namespace Core.Components.Charting.Test.Data
             const string expectedMessage = "A name must be set to the chart data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
-    }
-
-    public class TestChartData : ChartData
-    {
-        public TestChartData(string name) : base(name) {}
     }
 }

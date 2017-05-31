@@ -304,7 +304,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_InvisibleFeatureBasedMapDataInChartDataCollection_ZoomToAllDisabled()
+        public void ContextMenuStrip_InvisibleChartDataInChartDataCollection_ZoomToAllDisabled()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
@@ -332,7 +332,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_VisibleFeatureBasedMapDataWithoutFeaturesInChartDataCollection_ZoomToAllDisabled()
+        public void ContextMenuStrip_VisibleChartDataWithoutFeaturesInChartDataCollection_ZoomToAllDisabled()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
@@ -370,14 +370,14 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_ChartDataCollectionWithVisibleFeatureBasedmapData_ZoomToAllEnabled()
+        public void ContextMenuStrip_ChartDataCollectionWithVisibleChartData_ZoomToAllEnabled()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
             mocks.ReplayAll();
 
-            var mapPointData = new ChartPointData("test")
+            var chartPointData = new ChartPointData("test")
             {
                 IsVisible = true,
                 Points = new[]
@@ -386,7 +386,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 }
             };
             var chartDataCollection = new ChartDataCollection("test data");
-            chartDataCollection.Add(mapPointData);
+            chartDataCollection.Add(chartPointData);
 
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))

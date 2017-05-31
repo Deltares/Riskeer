@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
 using OxyPlot.Series;
@@ -39,7 +40,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = new TestSeries();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertSeriesItems(null, series);
+            TestDelegate test = () => testConverter.ConvertSeriesData(null, series);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
@@ -54,7 +55,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var chartData = new TestChartData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertSeriesItems(chartData, null);
+            TestDelegate test = () => testConverter.ConvertSeriesData(chartData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -128,14 +129,9 @@ namespace Core.Components.OxyPlot.Test.Converter
 
         private class TestSeries : LineSeries {}
 
-        private class TestChartData : ChartData
-        {
-            public TestChartData(string name) : base(name) {}
-        }
-
         private class TestChartDataConverter : ChartDataConverter<TestChartData, TestSeries>
         {
-            protected override void SetSeriesItems(TestChartData data, TestSeries series) {}
+            protected override void SetSeriesData(TestChartData data, TestSeries series) {}
 
             protected override void SetSeriesStyle(TestChartData data, TestSeries series) {}
         }

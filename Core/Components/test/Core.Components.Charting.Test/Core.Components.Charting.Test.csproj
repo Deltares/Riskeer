@@ -85,6 +85,10 @@
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Charting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Charting.TestUtil\Core.Components.Charting.TestUtil.csproj">
+      <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
+      <Name>Core.Components.Charting.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

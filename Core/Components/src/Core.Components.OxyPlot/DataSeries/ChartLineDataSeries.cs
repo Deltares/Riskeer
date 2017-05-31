@@ -58,7 +58,7 @@ namespace Core.Components.OxyPlot.DataSeries
         {
             if (!ReferenceEquals(chartLineData.Points, drawnPoints))
             {
-                converter.ConvertSeriesItems(chartLineData, this);
+                converter.ConvertSeriesData(chartLineData, this);
 
                 drawnPoints = chartLineData.Points;
             }

@@ -59,7 +59,7 @@ namespace Core.Components.OxyPlot.DataSeries
         {
             if (!ReferenceEquals(chartMultipleAreaData.Areas, drawnAreas))
             {
-                converter.ConvertSeriesItems(chartMultipleAreaData, this);
+                converter.ConvertSeriesData(chartMultipleAreaData, this);
 
                 drawnAreas = chartMultipleAreaData.Areas;
             }

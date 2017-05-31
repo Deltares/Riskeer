@@ -66,7 +66,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             };
 
             // Call
-            converter.ConvertSeriesItems(areaData, areaSeries);
+            converter.ConvertSeriesData(areaData, areaSeries);
 
             // Assert
             DataPoint[] expectedPoints = points.Select(t => new DataPoint(t.X, t.Y)).ToArray();

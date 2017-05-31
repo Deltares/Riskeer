@@ -22,7 +22,7 @@
 namespace Core.Components.OxyPlot.DataSeries
 {
     /// <summary>
-    /// Interface for item based chart data series.
+    /// Interface for chart data series.
     /// </summary>
     public interface IChartDataSeries
     {

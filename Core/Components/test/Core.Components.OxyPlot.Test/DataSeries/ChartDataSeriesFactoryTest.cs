@@ -21,6 +21,7 @@
 
 using System;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.DataSeries;
 using NUnit.Framework;
 
@@ -100,11 +101,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
-        }
-
-        private class TestChartData : ChartData
-        {
-            public TestChartData(string name) : base(name) {}
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Core.Components.OxyPlot.Converter
     /// </summary>
     public class ChartMultipleAreaDataConverter : ChartDataConverter<ChartMultipleAreaData, MultipleAreaSeries>
     {
-        protected override void SetSeriesItems(ChartMultipleAreaData data, MultipleAreaSeries series)
+        protected override void SetSeriesData(ChartMultipleAreaData data, MultipleAreaSeries series)
         {
             series.Areas.Clear();
 

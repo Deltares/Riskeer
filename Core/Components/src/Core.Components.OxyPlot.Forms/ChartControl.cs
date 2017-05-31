@@ -166,12 +166,12 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Defines the area taken up by the visible map-data based on the provided map-data.
+        /// Defines the area taken up by the visible chart data based on the provided chart data.
         /// </summary>
         /// <param name="chartData">The data to determine the visible extent for.</param>
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/> is
-        /// not part of the drawn map features.</exception>
+        /// not part of the drawn chart data.</exception>
         private Extent CreateEnvelopeForAllVisibleLayers(ChartData chartData)
         {
             var collection = chartData as ChartDataCollection;
@@ -209,18 +209,18 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Defines the area taken up by the visible map-data based on the provided map-data.
+        /// Defines the area taken up by the visible chart data based on the provided chart data.
         /// </summary>
-        /// <param name="chartData">The data to determine the visible extent for.</param>
+        /// <param name="chartDataCollection">The data to determine the visible extent for.</param>
         /// <returns>The area definition.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/> or
-        /// any of its children is not part of the drawn map features.</exception>
-        private Extent CreateEnvelopeForAllVisibleLayers(ChartDataCollection chartData)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="chartDataCollection"/> or
+        /// any of its children is not part of the drawn chart data.</exception>
+        private Extent CreateEnvelopeForAllVisibleLayers(ChartDataCollection chartDataCollection)
         {
             var envelope = new Extent();
-            foreach (ChartData childMapData in chartData.Collection)
+            foreach (ChartData childChartData in chartDataCollection.Collection)
             {
-                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));
+                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childChartData));
             }
             return envelope;
         }
@@ -346,7 +346,7 @@ namespace Core.Components.OxyPlot.Forms
         private class DrawnChartData
         {
             /// <summary>
-            /// The item based chart data which the drawn <see cref="ChartDataSeries"/> is based upon.
+            /// The chart data which the drawn <see cref="ChartDataSeries"/> is based upon.
             /// </summary>
             public ChartData ChartData { get; set; }
 

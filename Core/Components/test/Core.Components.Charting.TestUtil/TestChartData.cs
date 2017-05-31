@@ -28,6 +28,17 @@ namespace Core.Components.Charting.TestUtil
     /// </summary>
     public class TestChartData : ChartData
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestChartData"/>.
+        /// </summary>
+        /// <param name="name">The name for the <see cref="TestChartData"/>.</param>
+        public TestChartData(string name) : base(name) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestChartData"/>.
+        /// </summary>
         public TestChartData() : base("test data") {}
+
+        public override bool HasData { get; }
     }
 }

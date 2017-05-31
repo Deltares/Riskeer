@@ -78,7 +78,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             };
 
             // Call
-            converter.ConvertSeriesItems(lineData, multipleLineSeries);
+            converter.ConvertSeriesData(lineData, multipleLineSeries);
 
             // Assert
             Assert.AreEqual(2, multipleLineSeries.Lines.Count);

@@ -70,6 +70,6 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Gets a value indicating whether the <see cref="ChartData"/> has data.
         /// </summary>
-        public virtual bool HasData { get; }
+        public abstract bool HasData { get; }
     }
 }

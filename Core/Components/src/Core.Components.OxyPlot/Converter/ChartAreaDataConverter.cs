@@ -31,7 +31,7 @@ namespace Core.Components.OxyPlot.Converter
     /// </summary>
     public class ChartAreaDataConverter : ChartDataConverter<ChartAreaData, AreaSeries>
     {
-        protected override void SetSeriesItems(ChartAreaData data, AreaSeries series)
+        protected override void SetSeriesData(ChartAreaData data, AreaSeries series)
         {
             series.Points.Clear();
             series.Points2.Clear();

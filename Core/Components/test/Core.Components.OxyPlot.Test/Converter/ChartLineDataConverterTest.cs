@@ -68,7 +68,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             };
 
             // Call
-            converter.ConvertSeriesItems(lineData, lineSeries);
+            converter.ConvertSeriesData(lineData, lineSeries);
 
             // Assert
             CollectionAssert.AreEqual(points.Select(p => new DataPoint(p.X, p.Y)), lineSeries.ItemsSource);
