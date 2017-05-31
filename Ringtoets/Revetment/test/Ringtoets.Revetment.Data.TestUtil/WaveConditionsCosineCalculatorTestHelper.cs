@@ -43,18 +43,18 @@ namespace Ringtoets.Revetment.TestUtil
                     {
                         LastErrorFileContent = "LastErrorFileContent"
                     }, $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContent")
-                    .SetName("{m:20}(LastErrorFileContent)");
+                    .SetName("{m}(LastErrorFileContent)");
                 yield return new TestCaseData(new TestWaveConditionsCosineCalculator
                     {
                         EndInFailure = true
                     }, "Er is geen foutrapport beschikbaar.")
-                    .SetName("{m:20}(EndInFailure)");
+                    .SetName("{m}(EndInFailure)");
                 yield return new TestCaseData(new TestWaveConditionsCosineCalculator
                     {
                         EndInFailure = true,
                         LastErrorFileContent = "LastErrorFileContentAndEndInFailure"
                     }, $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContentAndEndInFailure")
-                    .SetName("{m:20}(LastErrorFileContentAndEndInFailure)");
+                    .SetName("{m}(LastErrorFileContentAndEndInFailure)");
             }
         }
     }
