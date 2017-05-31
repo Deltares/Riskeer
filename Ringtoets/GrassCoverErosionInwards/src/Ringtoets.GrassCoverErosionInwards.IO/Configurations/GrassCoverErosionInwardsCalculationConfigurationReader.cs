@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -88,9 +89,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 DikeProfileId = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),
-                DikeHeightCalculationType = (ReadHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadHydraulicLoadsCalculationTypeConverter>(
+                DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationHydraulicLoadsCalculationTypeConverter>(
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
-                OvertoppingRateCalculationType = (ReadHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ReadHydraulicLoadsCalculationTypeConverter>(
+                OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationHydraulicLoadsCalculationTypeConverter>(
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement),
                 UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
                 BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),

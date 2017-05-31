@@ -22,17 +22,19 @@
 using System;
 using System.ComponentModel;
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
 {
     [TestFixture]
-    public class ReadHydraulicLoadsCalculationTypeConverterTest
+    public class ConfigurationHydraulicLoadsCalculationTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -42,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -55,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertTo_NotString_ReturnFalse()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(object));
@@ -65,13 +67,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        [TestCase(ReadHydraulicLoadsCalculationType.NoCalculation, "niet")]
-        [TestCase(ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, "norm")]
-        [TestCase(ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
-        public void ConvertTo_VariousCases_ReturnExpectedValues(ReadHydraulicLoadsCalculationType value, string expectedResult)
+        [TestCase(ConfigurationHydraulicLoadsCalculationType.NoCalculation, "niet")]
+        [TestCase(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, "norm")]
+        [TestCase(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
+        public void ConvertTo_VariousCases_ReturnExpectedValues(ConfigurationHydraulicLoadsCalculationType value, string expectedResult)
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             object result = converter.ConvertTo(value, typeof(string));
@@ -84,9 +86,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_InvalidReadHydraulicLoadsCalculationTypeValue_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
-            const ReadHydraulicLoadsCalculationType invalidValue = (ReadHydraulicLoadsCalculationType) 9999999;
+            const ConfigurationHydraulicLoadsCalculationType invalidValue = (ConfigurationHydraulicLoadsCalculationType) 9999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
@@ -99,10 +101,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(ReadHydraulicLoadsCalculationType.NoCalculation, typeof(object));
+            TestDelegate call = () => converter.ConvertTo(ConfigurationHydraulicLoadsCalculationType.NoCalculation, typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -112,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             bool canConvertFromString = converter.CanConvertFrom(typeof(string));
@@ -125,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void CanConvertFrom_NonString_ReturnFalse()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(object));
@@ -135,13 +137,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         }
 
         [Test]
-        [TestCase("niet", ReadHydraulicLoadsCalculationType.NoCalculation)]
-        [TestCase("norm", ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm)]
-        [TestCase("doorsnede", ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability)]
-        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ReadHydraulicLoadsCalculationType expectedResult)
+        [TestCase("niet", ConfigurationHydraulicLoadsCalculationType.NoCalculation)]
+        [TestCase("norm", ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase("doorsnede", ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ConfigurationHydraulicLoadsCalculationType expectedResult)
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             object result = converter.ConvertFrom(value);
@@ -154,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test
         public void ConvertFrom_UnsupportedString_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ReadHydraulicLoadsCalculationTypeConverter();
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("<unsupported string value>");

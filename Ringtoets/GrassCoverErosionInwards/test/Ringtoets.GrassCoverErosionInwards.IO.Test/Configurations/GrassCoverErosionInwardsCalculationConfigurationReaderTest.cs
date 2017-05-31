@@ -325,8 +325,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual("some_dike_profile", calculation.DikeProfileId);
             Assert.AreEqual(67.1, calculation.Orientation);
             Assert.AreEqual(3.45, calculation.DikeHeight);
-            Assert.AreEqual(ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
-            Assert.AreEqual(ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, calculation.OvertoppingRateCalculationType);
+            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
+            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, calculation.OvertoppingRateCalculationType);
             Assert.AreEqual(true, calculation.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.BreakWaterType);
             Assert.AreEqual(1.234, calculation.BreakWaterHeight);

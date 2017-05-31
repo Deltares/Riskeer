@@ -24,25 +24,25 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO
+namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Converts <see cref="ReadHydraulicLoadsCalculationType"/> to <see cref="string"/> and back.
+    /// Converts <see cref="ConfigurationHydraulicLoadsCalculationType"/> to <see cref="string"/> and back.
     /// </summary>
-    public class ReadHydraulicLoadsCalculationTypeConverter : TypeConverter
+    public class ConfigurationHydraulicLoadsCalculationTypeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var readHydraulicLoadsCalculationType = (ReadHydraulicLoadsCalculationType) value;
+                var readHydraulicLoadsCalculationType = (ConfigurationHydraulicLoadsCalculationType) value;
                 switch (readHydraulicLoadsCalculationType)
                 {
-                    case ReadHydraulicLoadsCalculationType.NoCalculation:
+                    case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
                         return Resources.ReadHydraulicLoadsCalculationTypeConverter_NoCalculation;
-                    case ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm:
+                    case ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm:
                         return Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm;
-                    case ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability:
+                    case ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability:
                         return Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability;
                     default:
                         throw new NotSupportedException();
@@ -67,15 +67,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO
             {
                 if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_NoCalculation)
                 {
-                    return ReadHydraulicLoadsCalculationType.NoCalculation;
+                    return ConfigurationHydraulicLoadsCalculationType.NoCalculation;
                 }
                 if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm)
                 {
-                    return ReadHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
+                    return ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
                 }
                 if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
                 {
-                    return ReadHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    return ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
                 }
             }
             return base.ConvertFrom(context, culture, value);

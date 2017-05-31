@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
@@ -50,11 +51,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
-                HydraulicLoadsCalculationTypeAsXmlString((ReadHydraulicLoadsCalculationType) input.DikeHeightCalculationType));
+                HydraulicLoadsCalculationTypeAsXmlString((ConfigurationHydraulicLoadsCalculationType) input.DikeHeightCalculationType));
 
             writer.WriteElementString(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement,
-                HydraulicLoadsCalculationTypeAsXmlString((ReadHydraulicLoadsCalculationType) input.OvertoppingRateCalculationType));
+                HydraulicLoadsCalculationTypeAsXmlString((ConfigurationHydraulicLoadsCalculationType) input.OvertoppingRateCalculationType));
 
             WriteWaveReduction(input, writer);
 
@@ -111,9 +112,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 XmlConvert.ToString(input.DikeHeight));
         }
 
-        private static string HydraulicLoadsCalculationTypeAsXmlString(ReadHydraulicLoadsCalculationType type)
+        private static string HydraulicLoadsCalculationTypeAsXmlString(ConfigurationHydraulicLoadsCalculationType type)
         {
-            return new ReadHydraulicLoadsCalculationTypeConverter().ConvertToInvariantString(type);
+            return new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertToInvariantString(type);
         }
 
         private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)

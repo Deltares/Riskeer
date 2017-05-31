@@ -25,8 +25,7 @@ using Ringtoets.Common.IO.Configurations;
 namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
-    /// Class that represents a grass cover erosion inwards calculation that is read via
-    /// <see cref="GrassCoverErosionInwardsCalculationConfigurationReader"/>.
+    /// Configuration of a grass cover erosion inwards calculation.
     /// </summary>
     public class ReadGrassCoverErosionInwardsCalculation : IConfigurationItem
     {
@@ -84,13 +83,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         /// Gets the value for how the dike height should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
-        public ReadHydraulicLoadsCalculationType? DikeHeightCalculationType { get; }
+        public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; }
 
         /// <summary>
         /// Gets the value for how the overtopping rate should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
-        public ReadHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; }
+        public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; }
 
         /// <summary>
         /// Gets the value indicating if the break water for the grass cover erosion inwards
@@ -161,12 +160,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeHeightCalculationType"/>.
             /// </summary>
-            public ReadHydraulicLoadsCalculationType? DikeHeightCalculationType { get; set; }
+            public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.OvertoppingRateCalculationType"/>.
             /// </summary>
-            public ReadHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
+            public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
 
             /// <summary>
             /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.UseBreakWater"/>.
