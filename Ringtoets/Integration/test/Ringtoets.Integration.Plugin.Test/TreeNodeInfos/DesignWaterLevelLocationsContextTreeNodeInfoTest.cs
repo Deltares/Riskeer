@@ -283,6 +283,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+
+                var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator
+                {
+                    Converged = false
+                };
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -297,11 +304,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
-                        TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
-                        testDesignWaterLevelCalculator.Converged = false;
-
                         // When
                         Action call = () => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
 

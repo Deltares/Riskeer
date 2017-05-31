@@ -391,6 +391,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+
+                var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -400,18 +404,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
-                        var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-
                         // Call
                         contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
-                        TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
-
-                        Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                         double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
@@ -448,6 +447,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+
+                var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator
+                {
+                    Converged = false
+                };
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -457,11 +463,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
-                        TestDesignWaterLevelCalculator testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
-                        testDesignWaterLevelCalculator.Converged = false;
-
                         // When
                         Action call = () => contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 

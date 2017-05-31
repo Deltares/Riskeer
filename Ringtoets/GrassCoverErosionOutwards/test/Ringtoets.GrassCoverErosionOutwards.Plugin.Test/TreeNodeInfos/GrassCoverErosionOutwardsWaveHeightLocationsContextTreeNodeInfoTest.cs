@@ -387,16 +387,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     var gui = mockRepository.Stub<IGui>();
                     gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                     gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+
+                    var testWaveHeightCalculator = new TestWaveHeightCalculator
+                    {
+                        EndInFailure = true
+                    };
+                    var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
-                        ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator.EndInFailure = true;
-
                         // When
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
@@ -435,6 +440,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+
+                var testWaveHeightCalculator = new TestWaveHeightCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -444,18 +453,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
-                        var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
-
                         // Call
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Assert
-                        TestWaveHeightCalculator testWaveHeightCalculator = testFactory.WaveHeightCalculator;
                         WaveHeightCalculationInput waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
-
-                        Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                         double expectedProbability = assessmentSection.FailureMechanismContribution.Norm

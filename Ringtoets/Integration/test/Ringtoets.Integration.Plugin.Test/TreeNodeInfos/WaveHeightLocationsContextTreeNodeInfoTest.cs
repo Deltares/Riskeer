@@ -284,6 +284,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+
+                var testWaveHeightCalculator = new TestWaveHeightCalculator
+                {
+                    Converged = false
+                };
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -298,11 +305,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig())
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
-                        TestWaveHeightCalculator testWaveHeightCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
-                        testWaveHeightCalculator.Converged = false;
-
                         // When
                         Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
