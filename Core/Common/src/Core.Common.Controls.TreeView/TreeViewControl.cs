@@ -80,12 +80,14 @@ namespace Core.Common.Controls.TreeView
         private const string stateImageLocationString = "StateImage";
         private const int uncheckedCheckBoxStateImageIndex = 0;
         private const int checkedCheckBoxStateImageIndex = 1;
+        private const int updateTimerInterval = 10;
+
+        private object data;
+        private Timer updateTimer;
 
         private readonly DragDropHandler dragDropHandler = new DragDropHandler();
         private readonly Dictionary<Type, TreeNodeInfo> tagTypeTreeNodeInfoLookup = new Dictionary<Type, TreeNodeInfo>();
         private readonly Dictionary<TreeNode, TreeNodeObserver> treeNodeObserverLookup = new Dictionary<TreeNode, TreeNodeObserver>();
-
-        private object data;
 
         public event EventHandler DataDoubleClick;
         public event EventHandler SelectedDataChanged;
@@ -123,6 +125,8 @@ namespace Core.Common.Controls.TreeView
             treeView.ItemDrag += TreeViewItemDrag;
             treeView.DragLeave += TreeViewDragLeave;
             treeView.AfterSelect += TreeViewAfterSelect;
+
+            InitializeUpdateTimer();
         }
 
         /// <summary>
@@ -531,6 +535,8 @@ namespace Core.Common.Controls.TreeView
                 throw new InvalidOperationException("No tree node info registered");
             }
 
+            StartUpdateTimer();
+
             // First of all refresh the child nodes as the other logic below might depend on the presence of child nodes
             RefreshChildNodes(treeNode, treeNodeInfo);
 
@@ -933,6 +939,40 @@ namespace Core.Common.Controls.TreeView
         private void OnSelectedDataChanged()
         {
             SelectedDataChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region Update timer
+
+        private void InitializeUpdateTimer()
+        {
+            updateTimer = new Timer
+            {
+                Interval = updateTimerInterval
+            };
+
+            updateTimer.Tick += UpdateTimerOnTick;
+        }
+
+        private void StartUpdateTimer()
+        {
+            if (updateTimer.Enabled)
+            {
+                updateTimer.Stop();
+            }
+            else
+            {
+                treeView.BeginUpdate();
+            }
+
+            updateTimer.Start();
+        }
+
+        private void UpdateTimerOnTick(object sender, EventArgs eventArgs)
+        {
+            treeView.EndUpdate();
+            updateTimer.Stop();
         }
 
         #endregion
