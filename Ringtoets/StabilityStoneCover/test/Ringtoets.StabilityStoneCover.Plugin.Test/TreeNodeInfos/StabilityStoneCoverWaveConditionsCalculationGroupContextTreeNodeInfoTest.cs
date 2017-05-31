@@ -42,6 +42,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -924,9 +925,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -982,9 +985,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -1030,9 +1034,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -1108,9 +1114,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call

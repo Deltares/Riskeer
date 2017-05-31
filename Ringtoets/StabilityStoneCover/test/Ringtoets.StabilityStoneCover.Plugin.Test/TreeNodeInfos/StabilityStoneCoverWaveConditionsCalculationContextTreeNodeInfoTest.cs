@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -1212,8 +1213,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculation_WhenCalculating_ThenCalculationReturnsResult()
         {
             // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydroDatabasePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
@@ -1253,11 +1253,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When

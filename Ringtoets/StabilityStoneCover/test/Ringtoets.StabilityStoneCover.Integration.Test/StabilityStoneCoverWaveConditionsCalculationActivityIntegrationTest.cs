@@ -30,13 +30,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
@@ -82,9 +80,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => activity.Run();
@@ -94,9 +93,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    Assert.AreEqual(string.Format("Validatie mislukt: Fout bij het lezen van bestand '{0}': het bestand bestaat niet.", testFilePath), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[1]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -116,9 +115,11 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var progessTexts = new List<string>();
                 activity.ProgressChanged += (sender, args) => { progessTexts.Add(activity.ProgressText); };
@@ -131,7 +132,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 int totalSteps = waterLevels.Length * 2;
                 for (var i = 0; i < totalSteps; i++)
                 {
-                    string text = string.Format("Stap {0} van {1} | Waterstand '{2}' berekenen.", i + 1, totalSteps, waterLevels[i % waterLevels.Length]);
+                    string text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' berekenen.";
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }
@@ -142,6 +143,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         public void Run_Always_InputPropertiesCorrectlySendToService()
         {
             // Setup
+            const int calculators = 6;
             var mockRepository = new MockRepository();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
 
@@ -152,24 +154,23 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     validFilePath,
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     assessmentSectionStub);
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator).Repeat.Times(calculators);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestWaveConditionsCosineCalculator testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-
                 // Call
                 activity.Run();
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(6, testWaveConditionsInputs.Length);
+                Assert.AreEqual(calculators, testWaveConditionsInputs.Length);
 
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
                 WaveConditionsInput input = calculation.InputParameters;
-
-                Assert.AreEqual(testDataPath, testWaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory);
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < testWaveConditionsInputs.Length / 2; i++)
@@ -220,9 +221,12 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.ProgressChanged += (sender, args) =>
                 {
@@ -240,15 +244,15 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
 
                     Assert.AreEqual(9, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken gestart.", calculation.Name), msgs[3]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, firstWaterLevel), msgs[4]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' gestart.", msgs[4]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, firstWaterLevel), msgs[6]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken beëindigd.", calculation.Name), msgs[7]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[8]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' beëindigd.", msgs[6]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken beëindigd.", msgs[7]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[8]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
@@ -270,9 +274,11 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.ProgressChanged += (sender, args) =>
                 {
@@ -290,26 +296,26 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
 
                     Assert.AreEqual(20, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken gestart.", calculation.Name), msgs[3]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevels[0]), msgs[4]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[0]}' gestart.", msgs[4]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevels[0]), msgs[6]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevels[1]), msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[0]}' beëindigd.", msgs[6]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[1]}' gestart.", msgs[7]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[8]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevels[1]), msgs[9]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevels[2]), msgs[10]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[1]}' beëindigd.", msgs[9]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[2]}' gestart.", msgs[10]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevels[2]), msgs[12]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken beëindigd.", calculation.Name), msgs[13]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor zuilen gestart.", calculation.Name), msgs[14]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevels[0]), msgs[15]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[2]}' beëindigd.", msgs[12]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken beëindigd.", msgs[13]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen gestart.", msgs[14]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[0]}' gestart.", msgs[15]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[16]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevels[0]), msgs[17]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor zuilen beëindigd.", calculation.Name), msgs[18]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[19]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[0]}' beëindigd.", msgs[17]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen beëindigd.", msgs[18]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[19]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
@@ -330,9 +336,11 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.ProgressChanged += (sender, args) =>
                 {
@@ -367,9 +375,11 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 activity.Run();
@@ -389,30 +399,32 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         public void Run_ErrorInCalculation_ActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
+            var mockRepository = new MockRepository();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
-            using (new HydraRingCalculatorFactoryConfig())
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator
             {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.EndInFailure = endInFailure;
-                calculator.LastErrorFileContent = lastErrorFileContent;
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            }).Repeat.Times(calculation.InputParameters.WaterLevels.Count());
 
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
+                                                                                    validFilePath,
+                                                                                    failureMechanism,
+                                                                                    AssessmentSectionHelper.CreateAssessmentSectionStub(
+                                                                                        failureMechanism, mockRepository, validFilePath));
+            mockRepository.ReplayAll();
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
                 // Call
                 activity.Run();
 
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -428,13 +440,15 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = true
+            }).Repeat.Times(calculation.InputParameters.WaterLevels.Count());
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.EndInFailure = true;
-
                 // Call
                 activity.Run();
 
