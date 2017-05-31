@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -1637,24 +1639,14 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        public void GivenObservableDataOnTreeControl_WhenObserversNotified_ThenNodeChildNodesOrderUpdated()
+        [TestCaseSource(nameof(GetDataModifiers))]
+        public void GivenObservableDataOnTreeControlThatIsModified_WhenObserversNotified_ThenNodeChildNodesUpdated(DataModifier dataModifier)
         {
             // Given
             var observable = new TestObservable();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var a = new object();
-                var b = new object();
-                var c = new object();
-
-                object[] dataItems =
-                {
-                    a,
-                    b,
-                    c
-                };
-
                 var treeChildNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object)
@@ -1662,7 +1654,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(IObservable),
-                    ChildNodeObjects = o => dataItems
+                    ChildNodeObjects = o => dataModifier.Data
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.RegisterTreeNodeInfo(treeChildNodeInfo);
@@ -1670,22 +1662,18 @@ namespace Core.Common.Controls.TreeView.Test
 
                 TreeNode node = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes[0];
 
-                dataItems[0] = c;
-                dataItems[1] = b;
-                dataItems[2] = a;
+                object[] originalData = dataModifier.Data;
+
+                dataModifier.ModifyData();
 
                 // Precondition
-                Assert.AreSame(a, node.Nodes[0].Tag);
-                Assert.AreSame(b, node.Nodes[1].Tag);
-                Assert.AreSame(c, node.Nodes[2].Tag);
+                TestHelper.AssertCollectionAreSame(originalData, node.Nodes.Cast<TreeNode>().Select(n => n.Tag));
 
                 // When
                 observable.NotifyObservers();
 
                 // Then
-                Assert.AreSame(c, node.Nodes[0].Tag);
-                Assert.AreSame(b, node.Nodes[1].Tag);
-                Assert.AreSame(a, node.Nodes[2].Tag);
+                TestHelper.AssertCollectionAreSame(dataModifier.Data, node.Nodes.Cast<TreeNode>().Select(n => n.Tag));
             }
         }
 
@@ -1752,8 +1740,7 @@ namespace Core.Common.Controls.TreeView.Test
         [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_SelectThatNode(
-            bool canRenameNode)
+        public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_SelectThatNode(bool canRenameNode)
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -1848,6 +1835,82 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 TreeNode treeNode = treeView.Nodes[0];
                 Assert.AreEqual(expandOnCreate, treeNode.IsExpanded);
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GetDataModifiers()
+        {
+            var a = new object();
+            var b = new object();
+            var c = new object();
+
+            yield return new TestCaseData(new DataModifier(
+                                              new List<object>
+                                              {
+                                                  a,
+                                                  b,
+                                                  c
+                                              }, items => items.Remove(a))
+            ).SetName("FirstItemRemoved");
+
+            yield return new TestCaseData(new DataModifier(
+                                              new List<object>
+                                              {
+                                                  a,
+                                                  b,
+                                                  c
+                                              }, items => items.Remove(b))
+            ).SetName("MiddleItemRemoved");
+
+            yield return new TestCaseData(new DataModifier(
+                                              new List<object>
+                                              {
+                                                  a,
+                                                  b,
+                                                  c
+                                              }, items => items.Remove(c))
+            ).SetName("LastItemRemoved");
+
+            yield return new TestCaseData(new DataModifier(
+                                              new List<object>
+                                              {
+                                                  a,
+                                                  b,
+                                                  c
+                                              }, items => items.Clear())
+            ).SetName("AllItemsRemoved");
+        }
+
+        /// <summary>
+        /// Helper class for performing data modifications.
+        /// </summary>
+        public class DataModifier
+        {
+            private readonly IList<object> data;
+            private readonly Action<IList<object>> modificationAction;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="DataModifier"/>.
+            /// </summary>
+            /// <param name="data">The data to modify.</param>
+            /// <param name="modificationAction">The modification action to perform.</param>
+            public DataModifier(IList<object> data, Action<IList<object>> modificationAction)
+            {
+                this.data = data;
+                this.modificationAction = modificationAction;
+            }
+
+            /// <summary>
+            /// Gets the data (before or after modification).
+            /// </summary>
+            public object[] Data => data.ToArray();
+
+            /// <summary>
+            /// Modifies the data.
+            /// </summary>
+            public void ModifyData()
+            {
+                modificationAction(data);
             }
         }
     }

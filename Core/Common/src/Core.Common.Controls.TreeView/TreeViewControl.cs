@@ -638,7 +638,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             // Remove any outdated nodes at the end
-            IEnumerable<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().Skip(newChildNodeObjects.Length);
+            IEnumerable<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().Skip(newChildNodeObjects.Length).ToList();
             foreach (TreeNode outdatedNode in outdatedTreeNodes)
             {
                 treeNode.Nodes.Remove(outdatedNode);
