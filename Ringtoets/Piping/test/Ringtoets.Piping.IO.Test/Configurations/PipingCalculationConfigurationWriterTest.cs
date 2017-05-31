@@ -29,10 +29,10 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Integration.TestUtils;
-using Ringtoets.Piping.IO.Exporters;
+using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.Exporters
+namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationWriterTest

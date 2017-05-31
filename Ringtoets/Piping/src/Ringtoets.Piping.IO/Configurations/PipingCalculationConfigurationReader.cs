@@ -27,16 +27,15 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.IO.Properties;
-using Ringtoets.Piping.IO.Schema;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.Readers
+namespace Ringtoets.Piping.IO.Configurations
 {
     /// <summary>
     /// This class reads a piping calculation configuration from XML and creates a collection of corresponding
-    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="ReadPipingCalculation"/>.
+    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="PipingCalculationConfiguration"/>.
     /// </summary>
-    public class PipingCalculationConfigurationReader : CalculationConfigurationReader<ReadPipingCalculation>
+    public class PipingCalculationConfigurationReader : CalculationConfigurationReader<PipingCalculationConfiguration>
     {
         private const string stochastSchemaName = "StochastSchema.xsd";
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
@@ -67,11 +66,10 @@ namespace Ringtoets.Piping.IO.Readers
                        }
                    }) {}
 
-        protected override ReadPipingCalculation ParseCalculationElement(XElement calculationElement)
+        protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var constructionProperties = new ReadPipingCalculation.ConstructionProperties
+            var calculation = new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLine = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
@@ -84,18 +82,18 @@ namespace Ringtoets.Piping.IO.Readers
             XElement phreaticLevelExitElement = calculationElement.GetStochastElement(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             if (phreaticLevelExitElement != null)
             {
-                constructionProperties.PhreaticLevelExitMean = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
-                constructionProperties.PhreaticLevelExitStandardDeviation = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
+                calculation.PhreaticLevelExitMean = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
+                calculation.PhreaticLevelExitStandardDeviation = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
             XElement dampingFactorExitElement = calculationElement.GetStochastElement(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
             if (dampingFactorExitElement != null)
             {
-                constructionProperties.DampingFactorExitMean = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
-                constructionProperties.DampingFactorExitStandardDeviation = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
+                calculation.DampingFactorExitMean = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
+                calculation.DampingFactorExitStandardDeviation = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
             }
 
-            return new ReadPipingCalculation(constructionProperties);
+            return calculation;
         }
     }
 }

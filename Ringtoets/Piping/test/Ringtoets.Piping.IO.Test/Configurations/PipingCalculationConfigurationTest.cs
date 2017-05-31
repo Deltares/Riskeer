@@ -22,33 +22,35 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Piping.IO.Readers;
+using Ringtoets.Piping.IO.Configurations;
 
-namespace Ringtoets.Piping.IO.Test.Readers
+namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
-    public class ReadPipingCalculationTest
+    public class PipingCalculationConfigurationTest
     {
         [Test]
         public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ReadPipingCalculation(null);
+            TestDelegate test = () => new PipingCalculationConfiguration(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("constructionProperties", paramName);
+            Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
         {
+            // Setup 
+            var name = "some name";
+
             // Call
-            var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties());
+            var readPipingCalculation = new PipingCalculationConfiguration(name);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readPipingCalculation);
-            Assert.IsNull(readPipingCalculation.Name);
+            Assert.AreEqual(name, readPipingCalculation.Name);
             Assert.IsNull(readPipingCalculation.AssessmentLevel);
             Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readPipingCalculation.SurfaceLine);
@@ -80,9 +82,8 @@ namespace Ringtoets.Piping.IO.Test.Readers
             const double dampingFactorExitStandardDeviation = 7.7;
 
             // Call
-            var readPipingCalculation = new ReadPipingCalculation(new ReadPipingCalculation.ConstructionProperties
+            var readPipingCalculation = new PipingCalculationConfiguration(calculationName)
             {
-                Name = calculationName,
                 AssessmentLevel = assessmentLevel,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 SurfaceLine = surfaceLine,
@@ -94,7 +95,7 @@ namespace Ringtoets.Piping.IO.Test.Readers
                 PhreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation,
                 DampingFactorExitMean = dampingFactorExitMean,
                 DampingFactorExitStandardDeviation = dampingFactorExitStandardDeviation
-            });
+            };
 
             // Assert
             Assert.AreEqual(calculationName, readPipingCalculation.Name);

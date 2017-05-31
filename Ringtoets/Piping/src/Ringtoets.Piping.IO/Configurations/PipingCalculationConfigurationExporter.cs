@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.IO.Exporters
+namespace Ringtoets.Piping.IO.Configurations
 {
     /// <summary>
     /// Exports a piping calculation configuration and stores it as an XML file.

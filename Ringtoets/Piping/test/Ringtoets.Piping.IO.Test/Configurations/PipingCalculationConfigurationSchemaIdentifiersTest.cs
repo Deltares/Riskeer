@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Piping.IO.Schema;
+using Ringtoets.Piping.IO.Configurations;
 
-namespace Ringtoets.Piping.IO.Test.Schema
+namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationSchemaIdentifiersTest

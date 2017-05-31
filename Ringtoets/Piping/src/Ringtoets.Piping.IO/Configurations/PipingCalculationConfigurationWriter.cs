@@ -25,9 +25,8 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Schema;
 
-namespace Ringtoets.Piping.IO.Exporters
+namespace Ringtoets.Piping.IO.Configurations
 {
     /// <summary>
     /// Writer for writing a piping calculation configuration to XML.

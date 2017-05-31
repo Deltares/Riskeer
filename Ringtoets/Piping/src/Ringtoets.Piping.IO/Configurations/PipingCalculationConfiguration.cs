@@ -1,0 +1,185 @@
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using Ringtoets.Common.IO.Configurations;
+
+namespace Ringtoets.Piping.IO.Configurations
+{
+    /// <summary>
+    /// Configuration of a piping calculation.
+    /// </summary>
+    public class PipingCalculationConfiguration : IConfigurationItem
+    {
+        private string name;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingCalculationConfiguration"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="PipingCalculationConfiguration"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public PipingCalculationConfiguration(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// Gets the assessment level of the piping calculation.
+        /// </summary>
+        public double? AssessmentLevel { get; set; }
+
+        /// <summary>
+        /// Gets the name of the hydraulic boundary location of the piping calculation.
+        /// </summary>
+        public string HydraulicBoundaryLocation { get; set; }
+
+        /// <summary>
+        /// Gets the name of the surface line of the piping calculation.
+        /// </summary>
+        public string SurfaceLine { get; set; }
+
+        /// <summary>
+        /// Gets the l-coordinate of the entry point of the piping calculation.
+        /// </summary>
+        public double? EntryPointL { get; set; }
+
+        /// <summary>
+        /// Gets the l-coordinate of the exit point of the piping calculation.
+        /// </summary>
+        public double? ExitPointL { get; set; }
+
+        /// <summary>
+        /// Gets the name of the stochastic soil model of the piping calculation.
+        /// </summary>
+        public string StochasticSoilModel { get; set; }
+
+        /// <summary>
+        /// Gets the name of the stochastic soil profile of the piping calculation.
+        /// </summary>
+        public string StochasticSoilProfile { get; set; }
+
+        /// <summary>
+        /// Gets the mean of the phreatic level exit of the piping calculation.
+        /// </summary>
+        public double? PhreaticLevelExitMean { get; set; }
+
+        /// <summary>
+        /// Gets the standard deviation of the phreatic level exit of the piping calculation.
+        /// </summary>
+        public double? PhreaticLevelExitStandardDeviation { get; set; }
+
+        /// <summary>
+        /// Gets the mean of the damping factor exit of the piping calculation.
+        /// </summary>
+        public double? DampingFactorExitMean { get; set; }
+
+        /// <summary>
+        /// Gets the standard deviation of the damping factor exit of the piping calculation.
+        /// </summary>
+        public double? DampingFactorExitStandardDeviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the piping calculation.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                }
+                name = value;
+            }
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="PipingCalculationConfiguration"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.Name"/>.
+            /// </summary>
+            public string Name { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.AssessmentLevel"/>.
+            /// </summary>
+            public double? AssessmentLevel { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.HydraulicBoundaryLocation"/>.
+            /// </summary>
+            public string HydraulicBoundaryLocation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.SurfaceLine"/>.
+            /// </summary>
+            public string SurfaceLine { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.EntryPointL"/>.
+            /// </summary>
+            public double? EntryPointL { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.ExitPointL"/>.
+            /// </summary>
+            public double? ExitPointL { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.StochasticSoilModel"/>.
+            /// </summary>
+            public string StochasticSoilModel { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.StochasticSoilProfile"/>.
+            /// </summary>
+            public string StochasticSoilProfile { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.PhreaticLevelExitMean"/>.
+            /// </summary>
+            public double? PhreaticLevelExitMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.PhreaticLevelExitStandardDeviation"/>.
+            /// </summary>
+            public double? PhreaticLevelExitStandardDeviation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.DampingFactorExitMean"/>.
+            /// </summary>
+            public double? DampingFactorExitMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.DampingFactorExitStandardDeviation"/>.
+            /// </summary>
+            public double? DampingFactorExitStandardDeviation { internal get; set; }
+        }
+    }
+}

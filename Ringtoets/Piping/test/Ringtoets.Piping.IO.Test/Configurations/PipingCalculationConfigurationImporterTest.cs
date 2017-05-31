@@ -30,11 +30,10 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importers;
-using Ringtoets.Piping.IO.Readers;
+using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.Importers
+namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationImporterTest
@@ -52,7 +51,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                                                                       new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<PipingCalculationConfigurationReader, ReadPipingCalculation>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<PipingCalculationConfigurationReader, PipingCalculationConfiguration>>(importer);
         }
 
         [Test]
