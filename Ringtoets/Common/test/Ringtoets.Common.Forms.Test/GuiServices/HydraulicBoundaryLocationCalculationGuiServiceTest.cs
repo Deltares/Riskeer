@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Forms.Test.GuiServices
@@ -77,8 +78,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateDesignWaterLevels_NullCalculationServiceMessageProvider_ThrowsArgumentNullException()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -90,18 +94,20 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 const string expectedParamName = "messageProvider";
                 Assert.AreEqual(expectedParamName, paramName);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CalculateDesignWaterLevels_NullLocations_ThrowsArgumentNullException()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
             const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -120,12 +126,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -147,12 +154,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_SuccessfulCalculationFalse()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -198,6 +206,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -207,7 +216,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -229,6 +238,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string notConvergedMessage = "not converged";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
@@ -241,7 +252,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -258,13 +269,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
+                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[2]);
                     Assert.AreEqual(notConvergedMessage, msgs[3]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[5]);
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[6]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[5]);
+                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
                 });
             }
             mockRepository.VerifyAll();
@@ -278,6 +289,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string calculationName = "calculationName";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
@@ -290,7 +303,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -312,8 +325,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_NullCalculationServiceMessageProvider_ThrowsArgumentNullException()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -325,18 +341,20 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 const string expectedParamName = "messageProvider";
                 Assert.AreEqual(expectedParamName, paramName);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CalculateWaveHeights_NullLocations_ThrowsArgumentNullException()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
             const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -355,12 +373,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -382,12 +401,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_SuccessfulCalculationFalse()
         {
             // Setup
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -406,6 +426,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -415,7 +436,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -434,6 +455,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -443,7 +465,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -465,6 +487,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string notConvergedMessage = "not converged";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
@@ -477,7 +501,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -494,13 +518,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
+                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[2]);
                     Assert.AreEqual(notConvergedMessage, msgs[3]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[5]);
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is gelukt.", calculationName), msgs[6]);
+                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[5]);
+                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
                 });
             }
             mockRepository.VerifyAll();
@@ -514,7 +538,9 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string calculationName = "calculationName";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
@@ -526,7 +552,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
