@@ -76,22 +76,10 @@ namespace Ringtoets.Piping.IO.Configurations
                 EntryPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement),
                 ExitPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement),
                 StochasticSoilModel = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement),
-                StochasticSoilProfile = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
+                StochasticSoilProfile = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
+                PhreaticLevelExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName),
+                DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName)
             };
-
-            XElement phreaticLevelExitElement = calculationElement.GetStochastElement(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
-            if (phreaticLevelExitElement != null)
-            {
-                calculation.PhreaticLevelExitMean = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
-                calculation.PhreaticLevelExitStandardDeviation = phreaticLevelExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
-            }
-
-            XElement dampingFactorExitElement = calculationElement.GetStochastElement(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
-            if (dampingFactorExitElement != null)
-            {
-                calculation.DampingFactorExitMean = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement);
-                calculation.DampingFactorExitStandardDeviation = dampingFactorExitElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement);
-            }
 
             return calculation;
         }

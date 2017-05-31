@@ -183,10 +183,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNull(calculation.ExitPointL);
             Assert.IsNull(calculation.StochasticSoilModel);
             Assert.IsNull(calculation.StochasticSoilProfile);
-            Assert.IsNull(calculation.PhreaticLevelExitMean);
-            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExitMean);
-            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+            Assert.IsNull(calculation.PhreaticLevelExit);
+            Assert.IsNull(calculation.DampingFactorExit);
         }
 
         [Test]
@@ -203,10 +201,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(1, readConfigurationItems.Count);
 
             var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
-            Assert.IsNull(calculation.PhreaticLevelExitMean);
-            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExitMean);
-            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+            Assert.IsNull(calculation.PhreaticLevelExit);
+            Assert.IsNull(calculation.DampingFactorExit);
         }
 
         [Test]
@@ -226,10 +222,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNaN(calculation.AssessmentLevel);
             Assert.IsNaN(calculation.EntryPointL);
             Assert.IsNaN(calculation.ExitPointL);
-            Assert.IsNaN(calculation.PhreaticLevelExitMean);
-            Assert.IsNaN(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNaN(calculation.DampingFactorExitMean);
-            Assert.IsNaN(calculation.DampingFactorExitStandardDeviation);
+            Assert.IsNaN(calculation.PhreaticLevelExit.Mean);
+            Assert.IsNaN(calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNaN(calculation.DampingFactorExit.Mean);
+            Assert.IsNaN(calculation.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -250,18 +246,18 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNotNull(calculation.AssessmentLevel);
             Assert.IsNotNull(calculation.EntryPointL);
             Assert.IsNotNull(calculation.ExitPointL);
-            Assert.IsNotNull(calculation.PhreaticLevelExitMean);
-            Assert.IsNotNull(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNotNull(calculation.DampingFactorExitMean);
-            Assert.IsNotNull(calculation.DampingFactorExitStandardDeviation);
+            Assert.IsNotNull(calculation.PhreaticLevelExit.Mean);
+            Assert.IsNotNull(calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNotNull(calculation.DampingFactorExit.Mean);
+            Assert.IsNotNull(calculation.DampingFactorExit.StandardDeviation);
 
             Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.EntryPointL.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.ExitPointL.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.PhreaticLevelExitMean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.PhreaticLevelExitStandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExitMean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExitStandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.PhreaticLevelExit.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.PhreaticLevelExit.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.StandardDeviation.Value));
         }
 
         [Test]
@@ -290,10 +286,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(3.3, calculation.ExitPointL);
             Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
             Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExitMean);
-            Assert.AreEqual(5.5, calculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.Mean);
+            Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -322,10 +318,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(3.3, calculation.ExitPointL);
             Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
             Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExitMean);
-            Assert.AreEqual(5.5, calculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.Mean);
+            Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -350,10 +346,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(2.2, calculation.ExitPointL);
             Assert.IsNull(calculation.StochasticSoilModel);
             Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
-            Assert.AreEqual(3.3, calculation.PhreaticLevelExitMean);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExitMean);
-            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(3.3, calculation.PhreaticLevelExit.Mean);
+            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExit);
         }
 
         [Test]
@@ -370,10 +365,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(1, readConfigurationItems.Count);
 
             var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
-            Assert.IsNull(calculation.PhreaticLevelExitMean);
-            Assert.AreEqual(0.1, calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExitMean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExitStandardDeviation);
+            Assert.IsNull(calculation.PhreaticLevelExit.Mean);
+            Assert.AreEqual(0.1, calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -390,10 +385,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(1, readConfigurationItems.Count);
 
             var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
-            Assert.AreEqual(0.0, calculation.PhreaticLevelExitMean);
-            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExitMean);
-            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(0.0, calculation.PhreaticLevelExit.Mean);
+            Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
+            Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -410,10 +405,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(1, readConfigurationItems.Count);
 
             var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
-            Assert.IsNull(calculation.PhreaticLevelExitMean);
-            Assert.IsNull(calculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExitMean);
-            Assert.IsNull(calculation.DampingFactorExitStandardDeviation);
+            Assert.IsNull(calculation.PhreaticLevelExit.Mean);
+            Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(calculation.DampingFactorExit.Mean);
+            Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
         }
     }
 }

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.IO.Configurations
@@ -30,7 +31,7 @@ namespace Ringtoets.Piping.IO.Configurations
     /// <summary>
     /// Exports a piping calculation configuration and stores it as an XML file.
     /// </summary>
-    public class PipingCalculationConfigurationExporter : CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation>
+    public class PipingCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation, PipingCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationExporter"/>.
@@ -40,5 +41,28 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath) : base(configuration, filePath) {}
+
+        protected override PipingCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new PipingCalculationConfigurationWriter(filePath);
+        }
+
+        protected override PipingCalculationConfiguration ToConfiguration(PipingCalculation calculation)
+        {
+            PipingInput input = calculation.InputParameters;
+
+            return new PipingCalculationConfiguration(calculation.Name)
+            {
+                HydraulicBoundaryLocation = input.HydraulicBoundaryLocation?.Name,
+                AssessmentLevel = input.HydraulicBoundaryLocation == null ? input.AssessmentLevel : (double?)null,
+                DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
+                PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
+                SurfaceLine = input.SurfaceLine?.Name,
+                EntryPointL = input.EntryPointL,
+                ExitPointL = input.ExitPointL,
+                StochasticSoilModel = input.StochasticSoilModel?.Name,
+                StochasticSoilProfile = input.StochasticSoilProfile?.SoilProfile.Name
+            };
+        }
     }
 }

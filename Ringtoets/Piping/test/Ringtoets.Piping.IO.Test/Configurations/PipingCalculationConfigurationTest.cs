@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
         {
             // Setup 
-            var name = "some name";
+            const string name = "some name";
 
             // Call
             var readPipingCalculation = new PipingCalculationConfiguration(name);
@@ -58,10 +58,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNull(readPipingCalculation.ExitPointL);
             Assert.IsNull(readPipingCalculation.StochasticSoilModel);
             Assert.IsNull(readPipingCalculation.StochasticSoilProfile);
-            Assert.IsNull(readPipingCalculation.PhreaticLevelExitMean);
-            Assert.IsNull(readPipingCalculation.PhreaticLevelExitStandardDeviation);
-            Assert.IsNull(readPipingCalculation.DampingFactorExitMean);
-            Assert.IsNull(readPipingCalculation.DampingFactorExitStandardDeviation);
+            Assert.IsNull(readPipingCalculation.PhreaticLevelExit);
+            Assert.IsNull(readPipingCalculation.DampingFactorExit);
         }
 
         [Test]
@@ -91,10 +89,16 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 ExitPointL = exitPointL,
                 StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = stochasticSoilProfile,
-                PhreaticLevelExitMean = phreaticLevelExitMean,
-                PhreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation,
-                DampingFactorExitMean = dampingFactorExitMean,
-                DampingFactorExitStandardDeviation = dampingFactorExitStandardDeviation
+                PhreaticLevelExit = new StochastConfiguration
+                {
+                    Mean = phreaticLevelExitMean,
+                    StandardDeviation = phreaticLevelExitStandardDeviation,
+                },
+                DampingFactorExit = new StochastConfiguration
+                {
+                    Mean = dampingFactorExitMean,
+                    StandardDeviation = dampingFactorExitStandardDeviation
+                }
             };
 
             // Assert
@@ -106,10 +110,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(exitPointL, readPipingCalculation.ExitPointL);
             Assert.AreEqual(stochasticSoilModel, readPipingCalculation.StochasticSoilModel);
             Assert.AreEqual(stochasticSoilProfile, readPipingCalculation.StochasticSoilProfile);
-            Assert.AreEqual(phreaticLevelExitMean, readPipingCalculation.PhreaticLevelExitMean);
-            Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExitMean);
-            Assert.AreEqual(dampingFactorExitStandardDeviation, readPipingCalculation.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(phreaticLevelExitMean, readPipingCalculation.PhreaticLevelExit.Mean);
+            Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExit.Mean);
+            Assert.AreEqual(dampingFactorExitStandardDeviation, readPipingCalculation.DampingFactorExit.StandardDeviation);
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -35,10 +36,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
-            PipingCalculation>
+            PipingCalculation,
+            PipingCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
@@ -94,6 +96,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         protected override PipingCalculation CreateCalculation()
         {
             return PipingTestDataGenerator.GetPipingCalculation();
+        }
+
+        protected override PipingCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new PipingCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }

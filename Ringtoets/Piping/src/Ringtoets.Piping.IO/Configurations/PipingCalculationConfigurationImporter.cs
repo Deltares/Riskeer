@@ -311,34 +311,26 @@ namespace Ringtoets.Piping.IO.Configurations
 
         private bool TryReadDampingFactorExit(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
         {
-            var distribution = (LogNormalDistribution) pipingCalculation.InputParameters.DampingFactorExit.Clone();
-
-            if (!distribution.TrySetDistributionProperties(calculationConfiguration.DampingFactorExitMean,
-                                                           calculationConfiguration.DampingFactorExitStandardDeviation,
-                                                           PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
-                                                           pipingCalculation.Name))
-            {
-                return false;
-            }
-
-            pipingCalculation.InputParameters.DampingFactorExit = distribution;
-            return true;
+            return ConfigurationImportHelper.TrySetStandardDeviationStochast(
+                PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                pipingCalculation.Name,
+                pipingCalculation.InputParameters,
+                calculationConfiguration.DampingFactorExit,
+                i => i.DampingFactorExit,
+                (i,s) => i.DampingFactorExit = s,
+                Log);
         }
 
         private bool TryReadPhreaticLevelExit(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
         {
-            var distribution = (NormalDistribution) pipingCalculation.InputParameters.PhreaticLevelExit.Clone();
-
-            if (!distribution.TrySetDistributionProperties(calculationConfiguration.PhreaticLevelExitMean,
-                                                           calculationConfiguration.PhreaticLevelExitStandardDeviation,
-                                                           PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
-                                                           pipingCalculation.Name))
-            {
-                return false;
-            }
-
-            pipingCalculation.InputParameters.PhreaticLevelExit = distribution;
-            return true;
+            return ConfigurationImportHelper.TrySetStandardDeviationStochast(
+                PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                pipingCalculation.Name,
+                pipingCalculation.InputParameters,
+                calculationConfiguration.PhreaticLevelExit,
+                i => i.PhreaticLevelExit,
+                (i, s) => i.PhreaticLevelExit = s,
+                Log);
         }
     }
 }

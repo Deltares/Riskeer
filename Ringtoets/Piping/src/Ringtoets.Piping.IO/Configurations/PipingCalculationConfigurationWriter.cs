@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using Ringtoets.Common.Data.Probabilistics;
@@ -31,66 +32,80 @@ namespace Ringtoets.Piping.IO.Configurations
     /// <summary>
     /// Writer for writing a piping calculation configuration to XML.
     /// </summary>
-    public class PipingCalculationConfigurationWriter : CalculationConfigurationWriter<PipingCalculation>
+    public class PipingCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<PipingCalculationConfiguration>
     {
-        protected override void WriteCalculation(PipingCalculation calculation, XmlWriter writer)
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingCalculationConfigurationWriter"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public PipingCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+        protected override void WriteCalculation(PipingCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
-            PipingInput calculationInputParameters = calculation.InputParameters;
-
-            if (calculationInputParameters.UseAssessmentLevelManualInput)
+            if (configuration.AssessmentLevel.HasValue)
             {
-                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
-                                          XmlConvert.ToString(calculationInputParameters.AssessmentLevel));
+                WriteElementWhenContentAvailable(writer,
+                                                 PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                                 configuration.AssessmentLevel);
             }
-            else if (calculationInputParameters.HydraulicBoundaryLocation != null)
+            else
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                          calculationInputParameters.HydraulicBoundaryLocation.Name);
-            }
-
-            if (calculationInputParameters.SurfaceLine != null)
-            {
-                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
-                                          calculationInputParameters.SurfaceLine.Name);
-                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement,
-                                          XmlConvert.ToString(calculationInputParameters.EntryPointL));
-                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement,
-                                          XmlConvert.ToString(calculationInputParameters.ExitPointL));
+                WriteElementWhenContentAvailable(writer,
+                                                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                                 configuration.HydraulicBoundaryLocation);
             }
 
-            if (calculationInputParameters.StochasticSoilModel != null)
+            if (configuration.SurfaceLine != null)
             {
-                writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
-                                          calculationInputParameters.StochasticSoilModel.Name);
+                WriteElementWhenContentAvailable(writer,
+                                                 PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
+                                                 configuration.SurfaceLine);
+                WriteElementWhenContentAvailable(writer,
+                                                 PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement,
+                                                 configuration.EntryPointL);
+                WriteElementWhenContentAvailable(writer,
+                                                 PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement,
+                                                 configuration.ExitPointL);
+            }
 
-                if (calculationInputParameters.StochasticSoilProfile?.SoilProfile != null)
+            if (configuration.StochasticSoilModel != null)
+            {
+                WriteElementWhenContentAvailable(writer,
+                                                 PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
+                                                 configuration.StochasticSoilModel);
+
+                if (configuration.StochasticSoilProfile != null)
                 {
-                    writer.WriteElementString(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
-                                              calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
+                    WriteElementWhenContentAvailable(writer,
+                                                     PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
+                                                     configuration.StochasticSoilProfile);
                 }
             }
 
-            WriteDistributions(CreateInputDistributions(calculationInputParameters), writer);
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
+
+            WriteDistributionWhenAvailable(writer,
+                                           PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
+                                           configuration.PhreaticLevelExit);
+
+            WriteDistributionWhenAvailable(writer,
+                                           PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
+                                           configuration.DampingFactorExit);
 
             writer.WriteEndElement();
-        }
 
-        private static IDictionary<string, IDistribution> CreateInputDistributions(PipingInput calculationInputParameters)
-        {
-            return new Dictionary<string, IDistribution>
-            {
-                {
-                    PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,
-                    calculationInputParameters.PhreaticLevelExit
-                },
-                {
-                    PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
-                    calculationInputParameters.DampingFactorExit
-                }
-            };
+            writer.WriteEndElement();
         }
     }
 }

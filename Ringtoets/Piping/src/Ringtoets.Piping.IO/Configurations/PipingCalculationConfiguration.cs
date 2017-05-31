@@ -77,24 +77,14 @@ namespace Ringtoets.Piping.IO.Configurations
         public string StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets the mean of the phreatic level exit of the piping calculation.
+        /// Gets the configuration of the phreatic level exit of the piping calculation.
         /// </summary>
-        public double? PhreaticLevelExitMean { get; set; }
+        public StochastConfiguration PhreaticLevelExit{ get; set; }
 
         /// <summary>
-        /// Gets the standard deviation of the phreatic level exit of the piping calculation.
+        /// Gets the configuration of the damping factor exit of the piping calculation.
         /// </summary>
-        public double? PhreaticLevelExitStandardDeviation { get; set; }
-
-        /// <summary>
-        /// Gets the mean of the damping factor exit of the piping calculation.
-        /// </summary>
-        public double? DampingFactorExitMean { get; set; }
-
-        /// <summary>
-        /// Gets the standard deviation of the damping factor exit of the piping calculation.
-        /// </summary>
-        public double? DampingFactorExitStandardDeviation { get; set; }
+        public StochastConfiguration DampingFactorExit { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the piping calculation.
@@ -114,72 +104,6 @@ namespace Ringtoets.Piping.IO.Configurations
                 }
                 name = value;
             }
-        }
-
-        /// <summary>
-        /// Class holding the various construction parameters for <see cref="PipingCalculationConfiguration"/>.
-        /// </summary>
-        public class ConstructionProperties
-        {
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.Name"/>.
-            /// </summary>
-            public string Name { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.AssessmentLevel"/>.
-            /// </summary>
-            public double? AssessmentLevel { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.HydraulicBoundaryLocation"/>.
-            /// </summary>
-            public string HydraulicBoundaryLocation { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.SurfaceLine"/>.
-            /// </summary>
-            public string SurfaceLine { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.EntryPointL"/>.
-            /// </summary>
-            public double? EntryPointL { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.ExitPointL"/>.
-            /// </summary>
-            public double? ExitPointL { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.StochasticSoilModel"/>.
-            /// </summary>
-            public string StochasticSoilModel { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.StochasticSoilProfile"/>.
-            /// </summary>
-            public string StochasticSoilProfile { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.PhreaticLevelExitMean"/>.
-            /// </summary>
-            public double? PhreaticLevelExitMean { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.PhreaticLevelExitStandardDeviation"/>.
-            /// </summary>
-            public double? PhreaticLevelExitStandardDeviation { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.DampingFactorExitMean"/>.
-            /// </summary>
-            public double? DampingFactorExitMean { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="PipingCalculationConfiguration.DampingFactorExitStandardDeviation"/>.
-            /// </summary>
-            public double? DampingFactorExitStandardDeviation { internal get; set; }
         }
     }
 }
