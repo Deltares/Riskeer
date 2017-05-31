@@ -344,6 +344,17 @@ namespace Core.Common.Controls.TreeView
             return treeNode?.FullPath;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            updateTimer.Stop();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         private bool CanRename(TreeNode treeNode)
         {
             TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
