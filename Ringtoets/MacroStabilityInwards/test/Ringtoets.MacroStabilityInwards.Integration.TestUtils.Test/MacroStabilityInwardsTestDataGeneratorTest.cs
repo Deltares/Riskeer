@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
             Assert.AreEqual(double.NaN, calculation.InputParameters.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
-            Assert.AreEqual("PK001_0001_Piping", calculation.InputParameters.StochasticSoilModel.Name);
+            Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
         }
 
@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
             Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
-            Assert.AreEqual("PK001_0001_Piping", calculation.InputParameters.StochasticSoilModel.Name);
+            Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
         }
 
@@ -193,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test
             if (hasSoilModel)
             {
                 Assert.AreEqual(1, calculation.InputParameters.StochasticSoilModel.Id);
-                Assert.AreEqual("PK001_0001_Piping", calculation.InputParameters.StochasticSoilModel.Name);
+                Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
 
                 if (hasSoilProfile)
                 {

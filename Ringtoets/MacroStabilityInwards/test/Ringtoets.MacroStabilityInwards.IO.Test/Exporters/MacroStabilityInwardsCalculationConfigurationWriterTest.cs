@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Exporters
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
             calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
             calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
-            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Piping", string.Empty);
+            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Macrostabiliteit", string.Empty);
             calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile("W1-6_4_1D1", 0, new[]
@@ -149,7 +149,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO, Path.Combine("MacroStabilityInwardsCalculationConfigurationWriter", $"{expectedFileName}.xml"));
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+                                                                        Path.Combine("MacroStabilityInwardsCalculationConfigurationWriter",
+                                                                                     $"{expectedFileName}.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
                 Assert.AreEqual(expectedXml, actualXml);
