@@ -37,6 +37,7 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.Service.Test
 {
@@ -44,29 +45,6 @@ namespace Ringtoets.Revetment.Service.Test
     public class WaveConditionsCalculationServiceBaseTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
-        private static IEnumerable<TestCaseData> FailingCalculators
-        {
-            get
-            {
-                yield return new TestCaseData(new TestWaveConditionsCosineCalculator
-                    {
-                        LastErrorFileContent = "LastErrorFileContent"
-                    }, $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContent")
-                    .SetName("{m}(LastErrorFileContent)");
-                yield return new TestCaseData(new TestWaveConditionsCosineCalculator
-                    {
-                        EndInFailure = true
-                    }, "Er is geen foutrapport beschikbaar.")
-                    .SetName("{m}(EndInFailure)");
-                yield return new TestCaseData(new TestWaveConditionsCosineCalculator
-                    {
-                        EndInFailure = true,
-                        LastErrorFileContent = "LastErrorFileContentAndEndInFailure"
-                    }, $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContentAndEndInFailure")
-                    .SetName("{m}(LastErrorFileContentAndEndInFailure)");
-            }
-        }
 
         [Test]
         public void Validate_InputNull_ThrowArgumentNullException()
@@ -498,17 +476,15 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(FailingCalculators))]
+        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
         public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
                                                                                                    string detailedReport)
         {
             // Setup
-            var mock = new MockRepository();
-            var calculatorFactory = mock.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
-            mock.ReplayAll();
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails).Repeat.Times(3);
+            mockRepository.ReplayAll();
 
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
@@ -573,21 +549,21 @@ namespace Ringtoets.Revetment.Service.Test
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
                 Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor alle waterstanden.", exception.Message);
             }
-            mock.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        [TestCaseSource(nameof(FailingCalculators))]
+        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
         public void Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
                                                                                        string detailedReport)
         {
             // Setup
-            var mock = new MockRepository();
-            var calculatorFactory = mock.Stub<IHydraRingCalculatorFactory>();
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
-            mock.ReplayAll();
+            mockRepository.ReplayAll();
 
             var waterLevelUpperBoundary = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundary = new RoundedDouble(2, 3.00);
@@ -641,7 +617,7 @@ namespace Ringtoets.Revetment.Service.Test
 
                 AssertFailedCalculationOutput(waveConditionsOutputs[0]);
             }
-            mock.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]

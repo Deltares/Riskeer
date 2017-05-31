@@ -40,6 +40,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 {
@@ -80,12 +81,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_NoHydraulicBoundaryDatabase_LogValidationMessageAndReturnFalse()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             string testFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
@@ -101,18 +106,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             string testFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
@@ -128,18 +138,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             string testFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
@@ -155,18 +170,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_NoHydraulicBoundaryLocation_LogsValidationMessageAndReturnFalse()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
@@ -182,18 +202,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_NoDesignWaterLevel_LogsValidationMessageAndReturnFalse()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = null;
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
@@ -209,6 +234,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -217,13 +243,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_NoWaterLevels_LogsValidationMessageAndReturnFalse(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
             calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
@@ -239,6 +269,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -248,6 +279,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_LogsValidationMessageAndReturnFalse(double breakWaterHeight)
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                    breakWaterHeight));
@@ -255,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             var isValid = true;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
@@ -272,6 +307,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -343,21 +379,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Calculate_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartAndEnd(double breakWaterHeight)
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
-                                                                                                   breakWaterHeight));
-            calculation.InputParameters.UseBreakWater = false;
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 20
             };
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Twice();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
                                                                                                                                   mockRepository);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
+            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                   breakWaterHeight));
+            calculation.InputParameters.UseBreakWater = false;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
@@ -386,6 +425,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[7]);
                 });
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -402,6 +442,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Twice();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
                                                                                                                                   mockRepository);
             mockRepository.ReplayAll();
@@ -421,7 +463,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     break;
             }
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
@@ -450,6 +492,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[7]);
                 });
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -461,16 +504,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 Contribution = 20
             };
+            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator).Repeat.Times(3);
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
                                                                                                                                   mockRepository);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestWaveConditionsCosineCalculator testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-
                 // Call
                 new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                           grassCoverErosionOutwardsFailureMechanism,
@@ -480,8 +524,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(3, testWaveConditionsInputs.Length);
-
-                Assert.AreEqual(testDataPath, testWaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory);
 
                 var waterLevelIndex = 0;
                 foreach (WaveConditionsCosineCalculationInput actualInput in testWaveConditionsInputs)
@@ -508,6 +550,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 }
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -521,11 +564,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
                                                                                                                                   mockRepository);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
                 grassCoverErosionOutwardsWaveConditionsCalculationService.Cancel();
@@ -551,15 +595,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 Contribution = 20
             };
+            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator);
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
                                                                                                                                   mockRepository);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestWaveConditionsCosineCalculator testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
                 testWaveConditionsCosineCalculator.CalculationFinishedHandler += (s, e) => grassCoverErosionOutwardsWaveConditionsCalculationService.Cancel();
 
@@ -587,11 +633,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
                                                                                                                                   mockRepository);
             mockRepository.ReplayAll();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
@@ -603,88 +651,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(3, calculation.Output.Items.Count());
             }
-        }
-
-        [Test]
-        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 20
-            };
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.LastErrorFileContent = "An error occurred";
-                calculator.EndInFailure = true;
-
-                HydraRingCalculationException exception = null;
-
-                // Call
-                Action call = () =>
-                {
-                    try
-                    {
-                        new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSectionStub,
-                                                                                                  validFilePath);
-                    }
-                    catch (HydraRingCalculationException e)
-                    {
-                        exception = e;
-                    }
-                };
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(15, msgs.Length);
-
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
-
-                    const string detailedReport = " Bekijk het foutrapport door op details te klikken.";
-                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
-                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
-                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
-                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[1]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[2]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[4]);
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[5]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[6]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[10]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", msgs[13]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[14]);
-                });
-                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
-                Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);
-                Assert.IsNull(calculation.Output);
-            }
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
+        public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+                                                                                                   string detailedReport)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -693,17 +665,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails).Repeat.Times(3);
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.EndInFailure = true;
-
                 HydraRingCalculationException exception = null;
 
                 // Call
@@ -730,24 +701,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
                     StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
 
-                    const string detailedReport = " Er is geen foutrapport beschikbaar.";
                     RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
                     RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                     RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                     RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[1]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[2]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[4]);
 
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[5]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[6]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'. {detailedReport}", msgs[6]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
 
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[10]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'. {detailedReport}", msgs[10]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
 
@@ -757,117 +727,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
                 Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);
                 Assert.IsNull(calculation.Output);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 20
-            };
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.EndInFailure = false;
-                calculator.LastErrorFileContent = "An error occurred";
-
-                HydraRingCalculationException exception = null;
-
-                // Call
-                Action call = () =>
-                {
-                    try
-                    {
-                        new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSectionStub,
-                                                                                                  validFilePath);
-                    }
-                    catch (HydraRingCalculationException e)
-                    {
-                        exception = e;
-                    }
-                };
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(15, msgs.Length);
-
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
-
-                    const string detailedReport = " Bekijk het foutrapport door op details te klikken.";
-                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
-                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
-                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
-                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[1]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[2]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[4]);
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[5]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[6]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
-                    StringAssert.StartsWith($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[10]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[11]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
-
-                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", msgs[13]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[14]);
-                });
-                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
-                Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);
-                Assert.IsNull(calculation.Output);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_InnerCalculationFails_ThrowsException()
-        {
-            // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 20
-            };
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                                  mockRepository);
-            mockRepository.ReplayAll();
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                TestWaveConditionsCosineCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                calculator.EndInFailure = true;
-
-                // Call
-                TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                                    grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                    assessmentSectionStub,
-                                                                                                                    validFilePath);
-
-                // Assert
-                Assert.Throws<HydraRingCalculationException>(test);
             }
             mockRepository.VerifyAll();
         }
