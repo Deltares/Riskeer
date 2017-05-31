@@ -139,6 +139,15 @@ namespace Ringtoets.Common.IO.FileImporters
             base.DoPostImportUpdates();
         }
 
+        /// <summary>
+        /// Gets the standard deviation of a <see cref="StructuresParameterRow"/>
+        /// of the structure.
+        /// </summary>
+        /// <param name="structuresParameterRow">The structure parameter row to read from.</param>
+        /// <param name="structureName">The name of the structure.</param>
+        /// <returns>The standard deviation of a structure parameter.</returns>
+        /// <remarks>In case a coefficient of variation is encountered,
+        /// it automatically converts it to a standard deviation.</remarks>
         protected RoundedDouble GetStandardDeviation(StructuresParameterRow structuresParameterRow, string structureName)
         {
             if (structuresParameterRow.VarianceType == VarianceType.CoefficientOfVariation)
@@ -150,6 +159,15 @@ namespace Ringtoets.Common.IO.FileImporters
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
+        /// <summary>
+        /// Gets the coefficient of variation of a <see cref="StructuresParameterRow"/>
+        /// of the structure.
+        /// </summary>
+        /// <param name="structuresParameterRow">The structure parameter row to read from.</param>
+        /// <param name="structureName">The name of the structure.</param>
+        /// <returns>The coefficient of variation of a structure parameter.</returns>
+        /// <remarks>In case a standard deviation is encountered,
+        /// it is automatically converted to a coefficient of variation.</remarks>
         protected RoundedDouble GetCoefficientOfVariation(StructuresParameterRow structuresParameterRow, string structureName)
         {
             if (structuresParameterRow.VarianceType == VarianceType.StandardDeviation)
@@ -161,6 +179,14 @@ namespace Ringtoets.Common.IO.FileImporters
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
+        /// <summary>
+        /// Builds the error message as a consequence of validation errors during 
+        /// the import.
+        /// </summary>
+        /// <param name="structureName">The name of the structure.</param>
+        /// <param name="structureId">The id of the structure.</param>
+        /// <param name="validationErrors">The errors that occurred during the validation.</param>
+        /// <exception cref="CriticalFileValidationException">Thrown when function is called.</exception>
         protected void ThrowValidationErrorForStructure(string structureName, string structureId, IEnumerable<string> validationErrors)
         {
             string shortMessage = new FileReaderErrorMessageBuilder(GetStructureDataCsvFilePath())
@@ -172,6 +198,19 @@ namespace Ringtoets.Common.IO.FileImporters
             throw new CriticalFileValidationException(message);
         }
 
+        /// <summary>
+        /// Tries setting values for the construction properties of a 
+        /// <typeparamref name="TStructure"/>.
+        /// </summary>
+        /// <param name="setPropertyAction">The action to set the value of the
+        /// construction property.</param>
+        /// <param name="rowData">The row data containing the property values for 
+        /// the <typeparamref name="TStructure"/>.</param>
+        /// <param name="key">The key word for the property to set.</param>
+        /// <param name="structureName">The name of the structure.</param>
+        /// <param name="structureId">The id of the structure.</param>
+        /// <remarks>In case there's no value found for the property,
+        /// a default value will be used.</remarks>
         protected void TrySetConstructionProperty(Action<IDictionary<string, StructuresParameterRow>, string> setPropertyAction,
                                                   IDictionary<string, StructuresParameterRow> rowData,
                                                   string key,
@@ -189,6 +228,13 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
+        /// <summary>
+        /// Creates <typeparamref name="TStructure"/> objects 
+        /// based on the read locations and properties.
+        /// </summary>
+        /// <param name="structureLocations">The read structure locations.</param>
+        /// <param name="groupedStructureParameterRows">The read structure properties.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <typeparamref name="TStructure"/>.</returns>
         protected abstract IEnumerable<TStructure> CreateStructures(IEnumerable<StructureLocation> structureLocations,
                                                                     IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
