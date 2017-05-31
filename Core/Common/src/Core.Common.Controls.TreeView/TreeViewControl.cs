@@ -452,23 +452,43 @@ namespace Core.Common.Controls.TreeView
             OnNodeDataDeleted(treeNode);
         }
 
-        private static void CollapseAll(TreeNode treeNode)
+        private void CollapseAll(TreeNode treeNode, bool performUpdate = true)
         {
+            if (performUpdate)
+            {
+                treeView.BeginUpdate();
+            }
+
             treeNode.Collapse();
 
             foreach (TreeNode childNode in treeNode.Nodes)
             {
-                CollapseAll(childNode);
+                CollapseAll(childNode, false);
+            }
+
+            if (performUpdate)
+            {
+                treeView.EndUpdate();
             }
         }
 
-        private static void ExpandAll(TreeNode treeNode)
+        private void ExpandAll(TreeNode treeNode, bool performUpdate = true)
         {
+            if (performUpdate)
+            {
+                treeView.BeginUpdate();
+            }
+
             treeNode.Expand();
 
             foreach (TreeNode childNode in treeNode.Nodes)
             {
-                ExpandAll(childNode);
+                ExpandAll(childNode, false);
+            }
+
+            if (performUpdate)
+            {
+                treeView.EndUpdate();
             }
         }
 
