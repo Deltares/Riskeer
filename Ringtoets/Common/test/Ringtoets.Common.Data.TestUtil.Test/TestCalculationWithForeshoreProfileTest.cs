@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -34,9 +36,16 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 TestCalculationWithForeshoreProfile.CreateDefaultCalculation();
 
             // Assert
+            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<Observable>(calculation);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
             Assert.IsNull(calculation.Comments);
+
+            TestCalculationWithForeshoreProfile.TestCalculationInputWithForeshoreProfile input =
+                calculation.InputParameters;
+            Assert.IsNull(input.ForeshoreProfile);
+            Assert.IsFalse(input.UseForeshore);
+            Assert.IsNull(input.ForeshoreGeometry);
         }
 
         [Test]
@@ -57,9 +66,24 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
 
             // Assert
+            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<Observable>(calculation);
             Assert.IsTrue(calculation.HasOutput);
-            Assert.AreSame(foreshoreProfile, calculation.InputParameters.ForeshoreProfile);
             Assert.IsNull(calculation.Comments);
+
+            TestCalculationWithForeshoreProfile.TestCalculationInputWithForeshoreProfile input =
+                calculation.InputParameters;
+            Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
+            Assert.IsFalse(input.UseForeshore);
+
+            if (hasForeshoreProfile)
+            {
+                Assert.AreSame(foreshoreProfile.Geometry, input.ForeshoreGeometry);
+            }
+            else
+            {
+                Assert.IsNull(input.ForeshoreGeometry);
+            }
         }
 
         [Test]
@@ -80,9 +104,24 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
 
             // Assert
+            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<Observable>(calculation);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.AreSame(foreshoreProfile, calculation.InputParameters.ForeshoreProfile);
             Assert.IsNull(calculation.Comments);
+
+            TestCalculationWithForeshoreProfile.TestCalculationInputWithForeshoreProfile input =
+                calculation.InputParameters;
+            Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
+            Assert.IsFalse(input.UseForeshore);
+
+            if (hasForeshoreProfile)
+            {
+                Assert.AreSame(foreshoreProfile.Geometry, input.ForeshoreGeometry);
+            }
+            else
+            {
+                Assert.IsNull(input.ForeshoreGeometry);
+            }
         }
 
         [Test]

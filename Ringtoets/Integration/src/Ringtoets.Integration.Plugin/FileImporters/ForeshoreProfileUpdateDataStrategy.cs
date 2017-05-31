@@ -56,23 +56,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ForeshoreProfile objectToUpdate, ForeshoreProfile objectToUpdateFrom)
-        {
-            objectToUpdate.CopyProperties(objectToUpdateFrom);
-
-            var affectedObjects = new List<IObservable>();
-
-            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
-
-            foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
-            {
-                affectedObjects.Add(calculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-            }
-
-            return affectedObjects;
-        }
-
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ForeshoreProfile removedObject)
         {
             IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(removedObject);
@@ -112,5 +95,36 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return obj.Id.GetHashCode();
             }
         }
+
+        #region Update Logic
+
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(ForeshoreProfile objectToUpdate, ForeshoreProfile objectToUpdateFrom)
+        {
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
+
+            var affectedObjects = new List<IObservable>();
+
+            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
+
+            foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
+            {
+                affectedObjects.Add(calculation.InputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+                ValidateUseForeshore(calculation, objectToUpdate);
+            }
+
+            return affectedObjects;
+        }
+
+        private static void ValidateUseForeshore(ICalculation<ICalculationInput> calculation, ForeshoreProfile foreshoreProfile)
+        {
+            if (!foreshoreProfile.Geometry.Any())
+            {
+                ((IUseForeshore) calculation.InputParameters).UseForeshore = false;
+            }
+        }
+
+        #endregion
     }
 }

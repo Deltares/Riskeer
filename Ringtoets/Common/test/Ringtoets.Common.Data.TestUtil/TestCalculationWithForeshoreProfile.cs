@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 
@@ -102,8 +103,20 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// A simple input class with a <see cref="ForeshoreProfile"/>.
         /// </summary>
-        public class TestCalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile
+        public class TestCalculationInputWithForeshoreProfile : ICalculationInput, IUseForeshore, IHasForeshoreProfile
         {
+            public ForeshoreProfile ForeshoreProfile { get; set; }
+            public bool IsForeshoreProfileInputSynchronized { get; }
+
+            public bool UseForeshore { get; set; }
+
+            public RoundedPoint2DCollection ForeshoreGeometry
+            {
+                get
+                {
+                    return ForeshoreProfile?.Geometry;
+                }
+            }
 
             public void Attach(IObserver observer)
             {
@@ -120,8 +133,6 @@ namespace Ringtoets.Common.Data.TestUtil
                 throw new NotImplementedException();
             }
 
-            public ForeshoreProfile ForeshoreProfile { get; set; }
-            public bool IsForeshoreProfileInputSynchronized { get; }
             public void SynchronizeForeshoreProfileInput()
             {
                 throw new NotImplementedException();

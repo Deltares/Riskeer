@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
     {
         private const string sourceFilePath = "some/path/to/foreshoreProfiles";
 
-        private static IEnumerable<TestCaseData> DifferentForeshoreProfileWithSameID
+        private static IEnumerable<TestCaseData> DifferentForeshoreProfileWithSameId
         {
             get
             {
@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentForeshoreProfileWithSameID))]
+        [TestCaseSource(nameof(DifferentForeshoreProfileWithSameId))]
         public void UpdateForeshoreProfilesWithImportedData_ForeshoreProfilePropertiesChanged_UpdateRelevantProperties(
             ForeshoreProfile readForeshoreProfile)
         {
@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreSame(profileToBeUpdated, targetCollection[0]);
             AssertForeshoreProfile(readForeshoreProfile, profileToBeUpdated);
         }
-        
+
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionEmptyImportedCollectionContainDuplicateIDs_ThrowUpdateException()
         {
@@ -218,7 +218,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             CollectionAssert.IsEmpty(foreshoreProfiles);
         }
-        
+
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionNotEmptyAndImportedCollectionHasProfilesWithSameId_ThrowsUpdateException()
         {
@@ -515,6 +515,61 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                                  sourceFilePath);
 
             // Assert
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                affectedProfile,
+                foreshoreProfiles
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_CalculationWithOutputAndForeshoreProfileUpdatedWithProfileWithoutGeometry_UpdatesCalculation()
+        {
+            // Setup
+            const string id = "profile ID";
+            IEnumerable<Point2D> geometry = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+            
+            var affectedProfile = new TestForeshoreProfile(id, geometry);
+            TestCalculationWithForeshoreProfile affectedCalculation =
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(affectedProfile);
+            affectedCalculation.InputParameters.UseForeshore = true;
+
+            var profileToUpdateFrom = new TestForeshoreProfile(id, Enumerable.Empty<Point2D>());
+
+            var foreshoreProfiles = new ForeshoreProfileCollection();
+            var originalForeshoreProfiles = new[]
+            {
+                affectedProfile
+            };
+            foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                affectedCalculation
+            });
+
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
+                                                                 new[]
+                                                                 {
+                                                                     profileToUpdateFrom
+                                                                 },
+                                                                 sourceFilePath);
+
+            // Assert
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsFalse(affectedCalculation.InputParameters.UseForeshore);
+            AssertForeshoreProfile(affectedProfile, profileToUpdateFrom);
+
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 affectedCalculation,
