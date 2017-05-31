@@ -639,6 +639,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
         [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
         public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
                                                                                                    string detailedReport)
