@@ -575,13 +575,16 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(StructuresCalculation<HeightStructuresInput>[] calculations)
+        private StrictContextMenuItem CreateUpdateStructureItem(
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
-            IList<StructuresCalculation<HeightStructuresInput>> calculationsToUpdate = calculations
-                .Where(c => c.InputParameters.Structure != null && !c.InputParameters.IsStructureInputSynchronized)
-                .ToList();
+
+            StructuresCalculation<HeightStructuresInput>[] calculationsToUpdate = calculations
+                .Where(calc => calc.InputParameters.Structure != null
+                               && !calc.InputParameters.IsStructureInputSynchronized)
+                .ToArray();
 
             if (!calculationsToUpdate.Any())
             {

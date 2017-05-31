@@ -670,7 +670,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithoutCalculation_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithoutCalculations_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
         {
             // Setup
             var group = new CalculationGroup();
@@ -701,7 +701,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationWithoutStructure_ContextMenuItemUpdateStructuresDisabledAndTooltipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutStructure_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
         {
             // Setup
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
@@ -739,7 +739,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationWithInputInSynchAndStructure_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
         {
             // Setup
             var calculation = new TestStabilityPointStructuresCalculation();
@@ -777,7 +777,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationsWithInputOutOfSyncAndStructure_ContextMenuItemUpdateStructuresEnabledAndToolTipSet()
+        public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputOutOfSync_ContextMenuItemUpdateStructuresEnabledAndToolTipSet()
         {
             // Setup
             var calculation = new TestStabilityPointStructuresCalculation();
@@ -815,7 +815,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateAllStructuresClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructuresClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();

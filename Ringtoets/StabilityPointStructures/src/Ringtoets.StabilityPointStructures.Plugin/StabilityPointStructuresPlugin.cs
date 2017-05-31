@@ -540,7 +540,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
                                                                 inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructuresItem(calculations))
+                   .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -571,28 +571,29 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructuresItem(StructuresCalculation<StabilityPointStructuresInput>[] calculations)
+        private StrictContextMenuItem CreateUpdateStructureItem(
+            IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
-            var enabled = true;
+            var contextMenuEnabled = true;
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationsToBeUpdated =
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationToUpdate =
                 calculations.Where(calc => calc.InputParameters.Structure != null
                                            && !calc.InputParameters.IsStructureInputSynchronized)
                             .ToArray();
 
-            if (!calculationsToBeUpdated.Any())
+            if (!calculationToUpdate.Any())
             {
-                enabled = false;
+                contextMenuEnabled = false;
                 toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipMessage,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (sender, args) => UpdateStructureDependentDataOfCalculation(calculationsToBeUpdated))
+                                             (sender, args) => UpdateStructureDependentDataOfCalculation(calculationToUpdate))
             {
-                Enabled = enabled
+                Enabled = contextMenuEnabled
             };
         }
 

@@ -563,13 +563,16 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(StructuresCalculation<ClosingStructuresInput>[] calculations)
+        private StrictContextMenuItem CreateUpdateStructureItem(
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
-            IList<StructuresCalculation<ClosingStructuresInput>> calculationsToUpdate = calculations
-                .Where(c => c.InputParameters.Structure != null && !c.InputParameters.IsStructureInputSynchronized)
-                .ToList();
+
+            StructuresCalculation<ClosingStructuresInput>[] calculationsToUpdate = calculations
+                .Where(calc => calc.InputParameters.Structure != null
+                               && !calc.InputParameters.IsStructureInputSynchronized)
+                .ToArray();
 
             if (!calculationsToUpdate.Any())
             {

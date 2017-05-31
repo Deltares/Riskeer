@@ -557,7 +557,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             bool isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
-            StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(context);
+
+            GrassCoverErosionInwardsCalculation[] calculations = context.WrappedData
+                                                                        .GetCalculations()
+                                                                        .OfType<GrassCoverErosionInwardsCalculation>()
+                                                                        .ToArray();
+            StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -609,14 +614,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateUpdateDikeProfileItem(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip;
-            IList<GrassCoverErosionInwardsCalculation> calculationsToUpdate = nodeData.WrappedData.GetCalculations()
-                                                                                      .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                      .Where(c => c.InputParameters.DikeProfile != null && !c.InputParameters.IsDikeProfileInputSynchronized)
-                                                                                      .ToList();
+
+            GrassCoverErosionInwardsCalculation[] calculationsToUpdate = calculations
+                .Where(calc => calc.InputParameters.DikeProfile != null
+                               && !calc.InputParameters.IsDikeProfileInputSynchronized)
+                .ToArray();
 
             if (!calculationsToUpdate.Any())
             {

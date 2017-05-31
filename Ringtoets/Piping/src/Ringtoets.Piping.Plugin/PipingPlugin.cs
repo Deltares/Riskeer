@@ -28,7 +28,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
@@ -883,7 +882,11 @@ namespace Ringtoets.Piping.Plugin
             bool isNestedGroup = parentData is PipingCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
-            StrictContextMenuItem updateEntryAndExitPointsItem = CreateUpdateEntryAndExitPointItem(nodeData);
+
+            PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
+                                                               .OfType<PipingCalculationScenario>()
+                                                               .ToArray();
+            StrictContextMenuItem updateEntryAndExitPointsItem = CreateUpdateEntryAndExitPointItem(calculations);
 
             if (!isNestedGroup)
             {
@@ -1006,14 +1009,15 @@ namespace Ringtoets.Piping.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IEnumerable<PipingCalculationScenario> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
-            IList<PipingCalculationScenario> calculationsToUpdate = nodeData.WrappedData.GetCalculations()
-                                                                            .OfType<PipingCalculationScenario>()
-                                                                            .Where(c => c.InputParameters.SurfaceLine != null && !c.InputParameters.IsEntryAndExitPointInputSynchronized)
-                                                                            .ToList();
+
+            PipingCalculationScenario[] calculationsToUpdate = calculations
+                .Where(calc => calc.InputParameters.SurfaceLine != null
+                               && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                .ToArray();
 
             if (!calculationsToUpdate.Any())
             {

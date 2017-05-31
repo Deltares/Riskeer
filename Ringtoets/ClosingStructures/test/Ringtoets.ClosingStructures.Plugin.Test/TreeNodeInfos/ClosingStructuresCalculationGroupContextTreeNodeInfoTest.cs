@@ -470,7 +470,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
-            
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
@@ -1198,53 +1198,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    // Note: observer assertions are verified in the TearDown()
-                }
-            }
-        }
-
-        [Test]
-        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateStructuresClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            // Given
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var structure = new TestClosingStructure();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                },
-                Output = new TestStructuresOutput()
-            };
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var inputObserver = mocks.StrictMock<IObserver>();
-            calculation.InputParameters.Attach(inputObserver);
-
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculation.Attach(calculationObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
                     Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
                     // Note: observer assertions are verified in the TearDown()
