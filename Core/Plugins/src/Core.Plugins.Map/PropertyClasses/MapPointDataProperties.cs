@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Gui.Attributes;
+using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Properties;
 
@@ -29,6 +31,64 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapPointDataProperties : FeatureBasedMapDataProperties<MapPointData>
     {
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_Color_Description))]
+        public string Color
+        {
+            get
+            {
+                return data.Style?.Color.ToString() ?? string.Empty;
+            }
+        }
+
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_StrokeColor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_StrokeColor_Description))]
+        public string StrokeColor
+        {
+            get
+            {
+                return data.Style?.Color.ToString() ?? string.Empty;
+            }
+        }
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_StrokeThickness_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_StrokeThickness_Description))]
+        public double StrokeThickness
+        {
+            get
+            {
+                return data.Style?.Size ?? 0;
+            }
+        }
+        [PropertyOrder(8)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Size_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_Size_Description))]
+        public double Size
+        {
+            get
+            {
+                return data.Style?.Size ?? 0;
+            }
+        }
+
+        [PropertyOrder(9)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Symbol_Displayname))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_Symbol_Description))]
+        public string Symbol
+        {
+            get
+            {
+                return data.Style?.Symbol.ToString() ?? string.Empty;
+            }
+        }
+
         public override string Type
         {
             get

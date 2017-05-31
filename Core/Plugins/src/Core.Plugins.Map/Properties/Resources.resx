@@ -271,4 +271,37 @@
   <data name="MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
     <value>Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten.</value>
   </data>
+  <data name="Categories_Styling" xml:space="preserve">
+    <value>Stijl</value>
+  </data>
+  <data name="MapData_Color_Description" xml:space="preserve">
+    <value>De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapData_Color_DisplayName" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="MapPointData_Size_Description" xml:space="preserve">
+    <value>De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPointData_Size_DisplayName" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="MapPointData_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPointData_StrokeColor_DisplayName" xml:space="preserve">
+    <value>Lijnkleur</value>
+  </data>
+  <data name="MapPointData_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPointData_StrokeThickness_DisplayName" xml:space="preserve">
+    <value>Lijndikte</value>
+  </data>
+  <data name="MapPointData_Symbol_Description" xml:space="preserve">
+    <value>Het symbool waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPointData_Symbol_Displayname" xml:space="preserve">
+    <value>Symbool</value>
+  </data>
 </root>

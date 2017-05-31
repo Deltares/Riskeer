@@ -119,6 +119,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stijl.
+        /// </summary>
+        public static string Categories_Styling {
+            get {
+                return ResourceManager.GetString("Categories_Styling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {
@@ -215,6 +224,24 @@ namespace Core.Plugins.Map.Properties {
             get {
                 object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapData_Color_Description {
+            get {
+                return ResourceManager.GetString("MapData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string MapData_Color_DisplayName {
+            get {
+                return ResourceManager.GetString("MapData_Color_DisplayName", resourceCulture);
             }
         }
         
@@ -372,6 +399,78 @@ namespace Core.Plugins.Map.Properties {
             get {
                 object obj = ResourceManager.GetObject("MapPlusIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPointData_Size_Description {
+            get {
+                return ResourceManager.GetString("MapPointData_Size_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grootte.
+        /// </summary>
+        public static string MapPointData_Size_DisplayName {
+            get {
+                return ResourceManager.GetString("MapPointData_Size_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPointData_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("MapPointData_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnkleur.
+        /// </summary>
+        public static string MapPointData_StrokeColor_DisplayName {
+            get {
+                return ResourceManager.GetString("MapPointData_StrokeColor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPointData_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("MapPointData_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijndikte.
+        /// </summary>
+        public static string MapPointData_StrokeThickness_DisplayName {
+            get {
+                return ResourceManager.GetString("MapPointData_StrokeThickness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het symbool waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPointData_Symbol_Description {
+            get {
+                return ResourceManager.GetString("MapPointData_Symbol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbool.
+        /// </summary>
+        public static string MapPointData_Symbol_Displayname {
+            get {
+                return ResourceManager.GetString("MapPointData_Symbol_Displayname", resourceCulture);
             }
         }
         

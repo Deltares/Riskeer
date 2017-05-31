@@ -19,7 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 
@@ -28,6 +35,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     [TestFixture]
     public class MapPointDataPropertiesTest
     {
+        private const int colorPropertyIndex = 5;
+        private const int strokeColorPropertyIndex = 6;
+        private const int strokeThicknessPropertyIndex = 7;
+        private const int sizePropertyIndex = 8;
+        private const int symbolPropertyIndex = 9;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -38,6 +51,116 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPointData>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Punten", properties.Type);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var mapPointData = new MapPointData("Test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                },
+                ShowLabels = true
+            };
+
+            // Call
+            var properties = new MapPointDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(10, dynamicProperties.Count);
+            
+            PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
+                                                                            "Stijl",
+                                                                            "Kleur",
+                                                                            "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.",
+                                                                            true);
+
+            PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
+                                                                            "Stijl",
+                                                                            "Lijnkleur",
+                                                                            "De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.",
+                                                                            true);
+
+            PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
+                                                                            "Stijl",
+                                                                            "Lijndikte",
+                                                                            "De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.",
+                                                                            true);
+
+            PropertyDescriptor sizeProperty = dynamicProperties[sizePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
+                                                                            "Stijl",
+                                                                            "Grootte",
+                                                                            "De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven.",
+                                                                            true);
+
+            PropertyDescriptor symbolProperty = dynamicProperties[symbolPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(symbolProperty,
+                                                                            "Stijl",
+                                                                            "Symbool",
+                                                                            "Het symbool waarmee deze kaartlaag wordt weergegeven.",
+                                                                            true);
+        }
+
+        [Test]
+        public void Data_SetNewMapPointDataInstanceWithStyle_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            Color color = Color.Aqua;
+            const int size = 4;
+            const PointSymbol symbol = PointSymbol.Circle;
+
+            var mapPointData = new MapPointData("Test")
+            {
+                Style = new PointStyle(color, size, symbol)
+            };
+            var properties = new MapPointDataProperties();
+
+            // Call
+            properties.Data = mapPointData;
+
+            // Assert
+            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
+            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
+
+            Assert.AreEqual(color.ToString(), properties.Color);
+            Assert.AreEqual(color.ToString(), properties.StrokeColor);
+            Assert.AreEqual(size, properties.StrokeThickness);
+            Assert.AreEqual(size, properties.Size);
+            Assert.AreEqual(symbol.ToString(), properties.Symbol);
+        }
+
+        [Test]
+        public void Data_SetNewMapPointDataInstanceWithoutStyle_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var mapPointData = new MapPointData("Test");
+            var properties = new MapPointDataProperties();
+
+            // Call
+            properties.Data = mapPointData;
+
+            // Assert
+            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
+            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
+
+            Assert.AreEqual(string.Empty, properties.Color);
+            Assert.AreEqual(string.Empty, properties.StrokeColor);
+            Assert.AreEqual(0, properties.StrokeThickness);
+            Assert.AreEqual(0, properties.Size);
+            Assert.AreEqual(string.Empty, properties.Symbol);
         }
     }
 }
