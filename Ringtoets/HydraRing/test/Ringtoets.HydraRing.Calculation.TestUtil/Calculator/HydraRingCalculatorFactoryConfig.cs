@@ -57,6 +57,23 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="HydraRingCalculatorFactoryConfig"/>.
+        /// Sets the <paramref name="newFactory"/> to <see cref="HydraRingCalculatorFactory.Instance"/>.
+        /// </summary>
+        /// <param name="newFactory">The factory that will be used while testing.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newFactory"/> 
+        /// is <c>null</c>.</exception>
+        public HydraRingCalculatorFactoryConfig(IHydraRingCalculatorFactory newFactory)
+        {
+            if (newFactory == null)
+            {
+                throw new ArgumentNullException(nameof(newFactory));
+            }
+            previousFactory = HydraRingCalculatorFactory.Instance;
+            HydraRingCalculatorFactory.Instance = newFactory;
+        }
+
+        /// <summary>
         /// Reverts the <see cref="HydraRingCalculatorFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="HydraRingCalculatorFactoryConfig"/>.
         /// </summary>

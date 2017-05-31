@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -42,6 +44,29 @@ namespace Ringtoets.Revetment.Service.Test
     public class WaveConditionsCalculationServiceBaseTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+        private static IEnumerable<TestCaseData> FailingCalculators
+        {
+            get
+            {
+                yield return new TestCaseData(new TestWaveConditionsCosineCalculator
+                    {
+                        LastErrorFileContent = "LastErrorFileContent"
+                    }, $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContent")
+                    .SetName("{m}(LastErrorFileContent)");
+                yield return new TestCaseData(new TestWaveConditionsCosineCalculator
+                    {
+                        EndInFailure = true
+                    }, "Er is geen foutrapport beschikbaar.")
+                    .SetName("{m}(EndInFailure)");
+                yield return new TestCaseData(new TestWaveConditionsCosineCalculator
+                    {
+                        EndInFailure = true,
+                        LastErrorFileContent = "LastErrorFileContentAndEndInFailure"
+                    }, $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}LastErrorFileContentAndEndInFailure")
+                    .SetName("{m}(LastErrorFileContentAndEndInFailure)");
+            }
+        }
 
         [Test]
         public void Validate_InputNull_ThrowArgumentNullException()
@@ -473,9 +498,18 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationOutputNull_LogError()
+        [TestCaseSource(nameof(FailingCalculators))]
+        public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+                                                                                                   string detailedReport)
         {
             // Setup
+            var mock = new MockRepository();
+            var calculatorFactory = mock.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
+            mock.ReplayAll();
+
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
             var a = (RoundedDouble) 1.0;
@@ -496,11 +530,8 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             HydraRingCalculationException exception = null;
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestWaveConditionsCosineCalculator testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
-                testCalculator.EndInFailure = true;
-
                 // Call
                 Action call = () =>
                 {
@@ -517,25 +548,23 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
-                    var waterLevelMiddleRevetment = new RoundedDouble(2, 3.50);
                     string[] msgs = messages.ToArray();
-
                     Assert.AreEqual(13, msgs.Length);
 
-                    const string detailedReport = " Er is geen foutrapport beschikbaar.";
+                    var waterLevelMiddleRevetment = new RoundedDouble(2, 3.50);
 
                     Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[0]);
-                    StringAssert.StartsWith($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'.{detailedReport}", msgs[1]);
+                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[3]);
 
                     Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[4]);
-                    StringAssert.StartsWith($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'.{detailedReport}", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'. {detailedReport}", msgs[5]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[6]);
                     Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[7]);
 
                     Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[8]);
-                    StringAssert.StartsWith($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'.{detailedReport}", msgs[9]);
+                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'. {detailedReport}", msgs[9]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[10]);
                     Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[11]);
 
@@ -544,6 +573,75 @@ namespace Ringtoets.Revetment.Service.Test
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
                 Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor alle waterstanden.", exception.Message);
             }
+            mock.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(FailingCalculators))]
+        public void Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+                                                                                       string detailedReport)
+        {
+            // Setup
+            var mock = new MockRepository();
+            var calculatorFactory = mock.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+            mock.ReplayAll();
+
+            var waterLevelUpperBoundary = new RoundedDouble(2, 4.00);
+            var waterLevelLowerBoundary = new RoundedDouble(2, 3.00);
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
+            const double norm = 0.2;
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(4.2),
+                ForeshoreProfile = new TestForeshoreProfile(),
+                UpperBoundaryRevetment = waterLevelUpperBoundary,
+                LowerBoundaryRevetment = waterLevelLowerBoundary
+            };
+
+            const string calculationName = "test";
+
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new WaveConditionsCalculationService();
+
+                // Call
+                Action call = () => service.PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(10, msgs.Length);
+
+                    var waterLevelMiddle = new RoundedDouble(2, 3.50);
+
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundary}'. {detailedReport}", msgs[1]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' beëindigd.", msgs[3]);
+
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' gestart.", msgs[4]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' beëindigd.", msgs[6]);
+
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' gestart.", msgs[7]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[8]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' beëindigd.", msgs[9]);
+                });
+
+                WaveConditionsOutput[] waveConditionsOutputs = service.Outputs.ToArray();
+                Assert.AreEqual(3, waveConditionsOutputs.Length);
+
+                AssertFailedCalculationOutput(waveConditionsOutputs[0]);
+            }
+            mock.VerifyAll();
         }
 
         [Test]
@@ -579,6 +677,21 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
             }
+        }
+
+        private static void AssertFailedCalculationOutput(WaveConditionsOutput actual)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaterLevel);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaveHeight);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WavePeakPeriod);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaveAngle);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaveDirection);
+            Assert.AreEqual(double.NaN, actual.TargetProbability);
+            Assert.AreEqual(RoundedDouble.NaN, actual.TargetReliability);
+            Assert.AreEqual(double.NaN, actual.CalculatedProbability);
+            Assert.AreEqual(RoundedDouble.NaN, actual.CalculatedReliability);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actual.CalculationConvergence);
         }
 
         private static WaveConditionsInput GetDefaultValidationInput()
@@ -620,6 +733,8 @@ namespace Ringtoets.Revetment.Service.Test
 
     public class WaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
+        public IEnumerable<WaveConditionsOutput> Outputs;
+
         public bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput, string calculationName, string dbFilePath, string valueName)
         {
             return ValidateWaveConditionsInput(waveConditionsInput, calculationName, dbFilePath, valueName);
@@ -627,7 +742,7 @@ namespace Ringtoets.Revetment.Service.Test
 
         public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath, string name)
         {
-            CalculateWaveConditions(name, input, a, b, c, norm, dbFilePath);
+            Outputs = CalculateWaveConditions(name, input, a, b, c, norm, dbFilePath);
         }
     }
 }
