@@ -22,12 +22,12 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.GrassCoverErosionInwards.IO.Readers;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class ReadGrassCoverErosionInwardsCalculationTest
+    public class GrassCoverErosionInwardsCalculationConfigurationTest
     {
         [Test]
         public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()

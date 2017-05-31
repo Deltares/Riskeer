@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Writers;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Writers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationWriterTest

@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
     /// This class reads a grass cover erosion inwards configuration from XML and creates

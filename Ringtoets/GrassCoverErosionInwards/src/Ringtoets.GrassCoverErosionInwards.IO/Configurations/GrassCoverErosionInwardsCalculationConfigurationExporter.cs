@@ -24,9 +24,8 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Writers;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Exporters
+namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
     /// Exports a grass cover erosion inwards calculation configuration and stores it as an XML file.

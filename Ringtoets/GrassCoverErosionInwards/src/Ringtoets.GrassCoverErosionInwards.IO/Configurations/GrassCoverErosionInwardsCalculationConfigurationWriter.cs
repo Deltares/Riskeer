@@ -26,7 +26,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Writers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
     /// Writer for writing a grass cover erosion inwards calculation configuration to XML.

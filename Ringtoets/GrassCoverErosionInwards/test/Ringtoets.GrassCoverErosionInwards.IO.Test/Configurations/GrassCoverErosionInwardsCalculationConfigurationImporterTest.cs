@@ -33,10 +33,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Importers;
-using Ringtoets.GrassCoverErosionInwards.IO.Readers;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Importers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationImporterTest

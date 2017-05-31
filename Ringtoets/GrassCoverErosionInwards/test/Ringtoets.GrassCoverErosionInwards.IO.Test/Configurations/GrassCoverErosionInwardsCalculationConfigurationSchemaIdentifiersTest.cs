@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiersTest

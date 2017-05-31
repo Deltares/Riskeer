@@ -28,9 +28,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.GrassCoverErosionInwards.IO.Readers;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Readers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationReaderTest

@@ -31,10 +31,9 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
-using Ringtoets.GrassCoverErosionInwards.IO.Readers;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Importers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
     public class GrassCoverErosionInwardsCalculationConfigurationImporter
         : CalculationConfigurationImporter<GrassCoverErosionInwardsCalculationConfigurationReader, ReadGrassCoverErosionInwardsCalculation>

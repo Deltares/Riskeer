@@ -25,10 +25,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Exporters;
-using Ringtoets.GrassCoverErosionInwards.IO.Writers;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Exporters
+namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationExporterTest

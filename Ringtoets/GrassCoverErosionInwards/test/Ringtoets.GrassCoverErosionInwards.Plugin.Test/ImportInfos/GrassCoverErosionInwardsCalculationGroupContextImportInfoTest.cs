@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.IO.Importers;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 {

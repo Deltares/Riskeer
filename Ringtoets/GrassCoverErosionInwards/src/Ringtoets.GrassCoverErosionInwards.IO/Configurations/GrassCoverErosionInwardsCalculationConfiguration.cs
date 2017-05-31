@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Readers
+namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
     /// Class that represents a grass cover erosion inwards calculation that is read via
