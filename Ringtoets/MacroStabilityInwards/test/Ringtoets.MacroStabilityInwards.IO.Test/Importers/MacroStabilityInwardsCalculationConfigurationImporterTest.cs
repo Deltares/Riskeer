@@ -278,9 +278,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
-        public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
+        [TestCase(false, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
+        [TestCase(true, "validConfigurationFullCalculationContainingAssessmentLevel.xml")]
+        public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(bool manualAssessmentLevel, string file)
         {
             // Setup
             string filePath = Path.Combine(readerPath, file);

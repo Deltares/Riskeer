@@ -48,10 +48,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using GeneralPipingInput = Ringtoets.Piping.Data.GeneralPipingInput;
-using PipingCalculation = Ringtoets.Piping.Data.PipingCalculation;
-using PipingCalculationScenario = Ringtoets.Piping.Data.PipingCalculationScenario;
-using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
+using PipingStochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
 
 namespace Ringtoets.Integration.Service.Test
 {
@@ -1434,7 +1431,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 yield return calculationBase;
             }
-            foreach (StochasticSoilModel stochasticSoilModel in failureMechanism.StochasticSoilModels)
+            foreach (PipingStochasticSoilModel stochasticSoilModel in failureMechanism.StochasticSoilModels)
             {
                 yield return stochasticSoilModel;
             }

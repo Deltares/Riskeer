@@ -885,8 +885,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(false)]
-        [TestCase(true)]
+        [TestCase(false, TestName = "ContextMenuStrip_ClearOutput_ClearOutputCalculationsAndNotifyObservers(false)")]
+        [TestCase(true, TestName = "ContextMenuStrip_ClearOutput_ClearOutputCalculationsAndNotifyObservers(true)")]
         public void ContextMenuStrip_ClickOnClearOutputItem_ClearOutputAllChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup

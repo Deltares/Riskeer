@@ -392,7 +392,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeRemoved_ParentIsMacroStabilityInwardsCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -435,7 +435,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeRemoved_ParentIsMacroStabilityInwardsCalculationGroupContext_RemoveCalculationFromSectionResult(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromSectionResult(bool groupNameEditable)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -662,8 +662,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, "GivenCalculation_WhenClearingOutputFromContextMenu_ThenOutputClearedAndNotified(true)")]
+        [TestCase(false, "GivenCalculation_WhenClearingOutputFromContextMenu_ThenOutputClearedAndNotified(false)")]
         public void GivenCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationOutputClearedAndNotified(bool confirm)
         {
             // Given
@@ -723,19 +723,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
                 }
             }
-        }
-
-        private static void ChangeSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 0),
-                new Point3D(1, 0, 2),
-                new Point3D(2, 0, 3),
-                new Point3D(3, 0, 0),
-                new Point3D(4, 0, 2),
-                new Point3D(5, 0, 3)
-            });
         }
 
         public override void TearDown()

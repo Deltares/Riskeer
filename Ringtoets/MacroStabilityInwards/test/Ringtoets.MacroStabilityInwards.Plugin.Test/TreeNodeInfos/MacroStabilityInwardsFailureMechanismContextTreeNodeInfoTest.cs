@@ -219,8 +219,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(false)]
-        [TestCase(true)]
+        [TestCase(false, TestName = "GivenMultipleCalculations_WhenClearingOutputFromContextMenu_ThenOutputCleared(false)")]
+        [TestCase(true, TestName = "GivenMultipleCalculations_WhenClearingOutputFromContextMenu_ThenOutputCleared(true)")]
         public void GivenMultipleCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenOutputCleared(bool confirm)
         {
             // Given

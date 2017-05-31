@@ -616,7 +616,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [Test]
         [TestCase("DoForSelectedButton")]
         [TestCase("CustomCancelButton")]
-        public void GivenMacroStabilityInwardsCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
         {
             // Given
             var mocks = new MockRepository();

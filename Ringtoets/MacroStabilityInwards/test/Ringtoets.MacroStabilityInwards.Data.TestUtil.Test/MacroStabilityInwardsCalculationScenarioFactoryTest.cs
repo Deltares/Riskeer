@@ -42,10 +42,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.8)]
-        [TestCase(1.0)]
+        [TestCase(double.NaN, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(NaN)")]
+        [TestCase(0.0, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(0.0)")]
+        [TestCase(0.8, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(0.8)")]
+        [TestCase(1.0, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(1.0)")]
         public void CreateMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double probability)
         {
             // Setup

@@ -171,9 +171,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Readers
 
         [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnMacroStabilityInwardsCalculation(HydraulicBoundaryLocation)")]
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnCalculation(HydraulicBoundaryLocation)")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnMacroStabilityInwardsCalculation(HydraulicBoundaryLocation_differentOrder)")]
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnCalculation(HydraulicBoundaryLocation_differentOrder)")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
@@ -197,9 +197,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Readers
 
         [Test]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnMacroStabilityInwardsCalculation(AssessmentLevel)")]
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnCalculation(AssessmentLevel)")]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnMacroStabilityInwardsCalculation(AssessmentLevel_differentOrder)")]
+            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnCalculation(AssessmentLevel_differentOrder)")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup

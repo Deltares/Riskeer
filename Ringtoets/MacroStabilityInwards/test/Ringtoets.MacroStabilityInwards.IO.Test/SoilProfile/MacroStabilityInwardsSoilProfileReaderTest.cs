@@ -303,11 +303,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase("incorrectValue2dStochastProperty.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'BelowPhreaticLevelMean\'.")]
         [TestCase("incorrectValue2dProperty.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'Color\'.")]
         [TestCase("invalidTop1dProfile.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'Top\'.")]
         [TestCase("invalidBottom1dProfile.soil", "Ondergrondschematisatie bevat geen geldige waarde in kolom \'Bottom\'.")]
-        public void ReadProfile_DatabaseProfileWithLayerWithIncorrectDistributionForBelowPhreaticLevelProperty_ThrowsMacroStabilityInwardsSoilProfileReadException(
+        public void ReadProfile_ProfileWithLayerIncorrectColumnValue_ThrowsMacroStabilityInwardsSoilProfileReadException(
             string testFile,
             string expectedMessage)
         {

@@ -933,59 +933,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilModelInput()
-        {
-            // Setup
-            var soilModel = new StochasticSoilModel(1, "A", "B")
-            {
-                Geometry =
-                {
-                    new Point2D(2, -1),
-                    new Point2D(2, 1)
-                }
-            };
-
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine,
-                    StochasticSoilModel = soilModel
-                }
-            };
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                surfaceLine
-            }, "path");
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                soilModel
-            }, "path");
-
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
-                                                                                                   "path").ToArray();
-
-            // Assert
-            MacroStabilityInwardsInput calculationInput = calculation.InputParameters;
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                failureMechanism.SurfaceLines,
-                calculationInput
-            }, affectedObjects);
-            Assert.IsNull(calculationInput.SurfaceLine);
-            Assert.AreSame(soilModel, calculationInput.StochasticSoilModel);
-            Assert.IsNull(calculationInput.StochasticSoilProfile);
-        }
-
-        [Test]
         public void UpdateSurfaceLinesWithImportedData_MultipleCalculations_OnlyUpdatesCalculationWithUpdatedSurfaceLine()
         {
             // Setup

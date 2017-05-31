@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
         [TestCase(1.0)]
         [TestCase(1.0 + 1e-12)]
         [TestCase(2.0)]
-        public void AsMacroStabilityInwardsSoilLayer_PropertiesSetWithCorrectDistributionsAndDifferentLayerParameters_PropertiesAreSetInMacroStabilityInwardsSoilLayer(double isAquifer)
+        public void AsMacroStabilityInwardsSoilLayer_PropertiesSetWithCorrectParameters_PropertiesAreSetInMacroStabilityInwardsSoilLayer(double isAquifer)
         {
             // Setup
             var random = new Random(22);
