@@ -1840,45 +1840,53 @@ namespace Core.Common.Controls.TreeView.Test
 
         private static IEnumerable<TestCaseData> GetDataModifiers()
         {
-            var a = new object();
-            var b = new object();
-            var c = new object();
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(0),
+                                                           list =>
+                                                           {
+                                                               list.Add(new object());
+                                                               list.Add(new object());
+                                                           }))
+                .SetName("ItemsAddedToEmptyList");
 
-            yield return new TestCaseData(new DataModifier(
-                                              new List<object>
-                                              {
-                                                  a,
-                                                  b,
-                                                  c
-                                              }, items => items.Remove(a))
-            ).SetName("FirstItemRemoved");
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => { list.Insert(0, new object()); }))
+                .SetName("ItemAddedFirstInList");
 
-            yield return new TestCaseData(new DataModifier(
-                                              new List<object>
-                                              {
-                                                  a,
-                                                  b,
-                                                  c
-                                              }, items => items.Remove(b))
-            ).SetName("MiddleItemRemoved");
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => { list.Insert(1, new object()); }))
+                .SetName("ItemAddedInMiddleOfList");
 
-            yield return new TestCaseData(new DataModifier(
-                                              new List<object>
-                                              {
-                                                  a,
-                                                  b,
-                                                  c
-                                              }, items => items.Remove(c))
-            ).SetName("LastItemRemoved");
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => { list.Add(new object()); }))
+                .SetName("ItemAddedLastInList");
 
-            yield return new TestCaseData(new DataModifier(
-                                              new List<object>
-                                              {
-                                                  a,
-                                                  b,
-                                                  c
-                                              }, items => items.Clear())
-            ).SetName("AllItemsRemoved");
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => list.RemoveAt(0)))
+                .SetName("FirstItemInListRemoved");
+
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => list.RemoveAt(1)))
+                .SetName("MiddleItemInListRemoved");
+
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => list.RemoveAt(2)))
+                .SetName("LastItemInListRemoved");
+
+            yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
+                                                           list => list.Clear()))
+                .SetName("AllItemsInListRemoved");
+        }
+
+        private static IList<object> CreateListWithElements(int numberOfElements)
+        {
+            var list = new List<object>();
+
+            for (var i = 0; i < numberOfElements; i++)
+            {
+                list.Add(new object());
+            }
+
+            return list;
         }
 
         /// <summary>
@@ -1913,7 +1921,7 @@ namespace Core.Common.Controls.TreeView.Test
                 modificationAction(data);
             }
         }
-    }
 
-    public class TestObservable : Observable {}
+        private class TestObservable : Observable {}
+    }
 }

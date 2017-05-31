@@ -304,7 +304,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 view.Data = calculation;
 
                 // Assert
-                AssertEmtpySoilLayerTable(view);
+                AssertEmptySoilLayerTable(view);
             }
         }
 
@@ -326,7 +326,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 view.Data = calculation;
 
                 // Assert
-                AssertEmtpySoilLayerTable(view);
+                AssertEmptySoilLayerTable(view);
             }
         }
 
@@ -658,7 +658,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return surfaceLine;
         }
 
-        private static void AssertEmtpySoilLayerTable(MacroStabilityInwardsInputView view)
+        private static void AssertEmptySoilLayerTable(MacroStabilityInwardsInputView view)
         {
             var tableControl = view.Controls.Find("soilLayerTable", true).First() as MacroStabilityInwardsSoilLayerTable;
 

@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 view.Data = calculation;
 
                 // Assert
-                AssertEmtpySoilLayerTable(view);
+                AssertEmptySoilLayerTable(view);
             }
         }
 
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 view.Data = calculation;
 
                 // Assert
-                AssertEmtpySoilLayerTable(view);
+                AssertEmptySoilLayerTable(view);
             }
         }
 
@@ -758,7 +758,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return surfaceLine;
         }
 
-        private static void AssertEmtpySoilLayerTable(PipingInputView view)
+        private static void AssertEmptySoilLayerTable(PipingInputView view)
         {
             var tableControl = view.Controls.Find("pipingSoilLayerTable", true).First() as PipingSoilLayerTable;
 

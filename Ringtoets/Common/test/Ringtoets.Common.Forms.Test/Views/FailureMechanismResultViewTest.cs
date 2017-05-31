@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmtpy()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmpty()
         {
             // Setup
             var testData = new object();
