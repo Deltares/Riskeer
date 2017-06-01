@@ -193,4 +193,13 @@
   <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip" xml:space="preserve">
     <value>Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen.</value>
   </data>
+  <data name="Categories_General" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="ChartDataProperties_Name_Description" xml:space="preserve">
+    <value>De naam van deze gegevensreeks.</value>
+  </data>
+  <data name="ChartDataProperties_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
 </root>

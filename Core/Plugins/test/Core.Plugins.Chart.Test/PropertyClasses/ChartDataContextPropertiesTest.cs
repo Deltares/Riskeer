@@ -23,13 +23,15 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms.PropertyClasses;
+using Core.Components.Charting.TestUtil;
+using Core.Plugins.Chart.PresentationObjects;
+using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Forms.Test.PropertyClasses
+namespace Core.Plugins.Chart.Test.PropertyClasses
 {
     [TestFixture]
-    public class ChartDataCollectionPropertiesTest
+    public class ChartDataContextPropertiesTest
     {
         private const int namePropertyIndex = 0;
 
@@ -37,36 +39,39 @@ namespace Core.Components.Charting.Forms.Test.PropertyClasses
         public void Constructor_ReturnsExpectedValues()
         {
             // Call
-            var properties = new ChartDataCollectionProperties();
+            var properties = new ChartDataContextProperties();
 
-            Assert.IsInstanceOf<ObjectProperties<ChartDataCollection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ChartDataContext>>(properties);
             Assert.IsNull(properties.Data);
         }
 
         [Test]
-        public void Data_SetNewChartDataCollectionInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewChartDataContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var chartDataCollection = new ChartDataCollection("Test");
-            var properties = new ChartDataCollectionProperties();
+            var chartData = new TestChartData("TestChart");
+            var chartDataContext = new ChartDataContext(chartData,
+                                                        new ChartDataCollection("Test"));
+            var properties = new ChartDataContextProperties();
 
             // Call
-            properties.Data = chartDataCollection;
+            properties.Data = chartDataContext;
 
             // Assert
-            Assert.AreEqual(chartDataCollection.Name, properties.Name);
+            Assert.AreEqual(chartData.Name, properties.Name);
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var chartDataCollection = new ChartDataCollection("Test");
+            var chartDataContext = new ChartDataContext(new TestChartData("TestChart"),
+                                                       new ChartDataCollection("Test"));
 
             // Call
-            var properties = new ChartDataCollectionProperties
+            var properties = new ChartDataContextProperties
             {
-                Data = chartDataCollection
+                Data = chartDataContext
             };
 
             // Assert
@@ -79,7 +84,7 @@ namespace Core.Components.Charting.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "De naam van deze gegevensreeksenmap.",
+                                                                            "De naam van deze gegevensreeks.",
                                                                             true);
         }
     }

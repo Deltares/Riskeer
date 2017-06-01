@@ -92,6 +92,33 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Categories_General {
+            get {
+                return ResourceManager.GetString("Categories_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van deze gegevensreeks..
+        /// </summary>
+        public static string ChartDataProperties_Name_Description {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string ChartDataProperties_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ChartIcon {

@@ -22,18 +22,18 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms.Properties;
+using Core.Plugins.Chart.Properties;
 
-namespace Core.Components.Charting.Forms.PropertyClasses
+namespace Core.Plugins.Chart.PropertyClasses
 {
     /// <summary>
-    /// 
+    /// ViewModel of <see cref="ChartDataCollection"/> for properties panel.
     /// </summary>
     public class ChartDataCollectionProperties : ObjectProperties<ChartDataCollection>
     {
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataCollectionProperties_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataCollectionProperties_Name_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataProperties_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataProperties_Name_Description))]
         public string Name
         {
             get

@@ -26,9 +26,10 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
-using Core.Components.Charting.Forms.PropertyClasses;
 using Core.Plugins.Chart.Commands;
 using Core.Plugins.Chart.Legend;
+using Core.Plugins.Chart.PresentationObjects;
+using Core.Plugins.Chart.PropertyClasses;
 
 namespace Core.Plugins.Chart
 {
@@ -62,6 +63,7 @@ namespace Core.Plugins.Chart
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<ChartDataCollection, ChartDataCollectionProperties>();
+            yield return new PropertyInfo<ChartDataContext, ChartDataContextProperties>();
         }
 
         public override void Dispose()

@@ -19,9 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
+using Core.Plugins.Chart.PresentationObjects;
+using Core.Plugins.Chart.Properties;
 
-[assembly: AssemblyTitle("Core.Components.Charting.Forms.Test")]
-[assembly: AssemblyProduct("Core.Components.Charting.Forms.Test")]
-[assembly: Guid("04f970ef-3536-4661-baee-9eb0bfc7db7d")]
+namespace Core.Plugins.Chart.PropertyClasses
+{
+    public class ChartDataContextProperties : ObjectProperties<ChartDataContext>
+    {
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataProperties_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataProperties_Name_Description))]
+        public string Name
+        {
+            get
+            {
+                return data.WrappedData.Name;
+            }
+        }
+    }
+}

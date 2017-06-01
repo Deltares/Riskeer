@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -31,8 +32,12 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
+using Core.Common.Gui.TestUtil;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.Chart.Legend;
+using Core.Plugins.Chart.PresentationObjects;
+using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -138,6 +143,30 @@ namespace Core.Plugins.Chart.Test
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        [Test]
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
+        {
+            // Setup
+            using (var plugin = new ChartPlugin())
+            {
+                // Call
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, propertyInfos.Length);
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartDataCollection),
+                    typeof(ChartDataCollectionProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartDataContext),
+                    typeof(ChartDataContextProperties));
+            }
         }
     }
 }
