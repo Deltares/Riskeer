@@ -569,65 +569,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithOutputAndInputInSync_WhenUpdateEntryAndExitPointClicked_ThenNoInquiryAndCalculationNotUpdatedAndObserversNotNotified()
-        {
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Given
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
-
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine
-                    },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-                };
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new PipingCalculationScenarioContext(calculation,
-                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<StochasticSoilModel>(),
-                                                                    pipingFailureMechanism,
-                                                                    assessmentSection);
-
-                var inputObserver = mocks.StrictMock<IObserver>();
-                calculation.InputParameters.Attach(inputObserver);
-
-                var calculationObserver = mocks.StrictMock<IObserver>();
-                calculation.Attach(calculationObserver);
-
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateEntryAndExitPointIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
-
-                    // Note: observer assertions are verified in TearDown
-                }
-            }
-        }
-
-        [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             using (var treeViewControl = new TreeViewControl())

@@ -578,12 +578,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var contextMenuEnabled = true;
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
-            StructuresCalculation<StabilityPointStructuresInput>[] calculationToUpdate =
-                calculations.Where(calc => calc.InputParameters.Structure != null
-                                           && !calc.InputParameters.IsStructureInputSynchronized)
-                            .ToArray();
+            StructuresCalculation<StabilityPointStructuresInput>[] calculationsToUpdate = calculations
+                .Where(calc => calc.InputParameters.Structure != null
+                               && !calc.InputParameters.IsStructureInputSynchronized)
+                .ToArray();
 
-            if (!calculationToUpdate.Any())
+            if (!calculationsToUpdate.Any())
             {
                 contextMenuEnabled = false;
                 toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
@@ -592,13 +592,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipMessage,
                                              RingtoetsCommonFormsResources.UpdateItemIcon,
-                                             (sender, args) => UpdateStructureDependentDataOfCalculation(calculationToUpdate))
+                                             (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
             {
                 Enabled = contextMenuEnabled
             };
         }
 
-        private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<StabilityPointStructuresInput>[] calculations)
+        private void UpdateStructureDependentDataOfCalculations(StructuresCalculation<StabilityPointStructuresInput>[] calculations)
         {
             string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (StructureDependentDataShouldUpdate(calculations, message))
