@@ -49,7 +49,17 @@ namespace Core.Common.Base.Geometry
         /// taken from <paramref name="point"/>.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to take the properties from.</param>
-        public Point2D(Point2D point) : this(point.X, point.Y) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
+        public Point2D(Point2D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException(nameof(point));
+            }
+
+            X = point.X;
+            Y = point.Y;
+        }
 
         /// <summary>
         /// Gets or sets the x coordinate.

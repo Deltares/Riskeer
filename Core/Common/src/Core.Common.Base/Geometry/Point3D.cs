@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Globalization;
 
 namespace Core.Common.Base.Geometry
@@ -46,7 +47,18 @@ namespace Core.Common.Base.Geometry
         /// and <see cref="Z"/> taken from <paramref name="point"/>.
         /// </summary>
         /// <param name="point">The <see cref="Point3D"/> to take the properties from.</param>
-        public Point3D(Point3D point) : this(point.X, point.Y, point.Z) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
+        public Point3D(Point3D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException(nameof(point));
+            }
+
+            X = point.X;
+            Y = point.Y;
+            Z = point.Z;
+        }
 
         /// <summary>
         /// Gets or sets the x coordinate.

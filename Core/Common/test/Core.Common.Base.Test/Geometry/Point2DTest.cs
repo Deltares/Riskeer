@@ -48,6 +48,17 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
+        public void CopyConstructor_PointNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new Point2D(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("point", paramName);
+        }
+
+        [Test]
         public void CopyConstructor_WithPointWithXandY_SetProperties()
         {
             // Setup
