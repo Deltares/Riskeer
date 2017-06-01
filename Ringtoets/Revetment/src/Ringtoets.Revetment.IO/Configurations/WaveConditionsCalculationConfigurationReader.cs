@@ -26,16 +26,17 @@ using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 using Ringtoets.Revetment.IO.Properties;
 using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Revetment.IO.Readers
+namespace Ringtoets.Revetment.IO.Configurations
 {
     /// <summary>
     /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding
-    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="ReadWaveConditionsCalculation"/>.
+    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="WaveConditionsCalculationConfiguration"/>.
     /// </summary>
-    public class WaveConditionsCalculationConfigurationReader : CalculationConfigurationReader<ReadWaveConditionsCalculation>
+    public class WaveConditionsCalculationConfigurationReader : CalculationConfigurationReader<WaveConditionsCalculationConfiguration>
     {
         private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";
         private const string orientationSchemaName = "OrientatieSchema.xsd";
@@ -74,9 +75,9 @@ namespace Ringtoets.Revetment.IO.Readers
                        }
                    }) {}
 
-        protected override ReadWaveConditionsCalculation ParseCalculationElement(XElement calculationElement)
+        protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var constructionProperties = new ReadWaveConditionsCalculation.ConstructionProperties
+            var constructionProperties = new WaveConditionsCalculationConfiguration.ConstructionProperties
             {
                 Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
                 HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
@@ -84,7 +85,7 @@ namespace Ringtoets.Revetment.IO.Readers
                 LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment),
                 UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels),
                 LowerBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels),
-                StepSize = (ReadWaveConditionsInputStepSize?) calculationElement.GetConvertedValueFromDescendantDoubleElement<ReadWaveConditionsInputStepSizeConverter>(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize),
+                StepSize = (ConfigurationWaveConditionsInputStepSize?) calculationElement.GetConvertedValueFromDescendantDoubleElement<ConfigurationWaveConditionsInputStepSizeConverter>(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize),
                 ForeshoreProfile = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
@@ -93,7 +94,7 @@ namespace Ringtoets.Revetment.IO.Readers
                 UseForeshore = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
             };
 
-            return new ReadWaveConditionsCalculation(constructionProperties);
+            return new WaveConditionsCalculationConfiguration(constructionProperties);
         }
     }
 }

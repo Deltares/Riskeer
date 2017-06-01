@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Writers;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.IO.Writers;
 

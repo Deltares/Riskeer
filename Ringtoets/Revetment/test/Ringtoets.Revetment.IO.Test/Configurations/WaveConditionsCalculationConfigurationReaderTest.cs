@@ -28,9 +28,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.Revetment.IO.Readers;
+using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Readers
+namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationReaderTest
@@ -163,7 +163,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationReader<ReadWaveConditionsCalculation>>(reader);
+            Assert.IsInstanceOf<CalculationConfigurationReader<WaveConditionsCalculationConfiguration>>(reader);
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readItems.Count);
 
-            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -225,7 +225,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readItems.Count);
 
-            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.UseBreakWater);
             Assert.IsNull(calculation.BreakWaterType);
@@ -246,7 +246,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readItems.Count);
 
-            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNaN(calculation.UpperBoundaryRevetment);
             Assert.IsNaN(calculation.LowerBoundaryRevetment);
@@ -269,7 +269,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readItems.Count);
 
-            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
 
             Assert.NotNull(calculation.UpperBoundaryRevetment);
@@ -302,7 +302,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readItems.Count);
 
-            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
@@ -310,7 +310,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ReadWaveConditionsInputStepSize.Half, calculation.StepSize);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
             Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
             Assert.AreEqual(5.5, calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);
@@ -332,7 +332,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             // Assert
             Assert.AreEqual(1, readItems.Count);
 
-            var calculation = readItems[0] as ReadWaveConditionsCalculation;
+            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -340,7 +340,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.IsNull(calculation.UpperBoundaryWaterLevels);
             Assert.IsNull(calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ReadWaveConditionsInputStepSize.Half, calculation.StepSize);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
             Assert.IsNull(calculation.ForeshoreProfile);
             Assert.IsNull(calculation.Orientation);
             Assert.IsTrue(calculation.UseBreakWater);

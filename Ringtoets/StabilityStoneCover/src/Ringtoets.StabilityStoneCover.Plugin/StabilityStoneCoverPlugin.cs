@@ -41,7 +41,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
-using Ringtoets.Revetment.IO.Importers;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;

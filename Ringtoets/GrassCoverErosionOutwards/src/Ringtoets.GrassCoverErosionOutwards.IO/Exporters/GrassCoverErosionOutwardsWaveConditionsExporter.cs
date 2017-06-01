@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.IO.Exceptions;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO;
-using Ringtoets.Revetment.IO.Exporters;
+using Ringtoets.Revetment.IO.WaveConditions;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
 {

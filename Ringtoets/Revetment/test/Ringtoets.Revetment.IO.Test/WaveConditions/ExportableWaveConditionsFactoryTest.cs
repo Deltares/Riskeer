@@ -26,9 +26,10 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.Revetment.TestUtil;
 
-namespace Ringtoets.Revetment.IO.Test
+namespace Ringtoets.Revetment.IO.Test.WaveConditions
 {
     [TestFixture]
     public class ExportableWaveConditionsFactoryTest

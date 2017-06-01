@@ -22,19 +22,19 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Readers
+namespace Ringtoets.Revetment.IO.Configurations
 {
     /// <summary>
     /// Class that represents a wave conditions calculation that is read via <see cref="WaveConditionsCalculationConfigurationReader"/>.
     /// </summary>
-    public class ReadWaveConditionsCalculation : IConfigurationItem
+    public class WaveConditionsCalculationConfiguration : IConfigurationItem
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReadWaveConditionsCalculation"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="constructionProperties">The container of the properties for the <see cref="ReadWaveConditionsCalculation"/>.</param>
+        /// <param name="constructionProperties">The container of the properties for the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="constructionProperties"/> is <c>null</c>.</exception>
-        public ReadWaveConditionsCalculation(ConstructionProperties constructionProperties)
+        public WaveConditionsCalculationConfiguration(ConstructionProperties constructionProperties)
         {
             if (constructionProperties == null)
             {
@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.IO.Readers
         /// <summary>
         /// Gets the step size of the read calculation.
         /// </summary>
-        public ReadWaveConditionsInputStepSize? StepSize { get; }
+        public ConfigurationWaveConditionsInputStepSize? StepSize { get; }
 
         /// <summary>
         /// Gets the name of the foreshore profile of the read calculation.
@@ -119,72 +119,72 @@ namespace Ringtoets.Revetment.IO.Readers
         public string Name { get; }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="ReadWaveConditionsCalculation"/>.
+        /// Class holding the various construction parameters for <see cref="WaveConditionsCalculationConfiguration"/>.
         /// </summary>
         public class ConstructionProperties
         {
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.Name"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.Name"/>.
             /// </summary>
             public string Name { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.HydraulicBoundaryLocation"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.HydraulicBoundaryLocation"/>.
             /// </summary>
             public string HydraulicBoundaryLocation { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UpperBoundaryRevetment"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.UpperBoundaryRevetment"/>.
             /// </summary>
             public double? UpperBoundaryRevetment { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.LowerBoundaryRevetment"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.LowerBoundaryRevetment"/>.
             /// </summary>
             public double? LowerBoundaryRevetment { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UpperBoundaryWaterLevels"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.UpperBoundaryWaterLevels"/>.
             /// </summary>
             public double? UpperBoundaryWaterLevels { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.LowerBoundaryWaterLevels"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.LowerBoundaryWaterLevels"/>.
             /// </summary>
             public double? LowerBoundaryWaterLevels { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.StepSize"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.StepSize"/>.
             /// </summary>
-            public ReadWaveConditionsInputStepSize? StepSize { internal get; set; }
+            public ConfigurationWaveConditionsInputStepSize? StepSize { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.ForeshoreProfile"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.ForeshoreProfile"/>.
             /// </summary>
             public string ForeshoreProfile { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.Orientation"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.Orientation"/>.
             /// </summary>
             public double? Orientation { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UseBreakWater"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.UseBreakWater"/>.
             /// </summary>
             public bool? UseBreakWater { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterType"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.BreakWaterType"/>.
             /// </summary>
             public ConfigurationBreakWaterType? BreakWaterType { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.BreakWaterHeight"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.BreakWaterHeight"/>.
             /// </summary>
             public double? BreakWaterHeight { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the value for <see cref="ReadWaveConditionsCalculation.UseForeshore"/>.
+            /// Gets or sets the value for <see cref="WaveConditionsCalculationConfiguration.UseForeshore"/>.
             /// </summary>
             public bool? UseForeshore { internal get; set; }
         }

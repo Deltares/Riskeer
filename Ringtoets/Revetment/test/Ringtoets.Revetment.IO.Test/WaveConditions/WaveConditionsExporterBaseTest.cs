@@ -29,10 +29,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Exporters;
-using Ringtoets.Revetment.IO.Writers;
+using Ringtoets.Revetment.IO.WaveConditions;
 
-namespace Ringtoets.Revetment.IO.Test.Exporters
+namespace Ringtoets.Revetment.IO.Test.WaveConditions
 {
     [TestFixture]
     public class WaveConditionsExporterBaseTest

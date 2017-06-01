@@ -19,39 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-
-namespace Ringtoets.Revetment.IO.Test
+namespace Ringtoets.Revetment.IO.Configurations
 {
-    [TestFixture]
-    public class CoverTypeTest
+    /// <summary>
+    /// Enum defining the possible step size value in a read wave conditions calculation.
+    /// </summary>
+    public enum ConfigurationWaveConditionsInputStepSize
     {
-        [Test]
-        public void Name_StoneCoverBlocks_CorrectName()
-        {
-            // Assert
-            Assert.AreEqual("Steen (blokken)", CoverType.StoneCoverBlocks.Name);
-        }
+        /// <summary>
+        /// A step size of 0.5
+        /// </summary>
+        Half = 1,
 
-        [Test]
-        public void Name_StoneCoverColumns_CorrectName()
-        {
-            // Assert
-            Assert.AreEqual("Steen (zuilen)", CoverType.StoneCoverColumns.Name);
-        }
+        /// <summary>
+        /// A step size of 1.0
+        /// </summary>
+        One = 2,
 
-        [Test]
-        public void Name_Asphalt_CorrectName()
-        {
-            // Assert
-            Assert.AreEqual("Asfalt", CoverType.Asphalt.Name);
-        }
-
-        [Test]
-        public void Name_Grass_CorrectName()
-        {
-            // Assert
-            Assert.AreEqual("Gras", CoverType.Grass.Name);
-        }
+        /// <summary>
+        /// A step size of 2.0
+        /// </summary>
+        Two = 3
     }
 }

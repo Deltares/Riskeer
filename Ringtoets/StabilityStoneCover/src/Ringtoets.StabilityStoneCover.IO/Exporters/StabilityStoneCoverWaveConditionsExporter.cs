@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Revetment.IO;
-using Ringtoets.Revetment.IO.Exporters;
+using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.IO.Exporters

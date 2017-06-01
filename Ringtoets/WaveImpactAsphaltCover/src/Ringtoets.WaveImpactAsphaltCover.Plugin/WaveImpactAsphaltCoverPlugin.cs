@@ -41,7 +41,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
-using Ringtoets.Revetment.IO.Importers;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;

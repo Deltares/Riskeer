@@ -22,7 +22,7 @@
 using System.Xml;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.IO.Writers;
+using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Writers
 {

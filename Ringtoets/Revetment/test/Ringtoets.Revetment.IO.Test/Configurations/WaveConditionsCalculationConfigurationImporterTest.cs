@@ -34,10 +34,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Importers;
-using Ringtoets.Revetment.IO.Readers;
+using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Importers
+namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationImporterTest
@@ -55,7 +54,7 @@ namespace Ringtoets.Revetment.IO.Test.Importers
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, ReadWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>>(importer);
         }
 
         [Test]

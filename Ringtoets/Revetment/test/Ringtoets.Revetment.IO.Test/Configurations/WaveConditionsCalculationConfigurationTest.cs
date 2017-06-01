@@ -22,18 +22,18 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Revetment.IO.Readers;
+using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Readers
+namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
-    public class ReadWaveConditionsCalculationTest
+    public class WaveConditionsCalculationConfigurationTest
     {
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ReadWaveConditionsCalculation(null);
+            TestDelegate test = () => new WaveConditionsCalculationConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -44,7 +44,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
         public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
         {
             // Call
-            var readCalculation = new ReadWaveConditionsCalculation(new ReadWaveConditionsCalculation.ConstructionProperties());
+            var readCalculation = new WaveConditionsCalculationConfiguration(new WaveConditionsCalculationConfiguration.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
@@ -73,7 +73,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const double lowerBoundaryRevetment = 2.2;
             const double upperBoundaryWaterLevels = 3.3;
             const double lowerBoundaryWaterLevels = 4.4;
-            const ReadWaveConditionsInputStepSize stepSize = ReadWaveConditionsInputStepSize.Half;
+            const ConfigurationWaveConditionsInputStepSize stepSize = ConfigurationWaveConditionsInputStepSize.Half;
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
             const bool useBreakWater = true;
@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.IO.Test.Readers
             const bool useForeshore = false;
 
             // Call
-            var readWaveConditionsCalculation = new ReadWaveConditionsCalculation(new ReadWaveConditionsCalculation.ConstructionProperties
+            var readWaveConditionsCalculation = new WaveConditionsCalculationConfiguration(new WaveConditionsCalculationConfiguration.ConstructionProperties
             {
                 Name = calculationName,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,

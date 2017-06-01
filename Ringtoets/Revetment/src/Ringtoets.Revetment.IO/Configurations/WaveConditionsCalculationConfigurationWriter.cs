@@ -26,8 +26,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 
-namespace Ringtoets.Revetment.IO.Writers
+namespace Ringtoets.Revetment.IO.Configurations
 {
     /// <summary>
     /// Base implementation of a writer for calculations that contain <see cref="WaveConditionsInput"/> as input,
@@ -36,14 +37,14 @@ namespace Ringtoets.Revetment.IO.Writers
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
     public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
     {
-        private readonly ReadWaveConditionsInputStepSizeConverter readWaveConditionsInputStepSizeConverter;
+        private readonly ConfigurationWaveConditionsInputStepSizeConverter configurationWaveConditionsInputStepSizeConverter;
 
         /// <summary>
         /// Created a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
         /// </summary>
         protected WaveConditionsCalculationConfigurationWriter()
         {
-            readWaveConditionsInputStepSizeConverter = new ReadWaveConditionsInputStepSizeConverter();
+            configurationWaveConditionsInputStepSizeConverter = new ConfigurationWaveConditionsInputStepSizeConverter();
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace Ringtoets.Revetment.IO.Writers
                 XmlConvert.ToString(input.LowerBoundaryWaterLevels));
             writer.WriteElementString(
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
-                readWaveConditionsInputStepSizeConverter.ConvertToInvariantString((ReadWaveConditionsInputStepSize) input.StepSize));
+                configurationWaveConditionsInputStepSizeConverter.ConvertToInvariantString((ConfigurationWaveConditionsInputStepSize) input.StepSize));
 
             WriteForeshoreProfile(input.ForeshoreProfile, writer);
 

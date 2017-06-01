@@ -29,7 +29,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.Revetment.IO.Exporters;
+using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.Revetment.TestUtil;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 

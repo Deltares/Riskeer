@@ -19,26 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Revetment.IO
+using Ringtoets.Revetment.IO.Properties;
+
+namespace Ringtoets.Revetment.IO.WaveConditions
 {
     /// <summary>
-    /// Enum defining the possible step size value in a read wave conditions calculation.
+    /// Class describing the type of cover.
     /// </summary>
-    public enum ReadWaveConditionsInputStepSize
+    public class CoverType
     {
-        /// <summary>
-        /// A step size of 0.5
-        /// </summary>
-        Half = 1,
+        public static readonly CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
+        public static readonly CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
+        public static readonly CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
+        public static readonly CoverType Grass = new CoverType(Resources.CoverType_Grass);
+
+        private CoverType(string name)
+        {
+            Name = name;
+        }
 
         /// <summary>
-        /// A step size of 1.0
+        /// Gets the name of the type of cover.
         /// </summary>
-        One = 2,
-
-        /// <summary>
-        /// A step size of 2.0
-        /// </summary>
-        Two = 3
+        public string Name { get; private set; }
     }
 }

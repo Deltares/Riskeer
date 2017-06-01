@@ -21,7 +21,7 @@
 
 using System.Xml;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.IO.Writers;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.IO.Writers

@@ -19,28 +19,40 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Revetment.IO.Properties;
+using NUnit.Framework;
+using Ringtoets.Revetment.IO.WaveConditions;
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.Revetment.IO.Test.WaveConditions
 {
-    /// <summary>
-    /// Class describing the type of cover.
-    /// </summary>
-    public class CoverType
+    [TestFixture]
+    public class CoverTypeTest
     {
-        public static readonly CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
-        public static readonly CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
-        public static readonly CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
-        public static readonly CoverType Grass = new CoverType(Resources.CoverType_Grass);
-
-        private CoverType(string name)
+        [Test]
+        public void Name_StoneCoverBlocks_CorrectName()
         {
-            Name = name;
+            // Assert
+            Assert.AreEqual("Steen (blokken)", CoverType.StoneCoverBlocks.Name);
         }
 
-        /// <summary>
-        /// Gets the name of the type of cover.
-        /// </summary>
-        public string Name { get; private set; }
+        [Test]
+        public void Name_StoneCoverColumns_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Steen (zuilen)", CoverType.StoneCoverColumns.Name);
+        }
+
+        [Test]
+        public void Name_Asphalt_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Asfalt", CoverType.Asphalt.Name);
+        }
+
+        [Test]
+        public void Name_Grass_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Gras", CoverType.Grass.Name);
+        }
     }
 }

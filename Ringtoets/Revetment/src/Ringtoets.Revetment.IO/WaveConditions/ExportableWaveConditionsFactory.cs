@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.Revetment.IO.WaveConditions
 {
     /// <summary>
     /// Class for constructing <see cref="ExportableWaveConditions"/> objects.

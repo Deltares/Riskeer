@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Writers;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Writers;
+using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Writers
 {

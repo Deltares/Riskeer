@@ -25,9 +25,8 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Revetment.IO.Properties;
-using Ringtoets.Revetment.IO.Writers;
 
-namespace Ringtoets.Revetment.IO.Exporters
+namespace Ringtoets.Revetment.IO.WaveConditions
 {
     /// <summary>
     /// Abstract class for wave conditions to csv file exporters.

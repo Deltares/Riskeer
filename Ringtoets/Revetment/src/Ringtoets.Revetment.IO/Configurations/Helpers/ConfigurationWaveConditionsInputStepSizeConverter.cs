@@ -23,24 +23,24 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.Revetment.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Converts <see cref="ReadWaveConditionsInputStepSize"/> to <see cref="string"/> and back.
+    /// Converts <see cref="ConfigurationWaveConditionsInputStepSize"/> to <see cref="string"/> and back.
     /// </summary>
-    public class ReadWaveConditionsInputStepSizeConverter : TypeConverter
+    public class ConfigurationWaveConditionsInputStepSizeConverter : TypeConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                switch ((ReadWaveConditionsInputStepSize) value)
+                switch ((ConfigurationWaveConditionsInputStepSize) value)
                 {
-                    case ReadWaveConditionsInputStepSize.Half:
+                    case ConfigurationWaveConditionsInputStepSize.Half:
                         return FormatStepSizeValue(culture, 0.5);
-                    case ReadWaveConditionsInputStepSize.One:
+                    case ConfigurationWaveConditionsInputStepSize.One:
                         return FormatStepSizeValue(culture, 1.0);
-                    case ReadWaveConditionsInputStepSize.Two:
+                    case ConfigurationWaveConditionsInputStepSize.Two:
                         return FormatStepSizeValue(culture, 2.0);
                 }
             }
@@ -63,15 +63,15 @@ namespace Ringtoets.Revetment.IO
             {
                 if (Math.Abs(doubleValue.Value - 0.5) < double.Epsilon)
                 {
-                    return ReadWaveConditionsInputStepSize.Half;
+                    return ConfigurationWaveConditionsInputStepSize.Half;
                 }
                 if (Math.Abs(doubleValue.Value - 1) < double.Epsilon)
                 {
-                    return ReadWaveConditionsInputStepSize.One;
+                    return ConfigurationWaveConditionsInputStepSize.One;
                 }
                 if (Math.Abs(doubleValue.Value - 2) < double.Epsilon)
                 {
-                    return ReadWaveConditionsInputStepSize.Two;
+                    return ConfigurationWaveConditionsInputStepSize.Two;
                 }
             }
 

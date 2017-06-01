@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test
+namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationSchemaIdentifiersTest
