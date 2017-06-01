@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations.Helpers;
 
@@ -55,7 +56,20 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void CanConvertTo_OtherTypeThanString_ReturnFalse()
+        public void CanConvertTo_WaveConditionsInputStepSize_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            bool canConvertToString = converter.CanConvertTo(typeof(WaveConditionsInputStepSize));
+
+            // Assert
+            Assert.IsTrue(canConvertToString);
+        }
+
+        [Test]
+        public void CanConvertTo_OtherType_ReturnFalse()
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
@@ -72,8 +86,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationWaveConditionsInputStepSize.Half, "0,5")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.One, "1,0")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Two, "2,0")]
-        public void ConvertTo_ForAllEnumValues_ReturnExpectedText(ConfigurationWaveConditionsInputStepSize value,
-                                                                  string expectedText)
+        public void ConvertTo_StringForAllEnumValues_ReturnExpectedText(ConfigurationWaveConditionsInputStepSize value,
+                                                                        string expectedText)
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
@@ -83,6 +97,50 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.AreEqual(expectedText, result);
+        }
+
+        [Test]
+        public void ConvertTo_StringInvalidConfigurationWaveConditionsInputStepSize_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo((ConfigurationWaveConditionsInputStepSize) 9999, typeof(string));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(ConfigurationWaveConditionsInputStepSize.Half, WaveConditionsInputStepSize.Half)]
+        [TestCase(ConfigurationWaveConditionsInputStepSize.One, WaveConditionsInputStepSize.One)]
+        [TestCase(ConfigurationWaveConditionsInputStepSize.Two, WaveConditionsInputStepSize.Two)]
+        public void ConvertTo_WaveConditionsInputStepSizeForAllEnumValues_ReturnExpectedText(ConfigurationWaveConditionsInputStepSize value,
+                                                                                             WaveConditionsInputStepSize expectedText)
+        {
+            // Setup
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(WaveConditionsInputStepSize));
+
+            // Assert
+            Assert.AreEqual(expectedText, result);
+        }
+
+        [Test]
+        public void ConvertTo_WaveConditionsInputStepSizeInvalidConfigurationWaveConditionsInputStepSize_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo((ConfigurationWaveConditionsInputStepSize) 9999, typeof(WaveConditionsInputStepSize));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
         }
 
         [Test]
@@ -112,7 +170,20 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void CanConvertFrom_NonNullableDouble_ReturnFalse()
+        public void CanConvertFrom_WaveConditionsInputStepSize_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            bool canConvertFromNullableDouble = converter.CanConvertFrom(typeof(WaveConditionsInputStepSize));
+
+            // Assert
+            Assert.IsTrue(canConvertFromNullableDouble);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherType_ReturnFalse()
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
@@ -171,6 +242,23 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        [TestCase(WaveConditionsInputStepSize.Half, ConfigurationWaveConditionsInputStepSize.Half)]
+        [TestCase(WaveConditionsInputStepSize.One, ConfigurationWaveConditionsInputStepSize.One)]
+        [TestCase(WaveConditionsInputStepSize.Two, ConfigurationWaveConditionsInputStepSize.Two)]
+        public void ConvertFrom_VariousWaveConditionsInputStepSize_ReturnWaveConditionsInputStepSize(WaveConditionsInputStepSize value,
+                                                                                                     ConfigurationWaveConditionsInputStepSize expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            object result = converter.ConvertFrom(value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
         }
 
         [Test]

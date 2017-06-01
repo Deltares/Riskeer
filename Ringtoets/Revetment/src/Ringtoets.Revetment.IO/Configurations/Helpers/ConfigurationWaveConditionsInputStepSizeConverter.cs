@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO.Configurations.Helpers
 {
@@ -30,11 +31,34 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
     /// </summary>
     public class ConfigurationWaveConditionsInputStepSizeConverter : TypeConverter
     {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == typeof(WaveConditionsInputStepSize)
+                   || base.CanConvertTo(context, destinationType);
+        }
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var stepSize = (ConfigurationWaveConditionsInputStepSize) value;
+
+            if (destinationType == typeof(WaveConditionsInputStepSize))
+            {
+                switch (stepSize)
+                {
+                    case ConfigurationWaveConditionsInputStepSize.Half:
+                        return WaveConditionsInputStepSize.Half;
+                    case ConfigurationWaveConditionsInputStepSize.One:
+                        return WaveConditionsInputStepSize.One;
+                    case ConfigurationWaveConditionsInputStepSize.Two:
+                        return WaveConditionsInputStepSize.Two;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
             if (destinationType == typeof(string))
             {
-                switch ((ConfigurationWaveConditionsInputStepSize) value)
+                switch (stepSize)
                 {
                     case ConfigurationWaveConditionsInputStepSize.Half:
                         return FormatStepSizeValue(culture, 0.5);
@@ -42,6 +66,8 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                         return FormatStepSizeValue(culture, 1.0);
                     case ConfigurationWaveConditionsInputStepSize.Two:
                         return FormatStepSizeValue(culture, 2.0);
+                    default:
+                        throw new NotSupportedException();
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);
@@ -49,15 +75,28 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            if (sourceType == typeof(double?))
-            {
-                return true;
-            }
-            return base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(double?)
+                   || sourceType == typeof(WaveConditionsInputStepSize)
+                   || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
+            if (value is WaveConditionsInputStepSize)
+            {
+                switch ((WaveConditionsInputStepSize) value)
+                {
+                    case WaveConditionsInputStepSize.Half:
+                        return ConfigurationWaveConditionsInputStepSize.Half;
+                    case WaveConditionsInputStepSize.One:
+                        return ConfigurationWaveConditionsInputStepSize.One;
+                    case WaveConditionsInputStepSize.Two:
+                        return ConfigurationWaveConditionsInputStepSize.Two;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
             var doubleValue = value as double?;
             if (doubleValue != null)
             {
