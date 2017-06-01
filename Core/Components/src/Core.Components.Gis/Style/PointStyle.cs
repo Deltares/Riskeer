@@ -35,25 +35,40 @@ namespace Core.Components.Gis.Style
         /// <param name="size">The size of the point.</param>
         /// <param name="symbol">The symbol of the point.</param>
         public PointStyle(Color color, int size, PointSymbol symbol)
+            : this(color, size, symbol, color, 1) {}
+
+        private PointStyle(Color color, int size, PointSymbol symbol, Color strokeColor, int strokeThickness)
         {
             Color = color;
             Size = size;
             Symbol = symbol;
+            StrokeColor = strokeColor;
+            StrokeThickness = strokeThickness;
         }
 
         /// <summary>
-        /// Gets the point color.
+        /// Gets or sets the point color.
         /// </summary>
         public Color Color { get; set; }
 
         /// <summary>
-        /// Gets the point size.
+        /// Gets or sets the point size.
         /// </summary>
-        public double Size { get; set; }
+        public int Size { get; set; }
 
         /// <summary>
-        /// Gets the point symbol.
+        /// Gets or sets the point symbol.
         /// </summary>
         public PointSymbol Symbol { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stroke color.
+        /// </summary>
+        public Color StrokeColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stroke thickness.
+        /// </summary>
+        public int StrokeThickness { get; set; }
     }
 }

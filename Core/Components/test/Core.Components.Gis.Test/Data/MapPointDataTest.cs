@@ -49,6 +49,8 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Size);
             Assert.AreEqual(PointSymbol.Square, data.Style.Symbol);
+            Assert.AreEqual(Color.Black, data.Style.StrokeColor);
+            Assert.AreEqual(1, data.Style.StrokeThickness);
         }
 
         [Test]

@@ -88,18 +88,17 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
+            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             "Stijl",
                                                                             "Lijnkleur",
-                                                                            "De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
+                                                                            "De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             "Stijl",
                                                                             "Lijndikte",
-                                                                            "De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
+                                                                            "De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor sizeProperty = dynamicProperties[sizePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
@@ -135,8 +134,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual(color, properties.Color);
-            Assert.AreEqual(color.ToString(), properties.StrokeColor);
-            Assert.AreEqual(size, properties.StrokeThickness);
+            Assert.AreEqual(color, properties.StrokeColor);
+            Assert.AreEqual(1, properties.StrokeThickness);
             Assert.AreEqual(size, properties.Size);
             Assert.AreEqual(symbol, properties.Symbol);
         }
@@ -145,7 +144,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 3;
+            const int numberOfChangedProperties = 5;
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
@@ -161,19 +160,24 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             Color newColor = Color.Blue;
-            const double newSize = 6;
-            PointSymbol newSymbol = PointSymbol.Diamond;
+            Color newStrokeColor = Color.Aquamarine;
+            const int newSize = 6;
+            const PointSymbol newSymbol = PointSymbol.Diamond;
+            const int newStrokeThickness = 4;
 
             // Call
             properties.Color = newColor;
             properties.Size = newSize;
             properties.Symbol = newSymbol;
-
+            properties.StrokeColor = newStrokeColor;
+            properties.StrokeThickness = newStrokeThickness;
 
             // Assert
             Assert.AreEqual(newColor, mapPointData.Style.Color);
             Assert.AreEqual(newSize, mapPointData.Style.Size);
             Assert.AreEqual(newSymbol, mapPointData.Style.Symbol);
+            Assert.AreEqual(newStrokeColor, mapPointData.Style.StrokeColor);
+            Assert.AreEqual(newStrokeThickness, mapPointData.Style.StrokeThickness);
             mocks.VerifyAll();
         }
     }

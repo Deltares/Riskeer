@@ -61,11 +61,18 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_StrokeColor_Description))]
-        public string StrokeColor
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(MapColorConverter))]
+        public Color StrokeColor
         {
             get
             {
-                return data.Style.Color.ToString();
+                return data.Style.StrokeColor;
+            }
+            set
+            {
+                data.Style.StrokeColor = value;
+                data.NotifyObservers();
             }
         }
 
@@ -73,11 +80,16 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_StrokeThickness_Description))]
-        public double StrokeThickness
+        public int StrokeThickness
         {
             get
             {
-                return data.Style.Size;
+                return data.Style.StrokeThickness;
+            }
+            set
+            {
+                data.Style.StrokeThickness = value;
+                data.NotifyObservers();
             }
         }
 
@@ -85,7 +97,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Size_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_Size_Description))]
-        public double Size
+        public int Size
         {
             get
             {
