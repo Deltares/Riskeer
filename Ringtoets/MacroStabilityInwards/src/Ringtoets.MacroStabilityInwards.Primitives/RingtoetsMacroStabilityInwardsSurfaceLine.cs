@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw new ArgumentException(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_A_point_in_the_collection_was_null);
             }
-            Points = points.ToArray();
+            Points = points.Select(p => new Point3D(p)).ToArray();
 
             if (Points.Length > 0)
             {
@@ -236,7 +236,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
 
             Name = fromSurfaceLine.Name;
-            ReferenceLineIntersectionWorldPoint = fromSurfaceLine.ReferenceLineIntersectionWorldPoint;
+            ReferenceLineIntersectionWorldPoint = fromSurfaceLine.ReferenceLineIntersectionWorldPoint != null
+                                                      ? new Point2D(fromSurfaceLine.ReferenceLineIntersectionWorldPoint)
+                                                      : null;
             SetGeometry(fromSurfaceLine.Points);
         }
 

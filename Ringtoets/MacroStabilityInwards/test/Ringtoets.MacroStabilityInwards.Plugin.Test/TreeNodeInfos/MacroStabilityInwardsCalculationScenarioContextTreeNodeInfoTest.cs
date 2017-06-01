@@ -166,9 +166,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                          failureMechanism,
                                                                                          assessmentSection);
 
-            // Precondition
-            Assert.IsFalse(calculationContext.WrappedData.HasOutput);
-
             // Call
             object[] children = info.ChildNodeObjects(calculationContext).ToArray();
 

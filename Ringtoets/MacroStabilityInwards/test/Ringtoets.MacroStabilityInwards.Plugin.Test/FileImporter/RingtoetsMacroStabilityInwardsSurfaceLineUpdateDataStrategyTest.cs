@@ -110,23 +110,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_CurrentCollectionAndImportedCollectionEmpty_DoesNothing()
-        {
-            // Setup
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void UpdateSurfaceLinesWithImportedData_OnlyGeometryChanged_UpdatesGeometryOnly()
         {
             // Setup
@@ -141,99 +124,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
             expectedGeometry.AddRange(surfaceLine.Points);
             surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
-
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            targetCollection.AddRange(new[]
-            {
-                surfaceLine
-            }, sourceFilePath);
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
-                                                        {
-                                                            surfaceLineToUpdateFrom
-                                                        },
-                                                        sourceFilePath);
-
-            // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_OnlyReferenceLineIntersectionPointChanged_UpdatesCharacteristicPointsOnly()
-        {
-            // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateValidSurfaceLineForCalculations();
-            surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint = new Point2D(123, 456);
-
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            targetCollection.AddRange(new[]
-            {
-                surfaceLine
-            }, sourceFilePath);
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
-                                                        {
-                                                            surfaceLineToUpdateFrom
-                                                        },
-                                                        sourceFilePath);
-
-            // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_OnlyCharacteristicPointsChanged_UpdatesCharacteristicPointsOnly()
-        {
-            // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var surfaceLineToUpdateFrom = new RingtoetsMacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLine.Name
-            };
-            surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
-
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            targetCollection.AddRange(new[]
-            {
-                surfaceLine
-            }, sourceFilePath);
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
-                                                        {
-                                                            surfaceLineToUpdateFrom
-                                                        },
-                                                        sourceFilePath);
-
-            // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_GeometryAndReferenceLineIntersectionPointAndCharacteristicPointsChanged_UpdatesRelevantProperties()
-        {
-            // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = DeepCloneAndModifyPoints(surfaceLine);
 
             var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
             targetCollection.AddRange(new[]
@@ -302,41 +192,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_CurrentCollectionEmptyAndImportedDataNotEmpty_NewSurfaceLinesAdded()
-        {
-            // Setup
-            const string collectionSurfaceLineOneName = "Name A";
-            const string collectionSurfaceLineTwoName = "Name B";
-
-            var importedSurfaceLines = new[]
-            {
-                new RingtoetsMacroStabilityInwardsSurfaceLine
-                {
-                    Name = collectionSurfaceLineOneName
-                },
-                new RingtoetsMacroStabilityInwardsSurfaceLine
-                {
-                    Name = collectionSurfaceLineTwoName
-                }
-            };
-
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                                   importedSurfaceLines,
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.AreEqual(importedSurfaceLines, targetCollection);
-            CollectionAssert.AreEqual(new[]
-            {
-                targetCollection
-            }, affectedObjects);
-        }
-
-        [Test]
         public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedMultipleLinesWithSameNames_ThrowsUpdateDataException()
         {
             // Setup
@@ -389,37 +244,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             RingtoetsMacroStabilityInwardsSurfaceLine actualSurfaceLine = targetCollection[0];
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             CollectionAssert.AreEqual(expectedGeometry, actualSurfaceLine.Points);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_WithCurrentLinesAndImportedDataEmpty_SurfaceLinesRemoved()
-        {
-            // Setup
-            const string collectionSurfaceLineName = "Name A";
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            RingtoetsMacroStabilityInwardsSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
-            surfaceLineCollection.AddRange(new[]
-            {
-                new RingtoetsMacroStabilityInwardsSurfaceLine
-                {
-                    Name = collectionSurfaceLineName
-                }
-            }, sourceFilePath);
-
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
-                                                                                                   sourceFilePath);
-
-            // Assert
-            CollectionAssert.IsEmpty(surfaceLineCollection);
-            CollectionAssert.AreEqual(new[]
-            {
-                surfaceLineCollection
-            }, affectedObjects);
         }
 
         [Test]
@@ -615,7 +439,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateSurfaceLinesWithImportedData_MultipleCalculationsWithSurfaceLines_OnlyUpdatesCalculationWithUpdatedSurfaceLine()
+        public void UpdateSurfaceLinesWithImportedData_MultipleCalculationsWithSurfaceLinesOneWithUpdatedLine_OnlyUpdatesCalculationWithUpdatedSurfaceLine()
         {
             // Setup
             const string updatedSurfaceLineName = "Name A";
@@ -702,6 +526,92 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 affectedCalculation,
                 affectedInput,
                 affectedSurfaceLine
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_MultipleCalculationsWithSurfaceLinesOneWithRemovedLine_OnlyUpdatesCalculationWithRemovedSurfaceLine()
+        {
+            // Setup
+            const string removedSurfaceLineName = "Name A";
+            const string unaffectedSurfaceLineName = "Name B";
+
+            var removedSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            {
+                Name = removedSurfaceLineName
+            };
+            removedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
+            var affectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = removedSurfaceLine
+                },
+                Output = new TestMacroStabilityInwardsOutput(),
+                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+            };
+
+            var unaffectedGeometry = new[]
+            {
+                new Point3D(10, 9, 8),
+                new Point3D(7, 6, 5)
+            };
+            var unaffectedSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            {
+                Name = unaffectedSurfaceLineName
+            };
+            unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
+            var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = unaffectedSurfaceLine
+                },
+                Output = new TestMacroStabilityInwardsOutput(),
+                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+            };
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            RingtoetsMacroStabilityInwardsSurfaceLineCollection collection = failureMechanism.SurfaceLines;
+            collection.AddRange(new[]
+            {
+                removedSurfaceLine,
+                unaffectedSurfaceLine
+            }, sourceFilePath);
+            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(unAffectedCalculation);
+
+            RingtoetsMacroStabilityInwardsSurfaceLine importedUnaffectedSurfaceLine = DeepCloneName(unaffectedSurfaceLine);
+            importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
+
+            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       importedUnaffectedSurfaceLine
+                                                                                                   }, "path").ToArray();
+
+            // Assert
+            Assert.IsTrue(unAffectedCalculation.HasOutput);
+            MacroStabilityInwardsInput unaffectedInput = unAffectedCalculation.InputParameters;
+            Assert.AreSame(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
+            Assert.AreEqual(unaffectedSurfaceLine, unaffectedInput.SurfaceLine);
+
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            MacroStabilityInwardsInput affectedInput = affectedCalculation.InputParameters;
+            Assert.IsNull(affectedInput.SurfaceLine);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                collection,
+                affectedCalculation,
+                affectedInput
             }, affectedObjects);
         }
 
@@ -930,6 +840,59 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             Assert.IsNull(calculationInput.SurfaceLine);
             Assert.AreSame(soilModel, calculationInput.StochasticSoilModel);
             Assert.AreSame(soilModel.StochasticSoilProfiles[0], calculationInput.StochasticSoilProfile);
+        }
+
+        [Test]
+        public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilModelInput()
+        {
+            // Setup
+            var soilModel = new StochasticSoilModel(1, "A", "B")
+            {
+                Geometry =
+                {
+                    new Point2D(2, -1),
+                    new Point2D(2, 1)
+                }
+            };
+
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
+            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = soilModel
+                }
+            };
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                soilModel
+            }, "path");
+
+            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
+                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                                   "path").ToArray();
+
+            // Assert
+            MacroStabilityInwardsInput calculationInput = calculation.InputParameters;
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                failureMechanism.SurfaceLines,
+                calculationInput
+            }, affectedObjects);
+            Assert.IsNull(calculationInput.SurfaceLine);
+            Assert.AreSame(soilModel, calculationInput.StochasticSoilModel);
+            Assert.IsNull(calculationInput.StochasticSoilProfile);
         }
 
         [Test]
@@ -1170,7 +1133,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(11, 0, 15)
             };
             copiedLine.SetGeometry(newGeometry);
-
             return copiedLine;
         }
     }

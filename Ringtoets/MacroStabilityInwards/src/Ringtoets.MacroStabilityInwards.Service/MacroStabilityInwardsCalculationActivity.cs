@@ -74,7 +74,6 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 return;
             }
 
-            LogMessages.Clear();
             MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
 
             MacroStabilityInwardsCalculationService.Calculate(calculation);

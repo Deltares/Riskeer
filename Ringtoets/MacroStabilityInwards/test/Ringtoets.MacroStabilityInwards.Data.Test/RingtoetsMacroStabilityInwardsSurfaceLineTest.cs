@@ -100,8 +100,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.AreNotSame(sourceData, surfaceLine.Points);
             CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            Assert.AreSame(sourceData[0], surfaceLine.StartingWorldPoint);
-            Assert.AreSame(sourceData[0], surfaceLine.EndingWorldPoint);
+            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.StartingWorldPoint);
+            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.EndingWorldPoint);
         }
 
         [Test]
@@ -124,8 +124,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.AreNotSame(sourceData, surfaceLine.Points);
             CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            Assert.AreSame(sourceData[0], surfaceLine.StartingWorldPoint);
-            Assert.AreSame(sourceData[3], surfaceLine.EndingWorldPoint);
+            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.StartingWorldPoint);
+            TestHelper.AssertAreEqualButNotSame(sourceData[3], surfaceLine.EndingWorldPoint);
         }
 
         [Test]
@@ -459,10 +459,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(expectedGeometry, surfaceLine.Points);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -481,10 +478,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -501,9 +495,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(expectedIntersectionPoint, surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -517,10 +509,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
 
             // Assert
-            Assert.AreEqual(surfaceLineToUpdateFrom.Name, surfaceLine.Name);
-            Assert.AreEqual(surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint,
-                            surfaceLine.ReferenceLineIntersectionWorldPoint);
-            CollectionAssert.AreEqual(surfaceLineToUpdateFrom.Points, surfaceLine.Points);
+            AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
         [Test]
@@ -705,6 +694,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static void AssertPropertiesUpdated(RingtoetsMacroStabilityInwardsSurfaceLine expectedSurfaceLine,
+                                                    RingtoetsMacroStabilityInwardsSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
+            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,
+                                                actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
+            CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
+            TestHelper.AssertCollectionAreNotSame(expectedSurfaceLine.Points, actualSurfaceLine.Points);
         }
 
         private static RingtoetsMacroStabilityInwardsSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
