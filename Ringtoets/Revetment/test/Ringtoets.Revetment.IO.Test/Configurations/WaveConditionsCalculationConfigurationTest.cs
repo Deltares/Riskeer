@@ -36,19 +36,21 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             TestDelegate test = () => new WaveConditionsCalculationConfiguration(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("constructionProperties", exception.ParamName);
+            Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
         {
+            // Setup
+            var name = "some name";
+
             // Call
-            var readCalculation = new WaveConditionsCalculationConfiguration(new WaveConditionsCalculationConfiguration.ConstructionProperties());
+            var readCalculation = new WaveConditionsCalculationConfiguration(name);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
-            Assert.IsNull(readCalculation.Name);
+            Assert.AreEqual(name, readCalculation.Name);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readCalculation.UpperBoundaryRevetment);
             Assert.IsNull(readCalculation.LowerBoundaryRevetment);
@@ -82,9 +84,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             const bool useForeshore = false;
 
             // Call
-            var readWaveConditionsCalculation = new WaveConditionsCalculationConfiguration(new WaveConditionsCalculationConfiguration.ConstructionProperties
-            {
-                Name = calculationName,
+            var readWaveConditionsCalculation = new WaveConditionsCalculationConfiguration(calculationName)
+            { 
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 UpperBoundaryRevetment = upperBoundaryRevetment,
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
@@ -97,7 +98,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 BreakWaterType = breakWaterType,
                 BreakWaterHeight = breakWaterHeight,
                 UseForeshore = useForeshore
-            });
+            };
 
             // Assert
             Assert.AreEqual(calculationName, readWaveConditionsCalculation.Name);

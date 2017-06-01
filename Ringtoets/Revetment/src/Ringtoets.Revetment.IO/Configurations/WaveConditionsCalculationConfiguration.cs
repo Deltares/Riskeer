@@ -29,94 +29,97 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// </summary>
     public class WaveConditionsCalculationConfiguration : IConfigurationItem
     {
+        private string name;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="constructionProperties">The container of the properties for the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="constructionProperties"/> is <c>null</c>.</exception>
-        public WaveConditionsCalculationConfiguration(ConstructionProperties constructionProperties)
+        /// <param name="name">The name of the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public WaveConditionsCalculationConfiguration(string name)
         {
-            if (constructionProperties == null)
-            {
-                throw new ArgumentNullException(nameof(constructionProperties));
-            }
-
-            Name = constructionProperties.Name;
-            HydraulicBoundaryLocation = constructionProperties.HydraulicBoundaryLocation;
-            UpperBoundaryRevetment = constructionProperties.UpperBoundaryRevetment;
-            LowerBoundaryRevetment = constructionProperties.LowerBoundaryRevetment;
-            UpperBoundaryWaterLevels = constructionProperties.UpperBoundaryWaterLevels;
-            LowerBoundaryWaterLevels = constructionProperties.LowerBoundaryWaterLevels;
-            StepSize = constructionProperties.StepSize;
-            ForeshoreProfile = constructionProperties.ForeshoreProfile;
-            Orientation = constructionProperties.Orientation;
-            UseBreakWater = constructionProperties.UseBreakWater;
-            BreakWaterType = constructionProperties.BreakWaterType;
-            BreakWaterHeight = constructionProperties.BreakWaterHeight;
-            UseForeshore = constructionProperties.UseForeshore;
+            Name = name;
         }
 
         /// <summary>
         /// Gets the name of the hydraulic boundary location of the read calculation.
         /// </summary>
-        public string HydraulicBoundaryLocation { get; }
+        public string HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Gets the upper boundary of the revetment of the read calculation.
         /// </summary>
-        public double? UpperBoundaryRevetment { get; }
+        public double? UpperBoundaryRevetment { get; set; }
 
         /// <summary>
         /// Gets the lower boundary of the revetment of the read calculation.
         /// </summary>
-        public double? LowerBoundaryRevetment { get; }
+        public double? LowerBoundaryRevetment { get; set; }
 
         /// <summary>
         /// Gets the upper boundary of the water levels of the read calculation.
         /// </summary>
-        public double? UpperBoundaryWaterLevels { get; }
+        public double? UpperBoundaryWaterLevels { get; set; }
 
         /// <summary>
         /// Gets the lower boundary of the water levels of the read calculation.
         /// </summary>
-        public double? LowerBoundaryWaterLevels { get; }
+        public double? LowerBoundaryWaterLevels { get; set; }
 
         /// <summary>
         /// Gets the step size of the read calculation.
         /// </summary>
-        public ConfigurationWaveConditionsInputStepSize? StepSize { get; }
+        public ConfigurationWaveConditionsInputStepSize? StepSize { get; set; }
 
         /// <summary>
         /// Gets the name of the foreshore profile of the read calculation.
         /// </summary>
-        public string ForeshoreProfile { get; }
+        public string ForeshoreProfile { get; set; }
 
         /// <summary>
         /// Gets the orientation of the read calculation.
         /// </summary>
-        public double? Orientation { get; }
+        public double? Orientation { get; set; }
 
         /// <summary>
         /// Gets whether the breakwater should be used for the read calculation.
         /// </summary>
-        public bool? UseBreakWater { get; }
+        public bool? UseBreakWater { get; set; }
 
         /// <summary>
         /// Gets the breakwater type of the read calculation.
         /// </summary>
-        public ConfigurationBreakWaterType? BreakWaterType { get; }
+        public ConfigurationBreakWaterType? BreakWaterType { get; set; }
 
         /// <summary>
         /// Gets the breakwater height of the read calculation.
         /// </summary>
-        public double? BreakWaterHeight { get; }
+        public double? BreakWaterHeight { get; set; }
 
         /// <summary>
         /// Gets whether the foreshore should be used for the read calculation.
         /// </summary>
-        public bool? UseForeshore { get; }
+        public bool? UseForeshore { get; set; }
 
-        public string Name { get; }
+        /// <summary>
+        /// Gets or sets the name of the <see cref="WaveConditionsCalculationConfiguration"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                }
+                name = value;
+            }
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="WaveConditionsCalculationConfiguration"/>.

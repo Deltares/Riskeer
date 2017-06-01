@@ -77,9 +77,8 @@ namespace Ringtoets.Revetment.IO.Configurations
 
         protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var constructionProperties = new WaveConditionsCalculationConfiguration.ConstructionProperties
-            {
-                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
+            return new WaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
+            { 
                 HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment),
                 LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment),
@@ -93,8 +92,6 @@ namespace Ringtoets.Revetment.IO.Configurations
                 BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
                 UseForeshore = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
             };
-
-            return new WaveConditionsCalculationConfiguration(constructionProperties);
         }
     }
 }
