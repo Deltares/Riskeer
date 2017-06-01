@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -26,18 +27,19 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
-using Ringtoets.WaveImpactAsphaltCover.IO.Writers;
 
 namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             WaveImpactAsphaltCoverCalculationConfigurationExporter,
-            WaveImpactAsphaltCoverCalculationConfigurationWriter,
-            WaveImpactAsphaltCoverWaveConditionsCalculation>
+            WaveConditionsCalculationConfigurationWriter,
+            WaveImpactAsphaltCoverWaveConditionsCalculation,
+            WaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
@@ -94,6 +96,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
         protected override WaveImpactAsphaltCoverWaveConditionsCalculation CreateCalculation()
         {
             return new WaveImpactAsphaltCoverWaveConditionsCalculation();
+        }
+
+        protected override WaveImpactAsphaltCoverCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new WaveImpactAsphaltCoverCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }

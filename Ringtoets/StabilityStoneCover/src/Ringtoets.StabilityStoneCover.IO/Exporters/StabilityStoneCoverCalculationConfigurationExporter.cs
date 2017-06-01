@@ -23,8 +23,9 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.IO.Writers;
 
 namespace Ringtoets.StabilityStoneCover.IO.Exporters
 {
@@ -32,7 +33,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Exporters
     /// Exports a stability stone cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class StabilityStoneCoverCalculationConfigurationExporter
-        : CalculationConfigurationExporter<StabilityStoneCoverCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation>
+        : SchemaCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverCalculationConfigurationExporter"/>.
@@ -43,5 +44,15 @@ namespace Ringtoets.StabilityStoneCover.IO.Exporters
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public StabilityStoneCoverCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
             : base(configuration, filePath) {}
+
+        protected override WaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new WaveConditionsCalculationConfigurationWriter(filePath);
+        }
+
+        protected override WaveConditionsCalculationConfiguration ToConfiguration(StabilityStoneCoverWaveConditionsCalculation calculation)
+        {
+            return calculation.InputParameters.ToConfiguration(calculation.Name);
+        }
     }
 }

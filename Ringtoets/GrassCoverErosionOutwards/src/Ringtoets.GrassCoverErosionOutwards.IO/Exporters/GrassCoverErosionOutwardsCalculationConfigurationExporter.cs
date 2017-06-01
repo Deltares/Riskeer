@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.IO.Writers;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
 {
@@ -32,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
     /// Exports a grass cover erosion outwards calculation configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionOutwardsCalculationConfigurationExporter
-        : CalculationConfigurationExporter<GrassCoverErosionOutwardsCalculationConfigurationWriter, GrassCoverErosionOutwardsWaveConditionsCalculation>
+        : SchemaCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, GrassCoverErosionOutwardsWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationExporter"/>.
@@ -43,5 +45,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
             : base(configuration, filePath) {}
+
+        protected override WaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new WaveConditionsCalculationConfigurationWriter(filePath);
+        }
+
+        protected override WaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        {
+            return calculation.InputParameters.ToConfiguration(calculation.Name);
+        }
     }
 }

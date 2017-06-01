@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -28,16 +29,17 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.IO.Writers;
+using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             GrassCoverErosionOutwardsCalculationConfigurationExporter,
-            GrassCoverErosionOutwardsCalculationConfigurationWriter,
-            GrassCoverErosionOutwardsWaveConditionsCalculation>
+            WaveConditionsCalculationConfigurationWriter,
+            GrassCoverErosionOutwardsWaveConditionsCalculation,
+            WaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
@@ -93,6 +95,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
         protected override GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculation()
         {
             return new GrassCoverErosionOutwardsWaveConditionsCalculation();
+        }
+
+        protected override GrassCoverErosionOutwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new GrassCoverErosionOutwardsCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }

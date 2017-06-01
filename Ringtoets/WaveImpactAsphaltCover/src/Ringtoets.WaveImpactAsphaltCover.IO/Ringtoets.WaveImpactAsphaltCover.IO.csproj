@@ -41,7 +41,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exporters\WaveImpactAsphaltCoverCalculationConfigurationExporter.cs" />
-    <Compile Include="Writers\WaveImpactAsphaltCoverCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exporters\WaveImpactAsphaltCoverWaveConditionsExporter.cs" />
   </ItemGroup>

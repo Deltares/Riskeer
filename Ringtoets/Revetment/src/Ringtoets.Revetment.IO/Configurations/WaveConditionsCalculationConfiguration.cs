@@ -82,24 +82,9 @@ namespace Ringtoets.Revetment.IO.Configurations
         public double? Orientation { get; set; }
 
         /// <summary>
-        /// Gets whether the breakwater should be used for the read calculation.
+        /// Gets or sets the wave reduction configuration.
         /// </summary>
-        public bool? UseBreakWater { get; set; }
-
-        /// <summary>
-        /// Gets the breakwater type of the read calculation.
-        /// </summary>
-        public ConfigurationBreakWaterType? BreakWaterType { get; set; }
-
-        /// <summary>
-        /// Gets the breakwater height of the read calculation.
-        /// </summary>
-        public double? BreakWaterHeight { get; set; }
-
-        /// <summary>
-        /// Gets whether the foreshore should be used for the read calculation.
-        /// </summary>
-        public bool? UseForeshore { get; set; }
+        public WaveReductionConfiguration WaveReduction { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the <see cref="WaveConditionsCalculationConfiguration"/>.

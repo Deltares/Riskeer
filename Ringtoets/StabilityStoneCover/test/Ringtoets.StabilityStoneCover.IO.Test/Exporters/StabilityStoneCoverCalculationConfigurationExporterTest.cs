@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -26,18 +27,19 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.IO.Exporters;
-using Ringtoets.StabilityStoneCover.IO.Writers;
 
 namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
 {
     [TestFixture]
     public class StabilityStoneCoverCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             StabilityStoneCoverCalculationConfigurationExporter,
-            StabilityStoneCoverCalculationConfigurationWriter,
-            StabilityStoneCoverWaveConditionsCalculation>
+            WaveConditionsCalculationConfigurationWriter,
+            StabilityStoneCoverWaveConditionsCalculation,
+            WaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
@@ -93,6 +95,11 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
         protected override StabilityStoneCoverWaveConditionsCalculation CreateCalculation()
         {
             return new StabilityStoneCoverWaveConditionsCalculation();
+        }
+
+        protected override StabilityStoneCoverCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new StabilityStoneCoverCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }

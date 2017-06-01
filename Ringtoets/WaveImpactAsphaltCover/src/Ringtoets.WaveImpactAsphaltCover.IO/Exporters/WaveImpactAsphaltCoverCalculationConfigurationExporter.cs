@@ -23,8 +23,9 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.IO.Writers;
 
 namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
 {
@@ -32,7 +33,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
     /// Exports a wave impact asphalt cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class WaveImpactAsphaltCoverCalculationConfigurationExporter
-        : CalculationConfigurationExporter<WaveImpactAsphaltCoverCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation>
+        : SchemaCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationConfigurationExporter"/>.
@@ -43,5 +44,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public WaveImpactAsphaltCoverCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
             : base(configuration, filePath) {}
+
+        protected override WaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new WaveConditionsCalculationConfigurationWriter(filePath);
+        }
+
+        protected override WaveConditionsCalculationConfiguration ToConfiguration(WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
+        {
+            return calculation.InputParameters.ToConfiguration(calculation.Name);
+        }
     }
 }

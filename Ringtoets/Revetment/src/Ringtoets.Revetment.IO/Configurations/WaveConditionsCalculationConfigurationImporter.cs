@@ -93,8 +93,10 @@ namespace Ringtoets.Revetment.IO.Configurations
                 && TryReadBoundaries(calculationConfiguration, waveConditionsCalculation)
                 && TryReadForeshoreProfile(calculationConfiguration.ForeshoreProfile, waveConditionsCalculation)
                 && TryReadOrientation(calculationConfiguration, waveConditionsCalculation)
-                && TryReadWaveReduction(calculationConfiguration, waveConditionsCalculation))
+                && calculationConfiguration.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
+                                                                                waveConditionsCalculation.Name, Log))
             {
+                SetWaveReductionParameters(calculationConfiguration.WaveReduction, waveConditionsCalculation.InputParameters);
                 return waveConditionsCalculation;
             }
             return null;
@@ -204,77 +206,6 @@ namespace Ringtoets.Revetment.IO.Configurations
                                                    orientation,
                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                                                calculation.Name, e);
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Reads the wave reduction parameters.
-        /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined,
-        /// <c>true</c> otherwise.</returns>
-        private bool TryReadWaveReduction(WaveConditionsCalculationConfiguration calculationConfiguration, ICalculation<WaveConditionsInput> calculation)
-        {
-            if (!ValidateWaveReduction(calculationConfiguration, calculation))
-            {
-                return false;
-            }
-
-            if (calculationConfiguration.UseForeshore.HasValue)
-            {
-                calculation.InputParameters.UseForeshore = calculationConfiguration.UseForeshore.Value;
-            }
-
-            if (calculationConfiguration.UseBreakWater.HasValue)
-            {
-                calculation.InputParameters.UseBreakWater = calculationConfiguration.UseBreakWater.Value;
-            }
-
-            if (calculationConfiguration.BreakWaterType.HasValue)
-            {
-                calculation.InputParameters.BreakWater.Type = (BreakWaterType) calculationConfiguration.BreakWaterType.Value;
-            }
-
-            if (calculationConfiguration.BreakWaterHeight.HasValue)
-            {
-                calculation.InputParameters.BreakWater.Height = (RoundedDouble) calculationConfiguration.BreakWaterHeight.Value;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Validation to check if the defined wave reduction parameters are valid.
-        /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when there is an invalid wave reduction parameter defined,
-        /// <c>true</c> otherwise.</returns>
-        private bool ValidateWaveReduction(WaveConditionsCalculationConfiguration calculationConfiguration, ICalculation<WaveConditionsInput> calculation)
-        {
-            if (calculation.InputParameters.ForeshoreProfile == null)
-            {
-                if (calculationConfiguration.UseBreakWater.HasValue
-                    || calculationConfiguration.UseForeshore.HasValue
-                    || calculationConfiguration.BreakWaterHeight != null
-                    || calculationConfiguration.BreakWaterType != null)
-                {
-                    Log.LogCalculationConversionError(RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided,
-                                                      calculation.Name);
-                    return false;
-                }
-            }
-            else if (!calculation.InputParameters.ForeshoreGeometry.Any())
-            {
-                if (calculationConfiguration.UseForeshore.HasValue && calculationConfiguration.UseForeshore.Value)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          RingtoetsCommonIOResources.ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used,
-                                                          calculationConfiguration.ForeshoreProfile),
-                                                      calculation.Name);
                     return false;
                 }
             }

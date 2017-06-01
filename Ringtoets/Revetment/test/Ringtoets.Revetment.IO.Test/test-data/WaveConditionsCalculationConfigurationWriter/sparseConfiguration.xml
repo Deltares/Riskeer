@@ -1,9 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<berekening naam="Berekening 1">
-  <bovengrensbekleding>NaN</bovengrensbekleding>
-  <ondergrensbekleding>NaN</ondergrensbekleding>
-  <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
-  <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
-  <stapgrootte>0.5</stapgrootte>
-  <orientatie>NaN</orientatie>
-</berekening>
+<configuratie>
+  <berekening naam="Berekening 1" />
+</configuratie>

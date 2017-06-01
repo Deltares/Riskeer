@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Xml;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Revetment.Data;
@@ -35,96 +33,89 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// to XML format.
     /// </summary>
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
-    public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T> where T : class, ICalculation
+    public class WaveConditionsCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
     {
         private readonly ConfigurationWaveConditionsInputStepSizeConverter configurationWaveConditionsInputStepSizeConverter;
 
         /// <summary>
-        /// Created a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter"/>.
         /// </summary>
-        protected WaveConditionsCalculationConfigurationWriter()
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public WaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath)
         {
             configurationWaveConditionsInputStepSizeConverter = new ConfigurationWaveConditionsInputStepSizeConverter();
         }
 
         /// <summary>
-        /// Writes a single calculation with its <paramref name="input"/> in XML format to file.
+        /// Writes a single calculation with its <paramref name="configuration"/> in XML format to file.
         /// </summary>
-        /// <param name="name">The name of the calculation to write.</param>
-        /// <param name="input">The input of the calculation to write.</param>
+        /// <param name="configuration">The input of the calculation to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        protected void WriteCalculation(string name, WaveConditionsInput input, XmlWriter writer)
+        protected override void WriteCalculation(WaveConditionsCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, name);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
-            WriteHydraulicBoundaryLocation(input.HydraulicBoundaryLocation, writer);
+            WriteElementWhenContentAvailable(
+                writer,
+                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                configuration.HydraulicBoundaryLocation);
 
-            writer.WriteElementString(
+            WriteElementWhenContentAvailable(
+                writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment,
-                XmlConvert.ToString(input.UpperBoundaryRevetment));
-            writer.WriteElementString(
+                configuration.UpperBoundaryRevetment);
+            WriteElementWhenContentAvailable(
+                writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment,
-                XmlConvert.ToString(input.LowerBoundaryRevetment));
-            writer.WriteElementString(
+                configuration.LowerBoundaryRevetment);
+            WriteElementWhenContentAvailable(
+                writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels,
-                XmlConvert.ToString(input.UpperBoundaryWaterLevels));
-            writer.WriteElementString(
+                configuration.UpperBoundaryWaterLevels);
+            WriteElementWhenContentAvailable(
+                writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
-                XmlConvert.ToString(input.LowerBoundaryWaterLevels));
-            writer.WriteElementString(
-                WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
-                configurationWaveConditionsInputStepSizeConverter.ConvertToInvariantString((ConfigurationWaveConditionsInputStepSize) input.StepSize));
+                configuration.LowerBoundaryWaterLevels);
+            WriteConfigurationLoadSchematizationTypeWhenAvailable(
+                writer,
+                configuration.StepSize);
 
-            WriteForeshoreProfile(input.ForeshoreProfile, writer);
+            WriteElementWhenContentAvailable(
+                writer,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile,
+                configuration.ForeshoreProfile);
 
-            writer.WriteElementString(
+            WriteElementWhenContentAvailable(
+                writer,
                 ConfigurationSchemaIdentifiers.Orientation,
-                XmlConvert.ToString(input.Orientation));
+                configuration.Orientation);
 
-            WriteWaveReduction(input, writer);
+            WriteWaveReductionWhenAvailable(writer, configuration.WaveReduction);
 
             writer.WriteEndElement();
         }
 
-        private static void WriteHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, XmlWriter writer)
+        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
+            XmlWriter writer,
+            ConfigurationWaveConditionsInputStepSize? configuration)
         {
-            if (hydraulicBoundaryLocation != null)
+            if (!configuration.HasValue)
             {
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                    hydraulicBoundaryLocation.Name);
+                return;
             }
-        }
 
-        private static void WriteForeshoreProfile(ForeshoreProfile foreshoreProfile, XmlWriter writer)
-        {
-            if (foreshoreProfile != null)
-            {
-                writer.WriteElementString(
-                    WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile,
-                    foreshoreProfile.Id);
-            }
-        }
-
-        private static void WriteWaveReduction(WaveConditionsInput input, XmlWriter writer)
-        {
-            if (input.ForeshoreProfile != null)
-            {
-                writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
-
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.UseBreakWater,
-                    XmlConvert.ToString(input.UseBreakWater));
-
-                WriteBreakWaterProperties(input.BreakWater, writer);
-
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.UseForeshore,
-                    XmlConvert.ToString(input.UseForeshore));
-
-                writer.WriteEndElement();
-            }
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+            writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
+                                      converter.ConvertToInvariantString(configuration.Value));
         }
     }
 }

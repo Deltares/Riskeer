@@ -28,8 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
@@ -38,35 +37,32 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationWriterTest
-        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
-            SimpleWaveConditionsCalculationConfigurationWriter,
-            SimpleWaveConditionsCalculation>
+        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+            WaveConditionsCalculationConfigurationWriter,
+            WaveConditionsCalculationConfiguration>
     {
         [Test]
-        public void WriteCalculation_SparseCalculation_WritesSparseConfigurationToFile()
+        public void Write_SparseCalculation_WritesSparseConfigurationToFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteCalculation_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
+                $"{nameof(Write_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter<ICalculation>), "sparseConfiguration.xml"));
+                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
-            var calculation = new SimpleWaveConditionsCalculation
-            {
-                Name = "Berekening 1"
-            };
+            var calculation = new WaveConditionsCalculationConfiguration("Berekening 1");
 
             try
             {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new SimpleWaveConditionsCalculationConfigurationWriter();
+                var writer = new WaveConditionsCalculationConfigurationWriter(filePath);
 
-                    // Call
-                    writer.PublicWriteCalculation(calculation, xmlWriter);
-                }
+                // Call
+                writer.Write(new[]
+                {
+                    calculation
+                });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
@@ -81,48 +77,44 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        public void WriteCalculation_CompleteCalculation_WritesCompleteConfigurationToFile()
+        public void Write_CompleteCalculation_WritesCompleteConfigurationToFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteCalculation_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
+                $"{nameof(Write_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter<ICalculation>), "completeConfiguration.xml"));
+                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
-            var calculation = new SimpleWaveConditionsCalculation
+            var calculation = new WaveConditionsCalculationConfiguration("Berekening 1")
             {
-                Name = "Berekening 1",
-                Input =
+                HydraulicBoundaryLocation = "Locatie1",
+                UpperBoundaryRevetment = (RoundedDouble) 1.5,
+                LowerBoundaryRevetment = (RoundedDouble) 0.5,
+                UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
+                LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
+                StepSize = ConfigurationWaveConditionsInputStepSize.One,
+                ForeshoreProfile = "profiel1",
+                Orientation = (RoundedDouble) 67.1,
+                WaveReduction = new WaveReductionConfiguration
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
-                    UpperBoundaryRevetment = (RoundedDouble) 1.5,
-                    LowerBoundaryRevetment = (RoundedDouble) 0.5,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
-                    StepSize = WaveConditionsInputStepSize.One,
-                    ForeshoreProfile = new TestForeshoreProfile("profiel1"),
-                    Orientation = (RoundedDouble) 67.1,
-                    UseForeshore = true,
+                    UseForeshoreProfile = true,
                     UseBreakWater = true,
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) 1.23,
-                        Type = BreakWaterType.Dam
-                    }
+                    BreakWaterHeight = (RoundedDouble) 1.23,
+                    BreakWaterType = ConfigurationBreakWaterType.Dam
                 }
             };
 
             try
             {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new SimpleWaveConditionsCalculationConfigurationWriter();
+                var writer = new WaveConditionsCalculationConfigurationWriter(filePath);
 
-                    // Call
-                    writer.PublicWriteCalculation(calculation, xmlWriter);
-                }
+                // Call
+                writer.Write(new[]
+                {
+                    calculation
+                });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
@@ -136,25 +128,9 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             }
         }
 
-        private static XmlWriter CreateXmlWriter(string filePath)
+        protected override WaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            return XmlWriter.Create(filePath, new XmlWriterSettings
-            {
-                Indent = true
-            });
-        }
-    }
-
-    public class SimpleWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<SimpleWaveConditionsCalculation>
-    {
-        public void PublicWriteCalculation(SimpleWaveConditionsCalculation calculation, XmlWriter writer)
-        {
-            WriteCalculation(calculation, writer);
-        }
-
-        protected override void WriteCalculation(SimpleWaveConditionsCalculation calculation, XmlWriter writer)
-        {
-            WriteCalculation(calculation.Name, calculation.Input, writer);
+            return new WaveConditionsCalculationConfigurationWriter(filePath);
         }
     }
 
