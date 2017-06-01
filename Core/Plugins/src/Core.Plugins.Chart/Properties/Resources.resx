@@ -178,7 +178,7 @@
   <data name="ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip" xml:space="preserve">
     <value>Zet het zoomniveau van de grafiek dusdanig dat deze gegevensreeks precies in het beeld past.</value>
   </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
+  <data name="ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip" xml:space="preserve">
     <value>Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten.</value>
   </data>
   <data name="ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip" xml:space="preserve">

@@ -135,7 +135,7 @@ namespace Core.Plugins.Chart.Properties {
         /// </summary>
         public static string ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip {
             get {
-                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip", resourceCulture);
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip", resourceCulture);
             }
         }
         
