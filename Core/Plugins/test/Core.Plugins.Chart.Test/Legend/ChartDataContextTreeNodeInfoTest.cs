@@ -516,6 +516,8 @@ namespace Core.Plugins.Chart.Test.Legend
             using (mocks.Ordered())
             {
                 builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
+                builder.Expect(mb => mb.AddSeparator()).Return(builder);
+                builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
                 builder.Expect(mb => mb.Build()).Return(null);
             }
             contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);

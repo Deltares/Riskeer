@@ -46,12 +46,11 @@ namespace Core.Plugins.Chart.Test.Legend
     [TestFixture]
     public class ChartDataCollectionTreeNodeInfoTest
     {
+        private const int contextMenuZoomToAllIndex = 0;
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
         private MockRepository mocks;
-
-        private const int contextMenuZoomToAllIndex = 0;
 
         [SetUp]
         public void SetUp()
@@ -304,6 +303,36 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
+        public void ContextMenuStrip_MapDataCollectionWithVisibleFeatureBasedmapData_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var chartDataCollection = new ChartDataCollection("test data");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                // Call
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(chartDataCollection, treeViewControl))
+                                          .Return(menuBuilder);
+                mocks.ReplayAll();
+
+                // Call
+                info.ContextMenuStrip(chartDataCollection, null, treeViewControl);
+
+                // Assert
+                // Asserts done in TearDown
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_InvisibleChartDataInChartDataCollection_ZoomToAllDisabled()
         {
             // Setup
@@ -322,7 +351,6 @@ namespace Core.Plugins.Chart.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Assert
-                Assert.AreEqual(1, contextMenu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet er minstens één gegevensreeks in deze map met gegevensreeksen zichtbaar zijn.",
@@ -359,8 +387,6 @@ namespace Core.Plugins.Chart.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Assert
-                Assert.AreEqual(1, contextMenu.Items.Count);
-
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet minstens één van de zichtbare gegevensreeksen in deze map met gegevensreeksen elementen bevatten.",
@@ -382,7 +408,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 IsVisible = true,
                 Points = new[]
                 {
-                    new Point2D(0, 1),
+                    new Point2D(0, 1)
                 }
             };
             var chartDataCollection = new ChartDataCollection("test data");
@@ -392,7 +418,6 @@ namespace Core.Plugins.Chart.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Assert
-                Assert.AreEqual(1, contextMenu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen.",

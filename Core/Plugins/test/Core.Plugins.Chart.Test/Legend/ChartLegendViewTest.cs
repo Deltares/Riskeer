@@ -22,12 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PresentationObjects;
 using Core.Plugins.Chart.Properties;
@@ -133,6 +136,106 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Selection_Always_ReturnsSelectedNodeData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            ChartData chartData = CreateChartData();
+            var chartDataCollection = new ChartDataCollection("collection");
+            chartDataCollection.Add(chartData);
+
+            using (var view = new ChartLegendView(contextMenuBuilderProvider)
+            {
+                Data = chartDataCollection
+            })
+            {
+                var context = new ChartDataContext(chartData, chartDataCollection);
+
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                WindowsFormsTestHelper.Show(treeViewControl);
+                treeViewControl.TrySelectNodeForData(context);
+
+                // Call
+                object selection = view.Selection;
+
+                // Assert
+                Assert.AreSame(chartData, ((ChartDataContext) selection).WrappedData);
+            }
+            WindowsFormsTestHelper.CloseAll();
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenChartLegendView_WhenSelectedNodeChanged_SelectionChangedFired()
+        {
+            // Given
+            ChartData chartData = CreateChartData();
+            var chartDataCollection = new ChartDataCollection("collection");
+            chartDataCollection.Add(chartData);
+
+            var mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            using (var view = new ChartLegendView(contextMenuBuilderProvider)
+            {
+                Data = chartDataCollection
+            })
+            {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                WindowsFormsTestHelper.Show(treeViewControl);
+
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                // When
+                var context = new ChartDataContext(chartData, chartDataCollection);
+                treeViewControl.TrySelectNodeForData(context);
+
+                // Then
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+            WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenChartLegendView_WhenSettingData_SelectionChangedNotFired()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            using (var view = new ChartLegendView(contextMenuBuilderProvider)
+            {
+                Data = new ChartDataCollection("collection")
+            })
+            {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                WindowsFormsTestHelper.Show(treeViewControl);
+
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                // When
+                view.Data = new ChartDataCollection("collection");
+
+                // Then
+                Assert.AreEqual(0, selectionChangedCount);
+            }
+            WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
@@ -143,12 +246,12 @@ namespace Core.Plugins.Chart.Test.Legend
             var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
             mocks.ReplayAll();
 
-            ChartData chartLineData = CreateChartLineData();
+            ChartData chartData = CreateChartData();
             var rootCollection = new ChartDataCollection("test data");
 
-            rootCollection.Add(chartLineData);
-            rootCollection.Add(CreateChartLineData());
-            rootCollection.Add(CreateChartLineData());
+            rootCollection.Add(chartData);
+            rootCollection.Add(CreateChartData());
+            rootCollection.Add(CreateChartData());
 
             using (var chartLegendView = new ChartLegendView(menuBuilderProvider)
             {
@@ -159,21 +262,21 @@ namespace Core.Plugins.Chart.Test.Legend
                 var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
                 TreeNodeInfo info = treeNodeInfoLookup[typeof(ChartDataCollection)];
 
-                var context = new ChartDataContext(chartLineData, rootCollection);
+                var context = new ChartDataContext(chartData, rootCollection);
 
                 // When
                 info.OnDrop(context, rootCollection, rootCollection, index, treeViewControl);
 
                 // Then
-                Assert.AreEqual(2 - index, rootCollection.Collection.ToList().IndexOf(chartLineData));
+                Assert.AreEqual(2 - index, rootCollection.Collection.ToList().IndexOf(chartData));
             }
 
             mocks.VerifyAll();
         }
 
-        private ChartData CreateChartLineData()
+        private static ChartData CreateChartData()
         {
-            return new ChartLineData("some name");
+            return new TestChartData("some name");
         }
     }
 }

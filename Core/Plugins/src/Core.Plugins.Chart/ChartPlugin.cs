@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
+using Core.Components.Charting.Forms.PropertyClasses;
 using Core.Plugins.Chart.Commands;
 using Core.Plugins.Chart.Legend;
 
@@ -35,9 +38,7 @@ namespace Core.Plugins.Chart
     public class ChartPlugin : PluginBase
     {
         private ChartingRibbon chartingRibbon;
-
         private ChartLegendController chartLegendController;
-
         private bool activated;
 
         public override IRibbonCommandHandler RibbonCommandHandler
@@ -56,6 +57,11 @@ namespace Core.Plugins.Chart
             chartLegendController.ToggleView();
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
+        }
+
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<ChartDataCollection, ChartDataCollectionProperties>();
         }
 
         public override void Dispose()
@@ -107,16 +113,10 @@ namespace Core.Plugins.Chart
         private void UpdateComponentsForActiveDocumentView()
         {
             var chartView = Gui.ViewHost.ActiveDocumentView as IChartView;
-            if (chartView != null)
-            {
-                chartingRibbon.Chart = chartView.Chart;
-                chartLegendController.Update(chartView.Chart);
-            }
-            else
-            {
-                chartingRibbon.Chart = null;
-                chartLegendController.Update(null);
-            }
+            IChartControl chartControl = chartView?.Chart;
+
+            chartLegendController.Update(chartControl);
+            chartingRibbon.Chart = chartControl;
         }
     }
 }

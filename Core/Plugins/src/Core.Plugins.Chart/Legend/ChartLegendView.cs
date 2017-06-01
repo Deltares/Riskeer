@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -39,10 +38,13 @@ namespace Core.Plugins.Chart.Legend
     /// <summary>
     /// This class defines a view which shows the data that have been added to a <see cref="IChartControl"/>.
     /// </summary>
-    public sealed partial class ChartLegendView : UserControl, IView
+    public sealed partial class ChartLegendView : UserControl, IView, ISelectionProvider
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private IChartControl chartControl;
+        private bool settingData;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartLegendView"/>.
@@ -62,6 +64,8 @@ namespace Core.Plugins.Chart.Legend
             Text = ChartResources.General_Chart;
 
             RegisterTreeNodeInfos();
+
+            treeViewControl.SelectedDataChanged += TreeViewControlSelectedDataChanged;
         }
 
         public IChartControl ChartControl
@@ -77,6 +81,14 @@ namespace Core.Plugins.Chart.Legend
             }
         }
 
+        public object Selection
+        {
+            get
+            {
+                return treeViewControl.SelectedData;
+            }
+        }
+
         public object Data
         {
             get
@@ -85,7 +97,11 @@ namespace Core.Plugins.Chart.Legend
             }
             set
             {
+                settingData = true;
+
                 treeViewControl.Data = (ChartData) value;
+
+                settingData = false;
             }
         }
 
@@ -105,6 +121,8 @@ namespace Core.Plugins.Chart.Legend
                 OnDrop = ChartDataContextOnDrop,
                 ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
                                                                                                  .AddCustomItem(CreateZoomToExtentsItem(nodeData.WrappedData))
+                                                                                                 .AddSeparator()
+                                                                                                 .AddPropertiesItem()
                                                                                                  .Build()
             });
 
@@ -119,6 +137,8 @@ namespace Core.Plugins.Chart.Legend
                 OnDrop = ChartDataCollectionOnDrop,
                 ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
                                                                                                  .AddCustomItem(CreateZoomToExtentsItem(nodeData))
+                                                                                                 .AddSeparator()
+                                                                                                 .AddPropertiesItem()
                                                                                                  .Build()
             });
         }
@@ -148,10 +168,7 @@ namespace Core.Plugins.Chart.Legend
             return new StrictContextMenuItem($"&{ChartResources.Ribbon_ZoomToAll}",
                                              toolTip,
                                              ChartResources.ZoomToAllIcon,
-                                             (sender, args) =>
-                                             {
-                                                 ChartControl?.ZoomToAllVisibleLayers(nodeData);
-                                             })
+                                             (sender, args) => { ChartControl?.ZoomToAllVisibleLayers(nodeData); })
             {
                 Enabled = isEnabled
             };
@@ -164,7 +181,6 @@ namespace Core.Plugins.Chart.Legend
             var hasData = false;
             foreach (ChartData chartData in chartDatas)
             {
-
                 if (chartData.IsVisible)
                 {
                     isVisible = true;
@@ -206,6 +222,14 @@ namespace Core.Plugins.Chart.Legend
 
             var observableParent = Data as IObservable;
             observableParent?.NotifyObservers();
+        }
+
+        private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
+        {
+            if (SelectionChanged != null && !settingData)
+            {
+                SelectionChanged(this, new EventArgs());
+            }
         }
 
         #region ChartDataContext
