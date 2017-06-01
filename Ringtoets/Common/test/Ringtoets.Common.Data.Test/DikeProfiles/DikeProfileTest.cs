@@ -785,7 +785,6 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             CollectionAssert.AreEqual(expectedDikeGeometry, dikeProfileToUpdate.DikeGeometry);
             TestHelper.AssertCollectionAreNotSame(expectedDikeGeometry, dikeProfileToUpdate.DikeGeometry);
             TestHelper.AssertAreEqualButNotSame(expectedBreakWater, dikeProfileToUpdate.BreakWater);
-
             Assert.AreEqual(expectedId, dikeProfileToUpdate.Id);
             Assert.AreEqual(expectedName, dikeProfileToUpdate.Name);
             Assert.AreEqual(expectedX0, dikeProfileToUpdate.X0);

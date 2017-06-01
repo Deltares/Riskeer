@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -419,15 +420,15 @@ namespace Core.Common.TestUtil
         /// <param name="actual">The actual collection of elements.</param>
         /// <exception cref="AssertionException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/></item>
+        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/>;</item>
         /// <item><paramref name="expected"/> contains an element at a position that is not the same
         /// element in <paramref name="actual"/> at that position.</item>
         /// </list>
         /// </exception>
-        public static void AssertCollectionAreSame(System.Collections.IEnumerable expected, System.Collections.IEnumerable actual)
+        public static void AssertCollectionAreSame(IEnumerable expected, IEnumerable actual)
         {
-            var expectedEnumerator = expected.GetEnumerator();
-            var actualEnumerator = actual.GetEnumerator();
+            IEnumerator expectedEnumerator = expected.GetEnumerator();
+            IEnumerator actualEnumerator = actual.GetEnumerator();
 
             while (expectedEnumerator.MoveNext())
             {
@@ -446,15 +447,15 @@ namespace Core.Common.TestUtil
         /// <param name="actual">The actual collection of elements.</param>
         /// <exception cref="AssertionException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/></item>
+        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/>;</item>
         /// <item><paramref name="expected"/> contains an element at a position that is the same
         /// element in <paramref name="actual"/> at that position.</item>
         /// </list>
         /// </exception>
-        public static void AssertCollectionAreNotSame(System.Collections.IEnumerable expected, System.Collections.IEnumerable actual)
+        public static void AssertCollectionAreNotSame(IEnumerable expected, IEnumerable actual)
         {
-            var expectedEnumerator = expected.GetEnumerator();
-            var actualEnumerator = actual.GetEnumerator();
+            IEnumerator expectedEnumerator = expected.GetEnumerator();
+            IEnumerator actualEnumerator = actual.GetEnumerator();
 
             while (expectedEnumerator.MoveNext())
             {

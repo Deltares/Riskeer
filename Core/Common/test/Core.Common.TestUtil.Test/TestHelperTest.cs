@@ -786,7 +786,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreSame_CollectionsDifferent_ThrowsException()
+        public void AssertCollectionAreSame_CollectionsPartiallyDifferent_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -812,7 +812,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreSame_CollectionsSame_DoesNotThrowException()
+        public void AssertCollectionAreSame_CollectionsCompletelySame_DoesNotThrowException()
         {
             // Setup
             var objectA = new object();
@@ -894,20 +894,19 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreNotSame_CollectionsDifferent_DoesNotThrowException()
+        public void AssertCollectionAreNotSame_CollectionsCompletelyDifferent_DoesNotThrowException()
         {
             // Setup
             var objectA = new object();
             var objectB = new object();
             var objectC = new object();
-            var objectD = new object();
 
             // Call
             TestDelegate test = () => TestHelper.AssertCollectionAreNotSame(new[]
             {
-                objectA,
                 objectB,
-                objectD
+                objectC,
+                objectA
             }, new[]
             {
                 objectA,
@@ -916,11 +915,11 @@ namespace Core.Common.TestUtil.Test
             });
 
             // Assert
-            Assert.Throws<AssertionException>(test);
+            Assert.DoesNotThrow(test);
         }
 
         [Test]
-        public void AssertCollectionAreNotSame_CollectionsSame_ThrowsException()
+        public void AssertCollectionAreNotSame_CollectionsPartiallySame_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -931,10 +930,10 @@ namespace Core.Common.TestUtil.Test
             // Call
             TestDelegate test = () => TestHelper.AssertCollectionAreNotSame(new[]
             {
-                objectA,
                 objectB,
+                objectD,
                 objectC,
-                objectD
+                objectA
             }, new[]
             {
                 objectA,
