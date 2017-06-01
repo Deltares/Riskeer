@@ -19,41 +19,43 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Drawing;
+using Core.Plugins.Map.Converters;
+using NUnit.Framework;
+using Rhino.Mocks;
 
-namespace Core.Components.Gis.Style
+namespace Core.Plugins.Map.Test.Converters
 {
-    /// <summary>
-    /// This class represents styling of a point on a map.
-    /// </summary>
-    public class PointStyle
+    [TestFixture]
+    public class MapColorConverterTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="PointStyle"/>.
-        /// </summary>
-        /// <param name="color">The color of the point.</param>
-        /// <param name="size">The size of the point.</param>
-        /// <param name="symbol">The symbol of the point.</param>
-        public PointStyle(Color color, int size, PointSymbol symbol)
+        [Test]
+        public void Constructor_ExpectedProperties()
         {
-            Color = color;
-            Size = size;
-            Symbol = symbol;
+            // Call
+            var converter = new MapColorConverter();
+
+            // Assert
+            Assert.IsInstanceOf<ColorConverter>(converter);
         }
 
-        /// <summary>
-        /// Gets the point color.
-        /// </summary>
-        public Color Color { get; set; }
+        [Test]
+        public void GetStandardValuesSupported_Always_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<ITypeDescriptorContext>();
+            mocks.ReplayAll();
 
-        /// <summary>
-        /// Gets the point size.
-        /// </summary>
-        public double Size { get; private set; }
+            var converter = new MapColorConverter();
 
-        /// <summary>
-        /// Gets the point symbol.
-        /// </summary>
-        public PointSymbol Symbol { get; private set; }
+            // Call
+            bool standardValuesSupported = converter.GetStandardValuesSupported(context);
+
+            // Assert
+            Assert.IsFalse(standardValuesSupported);
+            mocks.VerifyAll();
+        }
     }
 }

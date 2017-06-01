@@ -68,6 +68,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Converters\MapColorConverter.cs" />
+    <Compile Include="UITypeEditors\ColorEditor.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataProperties.cs" />
     <Compile Include="PropertyClasses\IHasMetaData.cs" />
     <Compile Include="PropertyClasses\MapDataCollectionProperties.cs" />

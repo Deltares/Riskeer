@@ -83,6 +83,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
+    <Compile Include="Converters\MapColorConverterTest.cs" />
     <Compile Include="ImportInfos\MapDataCollectionImportInfoTest.cs" />
     <Compile Include="MapPluginTest.cs" />
     <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="TestView.Designer.cs">
       <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UITypeEditors\ColorEditorTest.cs" />
     <Compile Include="UITypeEditors\MetaDataAttributeEditorTest.cs" />
     <Compile Include="UITypeEditors\SelectableMetaDataAttributeTest.cs" />
   </ItemGroup>

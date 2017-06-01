@@ -22,13 +22,17 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.PropertyClasses;
+using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Map.Test.PropertyClasses
 {
@@ -77,11 +81,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(10, dynamicProperties.Count);
             
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
+            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             "Stijl",
                                                                             "Kleur",
-                                                                            "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
+                                                                            "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
@@ -134,7 +138,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
 
-            Assert.AreEqual(color.ToString(), properties.Color);
+            Assert.AreEqual(color, properties.Color);
             Assert.AreEqual(color.ToString(), properties.StrokeColor);
             Assert.AreEqual(size, properties.StrokeThickness);
             Assert.AreEqual(size, properties.Size);
@@ -156,11 +160,44 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
 
-            Assert.AreEqual(string.Empty, properties.Color);
+            Assert.AreEqual(Color.Transparent, properties.Color);
             Assert.AreEqual(string.Empty, properties.StrokeColor);
             Assert.AreEqual(0, properties.StrokeThickness);
             Assert.AreEqual(0, properties.Size);
             Assert.AreEqual(string.Empty, properties.Symbol);
+        }
+
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            const int numberOfChangedProperties = 1;
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            mocks.ReplayAll();
+
+            var mapPointData = new MapPointData("Test")
+            {
+                Style = new PointStyle(Color.AliceBlue, 3, PointSymbol.Circle)
+            };
+
+            mapPointData.Attach(observerMock);
+
+            var properties = new MapPointDataProperties
+            {
+                Data = mapPointData
+            };
+
+            Color newColor = Color.Blue;
+
+            // Call
+            properties.Color = newColor;
+
+            // Assert
+            Assert.AreEqual(newColor, mapPointData.Style.Color);
+            mocks.VerifyAll();
         }
     }
 }

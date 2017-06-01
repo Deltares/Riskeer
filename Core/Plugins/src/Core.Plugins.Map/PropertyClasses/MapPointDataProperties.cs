@@ -19,10 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
+using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.Properties;
+using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {
@@ -35,11 +40,21 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_Color_Description))]
-        public string Color
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(MapColorConverter))]
+        public Color Color
         {
             get
             {
-                return data.Style?.Color.ToString() ?? string.Empty;
+                return data.Style?.Color ?? Color.Transparent;
+            }
+            set
+            {
+                if (data.Style != null)
+                {
+                    data.Style.Color = value;
+                    data.NotifyObservers();
+                }
             }
         }
 
