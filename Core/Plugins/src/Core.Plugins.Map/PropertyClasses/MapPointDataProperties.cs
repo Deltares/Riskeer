@@ -46,15 +46,12 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return data.Style?.Color ?? Color.Transparent;
+                return data.Style.Color;
             }
             set
             {
-                if (data.Style != null)
-                {
-                    data.Style.Color = value;
-                    data.NotifyObservers();
-                }
+                data.Style.Color = value;
+                data.NotifyObservers();
             }
         }
 
@@ -66,9 +63,10 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return data.Style?.Color.ToString() ?? string.Empty;
+                return data.Style.Color.ToString();
             }
         }
+
         [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_StrokeThickness_DisplayName))]
@@ -77,9 +75,10 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return data.Style?.Size ?? 0;
+                return data.Style.Size;
             }
         }
+
         [PropertyOrder(8)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Size_DisplayName))]
@@ -88,7 +87,7 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return data.Style?.Size ?? 0;
+                return data.Style.Size;
             }
         }
 
@@ -100,7 +99,7 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return data.Style?.Symbol.ToString() ?? string.Empty;
+                return data.Style.Symbol.ToString();
             }
         }
 

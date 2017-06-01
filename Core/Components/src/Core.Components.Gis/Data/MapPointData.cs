@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
@@ -38,12 +39,32 @@ namespace Core.Components.Gis.Data
         /// <param name="name">The name of the <see cref="MapPointData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapPointData(string name) : base(name) {}
+        public MapPointData(string name)
+            : this(name, new PointStyle(Color.Black, 2, PointSymbol.Square)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapPointData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="MapPointData"/>.</param>
+        /// <param name="style"></param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public MapPointData(string name, PointStyle style) : base(name)
+        {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+
+            Style = style;
+        }
 
         /// <summary>
         /// Gets or sets the style of the points.
         /// </summary>
-        public PointStyle Style { get; set; }
+        public PointStyle Style { get; private set; }
 
         /// <summary>
         /// This method validates newly set features.

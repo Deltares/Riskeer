@@ -63,9 +63,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateHydraulicBoundaryLocationsMapData()
         {
-            return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
+            return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                                    new PointStyle(Color.DarkBlue, smallPointSize, PointSymbol.Circle))
             {
-                Style = new PointStyle(Color.DarkBlue, smallPointSize, PointSymbol.Circle),
                 ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
@@ -92,10 +92,8 @@ namespace Ringtoets.Common.Forms.Factories
         {
             string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
 
-            return new MapPointData(mapDataName)
-            {
-                Style = new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle)
-            };
+            return new MapPointData(mapDataName,
+                                    new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle));
         }
 
         /// <summary>
@@ -106,10 +104,8 @@ namespace Ringtoets.Common.Forms.Factories
         {
             string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
 
-            return new MapPointData(mapDataName)
-            {
-                Style = new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle)
-            };
+            return new MapPointData(mapDataName,
+                                    new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle));
         }
 
         /// <summary>
@@ -144,9 +140,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateStructuresMapData()
         {
-            return new MapPointData(Resources.StructuresCollection_DisplayName)
+            return new MapPointData(Resources.StructuresCollection_DisplayName,
+                                    new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square))
             {
-                Style = new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square),
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }

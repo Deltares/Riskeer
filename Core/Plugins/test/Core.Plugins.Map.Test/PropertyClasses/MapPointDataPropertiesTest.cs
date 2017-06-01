@@ -117,17 +117,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstanceWithStyle_ReturnCorrectPropertyValues()
+        public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
         {
             // Setup
             Color color = Color.Aqua;
             const int size = 4;
             const PointSymbol symbol = PointSymbol.Circle;
 
-            var mapPointData = new MapPointData("Test")
-            {
-                Style = new PointStyle(color, size, symbol)
-            };
+            var mapPointData = new MapPointData("Test", new PointStyle(color, size, symbol));
             var properties = new MapPointDataProperties();
 
             // Call
@@ -146,29 +143,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstanceWithoutStyle_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var mapPointData = new MapPointData("Test");
-            var properties = new MapPointDataProperties();
-
-            // Call
-            properties.Data = mapPointData;
-
-            // Assert
-            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
-            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
-            Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
-
-            Assert.AreEqual(Color.Transparent, properties.Color);
-            Assert.AreEqual(string.Empty, properties.StrokeColor);
-            Assert.AreEqual(0, properties.StrokeThickness);
-            Assert.AreEqual(0, properties.Size);
-            Assert.AreEqual(string.Empty, properties.Symbol);
-        }
-
-
-        [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
@@ -178,10 +152,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var mapPointData = new MapPointData("Test")
-            {
-                Style = new PointStyle(Color.AliceBlue, 3, PointSymbol.Circle)
-            };
+            var mapPointData = new MapPointData("Test", new PointStyle(Color.AliceBlue, 3, PointSymbol.Circle));
 
             mapPointData.Attach(observerMock);
 
