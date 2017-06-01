@@ -168,13 +168,16 @@ namespace Core.Components.DotSpatial.Test.Converter
                                                 ? PointShape.Ellipse
                                                 : PointShape.Rectangle;
 
-            AssertAreEqual(new PointSymbolizer(expectedColor, expectedPointShape, width), mapPointLayer.Symbolizer);
+            var expectedSymbolizer = new PointSymbolizer(expectedColor, expectedPointShape, width);
+            expectedSymbolizer.SetOutline(expectedColor, 1);
+
+            AssertAreEqual(expectedSymbolizer, mapPointLayer.Symbolizer);
         }
 
-        private static void AssertAreEqual(IPointSymbolizer firstSymbolizer, IPointSymbolizer secondSymbolizer)
+        private static void AssertAreEqual(IPointSymbolizer expectedSymbolizer, IPointSymbolizer actualSymbolizer)
         {
-            IList<ISymbol> firstSymbols = firstSymbolizer.Symbols;
-            IList<ISymbol> secondSymbols = secondSymbolizer.Symbols;
+            IList<ISymbol> firstSymbols = expectedSymbolizer.Symbols;
+            IList<ISymbol> secondSymbols = actualSymbolizer.Symbols;
             Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of symbols defined.");
             for (var i = 0; i < firstSymbols.Count; i++)
             {
@@ -184,6 +187,8 @@ namespace Core.Components.DotSpatial.Test.Converter
                 Assert.AreEqual(firstSymbol.Color, secondSymbol.Color);
                 Assert.AreEqual(firstSymbol.PointShape, secondSymbol.PointShape);
                 Assert.AreEqual(firstSymbol.Size, secondSymbol.Size);
+                Assert.AreEqual(firstSymbol.OutlineColor, secondSymbol.OutlineColor);
+                Assert.AreEqual(firstSymbol.OutlineWidth, secondSymbol.OutlineWidth);
             }
         }
     }
