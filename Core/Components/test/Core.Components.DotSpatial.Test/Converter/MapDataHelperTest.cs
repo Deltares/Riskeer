@@ -61,6 +61,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Convert_Diamond_ReturnDiamond()
+        {
+            // Call
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Diamond);
+
+            // Assert
+            Assert.AreEqual(PointShape.Diamond, symbol);
+        }
+
+        [Test]
         public void Convert_InvalidPointSymbol_ThrowsInvalidEnumArgumentException()
         {
             // Call

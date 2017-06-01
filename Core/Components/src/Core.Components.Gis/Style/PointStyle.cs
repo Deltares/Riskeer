@@ -49,11 +49,11 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets the point size.
         /// </summary>
-        public double Size { get; private set; }
+        public double Size { get; set; }
 
         /// <summary>
         /// Gets the point symbol.
         /// </summary>
-        public PointSymbol Symbol { get; private set; }
+        public PointSymbol Symbol { get; set; }
     }
 }

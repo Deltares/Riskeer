@@ -34,7 +34,7 @@ namespace Core.Components.Gis.Data
     public class MapPointData : FeatureBasedMapData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapPointData"/>.
+        /// Creates a new instance of <see cref="MapPointData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPointData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 

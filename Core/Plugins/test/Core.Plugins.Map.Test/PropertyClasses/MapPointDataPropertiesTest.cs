@@ -24,13 +24,13 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.PropertyClasses;
-using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -105,15 +105,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
                                                                             "Stijl",
                                                                             "Grootte",
-                                                                            "De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
+                                                                            "De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor symbolProperty = dynamicProperties[symbolPropertyIndex];
+            Assert.IsInstanceOf<EnumTypeConverter>(symbolProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(symbolProperty,
                                                                             "Stijl",
                                                                             "Symbool",
-                                                                            "Het symbool waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
+                                                                            "Het symbool waarmee deze kaartlaag wordt weergegeven.");
         }
 
         [Test]
@@ -139,14 +138,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(color.ToString(), properties.StrokeColor);
             Assert.AreEqual(size, properties.StrokeThickness);
             Assert.AreEqual(size, properties.Size);
-            Assert.AreEqual(symbol.ToString(), properties.Symbol);
+            Assert.AreEqual(symbol, properties.Symbol);
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 1;
+            const int numberOfChangedProperties = 3;
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
@@ -162,12 +161,19 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             Color newColor = Color.Blue;
+            const double newSize = 6;
+            PointSymbol newSymbol = PointSymbol.Diamond;
 
             // Call
             properties.Color = newColor;
+            properties.Size = newSize;
+            properties.Symbol = newSymbol;
+
 
             // Assert
             Assert.AreEqual(newColor, mapPointData.Style.Color);
+            Assert.AreEqual(newSize, mapPointData.Style.Size);
+            Assert.AreEqual(newSymbol, mapPointData.Style.Symbol);
             mocks.VerifyAll();
         }
     }

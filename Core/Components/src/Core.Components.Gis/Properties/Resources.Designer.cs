@@ -109,6 +109,24 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cirkel.
+        /// </summary>
+        internal static string Circle_DisplayName {
+            get {
+                return ResourceManager.GetString("Circle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ruit.
+        /// </summary>
+        internal static string Diamond_DisplayName {
+            get {
+                return ResourceManager.GetString("Diamond_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Esri World - Reliëf.
         /// </summary>
         internal static string EsriWorldShadedRelief_DisplayName {
@@ -141,6 +159,24 @@ namespace Core.Components.Gis.Properties {
         internal static string OpenStreetMap_DisplayName {
             get {
                 return ResourceManager.GetString("OpenStreetMap_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vierkant.
+        /// </summary>
+        internal static string Square_DisplayName {
+            get {
+                return ResourceManager.GetString("Square_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driekhoek.
+        /// </summary>
+        internal static string Triangle_DisplayName {
+            get {
+                return ResourceManager.GetString("Triangle_DisplayName", resourceCulture);
             }
         }
         

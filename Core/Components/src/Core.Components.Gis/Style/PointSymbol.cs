@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Attributes;
+using Core.Components.Gis.Properties;
+
 namespace Core.Components.Gis.Style
 {
     /// <summary>
@@ -26,8 +29,13 @@ namespace Core.Components.Gis.Style
     /// </summary>
     public enum PointSymbol
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Circle_DisplayName))]
         Circle,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Square_DisplayName))]
         Square,
-        Triangle
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Triangle_DisplayName))]
+        Triangle,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Diamond_DisplayName))]
+        Diamond
     }
 }

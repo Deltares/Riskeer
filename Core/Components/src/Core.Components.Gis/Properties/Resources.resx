@@ -141,4 +141,16 @@
   <data name="ImageBasedMapData_Transparency_Value_must_be_in_Range_0_" xml:space="preserve">
     <value>De transparantie moet in het bereik {0} liggen.</value>
   </data>
+  <data name="Circle_DisplayName" xml:space="preserve">
+    <value>Cirkel</value>
+  </data>
+  <data name="Diamond_DisplayName" xml:space="preserve">
+    <value>Ruit</value>
+  </data>
+  <data name="Square_DisplayName" xml:space="preserve">
+    <value>Vierkant</value>
+  </data>
+  <data name="Triangle_DisplayName" xml:space="preserve">
+    <value>Driekhoek</value>
+  </data>
 </root>
