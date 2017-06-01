@@ -37,19 +37,19 @@ namespace Core.Common.TestUtil.Test
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(TestHelperTest));
 
-        private static IEnumerable<TestCaseData> AssertObjectsEqualButNotSameSource
+        private static IEnumerable<TestCaseData> AssertAreEqualButNotSameSource
         {
             get
             {
                 var objectA = new TestEqualSameObject(1);
                 var objectB = new TestEqualSameObject(1);
                 var objectC = new TestEqualSameObject(2);
-                yield return new TestCaseData(objectA, objectA, false).SetName("EqualsAndSameObjects_False");
-                yield return new TestCaseData(objectA, objectB, true).SetName("EqualsNotSameObjects_True");
-                yield return new TestCaseData(objectA, objectC, false).SetName("NotEqualsNotSameObjects_False");
+                yield return new TestCaseData(objectA, objectA, false).SetName("EqualAndSameObjects_False");
+                yield return new TestCaseData(objectA, objectB, true).SetName("EqualNotSameObjects_True");
+                yield return new TestCaseData(objectA, objectC, false).SetName("NotEqualNotSameObjects_False");
                 yield return new TestCaseData(null, null, true).SetName("BothNull_True");
                 yield return new TestCaseData(objectA, null, false).SetName("ObjectBNull_False");
-                yield return new TestCaseData(null, objectB, false).SetName("ObjectBNull_False");
+                yield return new TestCaseData(null, objectB, false).SetName("ObjectANull_False");
             }
         }
 
@@ -714,8 +714,8 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(AssertObjectsEqualButNotSameSource))]
-        public void AssertObjectsEqualButNotSame_DifferentObjects_ReturnExpectedValues(object objectA, object objectB, bool shouldSucceed)
+        [TestCaseSource(nameof(AssertAreEqualButNotSameSource))]
+        public void AssertAreEqualButNotSame_DifferentObjects_ReturnExpectedValues(object objectA, object objectB, bool shouldSucceed)
         {
             // Call
             TestDelegate test = () => TestHelper.AssertAreEqualButNotSame(objectA, objectB);
@@ -947,7 +947,7 @@ namespace Core.Common.TestUtil.Test
             Assert.Throws<AssertionException>(test);
         }
 
-        public class TestEqualSameObject
+        private class TestEqualSameObject
         {
             private readonly int someInt;
 
@@ -969,7 +969,7 @@ namespace Core.Common.TestUtil.Test
                 return someInt;
             }
 
-            protected bool Equals(TestEqualSameObject other)
+            private bool Equals(TestEqualSameObject other)
             {
                 return someInt == other.someInt;
             }

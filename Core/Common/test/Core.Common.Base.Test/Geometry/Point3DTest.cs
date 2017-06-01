@@ -46,7 +46,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void CopyConstructor_WithPointWithXandY_SetPropeties()
+        public void CopyConstructor_WithPointWithXandY_SetProperties()
         {
             // Setup
             const double x = 1.1;

@@ -398,8 +398,8 @@ namespace Core.Common.TestUtil
         /// <param name="objectB">The object which should be equal, but not same as <paramref name="objectA"/>.</param>
         /// <exception cref="AssertionException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="objectA"/> is not equal to <paramref name="objectB"/></item>
-        /// <item><paramref name="objectA"/> is the same as <paramref name="objectB"/></item>
+        /// <item><paramref name="objectA"/> is not equal to <paramref name="objectB"/>;</item>
+        /// <item><paramref name="objectA"/> is the same as <paramref name="objectB"/>.</item>
         /// </list>
         /// </exception>
         public static void AssertAreEqualButNotSame(object objectA, object objectB)

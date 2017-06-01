@@ -220,8 +220,7 @@ namespace Ringtoets.Common.Data.Test
             // Assert
             Assert.AreNotEqual(otherStructure.Id, structure.Id);
             Assert.AreEqual(otherStructure.Name, structure.Name);
-            Assert.AreEqual(otherStructure.Location, structure.Location);
-            Assert.AreNotSame(otherStructure.Location, structure.Location);
+            TestHelper.AssertAreEqualButNotSame(otherStructure.Location, structure.Location);
             Assert.AreEqual(otherStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
         }
 

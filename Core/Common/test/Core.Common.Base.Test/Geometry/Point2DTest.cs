@@ -32,7 +32,7 @@ namespace Core.Common.Base.Test.Geometry
     public class Point2DTest
     {
         [Test]
-        public void Constructor_WithXandY_SetPropeties()
+        public void Constructor_WithXandY_SetProperties()
         {
             // Setup
             var random = new Random(22);
@@ -48,7 +48,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void CopyConstructor_WithPointWithXandY_SetPropeties()
+        public void CopyConstructor_WithPointWithXandY_SetProperties()
         {
             // Setup
             var random = new Random(22);
