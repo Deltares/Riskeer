@@ -135,25 +135,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 ThresholdHeightOpenWeir = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.ThresholdHeightOpenWeirStochastName),
                 VerticalDistance = calculationElement.GetDoubleValueFromDescendantElement(StabilityPointStructuresConfigurationSchemaIdentifiers.VerticalDistanceElement),
                 VolumicWeightWater = calculationElement.GetDoubleValueFromDescendantElement(StabilityPointStructuresConfigurationSchemaIdentifiers.VolumicWeightWaterElement),
-                WaveReduction = GetWaveReductionParameters(calculationElement),
+                WaveReduction = calculationElement.GetWaveReductionParameters(),
                 WidthFlowApertures = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName)
             };
-        }
-
-        private static WaveReductionConfiguration GetWaveReductionParameters(XElement calculationElement)
-        {
-            XElement waveReduction = calculationElement.GetDescendantElement(ConfigurationSchemaIdentifiers.WaveReduction);
-            if (waveReduction != null)
-            {
-                return new WaveReductionConfiguration
-                {
-                    BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
-                    BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
-                    UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
-                    UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
-                };
-            }
-            return null;
         }
     }
 }

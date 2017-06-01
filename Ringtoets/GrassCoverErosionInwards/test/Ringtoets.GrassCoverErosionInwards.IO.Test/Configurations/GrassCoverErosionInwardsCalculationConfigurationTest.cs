@@ -33,35 +33,32 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ReadGrassCoverErosionInwardsCalculation(null);
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfiguration(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("constructionProperties", paramName);
+            Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
         {
+            // Setup
+            const string name = "name";
+
             // Call
-            var constructionProperties = new ReadGrassCoverErosionInwardsCalculation.ConstructionProperties();
-            var readCalculation = new ReadGrassCoverErosionInwardsCalculation(constructionProperties);
+            var readCalculation = new GrassCoverErosionInwardsCalculationConfiguration(name);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
-            Assert.IsNull(readCalculation.Name);
+            Assert.AreEqual(name, readCalculation.Name);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readCalculation.DikeProfileId);
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.DikeHeight);
             Assert.IsNull(readCalculation.DikeHeightCalculationType);
             Assert.IsNull(readCalculation.OvertoppingRateCalculationType);
-            Assert.IsNull(readCalculation.UseBreakWater);
-            Assert.IsNull(readCalculation.BreakWaterType);
-            Assert.IsNull(readCalculation.BreakWaterHeight);
-            Assert.IsNull(readCalculation.UseForeshore);
-            Assert.IsNull(readCalculation.CriticalFlowRateMean);
-            Assert.IsNull(readCalculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNull(readCalculation.WaveReduction);
+            Assert.IsNull(readCalculation.CriticalFlowRate);
         }
 
         [Test]
@@ -82,7 +79,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             const double criticalFlowMean = 4.4;
             const double critifalFlowStandardDeviation = 5.5;
 
-            var constructionProperties = new ReadGrassCoverErosionInwardsCalculation.ConstructionProperties
+            // Call
+            var readCalculation = new GrassCoverErosionInwardsCalculationConfiguration(calculationName)
             {
                 Name = calculationName,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocationName,
@@ -91,31 +89,34 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 DikeHeight = dikeHeight,
                 DikeHeightCalculationType = dikeHeightCalculationType,
                 OvertoppingRateCalculationType = overtoppingRateCalculationType,
-                UseBreakWater = useBreakWater,
-                BreakWaterType = breakWaterType,
-                BreakWaterHeight = breakWaterHeight,
-                UseForeshore = useForeshore,
-                CriticalFlowRateMean = criticalFlowMean,
-                CriticalFlowRateStandardDeviation = critifalFlowStandardDeviation
+                WaveReduction = new WaveReductionConfiguration
+                {
+                    UseBreakWater = useBreakWater,
+                    BreakWaterType = breakWaterType,
+                    BreakWaterHeight = breakWaterHeight,
+                    UseForeshoreProfile = useForeshore
+                },
+                CriticalFlowRate = new StochastConfiguration
+                {
+                    Mean = criticalFlowMean,
+                    StandardDeviation = critifalFlowStandardDeviation
+                }
             };
-
-            // Call
-            var readCalculation = new ReadGrassCoverErosionInwardsCalculation(constructionProperties);
 
             // Assert
             Assert.AreEqual(calculationName, readCalculation.Name);
             Assert.AreEqual(hydraulicBoundaryLocationName, readCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(dikeProfileId, constructionProperties.DikeProfileId);
+            Assert.AreEqual(dikeProfileId, readCalculation.DikeProfileId);
             Assert.AreEqual(orientation, readCalculation.Orientation);
             Assert.AreEqual(dikeHeight, readCalculation.DikeHeight);
             Assert.AreEqual(dikeHeightCalculationType, readCalculation.DikeHeightCalculationType);
             Assert.AreEqual(overtoppingRateCalculationType, readCalculation.OvertoppingRateCalculationType);
-            Assert.AreEqual(useBreakWater, readCalculation.UseBreakWater);
-            Assert.AreEqual(breakWaterType, readCalculation.BreakWaterType);
-            Assert.AreEqual(breakWaterHeight, readCalculation.BreakWaterHeight);
-            Assert.AreEqual(useForeshore, readCalculation.UseForeshore);
-            Assert.AreEqual(criticalFlowMean, readCalculation.CriticalFlowRateMean);
-            Assert.AreEqual(critifalFlowStandardDeviation, readCalculation.CriticalFlowRateStandardDeviation);
+            Assert.AreEqual(useBreakWater, readCalculation.WaveReduction.UseBreakWater);
+            Assert.AreEqual(breakWaterType, readCalculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(breakWaterHeight, readCalculation.WaveReduction.BreakWaterHeight);
+            Assert.AreEqual(useForeshore, readCalculation.WaveReduction.UseForeshoreProfile);
+            Assert.AreEqual(criticalFlowMean, readCalculation.CriticalFlowRate.Mean);
+            Assert.AreEqual(critifalFlowStandardDeviation, readCalculation.CriticalFlowRate.StandardDeviation);
         }
     }
 }

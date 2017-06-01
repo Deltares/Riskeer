@@ -203,7 +203,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         }
 
         /// <summary>
-        /// Gets a configuration based on the values found in the <paramref name="calculationElement"/>.
+        /// Gets a stochast configuration based on the values found in the <paramref name="calculationElement"/>.
         /// </summary>
         /// <param name="calculationElement">The element containing values for stochast parameters.</param>
         /// <param name="stochastName">The name of the stochast to find the parameter values for.</param>
@@ -231,6 +231,32 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     Mean = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.MeanElement),
                     StandardDeviation = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.StandardDeviationElement),
                     VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)
+                };
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a wave reduction configuration based on the values found in the <paramref name="calculationElement"/>.
+        /// </summary>
+        /// <param name="calculationElement">The element containing values for wave reduction parameters.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the value for break water type isn't valid.</exception>
+        /// <exception cref="FormatException">Thrown when the value for break water height, use foreshore profile or
+        /// use breakwater isn't in the correct format to convert to a value.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for a break water height represents a number less
+        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        public static WaveReductionConfiguration GetWaveReductionParameters(this XElement calculationElement)
+        {
+            XElement waveReduction = calculationElement.GetDescendantElement(ConfigurationSchemaIdentifiers.WaveReduction);
+            if (waveReduction != null)
+            {
+                return new WaveReductionConfiguration
+                {
+                    BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
+                    BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
+                    UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
+                    UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
                 };
             }
             return null;

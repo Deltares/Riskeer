@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
     public class PipingCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
+        public void Constructor_WithoutName_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new PipingCalculationConfiguration(null);
@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
+        public void Constructor_WithName_PropertiesAreDefault()
         {
             // Setup 
             const string name = "some name";
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAsExpected()
+        public void Constructor_WithNameAndProperties_PropertiesAsExpected()
         {
             // Setup
             const string calculationName = "Name of the calculation";

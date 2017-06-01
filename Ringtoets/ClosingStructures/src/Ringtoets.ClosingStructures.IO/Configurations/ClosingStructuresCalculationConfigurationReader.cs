@@ -108,7 +108,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 StructureId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
-                WaveReduction = GetWaveReductionParameters(calculationElement),
+                WaveReduction = calculationElement.GetWaveReductionParameters(),
                 AreaFlowApertures = calculationElement.GetStochastConfiguration(ClosingStructuresConfigurationSchemaIdentifiers.AreaFlowAperturesStochastName),
                 DrainCoefficient = calculationElement.GetStochastConfiguration(ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName),
                 InsideWaterLevel = calculationElement.GetStochastConfiguration(ClosingStructuresConfigurationSchemaIdentifiers.InsideWaterLevelStochastName),
@@ -124,22 +124,6 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             };
 
             return configuration;
-        }
-
-        private static WaveReductionConfiguration GetWaveReductionParameters(XElement calculationElement)
-        {
-            XElement waveReduction = calculationElement.GetDescendantElement(ConfigurationSchemaIdentifiers.WaveReduction);
-            if (waveReduction != null)
-            {
-                return new WaveReductionConfiguration
-                {
-                    BreakWaterType = (ConfigurationBreakWaterType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationBreakWaterTypeConverter>(ConfigurationSchemaIdentifiers.BreakWaterType),
-                    BreakWaterHeight = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.BreakWaterHeight),
-                    UseBreakWater = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseBreakWater),
-                    UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
-                };
-            }
-            return null;
         }
     }
 }

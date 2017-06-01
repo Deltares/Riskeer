@@ -198,7 +198,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationReader<ReadGrassCoverErosionInwardsCalculation>>(reader);
+            Assert.IsInstanceOf<CalculationConfigurationReader<GrassCoverErosionInwardsCalculationConfiguration>>(reader);
         }
 
         [Test]
@@ -214,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -223,12 +223,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNull(calculation.DikeHeight);
             Assert.IsNull(calculation.DikeHeightCalculationType);
             Assert.IsNull(calculation.OvertoppingRateCalculationType);
-            Assert.IsNull(calculation.UseBreakWater);
-            Assert.IsNull(calculation.BreakWaterType);
-            Assert.IsNull(calculation.BreakWaterHeight);
-            Assert.IsNull(calculation.UseForeshore);
-            Assert.IsNull(calculation.CriticalFlowRateMean);
-            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNull(calculation.CriticalFlowRate);
         }
 
         [Test]
@@ -244,10 +240,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.CriticalFlowRateMean);
-            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNull(calculation.CriticalFlowRate);
         }
 
         [Test]
@@ -263,13 +258,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNaN(calculation.Orientation);
             Assert.IsNaN(calculation.DikeHeight);
-            Assert.IsNaN(calculation.BreakWaterHeight);
-            Assert.IsNaN(calculation.CriticalFlowRateMean);
-            Assert.IsNaN(calculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsNaN(calculation.CriticalFlowRate.Mean);
+            Assert.IsNaN(calculation.CriticalFlowRate.StandardDeviation);
         }
 
         [Test]
@@ -285,20 +280,20 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
 
             Assert.IsNotNull(calculation.Orientation);
             Assert.IsNotNull(calculation.DikeHeight);
-            Assert.IsNotNull(calculation.BreakWaterHeight);
-            Assert.IsNotNull(calculation.CriticalFlowRateMean);
-            Assert.IsNotNull(calculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNotNull(calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsNotNull(calculation.CriticalFlowRate.Mean);
+            Assert.IsNotNull(calculation.CriticalFlowRate.StandardDeviation);
 
             Assert.IsTrue(double.IsPositiveInfinity(calculation.Orientation.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.DikeHeight.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.BreakWaterHeight.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRateMean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRateStandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRate.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRate.StandardDeviation.Value));
         }
 
         [Test]
@@ -318,7 +313,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.AreEqual("Some_hydraulic_boundary_location", calculation.HydraulicBoundaryLocation);
@@ -327,12 +322,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(3.45, calculation.DikeHeight);
             Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
             Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, calculation.OvertoppingRateCalculationType);
-            Assert.AreEqual(true, calculation.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.BreakWaterType);
-            Assert.AreEqual(1.234, calculation.BreakWaterHeight);
-            Assert.AreEqual(false, calculation.UseForeshore);
-            Assert.AreEqual(0.1, calculation.CriticalFlowRateMean);
-            Assert.AreEqual(0.2, calculation.CriticalFlowRateStandardDeviation);
+            Assert.AreEqual(true, calculation.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
+            Assert.AreEqual(false, calculation.WaveReduction.UseForeshoreProfile);
+            Assert.AreEqual(0.1, calculation.CriticalFlowRate.Mean);
+            Assert.AreEqual(0.2, calculation.CriticalFlowRate.StandardDeviation);
         }
 
         [Test]
@@ -348,7 +343,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Partial calculation 2", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocation);
@@ -357,12 +352,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(-1.2, calculation.DikeHeight);
             Assert.IsNull(calculation.DikeHeightCalculationType);
             Assert.IsNull(calculation.OvertoppingRateCalculationType);
-            Assert.AreEqual(false, calculation.UseBreakWater);
-            Assert.IsNull(calculation.BreakWaterType);
-            Assert.AreEqual(3.4, calculation.BreakWaterHeight);
-            Assert.IsNull(calculation.UseForeshore);
-            Assert.IsNull(calculation.CriticalFlowRateMean);
-            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+            Assert.AreEqual(false, calculation.WaveReduction.UseBreakWater);
+            Assert.IsNull(calculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(3.4, calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(calculation.CriticalFlowRate);
         }
 
         [Test]
@@ -378,10 +372,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.CriticalFlowRateMean);
-            Assert.AreEqual(2.2, calculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNull(calculation.CriticalFlowRate.Mean);
+            Assert.AreEqual(2.2, calculation.CriticalFlowRate.StandardDeviation);
         }
 
         [Test]
@@ -397,10 +391,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
-            Assert.AreEqual(1.1, calculation.CriticalFlowRateMean);
-            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+            Assert.AreEqual(1.1, calculation.CriticalFlowRate.Mean);
+            Assert.IsNull(calculation.CriticalFlowRate.StandardDeviation);
         }
 
         [Test]
@@ -416,10 +410,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = readConfigurationItems[0] as ReadGrassCoverErosionInwardsCalculation;
+            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.CriticalFlowRateMean);
-            Assert.IsNull(calculation.CriticalFlowRateStandardDeviation);
+            Assert.IsNull(calculation.CriticalFlowRate.Mean);
+            Assert.IsNull(calculation.CriticalFlowRate.StandardDeviation);
         }
     }
 }

@@ -837,6 +837,202 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             Assert.AreEqual(standardDeviation, stochast.VariationCoefficient);
         }
 
+        [Test]
+        public void GetWaveReductionParameters_WithBreakWaterHeight_ReturnsConfiguration()
+        {
+            // Setup
+            const double height = 2.1;
+
+            var breakWaterHeightElement = new XElement("damhoogte", height);
+            var waveReductionElement = new XElement("golfreductie", breakWaterHeightElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            WaveReductionConfiguration waveReduction = xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.AreEqual(height, waveReduction.BreakWaterHeight);
+            Assert.IsNull(waveReduction.BreakWaterType);
+            Assert.IsNull(waveReduction.UseForeshoreProfile);
+            Assert.IsNull(waveReduction.UseBreakWater);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithTooLargeBreakWaterHeight_ThrowsOverflowException()
+        {
+            // Setup
+            string height = string.Format(CultureInfo.InvariantCulture, "1{0}", double.MaxValue);
+
+            var breakWaterHeightElement = new XElement("damhoogte", height);
+            var waveReductionElement = new XElement("golfreductie", breakWaterHeightElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            TestDelegate test = () => xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithInvalidBreakWaterHeight_ThrowsFormatException()
+        {
+            // Setup
+            const string height = "very tall";
+
+            var breakWaterHeightElement = new XElement("damhoogte", height);
+            var waveReductionElement = new XElement("golfreductie", breakWaterHeightElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            TestDelegate test = () => xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithBreakWaterType_ReturnsConfiguration()
+        {
+            // Setup
+            const string type = "havendam";
+
+            var breakWaterTypeElement = new XElement("damtype", type);
+            var waveReductionElement = new XElement("golfreductie", breakWaterTypeElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            WaveReductionConfiguration waveReduction = xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, waveReduction.BreakWaterType);
+            Assert.IsNull(waveReduction.BreakWaterHeight);
+            Assert.IsNull(waveReduction.UseForeshoreProfile);
+            Assert.IsNull(waveReduction.UseBreakWater);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithInvalidBreakWaterType_ThrowsNotSupportedException()
+        {
+            // Setup
+            const string type = "not really a type";
+
+            var breakWaterTypeElement = new XElement("damtype", type);
+            var waveReductionElement = new XElement("golfreductie", breakWaterTypeElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            TestDelegate test = () => xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithUseForeshoreProfile_ReturnsConfiguration()
+        {
+            // Setup
+            const string useForeshoreProfile = "true";
+
+            var useForeshoreProfileElement = new XElement("voorlandgebruiken", useForeshoreProfile);
+            var waveReductionElement = new XElement("golfreductie", useForeshoreProfileElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            WaveReductionConfiguration waveReduction = xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.IsTrue(waveReduction.UseForeshoreProfile);
+            Assert.IsNull(waveReduction.BreakWaterHeight);
+            Assert.IsNull(waveReduction.BreakWaterType);
+            Assert.IsNull(waveReduction.UseBreakWater);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithInvalidUseForeshoreProfile_ThrowsFormatException()
+        {
+            // Setup
+            const string useForeshoreProfile = "only half true";
+
+            var useForeshoreProfileElement = new XElement("voorlandgebruiken", useForeshoreProfile);
+            var waveReductionElement = new XElement("golfreductie", useForeshoreProfileElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            TestDelegate test = () => xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithUseBreakWater_ReturnsConfiguration()
+        {
+            // Setup
+            const string useBreakWater = "true";
+
+            var useBreakWaterElement = new XElement("damgebruiken", useBreakWater);
+            var waveReductionElement = new XElement("golfreductie", useBreakWaterElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            WaveReductionConfiguration waveReduction = xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.IsTrue(waveReduction.UseBreakWater);
+            Assert.IsNull(waveReduction.BreakWaterHeight);
+            Assert.IsNull(waveReduction.BreakWaterType);
+            Assert.IsNull(waveReduction.UseForeshoreProfile);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithInvalidUseBreakWater_ThrowsFormatException()
+        {
+            // Setup
+            const string useBreakWater = "partially true";
+
+            var useBreakWaterElement = new XElement("damgebruiken", useBreakWater);
+            var waveReductionElement = new XElement("golfreductie", useBreakWaterElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            TestDelegate test = () => xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_WithAllParameters_ReturnsConfiguration()
+        {
+            // Setup
+            const double height = 2.1;
+            const string type = "havendam";
+            const string useForeshoreProfile = "true";
+            const string useBreakWater = "true";
+
+            var breakWaterHeightElement = new XElement("damhoogte", height);
+            var breakWaterTypeElement = new XElement("damtype", type);
+            var useForeshoreProfileElement = new XElement("voorlandgebruiken", useForeshoreProfile);
+            var useBreakWaterElement = new XElement("damgebruiken", useBreakWater);
+
+            var waveReductionElement = new XElement("golfreductie",
+                                                    breakWaterHeightElement,
+                                                    breakWaterTypeElement,
+                                                    useForeshoreProfileElement,
+                                                    useBreakWaterElement);
+            var xElement = new XElement("root", new XElement("root", waveReductionElement));
+
+            // Call
+            WaveReductionConfiguration waveReduction = xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.AreEqual(height, waveReduction.BreakWaterHeight);
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, waveReduction.BreakWaterType);
+            Assert.IsTrue(waveReduction.UseForeshoreProfile);
+            Assert.IsTrue(waveReduction.UseBreakWater);
+        }
+
         private class DoubleToBooleanConverter : TypeConverter
         {
             public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsInstanceOf<
                 CalculationConfigurationImporter<
                     GrassCoverErosionInwardsCalculationConfigurationReader,
-                    ReadGrassCoverErosionInwardsCalculation>>(importer);
+                    GrassCoverErosionInwardsCalculationConfiguration>>(importer);
         }
 
         [Test]

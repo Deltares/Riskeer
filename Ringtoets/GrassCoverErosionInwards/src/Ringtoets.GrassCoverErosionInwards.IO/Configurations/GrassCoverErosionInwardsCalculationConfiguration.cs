@@ -27,175 +27,83 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
     /// <summary>
     /// Configuration of a grass cover erosion inwards calculation.
     /// </summary>
-    public class ReadGrassCoverErosionInwardsCalculation : IConfigurationItem
+    public class GrassCoverErosionInwardsCalculationConfiguration : IConfigurationItem
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="ReadGrassCoverErosionInwardsCalculation"/>.
-        /// </summary>
-        /// <param name="constructionProperties">The container of the properties for the
-        /// <see cref="ReadGrassCoverErosionInwardsCalculation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="constructionProperties"/>
-        /// is <c>null</c>.</exception>
-        public ReadGrassCoverErosionInwardsCalculation(ConstructionProperties constructionProperties)
-        {
-            if (constructionProperties == null)
-            {
-                throw new ArgumentNullException(nameof(constructionProperties));
-            }
+        private string name;
 
-            Name = constructionProperties.Name;
-            HydraulicBoundaryLocation = constructionProperties.HydraulicBoundaryLocation;
-            DikeProfileId = constructionProperties.DikeProfileId;
-            Orientation = constructionProperties.Orientation;
-            DikeHeight = constructionProperties.DikeHeight;
-            DikeHeightCalculationType = constructionProperties.DikeHeightCalculationType;
-            OvertoppingRateCalculationType = constructionProperties.OvertoppingRateCalculationType;
-            UseBreakWater = constructionProperties.UseBreakWater;
-            BreakWaterType = constructionProperties.BreakWaterType;
-            BreakWaterHeight = constructionProperties.BreakWaterHeight;
-            UseForeshore = constructionProperties.UseForeshore;
-            CriticalFlowRateMean = constructionProperties.CriticalFlowRateMean;
-            CriticalFlowRateStandardDeviation = constructionProperties.CriticalFlowRateStandardDeviation;
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfiguration"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="GrassCoverErosionInwardsCalculationConfiguration"/>.
+        /// </param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsCalculationConfiguration(string name)
+        {
+            Name = name;
         }
 
         /// <summary>
         /// Gets the name of the hydraulic boundary location of the read grass cover erosion
         /// inwards calculation.
         /// </summary>
-        public string HydraulicBoundaryLocation { get; }
+        public string HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Gets the Id of the dike profile of the read grass cover erosion inwards calculation.
         /// </summary>
-        public string DikeProfileId { get; }
+        public string DikeProfileId { get; set; }
 
         /// <summary>
         /// Gets the orientation of the grass cover erosion inwards calculation.
         /// </summary>
-        public double? Orientation { get; }
+        public double? Orientation { get; set; }
 
         /// <summary>
         /// Gets the dike height of the grass cover erosion inwards calculation.
         /// </summary>
-        public double? DikeHeight { get; }
+        public double? DikeHeight { get; set; }
 
         /// <summary>
         /// Gets the value for how the dike height should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
-        public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; }
+        public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; set; }
 
         /// <summary>
         /// Gets the value for how the overtopping rate should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
-        public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; }
+        public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the wave reduction configuration.
+        /// </summary>
+        public WaveReductionConfiguration WaveReduction { get; set; }
 
         /// <summary>
-        /// Gets the value indicating if the break water for the grass cover erosion inwards
-        /// calculation should be used.
+        /// Gets the critical flow distribution for the grass cover erosion inwards calculation.
         /// </summary>
-        public bool? UseBreakWater { get; }
+        public StochastConfiguration CriticalFlowRate { get; set; }
 
         /// <summary>
-        /// Gets the type of break water for the grass cover erosion inwards calculation.
+        /// Gets or sets the name of the grass cover erosion inwards calculation.
         /// </summary>
-        public ConfigurationBreakWaterType? BreakWaterType { get; }
-
-        /// <summary>
-        /// Gets the height of the break water for the grass cover erosion inwards calculation.
-        /// </summary>
-        public double? BreakWaterHeight { get; }
-
-        /// <summary>
-        /// Gets the value indicating if the foreshore for the grass cover erosion inwards
-        /// calculation should be used.
-        /// </summary>
-        public bool? UseForeshore { get; }
-
-        /// <summary>
-        /// Gets the mean of the critical flow distribution for the grass cover erosion
-        /// inwards calculation.
-        /// </summary>
-        public double? CriticalFlowRateMean { get; }
-
-        /// <summary>
-        /// Gets the standard deviation of the critical flow distribution for the grass
-        /// cover erosion inwards calculation.
-        /// </summary>
-        public double? CriticalFlowRateStandardDeviation { get; }
-
-        public string Name { get; }
-
-        /// <summary>
-        /// Class holding the various construction parameters for <see cref="ReadGrassCoverErosionInwardsCalculation"/>.
-        /// </summary>
-        public class ConstructionProperties
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public string Name
         {
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.Name"/>.
-            /// </summary>
-            public string Name { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.HydraulicBoundaryLocation"/>.
-            /// </summary>
-            public string HydraulicBoundaryLocation { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeProfileId"/>.
-            /// </summary>
-            public string DikeProfileId { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.Orientation"/>.
-            /// </summary>
-            public double? Orientation { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeHeight"/>.
-            /// </summary>
-            public double? DikeHeight { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.DikeHeightCalculationType"/>.
-            /// </summary>
-            public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.OvertoppingRateCalculationType"/>.
-            /// </summary>
-            public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.UseBreakWater"/>.
-            /// </summary>
-            public bool? UseBreakWater { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.BreakWaterType"/>.
-            /// </summary>
-            public ConfigurationBreakWaterType? BreakWaterType { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.BreakWaterHeight"/>.
-            /// </summary>
-            public double? BreakWaterHeight { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.UseForeshore"/>.
-            /// </summary>
-            public bool? UseForeshore { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.CriticalFlowRateMean"/>.
-            /// </summary>
-            public double? CriticalFlowRateMean { get; set; }
-
-            /// <summary>
-            /// Gets or sets the value for <see cref="ReadGrassCoverErosionInwardsCalculation.CriticalFlowRateStandardDeviation"/>.
-            /// </summary>
-            public double? CriticalFlowRateStandardDeviation { get; set; }
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                }
+                name = value;
+            }
         }
     }
 }
