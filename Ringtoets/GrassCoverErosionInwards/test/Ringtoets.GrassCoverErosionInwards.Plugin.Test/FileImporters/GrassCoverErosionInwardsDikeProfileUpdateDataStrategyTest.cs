@@ -630,6 +630,73 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             Assert.AreSame(affectedCalculation, sectionResults[1].Calculation);
         }
 
+        [Test]
+        public void UpdateForeshoreProfilesWithImportedData_CalculationWithOutputAndForeshoreProfileUpdatedWithProfileWithoutGeometry_UpdatesCalculation()
+        {
+            // Setup
+            const string id = "profile ID";
+            IEnumerable<Point2D> geometry = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+
+            var affectedProfile = new TestDikeProfile(geometry, id);
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = affectedProfile
+                },
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+            affectedCalculation.InputParameters.UseForeshore = true;
+
+            var profileToUpdateFrom = new TestDikeProfile(Enumerable.Empty<Point2D>(), id);
+
+            var dikeProfiles = new DikeProfileCollection();
+            var originalDikeProfiles = new[]
+            {
+                affectedProfile
+            };
+            dikeProfiles.AddRange(originalDikeProfiles, sourceFilePath);
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        affectedCalculation
+                    }
+                }
+            };
+
+            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects =
+                strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
+                                                            new[]
+                                                            {
+                                                                profileToUpdateFrom
+                                                            },
+                                                            sourceFilePath);
+
+            // Assert
+            Assert.IsFalse(affectedCalculation.HasOutput);
+            Assert.IsFalse(affectedCalculation.InputParameters.UseForeshore);
+            AssertDikeProfile(affectedProfile, profileToUpdateFrom);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                affectedCalculation,
+                affectedCalculation.InputParameters,
+                affectedProfile,
+                dikeProfiles
+            }, affectedObjects);
+        }
+
         /// <summary>
         /// Makes a deep clone of the <paramref name="dikeProfile"/> and modifies 
         /// all its parameters, except the ID.

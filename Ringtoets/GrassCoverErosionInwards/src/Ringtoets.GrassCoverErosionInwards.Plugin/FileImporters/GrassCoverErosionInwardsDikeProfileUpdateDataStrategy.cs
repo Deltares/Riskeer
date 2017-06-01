@@ -57,35 +57,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
             return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(DikeProfile objectToUpdate, DikeProfile objectToUpdateFrom)
-        {
-            objectToUpdate.CopyProperties(objectToUpdateFrom);
-
-            var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(UpdateDikeDependentData(objectToUpdate));
-
-            return affectedObjects;
-        }
-
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(DikeProfile removedObject)
         {
             return GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(FailureMechanism,
                                                                                         removedObject);
-        }
-
-        private IEnumerable<IObservable> UpdateDikeDependentData(DikeProfile objectToUpdate)
-        {
-            var affectedObjects = new List<IObservable>();
-            foreach (GrassCoverErosionInwardsCalculation calculation in GetAffectedCalculationsWithDikeProfile(objectToUpdate))
-            {
-                affectedObjects.Add(calculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-            }
-
-            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()));
-            return affectedObjects;
         }
 
         private IEnumerable<GrassCoverErosionInwardsCalculation> GetAffectedCalculationsWithDikeProfile(DikeProfile objectToUpdate)
@@ -112,5 +87,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
                 return obj.Id.GetHashCode();
             }
         }
+
+        #region Update logic
+
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(DikeProfile objectToUpdate, DikeProfile objectToUpdateFrom)
+        {
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(UpdateDikeDependentData(objectToUpdate));
+
+            return affectedObjects;
+        }
+
+        private IEnumerable<IObservable> UpdateDikeDependentData(DikeProfile objectToUpdate)
+        {
+            var affectedObjects = new List<IObservable>();
+            foreach (GrassCoverErosionInwardsCalculation calculation in GetAffectedCalculationsWithDikeProfile(objectToUpdate))
+            {
+                affectedObjects.Add(calculation.InputParameters);
+                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+                if (!objectToUpdate.ForeshoreGeometry.Any())
+                {
+                    calculation.InputParameters.UseForeshore = false;
+                }
+            }
+
+            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults,
+                                         FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()));
+            return affectedObjects;
+        }
+
+        #endregion
     }
 }

@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ForeshoreProfile removedObject)
         {
-            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(removedObject);
+            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithForeshoreProfiles(removedObject);
 
             var affectedObjects = new List<IObservable>();
             foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
             var affectedObjects = new List<IObservable>();
 
-            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithSurfaceLines(objectToUpdate);
+            IEnumerable<ICalculation<ICalculationInput>> affectedCalculations = GetAffectedCalculationWithForeshoreProfiles(objectToUpdate);
 
             foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
             {
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return affectedObjects;
         }
 
-        private IEnumerable<ICalculation<ICalculationInput>> GetAffectedCalculationWithSurfaceLines(ForeshoreProfile foreshoreProfile)
+        private IEnumerable<ICalculation<ICalculationInput>> GetAffectedCalculationWithForeshoreProfiles(ForeshoreProfile foreshoreProfile)
         {
             IEnumerable<ICalculation<ICalculationInput>> calculations = FailureMechanism.Calculations.Cast<ICalculation<ICalculationInput>>();
             IEnumerable<ICalculation<ICalculationInput>> affectedCalculations =
