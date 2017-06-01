@@ -41,7 +41,9 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         public string Name { get; set; }
+
         public bool HasOutput { get; private set; }
+
         public Comment Comments { get; }
 
         /// <summary>
@@ -106,6 +108,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public class TestCalculationInputWithForeshoreProfile : ICalculationInput, IUseForeshore, IHasForeshoreProfile
         {
             public ForeshoreProfile ForeshoreProfile { get; set; }
+
             public bool IsForeshoreProfileInputSynchronized { get; }
 
             public bool UseForeshore { get; set; }
