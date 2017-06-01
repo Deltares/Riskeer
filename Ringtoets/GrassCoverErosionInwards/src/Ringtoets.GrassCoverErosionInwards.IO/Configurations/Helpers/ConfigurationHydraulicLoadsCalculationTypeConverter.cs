@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
@@ -31,11 +32,47 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
     /// </summary>
     public class ConfigurationHydraulicLoadsCalculationTypeConverter : TypeConverter
     {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == typeof(DikeHeightCalculationType)
+                   || destinationType == typeof(OvertoppingRateCalculationType)
+                   || base.CanConvertTo(context, destinationType);
+        }
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var readHydraulicLoadsCalculationType = (ConfigurationHydraulicLoadsCalculationType) value;
+
+            if (destinationType == typeof(DikeHeightCalculationType))
+            {
+                switch (readHydraulicLoadsCalculationType)
+                {
+                    case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
+                        return DikeHeightCalculationType.NoCalculation;
+                    case ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm:
+                        return DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
+                    case ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability:
+                        return DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            if (destinationType == typeof(OvertoppingRateCalculationType))
+            {
+                switch (readHydraulicLoadsCalculationType)
+                {
+                    case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
+                        return OvertoppingRateCalculationType.NoCalculation;
+                    case ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm:
+                        return OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm;
+                    case ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability:
+                        return OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
             if (destinationType == typeof(string))
             {
-                var readHydraulicLoadsCalculationType = (ConfigurationHydraulicLoadsCalculationType) value;
                 switch (readHydraulicLoadsCalculationType)
                 {
                     case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
@@ -53,15 +90,42 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            if (sourceType == typeof(string))
-            {
-                return true;
-            }
-            return base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string)
+                   || sourceType == typeof(DikeHeightCalculationType)
+                   || sourceType == typeof(OvertoppingRateCalculationType)
+                   || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
+            if (value is DikeHeightCalculationType)
+            {
+                switch ((DikeHeightCalculationType) value)
+                {
+                    case DikeHeightCalculationType.NoCalculation:
+                        return ConfigurationHydraulicLoadsCalculationType.NoCalculation;
+                    case DikeHeightCalculationType.CalculateByAssessmentSectionNorm:
+                        return ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
+                    case DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability:
+                        return ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            if (value is OvertoppingRateCalculationType)
+            {
+                switch ((OvertoppingRateCalculationType) value)
+                {
+                    case OvertoppingRateCalculationType.NoCalculation:
+                        return ConfigurationHydraulicLoadsCalculationType.NoCalculation;
+                    case OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm:
+                        return ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
+                    case OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability:
+                        return ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
             var text = value as string;
             if (text != null)
             {

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -37,75 +36,6 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             PipingCalculationConfigurationWriter,
             PipingCalculationConfiguration>
     {
-        private static IEnumerable<TestCaseData> Calculations
-        {
-            get
-            {
-
-                var calculation = CreateFullCalculationConfiguration();
-                calculation.HydraulicBoundaryLocation = null;
-                calculation.EntryPointL = 0.0;
-                calculation.ExitPointL = 10;
-                yield return new TestCaseData("calculationWithoutHydraulicLocation",
-                                              calculation)
-                    .SetName("calculationWithoutHydraulicLocation");
-
-                calculation = CreateFullCalculationConfiguration();
-                calculation.AssessmentLevel = 3.0;
-                calculation.EntryPointL = 0.0;
-                calculation.ExitPointL = 10;
-                yield return new TestCaseData("calculationWithAssessmentLevel",
-                                              calculation)
-                    .SetName("calculationWithAssessmentLevel");
-
-                calculation = CreateFullCalculationConfiguration();
-                calculation.SurfaceLine = null;
-                yield return new TestCaseData("calculationWithoutSurfaceLine",
-                                              calculation)
-                    .SetName("calculationWithoutSurfaceLine");
-
-                calculation = CreateFullCalculationConfiguration();
-                calculation.StochasticSoilModel = null;
-                calculation.EntryPointL = 0.0;
-                calculation.ExitPointL = 10;
-                yield return new TestCaseData("calculationWithoutSoilModel",
-                                              calculation)
-                    .SetName("calculationWithoutSoilModel");
-
-                calculation = CreateFullCalculationConfiguration();
-                calculation.StochasticSoilProfile = null;
-                calculation.EntryPointL = 0.0;
-                calculation.ExitPointL = 10;
-                yield return new TestCaseData("calculationWithoutSoilProfile",
-                                              calculation)
-                    .SetName("calculationWithoutSoilProfile");
-
-                calculation = CreateFullCalculationConfiguration();
-                calculation.AssessmentLevel = double.NaN;
-                calculation.EntryPointL = double.NaN;
-                calculation.ExitPointL = double.NaN;
-                calculation.PhreaticLevelExit.Mean = double.NaN;
-                calculation.PhreaticLevelExit.StandardDeviation = double.NaN;
-                calculation.DampingFactorExit.Mean = double.NaN;
-                calculation.DampingFactorExit.StandardDeviation = double.NaN;
-                yield return new TestCaseData("calculationWithNaNs",
-                                              calculation)
-                    .SetName("calculationWithNaNs");
-
-                calculation = CreateFullCalculationConfiguration();
-                calculation.AssessmentLevel = double.NegativeInfinity;
-                calculation.EntryPointL = double.NegativeInfinity;
-                calculation.ExitPointL = double.PositiveInfinity;
-                calculation.PhreaticLevelExit.Mean = double.NegativeInfinity;
-                calculation.PhreaticLevelExit.StandardDeviation = double.PositiveInfinity;
-                calculation.DampingFactorExit.Mean = double.PositiveInfinity;
-                calculation.DampingFactorExit.StandardDeviation = double.PositiveInfinity;
-                yield return new TestCaseData("calculationWithInfinities",
-                                              calculation)
-                    .SetName("calculationWithInfinities");
-            }
-        }
-
         [Test]
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
@@ -191,36 +121,6 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                     StandardDeviation = 0.1
                 }
             };
-        }
-
-        [Test]
-        [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculation_ValidFile(string expectedFileName, PipingCalculationConfiguration calculation)
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
-
-            try
-            {
-                // Call
-                new PipingCalculationConfigurationWriter(filePath).Write(new[]
-                {
-                    calculation
-                });
-
-                // Assert
-                Assert.IsTrue(File.Exists(filePath));
-
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingCalculationConfigurationWriter", $"{expectedFileName}.xml"));
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
         }
 
         protected override PipingCalculationConfigurationWriter CreateWriterInstance(string filePath)

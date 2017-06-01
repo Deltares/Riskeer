@@ -20,49 +20,42 @@
 // All rights reserved.
 
 using System.IO;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationWriterTest
-        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
             GrassCoverErosionInwardsCalculationConfigurationWriter,
-            GrassCoverErosionInwardsCalculation>
+            GrassCoverErosionInwardsCalculationConfiguration>
     {
         [Test]
-        public void WriteConfiguration_SparseCalculation_WritesSparseConfigurationToFile()
+        public void WriteConfiguration_SparseConfiguration_WritesSparseConfigurationToFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteConfiguration_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
+                $"{nameof(WriteConfiguration_SparseConfiguration_WritesSparseConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Name = "Berekening 1"
-            };
+            var calculation = new GrassCoverErosionInwardsCalculationConfiguration("Berekening 1");
 
             try
             {
-                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter();
+                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
                 {
                     calculation
-                }, filePath);
+                });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
@@ -77,27 +70,27 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void WriteConfiguration_CompleteCalculation_WritesCompleteConfigurationToFile()
+        public void WriteConfiguration_CompleteConfiguration_WritesCompleteConfigurationToFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteConfiguration_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
+                $"{nameof(WriteConfiguration_CompleteConfiguration_WritesCompleteConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
-            GrassCoverErosionInwardsCalculation calculation = CreateCompleteCalculation();
+            GrassCoverErosionInwardsCalculationConfiguration calculation = CreateCompleteCalculation();
 
             try
             {
-                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter();
+                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
                 {
                     calculation
-                }, filePath);
+                });
 
                 // Assert
                 string actualXml = File.ReadAllText(filePath);
@@ -117,35 +110,28 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
-            GrassCoverErosionInwardsCalculation calculation = CreateCompleteCalculation();
-            var calculation2 = new GrassCoverErosionInwardsCalculation
+            GrassCoverErosionInwardsCalculationConfiguration calculation = CreateCompleteCalculation();
+            var calculation2 = new GrassCoverErosionInwardsCalculationConfiguration("Berekening 2");
+            var calculationGroup2 = new CalculationGroupConfiguration("Nested", new IConfigurationItem[]
             {
-                Name = "Berekening 2"
-            };
-            var calculationGroup2 = new CalculationGroup("Nested", false)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
+                calculation2
+            });
 
-            var calculationGroup = new CalculationGroup("Testmap", false)
+            var calculationGroup = new CalculationGroupConfiguration("Testmap", new IConfigurationItem[]
             {
-                Children =
-                {
-                    calculation,
-                    calculationGroup2
-                }
-            };
+                calculation,
+                calculationGroup2
+            });
 
             try
             {
+                var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath);
+
                 // Call
-                new GrassCoverErosionInwardsCalculationConfigurationWriter().Write(new[]
+                writer.Write(new[]
                 {
                     calculationGroup
-                }, filePath);
+                });
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -164,30 +150,34 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             }
         }
 
-        private static GrassCoverErosionInwardsCalculation CreateCompleteCalculation()
+        private static GrassCoverErosionInwardsCalculationConfiguration CreateCompleteCalculation()
         {
-            return new GrassCoverErosionInwardsCalculation
+            return new GrassCoverErosionInwardsCalculationConfiguration("Berekening 1")
             {
-                Name = "Berekening 1",
-                InputParameters =
+                HydraulicBoundaryLocation = "Locatie1",
+                DikeProfile = "id",
+                Orientation = 67.1,
+                DikeHeightCalculationType = ConfigurationHydraulicLoadsCalculationType.NoCalculation,
+                OvertoppingRateCalculationType = ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm,
+                DikeHeight = 0,
+                WaveReduction = new WaveReductionConfiguration
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Locatie1"),
-                    DikeProfile = new TestDikeProfile("dijkProfiel", "id"),
-                    Orientation = (RoundedDouble) 67.1,
-                    UseForeshore = true,
+                    UseForeshoreProfile = true,
                     UseBreakWater = true,
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) 1.23,
-                        Type = BreakWaterType.Caisson
-                    },
-                    CriticalFlowRate =
-                    {
-                        Mean = (RoundedDouble) 0.1,
-                        StandardDeviation = (RoundedDouble) 0.1
-                    }
+                    BreakWaterHeight = 1.23,
+                    BreakWaterType = ConfigurationBreakWaterType.Caisson
+                },
+                CriticalFlowRate = new StochastConfiguration
+                {
+                    Mean = 0.1,
+                    StandardDeviation = 0.1
                 }
             };
+        }
+
+        protected override GrassCoverErosionInwardsCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        {
+            return new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath);
         }
     }
 }

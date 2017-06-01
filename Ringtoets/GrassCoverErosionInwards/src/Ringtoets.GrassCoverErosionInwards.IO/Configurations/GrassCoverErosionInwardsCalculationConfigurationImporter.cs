@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 
             if (TryReadCriticalWaveReduction(calculationConfiguration, calculation)
                 && TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocation, calculation)
-                && TryReadDikeProfile(calculationConfiguration.DikeProfileId, calculation)
+                && TryReadDikeProfile(calculationConfiguration.DikeProfile, calculation)
                 && TryReadOrientation(calculationConfiguration, calculation)
                 && TryReadDikeHeight(calculationConfiguration, calculation)
                 && ValidateWaveReduction(calculationConfiguration, calculation))
@@ -286,7 +286,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used,
-                                                          calculationConfiguration.DikeProfileId),
+                                                          calculationConfiguration.DikeProfile),
                                                       calculation.Name);
                     return false;
                 }

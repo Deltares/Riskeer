@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
@@ -54,7 +55,33 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void CanConvertTo_NotString_ReturnFalse()
+        public void CanConvertTo_DikeHeightCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            bool canConvertToString = converter.CanConvertTo(typeof(DikeHeightCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertToString);
+        }
+
+        [Test]
+        public void CanConvertTo_OvertoppingRateCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            bool canConvertToString = converter.CanConvertTo(typeof(OvertoppingRateCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertToString);
+        }
+
+        [Test]
+        public void CanConvertTo_OtherType_ReturnFalse()
         {
             // Setup
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
@@ -70,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationHydraulicLoadsCalculationType.NoCalculation, "niet")]
         [TestCase(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, "norm")]
         [TestCase(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, "doorsnede")]
-        public void ConvertTo_VariousCases_ReturnExpectedValues(ConfigurationHydraulicLoadsCalculationType value, string expectedResult)
+        public void ConvertTo_StringVariousCases_ReturnExpectedValues(ConfigurationHydraulicLoadsCalculationType value, string expectedResult)
         {
             // Setup
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
@@ -83,7 +110,56 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_InvalidReadHydraulicLoadsCalculationTypeValue_ThrowNotSupportedException()
+        [TestCase(
+            ConfigurationHydraulicLoadsCalculationType.NoCalculation,
+            DikeHeightCalculationType.NoCalculation)]
+        [TestCase(
+            ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm,
+            DikeHeightCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(
+            ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability,
+            DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertTo_DikeHeightCalculationTypeVariousCases_ReturnExpectedValues(
+            ConfigurationHydraulicLoadsCalculationType value, DikeHeightCalculationType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            object result = converter.ConvertTo(value, typeof(DikeHeightCalculationType));
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        [TestCase(
+            ConfigurationHydraulicLoadsCalculationType.NoCalculation,
+            OvertoppingRateCalculationType.NoCalculation)]
+        [TestCase(
+            ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm,
+            OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(
+            ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability,
+            OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertTo_OvertoppingRateCalculationTypeVariousCases_ReturnExpectedValues(
+            ConfigurationHydraulicLoadsCalculationType value, OvertoppingRateCalculationType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            object result = converter.ConvertTo(value, typeof(OvertoppingRateCalculationType));
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(DikeHeightCalculationType))]
+        [TestCase(typeof(OvertoppingRateCalculationType))]
+        public void ConvertTo_InvalidReadHydraulicLoadsCalculationTypeValue_ThrowNotSupportedException(Type type)
         {
             // Setup
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
@@ -91,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
             const ConfigurationHydraulicLoadsCalculationType invalidValue = (ConfigurationHydraulicLoadsCalculationType) 9999999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+            TestDelegate call = () => converter.ConvertTo(invalidValue, type);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -124,7 +200,33 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void CanConvertFrom_NonString_ReturnFalse()
+        public void CanConvertFrom_DikeHeightCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            bool canConvertFromString = converter.CanConvertFrom(typeof(DikeHeightCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertFromString);
+        }
+
+        [Test]
+        public void CanConvertFrom_OvertoppingRateCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            bool canConvertFromString = converter.CanConvertFrom(typeof(OvertoppingRateCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertFromString);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherType_ReturnFalse()
         {
             // Setup
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
@@ -140,7 +242,53 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         [TestCase("niet", ConfigurationHydraulicLoadsCalculationType.NoCalculation)]
         [TestCase("norm", ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm)]
         [TestCase("doorsnede", ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability)]
-        public void ConvertFrom_VariousCases_ReturnExpectedValue(string value, ConfigurationHydraulicLoadsCalculationType expectedResult)
+        public void ConvertFrom_StringVariousCases_ReturnExpectedValue(string value, ConfigurationHydraulicLoadsCalculationType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            object result = converter.ConvertFrom(value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        [TestCase(
+            DikeHeightCalculationType.NoCalculation,
+            ConfigurationHydraulicLoadsCalculationType.NoCalculation)]
+        [TestCase(
+            DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+            ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(
+            DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
+            ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertFrom_DikeHeightCalculationTypeVariousCases_ReturnExpectedValue(
+            DikeHeightCalculationType value, ConfigurationHydraulicLoadsCalculationType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            object result = converter.ConvertFrom(value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        [TestCase(
+            OvertoppingRateCalculationType.NoCalculation,
+            ConfigurationHydraulicLoadsCalculationType.NoCalculation)]
+        [TestCase(
+            OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+            ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm)]
+        [TestCase(
+            OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+            ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability)]
+        public void ConvertFrom_OvertoppingRateCalculationTypeVariousCases_ReturnExpectedValue(
+            OvertoppingRateCalculationType value, ConfigurationHydraulicLoadsCalculationType expectedResult)
         {
             // Setup
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
@@ -160,6 +308,32 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("<unsupported string value>");
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void ConvertFrom_UnsupportedDikeHeightCalculationType_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom((DikeHeightCalculationType) 9999);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void ConvertFrom_UnsupportedOvertoppingRateCalculationType_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom((OvertoppingRateCalculationType) 9999);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);

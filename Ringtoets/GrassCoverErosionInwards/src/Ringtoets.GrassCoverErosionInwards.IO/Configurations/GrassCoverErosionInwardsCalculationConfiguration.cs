@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         /// <summary>
         /// Gets the Id of the dike profile of the read grass cover erosion inwards calculation.
         /// </summary>
-        public string DikeProfileId { get; set; }
+        public string DikeProfile { get; set; }
 
         /// <summary>
         /// Gets the orientation of the grass cover erosion inwards calculation.

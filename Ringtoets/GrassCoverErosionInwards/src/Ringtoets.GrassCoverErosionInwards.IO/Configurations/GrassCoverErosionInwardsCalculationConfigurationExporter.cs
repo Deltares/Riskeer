@@ -22,8 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 {
@@ -31,7 +35,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
     /// Exports a grass cover erosion inwards calculation configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationExporter
-        : CalculationConfigurationExporter<GrassCoverErosionInwardsCalculationConfigurationWriter, GrassCoverErosionInwardsCalculation>
+        : SchemaCalculationConfigurationExporter<
+            GrassCoverErosionInwardsCalculationConfigurationWriter,
+            GrassCoverErosionInwardsCalculation,
+            GrassCoverErosionInwardsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationExporter"/>.
@@ -42,5 +49,53 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
             : base(configuration, filePath) {}
+
+        protected override GrassCoverErosionInwardsCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath);
+        }
+
+        protected override GrassCoverErosionInwardsCalculationConfiguration ToConfiguration(GrassCoverErosionInwardsCalculation calculation)
+        {
+            GrassCoverErosionInwardsInput input = calculation.InputParameters;
+            var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculation.Name);
+
+            configuration.HydraulicBoundaryLocation = input.HydraulicBoundaryLocation?.Name;
+
+            if (input.DikeProfile != null)
+            {
+                configuration.DikeProfile = input.DikeProfile.Id;
+                configuration.DikeHeight = input.DikeHeight;
+                configuration.Orientation = input.Orientation;
+
+                configuration.WaveReduction = new WaveReductionConfiguration
+                {
+                    UseForeshoreProfile = input.UseForeshore,
+                    UseBreakWater = input.UseBreakWater,
+                    BreakWaterHeight = input.BreakWater.Height
+                };
+
+                if (Enum.IsDefined(typeof(BreakWaterType), input.BreakWater.Type))
+                {
+                    configuration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?)
+                        new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type);
+                }
+            }
+
+            if (Enum.IsDefined(typeof(DikeHeightCalculationType), input.DikeHeightCalculationType))
+            {
+                configuration.DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?)
+                    new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertFrom(input.DikeHeightCalculationType);
+            }
+            if (Enum.IsDefined(typeof(OvertoppingRateCalculationType), input.OvertoppingRateCalculationType))
+            {
+                configuration.OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?)
+                    new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertFrom(input.OvertoppingRateCalculationType);
+            }
+
+            configuration.CriticalFlowRate = input.CriticalFlowRate.ToStochastConfiguration();
+
+            return configuration;
+        }
     }
 }

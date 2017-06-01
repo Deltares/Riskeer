@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
 using System.Xml;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
@@ -32,122 +30,82 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
     /// <summary>
     /// Writer for writing a grass cover erosion inwards calculation configuration to XML.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculation>
+    public class GrassCoverErosionInwardsCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<GrassCoverErosionInwardsCalculationConfiguration>
     {
-        protected override void WriteCalculation(GrassCoverErosionInwardsCalculation calculation, XmlWriter writer)
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationWriter"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public GrassCoverErosionInwardsCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+        protected override void WriteCalculation(GrassCoverErosionInwardsCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
-            GrassCoverErosionInwardsInput input = calculation.InputParameters;
-
-            WriteHydraulicBoundaryLocation(input, writer);
-
-            WriteDikeProfileId(input, writer);
-
-            WriteOrientation(input, writer);
-
-            WriteDikeHeight(input, writer);
-
-            writer.WriteElementString(
-                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
-                HydraulicLoadsCalculationTypeAsXmlString((ConfigurationHydraulicLoadsCalculationType) input.DikeHeightCalculationType));
-
-            writer.WriteElementString(
-                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement,
-                HydraulicLoadsCalculationTypeAsXmlString((ConfigurationHydraulicLoadsCalculationType) input.OvertoppingRateCalculationType));
-
-            WriteWaveReduction(input, writer);
-
-            WriteDistributions(CreateInputDistributions(input), writer);
-
-            writer.WriteEndElement();
-        }
-
-        private static void WriteHydraulicBoundaryLocation(GrassCoverErosionInwardsInput input, XmlWriter writer)
-        {
-            if (input.HydraulicBoundaryLocation == null)
-            {
-                return;
-            }
-
-            writer.WriteElementString(
+            WriteElementWhenContentAvailable(
+                writer,
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                input.HydraulicBoundaryLocation.Name);
-        }
+                configuration.HydraulicBoundaryLocation);
 
-        private static void WriteDikeProfileId(GrassCoverErosionInwardsInput input, XmlWriter writer)
-        {
-            if (input.DikeProfile == null)
-            {
-                return;
-            }
-
-            writer.WriteElementString(
+            WriteElementWhenContentAvailable(
+                writer,
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
-                input.DikeProfile.Id);
-        }
-
-        private static void WriteOrientation(GrassCoverErosionInwardsInput input, XmlWriter writer)
-        {
-            if (input.DikeProfile == null)
-            {
-                return;
-            }
-
-            writer.WriteElementString(
+                configuration.DikeProfile);
+            WriteElementWhenContentAvailable(
+                writer,
                 ConfigurationSchemaIdentifiers.Orientation,
-                XmlConvert.ToString(input.Orientation));
-        }
-
-        private static void WriteDikeHeight(GrassCoverErosionInwardsInput input, XmlWriter writer)
-        {
-            if (input.DikeProfile == null)
-            {
-                return;
-            }
-
-            writer.WriteElementString(
+                configuration.Orientation);
+            WriteElementWhenContentAvailable(
+                writer,
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement,
-                XmlConvert.ToString(input.DikeHeight));
-        }
+                configuration.DikeHeight);
 
-        private static string HydraulicLoadsCalculationTypeAsXmlString(ConfigurationHydraulicLoadsCalculationType type)
-        {
-            return new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertToInvariantString(type);
-        }
+            WriteConfigurationLoadSchematizationTypeWhenAvailable(
+                writer,
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
+                configuration.DikeHeightCalculationType);
 
-        private static void WriteWaveReduction(GrassCoverErosionInwardsInput input, XmlWriter writer)
-        {
-            if (input.DikeProfile == null)
-            {
-                return;
-            }
+            WriteConfigurationLoadSchematizationTypeWhenAvailable(
+                writer,
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement,
+                configuration.OvertoppingRateCalculationType);
 
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.WaveReduction);
+            WriteWaveReductionWhenAvailable(writer, configuration.WaveReduction);
 
-            writer.WriteElementString(
-                ConfigurationSchemaIdentifiers.UseBreakWater,
-                XmlConvert.ToString(input.UseBreakWater));
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 
-            WriteBreakWaterProperties(input.BreakWater, writer);
+            WriteDistributionWhenAvailable(
+                writer,
+                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
+                configuration.CriticalFlowRate);
 
-            writer.WriteElementString(
-                ConfigurationSchemaIdentifiers.UseForeshore,
-                XmlConvert.ToString(input.UseForeshore));
+            writer.WriteEndElement();
 
             writer.WriteEndElement();
         }
 
-        private static IDictionary<string, IDistribution> CreateInputDistributions(GrassCoverErosionInwardsInput calculationInputParameters)
+        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
+            XmlWriter writer,
+            string elementName,
+            ConfigurationHydraulicLoadsCalculationType? configuration)
         {
-            return new Dictionary<string, IDistribution>
+            if (!configuration.HasValue)
             {
-                {
-                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
-                    calculationInputParameters.CriticalFlowRate
-                }
-            };
+                return;
+            }
+
+            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
+            writer.WriteElementString(elementName,
+                                      converter.ConvertToInvariantString(configuration.Value));
         }
     }
 }

@@ -7,7 +7,7 @@
       <orientatie>67.1</orientatie>
       <dijkhoogte>0</dijkhoogte>
       <hbnberekenen>niet</hbnberekenen>
-      <overslagdebietberekenen>niet</overslagdebietberekenen>
+      <overslagdebietberekenen>norm</overslagdebietberekenen>
       <golfreductie>
         <damgebruiken>true</damgebruiken>
         <damtype>caisson</damtype>
@@ -23,14 +23,7 @@
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">
-        <hbnberekenen>niet</hbnberekenen>
-        <overslagdebietberekenen>niet</overslagdebietberekenen>
-        <stochasten>
-          <stochast naam="overslagdebiet">
-            <verwachtingswaarde>0.004</verwachtingswaarde>
-            <standaardafwijking>0.0006</standaardafwijking>
-          </stochast>
-        </stochasten>
+        <stochasten />
       </berekening>
     </map>
   </map>

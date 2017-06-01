@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Xml;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.IO.Configurations
 {
@@ -53,45 +50,28 @@ namespace Ringtoets.Piping.IO.Configurations
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
-            if (configuration.AssessmentLevel.HasValue)
-            {
-                WriteElementWhenContentAvailable(writer,
-                                                 PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
-                                                 configuration.AssessmentLevel);
-            }
-            else
-            {
-                WriteElementWhenContentAvailable(writer,
-                                                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                                 configuration.HydraulicBoundaryLocation);
-            }
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                             configuration.AssessmentLevel);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             configuration.HydraulicBoundaryLocation);
 
-            if (configuration.SurfaceLine != null)
-            {
-                WriteElementWhenContentAvailable(writer,
-                                                 PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
-                                                 configuration.SurfaceLine);
-                WriteElementWhenContentAvailable(writer,
-                                                 PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement,
-                                                 configuration.EntryPointL);
-                WriteElementWhenContentAvailable(writer,
-                                                 PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement,
-                                                 configuration.ExitPointL);
-            }
-
-            if (configuration.StochasticSoilModel != null)
-            {
-                WriteElementWhenContentAvailable(writer,
-                                                 PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
-                                                 configuration.StochasticSoilModel);
-
-                if (configuration.StochasticSoilProfile != null)
-                {
-                    WriteElementWhenContentAvailable(writer,
-                                                     PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
-                                                     configuration.StochasticSoilProfile);
-                }
-            }
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
+                                             configuration.SurfaceLine);
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement,
+                                             configuration.EntryPointL);
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement,
+                                             configuration.ExitPointL);
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
+                                             configuration.StochasticSoilModel);
+            WriteElementWhenContentAvailable(writer,
+                                             PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
+                                             configuration.StochasticSoilProfile);
 
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 

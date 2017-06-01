@@ -6,7 +6,7 @@
     <orientatie>67.1</orientatie>
     <dijkhoogte>0</dijkhoogte>
     <hbnberekenen>niet</hbnberekenen>
-    <overslagdebietberekenen>niet</overslagdebietberekenen>
+    <overslagdebietberekenen>norm</overslagdebietberekenen>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
       <damtype>caisson</damtype>

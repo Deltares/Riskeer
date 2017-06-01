@@ -51,18 +51,34 @@ namespace Ringtoets.Piping.IO.Configurations
         {
             PipingInput input = calculation.InputParameters;
 
-            return new PipingCalculationConfiguration(calculation.Name)
+            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name);
+
+            if (input.HydraulicBoundaryLocation != null)
             {
-                HydraulicBoundaryLocation = input.HydraulicBoundaryLocation?.Name,
-                AssessmentLevel = input.HydraulicBoundaryLocation == null ? input.AssessmentLevel : (double?)null,
-                DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
-                PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
-                SurfaceLine = input.SurfaceLine?.Name,
-                EntryPointL = input.EntryPointL,
-                ExitPointL = input.ExitPointL,
-                StochasticSoilModel = input.StochasticSoilModel?.Name,
-                StochasticSoilProfile = input.StochasticSoilProfile?.SoilProfile.Name
-            };
+                calculationConfiguration.HydraulicBoundaryLocation = input.HydraulicBoundaryLocation.Name;
+            }
+            else if(input.UseAssessmentLevelManualInput)
+            {
+                calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
+            }
+
+            calculationConfiguration.DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration();
+            calculationConfiguration.PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration();
+
+            if (input.SurfaceLine != null)
+            {
+                calculationConfiguration.SurfaceLine = input.SurfaceLine.Name;
+                calculationConfiguration.EntryPointL = input.EntryPointL;
+                calculationConfiguration.ExitPointL = input.ExitPointL;
+            }
+
+            if (input.StochasticSoilModel != null)
+            {
+                calculationConfiguration.StochasticSoilModel = input.StochasticSoilModel.Name;
+                calculationConfiguration.StochasticSoilProfile = input.StochasticSoilProfile?.SoilProfile.Name;
+            }
+
+            return calculationConfiguration;
         }
     }
 }

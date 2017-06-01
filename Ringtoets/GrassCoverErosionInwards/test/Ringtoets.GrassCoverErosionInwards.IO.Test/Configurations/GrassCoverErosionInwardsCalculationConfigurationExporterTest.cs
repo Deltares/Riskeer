@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,10 +32,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             GrassCoverErosionInwardsCalculationConfigurationExporter,
             GrassCoverErosionInwardsCalculationConfigurationWriter,
-            GrassCoverErosionInwardsCalculation>
+            GrassCoverErosionInwardsCalculation,
+            GrassCoverErosionInwardsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
@@ -80,6 +82,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         protected override GrassCoverErosionInwardsCalculation CreateCalculation()
         {
             return new GrassCoverErosionInwardsCalculation();
+        }
+
+        protected override GrassCoverErosionInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new GrassCoverErosionInwardsCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }
