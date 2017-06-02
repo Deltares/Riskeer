@@ -49,6 +49,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -814,6 +815,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+
+                int calculators = failureMechanism.Calculations.Count();
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
+                                 .Return(new TestStructuresClosureCalculator())
+                                 .Repeat
+                                 .Times(calculators);
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -822,7 +830,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>

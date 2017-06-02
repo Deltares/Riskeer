@@ -47,6 +47,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -790,7 +791,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            
+
             var foreshoreProfileInput = new TestForeshoreProfile();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
@@ -996,6 +997,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
+                                 .Return(new TestStructuresClosureCalculator());
                 mocks.ReplayAll();
 
                 calculation.Attach(observer);
@@ -1006,7 +1010,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
