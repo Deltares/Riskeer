@@ -19,15 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Core.Plugins.Chart.PresentationObjects;
+using Core.Components.Charting.Data;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.PropertyClasses
 {
-    public class ChartDataContextProperties : ObjectProperties<ChartDataContext>
+    public abstract class ChartDataProperties : ObjectProperties<ChartData>
     {
+        private const int namePropertyIndex = 0;
+        private const int typePropertyIndex = 1;
+        private const int isVisiblePropertyIndex = 2;
+
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataProperties_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataProperties_Name_Description))]
@@ -35,7 +41,29 @@ namespace Core.Plugins.Chart.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Name;
+                return data.Name;
+            }
+        }
+
+        [PropertyOrder(typePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataProperties_Type_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataProperties_Type_Description))]
+        public abstract string Type { get; }
+
+        [PropertyOrder(isVisiblePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataProperties_IsVisible_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataProperties_IsVisible_Description))]
+        public bool IsVisible {
+            get
+            {
+                return data.IsVisible;
+            }
+            set
+            {
+                data.IsVisible = value;
+                data.NotifyObservers();
             }
         }
     }

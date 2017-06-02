@@ -202,4 +202,16 @@
   <data name="ChartDataProperties_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="ChartDataProperties_IsVisible_Description" xml:space="preserve">
+    <value>Geeft aan of de gegevensreeks wordt weergegeven.</value>
+  </data>
+  <data name="ChartDataProperties_IsVisible_DisplayName" xml:space="preserve">
+    <value>Weergeven</value>
+  </data>
+  <data name="ChartDataProperties_Type_Description" xml:space="preserve">
+    <value>Het type data dat wordt weergegeven in de gegevensreeks.</value>
+  </data>
+  <data name="ChartDataProperties_Type_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

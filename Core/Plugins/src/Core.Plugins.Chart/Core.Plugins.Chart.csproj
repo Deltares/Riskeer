@@ -76,7 +76,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\ChartDataCollectionProperties.cs" />
-    <Compile Include="PropertyClasses\ChartDataContextProperties.cs" />
+    <Compile Include="PropertyClasses\ChartDataProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

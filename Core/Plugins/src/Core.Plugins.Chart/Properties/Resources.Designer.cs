@@ -101,6 +101,24 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of de gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartDataProperties_IsVisible_Description {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_IsVisible_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergeven.
+        /// </summary>
+        public static string ChartDataProperties_IsVisible_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_IsVisible_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De naam van deze gegevensreeks..
         /// </summary>
         public static string ChartDataProperties_Name_Description {
@@ -115,6 +133,24 @@ namespace Core.Plugins.Chart.Properties {
         public static string ChartDataProperties_Name_DisplayName {
             get {
                 return ResourceManager.GetString("ChartDataProperties_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het type data dat wordt weergegeven in de gegevensreeks..
+        /// </summary>
+        public static string ChartDataProperties_Type_Description {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string ChartDataProperties_Type_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_DisplayName", resourceCulture);
             }
         }
         

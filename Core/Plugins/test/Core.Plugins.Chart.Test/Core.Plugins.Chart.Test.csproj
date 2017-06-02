@@ -73,7 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChartingRibbonTest.cs" />
     <Compile Include="PropertyClasses\ChartDataCollectionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ChartDataContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ChartDataPropertiesTest.cs" />
     <Compile Include="TestChartView.cs">
       <SubType>Component</SubType>
     </Compile>

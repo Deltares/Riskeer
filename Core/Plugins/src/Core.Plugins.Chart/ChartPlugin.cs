@@ -63,7 +63,7 @@ namespace Core.Plugins.Chart
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<ChartDataCollection, ChartDataCollectionProperties>();
-            yield return new PropertyInfo<ChartDataContext, ChartDataContextProperties>();
+//            yield return new PropertyInfo<ChartDataContext, ChartDataProperties>();
         }
 
         public override void Dispose()
