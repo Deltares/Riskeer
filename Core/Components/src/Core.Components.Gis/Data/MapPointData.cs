@@ -46,7 +46,7 @@ namespace Core.Components.Gis.Data
         /// Creates a new instance of <see cref="MapPointData"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPointData"/>.</param>
-        /// <param name="style"></param>
+        /// <param name="style">The style of the data.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>

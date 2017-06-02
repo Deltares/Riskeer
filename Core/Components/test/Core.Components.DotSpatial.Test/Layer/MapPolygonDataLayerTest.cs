@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_MapPolygonDataWithTestProperties_MapPolygonDataLayerCreatedAccordingly()
         {
             // Setup
-            var mapPolygonData = new MapPolygonData("Test name");
+            var mapPolygonData = new MapPolygonData("Test name", new PolygonStyle(Color.AliceBlue, Color.Azure, 2));
 
             SetMapPolygonDataTestProperties(mapPolygonData);
 
@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Update_MapPolygonDataWithTestProperties_MapPolygonDataLayerUpdatedAccordingly()
         {
             // Setup
-            var mapPolygonData = new MapPolygonData("Test name");
+            var mapPolygonData = new MapPolygonData("Test name", new PolygonStyle(Color.AliceBlue, Color.Azure, 2));
             var mapPolygonDataLayer = new MapPolygonDataLayer(mapPolygonData);
 
             SetMapPolygonDataTestProperties(mapPolygonData);
@@ -141,7 +141,6 @@ namespace Core.Components.DotSpatial.Test.Layer
             mapPolygonData.IsVisible = false;
             mapPolygonData.ShowLabels = true;
             mapPolygonData.SelectedMetaDataAttribute = "Name";
-            mapPolygonData.Style = new PolygonStyle(Color.AliceBlue, Color.Azure, 2);
             mapPolygonData.Features = new[]
             {
                 CreateTestMapFeature()
@@ -155,7 +154,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsTrue(mapPolygonDataLayer.ShowLabels);
 
             Assert.IsNotNull(mapPolygonDataLayer.LabelLayer);
-            Assert.AreEqual(string.Format("[{0}]", "2"), mapPolygonDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+            Assert.AreEqual("[2]", mapPolygonDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
             var firstPattern = (SimplePattern) mapPolygonDataLayer.Symbolizer.Patterns[0];
             Assert.AreEqual(Color.AliceBlue, firstPattern.FillColor);
@@ -175,7 +174,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsNull(mapPolygonDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
             var firstPattern = (SimplePattern) mapPolygonDataLayer.Symbolizer.Patterns[0];
-            Assert.AreEqual(1, firstPattern.Outline.GetWidth());
+            Assert.AreEqual(2, firstPattern.Outline.GetWidth());
 
             Assert.AreEqual(0, mapPolygonDataLayer.DataSet.Features.Count);
         }

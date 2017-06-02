@@ -21,12 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -44,6 +46,9 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual("test data", data.Name);
             Assert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.AreEqual(Color.DarkGray, data.Style.FillColor);
+            Assert.AreEqual(Color.Black, data.Style.StrokeColor);
+            Assert.AreEqual(2, data.Style.Width);
         }
 
         [Test]
@@ -58,6 +63,33 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             const string expectedMessage = "A name must be set to the map data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_StyleNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MapPolygonData("test data", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("style", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithStyle_ExpectedValues()
+        {
+            // Setup
+            var style = new PolygonStyle(Color.Aqua, Color.DarkGoldenrod, 3);
+
+            // Call
+            var data = new MapPolygonData("test data", style);
+
+            // Assert
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Features);
+            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.AreSame(style, data.Style);
         }
 
         [Test]

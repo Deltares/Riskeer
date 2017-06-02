@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
@@ -33,17 +34,36 @@ namespace Core.Components.Gis.Data
     public class MapPolygonData : FeatureBasedMapData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapPolygonData"/>.
+        /// Creates a new instance of <see cref="MapPolygonData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPolygonData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapPolygonData(string name) : base(name) {}
+        public MapPolygonData(string name)
+            : this(name, new PolygonStyle(Color.DarkGray, Color.Black, 2)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapPolygonData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="MapPolygonData"/>.</param>
+        /// <param name="style">The style of the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public MapPolygonData(string name, PolygonStyle style) : base(name)
+        {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+            Style = style;
+        }
 
         /// <summary>
         /// Gets or sets the style of the polygon.
         /// </summary>
-        public PolygonStyle Style { get; set; }
+        public PolygonStyle Style { get; }
 
         /// <summary>
         /// This method validates newly set features.

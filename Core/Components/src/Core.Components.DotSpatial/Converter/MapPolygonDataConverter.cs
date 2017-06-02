@@ -64,9 +64,7 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPolygonData mapData)
         {
-            return mapData.Style != null
-                       ? new PolygonSymbolizer(mapData.Style.FillColor, mapData.Style.StrokeColor, mapData.Style.Width)
-                       : new PolygonSymbolizer();
+            return new PolygonSymbolizer(mapData.Style.FillColor, mapData.Style.StrokeColor, mapData.Style.Width);
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
