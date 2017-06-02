@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.IO.Exporters;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 

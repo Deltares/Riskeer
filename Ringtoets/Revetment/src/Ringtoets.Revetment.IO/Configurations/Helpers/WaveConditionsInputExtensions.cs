@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO.Configurations.Helpers
@@ -53,8 +56,47 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 Orientation = input.Orientation,
                 StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize)
             };
-            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
+            SetConfigurationForeshoreProfileDependendProperties(calculationConfiguration, input);
             return calculationConfiguration;
+        }
+
+        /// <summary>
+        /// Sets the <paramref name="configuration"/> using properties from <paramref name="input"/>, 
+        /// when <see cref="WaveConditionsInput.ForeshoreProfile"/> is set.
+        /// </summary>
+        /// <param name="configuration">The configuration to update.</param>
+        /// <param name="input">The wave conditions input to update from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        private static void SetConfigurationForeshoreProfileDependendProperties(WaveConditionsCalculationConfiguration configuration,
+                                                                               WaveConditionsInput input)
+        {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            if (input.ForeshoreProfile == null)
+            {
+                return;
+            }
+
+            configuration.ForeshoreProfile = input.ForeshoreProfile?.Id;
+            configuration.WaveReduction = new WaveReductionConfiguration
+            {
+                UseForeshoreProfile = input.UseForeshore,
+                UseBreakWater = input.UseBreakWater,
+                BreakWaterHeight = input.BreakWater.Height
+            };
+
+            if (Enum.IsDefined(typeof(BreakWaterType), input.BreakWater.Type))
+            {
+                configuration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?)
+                    new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type);
+            }
         }
     }
 }

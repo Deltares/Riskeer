@@ -27,10 +27,10 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Integration.TestUtils;
-using Ringtoets.MacroStabilityInwards.IO.Exporters;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Exporters
+namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationExporterTest

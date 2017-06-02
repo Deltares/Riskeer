@@ -45,7 +45,7 @@ using Ringtoets.MacroStabilityInwards.Forms;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
-using Ringtoets.MacroStabilityInwards.IO.Exporters;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Plugin.Properties;

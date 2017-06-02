@@ -30,11 +30,10 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.IO.Importers;
-using Ringtoets.MacroStabilityInwards.IO.Readers;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
+namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationImporterTest
@@ -52,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                                                                                      new MacroStabilityInwardsFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<MacroStabilityInwardsCalculationConfigurationReader, ReadMacroStabilityInwardsCalculation>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<MacroStabilityInwardsCalculationConfigurationReader, MacroStabilityInwardsCalculationConfiguration>>(importer);
         }
 
         [Test]

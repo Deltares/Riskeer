@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.IO.Schema;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Schema
+namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest

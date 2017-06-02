@@ -23,9 +23,8 @@ using System.Xml;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.IO.Schema;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Exporters
+namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// Writer for writing a macro stability inwards calculation configuration to XML.

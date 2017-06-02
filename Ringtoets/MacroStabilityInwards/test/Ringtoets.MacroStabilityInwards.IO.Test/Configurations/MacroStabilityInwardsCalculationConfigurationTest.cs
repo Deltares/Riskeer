@@ -22,33 +22,35 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
-using Ringtoets.MacroStabilityInwards.IO.Readers;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Readers
+namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class ReadMacroStabilityInwardsCalculationTest
+    public class MacroStabilityInwardsCalculationConfigurationTest
     {
         [Test]
         public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ReadMacroStabilityInwardsCalculation(null);
+            TestDelegate test = () => new MacroStabilityInwardsCalculationConfiguration(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("constructionProperties", paramName);
+            Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
         {
+            // Setup
+            const string name = "some name";
+
             // Call
-            var readCalculation = new ReadMacroStabilityInwardsCalculation(new ReadMacroStabilityInwardsCalculation.ConstructionProperties());
+            var readCalculation = new MacroStabilityInwardsCalculationConfiguration(name);
 
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
-            Assert.IsNull(readCalculation.Name);
+            Assert.AreEqual(name, readCalculation.Name);
             Assert.IsNull(readCalculation.AssessmentLevel);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(readCalculation.SurfaceLine);
@@ -64,25 +66,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Readers
             const double assessmentLevel = 1.1;
             const string hydraulicBoundaryLocation = "Name of the hydraulic boundary location";
             const string surfaceLine = "Name of the surface line";
-            const double entryPointL = 2.2;
-            const double exitPointL = 3.3;
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
-            const double phreaticLevelExitMean = 4.4;
-            const double phreaticLevelExitStandardDeviation = 5.5;
-            const double dampingFactorExitMean = 6.6;
-            const double dampingFactorExitStandardDeviation = 7.7;
 
             // Call
-            var readCalculation = new ReadMacroStabilityInwardsCalculation(new ReadMacroStabilityInwardsCalculation.ConstructionProperties
+            var readCalculation = new MacroStabilityInwardsCalculationConfiguration(calculationName)
             {
-                Name = calculationName,
                 AssessmentLevel = assessmentLevel,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 SurfaceLine = surfaceLine,
                 StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = stochasticSoilProfile
-            });
+            };
 
             // Assert
             Assert.AreEqual(calculationName, readCalculation.Name);

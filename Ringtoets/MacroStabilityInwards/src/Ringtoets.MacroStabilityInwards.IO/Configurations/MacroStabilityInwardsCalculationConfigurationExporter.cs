@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Exporters
+namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// Exports a macro stability inwards calculation configuration and stores it as an XML file.

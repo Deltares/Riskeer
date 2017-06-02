@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -22,24 +22,29 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Class that represents a wave conditions calculation configuration.
+    /// Class that represents a macro stability inwards calculation configuration.
     /// </summary>
-    public class WaveConditionsCalculationConfiguration : IConfigurationItem
+    public class MacroStabilityInwardsCalculationConfiguration : IConfigurationItem
     {
         private string name;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationConfiguration"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the <see cref="MacroStabilityInwardsCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public WaveConditionsCalculationConfiguration(string name)
+        public MacroStabilityInwardsCalculationConfiguration(string name)
         {
             Name = name;
         }
+
+        /// <summary>
+        /// Gets the assessment level of the calculation.
+        /// </summary>
+        public double? AssessmentLevel { get; set; }
 
         /// <summary>
         /// Gets the name of the hydraulic boundary location of the calculation.
@@ -47,47 +52,22 @@ namespace Ringtoets.Revetment.IO.Configurations
         public string HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
-        /// Gets the upper boundary of the revetment of the calculation.
+        /// Gets the name of the surface line of the calculation.
         /// </summary>
-        public double? UpperBoundaryRevetment { get; set; }
+        public string SurfaceLine { get; set; }
 
         /// <summary>
-        /// Gets the lower boundary of the revetment of the calculation.
+        /// Gets the name of the stochastic soil model of the calculation.
         /// </summary>
-        public double? LowerBoundaryRevetment { get; set; }
+        public string StochasticSoilModel { get; set; }
 
         /// <summary>
-        /// Gets the upper boundary of the water levels of the calculation.
+        /// Gets the name of the stochastic soil profile of the calculation.
         /// </summary>
-        public double? UpperBoundaryWaterLevels { get; set; }
+        public string StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets the lower boundary of the water levels of the calculation.
-        /// </summary>
-        public double? LowerBoundaryWaterLevels { get; set; }
-
-        /// <summary>
-        /// Gets the step size of the calculation.
-        /// </summary>
-        public ConfigurationWaveConditionsInputStepSize? StepSize { get; set; }
-
-        /// <summary>
-        /// Gets the name of the foreshore profile of the calculation.
-        /// </summary>
-        public string ForeshoreProfile { get; set; }
-
-        /// <summary>
-        /// Gets the orientation of the calculation.
-        /// </summary>
-        public double? Orientation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the wave reduction configuration.
-        /// </summary>
-        public WaveReductionConfiguration WaveReduction { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the <see cref="WaveConditionsCalculationConfiguration"/>.
+        /// Gets or sets the name for the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         public string Name

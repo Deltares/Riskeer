@@ -51,20 +51,20 @@
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
-    <Compile Include="Exporters\MacroStabilityInwardsCalculationConfigurationExporter.cs" />
-    <Compile Include="Exporters\MacroStabilityInwardsCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Importers\ISurfaceLineUpdateDataStrategy.cs" />
-    <Compile Include="Importers\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Readers\MacroStabilityInwardsCalculationConfigurationReader.cs" />
-    <Compile Include="Schema\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="Readers\ReadMacroStabilityInwardsCalculation.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationReader.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfiguration.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\Schema\MechanismPointLocationTableColumns.cs" />
     <Compile Include="SoilProfile\Schema\MechanismTableColumns.cs" />

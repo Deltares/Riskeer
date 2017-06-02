@@ -51,7 +51,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Configurations\Helpers\WaveConditionsInputExtensionsTest.cs" />
-    <Compile Include="Configurations\Helpers\WaveReductionConversionExtensionsTest.cs" />
     <Compile Include="WaveConditions\CoverTypeTest.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditionsFactoryTest.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditionsTest.cs" />

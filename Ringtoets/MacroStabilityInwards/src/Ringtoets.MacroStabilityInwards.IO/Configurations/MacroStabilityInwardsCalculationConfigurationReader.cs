@@ -27,15 +27,14 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
-using Ringtoets.MacroStabilityInwards.IO.Schema;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Readers
+namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// This class reads a macro stability inwards calculation configuration from XML and creates a collection of corresponding
-    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="ReadMacroStabilityInwardsCalculation"/>.
+    /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="MacroStabilityInwardsCalculationConfiguration"/>.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationReader : CalculationConfigurationReader<ReadMacroStabilityInwardsCalculation>
+    public class MacroStabilityInwardsCalculationConfigurationReader : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationReader"/>.
@@ -55,11 +54,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Readers
                    Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
                    new Dictionary<string, string>()) {}
 
-        protected override ReadMacroStabilityInwardsCalculation ParseCalculationElement(XElement calculationElement)
+        protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var constructionProperties = new ReadMacroStabilityInwardsCalculation.ConstructionProperties
+            var configuration = new MacroStabilityInwardsCalculationConfiguration(
+                calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                Name = calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value,
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocation = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLine = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
@@ -67,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Readers
                 StochasticSoilProfile = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
             };
 
-            return new ReadMacroStabilityInwardsCalculation(constructionProperties);
+            return configuration;
         }
     }
 }
