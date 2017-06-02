@@ -84,7 +84,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Convert_InvalidPointSymbol_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => MapDataHelper.Convert((PointSymbol) 4);
+            TestDelegate test = () => MapDataHelper.Convert((PointSymbol) 100);
 
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(test);
