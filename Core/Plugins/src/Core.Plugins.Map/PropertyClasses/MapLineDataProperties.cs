@@ -24,7 +24,6 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Drawing.Drawing2D;
 using Core.Common.Gui.Attributes;
-using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Converters;
@@ -78,7 +77,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_DashStyle_Description))]
-        [TypeConverter(typeof(EnumTypeConverter))]
+        [TypeConverter(typeof(DashStyleConverter))]
         public DashStyle DashStyle
         {
             get

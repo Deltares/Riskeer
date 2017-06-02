@@ -128,6 +128,51 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onderbroken.
+        /// </summary>
+        public static string DashStyle_Dash_DisplayName {
+            get {
+                return ResourceManager.GetString("DashStyle_Dash_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streep-stip.
+        /// </summary>
+        public static string DashStyle_DashDot_DisplayName {
+            get {
+                return ResourceManager.GetString("DashStyle_DashDot_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streep-stip-stip.
+        /// </summary>
+        public static string DashStyle_DashDotDot_DisplayName {
+            get {
+                return ResourceManager.GetString("DashStyle_DashDotDot_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestippeld.
+        /// </summary>
+        public static string DashStyle_Dot_DisplayName {
+            get {
+                return ResourceManager.GetString("DashStyle_Dot_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doorgetrokken.
+        /// </summary>
+        public static string DashStyle_Solid_DisplayName {
+            get {
+                return ResourceManager.GetString("DashStyle_Solid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {

@@ -92,6 +92,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
+            Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             "Stijl",
                                                                             "Lijnstijl",
