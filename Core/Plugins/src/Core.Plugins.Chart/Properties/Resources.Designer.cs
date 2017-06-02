@@ -137,6 +137,15 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vlakken.
+        /// </summary>
+        public static string ChartDataProperties_Type_Areas {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Areas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het type data dat wordt weergegeven in de gegevensreeks..
         /// </summary>
         public static string ChartDataProperties_Type_Description {
@@ -151,6 +160,24 @@ namespace Core.Plugins.Chart.Properties {
         public static string ChartDataProperties_Type_DisplayName {
             get {
                 return ResourceManager.GetString("ChartDataProperties_Type_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnen.
+        /// </summary>
+        public static string ChartDataProperties_Type_Lines {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Lines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punten.
+        /// </summary>
+        public static string ChartDataProperties_Type_Points {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Points", resourceCulture);
             }
         }
         

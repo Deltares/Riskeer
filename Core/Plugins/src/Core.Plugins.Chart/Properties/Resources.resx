@@ -214,4 +214,13 @@
   <data name="ChartDataProperties_Type_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="ChartDataProperties_Type_Points" xml:space="preserve">
+    <value>Punten</value>
+  </data>
+  <data name="ChartDataProperties_Type_Lines" xml:space="preserve">
+    <value>Lijnen</value>
+  </data>
+  <data name="ChartDataProperties_Type_Areas" xml:space="preserve">
+    <value>Vlakken</value>
+  </data>
 </root>

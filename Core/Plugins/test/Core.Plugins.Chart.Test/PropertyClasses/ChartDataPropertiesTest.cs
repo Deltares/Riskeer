@@ -131,7 +131,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             "Geeft aan of de gegevensreeks wordt weergegeven.");
         }
 
-        private class TestChartDataProperties : ChartDataProperties
+        private class TestChartDataProperties : ChartDataProperties<ChartData>
         {
             public override string Type
             {

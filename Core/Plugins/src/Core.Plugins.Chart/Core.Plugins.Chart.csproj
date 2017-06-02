@@ -75,8 +75,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\ChartAreaDataProperties.cs" />
     <Compile Include="PropertyClasses\ChartDataCollectionProperties.cs" />
     <Compile Include="PropertyClasses\ChartDataProperties.cs" />
+    <Compile Include="PropertyClasses\ChartLineDataProperties.cs" />
+    <Compile Include="PropertyClasses\ChartMultipleAreaDataProperties.cs" />
+    <Compile Include="PropertyClasses\ChartMultipleLineDataProperties.cs" />
+    <Compile Include="PropertyClasses\ChartPointDataProperties.cs" />
+    <Compile Include="PropertyClasses\PointBasedChartDataProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

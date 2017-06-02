@@ -27,7 +27,8 @@ using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.PropertyClasses
 {
-    public abstract class ChartDataProperties : ObjectProperties<ChartData>
+    public abstract class ChartDataProperties<TChartData> : ObjectProperties<TChartData>
+        where TChartData : ChartData
     {
         private const int namePropertyIndex = 0;
         private const int typePropertyIndex = 1;
@@ -55,7 +56,8 @@ namespace Core.Plugins.Chart.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartDataProperties_IsVisible_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartDataProperties_IsVisible_Description))]
-        public bool IsVisible {
+        public bool IsVisible
+        {
             get
             {
                 return data.IsVisible;

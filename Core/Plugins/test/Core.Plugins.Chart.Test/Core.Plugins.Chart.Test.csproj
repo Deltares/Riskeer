@@ -72,8 +72,14 @@
     <Compile Include="PresentationObjects\ChartDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChartingRibbonTest.cs" />
+    <Compile Include="PropertyClasses\ChartAreaDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ChartDataCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ChartDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ChartLineDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ChartMultipleAreaDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ChartMultipleLineDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ChartPointDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PointBasedChartDataPropertiesTest.cs" />
     <Compile Include="TestChartView.cs">
       <SubType>Component</SubType>
     </Compile>
