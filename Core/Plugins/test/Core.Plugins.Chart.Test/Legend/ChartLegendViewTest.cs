@@ -137,7 +137,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Selection_Always_ReturnsSelectedNodeData()
+        public void Selection_NestedNodeData_ReturnsWrappedObjectData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -163,7 +163,40 @@ namespace Core.Plugins.Chart.Test.Legend
                 object selection = view.Selection;
 
                 // Assert
-                Assert.AreSame(chartData, ((ChartDataContext) selection).WrappedData);
+                Assert.AreSame(chartData, selection);
+            }
+            WindowsFormsTestHelper.CloseAll();
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Selection_RootNodeData_ReturnsObjectData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            ChartData chartData = CreateChartData();
+            var chartDataCollection = new ChartDataCollection("collection");
+            chartDataCollection.Add(chartData);
+
+            using (var view = new ChartLegendView(contextMenuBuilderProvider)
+            {
+                Data = chartDataCollection
+            })
+            {
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                WindowsFormsTestHelper.Show(treeViewControl);
+                treeViewControl.TrySelectNodeForData(chartDataCollection);
+
+                // Call
+                object selection = view.Selection;
+
+                // Assert
+                Assert.AreSame(chartDataCollection, selection);
             }
             WindowsFormsTestHelper.CloseAll();
 

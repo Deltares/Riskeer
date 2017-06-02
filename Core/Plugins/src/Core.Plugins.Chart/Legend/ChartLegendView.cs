@@ -85,6 +85,12 @@ namespace Core.Plugins.Chart.Legend
         {
             get
             {
+                var chartDataContext = treeViewControl.SelectedData as ChartDataContext;
+                if (chartDataContext != null)
+                {
+                    return chartDataContext.WrappedData;
+                }
+
                 return treeViewControl.SelectedData;
             }
         }
