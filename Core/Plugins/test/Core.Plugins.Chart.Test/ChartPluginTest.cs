@@ -36,7 +36,6 @@ using Core.Common.Gui.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.Chart.Legend;
-using Core.Plugins.Chart.PresentationObjects;
 using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -155,12 +154,37 @@ namespace Core.Plugins.Chart.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, propertyInfos.Length);
+                Assert.AreEqual(6, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ChartDataCollection),
                     typeof(ChartDataCollectionProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartLineData),
+                    typeof(ChartLineDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartMultipleAreaData),
+                    typeof(ChartMultipleAreaDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartMultipleLineData),
+                    typeof(ChartMultipleLineDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartPointData),
+                    typeof(ChartPointDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(PointBasedChartData),
+                    typeof(PointBasedChartDataProperties));
             }
         }
     }

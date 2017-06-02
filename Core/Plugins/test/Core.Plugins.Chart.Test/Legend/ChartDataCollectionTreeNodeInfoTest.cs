@@ -303,7 +303,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_MapDataCollectionWithVisibleFeatureBasedmapData_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithChartDataCollection_CallsContextMenuBuilderMethods()
         {
             // Setup
             var chartDataCollection = new ChartDataCollection("test data");
@@ -320,7 +320,8 @@ namespace Core.Plugins.Chart.Test.Legend
                     menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
-                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(chartDataCollection, treeViewControl))
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(null, null))
+                                          .IgnoreArguments()
                                           .Return(menuBuilder);
                 mocks.ReplayAll();
 
