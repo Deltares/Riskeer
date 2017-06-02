@@ -53,6 +53,9 @@ namespace Core.Components.DotSpatial.Converter
                 case PointSymbol.Diamond:
                     shape = PointShape.Diamond;
                     break;
+                case PointSymbol.Star:
+                    shape = PointShape.Star;
+                    break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(symbol),
                                                            (int) symbol,

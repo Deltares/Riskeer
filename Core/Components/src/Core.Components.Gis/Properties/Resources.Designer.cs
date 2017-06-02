@@ -172,6 +172,15 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ster.
+        /// </summary>
+        internal static string Star_DisplayName {
+            get {
+                return ResourceManager.GetString("Star_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driekhoek.
         /// </summary>
         internal static string Triangle_DisplayName {

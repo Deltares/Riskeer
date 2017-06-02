@@ -36,6 +36,8 @@ namespace Core.Components.Gis.Style
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Triangle_DisplayName))]
         Triangle,
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Diamond_DisplayName))]
-        Diamond
+        Diamond,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Star_DisplayName))]
+        Star
     }
 }

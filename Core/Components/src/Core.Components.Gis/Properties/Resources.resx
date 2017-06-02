@@ -153,4 +153,7 @@
   <data name="Triangle_DisplayName" xml:space="preserve">
     <value>Driekhoek</value>
   </data>
+  <data name="Star_DisplayName" xml:space="preserve">
+    <value>Ster</value>
+  </data>
 </root>

@@ -25,7 +25,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -42,7 +41,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     {
         private const int colorPropertyIndex = 5;
         private const int widthPropertyIndex = 6;
-        private const int lineStylePropertyIndex = 7;
+        private const int stylePropertyIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -86,14 +85,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "Kleur",
                                                                             "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
-            PropertyDescriptor strokeColorProperty = dynamicProperties[widthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
+            PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
                                                                             "Stijl",
                                                                             "Lijndikte",
                                                                             "De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.");
 
-            PropertyDescriptor strokeThicknessProperty = dynamicProperties[lineStylePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
+            PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             "Stijl",
                                                                             "Lijnstijl",
                                                                             "De stijl van de lijnen waarmee deze kaartlaag wordt weergegeven.");

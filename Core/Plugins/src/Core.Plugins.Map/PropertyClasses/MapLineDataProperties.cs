@@ -61,8 +61,6 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_Width_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Width_Description))]
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(MapColorConverter))]
         public int Width
         {
             get

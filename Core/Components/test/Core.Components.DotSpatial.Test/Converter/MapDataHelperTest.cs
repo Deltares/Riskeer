@@ -71,6 +71,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Convert_Star_ReturnStar()
+        {
+            // Call
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Star);
+
+            // Assert
+            Assert.AreEqual(PointShape.Star, symbol);
+        }
+
+        [Test]
         public void Convert_InvalidPointSymbol_ThrowsInvalidEnumArgumentException()
         {
             // Call
