@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Service;
@@ -44,6 +45,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_ValidCalculation_PerformCalculationAndLogStartAndEnd()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(new TestDunesBoundaryConditionsCalculator());
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -61,7 +68,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                                       validFilePath,
                                                                       1.0 / 30000);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => activity.Run();
@@ -79,6 +86,8 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -88,6 +97,18 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_InvalidCalculationAndRan_PerformCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism();
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
                                                 new DuneLocation.ConstructionProperties
@@ -102,25 +123,26 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                                       validFilePath,
                                                                       1.0 / 30000);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator calculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-                calculator.EndInFailure = endInFailure;
-                calculator.LastErrorFileContent = lastErrorFileContent;
-
                 // Call
                 activity.Run();
 
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Run_CalculationAlreadyPerformed_CalculationNotPerformedAndActivityStateSkipped()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -135,7 +157,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                                       validFilePath,
                                                                       1.0 / 30000);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 activity.Run();
@@ -144,6 +166,8 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 Assert.AreEqual(ActivityState.Skipped, activity.State);
                 Assert.AreSame(initialOutput, duneLocation.Output);
             }
+
+            mockRepository.VerifyAll();
         }
     }
 }

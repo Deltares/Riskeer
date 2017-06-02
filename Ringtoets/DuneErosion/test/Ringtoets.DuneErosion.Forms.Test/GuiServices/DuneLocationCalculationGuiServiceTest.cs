@@ -27,8 +27,10 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
@@ -120,8 +122,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                     })
                 });
 
+            var mockRepository = new MockRepository();
+            int calculators = failureMechanism.DuneLocations.Count;
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(new TestDunesBoundaryConditionsCalculator())
+                             .Repeat
+                             .Times(calculators);
+            mockRepository.ReplayAll();
+
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
@@ -148,6 +159,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                  Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[9]);
                                              });
             }
+
+            mockRepository.VerifyAll();
         }
     }
 }

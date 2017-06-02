@@ -41,6 +41,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Views
@@ -364,6 +365,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             };
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
             locations.Attach(observer);
@@ -376,7 +381,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
 

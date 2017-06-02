@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -426,6 +427,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindowStub);
                 var observerMock = mocks.StrictMock<IObserver>();
                 observerMock.Expect(o => o.UpdateObserver());
+
+                int calculators = failureMechanism.DuneLocations.Count;
+                var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                                 .Return(new TestDunesBoundaryConditionsCalculator())
+                                 .Repeat
+                                 .Times(calculators);
                 mocks.ReplayAll();
 
                 failureMechanism.DuneLocations.Attach(observerMock);
@@ -434,7 +442,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 plugin.Activate();
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>

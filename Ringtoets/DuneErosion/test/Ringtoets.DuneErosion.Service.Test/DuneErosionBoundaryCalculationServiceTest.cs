@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -76,6 +77,14 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_ValidData_CalculationStartedWithRightParameters()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -91,11 +100,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     D50 = 0.000007
                                                 });
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator testCalculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-
                 // Call
                 new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
@@ -104,18 +110,33 @@ namespace Ringtoets.DuneErosion.Service.Test
                     validFilePath);
 
                 // Assert
-                Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
-
                 DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, mechanismSpecificNorm);
-                AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
-                Assert.IsFalse(testCalculator.IsCanceled);
+                AssertInput(expectedInput, testDunesBoundaryConditionsCalculator.ReceivedInputs.First());
+                Assert.IsFalse(testDunesBoundaryConditionsCalculator.IsCanceled);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            {
+                ReliabilityIndex = 3.27052,
+                WaterLevel = 4.82912,
+                WaveHeight = 2.88936,
+                WavePeriod = 10.65437,
+                Converged = true
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -134,16 +155,8 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Precondition
             Assert.IsNull(duneLocation.Output);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator testCalculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-                testCalculator.ReliabilityIndex = 3.27052;
-                testCalculator.WaterLevel = 4.82912;
-                testCalculator.WaveHeight = 2.88936;
-                testCalculator.WavePeriod = 10.65437;
-                testCalculator.Converged = true;
-
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
@@ -163,23 +176,36 @@ namespace Ringtoets.DuneErosion.Service.Test
                         StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[2]);
                     });
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
-                double calculatedProbability = StatisticsConverter.ReliabilityToProbability(testCalculator.ReliabilityIndex);
+                double calculatedProbability = StatisticsConverter.ReliabilityToProbability(testDunesBoundaryConditionsCalculator.ReliabilityIndex);
 
                 Assert.IsNotNull(duneLocation.Output);
-                Assert.AreEqual(testCalculator.ReliabilityIndex, duneLocation.Output.CalculatedReliability.Value);
+                Assert.AreEqual(testDunesBoundaryConditionsCalculator.ReliabilityIndex, duneLocation.Output.CalculatedReliability.Value);
                 Assert.AreEqual(calculatedProbability, duneLocation.Output.CalculatedProbability);
                 Assert.AreEqual(mechanismSpecificNorm, duneLocation.Output.TargetProbability);
                 Assert.AreEqual(targetReliability, duneLocation.Output.TargetReliability, duneLocation.Output.TargetReliability.GetAccuracy());
-                Assert.AreEqual(testCalculator.WaterLevel, duneLocation.Output.WaterLevel, duneLocation.Output.WaterLevel.GetAccuracy());
-                Assert.AreEqual(testCalculator.WaveHeight, duneLocation.Output.WaveHeight, duneLocation.Output.WaveHeight.GetAccuracy());
-                Assert.AreEqual(testCalculator.WavePeriod, duneLocation.Output.WavePeriod, duneLocation.Output.WavePeriod.GetAccuracy());
+                Assert.AreEqual(testDunesBoundaryConditionsCalculator.WaterLevel, duneLocation.Output.WaterLevel, duneLocation.Output.WaterLevel.GetAccuracy());
+                Assert.AreEqual(testDunesBoundaryConditionsCalculator.WaveHeight, duneLocation.Output.WaveHeight, duneLocation.Output.WaveHeight.GetAccuracy());
+                Assert.AreEqual(testDunesBoundaryConditionsCalculator.WavePeriod, duneLocation.Output.WavePeriod, duneLocation.Output.WavePeriod.GetAccuracy());
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationRanNotConverged_LogMessage()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            {
+                ReliabilityIndex = 0.01
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -194,12 +220,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     D50 = 0.000007
                                                 });
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator testCalculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-                testCalculator.ReliabilityIndex = 0.01;
-
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
@@ -220,12 +242,22 @@ namespace Ringtoets.DuneErosion.Service.Test
                         StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
                     });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -240,13 +272,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     D50 = 0.000007
                                                 });
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator testCalculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-
                 var service = new DuneErosionBoundaryCalculationService();
-                testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                testDunesBoundaryConditionsCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
                 service.Calculate(
@@ -256,14 +285,28 @@ namespace Ringtoets.DuneErosion.Service.Test
                     validFilePath);
 
                 // Assert
-                Assert.IsTrue(testCalculator.IsCanceled);
+                Assert.IsTrue(testDunesBoundaryConditionsCalculator.IsCanceled);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            {
+                LastErrorFileContent = "An error occurred",
+                EndInFailure = true
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -278,13 +321,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     D50 = 0.000007
                                                 });
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator calculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-                calculator.LastErrorFileContent = "An error occurred";
-                calculator.EndInFailure = true;
-
                 var exceptionThrown = false;
 
                 // Call
@@ -319,12 +357,25 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            {
+                EndInFailure = true
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -339,12 +390,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     D50 = 0.000007
                                                 });
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator calculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-                calculator.EndInFailure = true;
-
                 var exceptionThrown = false;
 
                 // Call
@@ -379,12 +426,26 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
+            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            {
+                EndInFailure = false,
+                LastErrorFileContent = "An error occurred"
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                             .Return(testDunesBoundaryConditionsCalculator);
+            mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -399,13 +460,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     D50 = 0.000007
                                                 });
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestDunesBoundaryConditionsCalculator calculator =
-                    ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DunesBoundaryConditionsCalculator;
-                calculator.EndInFailure = false;
-                calculator.LastErrorFileContent = "An error occurred";
-
                 var exceptionThrown = false;
                 string exceptionMessage = string.Empty;
 
@@ -441,8 +497,9 @@ namespace Ringtoets.DuneErosion.Service.Test
                     });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);
-                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
+
+            mockRepository.VerifyAll();
         }
 
         private static void AssertInput(DunesBoundaryConditionsCalculationInput expectedInput, DunesBoundaryConditionsCalculationInput actualInput)
