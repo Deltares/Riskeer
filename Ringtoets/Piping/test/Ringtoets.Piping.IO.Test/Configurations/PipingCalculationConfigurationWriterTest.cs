@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                        Path.Combine("PipingCalculationConfigurationWriter",
+                                                                        Path.Combine(nameof(PipingCalculationConfigurationWriter),
                                                                                      "folderWithSubfolderAndCalculation.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 

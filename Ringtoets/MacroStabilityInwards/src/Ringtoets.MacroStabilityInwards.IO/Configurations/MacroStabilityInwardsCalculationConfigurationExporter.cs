@@ -30,7 +30,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Exports a macro stability inwards calculation configuration and stores it as an XML file.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationExporter : CalculationConfigurationExporter<MacroStabilityInwardsCalculationConfigurationWriter, MacroStabilityInwardsCalculation>
+    public class MacroStabilityInwardsCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
+        MacroStabilityInwardsCalculationConfigurationWriter, 
+        MacroStabilityInwardsCalculation,
+        MacroStabilityInwardsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationExporter"/>.
@@ -40,5 +43,39 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public MacroStabilityInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath) : base(configuration, filePath) {}
+
+        protected override MacroStabilityInwardsCalculationConfigurationWriter CreateWriter(string filePath)
+        {
+            return new MacroStabilityInwardsCalculationConfigurationWriter(filePath);
+        }
+
+        protected override MacroStabilityInwardsCalculationConfiguration ToConfiguration(MacroStabilityInwardsCalculation calculation)
+        {
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+
+            var calculationConfiguration = new MacroStabilityInwardsCalculationConfiguration(calculation.Name);
+
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                calculationConfiguration.HydraulicBoundaryLocation = input.HydraulicBoundaryLocation.Name;
+            }
+            else if (input.UseAssessmentLevelManualInput)
+            {
+                calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
+            }
+
+            if (input.SurfaceLine != null)
+            {
+                calculationConfiguration.SurfaceLine = input.SurfaceLine.Name;
+            }
+
+            if (input.StochasticSoilModel != null)
+            {
+                calculationConfiguration.StochasticSoilModel = input.StochasticSoilModel.Name;
+                calculationConfiguration.StochasticSoilProfile = input.StochasticSoilProfile?.SoilProfile.Name;
+            }
+
+            return calculationConfiguration;
+        }
     }
 }

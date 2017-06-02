@@ -19,15 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.IO;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Integration.TestUtils;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -35,90 +32,61 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationWriterTest
-        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
             MacroStabilityInwardsCalculationConfigurationWriter,
-            MacroStabilityInwardsCalculation>
+            MacroStabilityInwardsCalculationConfiguration>
     {
-        private static IEnumerable<TestCaseData> Calculations
-        {
-            get
-            {
-                yield return new TestCaseData("calculationWithoutHydraulicLocation",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutHydraulicLocationAndAssessmentLevel())
-                    .SetName("calculationWithoutHydraulicLocation");
-                yield return new TestCaseData("calculationWithAssessmentLevel",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithAssessmentLevel())
-                    .SetName("calculationWithAssessmentLevel");
-                yield return new TestCaseData("calculationWithoutSurfaceLine",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSurfaceLine())
-                    .SetName("calculationWithoutSurfaceLine");
-                yield return new TestCaseData("calculationWithoutSoilModel",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilModel())
-                    .SetName("calculationWithoutSoilModel");
-                yield return new TestCaseData("calculationWithoutSoilProfile",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilProfile())
-                    .SetName("calculationWithoutSoilProfile");
-                yield return new TestCaseData("calculationWithNaNs",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithNaNs())
-                    .SetName("calculationWithNaNs");
-                yield return new TestCaseData("calculationWithInfinities",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithInfinities())
-                    .SetName("calculationWithInfinities");
-            }
-        }
-
         [Test]
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
 
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+            var surfaceline = new RingtoetsMacroStabilityInwardsSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
+                Name = "PK001_0001"
+            };
+            surfaceline.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(0, 10, 0)
+            });
 
-            MacroStabilityInwardsCalculation calculation2 = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+            var calculation = CreateFullCalculationConfiguration();
+
+            var calculation2 = CreateFullCalculationConfiguration();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
-            calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
-            calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
-            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Macrostabiliteit", string.Empty);
-            calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new MacroStabilityInwardsSoilProfile("W1-6_4_1D1", 0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+            calculation2.HydraulicBoundaryLocation = "PUNT_SCH_17";
+            calculation2.SurfaceLine = "PK001_0002";
+            calculation2.StochasticSoilModel = "PK001_0002_Macrostabiliteit";
+            calculation2.StochasticSoilProfile = "W1-6_4_1D1";
 
-            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
+            var calculationGroup2 = new CalculationGroupConfiguration("PK001_0002", new IConfigurationItem[]
             {
-                Children =
-                {
-                    calculation2
-                }
-            };
+                calculation2
+            });
 
-            var calculationGroup = new CalculationGroup("PK001_0001", false)
+            var calculationGroup = new CalculationGroupConfiguration("PK001_0001", new IConfigurationItem[]
             {
-                Children =
-                {
-                    calculation,
-                    calculationGroup2
-                }
-            };
+                calculation,
+                calculationGroup2
+            });
 
             try
             {
                 // Call
-                new MacroStabilityInwardsCalculationConfigurationWriter().Write(new[]
+                new MacroStabilityInwardsCalculationConfigurationWriter(filePath).Write(new[]
                 {
                     calculationGroup
-                }, filePath);
+                });
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
                 string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
-                                                                        Path.Combine("MacroStabilityInwardsCalculationConfigurationWriter",
+                                                                        Path.Combine(nameof(MacroStabilityInwardsCalculationConfigurationWriter),
                                                                                      "folderWithSubfolderAndCalculation.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);
 
@@ -130,36 +98,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             }
         }
 
-        [Test]
-        [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculation_ValidFile(string expectedFileName, MacroStabilityInwardsCalculation calculation)
+        private static MacroStabilityInwardsCalculationConfiguration CreateFullCalculationConfiguration()
         {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
-
-            try
+            return new MacroStabilityInwardsCalculationConfiguration("PK001_0001 W1-6_0_1D1")
             {
-                // Call
-                new MacroStabilityInwardsCalculationConfigurationWriter().Write(new[]
-                {
-                    calculation
-                }, filePath);
+                HydraulicBoundaryLocation = "PUNT_KAT_18",
+                SurfaceLine = "PK001_0001",
+                StochasticSoilModel = "PK001_0001_Macrostabiliteit",
+                StochasticSoilProfile = "W1-6_0_1D1"
+            };
+        }
 
-                // Assert
-                Assert.IsTrue(File.Exists(filePath));
-
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
-                                                                        Path.Combine("MacroStabilityInwardsCalculationConfigurationWriter",
-                                                                                     $"{expectedFileName}.xml"));
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
+        protected override MacroStabilityInwardsCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        {
+            return new MacroStabilityInwardsCalculationConfigurationWriter(filePath);
         }
     }
 }

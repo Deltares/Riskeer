@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -34,11 +35,40 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationExporterTest
-        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
             MacroStabilityInwardsCalculationConfigurationExporter,
             MacroStabilityInwardsCalculationConfigurationWriter,
-            MacroStabilityInwardsCalculation>
+            MacroStabilityInwardsCalculation,
+            MacroStabilityInwardsCalculationConfiguration>
     {
+        private static IEnumerable<TestCaseData> Calculations
+        {
+            get
+            {
+                yield return new TestCaseData("calculationWithoutHydraulicLocation",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutHydraulicLocationAndAssessmentLevel())
+                    .SetName("calculationWithoutHydraulicLocation");
+                yield return new TestCaseData("calculationWithAssessmentLevel",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithAssessmentLevel())
+                    .SetName("calculationWithAssessmentLevel");
+                yield return new TestCaseData("calculationWithoutSurfaceLine",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSurfaceLine())
+                    .SetName("calculationWithoutSurfaceLine");
+                yield return new TestCaseData("calculationWithoutSoilModel",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilModel())
+                    .SetName("calculationWithoutSoilModel");
+                yield return new TestCaseData("calculationWithoutSoilProfile",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilProfile())
+                    .SetName("calculationWithoutSoilProfile");
+                yield return new TestCaseData("calculationWithNaNs",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithNaNs())
+                    .SetName("calculationWithNaNs");
+                yield return new TestCaseData("calculationWithInfinities",
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithInfinities())
+                    .SetName("calculationWithInfinities");
+            }
+        }
+
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
@@ -86,9 +116,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
+        [Test]
+        [TestCaseSource(nameof(Calculations))]
+        public void Write_ValidCalculation_ValidFile(string expectedFileName, MacroStabilityInwardsCalculation calculation)
+        {
+            // Setup
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+                Path.Combine(nameof(MacroStabilityInwardsCalculationConfigurationExporter), $"{expectedFileName}.xml"));
+
+            // Call and Assert
+            WriteAndValidate(new[]
+            {
+                calculation
+            }, expectedXmlFilePath);
+        }
+
         protected override MacroStabilityInwardsCalculation CreateCalculation()
         {
             return MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+        }
+
+        protected override MacroStabilityInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new MacroStabilityInwardsCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }

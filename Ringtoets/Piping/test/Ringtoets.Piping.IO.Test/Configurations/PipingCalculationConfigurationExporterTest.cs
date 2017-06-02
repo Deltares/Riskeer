@@ -42,7 +42,6 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             PipingCalculation,
             PipingCalculationConfiguration>
     {
-
         private static IEnumerable<TestCaseData> Calculations
         {
             get
@@ -127,7 +126,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         public void Write_ValidCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
         {
             // Setup
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, Path.Combine("PipingCalculationConfigurationWriter", $"{expectedFileName}.xml"));
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Piping.IO,
+                Path.Combine(nameof(PipingCalculationConfigurationExporter), $"{expectedFileName}.xml"));
 
             // Call and Assert
             WriteAndValidate(new[]

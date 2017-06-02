@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Xml;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
@@ -29,43 +30,43 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Writer for writing a macro stability inwards calculation configuration to XML.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<MacroStabilityInwardsCalculation>
+    public class MacroStabilityInwardsCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<MacroStabilityInwardsCalculationConfiguration>
     {
-        protected override void WriteCalculation(MacroStabilityInwardsCalculation calculation, XmlWriter writer)
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationWriter"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        public MacroStabilityInwardsCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+        protected override void WriteCalculation(MacroStabilityInwardsCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculation.Name);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
-            MacroStabilityInwardsInput calculationInputParameters = calculation.InputParameters;
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                             configuration.AssessmentLevel);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             configuration.HydraulicBoundaryLocation);
 
-            if (calculationInputParameters.UseAssessmentLevelManualInput)
-            {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
-                                          XmlConvert.ToString(calculationInputParameters.AssessmentLevel));
-            }
-            else if (calculationInputParameters.HydraulicBoundaryLocation != null)
-            {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                          calculationInputParameters.HydraulicBoundaryLocation.Name);
-            }
-
-            if (calculationInputParameters.SurfaceLine != null)
-            {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
-                                          calculationInputParameters.SurfaceLine.Name);
-            }
-
-            if (calculationInputParameters.StochasticSoilModel != null)
-            {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
-                                          calculationInputParameters.StochasticSoilModel.Name);
-
-                if (calculationInputParameters.StochasticSoilProfile?.SoilProfile != null)
-                {
-                    writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
-                                              calculationInputParameters.StochasticSoilProfile.SoilProfile.Name);
-                }
-            }
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
+                                             configuration.SurfaceLine);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
+                                             configuration.StochasticSoilModel);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
+                                             configuration.StochasticSoilProfile);
 
             writer.WriteEndElement();
         }
