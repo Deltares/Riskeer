@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -764,6 +765,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
+                int calculators = failureMechanism.Calculations.Count();
+                var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath))
+                                 .Return(new TestStructuresOvertoppingCalculator())
+                                 .Repeat
+                                 .Times(calculators);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -774,7 +781,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>

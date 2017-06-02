@@ -79,9 +79,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -90,6 +90,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
         public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(new TestStructuresOvertoppingCalculator());
+            mockRepository.ReplayAll();
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
@@ -113,7 +118,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
                 Action call = () => activity.Run();
@@ -123,14 +128,16 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -140,6 +147,17 @@ namespace Ringtoets.HeightStructures.Integration.Test
         public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
+            var testStructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(testStructuresOvertoppingCalculator);
+            mockRepository.ReplayAll();
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
@@ -164,28 +182,29 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestStructuresOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
-                calculator.EndInFailure = endInFailure;
-                calculator.LastErrorFileContent = lastErrorFileContent;
-
                 // Call
                 activity.Run();
 
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Finish_ValidCalculationAndRan_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(new TestStructuresOvertoppingCalculator());
+            mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -213,7 +232,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
             }
@@ -223,17 +242,24 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+
+            var testStructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator
+            {
+                EndInFailure = true
+            };
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(testStructuresOvertoppingCalculator);
+            mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -262,11 +288,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
-            using (new HydraRingCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                TestStructuresOvertoppingCalculator calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
-                calculator.EndInFailure = true;
-
                 activity.Run();
             }
 
@@ -275,7 +298,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
     }
 }
