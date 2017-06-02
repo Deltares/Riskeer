@@ -155,6 +155,26 @@ namespace Core.Common.Base.Test
         }
 
         [Test]
+        public void AddRange_AddNewItemForEmptyPath_CollectionContainsItem()
+        {
+            // Setup
+            var collection = new ConcreteObservableUniqueItemCollectionWithSourcePath<TestItem>(
+                getUniqueFeature, typeDescriptor, featureDescription);
+            var item = new TestItem("Item A");
+
+            // Call 
+            const string filePath = "";
+            collection.AddRange(new[]
+            {
+                item
+            }, filePath);
+
+            // Assert
+            CollectionAssert.Contains(collection, item);
+            Assert.AreEqual(filePath, collection.SourcePath);
+        }
+
+        [Test]
         public void AddRange_AddNewItem_CollectionContainsItem()
         {
             // Setup

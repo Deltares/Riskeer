@@ -146,7 +146,7 @@ namespace Core.Common.Base
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
-            if (!IOUtils.IsValidFilePath(filePath))
+            if (!IOUtils.IsValidFilePath(filePath) && filePath.Length > 0)
             {
                 throw new ArgumentException($"'{filePath}' is not a valid file path.", nameof(filePath));
             }
