@@ -157,8 +157,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertDikeProfiles(MigratedDatabaseReader reader)
         {
             const string validateDikeProfiles =
-                "SELECT COUNT(DISTINCT(Name)) = COUNT() " +
-                "AND COUNT(DISTINCT(Id)) = COUNT() FROM DikeProfileEntity " +
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM DikeProfileEntity " +
                 "GROUP BY [FailureMechanismEntityId]";
             reader.AssertReturnedDataIsValid(validateDikeProfiles);
         }

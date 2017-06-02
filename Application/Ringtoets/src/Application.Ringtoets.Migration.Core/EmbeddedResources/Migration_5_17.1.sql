@@ -35,7 +35,7 @@ SELECT
 	CASE WHEN Suffix THEN [Name] || 
 	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
 	|| Suffix ELSE [Name] END as [Id],
-	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	[Name],
 	[Orientation],
 	[BreakWaterType],
 	[BreakWaterHeight],

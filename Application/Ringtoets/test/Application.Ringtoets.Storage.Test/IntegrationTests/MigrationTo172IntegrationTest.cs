@@ -286,15 +286,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertForeshoreProfiles(MigratedDatabaseReader reader)
         {
             const string validateForeshoreProfiles =
-                "SELECT SUM([IsNotUnique]) = 0 " +
-                "FROM(" +
-                "SELECT " +
-                "CASE WHEN COUNT(DISTINCT([Name])) IS COUNT() " +
-                "AND " +
-                "COUNT(DISTINCT([Id])) IS COUNT() " +
-                "THEN 0 ELSE 1 END AS [IsNotUnique] " +
+                "SELECT COUNT(DISTINCT([Id])) IS COUNT() " +
                 "FROM ForeshoreProfileEntity " +
-                "GROUP BY [FailureMechanismEntityId])";
+                "GROUP BY [FailureMechanismEntityId]";
             reader.AssertReturnedDataIsValid(validateForeshoreProfiles);
         }
 
