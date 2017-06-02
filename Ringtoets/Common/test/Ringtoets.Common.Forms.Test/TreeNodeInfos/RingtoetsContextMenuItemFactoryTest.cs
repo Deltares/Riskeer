@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Map toevoegen", toolStripItem.Text);
-            Assert.AreEqual("Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Voeg een nieuwe map toe aan deze map met berekeningen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AddFolderIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
-            Assert.AreEqual("Voeg een nieuwe berekening toe aan deze berekeningsmap.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Voeg een nieuwe berekening toe aan deze map met berekeningen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
-            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -1019,7 +1019,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
-            Assert.AreEqual("Voer alle berekeningen binnen deze berekeningsmap uit.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Voer alle berekeningen binnen deze map met berekeningen uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
@@ -1162,7 +1162,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
-            Assert.AreEqual("Valideer alle berekeningen binnen deze berekeningsmap.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Valideer alle berekeningen binnen deze map met berekeningen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }

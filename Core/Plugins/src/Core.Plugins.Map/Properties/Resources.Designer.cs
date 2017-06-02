@@ -282,7 +282,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van deze kaartlagenmap..
+        ///   Looks up a localized string similar to De naam van deze map met kaartlagen..
         /// </summary>
         public static string MapDataCollection_Name_Description {
             get {
@@ -301,7 +301,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze kaartlagenmap elementen bevatten..
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
             get {
@@ -311,7 +311,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze kaartlagenmap precies in het beeld passen..
+        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip {
             get {
@@ -320,7 +320,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze kaartlagenmap zichtbaar zijn..
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip {
             get {

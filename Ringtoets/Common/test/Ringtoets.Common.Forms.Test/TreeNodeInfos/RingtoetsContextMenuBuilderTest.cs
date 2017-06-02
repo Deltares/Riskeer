@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Map toevoegen",
-                                                              "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                              "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                               RingtoetsFormsResources.AddFolderIcon);
             }
             mocks.VerifyAll();
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Berekening &toevoegen",
-                                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                               RingtoetsFormsResources.FailureMechanismIcon);
             }
             mocks.VerifyAll();
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis alle uitvoer...",
-                                                              "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
+                                                              "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
             mocks.VerifyAll();
@@ -1032,7 +1032,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
-                                                              "Voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                              "Voer alle berekeningen binnen deze map met berekeningen uit.",
                                                               RingtoetsFormsResources.CalculateAllIcon);
             }
             mocks.VerifyAll();
@@ -1237,7 +1237,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
-                                                              "Valideer alle berekeningen binnen deze berekeningsmap.",
+                                                              "Valideer alle berekeningen binnen deze map met berekeningen.",
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
             mocks.VerifyAll();

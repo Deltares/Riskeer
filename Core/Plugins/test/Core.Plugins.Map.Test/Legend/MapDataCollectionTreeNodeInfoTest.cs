@@ -325,7 +325,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                                   "&Zoom naar alles",
-                                                                  "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze kaartlagenmap precies in het beeld passen.",
+                                                                  "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen.",
                                                                   Resources.ZoomToAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex,
@@ -387,7 +387,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                                   "&Zoom naar alles",
-                                                                  "Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze kaartlagenmap zichtbaar zijn.",
+                                                                  "Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn.",
                                                                   Resources.ZoomToAllIcon,
                                                                   false);
 
@@ -459,7 +459,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                                   "&Zoom naar alles",
-                                                                  "Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze kaartlagenmap elementen bevatten.",
+                                                                  "Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten.",
                                                                   Resources.ZoomToAllIcon,
                                                                   false);
 

@@ -140,7 +140,7 @@
     <value>Alles be&amp;rekenen</value>
   </data>
   <data name="CalculationGroup_CalculateAll_ToolTip" xml:space="preserve">
-    <value>Voer alle berekeningen binnen deze berekeningsmap uit.</value>
+    <value>Voer alle berekeningen binnen deze map met berekeningen uit.</value>
   </data>
   <data name="CalculationGroup_CalculateAll_No_calculations_to_run" xml:space="preserve">
     <value>Er zijn geen berekeningen om uit te voeren.</value>
@@ -149,7 +149,7 @@
     <value>&amp;Wis alle uitvoer...</value>
   </data>
   <data name="CalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
-    <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
+    <value>Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.</value>
   </data>
   <data name="CalculationGroup_ClearOutput_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
@@ -275,10 +275,10 @@
     <value>Geeft aan of dit toetsspoor relevant is of niet.</value>
   </data>
   <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
-    <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
+    <value>Voeg een nieuwe berekening toe aan deze map met berekeningen.</value>
   </data>
   <data name="CalculationGroup_Add_CalculationGroup_Tooltip" xml:space="preserve">
-    <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
+    <value>Voeg een nieuwe map toe aan deze map met berekeningen.</value>
   </data>
   <data name="CalculationOutput_DisplayName" xml:space="preserve">
     <value>Resultaat</value>
@@ -389,7 +389,7 @@
     <value>Er zijn geen berekeningen om te valideren.</value>
   </data>
   <data name="CalculationGroup_Validate_all_ToolTip" xml:space="preserve">
-    <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
+    <value>Valideer alle berekeningen binnen deze map met berekeningen.</value>
   </data>
   <data name="InputView_Distance_DisplayName" xml:space="preserve">
     <value>Afstand [m]</value>

@@ -267,11 +267,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
-                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
@@ -541,12 +541,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                                  "Voer alle berekeningen binnen deze map met berekeningen uit.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen deze berekeningsmap.",
+                                                                  "Valideer alle berekeningen binnen deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
@@ -634,11 +634,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
-                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",

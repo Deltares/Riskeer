@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de berekeningsmap..
+        ///   Looks up a localized string similar to Naam van de map met berekeningen..
         /// </summary>
         public static string CalculationGroup_Name_Description {
             get {
@@ -350,7 +350,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningsmap.
+        ///   Looks up a localized string similar to Map met berekeningen.
         /// </summary>
         public static string CalculationGroupContextProperties_DisplayName {
             get {

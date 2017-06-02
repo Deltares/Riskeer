@@ -355,7 +355,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekening toe aan deze berekeningsmap..
+        ///   Looks up a localized string similar to Voeg een nieuwe berekening toe aan deze map met berekeningen..
         /// </summary>
         public static string CalculationGroup_Add_Calculation_Tooltip {
             get {
@@ -373,7 +373,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap..
+        ///   Looks up a localized string similar to Voeg een nieuwe map toe aan deze map met berekeningen..
         /// </summary>
         public static string CalculationGroup_Add_CalculationGroup_Tooltip {
             get {
@@ -391,7 +391,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voer alle berekeningen binnen deze berekeningsmap uit..
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen deze map met berekeningen uit..
         /// </summary>
         public static string CalculationGroup_CalculateAll_ToolTip {
             get {
@@ -418,7 +418,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen deze berekeningsmap..
+        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen deze map met berekeningen..
         /// </summary>
         public static string CalculationGroup_ClearOutput_ToolTip {
             get {
@@ -463,7 +463,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze map met berekeningen..
         /// </summary>
         public static string CalculationGroup_Validate_all_ToolTip {
             get {

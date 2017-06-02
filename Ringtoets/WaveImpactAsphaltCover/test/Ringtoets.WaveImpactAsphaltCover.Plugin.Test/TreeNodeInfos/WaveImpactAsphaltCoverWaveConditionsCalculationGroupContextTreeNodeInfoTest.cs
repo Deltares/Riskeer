@@ -301,11 +301,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
-                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
@@ -415,11 +415,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
-                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",
@@ -498,11 +498,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
-                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
@@ -602,11 +602,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
-                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
@@ -805,8 +805,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsTrue(validateItem.Enabled);
                     Assert.IsTrue(calculateItem.Enabled);
-                    Assert.AreEqual("Voer alle berekeningen binnen deze berekeningsmap uit.", calculateItem.ToolTipText);
-                    Assert.AreEqual("Valideer alle berekeningen binnen deze berekeningsmap.", validateItem.ToolTipText);
+                    Assert.AreEqual("Voer alle berekeningen binnen deze map met berekeningen uit.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Valideer alle berekeningen binnen deze map met berekeningen.", validateItem.ToolTipText);
                 }
             }
         }
@@ -1382,7 +1382,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }
             }

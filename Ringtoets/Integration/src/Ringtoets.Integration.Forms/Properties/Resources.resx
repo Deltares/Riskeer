@@ -175,10 +175,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>n.v.t</value>
   </data>
   <data name="CalculationGroupContextProperties_DisplayName" xml:space="preserve">
-    <value>Berekeningsmap</value>
+    <value>Map met berekeningen</value>
   </data>
   <data name="CalculationGroup_Name_Description" xml:space="preserve">
-    <value>Naam van de berekeningsmap.</value>
+    <value>Naam van de map met berekeningen.</value>
   </data>
   <data name="CalculationGroup_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>

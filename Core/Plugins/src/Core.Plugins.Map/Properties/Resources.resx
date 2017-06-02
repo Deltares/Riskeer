@@ -233,7 +233,7 @@
     <value>Op basis van</value>
   </data>
   <data name="MapDataCollection_Name_Description" xml:space="preserve">
-    <value>De naam van deze kaartlagenmap.</value>
+    <value>De naam van deze map met kaartlagen.</value>
   </data>
   <data name="MapData_IsVisible_Description" xml:space="preserve">
     <value>Geeft aan of deze kaartlaag wordt weergegeven.</value>
@@ -260,13 +260,13 @@
     <value>Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn.</value>
   </data>
   <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze kaartlagenmap elementen bevatten.</value>
+    <value>Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten.</value>
   </data>
   <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze kaartlagenmap zichtbaar zijn.</value>
+    <value>Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn.</value>
   </data>
   <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip" xml:space="preserve">
-    <value>Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze kaartlagenmap precies in het beeld passen.</value>
+    <value>Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen.</value>
   </data>
   <data name="MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
     <value>Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten.</value>
