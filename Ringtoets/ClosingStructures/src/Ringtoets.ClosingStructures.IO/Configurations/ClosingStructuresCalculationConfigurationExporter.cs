@@ -33,7 +33,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
     /// <summary>
     /// Exports a closing structures calculation configuration and stores it as an XML file.
     /// </summary>
-    public class ClosingStructuresCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
+    public class ClosingStructuresCalculationConfigurationExporter : CalculationConfigurationExporter<
         ClosingStructuresCalculationConfigurationWriter,
         StructuresCalculation<ClosingStructuresInput>,
         ClosingStructuresCalculationConfiguration>

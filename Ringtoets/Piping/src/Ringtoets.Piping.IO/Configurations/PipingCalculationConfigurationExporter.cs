@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.IO.Configurations
     /// <summary>
     /// Exports a piping calculation configuration and stores it as an XML file.
     /// </summary>
-    public class PipingCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation, PipingCalculationConfiguration>
+    public class PipingCalculationConfigurationExporter : CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation, PipingCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationExporter"/>.

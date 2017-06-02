@@ -32,7 +32,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             ClosingStructuresCalculationConfigurationWriter,
             ClosingStructuresCalculationConfiguration>
     {

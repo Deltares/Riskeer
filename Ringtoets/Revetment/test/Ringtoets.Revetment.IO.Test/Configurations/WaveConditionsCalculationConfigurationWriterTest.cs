@@ -37,7 +37,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             WaveConditionsCalculationConfigurationWriter,
             WaveConditionsCalculationConfiguration>
     {

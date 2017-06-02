@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             MacroStabilityInwardsCalculationConfigurationExporter,
             MacroStabilityInwardsCalculationConfigurationWriter,
             MacroStabilityInwardsCalculation,

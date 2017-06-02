@@ -71,7 +71,6 @@
     <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
-    <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
     <Compile Include="FileImporters\DikeProfilesImporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
@@ -112,7 +111,7 @@
     <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
-    <Compile Include="Configurations\Export\SchemaCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="Structures\IStructureUpdateStrategy.cs" />
@@ -124,7 +123,6 @@
     <Compile Include="Structures\StructureLocationReader.cs" />
     <Compile Include="Structures\VarianceType.cs" />
     <Compile Include="Structures\ValidationResult.cs" />
-    <Compile Include="Configurations\Export\SchemaCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\Export\CalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\Export\StructureCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\Helpers\XmlWriterExtensions.cs" />

@@ -22,17 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
-using Core.Common.Base.Data;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.Configurations.Export
@@ -41,331 +39,22 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
     public class CalculationConfigurationWriterTest
         : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             TestCalculationConfigurationWriter,
-            TestCalculation>
+            TestConfigurationItem>
     {
         [Test]
-        public void WriteDistribution_WithoutDistributions_ArgumentNullException()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithoutDistributions_ArgumentNullException));
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    Assert.Throws<ArgumentNullException>(() => writer.PublicWriteDistributions(null, xmlWriter));
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-
-                Assert.IsEmpty(actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteDistribution_EmptyDistributions_NothingWrittenToFile()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_EmptyDistributions_NothingWrittenToFile));
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    writer.PublicWriteDistributions(new Dictionary<string, IDistribution>(), xmlWriter);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-
-                Assert.IsEmpty(actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteDistribution_WithDistributions_WritesEachDistributionAsElement()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDistributions_WritesEachDistributionAsElement));
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
-                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "distributions.xml"));
-
-            var distributions = new Dictionary<string, IDistribution>
-            {
-                {
-                    "normal", new NormalDistribution
-                    {
-                        Mean = (RoundedDouble) 0.2,
-                        StandardDeviation = (RoundedDouble) 0.1
-                    }
-                },
-                {
-                    "lognormal", new LogNormalDistribution
-                    {
-                        Mean = (RoundedDouble) 0.4,
-                        StandardDeviation = (RoundedDouble) 0.3
-                    }
-                }
-            };
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    writer.PublicWriteDistributions(distributions, xmlWriter);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteVariationCoefficientDistribution_WithoutVariationCoefficientDistributions_ArgumentNullException()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(
-                nameof(WriteVariationCoefficientDistribution_WithoutVariationCoefficientDistributions_ArgumentNullException));
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    Assert.Throws<ArgumentNullException>(() => writer.PublicWriteDistributions(null, xmlWriter));
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-
-                Assert.IsEmpty(actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteVariationCoefficientDistribution_EmptyVariationCoefficientDistributions_NothingWrittenToFile()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(
-                nameof(WriteVariationCoefficientDistribution_EmptyVariationCoefficientDistributions_NothingWrittenToFile));
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    writer.PublicWriteDistributions(new Dictionary<string, IDistribution>(), xmlWriter);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-
-                Assert.IsEmpty(actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteVariationCoefficientDistribution_WithVariationCoefficientDistributions_WritesEachDistributionAsElement()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(
-                nameof(WriteVariationCoefficientDistribution_WithVariationCoefficientDistributions_WritesEachDistributionAsElement));
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
-                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), "variationCoefficientDistributions.xml"));
-
-            var distributions = new Dictionary<string, IVariationCoefficientDistribution>
-            {
-                {
-                    "normal", new VariationCoefficientNormalDistribution
-                    {
-                        Mean = (RoundedDouble) 0.2,
-                        CoefficientOfVariation = (RoundedDouble) 0.1
-                    }
-                },
-                {
-                    "lognormal", new VariationCoefficientLogNormalDistribution
-                    {
-                        Mean = (RoundedDouble) 0.4,
-                        CoefficientOfVariation = (RoundedDouble) 0.3
-                    }
-                }
-            };
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    writer.PublicWriteVariationCoefficientDistributions(distributions, xmlWriter);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void WriteBreakWaterProperties_BreakWaterNull_NothingWrittenToFile()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile)}.xml");
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    writer.PublicWriteBreakWaterProperties(null, xmlWriter);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-
-                Assert.IsEmpty(actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        [TestCase(BreakWaterType.Wall, 26.3, "breakWaterWall.xml")]
-        [TestCase(BreakWaterType.Caisson, 1.5, "breakWaterCaisson.xml")]
-        [TestCase(BreakWaterType.Dam, -55.1, "breakWaterDam.xml")]
-        public void WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile(
-            BreakWaterType type,
-            double height,
-            string expectedContentFilePath)
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(
-                $"{nameof(WriteBreakWaterProperties_WithBreakWater_WritesPropertiesToFile)} {type}");
-
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
-                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), expectedContentFilePath));
-
-            var breakWater = new BreakWater(type, (RoundedDouble) height);
-
-            try
-            {
-                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
-                {
-                    var writer = new TestCalculationConfigurationWriter();
-
-                    // Call
-                    writer.PublicWriteBreakWaterProperties(breakWater, xmlWriter);
-                }
-
-                // Assert
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [Test]
-        public void Write_CalculationOfTypeOtherThanGiven_ThrowsCriticalFileWriteExceptionWithInnerArgumentException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            mocks.ReplayAll();
-
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
-
-            try
-            {
-                // Call
-                TestDelegate test = () => new TestCalculationConfigurationWriter().Write(new[]
-                {
-                    calculation
-                }, filePath);
-
-                // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsNotNull(innerException);
-                Assert.AreEqual($"Cannot write calculation of type '{calculation.GetType()}' using this writer.", innerException.Message);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetCalculationConfigurations))]
-        public void Write_DifferentCalculationAndCalculationGroupConfigurations_ValidFile(IEnumerable<ICalculationBase> configuration, string expectedFileContentsFileName)
+        public void Write_DifferentCalculationAndCalculationGroupConfigurations_ValidFile(IEnumerable<IConfigurationItem> configuration, string expectedFileContentsFileName)
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Common.IO,
-                Path.Combine(nameof(CalculationConfigurationWriter<ICalculation>), expectedFileContentsFileName));
+                Path.Combine(nameof(CalculationConfigurationWriter<IConfigurationItem>), expectedFileContentsFileName));
 
             try
             {
                 // Call
-                new TestCalculationConfigurationWriter().Write(configuration, filePath);
+                new TestCalculationConfigurationWriter(filePath).Write(configuration);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -381,29 +70,365 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             }
         }
 
-        private static XmlWriter CreateXmlWriter(string filePath)
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationWriterNull_ThrowsArgumentNullException()
         {
-            return XmlWriter.Create(filePath, new XmlWriterSettings
-            {
-                Indent = true,
-                ConformanceLevel = ConformanceLevel.Fragment
-            });
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                null,
+                "some name",
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                null,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("distributionName", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                "some name",
+                null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_MeanStandardDeviationStochastConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            var configuration = new StochastConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteDistribution(name, configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                name,
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_StochastConfigurationWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                null,
+                "some name",
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_StochastConfigurationDistributionNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                null,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("distributionName", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_StochastConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                "some name",
+                null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteDistributionWhenAvailable_StochastConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            var configuration = new StochastConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteDistribution(name, configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
+                xmlWriter,
+                name,
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                null,
+                "some name",
+                (string) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringElementNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                null,
+                (string) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("elementName", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                "some name",
+                (string) null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_StringSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            const string value = "some value";
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteElementString(name, value));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                name,
+                value);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                null,
+                "some name",
+                (double?) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleElementNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                null,
+                (double?) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("elementName", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                "some name",
+                (double?) null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_DoubleSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            const double value = 3.2;
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteElementString(name, XmlConvert.ToString(value)));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                name,
+                value);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteWaveReductionWhenAvailable_WriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                null,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                xmlWriter,
+                null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteWaveReductionWhenAvailable_WaveReductionConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            var configuration = new WaveReductionConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteWaveReduction(configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
+                xmlWriter,
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()
         {
-            var calculation1 = new TestCalculation("calculation1");
-            var calculation2 = new TestCalculation("calculation2");
-
-            var calculationGroup1 = new CalculationGroup("group1", false);
-            var calculationGroup2 = new CalculationGroup("group2", false)
+            var calculation1 = new TestConfigurationItem
             {
-                Children =
-                {
-                    calculation2,
-                    calculationGroup1
-                }
+                Name = "calculation1"
             };
+            var calculation2 = new TestConfigurationItem
+            {
+                Name = "calculation2"
+            };
+
+            var calculationGroup1 = new CalculationGroupConfiguration("group1", Enumerable.Empty<IConfigurationItem>());
+            var calculationGroup2 = new CalculationGroupConfiguration("group2", new IConfigurationItem[]
+            {
+                calculation2,
+                calculationGroup1
+            });
 
             yield return new TestCaseData(
                     new[]
@@ -420,7 +445,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     "singleCalculation.xml")
                 .SetName("Single calculation");
             yield return new TestCaseData(
-                    new ICalculationBase[]
+                    new IConfigurationItem[]
                     {
                         calculationGroup1,
                         calculation1
@@ -428,7 +453,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     "calculationGroupAndCalculation.xml")
                 .SetName("Calculation group and calculation");
             yield return new TestCaseData(
-                    new ICalculationBase[]
+                    new IConfigurationItem[]
                     {
                         calculation1,
                         calculationGroup2
@@ -436,32 +461,40 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     "calculationAndGroupWithNesting.xml")
                 .SetName("Calculation and group with nesting");
         }
-    }
 
-    public class TestCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
-    {
-        public const string CalculationElementTag = "calculation";
-
-        public void PublicWriteDistributions(IDictionary<string, IDistribution> distributions, XmlWriter writer)
+        protected override TestCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            WriteDistributions(distributions, writer);
+            return new TestCalculationConfigurationWriter(filePath);
         }
 
-        public void PublicWriteVariationCoefficientDistributions(
-            IDictionary<string, IVariationCoefficientDistribution> distributions,
-            XmlWriter writer)
+        private class ExposedCalculationConfigurationWriter : CalculationConfigurationWriter<TestConfigurationItem>
         {
-            WriteVariationCoefficientDistributions(distributions, writer);
-        }
+            public ExposedCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-        public void PublicWriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
-        {
-            WriteBreakWaterProperties(breakWater, writer);
-        }
+            public static void PublicWriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
+            {
+                WriteDistributionWhenAvailable(writer, distributionName, configuration);
+            }
 
-        protected override void WriteCalculation(TestCalculation calculation, XmlWriter writer)
-        {
-            writer.WriteElementString(CalculationElementTag, calculation.Name);
+            public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
+            {
+                WriteElementWhenContentAvailable(writer, elementName, elementContent);
+            }
+
+            public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
+            {
+                WriteElementWhenContentAvailable(writer, elementName, elementContent);
+            }
+
+            public static void PublicWriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
+            {
+                WriteWaveReductionWhenAvailable(writer, configuration);
+            }
+
+            protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

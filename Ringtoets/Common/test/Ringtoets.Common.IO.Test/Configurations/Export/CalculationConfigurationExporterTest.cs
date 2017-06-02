@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -35,63 +32,34 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
     public class CalculationConfigurationExporterTest
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             SimpleCalculationConfigurationExporter,
-            SimpleCalculationConfigurationWriter,
-            TestCalculation>
+            TestCalculationConfigurationWriter,
+            TestCalculation,
+            TestConfigurationItem>
     {
-        [Test]
-        public void Export_ValidData_ReturnTrueAndWritesFile()
-        {
-            // Setup
-            var calculation = new TestCalculation("Calculation A");
-            var calculation2 = new TestCalculation("Calculation B");
-
-            var calculationGroup2 = new CalculationGroup("Group B", false)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            var calculationGroup = new CalculationGroup("Group A", false)
-            {
-                Children =
-                {
-                    calculation,
-                    calculationGroup2
-                }
-            };
-
-            string testFileSubPath = Path.Combine(
-                nameof(CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>),
-                "folderWithSubfolderAndCalculation.xml");
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
-                testFileSubPath);
-
-            // Call and Assert
-            WriteAndValidate(new[]
-            {
-                calculationGroup
-            }, expectedXmlFilePath);
-        }
-
         protected override TestCalculation CreateCalculation()
         {
-            return new TestCalculation("TestCalculation A");
+            return new TestCalculation("some name");
+        }
+
+        protected override SimpleCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            return new SimpleCalculationConfigurationExporter(calculations, filePath);
         }
     }
 
-    public class SimpleCalculationConfigurationExporter : CalculationConfigurationExporter<SimpleCalculationConfigurationWriter, TestCalculation>
+    public class SimpleCalculationConfigurationExporter
+        : CalculationConfigurationExporter<TestCalculationConfigurationWriter, TestCalculation, TestConfigurationItem>
     {
-        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string targetFilePath) : base(configuration, targetFilePath) {}
-    }
+        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
 
-    public class SimpleCalculationConfigurationWriter : CalculationConfigurationWriter<TestCalculation>
-    {
-        protected override void WriteCalculation(TestCalculation calculation, XmlWriter writer)
+        protected override TestCalculationConfigurationWriter CreateWriter(string filePath)
         {
-            writer.WriteElementString("calculation", calculation.Name);
+            return new TestCalculationConfigurationWriter(filePath);
+        }
+
+        protected override TestConfigurationItem ToConfiguration(TestCalculation calculation)
+        {
+            return null;
         }
     }
 }

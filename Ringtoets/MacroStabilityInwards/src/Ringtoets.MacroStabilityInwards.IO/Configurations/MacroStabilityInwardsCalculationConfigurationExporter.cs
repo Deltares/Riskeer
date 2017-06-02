@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Exports a macro stability inwards calculation configuration and stores it as an XML file.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
+    public class MacroStabilityInwardsCalculationConfigurationExporter : CalculationConfigurationExporter<
         MacroStabilityInwardsCalculationConfigurationWriter, 
         MacroStabilityInwardsCalculation,
         MacroStabilityInwardsCalculationConfiguration>

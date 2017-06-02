@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             GrassCoverErosionInwardsCalculationConfigurationWriter,
             GrassCoverErosionInwardsCalculationConfiguration>
     {

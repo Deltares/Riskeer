@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationWriter,
             PipingCalculationConfiguration>
     {

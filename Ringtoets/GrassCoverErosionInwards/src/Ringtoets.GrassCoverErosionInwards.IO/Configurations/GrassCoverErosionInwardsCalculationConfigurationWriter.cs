@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
     /// <summary>
     /// Writer for writing a grass cover erosion inwards calculation configuration to XML.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<GrassCoverErosionInwardsCalculationConfiguration>
+    public class GrassCoverErosionInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<GrassCoverErosionInwardsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationWriter"/>.

@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Writer for writing a macro stability inwards calculation configuration to XML.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<MacroStabilityInwardsCalculationConfiguration>
+    public class MacroStabilityInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<MacroStabilityInwardsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationWriter"/>.

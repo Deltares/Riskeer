@@ -33,7 +33,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// to XML format.
     /// </summary>
     /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
-    public class WaveConditionsCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
+    public class WaveConditionsCalculationConfigurationWriter : CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
     {
         private readonly ConfigurationWaveConditionsInputStepSizeConverter configurationWaveConditionsInputStepSizeConverter;
 

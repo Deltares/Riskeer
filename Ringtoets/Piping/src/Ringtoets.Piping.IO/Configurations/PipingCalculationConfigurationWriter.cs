@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.IO.Configurations
     /// <summary>
     /// Writer for writing a piping calculation configuration to XML.
     /// </summary>
-    public class PipingCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<PipingCalculationConfiguration>
+    public class PipingCalculationConfigurationWriter : CalculationConfigurationWriter<PipingCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationWriter"/>.

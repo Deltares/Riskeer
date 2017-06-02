@@ -38,7 +38,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             StabilityPointStructuresCalculationConfigurationExporter,
             StabilityPointStructuresCalculationConfigurationWriter,
             StructuresCalculation<StabilityPointStructuresInput>,

@@ -33,7 +33,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
     /// <summary>
     /// Exports a stability point structures calculation configuration and stores it as an XML file.
     /// </summary>
-    public class StabilityPointStructuresCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
+    public class StabilityPointStructuresCalculationConfigurationExporter : CalculationConfigurationExporter<
         StabilityPointStructuresCalculationConfigurationWriter,
         StructuresCalculation<StabilityPointStructuresInput>,
         StabilityPointStructuresCalculationConfiguration>

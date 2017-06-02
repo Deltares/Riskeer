@@ -27,11 +27,11 @@ namespace Ringtoets.Common.IO.Configurations.Export
     /// <summary>
     /// Writer for writing <see cref="StructuresCalculationConfiguration"/> in XML format to file.
     /// </summary>
-    public abstract class StructureCalculationConfigurationWriter<T> : SchemaCalculationConfigurationWriter<T>
+    public abstract class StructureCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
         where T : StructuresCalculationConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SchemaCalculationConfigurationWriter{T}"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationWriter{T}"/>.
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

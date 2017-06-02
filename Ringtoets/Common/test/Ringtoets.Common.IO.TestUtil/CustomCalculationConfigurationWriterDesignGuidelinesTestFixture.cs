@@ -26,21 +26,91 @@ using System.Security.AccessControl;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
+using Rhino.Mocks;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.Common.IO.TestUtil
 {
     [TestFixture]
-    public abstract class CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<TWriter, TCalculation>
-        where TCalculation : class, ICalculation
-        where TWriter : CalculationConfigurationWriter<TCalculation>, new()
+    public abstract class CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<TWriter, TConfiguration>
+        where TConfiguration : class, IConfigurationItem
+        where TWriter : CalculationConfigurationWriter<TConfiguration>
     {
+        [Test]
+        public void Write_CalculationOfTypeOtherThanGiven_ThrowsCriticalFileWriteExceptionWithInnerArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<IConfigurationItem>();
+            mocks.ReplayAll();
+
+            string filePath = TestHelper.GetScratchPadPath("test.xml");
+
+            try
+            {
+                TWriter writer = CreateWriterInstance(filePath);
+
+                // Call
+                TestDelegate test = () => writer.Write(new[]
+                {
+                    calculation
+                });
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileWriteException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual($"Cannot write calculation of type '{calculation.GetType()}' using this writer.", innerException.Message);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutFilePath_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => CreateWriterInstance(null);
+
+            // Assert
+            AssertNullFilePath(Assert.Throws<ArgumentException>(call));
+        }
+
+        [Test]
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
+        public void Constructor_WithoutValidFilePath_ThrowsArgumentException(string filePath)
+        {
+            // Call
+            TestDelegate call = () => CreateWriterInstance(filePath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            var filePath = new string('a', 249);
+            TWriter writerInstance = CreateWriterInstance(filePath);
+
+            // Call
+            TestDelegate call = () => writerInstance.Write(Enumerable.Empty<IConfigurationItem>());
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            AssertTooLongPath(exception, filePath);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var writer = new TWriter();
+            TWriter writer = CreateWriterInstance("//validpath");
 
             // Assert
             AssertDefaultConstructedInstance(writer);
@@ -50,10 +120,10 @@ namespace Ringtoets.Common.IO.TestUtil
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Setup
-            var writer = new TWriter();
+            TWriter writer = CreateWriterInstance("//validpath");
 
             // Call
-            TestDelegate test = () => writer.Write(null, string.Empty);
+            TestDelegate test = () => writer.Write(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -61,62 +131,18 @@ namespace Ringtoets.Common.IO.TestUtil
         }
 
         [Test]
-        public void Write_FilePathNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var writer = new TWriter();
-
-            // Call
-            TestDelegate test = () => writer.Write(Enumerable.Empty<ICalculationBase>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            AssertNullFilePath(exception);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
-        public void Write_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
-        {
-            // Setup
-            var writer = new TWriter();
-
-            // Call
-            TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            AssertInvalidFilePath(exception, filePath);
-        }
-
-        [Test]
-        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
-        {
-            // Setup
-            var filePath = new string('a', 249);
-            var writer = new TWriter();
-
-            // Call
-            TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            AssertTooLongPath(exception, filePath);
-        }
-
-        [Test]
         public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            var writer = new TWriter();
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException));
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
                 disposeHelper.LockDirectory(FileSystemRights.Write);
+                TWriter writer = CreateWriterInstance(filePath);
 
                 // Call
-                TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), filePath);
+                TestDelegate call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -129,14 +155,14 @@ namespace Ringtoets.Common.IO.TestUtil
         {
             // Setup
             string path = TestHelper.GetScratchPadPath(nameof(Write_FileInUse_ThrowCriticalFileWriteException));
-            var writer = new TWriter();
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
                 fileDisposeHelper.LockFiles();
+                TWriter writer = CreateWriterInstance(path);
 
                 // Call
-                TestDelegate call = () => writer.Write(Enumerable.Empty<ICalculationBase>(), path);
+                TestDelegate call = () => writer.Write(Enumerable.Empty<IConfigurationItem>());
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -144,9 +170,11 @@ namespace Ringtoets.Common.IO.TestUtil
             }
         }
 
+        protected abstract TWriter CreateWriterInstance(string filePath);
+
         protected virtual void AssertDefaultConstructedInstance(TWriter writer)
         {
-            Assert.IsInstanceOf<CalculationConfigurationWriter<TCalculation>>(writer);
+            Assert.IsInstanceOf<CalculationConfigurationWriter<TConfiguration>>(writer);
         }
 
         protected virtual void AssertNullConfiguration(ArgumentNullException exception)
@@ -155,16 +183,9 @@ namespace Ringtoets.Common.IO.TestUtil
             Assert.AreEqual("configuration", exception.ParamName);
         }
 
-        protected virtual void AssertNullFilePath(ArgumentNullException exception)
+        protected virtual void AssertNullFilePath(ArgumentException exception)
         {
             Assert.IsNotNull(exception);
-            Assert.AreEqual("filePath", exception.ParamName);
-        }
-
-        protected virtual void AssertInvalidFilePath(CriticalFileWriteException exception, string filePath)
-        {
-            Assert.IsNotNull(exception);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
         }
 
         protected virtual void AssertTooLongPath(CriticalFileWriteException exception, string filePath)

@@ -32,7 +32,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
     /// <summary>
     /// Exports a height structures calculation configuration and stores it as an XML file.
     /// </summary>
-    public class HeightStructuresCalculationConfigurationExporter : SchemaCalculationConfigurationExporter<
+    public class HeightStructuresCalculationConfigurationExporter : CalculationConfigurationExporter<
         HeightStructuresCalculationConfigurationWriter,
         StructuresCalculation<HeightStructuresInput>,
         HeightStructuresCalculationConfiguration>

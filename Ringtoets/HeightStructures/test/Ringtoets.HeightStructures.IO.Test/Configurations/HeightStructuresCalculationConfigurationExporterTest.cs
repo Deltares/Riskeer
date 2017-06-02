@@ -38,7 +38,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class HeightStructuresCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             HeightStructuresCalculationConfigurationExporter,
             HeightStructuresCalculationConfigurationWriter,
             StructuresCalculation<HeightStructuresInput>,

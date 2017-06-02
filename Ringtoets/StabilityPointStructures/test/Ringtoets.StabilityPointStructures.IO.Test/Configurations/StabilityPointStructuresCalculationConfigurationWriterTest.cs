@@ -32,7 +32,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             StabilityPointStructuresCalculationConfigurationWriter,
             StabilityPointStructuresCalculationConfiguration>
     {

@@ -35,7 +35,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
 {
     [TestFixture]
     public class StabilityStoneCoverCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             StabilityStoneCoverCalculationConfigurationExporter,
             WaveConditionsCalculationConfigurationWriter,
             StabilityStoneCoverWaveConditionsCalculation,

@@ -23,10 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
 using Core.Common.Utils.Properties;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
 namespace Ringtoets.Common.IO.Configurations.Export
@@ -35,25 +33,39 @@ namespace Ringtoets.Common.IO.Configurations.Export
     /// Base implementation of writing calculation configurations to XML.
     /// </summary>
     /// <typeparam name="T">The type of calculations which are written to file.</typeparam>
-    public abstract class CalculationConfigurationWriter<T> where T : class, ICalculation
+    public abstract class CalculationConfigurationWriter<T> where T : class, IConfigurationItem
     {
+        private readonly string filePath;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CalculationConfigurationWriter{T}"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the file to write to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// </list></remarks>
+        protected CalculationConfigurationWriter(string filePath)
+        {
+            this.filePath = filePath;
+            IOUtils.ValidateFilePath(filePath);
+        }
+
         /// <summary>
         /// Writes a calculation configuration to an XML file.
         /// </summary>
         /// <param name="configuration">The calculation configuration to write.</param>
-        /// <param name="filePath">The path to the target XML file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        /// <remarks>The <paramref name="configuration"/> itself will not be part of the written XML, only its children.</remarks>
-        public void Write(IEnumerable<ICalculationBase> configuration, string filePath)
+        /// <exception cref="CriticalFileWriteException">Thrown when unable to write the file to the provided file path.</exception>
+        public void Write(IEnumerable<IConfigurationItem> configuration)
         {
             if (configuration == null)
             {
                 throw new ArgumentNullException(nameof(configuration));
-            }
-            if (filePath == null)
-            {
-                throw new ArgumentNullException(nameof(filePath));
             }
 
             try
@@ -81,83 +93,108 @@ namespace Ringtoets.Common.IO.Configurations.Export
         }
 
         /// <summary>
-        /// Writes a single <paramref name="calculation"/> in XML format to file.
+        /// Writes a single <paramref name="configuration"/> in XML format to file.
         /// </summary>
-        /// <param name="calculation">The calculation to write.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected abstract void WriteCalculation(T calculation, XmlWriter writer);
+        protected abstract void WriteCalculation(T configuration, XmlWriter writer);
 
         /// <summary>
-        /// Writes the <paramref name="distributions"/> in XML format to file.
+        /// Writes a distribution configuration when it has a value.
         /// </summary>
-        /// <param name="distributions">The dictionary of distributions, keyed on name, to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distributions"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected static void WriteDistributions(IDictionary<string, IDistribution> distributions, XmlWriter writer)
+        /// <param name="distributionName">The name of the distribution.</param>
+        /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
+        /// is <c>null</c>.</exception>
+        protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
         {
-            if (distributions == null)
+            if (writer == null)
             {
-                throw new ArgumentNullException(nameof(distributions));
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (distributionName == null)
+            {
+                throw new ArgumentNullException(nameof(distributionName));
             }
 
-            if (distributions.Count > 0)
+            if (configuration != null)
             {
-                writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
-
-                foreach (KeyValuePair<string, IDistribution> keyValuePair in distributions)
-                {
-                    WriteDistribution(keyValuePair.Value, keyValuePair.Key, writer);
-                }
-
-                writer.WriteEndElement();
+                writer.WriteDistribution(distributionName, configuration);
             }
         }
 
         /// <summary>
-        /// Writes the <paramref name="variationCoefficientDistributions"/> in XML format to file.
+        /// Writes an element with some content when the content has a value.
         /// </summary>
-        /// <param name="variationCoefficientDistributions">The dictionary of variation coefficient distributions, keyed on name, to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="variationCoefficientDistributions"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected static void WriteVariationCoefficientDistributions(IDictionary<string, IVariationCoefficientDistribution> variationCoefficientDistributions, XmlWriter writer)
+        /// <param name="elementName">The name of the element.</param>
+        /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
+        /// is <c>null</c>.</exception>
+        protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
         {
-            if (variationCoefficientDistributions == null)
+            if (writer == null)
             {
-                throw new ArgumentNullException(nameof(variationCoefficientDistributions));
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (elementName == null)
+            {
+                throw new ArgumentNullException(nameof(elementName));
             }
 
-            if (variationCoefficientDistributions.Count > 0)
+            if (elementContent != null)
             {
-                writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
-
-                foreach (KeyValuePair<string, IVariationCoefficientDistribution> keyValuePair in variationCoefficientDistributions)
-                {
-                    WriteVariationCoefficientDistribution(keyValuePair.Value, keyValuePair.Key, writer);
-                }
-
-                writer.WriteEndElement();
+                writer.WriteElementString(
+                    elementName,
+                    elementContent);
             }
         }
 
         /// <summary>
-        /// Writes the properties of the <paramref name="breakWater"/> in XML format to file.
+        /// Writes an element with some content when the content has a value.
         /// </summary>
-        /// <param name="breakWater">The break water to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        protected static void WriteBreakWaterProperties(BreakWater breakWater, XmlWriter writer)
+        /// <param name="elementName">The name of the element.</param>
+        /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
+        /// is <c>null</c>.</exception>
+        protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
         {
-            if (breakWater != null)
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (elementName == null)
+            {
+                throw new ArgumentNullException(nameof(elementName));
+            }
+
+            if (elementContent.HasValue)
             {
                 writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.BreakWaterType,
-                    BreakWaterTypeAsXmlString((ConfigurationBreakWaterType) breakWater.Type));
-                writer.WriteElementString(
-                    ConfigurationSchemaIdentifiers.BreakWaterHeight,
-                    XmlConvert.ToString(breakWater.Height));
+                    elementName,
+                    XmlConvert.ToString(elementContent.Value));
+            }
+        }
+
+        /// <summary>
+        /// Writes a wave reduction configuration when it has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration for the wave reduction that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> is <c>null</c>.</exception>
+        protected static void WriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            if (configuration != null)
+            {
+                writer.WriteWaveReduction(configuration);
             }
         }
 
@@ -167,12 +204,12 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="configuration">The calculation group(s) and/or calculation(s) to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> 
-        /// contains a value that is neither <see cref="CalculationGroup"/> nor <see cref="T"/>.</exception>
-        private void WriteConfiguration(IEnumerable<ICalculationBase> configuration, XmlWriter writer)
+        /// contains a value that is neither <see cref="CalculationGroupConfiguration"/> nor <see cref="T"/>.</exception>
+        private void WriteConfiguration(IEnumerable<IConfigurationItem> configuration, XmlWriter writer)
         {
-            foreach (ICalculationBase child in configuration)
+            foreach (IConfigurationItem child in configuration)
             {
-                var innerGroup = child as CalculationGroup;
+                var innerGroup = child as CalculationGroupConfiguration;
                 if (innerGroup != null)
                 {
                     WriteCalculationGroup(innerGroup, writer);
@@ -191,43 +228,12 @@ namespace Ringtoets.Common.IO.Configurations.Export
             }
         }
 
-        private static string BreakWaterTypeAsXmlString(ConfigurationBreakWaterType type)
-        {
-            return new ConfigurationBreakWaterTypeConverter().ConvertToInvariantString(type);
-        }
-
-        private static void WriteDistribution(IDistribution distribution, string elementName, XmlWriter writer)
-        {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
-
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, elementName);
-            writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
-                                      XmlConvert.ToString(distribution.Mean));
-            writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement,
-                                      XmlConvert.ToString(distribution.StandardDeviation));
-
-            writer.WriteEndElement();
-        }
-
-        private static void WriteVariationCoefficientDistribution(IVariationCoefficientDistribution distribution, string elementName, XmlWriter writer)
-        {
-            writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastElement);
-
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, elementName);
-            writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
-                                      XmlConvert.ToString(distribution.Mean));
-            writer.WriteElementString(ConfigurationSchemaIdentifiers.VariationCoefficientElement,
-                                      XmlConvert.ToString(distribution.CoefficientOfVariation));
-
-            writer.WriteEndElement();
-        }
-
-        private void WriteCalculationGroup(CalculationGroup calculationGroup, XmlWriter writer)
+        private void WriteCalculationGroup(CalculationGroupConfiguration group, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);
-            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, calculationGroup.Name);
+            writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, group.Name);
 
-            WriteConfiguration(calculationGroup.Children, writer);
+            WriteConfiguration(group.Items, writer);
 
             writer.WriteEndElement();
         }

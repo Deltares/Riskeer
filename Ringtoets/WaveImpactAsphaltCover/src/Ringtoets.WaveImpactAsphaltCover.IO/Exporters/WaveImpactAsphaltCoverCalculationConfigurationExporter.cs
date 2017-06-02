@@ -33,7 +33,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
     /// Exports a wave impact asphalt cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class WaveImpactAsphaltCoverCalculationConfigurationExporter
-        : SchemaCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
+        : CalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, WaveImpactAsphaltCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationConfigurationExporter"/>.

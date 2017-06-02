@@ -26,18 +26,18 @@ using Ringtoets.Common.IO.Configurations.Export;
 namespace Ringtoets.Common.IO.TestUtil
 {
     /// <summary>
-    /// Simple <see cref="SchemaCalculationConfigurationWriter{T}"/> that can be used for testing purposes.
+    /// Simple <see cref="CalculationConfigurationWriter{T}"/> that can be used for testing purposes.
     /// </summary>
-    public class TestSchemaCalculationConfigurationWriter : SchemaCalculationConfigurationWriter<TestConfigurationItem>
+    public class TestCalculationConfigurationWriter : CalculationConfigurationWriter<TestConfigurationItem>
     {
         private const string calculationElementTag = "calculation";
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestSchemaCalculationConfigurationWriter"/>
+        /// Creates a new instance of <see cref="TestCalculationConfigurationWriter"/>
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public TestSchemaCalculationConfigurationWriter(string filePath) : base(filePath) {}
+        public TestCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
         {

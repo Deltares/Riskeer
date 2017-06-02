@@ -32,7 +32,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class HeightStructuresCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             HeightStructuresCalculationConfigurationWriter,
             HeightStructuresCalculationConfiguration>
     {

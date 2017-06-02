@@ -33,7 +33,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Exporters
     /// Exports a stability stone cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class StabilityStoneCoverCalculationConfigurationExporter
-        : SchemaCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
+        : CalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverCalculationConfigurationExporter"/>.

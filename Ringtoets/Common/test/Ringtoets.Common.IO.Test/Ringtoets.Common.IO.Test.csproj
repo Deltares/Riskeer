@@ -69,14 +69,13 @@
     <Compile Include="Configurations\StochastConfigurationTest.cs" />
     <Compile Include="Configurations\StructuresCalculationStochastAssignerTest.cs" />
     <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
-    <Compile Include="Configurations\Export\SchemaCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverterTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
-    <Compile Include="Configurations\Export\CalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationImporterTest.cs" />
     <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
@@ -114,7 +113,6 @@
     <Compile Include="Structures\StructuresParameterRowsValidatorTest.cs" />
     <Compile Include="Structures\StructuresParameterRowTest.cs" />
     <Compile Include="Structures\ValidationResultTest.cs" />
-    <Compile Include="Configurations\Export\SchemaCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\Export\CalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\Export\StructureCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\Helpers\XmlWriterExtensionsTest.cs" />

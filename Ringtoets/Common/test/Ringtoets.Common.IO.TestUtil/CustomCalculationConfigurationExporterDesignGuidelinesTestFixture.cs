@@ -23,21 +23,22 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.AccessControl;
 using System.Text;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.Common.IO.TestUtil
 {
     [TestFixture]
-    public abstract class CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<TCalculationConfigurationExporter, TWriter, TCalculation>
+    public abstract class CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<TCalculationConfigurationExporter, TWriter, TCalculation, TConfiguration>
         where TCalculation : class, ICalculation
-        where TWriter : CalculationConfigurationWriter<TCalculation>, new()
-        where TCalculationConfigurationExporter : CalculationConfigurationExporter<TWriter, TCalculation>
+        where TWriter : CalculationConfigurationWriter<TConfiguration>
+        where TConfiguration : class, IConfigurationItem
+        where TCalculationConfigurationExporter : CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>
     {
         [Test]
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
@@ -46,9 +47,8 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate test = () => CallConfigurationFilePathConstructor(null, "test.xml");
 
             // Assert
-            var activatorException = Assert.Throws<TargetInvocationException>(test);
-            var exception = (ArgumentNullException) activatorException.InnerException;
-            AssertNullConfiguration(exception);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            AssertNullCalculations(exception);
         }
 
         [Test]
@@ -59,8 +59,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate test = () => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
-            var activatorException = Assert.Throws<TargetInvocationException>(test);
-            var exception = (ArgumentException) activatorException.InnerException;
+            var exception = Assert.Throws<ArgumentException>(test);
             AssertInvalidFilePath(exception);
         }
 
@@ -140,16 +139,16 @@ namespace Ringtoets.Common.IO.TestUtil
             };
         }
 
-        protected virtual void AssertNullConfiguration(ArgumentNullException exception)
+        protected virtual void AssertNullCalculations(ArgumentNullException exception)
         {
             Assert.IsNotNull(exception);
             Assert.IsInstanceOf<ArgumentNullException>(exception);
-            Assert.AreEqual("configuration", exception.ParamName);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         protected virtual void AssertDefaultConstructedInstance(TCalculationConfigurationExporter exporter)
         {
-            Assert.IsInstanceOf<CalculationConfigurationExporter<TWriter, TCalculation>>(exporter);
+            Assert.IsInstanceOf<CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>>(exporter);
         }
 
         protected virtual void AssertInvalidFilePath(ArgumentException exception)
@@ -185,10 +184,6 @@ namespace Ringtoets.Common.IO.TestUtil
 
         protected abstract TCalculation CreateCalculation();
 
-        private static TCalculationConfigurationExporter CallConfigurationFilePathConstructor(
-            IEnumerable<ICalculationBase> configuration, string filePath)
-        {
-            return (TCalculationConfigurationExporter) Activator.CreateInstance(typeof(TCalculationConfigurationExporter), configuration, filePath);
-        }
+        protected abstract TCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath);
     }
 }

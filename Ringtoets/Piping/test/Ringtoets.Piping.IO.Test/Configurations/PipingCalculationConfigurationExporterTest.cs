@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
             PipingCalculation,

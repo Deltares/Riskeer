@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationWriterTest
-        : CustomSchemaCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
             MacroStabilityInwardsCalculationConfigurationWriter,
             MacroStabilityInwardsCalculationConfiguration>
     {

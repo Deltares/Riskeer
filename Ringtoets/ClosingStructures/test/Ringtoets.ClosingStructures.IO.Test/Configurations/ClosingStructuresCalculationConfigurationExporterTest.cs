@@ -38,7 +38,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             ClosingStructuresCalculationConfigurationExporter,
             ClosingStructuresCalculationConfigurationWriter,
             StructuresCalculation<ClosingStructuresInput>,

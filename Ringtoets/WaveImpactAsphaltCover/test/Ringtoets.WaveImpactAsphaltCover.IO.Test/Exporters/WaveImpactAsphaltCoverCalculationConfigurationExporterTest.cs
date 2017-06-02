@@ -35,7 +35,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverCalculationConfigurationExporterTest
-        : CustomSchemaCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             WaveImpactAsphaltCoverCalculationConfigurationExporter,
             WaveConditionsCalculationConfigurationWriter,
             WaveImpactAsphaltCoverWaveConditionsCalculation,
