@@ -19,11 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Components.Gis.TestUtil;
+using DotSpatial.Controls;
 using DotSpatial.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 
 namespace Core.Components.DotSpatial.Forms.Test
 {
@@ -40,9 +46,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(1e+10)]
         public void OnViewExtentsChanged_EdgeCases_DoesNotThrowException(double minExt)
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -55,6 +61,54 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.DoesNotThrow(test);
             }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [IgnoreOnNoInternet]
+        public void GivenMapControl_WhenPdokDataSetAsBackground_ThenMapControlShowsBackgroundLayer()
+        {
+            // Given
+            using (var form = new Form())
+            {
+                var mapControl = new MapControl();
+                Map mapView = mapControl.Controls.OfType<Map>().First();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                // When
+                mapControl.BackgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
+
+                // Then
+                Assert.AreEqual(1, mapView.Layers.Count);
+            }
+        }
+
+        private class IgnoreOnNoInternetAttribute : Attribute, ITestAction
+        {
+            public void BeforeTest(ITest test)
+            {
+                bool ignore;
+                try
+                {
+                    var ping = new Ping();
+                    PingReply reply = ping.Send("deltares.nl", 100);
+                    ignore = reply == null || reply.Status != IPStatus.Success;
+                }
+                catch (Exception e) when (e is ArgumentException || e is InvalidOperationException)
+                {
+                    ignore = true;
+                }
+
+                if (ignore)
+                {
+                    Assert.Ignore("Test is Ignored, because there currently is no internet connection.");
+                }
+            }
+
+            public void AfterTest(ITest test) { }
+
+            public ActionTargets Targets { get; }
         }
     }
 }
