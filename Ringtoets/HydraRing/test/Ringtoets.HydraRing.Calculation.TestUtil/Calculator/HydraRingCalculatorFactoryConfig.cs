@@ -25,7 +25,7 @@ using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="TestHydraRingCalculatorFactory"/>
+    /// This class can be used to set a temporary <see cref="IHydraRingCalculatorFactory"/>
     /// for <see cref="HydraRingCalculatorFactory.Instance"/> while testing.
     /// Disposing an instance of this class will revert the
     /// <see cref="HydraRingCalculatorFactory.Instance"/>.
@@ -33,28 +33,21 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// using(new HydraRingCalculatorFactoryConfig())
-    /// {
-    ///     var testCalculator = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactoryConfig.Instance;
+    /// var mockRepository = new MockRepository();
+    /// var calculatorFactory = mockRepository.Stub&lt;IHydraRingCalculatorFactory&gt;();
+    /// mockRepository.ReplayAll();
     /// 
-    ///     // Perform test with factory
+    /// using(new HydraRingCalculatorFactoryConfig(calculatorFactory))
+    /// {
+    ///     // Perform test with mocked factory
     /// }
     /// </code>
+    /// 
+    /// mockRepository.VerifyAll();
     /// </example>
     public class HydraRingCalculatorFactoryConfig : IDisposable
     {
         private readonly IHydraRingCalculatorFactory previousFactory;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraRingCalculatorFactoryConfig"/>.
-        /// Sets a <see cref="HydraRingCalculatorFactory"/> to
-        /// <see cref="HydraRingCalculatorFactory.Instance"/>.
-        /// </summary>
-        public HydraRingCalculatorFactoryConfig()
-        {
-            previousFactory = HydraRingCalculatorFactory.Instance;
-            HydraRingCalculatorFactory.Instance = new TestHydraRingCalculatorFactory();
-        }
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingCalculatorFactoryConfig"/>.

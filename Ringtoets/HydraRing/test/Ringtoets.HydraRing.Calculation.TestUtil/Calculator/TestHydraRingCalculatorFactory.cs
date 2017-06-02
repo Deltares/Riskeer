@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Calculator;
-using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -31,80 +30,6 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 {
-    public class TestHydraRingCalculatorFactory : IHydraRingCalculatorFactory
-    {
-        public readonly TestDesignWaterLevelCalculator DesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-        public readonly TestOvertoppingCalculator OvertoppingCalculator = new TestOvertoppingCalculator();
-        public readonly TestHydraulicLoadsCalculator DikeHeightCalculator = new TestHydraulicLoadsCalculator();
-        public readonly TestHydraulicLoadsCalculator OvertoppingRateCalculator = new TestHydraulicLoadsCalculator();
-        public readonly TestWaveConditionsCosineCalculator WaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
-        public readonly TestWaveHeightCalculator WaveHeightCalculator = new TestWaveHeightCalculator();
-        public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
-        public readonly TestStructuresClosureCalculator StructuresClosureCalculator = new TestStructuresClosureCalculator();
-        public readonly TestStructuresStabilityPointCalculator StructuresStabilityPointCalculator = new TestStructuresStabilityPointCalculator();
-        public readonly TestDunesBoundaryConditionsCalculator DunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-
-        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory)
-        {
-            DesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return DesignWaterLevelCalculator;
-        }
-
-        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
-        {
-            OvertoppingCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return OvertoppingCalculator;
-        }
-
-        public IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory)
-        {
-            DikeHeightCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return DikeHeightCalculator;
-        }
-
-        public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
-        {
-            OvertoppingRateCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return OvertoppingRateCalculator;
-        }
-
-        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory)
-        {
-            WaveConditionsCosineCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return WaveConditionsCosineCalculator;
-        }
-
-        public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory)
-        {
-            WaveHeightCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return WaveHeightCalculator;
-        }
-
-        public IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory)
-        {
-            StructuresOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return StructuresOvertoppingCalculator;
-        }
-
-        public IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory)
-        {
-            StructuresClosureCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return StructuresClosureCalculator;
-        }
-
-        public IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory)
-        {
-            StructuresStabilityPointCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return StructuresStabilityPointCalculator;
-        }
-
-        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory)
-        {
-            DunesBoundaryConditionsCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
-            return DunesBoundaryConditionsCalculator;
-        }
-    }
-
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
     {
         public string OutputDirectory { get; set; }
