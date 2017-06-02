@@ -71,7 +71,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_StyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapPointData("test", null);
+            TestDelegate test = () => new MapPointData("test data", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

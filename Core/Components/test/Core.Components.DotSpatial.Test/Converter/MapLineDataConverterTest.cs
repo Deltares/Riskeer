@@ -175,10 +175,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Color expectedColor = Color.FromKnownColor(color);
             var converter = new MapLineDataConverter();
             var mapLineLayer = new MapLineLayer();
-            var mapLineData = new MapLineData("test")
-            {
-                Style = new LineStyle(expectedColor, width, lineStyle)
-            };
+            var mapLineData = new MapLineData("test", new LineStyle(expectedColor, width, lineStyle));
 
             // Call
             converter.ConvertLayerProperties(mapLineData, mapLineLayer);

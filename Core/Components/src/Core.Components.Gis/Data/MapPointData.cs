@@ -64,7 +64,7 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets or sets the style of the points.
         /// </summary>
-        public PointStyle Style { get; private set; }
+        public PointStyle Style { get; }
 
         /// <summary>
         /// This method validates newly set features.

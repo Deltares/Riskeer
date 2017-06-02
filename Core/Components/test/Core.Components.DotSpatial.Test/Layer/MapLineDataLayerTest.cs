@@ -55,7 +55,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_MapLineDataWithTestProperties_MapLineDataLayerCreatedAccordingly()
         {
             // Setup
-            var mapLineData = new MapLineData("Test name");
+            var mapLineData = new MapLineData("Test name", new LineStyle(Color.AliceBlue, 2, DashStyle.DashDot));
 
             SetMapLineDataTestProperties(mapLineData);
 
@@ -73,7 +73,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Update_MapLineDataWithTestProperties_MapLineDataLayerUpdatedAccordingly()
         {
             // Setup
-            var mapLineData = new MapLineData("Test name");
+            var mapLineData = new MapLineData("Test name", new LineStyle(Color.AliceBlue, 2, DashStyle.DashDot));
             var mapLineDataLayer = new MapLineDataLayer(mapLineData);
 
             SetMapLineDataTestProperties(mapLineData);
@@ -142,7 +142,6 @@ namespace Core.Components.DotSpatial.Test.Layer
             mapLineData.IsVisible = false;
             mapLineData.ShowLabels = true;
             mapLineData.SelectedMetaDataAttribute = "Name";
-            mapLineData.Style = new LineStyle(Color.AliceBlue, 2, DashStyle.DashDot);
             mapLineData.Features = new[]
             {
                 CreateTestMapFeature()
@@ -156,7 +155,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsTrue(mapLineDataLayer.ShowLabels);
 
             Assert.IsNotNull(mapLineDataLayer.LabelLayer);
-            Assert.AreEqual(string.Format("[{0}]", "2"), mapLineDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+            Assert.AreEqual("[2]", mapLineDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
             var firstStroke = (CartographicStroke) mapLineDataLayer.Symbolizer.Strokes[0];
             Assert.AreEqual(Color.AliceBlue, firstStroke.Color);
@@ -176,8 +175,8 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsNull(mapLineDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
             var firstStroke = (SimpleStroke) mapLineDataLayer.Symbolizer.Strokes[0];
-            Assert.AreEqual(1.0, firstStroke.Width);
-            Assert.AreEqual(DashStyle.Solid, firstStroke.DashStyle);
+            Assert.AreEqual(2.0, firstStroke.Width);
+            Assert.AreEqual(DashStyle.DashDot, firstStroke.DashStyle);
 
             Assert.AreEqual(0, mapLineDataLayer.DataSet.Features.Count);
         }

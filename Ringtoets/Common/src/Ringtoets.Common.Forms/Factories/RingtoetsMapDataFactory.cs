@@ -50,9 +50,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateReferenceLineMapData()
         {
-            return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName)
+            return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName,
+                                   new LineStyle(Color.Red, thickLineWidth, DashStyle.Solid))
             {
-                Style = new LineStyle(Color.Red, thickLineWidth, DashStyle.Solid),
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
@@ -77,9 +77,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateFailureMechanismSectionsMapData()
         {
-            return new MapLineData(Resources.FailureMechanism_Sections_DisplayName)
+            return new MapLineData(Resources.FailureMechanism_Sections_DisplayName,
+                                   new LineStyle(Color.Khaki, thickLineWidth, DashStyle.Dot))
             {
-                Style = new LineStyle(Color.Khaki, thickLineWidth, DashStyle.Dot),
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
@@ -114,9 +114,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateDikeProfileMapData()
         {
-            return new MapLineData(Resources.DikeProfiles_DisplayName)
+            return new MapLineData(Resources.DikeProfiles_DisplayName,
+                                   new LineStyle(Color.SaddleBrown, thinLineWidth, DashStyle.Solid))
             {
-                Style = new LineStyle(Color.SaddleBrown, thinLineWidth, DashStyle.Solid),
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
@@ -127,9 +127,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateForeshoreProfileMapData()
         {
-            return new MapLineData(Resources.ForeshoreProfiles_DisplayName)
+            return new MapLineData(Resources.ForeshoreProfiles_DisplayName,
+                                   new LineStyle(Color.DarkOrange, thinLineWidth, DashStyle.Solid))
             {
-                Style = new LineStyle(Color.DarkOrange, thinLineWidth, DashStyle.Solid),
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }
@@ -153,9 +153,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapLineData CreateCalculationsMapData()
         {
-            return new MapLineData(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName)
+            return new MapLineData(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName,
+                                   new LineStyle(Color.MediumPurple, thinLineWidth, DashStyle.Dash))
             {
-                Style = new LineStyle(Color.MediumPurple, thinLineWidth, DashStyle.Dash),
                 ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };

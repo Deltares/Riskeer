@@ -41,9 +41,9 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()
         {
-            return new MapLineData(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor)
+            return new MapLineData(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
+                                   new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid))
             {
-                Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid),
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
             };
         }
@@ -54,9 +54,9 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()
         {
-            return new MapLineData(PipingDataResources.StochasticSoilModelCollection_TypeDescriptor)
+            return new MapLineData(PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                                   new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid))
             {
-                Style = new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid),
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
             };
         }

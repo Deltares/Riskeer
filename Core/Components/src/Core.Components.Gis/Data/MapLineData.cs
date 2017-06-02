@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
@@ -33,17 +35,36 @@ namespace Core.Components.Gis.Data
     public class MapLineData : FeatureBasedMapData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapLineData"/>.
+        /// Creates a new instance of <see cref="MapLineData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapLineData(string name) : base(name) {}
+        public MapLineData(string name)
+            : this(name, new LineStyle(Color.Black, 2, DashStyle.Solid)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapLineData"/> with default styling.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
+        /// <param name="style"></param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public MapLineData(string name, LineStyle style) : base(name)
+        {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+            Style = style;
+        }
 
         /// <summary>
         /// Gets or sets the style of the line.
         /// </summary>
-        public LineStyle Style { get; set; }
+        public LineStyle Style { get; }
 
         /// <summary>
         /// This method validates newly set features.
