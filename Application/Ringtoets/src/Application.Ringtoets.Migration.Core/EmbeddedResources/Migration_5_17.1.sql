@@ -129,8 +129,10 @@ SELECT
 	[GrassCoverErosionInwardsFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	"Onbekend"
-	FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
+	CASE WHEN COUNT([DikeProfileEntityId]) THEN "" ELSE NULL END
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity
+	LEFT JOIN [SOURCEPROJECT].DikeProfileEntity USING (FailureMechanismEntityId)
+	GROUP BY FailureMechanismEntityId;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
@@ -159,9 +161,12 @@ SELECT
 	[FailureMechanismEntityId],
 	[A],
 	[WaterVolumetricWeight], 
-	"Onbekend", 
-	"Onbekend" 
-	FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
+	CASE WHEN COUNT([StochasticSoilModelEntityId]) THEN "" ELSE NULL END,
+	CASE WHEN COUNT([SurfaceLineEntityId]) THEN "" ELSE NULL END
+	FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity
+	LEFT JOIN [SOURCEPROJECT].StochasticSoilModelEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].SurfaceLineEntity USING (FailureMechanismEntityId)
+	GROUP BY FailureMechanismEntityId;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;

@@ -306,7 +306,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string validateFailureMechanisms =
                 "SELECT COUNT() = 0 " +
                 "FROM [GrassCoverErosionInwardsFailureMechanismMetaEntity] " +
-                "WHERE [DikeProfileCollectionSourcePath] != \"Onbekend\";";
+                "WHERE [DikeProfileCollectionSourcePath] != \"\";";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);
 
             const string validateCalculations =
@@ -352,8 +352,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string validateFailureMechanisms =
                 "SELECT COUNT() = 0 " +
                 "FROM [PipingFailureMechanismMetaEntity] " +
-                "WHERE [StochasticSoilModelSourcePath] != \"Onbekend\"" +
-                "OR [SurfacelineSourcePath] != \"Onbekend\";";
+                "WHERE [StochasticSoilModelSourcePath] != \"\"" +
+                "OR [SurfacelineSourcePath] != \"\";";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);
 
             const string validateCalculationOutputs =

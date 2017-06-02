@@ -96,8 +96,8 @@ SELECT
 	[ClosingStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N2A],
-	CASE WHEN COUNT([ClosingStructureEntityId]) THEN "Onbekend" ELSE NULL END,
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([ClosingStructureEntityId]) THEN "" ELSE NULL END,
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
 	FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ClosingStructureEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
@@ -161,7 +161,7 @@ SELECT
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
 	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
@@ -236,8 +236,8 @@ SELECT
 	[HeightStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([HeightStructureEntityId]) THEN "Onbekend" ELSE NULL END,
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([HeightStructureEntityId]) THEN "" ELSE NULL END,
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
 	FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].HeightStructureEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
@@ -396,8 +396,8 @@ SELECT
 	[StrengthStabilityPointConstructionFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END,
-	CASE WHEN COUNT([StabilityPointStructureEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END,
+	CASE WHEN COUNT([StabilityPointStructureEntityId]) THEN "" ELSE NULL END
 	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].StabilityPointStructureEntity USING (FailureMechanismEntityId)
@@ -412,7 +412,7 @@ INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
 	[ForeshoreProfileCollectionSourcePath])
 SELECT 
 	[FailureMechanismEntityId],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
 	FROM [SOURCEPROJECT].FailureMechanismEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
 	WHERE FailureMechanismType = 7
@@ -441,7 +441,7 @@ INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity  (
 	[ForeshoreProfileCollectionSourcePath])
 SELECT 
 	[FailureMechanismEntityId],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "Onbekend" ELSE NULL END
+	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
 	FROM [SOURCEPROJECT].FailureMechanismEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
 	WHERE FailureMechanismType = 3
