@@ -49,7 +49,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
-            Assert.AreEqual(DashStyle.Solid, data.Style.Style);
+            Assert.AreEqual(DashStyle.Solid, data.Style.DashStyle);
         }
 
         [Test]

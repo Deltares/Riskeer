@@ -34,27 +34,27 @@ namespace Core.Components.Gis.Style
         /// </summary>
         /// <param name="color">The color of the line.</param>
         /// <param name="width">The width of the line.</param>
-        /// <param name="style">The <see cref="DashStyle"/> of the line.</param>
-        public LineStyle(Color color, int width, DashStyle style)
+        /// <param name="dashStyle">The <see cref="System.Drawing.Drawing2D.DashStyle"/> of the line.</param>
+        public LineStyle(Color color, int width, DashStyle dashStyle)
         {
             Color = color;
             Width = width;
-            Style = style;
+            DashStyle = dashStyle;
         }
 
         /// <summary>
-        /// Gets the line color.
+        /// Gets or sets the line color.
         /// </summary>
-        public Color Color { get; private set; }
+        public Color Color { get; set; }
 
         /// <summary>
-        /// Gets the line width.
+        /// Gets or sets the line width.
         /// </summary>
-        public int Width { get; private set; }
+        public int Width { get; set; }
 
         /// <summary>
-        /// Gets the line style.
+        /// Gets or sets the line style.
         /// </summary>
-        public DashStyle Style { get; private set; }
+        public DashStyle DashStyle { get; set; }
     }
 }

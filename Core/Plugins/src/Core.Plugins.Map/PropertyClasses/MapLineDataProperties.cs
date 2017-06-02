@@ -19,8 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using Core.Common.Gui.Attributes;
+using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
+using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.Properties;
+using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {
@@ -29,6 +38,62 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapLineDataProperties : FeatureBasedMapDataProperties<MapLineData>
     {
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_Color_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(MapColorConverter))]
+        public Color Color
+        {
+            get
+            {
+                return data.Style.Color;
+            }
+            set
+            {
+                data.Style.Color = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_Width_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Width_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(MapColorConverter))]
+        public int Width
+        {
+            get
+            {
+                return data.Style.Width;
+            }
+            set
+            {
+                data.Style.Width = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_DashStyle_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public DashStyle DashStyle
+        {
+            get
+            {
+                return data.Style.DashStyle;
+            }
+            set
+            {
+                data.Style.DashStyle = value;
+                data.NotifyObservers();
+            }
+        }
+
         public override string Type
         {
             get

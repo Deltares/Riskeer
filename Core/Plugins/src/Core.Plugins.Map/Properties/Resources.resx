@@ -304,4 +304,16 @@
   <data name="MapPointData_Symbol_Displayname" xml:space="preserve">
     <value>Symbool</value>
   </data>
+  <data name="MapLineData_DashStyle_Description" xml:space="preserve">
+    <value>De stijl van de lijnen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapLineData_DashStyle_DisplayName" xml:space="preserve">
+    <value>Lijnstijl</value>
+  </data>
+  <data name="MapLineData_Width_Description" xml:space="preserve">
+    <value>De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapLineData_Width_DisplayName" xml:space="preserve">
+    <value>Lijndikte</value>
+  </data>
 </root>

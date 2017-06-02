@@ -375,6 +375,42 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapLineData_DashStyle_Description {
+            get {
+                return ResourceManager.GetString("MapLineData_DashStyle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnstijl.
+        /// </summary>
+        public static string MapLineData_DashStyle_DisplayName {
+            get {
+                return ResourceManager.GetString("MapLineData_DashStyle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapLineData_Width_Description {
+            get {
+                return ResourceManager.GetString("MapLineData_Width_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijndikte.
+        /// </summary>
+        public static string MapLineData_Width_DisplayName {
+            get {
+                return ResourceManager.GetString("MapLineData_Width_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shapebestand.
         /// </summary>
         public static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description {
