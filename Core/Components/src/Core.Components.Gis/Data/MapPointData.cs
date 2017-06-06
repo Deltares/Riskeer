@@ -62,7 +62,7 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Gets or sets the style of the points.
+        /// Gets the style of the points.
         /// </summary>
         public PointStyle Style { get; }
 

@@ -61,7 +61,7 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Gets or sets the style of the polygon.
+        /// Gets the style of the polygon.
         /// </summary>
         public PolygonStyle Style { get; }
 
