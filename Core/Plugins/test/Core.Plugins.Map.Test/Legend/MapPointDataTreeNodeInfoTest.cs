@@ -137,6 +137,8 @@ namespace Core.Plugins.Map.Test.Legend
             {
                 builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
                 builder.Expect(mb => mb.AddSeparator()).Return(builder);
+                builder.Expect(mb => mb.AddDeleteItem()).Return(builder);
+                builder.Expect(mb => mb.AddSeparator()).Return(builder);
                 builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
                 builder.Expect(mb => mb.Build()).Return(null);
             }

@@ -122,11 +122,7 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapPointData => mapPointData.Name,
                 Image = mapPointData => MapResources.PointsIcon,
-                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
-                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
-                                                                                                 .AddSeparator()
-                                                                                                 .AddPropertiesItem()
-                                                                                                 .Build(),
+                ContextMenuStrip = (nodeData, parentData, treeView) => CreateFeatureBasedMapDataContextMenu(nodeData, treeView),
                 CanRemove = CanRemoveMapData,
                 OnNodeRemoved = RemoveFromParent,
                 CanDrag = (mapPointData, parentData) => true,
@@ -139,11 +135,7 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapLineData => mapLineData.Name,
                 Image = mapLineData => MapResources.LineIcon,
-                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
-                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
-                                                                                                 .AddSeparator()
-                                                                                                 .AddPropertiesItem()
-                                                                                                 .Build(),
+                ContextMenuStrip = (nodeData, parentData, treeView) => CreateFeatureBasedMapDataContextMenu(nodeData, treeView),
                 CanRemove = CanRemoveMapData,
                 OnNodeRemoved = RemoveFromParent,
                 CanDrag = (mapLineData, parentData) => true,
@@ -156,11 +148,7 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapPolygonData => mapPolygonData.Name,
                 Image = mapPolygonData => MapResources.AreaIcon,
-                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
-                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData))
-                                                                                                 .AddSeparator()
-                                                                                                 .AddPropertiesItem()
-                                                                                                 .Build(),
+                ContextMenuStrip = (nodeData, parentData, treeView) => CreateFeatureBasedMapDataContextMenu(nodeData, treeView),
                 CanRemove = CanRemoveMapData,
                 OnNodeRemoved = RemoveFromParent,
                 CanDrag = (mapPolygonData, parentData) => true,
@@ -188,6 +176,17 @@ namespace Core.Plugins.Map.Legend
                                                                                                           .AddPropertiesItem()
                                                                                                           .Build()
             });
+        }
+
+        private ContextMenuStrip CreateFeatureBasedMapDataContextMenu(FeatureBasedMapData nodeData, TreeViewControl treeView)
+        {
+            return contextMenuBuilderProvider.Get(nodeData, treeView)
+                                             .AddCustomItem(CreateZoomToExtentsItem(nodeData))
+                                             .AddSeparator()
+                                             .AddDeleteItem()
+                                             .AddSeparator()
+                                             .AddPropertiesItem()
+                                             .Build();
         }
 
         private static bool CanRemoveMapData(MapData mapData, object parent)
