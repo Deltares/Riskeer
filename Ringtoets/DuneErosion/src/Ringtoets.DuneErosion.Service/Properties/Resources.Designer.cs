@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duinafslag berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {
@@ -102,7 +102,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor duinafslag &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1 {
@@ -113,7 +113,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor duinafslag &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_no_error_report {
             get {
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duinafslag berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged {
             get {

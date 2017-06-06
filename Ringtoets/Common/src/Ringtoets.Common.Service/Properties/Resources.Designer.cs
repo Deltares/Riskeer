@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekening voor locatie {0} is niet geconvergeerd..
+        ///   Looks up a localized string similar to Toetspeil berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         public static string DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged {
             get {
@@ -319,7 +319,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte berekening voor locatie {0} is niet geconvergeerd..
+        ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         public static string WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged {
             get {

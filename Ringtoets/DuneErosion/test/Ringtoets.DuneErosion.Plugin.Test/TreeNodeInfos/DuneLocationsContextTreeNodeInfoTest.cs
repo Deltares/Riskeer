@@ -452,12 +452,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         // Assert
                         Assert.AreEqual(10, messageList.Count);
                         Assert.AreEqual("Berekening van 'A' gestart.", messageList[0]);
-                        Assert.AreEqual("Duinafslag berekening voor locatie 'A' is niet geconvergeerd.", messageList[1]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
+                        Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie 'A' is niet geconvergeerd.", messageList[1]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
                         Assert.AreEqual("Berekening van 'A' beëindigd.", messageList[3]);
                         Assert.AreEqual("Berekening van 'B' gestart.", messageList[4]);
-                        Assert.AreEqual("Duinafslag berekening voor locatie 'B' is niet geconvergeerd.", messageList[5]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[6]);
+                        Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie 'B' is niet geconvergeerd.", messageList[5]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[6]);
                         Assert.AreEqual("Berekening van 'B' beëindigd.", messageList[7]);
                         Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gelukt.", messageList[8]);
                         Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gelukt.", messageList[9]);

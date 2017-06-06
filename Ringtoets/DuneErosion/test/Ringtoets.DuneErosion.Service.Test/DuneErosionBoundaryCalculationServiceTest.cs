@@ -172,7 +172,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(3, msgs.Length);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[2]);
                     });
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
@@ -237,8 +237,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(4, msgs.Length);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
-                        Assert.AreEqual($"Duinafslag berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[3]);
                     });
             }
@@ -350,8 +350,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(4, msgs.Length);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
-                        StringAssert.StartsWith($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        StringAssert.StartsWith($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
@@ -419,8 +419,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(4, msgs.Length);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
-                        Assert.AreEqual($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
@@ -491,8 +491,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(4, msgs.Length);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
-                        StringAssert.StartsWith($"De berekening voor duinafslag '{duneLocation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
-                        StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        StringAssert.StartsWith($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
+                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);

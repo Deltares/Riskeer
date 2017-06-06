@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = string.Format("Golfhoogte berekening voor locatie {0} is niet geconvergeerd.", name);
+            string expectedMessage = string.Format("Golfhoogte berekening voor locatie '{0}' is niet geconvergeerd.", name);
             Assert.AreEqual(expectedMessage, message);
         }
     }

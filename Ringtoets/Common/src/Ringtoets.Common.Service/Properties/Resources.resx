@@ -139,7 +139,7 @@
     <value>Validatie van '{0}' gestart.</value>
   </data>
   <data name="DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged" xml:space="preserve">
-    <value>Toetspeil berekening voor locatie {0} is niet geconvergeerd.</value>
+    <value>Toetspeil berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation_no_error_report" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
@@ -151,7 +151,7 @@
     <value>Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}</value>
   </data>
   <data name="WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
-    <value>Golfhoogte berekening voor locatie {0} is niet geconvergeerd.</value>
+    <value>Golfhoogte berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_no_error_report" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.</value>

@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Validatie van 'Golfhoogte berekenen voor locatie '{locationName}'' gestart.", msgs[0]);
                             Assert.AreEqual($"Validatie van 'Golfhoogte berekenen voor locatie '{locationName}'' beëindigd.", msgs[1]);
                             Assert.AreEqual($"Berekening van 'Golfhoogte berekenen voor locatie '{locationName}'' gestart.", msgs[2]);
-                            Assert.AreEqual($"Golfhoogte berekening voor locatie {locationName} is niet geconvergeerd.", msgs[3]);
+                            Assert.AreEqual($"Golfhoogte berekening voor locatie '{locationName}' is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                             Assert.AreEqual($"Berekening van 'Golfhoogte berekenen voor locatie '{locationName}'' beëindigd.", msgs[5]);
                             Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' is gelukt.", msgs[6]);
