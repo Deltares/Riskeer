@@ -56,9 +56,9 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute()
         {
-            var line1 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_one)
+            var line1 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_one,
+                                          new ChartLineStyle(Color.DarkRed, 3, DashStyle.Solid))
             {
-                Style = new ChartLineStyle(Color.DarkRed, 3, DashStyle.Solid),
                 Points = new[]
                 {
                     new Point2D(0.0, 0.500),
@@ -86,9 +86,9 @@ namespace Demo.Ringtoets.Commands
                 }
             };
 
-            var line2 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_two)
+            var line2 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_two,
+                                          new ChartLineStyle(Color.DarkSlateBlue, 2, DashStyle.DashDot))
             {
-                Style = new ChartLineStyle(Color.DarkSlateBlue, 2, DashStyle.DashDot),
                 Points = new[]
                 {
                     new Point2D(0.0, 0.800),

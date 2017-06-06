@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
@@ -30,16 +32,33 @@ namespace Core.Components.Charting.Data
     public class ChartLineData : PointBasedChartData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ChartLineData"/>.
+        /// Creates a new instance of <see cref="ChartLineData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartLineData(string name) : base(name) {}
+        public ChartLineData(string name)
+            : this(name, new ChartLineStyle(Color.Black, 2, DashStyle.Solid)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartLineData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="ChartLineData"/>.</param>
+        /// <param name="style">The style of the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        public ChartLineData(string name, ChartLineStyle style) : base(name)
+        {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+            Style = style;
+        }
 
         /// <summary>
         /// Gets or sets the style of the line.
         /// </summary>
-        public ChartLineStyle Style { get; set; }
+        public ChartLineStyle Style { get; }
     }
 }

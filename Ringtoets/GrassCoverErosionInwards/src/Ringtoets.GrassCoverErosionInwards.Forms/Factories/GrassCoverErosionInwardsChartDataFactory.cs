@@ -43,10 +43,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateDikeGeometryChartData()
         {
-            return new ChartLineData(Resources.DikeProfile_DisplayName)
-            {
-                Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
-            };
+            return new ChartLineData(Resources.DikeProfile_DisplayName,
+                                     new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid));
         }
 
         /// <summary>
@@ -55,10 +53,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateDikeHeightChartData()
         {
-            return new ChartLineData(Resources.DikeHeight_ChartName)
-            {
-                Style = new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash)
-            };
+            return new ChartLineData(Resources.DikeHeight_ChartName,
+                                     new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash));
         }
 
         /// <summary>

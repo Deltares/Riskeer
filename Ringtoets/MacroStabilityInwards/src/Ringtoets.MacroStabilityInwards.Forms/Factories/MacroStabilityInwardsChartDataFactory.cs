@@ -41,10 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateSurfaceLineChartData()
         {
-            return new ChartLineData(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName)
-            {
-                Style = new ChartLineStyle(Color.Sienna, 2, DashStyle.Solid)
-            };
+            return new ChartLineData(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName,
+                                     new ChartLineStyle(Color.Sienna, 2, DashStyle.Solid));
         }
 
         /// <summary>

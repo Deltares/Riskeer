@@ -38,10 +38,8 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateForeshoreGeometryChartData()
         {
-            return new ChartLineData(Resources.Foreshore_DisplayName)
-            {
-                Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
-            };
+            return new ChartLineData(Resources.Foreshore_DisplayName,
+                                     new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid));
         }
     }
 }

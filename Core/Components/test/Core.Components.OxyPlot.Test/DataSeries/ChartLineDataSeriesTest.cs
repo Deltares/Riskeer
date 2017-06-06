@@ -52,7 +52,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartLineDataWithTestProperties_ChartLineDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartLineData = new ChartLineData("Test name");
+            var chartLineData = new ChartLineData("Test name", new ChartLineStyle(Color.Blue, 3, DashStyle.DashDot));
 
             SetChartLineDataTestProperties(chartLineData);
 
@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartLineDataWithTestProperties_ChartLineDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartLineData = new ChartLineData("Test name");
+            var chartLineData = new ChartLineData("Test name", new ChartLineStyle(Color.Blue, 3, DashStyle.DashDot));
             var chartLineDataSeries = new ChartLineDataSeries(chartLineData);
 
             SetChartLineDataTestProperties(chartLineData);
@@ -136,7 +136,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         {
             chartLineData.Name = "Another name";
             chartLineData.IsVisible = false;
-            chartLineData.Style = new ChartLineStyle(Color.Blue, 3, DashStyle.DashDot);
             chartLineData.Points = new[]
             {
                 new Point2D(1.1, 2.2)
@@ -160,9 +159,9 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.AreEqual("Test name", chartLineDataSeries.Title);
             Assert.IsTrue(chartLineDataSeries.IsVisible);
 
-            Assert.AreEqual(2, chartLineDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartLineDataSeries.Color);
-            Assert.AreEqual(LineStyle.Automatic, chartLineDataSeries.LineStyle);
+            Assert.AreEqual(3, chartLineDataSeries.StrokeThickness);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartLineDataSeries.Color);
+            Assert.AreEqual(LineStyle.DashDot, chartLineDataSeries.LineStyle);
 
             Assert.AreEqual(0, chartLineDataSeries.ItemsSource.Cast<DataPoint>().Count());
         }
