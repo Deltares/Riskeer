@@ -101,6 +101,42 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stijl.
+        /// </summary>
+        public static string Categories_Styling {
+            get {
+                return ResourceManager.GetString("Categories_Styling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string ChartData_Color_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartData_Color_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnkleur.
+        /// </summary>
+        public static string ChartData_StrokeColor_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartData_StrokeColor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijndikte.
+        /// </summary>
+        public static string ChartData_StrokeThickness_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartData_StrokeThickness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geeft aan of de gegevensreeks wordt weergegeven..
         /// </summary>
         public static string ChartDataProperties_IsVisible_Description {
@@ -244,6 +280,69 @@ namespace Core.Plugins.Chart.Properties {
         public static string ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip {
             get {
                 return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_Color_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_Size_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_Size_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grootte.
+        /// </summary>
+        public static string ChartPointData_Size_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartPointData_Size_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het symbool waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_Symbol_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_Symbol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbool.
+        /// </summary>
+        public static string ChartPointData_Symbol_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartPointData_Symbol_DisplayName", resourceCulture);
             }
         }
         

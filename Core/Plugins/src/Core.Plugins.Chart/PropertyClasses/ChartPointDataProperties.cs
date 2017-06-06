@@ -19,7 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
+using Core.Common.Gui.UITypeEditors;
+using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.PropertyClasses
@@ -29,6 +38,96 @@ namespace Core.Plugins.Chart.PropertyClasses
     /// </summary>
     public class ChartPointDataProperties : ChartDataProperties<ChartPointData>
     {
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Color_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(ColorTypeConverter))]
+        public Color Color
+        {
+            get
+            {
+                return data.Style.Color;
+            }
+            set
+            {
+                data.Style.Color = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeColor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_StrokeColor_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(ColorTypeConverter))]
+        public Color StrokeColor
+        {
+            get
+            {
+                return data.Style.StrokeColor;
+            }
+            set
+            {
+                data.Style.StrokeColor = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeThickness_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_StrokeThickness_Description))]
+        public int StrokeThickness
+        {
+            get
+            {
+                return data.Style.StrokeThickness;
+            }
+            set
+            {
+                data.Style.StrokeThickness = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartPointData_Size_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Size_Description))]
+        public int Size
+        {
+            get
+            {
+                return data.Style.Size;
+            }
+            set
+            {
+                data.Style.Size = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartPointData_Symbol_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Symbol_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public ChartPointSymbol Symbol
+        {
+            get
+            {
+                return data.Style.Symbol;
+            }
+            set
+            {
+                data.Style.Symbol = value;
+                data.NotifyObservers();
+            }
+        }
+
         public override string Type
         {
             get

@@ -46,28 +46,28 @@ namespace Core.Components.Charting.Styles
         }
 
         /// <summary>
-        /// Gets the point color.
+        /// Gets or sets the point color.
         /// </summary>
-        public Color Color { get; private set; }
+        public Color Color { get; set; }
 
         /// <summary>
-        /// Gets the point stroke color.
+        /// Gets or sets the point stroke color.
         /// </summary>
-        public Color StrokeColor { get; private set; }
+        public Color StrokeColor { get; set; }
 
         /// <summary>
-        /// Gets the point size.
+        /// Gets or sets the point size.
         /// </summary>
-        public double Size { get; private set; }
+        public int Size { get; set; }
 
         /// <summary>
-        /// Gets the point stroke thickness.
+        /// Gets or sets the point stroke thickness.
         /// </summary>
-        public int StrokeThickness { get; private set; }
+        public int StrokeThickness { get; set; }
 
         /// <summary>
-        /// Gets the point symbol.
+        /// Gets or sets the point symbol.
         /// </summary>
-        public ChartPointSymbol Symbol { get; private set; }
+        public ChartPointSymbol Symbol { get; set; }
     }
 }
