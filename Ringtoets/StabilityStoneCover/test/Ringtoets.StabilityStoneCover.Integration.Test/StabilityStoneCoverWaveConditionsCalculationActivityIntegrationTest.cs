@@ -143,7 +143,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         public void Run_Always_InputPropertiesCorrectlySendToService()
         {
             // Setup
-            const int calculators = 6;
+            const int nrOfCalculators = 6;
             var mockRepository = new MockRepository();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
 
@@ -156,7 +156,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     assessmentSectionStub);
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator).Repeat.Times(calculators);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(testWaveConditionsCosineCalculator)
+                             .Repeat
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -166,7 +169,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(calculators, testWaveConditionsInputs.Length);
+                Assert.AreEqual(nrOfCalculators, testWaveConditionsInputs.Length);
 
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 

@@ -1321,12 +1321,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
 
-                int calculators = failureMechanism.Calculations.Count();
+                int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
                                  .Return(new TestStructuresStabilityPointCalculator())
                                  .Repeat
-                                 .Times(calculators);
+                                 .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

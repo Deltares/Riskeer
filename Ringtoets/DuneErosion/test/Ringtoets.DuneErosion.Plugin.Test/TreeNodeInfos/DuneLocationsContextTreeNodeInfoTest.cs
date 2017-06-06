@@ -428,12 +428,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var observerMock = mocks.StrictMock<IObserver>();
                 observerMock.Expect(o => o.UpdateObserver());
 
-                int calculators = failureMechanism.DuneLocations.Count;
-                var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+                int nrOfCalculators = failureMechanism.DuneLocations.Count;
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
                                  .Return(new TestDunesBoundaryConditionsCalculator())
                                  .Repeat
-                                 .Times(calculators);
+                                 .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
                 failureMechanism.DuneLocations.Attach(observerMock);

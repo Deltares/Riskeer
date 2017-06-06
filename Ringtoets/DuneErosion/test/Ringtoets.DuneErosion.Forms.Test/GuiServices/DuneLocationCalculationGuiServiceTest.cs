@@ -123,12 +123,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 });
 
             var mockRepository = new MockRepository();
-            int calculators = failureMechanism.DuneLocations.Count;
+            int nrOfCalculators = failureMechanism.DuneLocations.Count;
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
                              .Return(new TestDunesBoundaryConditionsCalculator())
                              .Repeat
-                             .Times(calculators);
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())

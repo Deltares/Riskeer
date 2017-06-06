@@ -816,12 +816,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
 
-                int calculators = failureMechanism.Calculations.Count();
+                int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
                                  .Return(new TestStructuresClosureCalculator())
                                  .Repeat
-                                 .Times(calculators);
+                                 .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

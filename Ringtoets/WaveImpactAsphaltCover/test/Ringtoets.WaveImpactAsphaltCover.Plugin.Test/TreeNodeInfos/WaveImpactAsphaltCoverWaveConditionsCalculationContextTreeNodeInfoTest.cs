@@ -1232,9 +1232,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
-                int calculators = calculation.InputParameters.WaterLevels.Count();
+                int nrOfCalculators = calculation.InputParameters.WaterLevels.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(calculators);
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                                 .Return(new TestWaveConditionsCosineCalculator())
+                                 .Repeat
+                                 .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

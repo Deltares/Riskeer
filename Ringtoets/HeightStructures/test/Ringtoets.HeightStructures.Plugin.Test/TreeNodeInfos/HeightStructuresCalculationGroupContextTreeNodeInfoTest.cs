@@ -974,12 +974,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 guiStub.Stub(g => g.MainWindow).Return(mainWindowStub);
                 guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
-                int calculators = failureMechanism.Calculations.Count();
+                int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath))
                                  .Return(new TestStructuresOvertoppingCalculator())
                                  .Repeat
-                                 .Times(calculators);
+                                 .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;

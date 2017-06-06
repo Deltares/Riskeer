@@ -765,12 +765,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
-                int calculators = failureMechanism.Calculations.Count();
+                int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath))
                                  .Return(new TestStructuresOvertoppingCalculator())
                                  .Repeat
-                                 .Times(calculators);
+                                 .Times(nrOfCalculators);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;

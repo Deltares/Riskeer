@@ -459,11 +459,14 @@ namespace Ringtoets.Revetment.Service.Test
             const string calculationName = "test";
 
             var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
-            int calculators = input.WaterLevels.Count();
+            int nrOfCalculators = input.WaterLevels.Count();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator).Repeat.Times(calculators);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(testWaveConditionsCosineCalculator)
+                             .Repeat
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -487,17 +490,8 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                    string detailedReport)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails).Repeat.Times(3);
-            mockRepository.ReplayAll();
-
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
-            var a = (RoundedDouble) 1.0;
-            var b = (RoundedDouble) 0.8;
-            var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
 
             var input = new WaveConditionsInput
             {
@@ -506,6 +500,21 @@ namespace Ringtoets.Revetment.Service.Test
                 UpperBoundaryRevetment = waterLevelUpperBoundaryRevetment,
                 LowerBoundaryRevetment = waterLevelLowerBoundaryRevetment
             };
+
+            int nrOfCalculators = input.WaterLevels.Count();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(calculatorThatFails)
+                             .Repeat
+                             .Times(nrOfCalculators);
+            mockRepository.ReplayAll();
+
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
+            const double norm = 0.2;
 
             const string calculationName = "test";
 

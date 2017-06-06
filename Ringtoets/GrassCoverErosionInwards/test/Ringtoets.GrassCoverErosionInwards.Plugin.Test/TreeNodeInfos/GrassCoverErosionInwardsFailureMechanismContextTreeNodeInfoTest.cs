@@ -746,9 +746,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindowStub);
 
-                int calculators = failureMechanism.Calculations.Count();
+                int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator()).Repeat.Times(calculators);
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath))
+                                 .Return(new TestOvertoppingCalculator())
+                                 .Repeat
+                                 .Times(nrOfCalculators);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
