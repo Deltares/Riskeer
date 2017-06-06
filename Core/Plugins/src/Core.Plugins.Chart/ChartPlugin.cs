@@ -28,7 +28,6 @@ using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Core.Plugins.Chart.Commands;
 using Core.Plugins.Chart.Legend;
-using Core.Plugins.Chart.PresentationObjects;
 using Core.Plugins.Chart.PropertyClasses;
 
 namespace Core.Plugins.Chart
@@ -67,7 +66,6 @@ namespace Core.Plugins.Chart
             yield return new PropertyInfo<ChartMultipleAreaData, ChartMultipleAreaDataProperties>();
             yield return new PropertyInfo<ChartMultipleLineData, ChartMultipleLineDataProperties>();
             yield return new PropertyInfo<ChartPointData, ChartPointDataProperties>();
-            yield return new PropertyInfo<PointBasedChartData, PointBasedChartDataProperties>();
         }
 
         public override void Dispose()

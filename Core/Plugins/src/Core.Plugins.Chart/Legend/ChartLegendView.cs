@@ -174,7 +174,7 @@ namespace Core.Plugins.Chart.Legend
             return new StrictContextMenuItem($"&{ChartResources.Ribbon_ZoomToAll}",
                                              toolTip,
                                              ChartResources.ZoomToAllIcon,
-                                             (sender, args) => { ChartControl?.ZoomToAllVisibleLayers(nodeData); })
+                                             (sender, args) => ChartControl?.ZoomToAllVisibleLayers(nodeData))
             {
                 Enabled = isEnabled
             };
