@@ -102,9 +102,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -126,9 +126,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{dbFilePath}': het bestand bestaat niet.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -150,9 +150,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -176,9 +176,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -212,9 +212,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 StringAssert.StartsWith(expectedMessage, msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -255,9 +255,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -290,9 +290,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -325,8 +325,8 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[1]);
             });
 
             Assert.IsTrue(isValid);
@@ -373,8 +373,8 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[1]);
             });
 
             Assert.IsTrue(isValid);
@@ -403,9 +403,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
 
             Assert.IsFalse(isValid);

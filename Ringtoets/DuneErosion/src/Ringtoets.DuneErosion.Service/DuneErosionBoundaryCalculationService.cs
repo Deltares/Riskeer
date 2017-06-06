@@ -90,7 +90,7 @@ namespace Ringtoets.DuneErosion.Service
 
             string calculationName = duneLocation.Name;
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             var exceptionThrown = false;
             try
@@ -158,7 +158,7 @@ namespace Ringtoets.DuneErosion.Service
                 log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
                                calculator.OutputDirectory);
             }
-            CalculationServiceHelper.LogCalculationEndTime(calculationName);
+            CalculationServiceHelper.LogCalculationEnd(calculationName);
         }
 
         /// <summary>

@@ -104,9 +104,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 string calculationName = calculation.Name;
-                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{calculationName}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -135,9 +135,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 string calculationName = calculation.Name;
-                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{calculationName}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -174,9 +174,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -209,9 +209,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -252,9 +252,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -298,9 +298,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -346,9 +346,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -395,9 +395,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -441,9 +441,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -485,9 +485,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -524,8 +524,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs[0]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -655,11 +655,11 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie" +
                                             "" +
                                             "", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -712,9 +712,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -898,10 +898,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -966,10 +966,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1036,10 +1036,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
                     StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[3]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);

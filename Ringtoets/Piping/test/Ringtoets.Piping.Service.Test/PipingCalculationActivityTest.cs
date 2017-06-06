@@ -97,13 +97,13 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidPipingCalculation.Name), msgs.First());
+                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' gestart.", msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[4]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[5]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs.Last());
+                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' beëindigd.", msgs.Last());
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidPipingCalculation.Output);
@@ -130,10 +130,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validPipingCalculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validPipingCalculation.Name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", validPipingCalculation.Name), msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", validPipingCalculation.Name), msgs[3]);
+                Assert.AreEqual($"Validatie van '{validPipingCalculation.Name}' gestart.", msgs[0]);
+                Assert.AreEqual($"Validatie van '{validPipingCalculation.Name}' beëindigd.", msgs[1]);
+                Assert.AreEqual($"Berekening van '{validPipingCalculation.Name}' gestart.", msgs[2]);
+                Assert.AreEqual($"Berekening van '{validPipingCalculation.Name}' beëindigd.", msgs[3]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validPipingCalculation.Output);

@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             string calculationName = calculation.Name;
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
             RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
             }
         }
     }

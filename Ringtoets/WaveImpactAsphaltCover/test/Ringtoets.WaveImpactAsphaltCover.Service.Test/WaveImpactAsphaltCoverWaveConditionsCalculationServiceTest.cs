@@ -98,9 +98,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -130,9 +130,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': kon geen locaties verkrijgen van de database.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -162,9 +162,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -194,9 +194,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -226,9 +226,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -261,9 +261,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual("Validatie mislukt: Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -299,9 +299,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
 
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -408,7 +408,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
 
                     var i = 0;
                     foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
@@ -420,7 +420,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                         i = i + 3;
                     }
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[7]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[7]);
                 });
             }
             mockRepository.VerifyAll();
@@ -473,7 +473,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
 
                     var i = 0;
                     foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
@@ -485,7 +485,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                         i = i + 3;
                     }
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[7]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[7]);
                 });
             }
             mockRepository.VerifyAll();
@@ -685,7 +685,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     string[] msgs = messages.ToArray();
                     // Assert.AreEqual(15, msgs.Length);
 
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
 
                     RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
                     RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
@@ -708,7 +708,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[12]);
 
                     Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", msgs[13]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[14]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[14]);
                 });
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
                 Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor alle waterstanden.", exception.Message);

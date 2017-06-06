@@ -106,7 +106,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             string calculationName = calculation.Name;
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             RoundedDouble a = generalWaveConditionsInput.A;
             RoundedDouble b = generalWaveConditionsInput.B;
@@ -126,7 +126,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
             }
         }
     }

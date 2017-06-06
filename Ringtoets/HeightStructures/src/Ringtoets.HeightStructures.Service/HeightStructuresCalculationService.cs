@@ -69,12 +69,12 @@ namespace Ringtoets.HeightStructures.Service
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-            CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin(calculation.Name);
 
             string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
-            CalculationServiceHelper.LogValidationEndTime(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd(calculation.Name);
 
             return !messages.Any();
         }
@@ -134,7 +134,7 @@ namespace Ringtoets.HeightStructures.Service
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory);
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             var exceptionThrown = false;
 
@@ -181,7 +181,7 @@ namespace Ringtoets.HeightStructures.Service
                 }
 
                 log.InfoFormat(Resources.HeightStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
 
                 if (errorOccurred)
                 {

@@ -269,12 +269,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculationName}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculationName}' gestart.", msgs[2]);
                     Assert.AreEqual(notConvergedMessage, msgs[3]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculationName}' beëindigd.", msgs[5]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
                 });
             }
@@ -518,12 +518,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculationName}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculationName}' gestart.", msgs[2]);
                     Assert.AreEqual(notConvergedMessage, msgs[3]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculationName}' beëindigd.", msgs[5]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
                 });
             }

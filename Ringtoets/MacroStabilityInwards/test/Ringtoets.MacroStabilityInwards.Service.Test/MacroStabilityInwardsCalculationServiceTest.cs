@@ -70,8 +70,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs.Last());
             });
         }
 
@@ -111,11 +111,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -139,9 +139,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
                 Assert.AreEqual("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -168,9 +168,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'toetspeil' moet een concreet getal zijn.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -193,9 +193,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -219,9 +219,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
                 Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -258,11 +258,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                StringAssert.StartsWith($"Validatie van '{name}' gestart om: ", msgs.First());
-                StringAssert.StartsWith($"Validatie van '{name}' beëindigd om: ", msgs[1]);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[1]);
 
-                StringAssert.StartsWith($"Berekening van '{name}' gestart om: ", msgs[2]);
-                StringAssert.StartsWith($"Berekening van '{name}' beëindigd om: ", msgs.Last());
+                Assert.AreEqual($"Berekening van '{name}' gestart.", msgs[2]);
+                Assert.AreEqual($"Berekening van '{name}' beëindigd.", msgs.Last());
             });
         }
 

@@ -93,13 +93,13 @@ namespace Ringtoets.Revetment.Service
                 throw new ArgumentNullException(nameof(designWaterLevelName));
             }
 
-            CalculationServiceHelper.LogValidationBeginTime(name);
+            CalculationServiceHelper.LogValidationBegin(name);
 
             string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, waveConditionsInput, designWaterLevelName);
 
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
-            CalculationServiceHelper.LogValidationEndTime(name);
+            CalculationServiceHelper.LogValidationEnd(name);
 
             return !messages.Any();
         }

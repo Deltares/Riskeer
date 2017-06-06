@@ -943,10 +943,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messages[3]);
+                        Assert.AreEqual("Validatie van 'A' gestart.", messages[0]);
+                        Assert.AreEqual("Validatie van 'A' beëindigd.", messages[1]);
+                        Assert.AreEqual("Validatie van 'B' gestart.", messages[2]);
+                        Assert.AreEqual("Validatie van 'B' beëindigd.", messages[3]);
                     });
                 }
             }
@@ -1016,10 +1016,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(28, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[12]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[15]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[25]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' gestart.", messages[2]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", messages[12]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' gestart.", messages[15]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", messages[25]);
                         Assert.AreEqual("Uitvoeren van berekening 'Nieuwe berekening' is gelukt.", messages[26]);
                         Assert.AreEqual("Uitvoeren van berekening 'Nieuwe berekening' is gelukt.", messages[27]);
                     });

@@ -1346,16 +1346,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                         // Assert
                         Assert.AreEqual(12, messageList.Count);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
-                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
+                        Assert.AreEqual("Validatie van 'A' gestart.", messageList[0]);
+                        Assert.AreEqual("Validatie van 'A' beëindigd.", messageList[1]);
+                        Assert.AreEqual("Berekening van 'A' gestart.", messageList[2]);
                         StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", messageList[3]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[4]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[5]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[6]);
-                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
+                        Assert.AreEqual("Berekening van 'A' beëindigd.", messageList[4]);
+                        Assert.AreEqual("Validatie van 'B' gestart.", messageList[5]);
+                        Assert.AreEqual("Validatie van 'B' beëindigd.", messageList[6]);
+                        Assert.AreEqual("Berekening van 'B' gestart.", messageList[7]);
                         StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", messageList[8]);
-                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
+                        Assert.AreEqual("Berekening van 'B' beëindigd.", messageList[9]);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[10]);
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[11]);
                     });
@@ -1421,10 +1421,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                         // Assert
                         Assert.AreEqual(4, messageList.Count);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
+                        Assert.AreEqual("Validatie van 'A' gestart.", messageList[0]);
+                        Assert.AreEqual("Validatie van 'A' beëindigd.", messageList[1]);
+                        Assert.AreEqual("Validatie van 'B' gestart.", messageList[2]);
+                        Assert.AreEqual("Validatie van 'B' beëindigd.", messageList[3]);
                     });
                 }
             }

@@ -57,43 +57,39 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Logs the begin time of the validation.
+        /// Logs the begin of a validation action.
         /// </summary>
         /// <param name="name">The name of the object being validated.</param>
-        public static void LogValidationBeginTime(string name)
+        public static void LogValidationBegin(string name)
         {
-            log.Info(string.Format(Resources.Validation_Subject_0_started_Time_1_,
-                                   name, DateTimeService.CurrentTimeAsString));
+            log.Info(string.Format(Resources.Validation_Subject_0_started, name));
         }
 
         /// <summary>
-        /// Logs the end time of the validation.
+        /// Logs the end of a validation action.
         /// </summary>
         /// <param name="name">The name of the object being validated.</param>
-        public static void LogValidationEndTime(string name)
+        public static void LogValidationEnd(string name)
         {
-            log.Info(string.Format(Resources.Validation_Subject_0_ended_Time_1_,
-                                   name, DateTimeService.CurrentTimeAsString));
+            log.Info(string.Format(Resources.Validation_Subject_0_ended, name));
         }
 
         /// <summary>
-        /// Logs the begin time of the calculation.
+        /// Logs the begin of a calculation action.
         /// </summary>
         /// <param name="name">The name of the calculation being started.</param>
-        public static void LogCalculationBeginTime(string name)
+        public static void LogCalculationBegin(string name)
         {
-            log.Info(string.Format(Resources.Calculation_Subject_0_started_Time_1_,
-                                   name, DateTimeService.CurrentTimeAsString));
+            log.Info(string.Format(Resources.Calculation_Subject_0_started, name));
         }
 
         /// <summary>
-        /// Logs the end time of the calculation.
+        /// Logs the end of a calculation action.
         /// </summary>
         /// <param name="name">The name of the calculation that has ended.</param>
-        public static void LogCalculationEndTime(string name)
+        public static void LogCalculationEnd(string name)
         {
-            log.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,
-                                   name, DateTimeService.CurrentTimeAsString));
+            log.Info(string.Format(Resources.Calculation_Subject_0_ended, name));
         }
 
         /// <summary>

@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
-            StringAssert.StartsWith("De rekeninstellingen database heeft niet het juiste schema.", result);
+            Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", result);
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidFilePath);
 
             // Assert
-            StringAssert.StartsWith(string.Format("Het opgegeven bestandspad ({0}) is niet geldig.", invalidFilePath), result);
+            Assert.AreEqual($"Het opgegeven bestandspad ({invalidFilePath}) is niet geldig.", result);
         }
 
         [Test]

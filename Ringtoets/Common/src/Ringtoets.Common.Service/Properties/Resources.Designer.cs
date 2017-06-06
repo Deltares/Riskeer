@@ -82,20 +82,20 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; beëindigd om: {1}.
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; beëindigd..
         /// </summary>
-        public static string Calculation_Subject_0_ended_Time_1_ {
+        public static string Calculation_Subject_0_ended {
             get {
-                return ResourceManager.GetString("Calculation_Subject_0_ended_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_ended", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; gestart om: {1}.
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; gestart..
         /// </summary>
-        public static string Calculation_Subject_0_started_Time_1_ {
+        public static string Calculation_Subject_0_started {
             get {
-                return ResourceManager.GetString("Calculation_Subject_0_started_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_started", resourceCulture);
             }
         }
         
@@ -301,20 +301,20 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd om: {1}.
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd..
         /// </summary>
-        public static string Validation_Subject_0_ended_Time_1_ {
+        public static string Validation_Subject_0_ended {
             get {
-                return ResourceManager.GetString("Validation_Subject_0_ended_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_ended", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; gestart om: {1}.
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; gestart..
         /// </summary>
-        public static string Validation_Subject_0_started_Time_1_ {
+        public static string Validation_Subject_0_started {
             get {
-                return ResourceManager.GetString("Validation_Subject_0_started_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_started", resourceCulture);
             }
         }
         

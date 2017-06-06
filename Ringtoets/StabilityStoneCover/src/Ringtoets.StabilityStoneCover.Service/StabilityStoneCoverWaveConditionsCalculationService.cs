@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             string calculationName = calculation.Name;
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             RoundedDouble aBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A;
             RoundedDouble bBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B;
@@ -144,7 +144,7 @@ namespace Ringtoets.StabilityStoneCover.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
             }
         }
     }

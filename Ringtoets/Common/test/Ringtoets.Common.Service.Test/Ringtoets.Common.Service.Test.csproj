@@ -61,7 +61,6 @@
     <Compile Include="ClearResultsTest.cs" />
     <Compile Include="HydraRingInputParserTest.cs" />
     <Compile Include="CalculationServiceHelperTest.cs" />
-    <Compile Include="DateTimeServiceTest.cs" />
     <Compile Include="DesignWaterLevelCalculationActivityTest.cs" />
     <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
     <Compile Include="HydraRingSettingsDatabaseHelperTest.cs" />

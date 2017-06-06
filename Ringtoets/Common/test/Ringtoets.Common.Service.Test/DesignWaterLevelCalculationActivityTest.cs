@@ -149,9 +149,9 @@ namespace Ringtoets.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{calculationName}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             mockRepository.VerifyAll();
@@ -195,11 +195,11 @@ namespace Ringtoets.Common.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(5, messages.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' gestart om: ", messages[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculationName}' beëindigd om: ", messages[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' gestart om: ", messages[2]);
+                    Assert.AreEqual($"Validatie van '{calculationName}' gestart.", messages[0]);
+                    Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", messages[1]);
+                    Assert.AreEqual($"Berekening van '{calculationName}' gestart.", messages[2]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
-                    StringAssert.StartsWith($"Berekening van '{calculationName}' beëindigd om: ", messages[4]);
+                    Assert.AreEqual($"Berekening van '{calculationName}' beëindigd.", messages[4]);
                 });
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();

@@ -123,20 +123,20 @@
   <data name="CalculationService_ValidateInput_No_dike_profile_selected" xml:space="preserve">
     <value>Er is geen dijkprofiel geselecteerd.</value>
   </data>
-  <data name="Calculation_Subject_0_ended_Time_1_" xml:space="preserve">
-    <value>Berekening van '{0}' beëindigd om: {1}</value>
+  <data name="Calculation_Subject_0_ended" xml:space="preserve">
+    <value>Berekening van '{0}' beëindigd.</value>
   </data>
-  <data name="Calculation_Subject_0_started_Time_1_" xml:space="preserve">
-    <value>Berekening van '{0}' gestart om: {1}</value>
+  <data name="Calculation_Subject_0_started" xml:space="preserve">
+    <value>Berekening van '{0}' gestart.</value>
   </data>
   <data name="Error_in_validation_0" xml:space="preserve">
     <value>Validatie mislukt: {0}</value>
   </data>
-  <data name="Validation_Subject_0_ended_Time_1_" xml:space="preserve">
-    <value>Validatie van '{0}' beëindigd om: {1}</value>
+  <data name="Validation_Subject_0_ended" xml:space="preserve">
+    <value>Validatie van '{0}' beëindigd.</value>
   </data>
-  <data name="Validation_Subject_0_started_Time_1_" xml:space="preserve">
-    <value>Validatie van '{0}' gestart om: {1}</value>
+  <data name="Validation_Subject_0_started" xml:space="preserve">
+    <value>Validatie van '{0}' gestart.</value>
   </data>
   <data name="DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged" xml:space="preserve">
     <value>Toetspeil berekening voor locatie {0} is niet geconvergeerd.</value>

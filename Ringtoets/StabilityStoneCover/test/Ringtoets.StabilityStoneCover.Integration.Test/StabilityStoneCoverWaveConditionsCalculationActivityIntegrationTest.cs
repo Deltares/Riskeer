@@ -93,9 +93,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                     Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[1]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -244,15 +244,15 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
 
                     Assert.AreEqual(9, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[3]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' gestart.", msgs[4]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' beëindigd.", msgs[6]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken beëindigd.", msgs[7]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[8]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[8]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
@@ -296,9 +296,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
 
                     Assert.AreEqual(20, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[3]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[0]}' gestart.", msgs[4]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
@@ -315,7 +315,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[16]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevels[0]}' beëindigd.", msgs[17]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen beëindigd.", msgs[18]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[19]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[19]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);

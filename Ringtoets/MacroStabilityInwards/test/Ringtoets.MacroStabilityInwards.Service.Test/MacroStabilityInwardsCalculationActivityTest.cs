@@ -97,11 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidMacroStabilityInwardsCalculation.Name), msgs.First());
+                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' gestart.", msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidMacroStabilityInwardsCalculation.Name), msgs.Last());
+                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' beëindigd.", msgs.Last());
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidMacroStabilityInwardsCalculation.Output);
@@ -128,10 +128,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validMacroStabilityInwardsCalculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validMacroStabilityInwardsCalculation.Name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", validMacroStabilityInwardsCalculation.Name), msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", validMacroStabilityInwardsCalculation.Name), msgs[3]);
+                Assert.AreEqual($"Validatie van '{validMacroStabilityInwardsCalculation.Name}' gestart.", msgs[0]);
+                Assert.AreEqual($"Validatie van '{validMacroStabilityInwardsCalculation.Name}' beëindigd.", msgs[1]);
+                Assert.AreEqual($"Berekening van '{validMacroStabilityInwardsCalculation.Name}' gestart.", msgs[2]);
+                Assert.AreEqual($"Berekening van '{validMacroStabilityInwardsCalculation.Name}' beëindigd.", msgs[3]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validMacroStabilityInwardsCalculation.Output);

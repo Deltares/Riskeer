@@ -59,14 +59,14 @@ namespace Ringtoets.Common.Service
         {
             string calculationName = messageProvider.GetCalculationName(name);
 
-            CalculationServiceHelper.LogValidationBeginTime(calculationName);
+            CalculationServiceHelper.LogValidationBegin(calculationName);
 
             string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
 
             CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
                                                         validationProblems);
 
-            CalculationServiceHelper.LogValidationEndTime(calculationName);
+            CalculationServiceHelper.LogValidationEnd(calculationName);
 
             return !validationProblems.Any();
         }
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Service
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory);
 
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Service
                 }
 
                 log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
 
                 if (errorOccurred)
                 {

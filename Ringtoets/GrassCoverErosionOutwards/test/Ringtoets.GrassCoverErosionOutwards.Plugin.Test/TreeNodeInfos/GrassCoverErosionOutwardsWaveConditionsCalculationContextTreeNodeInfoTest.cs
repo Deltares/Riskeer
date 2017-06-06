@@ -1074,14 +1074,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        Assert.AreEqual("Validatie van 'A' gestart.", messages[0]);
 
                         if (!validCalculation)
                         {
                             Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages.Last());
+                        Assert.AreEqual("Validatie van 'A' beëindigd.", messages.Last());
                     });
                 }
             }

@@ -314,13 +314,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
-                            StringAssert.StartsWith($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart om:", msgs[0]);
-                            StringAssert.StartsWith($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd om:", msgs[1]);
-                            StringAssert.StartsWith($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart om:", msgs[2]);
-                            StringAssert.StartsWith($"Toetspeil berekening voor locatie {location.Name} is niet geconvergeerd.", msgs[3]);
+                            Assert.AreEqual($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart.", msgs[0]);
+                            Assert.AreEqual($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd.", msgs[1]);
+                            Assert.AreEqual($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' gestart.", msgs[2]);
+                            Assert.AreEqual($"Toetspeil berekening voor locatie {location.Name} is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                            StringAssert.StartsWith($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd om:", msgs[5]);
-                            StringAssert.StartsWith($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[6]);
+                            Assert.AreEqual($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd.", msgs[5]);
+                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(0, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculationConvergence);

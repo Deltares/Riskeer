@@ -104,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Service
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory);
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+            CalculationServiceHelper.LogCalculationBegin(calculationName);
 
             var exceptionThrown = false;
 
@@ -152,7 +152,7 @@ namespace Ringtoets.ClosingStructures.Service
 
                 log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
                                calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
 
                 if (errorOccurred)
                 {
@@ -191,10 +191,10 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-            CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin(calculation.Name);
             string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
-            CalculationServiceHelper.LogValidationEndTime(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd(calculation.Name);
 
             return !messages.Any();
         }

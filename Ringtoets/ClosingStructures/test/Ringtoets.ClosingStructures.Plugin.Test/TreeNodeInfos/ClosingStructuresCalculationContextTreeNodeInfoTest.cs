@@ -1020,12 +1020,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                        StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                        Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                        Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                        Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                         StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                        StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
-                        StringAssert.StartsWith($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[5]);
+                        Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[4]);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[5]);
                     });
 
                     Assert.AreNotSame(initialOutput, calculation.Output);
@@ -1082,8 +1082,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                        StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
+                        Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                        Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
                     });
                 }
             }

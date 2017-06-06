@@ -79,10 +79,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                              {
                                                  string[] msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' gestart om: ", msgs[0]);
+                                                 Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
                                                  Assert.AreEqual($"Duinafslag berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 StringAssert.StartsWith($"Berekening van '{duneLocation.Name}' beëindigd om: ", msgs[3]);
+                                                 Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[3]);
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

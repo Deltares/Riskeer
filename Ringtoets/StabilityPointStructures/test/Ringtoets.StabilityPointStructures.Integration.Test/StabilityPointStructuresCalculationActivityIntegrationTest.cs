@@ -79,9 +79,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -131,11 +131,11 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[4]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

@@ -991,10 +991,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
-                        StringAssert.StartsWith($"Validatie van '{validCalculation.Name}' gestart om: ", msgs[0]);
-                        StringAssert.StartsWith($"Validatie van '{validCalculation.Name}' beëindigd om: ", msgs[1]);
-                        StringAssert.StartsWith($"Validatie van '{invalidCalculation.Name}' gestart om: ", msgs[2]);
-                        StringAssert.StartsWith($"Validatie van '{invalidCalculation.Name}' beëindigd om: ", msgs[8]);
+                        Assert.AreEqual($"Validatie van '{validCalculation.Name}' gestart.", msgs[0]);
+                        Assert.AreEqual($"Validatie van '{validCalculation.Name}' beëindigd.", msgs[1]);
+                        Assert.AreEqual($"Validatie van '{invalidCalculation.Name}' gestart.", msgs[2]);
+                        Assert.AreEqual($"Validatie van '{invalidCalculation.Name}' beëindigd.", msgs[8]);
                     });
                 }
             }

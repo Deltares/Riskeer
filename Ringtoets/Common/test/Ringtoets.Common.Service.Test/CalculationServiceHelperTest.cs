@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -55,86 +54,74 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogValidationBeginTime_Always_LogsValidationBeginTime()
+        public void LogValidationBegin_Always_LogsValidationBegin()
         {
             // Setup
             const string name = "Test name";
-            DateTime dateTime = DateTime.Now;
 
             // Call
-            Action call = () => CalculationServiceHelper.LogValidationBeginTime(name);
+            Action call = () => CalculationServiceHelper.LogValidationBegin(name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om:", name), msgs[0]);
-
-                AssertLogTime(msgs[0], dateTime);
+                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
             });
         }
 
         [Test]
-        public void LogValidationEndTime_Always_LogsValidationEndTime()
+        public void LogValidationEnd_Always_LogsValidationEnd()
         {
             // Setup
             const string name = "Test name";
-            DateTime dateTime = DateTime.Now;
 
             // Call
-            Action call = () => CalculationServiceHelper.LogValidationEndTime(name);
+            Action call = () => CalculationServiceHelper.LogValidationEnd(name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om:", name), msgs[0]);
-
-                AssertLogTime(msgs[0], dateTime);
+                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[0]);
             });
         }
 
         [Test]
-        public void LogCalculationBeginTime_Always_LogsCalculationBeginTime()
+        public void LogCalculationBegin_Always_LogsCalculationBegin()
         {
             // Setup
             const string name = "Test name";
-            DateTime dateTime = DateTime.Now;
 
             // Call
-            Action call = () => CalculationServiceHelper.LogCalculationBeginTime(name);
+            Action call = () => CalculationServiceHelper.LogCalculationBegin(name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om:", name), msgs[0]);
-
-                AssertLogTime(msgs[0], dateTime);
+                Assert.AreEqual($"Berekening van '{name}' gestart.", msgs[0]);
             });
         }
 
         [Test]
-        public void LogCalculationEndTime_Always_LogsCalculationEndTime()
+        public void LogCalculationEnd_Always_LogsCalculationEnd()
         {
             // Setup
             const string name = "Test name";
-            DateTime dateTime = DateTime.Now;
 
             // Call
-            Action call = () => CalculationServiceHelper.LogCalculationEndTime(name);
+            Action call = () => CalculationServiceHelper.LogCalculationEnd(name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om:", name), msgs[0]);
-
-                AssertLogTime(msgs[0], dateTime);
+                Assert.AreEqual($"Berekening van '{name}' beëindigd.", msgs[0]);
             });
         }
 
@@ -174,16 +161,6 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.IsFalse(errorOccurred);
-        }
-
-        private static void AssertLogTime(string message, DateTime dateTime)
-        {
-            string[] logMessageArray = message.Split(':');
-            string logMessageDateTime = string.Format("{0}:{1}:{2}", logMessageArray[1], logMessageArray[2], logMessageArray[3]).Substring(1);
-
-            DateTime dateTimeFromLog = DateTime.ParseExact(logMessageDateTime, "HH:mm:ss", CultureInfo.CurrentCulture);
-            TimeSpan timeSpan = dateTimeFromLog - dateTime;
-            Assert.LessOrEqual(timeSpan, TimeSpan.FromMilliseconds(500));
         }
     }
 }

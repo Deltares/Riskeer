@@ -396,10 +396,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                                                  // Assert
                                                  Assert.AreEqual(5, messageList.Count);
-                                                 StringAssert.StartsWith("Berekening van '1' gestart om: ", messageList[0]);
+                                                 Assert.AreEqual("Berekening van '1' gestart.", messageList[0]);
                                                  Assert.AreEqual("Duinafslag berekening voor locatie '1' is niet geconvergeerd.", messageList[1]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[2]);
-                                                 StringAssert.StartsWith("Berekening van '1' beëindigd om: ", messageList[3]);
+                                                 Assert.AreEqual("Berekening van '1' beëindigd.", messageList[3]);
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gelukt.", messageList[4]);
                                              });
 

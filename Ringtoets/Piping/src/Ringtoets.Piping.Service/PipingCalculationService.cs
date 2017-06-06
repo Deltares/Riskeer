@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin(calculation.Name);
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
             string[] inputValidationResults = ValidateInput(calculation.InputParameters).ToArray();
@@ -63,14 +63,14 @@ namespace Ringtoets.Piping.Service
             if (inputValidationResults.Length > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults);
-                CalculationServiceHelper.LogValidationEndTime(calculation.Name);
+                CalculationServiceHelper.LogValidationEnd(calculation.Name);
                 return false;
             }
 
             List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
-            CalculationServiceHelper.LogValidationEndTime(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd(calculation.Name);
 
             return validationResults.Count == 0;
         }
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            CalculationServiceHelper.LogCalculationBeginTime(calculation.Name);
+            CalculationServiceHelper.LogCalculationBegin(calculation.Name);
 
             try
             {
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEndTime(calculation.Name);
+                CalculationServiceHelper.LogCalculationEnd(calculation.Name);
             }
         }
 

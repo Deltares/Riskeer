@@ -61,7 +61,6 @@
     <Compile Include="WaveHeightCalculationService.cs" />
     <Compile Include="DesignWaterLevelCalculationService.cs" />
     <Compile Include="DesignWaterLevelCalculationActivity.cs" />
-    <Compile Include="DateTimeService.cs" />
     <Compile Include="MessageProviders\ICalculationMessageProvider.cs" />
     <Compile Include="ProbabilityAssessmentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

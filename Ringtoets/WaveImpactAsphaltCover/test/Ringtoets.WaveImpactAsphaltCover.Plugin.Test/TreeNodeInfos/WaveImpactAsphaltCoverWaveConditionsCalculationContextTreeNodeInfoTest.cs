@@ -1004,14 +1004,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        Assert.AreEqual("Validatie van 'A' gestart.", messages[0]);
 
                         if (!validCalculation)
                         {
                             Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages.Last());
+                        Assert.AreEqual("Validatie van 'A' beëindigd.", messages.Last());
                     });
                 }
             }
@@ -1251,9 +1251,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(14, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[12]);
-                        StringAssert.StartsWith("Uitvoeren van berekening 'A' is gelukt.", messages[13]);
+                        Assert.AreEqual("Berekening van 'A' gestart.", messages[2]);
+                        Assert.AreEqual("Berekening van 'A' beëindigd.", messages[12]);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messages[13]);
                     });
                     Assert.AreEqual(3, calculation.Output.Items.Count());
                 }

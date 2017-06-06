@@ -84,9 +84,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
+                Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[2]);
+                Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -323,12 +323,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[3]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[5]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -373,12 +373,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
-                    StringAssert.StartsWith($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[3]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
+                    Assert.AreEqual($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[3]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[5]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -424,12 +424,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[3]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[5]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -471,11 +471,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[4]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -706,13 +706,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[4]);
                     StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -763,13 +763,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[4]);
+                    Assert.AreEqual($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[4]);
                     StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -821,13 +821,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[4]);
                     StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -885,13 +885,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet geconvergeerd.", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet geconvergeerd.", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -1133,13 +1133,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[4]);
                     StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -1190,13 +1190,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                    StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[4]);
+                    Assert.AreEqual($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[4]);
                     StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -1248,13 +1248,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[4]);
                     StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
@@ -1312,13 +1312,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' gestart om: ", msgs[0]);
-                    StringAssert.StartsWith($"Validatie van '{calculation.Name}' beëindigd om: ", msgs[1]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                     StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet geconvergeerd.", msgs[5]);
-                    StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[6]);
+                    Assert.AreEqual($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet geconvergeerd.", msgs[5]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
