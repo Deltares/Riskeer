@@ -42,7 +42,7 @@ namespace Core.Components.OxyPlot.Converter
             {
                 series.Color = ChartDataHelper.Convert(data.Style.Color);
                 series.StrokeThickness = data.Style.Width;
-                series.LineStyle = ChartDataHelper.Convert(data.Style.Style);
+                series.LineStyle = ChartDataHelper.Convert(data.Style.DashStyle);
             }
         }
     }

@@ -44,7 +44,7 @@ namespace Core.Components.Charting.Test.Data
             Assert.IsInstanceOf<PointBasedChartData>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
-            Assert.AreEqual(DashStyle.Solid, data.Style.Style);
+            Assert.AreEqual(DashStyle.Solid, data.Style.DashStyle);
         }
 
         [Test]

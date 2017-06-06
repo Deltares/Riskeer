@@ -19,6 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
+using Core.Common.Gui.UITypeEditors;
+using Core.Common.Utils.Attributes;
 using Core.Components.Charting.Data;
 using Core.Plugins.Chart.Properties;
 
@@ -29,6 +37,60 @@ namespace Core.Plugins.Chart.PropertyClasses
     /// </summary>
     public class ChartLineDataProperties : ChartDataProperties<ChartLineData>
     {
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_Color_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(ColorTypeConverter))]
+        public Color Color
+        {
+            get
+            {
+                return data.Style.Color;
+            }
+            set
+            {
+                data.Style.Color = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeThickness_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_Width_Description))]
+        public int Width
+        {
+            get
+            {
+                return data.Style.Width;
+            }
+            set
+            {
+                data.Style.Width = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineData_DashStyle_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_DashStyle_Description))]
+//        [TypeConverter(typeof(DashStyleConverter))]
+        public DashStyle DashStyle
+        {
+            get
+            {
+                return data.Style.DashStyle;
+            }
+            set
+            {
+                data.Style.DashStyle = value;
+                data.NotifyObservers();
+            }
+        }
+
         public override string Type
         {
             get

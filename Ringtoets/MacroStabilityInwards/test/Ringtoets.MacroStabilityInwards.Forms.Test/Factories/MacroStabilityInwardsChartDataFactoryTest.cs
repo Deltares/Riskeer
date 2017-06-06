@@ -190,7 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
+            Assert.AreEqual(style, lineStyle.DashStyle);
         }
 
         private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width)

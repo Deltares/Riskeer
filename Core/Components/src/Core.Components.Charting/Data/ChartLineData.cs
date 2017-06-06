@@ -57,7 +57,7 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Gets or sets the style of the line.
+        /// Gets the style of the line.
         /// </summary>
         public ChartLineStyle Style { get; }
     }

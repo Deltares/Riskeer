@@ -43,7 +43,7 @@ namespace Core.Components.Charting.Test.Styles
             // Assert
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
+            Assert.AreEqual(style, lineStyle.DashStyle);
             Assert.IsNull(lineStyle.Dashes);
         }
 
@@ -62,7 +62,7 @@ namespace Core.Components.Charting.Test.Styles
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.Dashes);
-            Assert.AreEqual(DashStyle.Solid, lineStyle.Style);
+            Assert.AreEqual(DashStyle.Solid, lineStyle.DashStyle);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
+            Assert.AreEqual(style, lineStyle.DashStyle);
         }
     }
 }

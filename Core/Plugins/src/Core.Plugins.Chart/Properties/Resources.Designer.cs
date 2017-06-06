@@ -284,6 +284,42 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartLineData_Color_Description {
+            get {
+                return ResourceManager.GetString("ChartLineData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartLineData_DashStyle_Description {
+            get {
+                return ResourceManager.GetString("ChartLineData_DashStyle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnstijl.
+        /// </summary>
+        public static string ChartLineData_DashStyle_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartLineData_DashStyle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartLineData_Width_Description {
+            get {
+                return ResourceManager.GetString("ChartLineData_Width_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven..
         /// </summary>
         public static string ChartPointData_Color_Description {

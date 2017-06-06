@@ -19,15 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using Core.Common.Base;
+using Core.Common.Gui.Converters;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Chart.Test.PropertyClasses
 {
     [TestFixture]
     public class ChartLineDataPropertiesTest
     {
+        private const int colorPropertyIndex = 3;
+        private const int widthPropertyIndex = 4;
+        private const int stylePropertyIndex = 5;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -38,6 +50,98 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             Assert.IsInstanceOf<ChartDataProperties<ChartLineData>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lijnen", properties.Type);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var chartLineData = new ChartLineData("Test");
+
+            // Call
+            var properties = new ChartLineDataProperties
+            {
+                Data = chartLineData
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
+                                                                            "Stijl",
+                                                                            "Kleur",
+                                                                            "De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
+
+            PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
+                                                                            "Stijl",
+                                                                            "Lijndikte",
+                                                                            "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
+
+            PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
+//            Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
+                                                                            "Stijl",
+                                                                            "Lijnstijl",
+                                                                            "De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
+        }
+
+        [Test]
+        public void Data_SetNewChartLineDataInstance_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            Color color = Color.Aqua;
+            const int width = 4;
+            const DashStyle dashStyle = DashStyle.DashDot;
+
+            var chartLineData = new ChartLineData("Test", new ChartLineStyle(color, width, dashStyle));
+            var properties = new ChartLineDataProperties();
+
+            // Call
+            properties.Data = chartLineData;
+
+            // Assert
+            Assert.AreEqual(color, properties.Color);
+            Assert.AreEqual(width, properties.Width);
+            Assert.AreEqual(dashStyle, properties.DashStyle);
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            const int numberOfChangedProperties = 3;
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            mocks.ReplayAll();
+
+            var chartLineData = new ChartLineData("Test", new ChartLineStyle(Color.AliceBlue, 3, DashStyle.Solid));
+
+            chartLineData.Attach(observerMock);
+
+            var properties = new ChartLineDataProperties
+            {
+                Data = chartLineData
+            };
+
+            Color newColor = Color.Blue;
+            const int newWidth = 6;
+            const DashStyle newDashStyle = DashStyle.DashDot;
+
+            // Call
+            properties.Color = newColor;
+            properties.Width = newWidth;
+            properties.DashStyle = newDashStyle;
+
+            // Assert
+            Assert.AreEqual(newColor, chartLineData.Style.Color);
+            Assert.AreEqual(newWidth, chartLineData.Style.Width);
+            Assert.AreEqual(newDashStyle, chartLineData.Style.DashStyle);
+            mocks.VerifyAll();
         }
     }
 }

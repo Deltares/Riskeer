@@ -51,7 +51,7 @@ namespace Core.Components.OxyPlot.Converter
                 series.Color = ChartDataHelper.Convert(lineStyle.Color);
                 series.StrokeThickness = lineStyle.Width;
                 series.Dashes = lineStyle.Dashes;
-                series.LineStyle = ChartDataHelper.Convert(lineStyle.Style);
+                series.LineStyle = ChartDataHelper.Convert(lineStyle.DashStyle);
             }
         }
     }

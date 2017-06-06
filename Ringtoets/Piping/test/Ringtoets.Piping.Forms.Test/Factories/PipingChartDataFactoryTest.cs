@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Style);
+            Assert.AreEqual(style, lineStyle.DashStyle);
         }
 
         private static void AssertEqualStyle(ChartPointStyle pointStyle, Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
