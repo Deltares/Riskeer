@@ -19,15 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using Core.Common.Base;
+using Core.Common.Gui.Converters;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Chart.Test.PropertyClasses
 {
     [TestFixture]
     public class ChartMultipleAreaDataPropertiesTest
     {
+        private const int fillColorPropertyIndex = 3;
+        private const int strokeColorPropertyIndex = 4;
+        private const int strokeThicknessPropertyIndex = 5;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -38,6 +49,98 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             Assert.IsInstanceOf<ChartDataProperties<ChartMultipleAreaData>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Vlakken", properties.Type);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var chartAreaData = new ChartMultipleAreaData("Test");
+
+            // Call
+            var properties = new ChartMultipleAreaDataProperties
+            {
+                Data = chartAreaData
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor colorProperty = dynamicProperties[fillColorPropertyIndex];
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
+                                                                            "Stijl",
+                                                                            "Kleur",
+                                                                            "De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
+
+            PropertyDescriptor widthProperty = dynamicProperties[strokeColorPropertyIndex];
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
+                                                                            "Stijl",
+                                                                            "Lijnkleur",
+                                                                            "De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
+
+            PropertyDescriptor styleProperty = dynamicProperties[strokeThicknessPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
+                                                                            "Stijl",
+                                                                            "Lijndikte",
+                                                                            "De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
+        }
+
+        [Test]
+        public void Data_SetNewChartAreaDataInstance_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            Color fillColor = Color.Aqua;
+            Color strokeColor = Color.Bisque;
+            const int strokeThickness = 4;
+
+            var chartAreaData = new ChartMultipleAreaData("Test", new ChartAreaStyle(fillColor, strokeColor, strokeThickness));
+            var properties = new ChartMultipleAreaDataProperties();
+
+            // Call
+            properties.Data = chartAreaData;
+
+            // Assert
+            Assert.AreEqual(fillColor, properties.FillColor);
+            Assert.AreEqual(strokeColor, properties.StrokeColor);
+            Assert.AreEqual(strokeThickness, properties.StrokeThickness);
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            const int numberOfChangedProperties = 3;
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            mocks.ReplayAll();
+
+            var chartAreaData = new ChartMultipleAreaData("Test", new ChartAreaStyle(Color.AliceBlue, Color.Blue, 3));
+
+            chartAreaData.Attach(observerMock);
+
+            var properties = new ChartMultipleAreaDataProperties
+            {
+                Data = chartAreaData
+            };
+
+            Color newFillColor = Color.Blue;
+            Color newStrokeColor = Color.Red;
+            const int newStrokeThickness = 6;
+
+            // Call
+            properties.FillColor = newFillColor;
+            properties.StrokeColor = newStrokeColor;
+            properties.StrokeThickness = newStrokeThickness;
+
+            // Assert
+            Assert.AreEqual(newFillColor, chartAreaData.Style.FillColor);
+            Assert.AreEqual(newStrokeColor, chartAreaData.Style.StrokeColor);
+            Assert.AreEqual(newStrokeThickness, chartAreaData.Style.StrokeThickness);
+            mocks.VerifyAll();
         }
     }
 }
