@@ -181,7 +181,7 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Driekhoek.
+        ///   Looks up a localized string similar to Driehoek.
         /// </summary>
         internal static string Triangle_DisplayName {
             get {
