@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
@@ -30,16 +31,35 @@ namespace Core.Components.Charting.Data
     public class ChartAreaData : PointBasedChartData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ChartAreaData"/>.
+        /// Creates a new instance of <see cref="ChartAreaData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartAreaData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartAreaData(string name) : base(name) {}
+        public ChartAreaData(string name)
+            : this(name, new ChartAreaStyle(Color.Gray, Color.Black, 2)) {}
 
         /// <summary>
-        /// Gets or sets the style of the chart area.
+        /// Creates a new instance of <see cref="ChartAreaData"/>.
         /// </summary>
-        public ChartAreaStyle Style { get; set; }
+        /// <param name="name">The name of the <see cref="ChartAreaData"/>.</param>
+        /// <param name="style">The style of the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public ChartAreaData(string name, ChartAreaStyle style) : base(name)
+        {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+            Style = style;
+        }
+
+        /// <summary>
+        /// Gets the style of the chart area.
+        /// </summary>
+        public ChartAreaStyle Style { get; }
     }
 }

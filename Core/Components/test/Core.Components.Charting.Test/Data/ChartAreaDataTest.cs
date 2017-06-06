@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Data
@@ -39,6 +41,9 @@ namespace Core.Components.Charting.Test.Data
             Assert.AreEqual("test data", data.Name);
             Assert.IsEmpty(data.Points);
             Assert.IsInstanceOf<PointBasedChartData>(data);
+            Assert.AreEqual(Color.Gray, data.Style.FillColor);
+            Assert.AreEqual(Color.Black, data.Style.StrokeColor);
+            Assert.AreEqual(2, data.Style.Width);
         }
 
         [Test]
@@ -53,6 +58,33 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_StyleNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new ChartAreaData("test data", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("style", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithStyle_ExpectedValue()
+        {
+            // Setup
+            var style = new ChartAreaStyle(Color.Red, Color.Fuchsia, 3);
+
+            // Call
+            var data = new ChartAreaData("test data", style);
+
+            // Assert
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Points);
+            Assert.IsInstanceOf<PointBasedChartData>(data);
+            Assert.AreSame(style, data.Style);
         }
     }
 }

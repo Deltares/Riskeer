@@ -49,7 +49,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartAreaDataWithTestProperties_ChartAreaDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartAreaData = new ChartAreaData("Test name");
+            var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
 
             SetChartAreaDataTestProperties(chartAreaData);
 
@@ -66,7 +66,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartAreaDataWithTestProperties_ChartAreaDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartAreaData = new ChartAreaData("Test name");
+            var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
             var chartAreaDataSeries = new ChartAreaDataSeries(chartAreaData);
 
             SetChartAreaDataTestProperties(chartAreaData);
@@ -133,7 +133,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         {
             chartAreaData.Name = "Another name";
             chartAreaData.IsVisible = false;
-            chartAreaData.Style = new ChartAreaStyle(Color.Red, Color.Blue, 3);
             chartAreaData.Points = new[]
             {
                 new Point2D(1.1, 2.2)
@@ -157,9 +156,9 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.AreEqual("Test name", chartAreaDataSeries.Title);
             Assert.IsTrue(chartAreaDataSeries.IsVisible);
 
-            Assert.AreEqual(2, chartAreaDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartAreaDataSeries.Color);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartAreaDataSeries.Fill);
+            Assert.AreEqual(3, chartAreaDataSeries.StrokeThickness);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartAreaDataSeries.Fill);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartAreaDataSeries.Color);
 
             Assert.AreEqual(0, chartAreaDataSeries.Points.Count);
         }

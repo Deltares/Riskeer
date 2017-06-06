@@ -116,9 +116,9 @@ namespace Demo.Ringtoets.Commands
                 }
             };
 
-            var area1 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_one)
+            var area1 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_one,
+                                          new ChartAreaStyle(Color.DarkSeaGreen, Color.DarkGreen, 5))
             {
-                Style = new ChartAreaStyle(Color.DarkSeaGreen, Color.DarkGreen, 5),
                 Points = new[]
                 {
                     new Point2D(0.0, 0.500),
@@ -157,9 +157,9 @@ namespace Demo.Ringtoets.Commands
                 }
             };
 
-            var area2 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_two)
+            var area2 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_two,
+                                          new ChartAreaStyle(Color.FromArgb(120, Color.Wheat), Color.DarkOrange, 2))
             {
-                Style = new ChartAreaStyle(Color.FromArgb(120, Color.Wheat), Color.DarkOrange, 2),
                 Points = new[]
                 {
                     new Point2D(0.1, 0.723 - 0.5),
