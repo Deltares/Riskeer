@@ -133,4 +133,7 @@
   <data name="DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format" xml:space="preserve">
     <value>Locatie '{0}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen.</value>
   </data>
+  <data name="DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_location_with_name_0_" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden berekenen voor locatie '{0}'</value>
+  </data>
 </root>

@@ -150,7 +150,11 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.GuiImportHandler_RunImportActivity_Start_importing_data);
 
-            var activity = new FileImportActivity(importer, importName ?? string.Empty);
+            var activity = new FileImportActivity(importer,
+                                                  !string.IsNullOrEmpty(importName)
+                                                      ? string.Format(Resources.GuiImportHandler_RunImportActivity_Importing_0_, importName)
+                                                      : string.Empty);
+
             ActivityProgressDialogRunner.Run(dialogParent, activity);
         }
     }

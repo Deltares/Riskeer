@@ -800,8 +800,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[8]);
                         StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
-                        Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[10]);
-                        Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[11]);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[10]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[11]);
                     });
                 }
             }

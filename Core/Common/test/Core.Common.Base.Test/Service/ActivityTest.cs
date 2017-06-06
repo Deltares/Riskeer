@@ -36,7 +36,7 @@ namespace Core.Common.Base.Test.Service
             var activity = new SimpleActivity(false, false, false);
 
             // Assert
-            Assert.AreEqual("", activity.Name);
+            Assert.AreEqual("Uitvoeren van berekening", activity.Description);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.IsNull(activity.ProgressText);
             CollectionAssert.IsEmpty(activity.LogMessages);
@@ -122,16 +122,16 @@ namespace Core.Common.Base.Test.Service
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van '' is gelukt."
+                "Uitvoeren van berekening is gelukt."
             });
 
             Assert.AreEqual(ActivityState.Finished, activity.State);
         }
 
         [Test]
-        [TestCase(ActivityState.Failed, "Uitvoeren van '' is mislukt.")]
-        [TestCase(ActivityState.Canceled, "Uitvoeren van '' is geannuleerd.")]
-        [TestCase(ActivityState.Skipped, "Uitvoeren van '' is overgeslagen.")]
+        [TestCase(ActivityState.Failed, "Uitvoeren van berekening is mislukt.")]
+        [TestCase(ActivityState.Canceled, "Uitvoeren van berekening is geannuleerd.")]
+        [TestCase(ActivityState.Skipped, "Uitvoeren van berekening is overgeslagen.")]
         public void Finish_ActivityWithSpecificStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsPreserved(ActivityState state, string message)
         {
             // Setup
@@ -169,7 +169,7 @@ namespace Core.Common.Base.Test.Service
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van '' is mislukt."
+                "Uitvoeren van berekening is mislukt."
             });
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -197,6 +197,8 @@ namespace Core.Common.Base.Test.Service
                 this.throwOnRun = throwOnRun;
                 this.throwOnCancel = throwOnCancel;
                 this.throwOnFinish = throwOnFinish;
+
+                Description = "Uitvoeren van berekening";
 
                 State = state;
             }

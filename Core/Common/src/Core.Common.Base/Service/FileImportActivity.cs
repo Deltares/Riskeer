@@ -37,21 +37,21 @@ namespace Core.Common.Base.Service
         /// Constructs a new <see cref="FileImportActivity"/>.
         /// </summary>
         /// <param name="fileImporter">The <see cref="IFileImporter"/> to use for importing the data.</param>
-        /// <param name="name">The name of the importer.</param>
+        /// <param name="description">The description of the import action.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FileImportActivity(IFileImporter fileImporter, string name)
+        public FileImportActivity(IFileImporter fileImporter, string description)
         {
             if (fileImporter == null)
             {
                 throw new ArgumentNullException(nameof(fileImporter));
             }
-            if (name == null)
+            if (description == null)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(description));
             }
 
             this.fileImporter = fileImporter;
-            Name = name;
+            Description = description;
         }
 
         /// <summary>

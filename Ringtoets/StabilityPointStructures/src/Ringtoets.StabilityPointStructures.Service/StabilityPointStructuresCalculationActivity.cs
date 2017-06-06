@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.StabilityPointStructures.Data;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Service
 {
@@ -75,7 +76,8 @@ namespace Ringtoets.StabilityPointStructures.Service
             this.assessmentSection = assessmentSection;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
 
-            Name = calculation.Name;
+            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+
             calculationService = new StabilityPointStructuresCalculationService();
         }
 

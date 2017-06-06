@@ -24,6 +24,7 @@ using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service
 {
@@ -73,9 +74,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            calculationService = new WaveImpactAsphaltCoverWaveConditionsCalculationService();
+            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
 
-            Name = calculation.Name;
+            calculationService = new WaveImpactAsphaltCoverWaveConditionsCalculationService();
         }
 
         protected override bool Validate()

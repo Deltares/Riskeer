@@ -34,11 +34,11 @@ namespace Ringtoets.Common.Service.MessageProviders
         string GetCalculationName(string calculationSubject);
 
         /// <summary>
-        /// Gets the activity name that can be used for messaging.
+        /// Gets the activity description that can be used for messaging.
         /// </summary>
-        /// <param name="calculationSubject">The calculation subject used in the calculation name.</param>
-        /// <returns>The activity name.</returns>
-        string GetActivityName(string calculationSubject);
+        /// <param name="calculationSubject">The calculation subject used in the activity description.</param>
+        /// <returns>The activity description.</returns>
+        string GetActivityDescription(string calculationSubject);
 
         /// <summary>
         /// Gets the message that should be used when a calculation fails.

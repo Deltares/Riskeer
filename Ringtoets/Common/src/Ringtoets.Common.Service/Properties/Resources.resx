@@ -206,4 +206,7 @@
   <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0" xml:space="preserve">
     <value>De N-waarde van dit toetsspoor moet groter zijn dan 0.</value>
   </data>
+  <data name="Perform_calculation_with_name_0_" xml:space="preserve">
+    <value>Uitvoeren van berekening '{0}'</value>
+  </data>
 </root>

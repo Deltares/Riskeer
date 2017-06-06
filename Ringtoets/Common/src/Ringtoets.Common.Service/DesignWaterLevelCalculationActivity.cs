@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service
 
             calculationService = new DesignWaterLevelCalculationService();
 
-            Name = messageProvider.GetActivityName(hydraulicBoundaryLocation.Name);
+            Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocation.Name);
         }
 
         protected override bool Validate()

@@ -321,7 +321,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             StringAssert.StartsWith($"Golfhoogte berekening voor locatie {locationName} is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                             StringAssert.StartsWith($"Berekening van 'Golfhoogte berekenen voor locatie '{locationName}'' beëindigd om:", msgs[5]);
-                            StringAssert.StartsWith($"Uitvoeren van 'Golfhoogte berekenen voor locatie '{locationName}'' is gelukt.", msgs[6]);
+                            StringAssert.StartsWith($"Golfhoogte berekenen voor locatie '{locationName}' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.WaveHeightCalculationConvergence);
                     }

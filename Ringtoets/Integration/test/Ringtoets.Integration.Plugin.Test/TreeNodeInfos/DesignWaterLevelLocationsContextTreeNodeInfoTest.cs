@@ -320,7 +320,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             StringAssert.StartsWith($"Toetspeil berekening voor locatie {location.Name} is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                             StringAssert.StartsWith($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' beëindigd om:", msgs[5]);
-                            StringAssert.StartsWith($"Uitvoeren van 'Toetspeil berekenen voor locatie '{location.Name}'' is gelukt.", msgs[6]);
+                            StringAssert.StartsWith($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(0, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculationConvergence);

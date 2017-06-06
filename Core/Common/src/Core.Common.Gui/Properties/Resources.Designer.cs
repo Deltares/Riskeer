@@ -954,6 +954,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importeren van &apos;{0}&apos;.
+        /// </summary>
+        public static string GuiImportHandler_RunImportActivity_Importing_0_ {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_RunImportActivity_Importing_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
         /// </summary>
         public static string GuiImportHandler_RunImportActivity_Start_importing_data {
@@ -1006,6 +1015,15 @@ namespace Core.Common.Gui.Properties {
         public static string GuiUpdateHandler_RunUpdateActivity_Start_updating_data {
             get {
                 return ResourceManager.GetString("GuiUpdateHandler_RunUpdateActivity_Start_updating_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijwerken van &apos;{0}&apos;.
+        /// </summary>
+        public static string GuiUpdateHandler_RunUpdateActivity_Updating_0_ {
+            get {
+                return ResourceManager.GetString("GuiUpdateHandler_RunUpdateActivity_Updating_0_", resourceCulture);
             }
         }
         
@@ -1182,9 +1200,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Openen van bestaand project.
         /// </summary>
-        public static string OpenProjectActivity_Name {
+        public static string OpenProjectActivity_Open_existing_project {
             get {
-                return ResourceManager.GetString("OpenProjectActivity_Name", resourceCulture);
+                return ResourceManager.GetString("OpenProjectActivity_Open_existing_project", resourceCulture);
             }
         }
         

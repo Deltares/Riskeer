@@ -241,7 +241,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(notConvergedMessage);
             mockRepository.ReplayAll();
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
             mockRepository.ReplayAll();
@@ -490,7 +490,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(notConvergedMessage);
             mockRepository.ReplayAll();
@@ -541,7 +541,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
             mockRepository.ReplayAll();

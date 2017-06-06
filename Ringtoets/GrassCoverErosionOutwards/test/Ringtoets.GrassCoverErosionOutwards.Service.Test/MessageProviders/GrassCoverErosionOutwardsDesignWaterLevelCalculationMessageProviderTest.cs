@@ -60,17 +60,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetActivityName_ValidNames_ExpectedValue(string name)
+        public void GetActivityDescription_ValidNames_ExpectedValue(string name)
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();
 
             // Call
-            string activityName = provider.GetActivityName(name);
+            string activityDescription = provider.GetActivityDescription(name);
 
             // Assert
             string expectedName = $"Waterstand bij doorsnede-eis berekenen voor locatie '{name}'";
-            Assert.AreEqual(expectedName, activityName);
+            Assert.AreEqual(expectedName, activityDescription);
         }
 
         [Test]

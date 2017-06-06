@@ -36,18 +36,18 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Class responsible for handling import workflow with user interaction.
+    /// Class responsible for handling update workflow with user interaction.
     /// </summary>
     public class GuiUpdateHandler : IUpdateCommandHandler
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GuiImportHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(GuiUpdateHandler));
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<UpdateInfo> updateInfos;
         private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GuiImportHandler"/> class.
+        /// Initializes a new instance of the <see cref="GuiUpdateHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
         /// <param name="updateInfos">An enumeration of <see cref="UpdateInfo"/>.</param>
@@ -157,11 +157,15 @@ namespace Core.Common.Gui.Commands
             }
         }
 
-        private void RunUpdateActivity(IFileImporter importer, string importName)
+        private void RunUpdateActivity(IFileImporter importer, string updateName)
         {
             log.Info(Resources.GuiUpdateHandler_RunUpdateActivity_Start_updating_data);
 
-            var activity = new FileImportActivity(importer, importName ?? string.Empty);
+            var activity = new FileImportActivity(importer,
+                                                  !string.IsNullOrEmpty(updateName)
+                                                      ? string.Format(Resources.GuiUpdateHandler_RunUpdateActivity_Updating_0_, updateName)
+                                                      : string.Empty);
+
             ActivityProgressDialogRunner.Run(dialogParent, activity);
         }
     }

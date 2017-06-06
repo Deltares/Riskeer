@@ -60,17 +60,17 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetActivityName_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetActivityDescription_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
             var provider = new DesignWaterLevelCalculationMessageProvider();
 
             // Call
-            string activityName = provider.GetActivityName(name);
+            string activityDescription = provider.GetActivityDescription(name);
 
             // Assert
             string expectedName = string.Format("Toetspeil berekenen voor locatie '{0}'", name);
-            Assert.AreEqual(expectedName, activityName);
+            Assert.AreEqual(expectedName, activityDescription);
         }
 
         [Test]

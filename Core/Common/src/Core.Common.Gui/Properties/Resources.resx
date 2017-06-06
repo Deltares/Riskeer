@@ -592,7 +592,7 @@
   <data name="GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled" xml:space="preserve">
     <value>Importeren van gegevens is door de gebruiker geannuleerd.</value>
   </data>
-  <data name="OpenProjectActivity_Name" xml:space="preserve">
+  <data name="OpenProjectActivity_Open_existing_project" xml:space="preserve">
     <value>Openen van bestaand project</value>
   </data>
   <data name="OpenProjectActivity_ProgressTextStepName_MigrateProject" xml:space="preserve">
@@ -645,5 +645,11 @@
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project_caption" xml:space="preserve">
     <value>Project opgeslagen</value>
+  </data>
+  <data name="GuiImportHandler_RunImportActivity_Importing_0_" xml:space="preserve">
+    <value>Importeren van '{0}'</value>
+  </data>
+  <data name="GuiUpdateHandler_RunUpdateActivity_Updating_0_" xml:space="preserve">
+    <value>Bijwerken van '{0}'</value>
   </data>
 </root>

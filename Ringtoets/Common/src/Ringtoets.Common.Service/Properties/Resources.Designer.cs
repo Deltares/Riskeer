@@ -206,6 +206,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren van berekening &apos;{0}&apos;.
+        /// </summary>
+        public static string Perform_calculation_with_name_0_ {
+            get {
+                return ResourceManager.GetString("Perform_calculation_with_name_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De verwachtingswaarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string ProbabilisticDistributionValidationRule_Mean_of_0_must_be_a_valid_number {

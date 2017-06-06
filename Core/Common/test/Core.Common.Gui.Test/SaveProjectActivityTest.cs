@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test
 
             string exitingPrefix = savingExistingProject ? "bestaand " : "";
             string expectedName = $"Opslaan van {exitingPrefix}project";
-            Assert.AreEqual(expectedName, activity.Name);
+            Assert.AreEqual(expectedName, activity.Description);
 
             mocks.VerifyAll();
         }
@@ -338,7 +338,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Opslaan van project' is gelukt.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Opslaan van project is gelukt.",
                                                                            LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.AreEqual(ActivityState.Finished, activity.State);
@@ -369,7 +369,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Opslaan van bestaand project' is gelukt.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Opslaan van bestaand project is gelukt.",
                                                                            LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.AreEqual(ActivityState.Finished, activity.State);
@@ -457,7 +457,7 @@ namespace Core.Common.Gui.Test
             // Then
             string prefix = saveExistingProject ? "bestaand " : "";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call,
-                                                            Tuple.Create($"Uitvoeren van 'Opslaan van {prefix}project' is geannuleerd.",
+                                                            Tuple.Create($"Opslaan van {prefix}project is geannuleerd.",
                                                                          LogLevelConstant.Warn),
                                                             1);
 
@@ -508,7 +508,7 @@ namespace Core.Common.Gui.Test
             // Then
             string prefix = saveExistingProject ? "bestaand " : "";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call,
-                                                            Tuple.Create($"Uitvoeren van 'Opslaan van {prefix}project' is gelukt.",
+                                                            Tuple.Create($"Opslaan van {prefix}project is gelukt.",
                                                                          LogLevelConstant.Info),
                                                             1);
 

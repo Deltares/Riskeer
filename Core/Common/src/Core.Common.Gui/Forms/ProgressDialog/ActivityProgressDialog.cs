@@ -222,7 +222,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         private void UpdateProgressControls(int stepNumberForProgressNotification, int activityCount)
         {
             // Update the activity description label
-            labelActivityDescription.Text = runningActivity.Name;
+            labelActivityDescription.Text = runningActivity.Description;
 
             // Update the visibility of the activity progress text related controls
             pictureBoxActivityProgressText.Visible = false;

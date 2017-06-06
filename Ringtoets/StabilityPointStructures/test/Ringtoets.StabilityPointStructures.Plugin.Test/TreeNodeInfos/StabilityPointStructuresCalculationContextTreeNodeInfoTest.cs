@@ -1008,7 +1008,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         StringAssert.StartsWith($"Berekening van '{calculation.Name}' gestart om: ", msgs[2]);
                         StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
                         StringAssert.StartsWith($"Berekening van '{calculation.Name}' beëindigd om: ", msgs[4]);
-                        StringAssert.StartsWith($"Uitvoeren van '{calculation.Name}' is gelukt.", msgs[5]);
+                        StringAssert.StartsWith($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[5]);
                     });
 
                     Assert.AreNotSame(initialOutput, calculation.Output);

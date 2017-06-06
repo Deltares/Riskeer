@@ -82,6 +82,16 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos;.
+        /// </summary>
+        internal static string DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_location_with_name_0_ {
+            get {
+                return ResourceManager.GetString("DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_fo" +
+                        "r_location_with_name_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duinafslag berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {

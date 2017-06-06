@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-            Assert.AreEqual(calculation.Name, activity.Name);
+            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
 
             mocks.VerifyAll();
         }

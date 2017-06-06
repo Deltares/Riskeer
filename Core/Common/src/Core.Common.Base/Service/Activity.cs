@@ -51,15 +51,15 @@ namespace Core.Common.Base.Service
         /// </summary>
         protected Activity()
         {
-            Name = "";
+            Description = "";
             State = ActivityState.None;
             LogMessages = new Collection<string>();
         }
 
         /// <summary>
-        /// Gets or sets the name of the <see cref="Activity"/>.
+        /// Gets or sets the description of the <see cref="Activity"/>.
         /// </summary>
-        public string Name { get; protected set; }
+        public string Description { get; protected set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ActivityState"/> of the <see cref="Activity"/>.
@@ -131,22 +131,22 @@ namespace Core.Common.Base.Service
 
             if (State == ActivityState.Finished)
             {
-                log.InfoFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_succeeded, Name);
+                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_succeeded, Description);
             }
 
             if (State == ActivityState.Canceled)
             {
-                log.WarnFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_canceled, Name);
+                log.WarnFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_canceled, Description);
             }
 
             if (State == ActivityState.Failed)
             {
-                log.ErrorFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_failed, Name);
+                log.ErrorFormat(Resources.Activity_Finish_ActivityDescription_0_has_failed, Description);
             }
 
             if (State == ActivityState.Skipped)
             {
-                log.InfoFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_skipped, Name);
+                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_skipped, Description);
             }
         }
 

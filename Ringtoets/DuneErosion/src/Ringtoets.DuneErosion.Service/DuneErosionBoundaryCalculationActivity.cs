@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.DuneErosion.Service
@@ -65,9 +66,9 @@ namespace Ringtoets.DuneErosion.Service
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.norm = norm;
 
-            calculationService = new DuneErosionBoundaryCalculationService();
+            Description = string.Format(Resources.DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_location_with_name_0_, duneLocation.Name);
 
-            Name = duneLocation.Name;
+            calculationService = new DuneErosionBoundaryCalculationService();
         }
 
         protected override void PerformCalculation()

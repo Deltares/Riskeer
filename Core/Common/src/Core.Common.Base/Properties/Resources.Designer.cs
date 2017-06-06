@@ -82,38 +82,38 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is geannuleerd..
+        ///   Looks up a localized string similar to {0} is geannuleerd..
         /// </summary>
-        public static string Activity_Finish_Execution_of_ActivityName_0_has_been_canceled {
+        public static string Activity_Finish_ActivityDescription_0_has_been_canceled {
             get {
-                return ResourceManager.GetString("Activity_Finish_Execution_of_ActivityName_0_has_been_canceled", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_ActivityDescription_0_has_been_canceled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is overgeslagen..
+        ///   Looks up a localized string similar to {0} is overgeslagen..
         /// </summary>
-        public static string Activity_Finish_Execution_of_ActivityName_0_has_been_skipped {
+        public static string Activity_Finish_ActivityDescription_0_has_been_skipped {
             get {
-                return ResourceManager.GetString("Activity_Finish_Execution_of_ActivityName_0_has_been_skipped", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_ActivityDescription_0_has_been_skipped", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is mislukt..
+        ///   Looks up a localized string similar to {0} is mislukt..
         /// </summary>
-        public static string Activity_Finish_Execution_of_ActivityName_0_has_failed {
+        public static string Activity_Finish_ActivityDescription_0_has_failed {
             get {
-                return ResourceManager.GetString("Activity_Finish_Execution_of_ActivityName_0_has_failed", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_ActivityDescription_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is gelukt..
+        ///   Looks up a localized string similar to {0} is gelukt..
         /// </summary>
-        public static string Activity_Finish_Execution_of_ActivityName_0_has_succeeded {
+        public static string Activity_Finish_ActivityDescription_0_has_succeeded {
             get {
-                return ResourceManager.GetString("Activity_Finish_Execution_of_ActivityName_0_has_succeeded", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_ActivityDescription_0_has_succeeded", resourceCulture);
             }
         }
         

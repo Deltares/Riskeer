@@ -25,6 +25,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Service
 {
@@ -75,7 +76,8 @@ namespace Ringtoets.ClosingStructures.Service
             this.assessmentSection = assessmentSection;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
 
-            Name = calculation.Name;
+            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+
             calculationService = new ClosingStructuresCalculationService();
         }
 

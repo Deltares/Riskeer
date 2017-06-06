@@ -24,6 +24,7 @@ using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Calculation.Activities;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
 {
@@ -73,9 +74,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            calculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
+            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
 
-            Name = calculation.Name;
+            calculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
         }
 
         protected override bool Validate()

@@ -81,9 +81,9 @@ namespace Core.Common.Gui
             this.storeProject = storeProject;
             this.projectOwner = projectOwner;
 
-            Name = savingExistingProject ?
-                       Resources.SaveProjectActivity_Save_existing_project :
-                       Resources.SaveProjectActivity_Save_project;
+            Description = savingExistingProject
+                              ? Resources.SaveProjectActivity_Save_existing_project
+                              : Resources.SaveProjectActivity_Save_project;
         }
 
         protected override void OnRun()

@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_been_canceled" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is geannuleerd.</value>
+  <data name="Activity_Finish_ActivityDescription_0_has_been_canceled" xml:space="preserve">
+    <value>{0} is geannuleerd.</value>
   </data>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_succeeded" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is gelukt.</value>
+  <data name="Activity_Finish_ActivityDescription_0_has_succeeded" xml:space="preserve">
+    <value>{0} is gelukt.</value>
   </data>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_failed" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is mislukt.</value>
+  <data name="Activity_Finish_ActivityDescription_0_has_failed" xml:space="preserve">
+    <value>{0} is mislukt.</value>
   </data>
   <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
@@ -168,8 +168,8 @@
   <data name="RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_been_skipped" xml:space="preserve">
-    <value>Uitvoeren van '{0}' is overgeslagen.</value>
+  <data name="Activity_Finish_ActivityDescription_0_has_been_skipped" xml:space="preserve">
+    <value>{0} is overgeslagen.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fout</value>

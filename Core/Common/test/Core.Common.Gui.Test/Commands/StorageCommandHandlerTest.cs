@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Test.Commands
                 var expectedMessages = new[]
                 {
                     Tuple.Create(exceptionMessage, LogLevelConstant.Error),
-                    Tuple.Create("Uitvoeren van 'Opslaan van bestaand project' is mislukt.", LogLevelConstant.Error)
+                    Tuple.Create("Opslaan van bestaand project is mislukt.", LogLevelConstant.Error)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
                 Assert.IsFalse(result);
@@ -191,7 +191,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => result = storageCommandHandler.SaveProject();
 
                 // Assert
-                const string expectedMessage = "Uitvoeren van 'Opslaan van bestaand project' is gelukt.";
+                const string expectedMessage = "Opslaan van bestaand project is gelukt.";
                 Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
                 Assert.IsTrue(result);
@@ -250,7 +250,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Uitvoeren van 'Openen van bestaand project' is gelukt.", LogLevelConstant.Info)
+                Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -523,7 +523,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
                 Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.", LogLevelConstant.Error)
+                Tuple.Create("Openen van bestaand project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -575,7 +575,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
                 Tuple.Create(goodErrorMessageText, LogLevelConstant.Error),
-                Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.", LogLevelConstant.Error)
+                Tuple.Create("Openen van bestaand project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -628,7 +628,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.", LogLevelConstant.Error)
+                Tuple.Create("Openen van bestaand project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
@@ -680,7 +680,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Uitvoeren van 'Openen van bestaand project' is gelukt.", LogLevelConstant.Info)
+                Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -739,7 +739,7 @@ namespace Core.Common.Gui.Test.Commands
             var expectedMessages = new[]
             {
                 Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Uitvoeren van 'Openen van bestaand project' is gelukt.", LogLevelConstant.Info)
+                Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);

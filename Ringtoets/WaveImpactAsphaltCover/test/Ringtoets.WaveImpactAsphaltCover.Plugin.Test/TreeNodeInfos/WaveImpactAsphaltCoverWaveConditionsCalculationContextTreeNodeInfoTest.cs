@@ -1253,7 +1253,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(14, messages.Length);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[12]);
-                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[13]);
+                        StringAssert.StartsWith("Uitvoeren van berekening 'A' is gelukt.", messages[13]);
                     });
                     Assert.AreEqual(3, calculation.Output.Items.Count());
                 }

@@ -42,7 +42,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Constructor_NameIsNull_ArgumentExceptionIsThrown()
+        public void Constructor_DescriptionIsNull_ArgumentExceptionIsThrown()
         {
             // Setup
             var mocks = new MockRepository();
@@ -54,25 +54,25 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            StringAssert.EndsWith("name", paramName);
+            StringAssert.EndsWith("description", paramName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Name_FileImportActivityWithFileImporter_NameShouldBeSameAsImporterName()
+        public void Description_FileImportActivityWithFileImporter_DescriptionShouldBeSameAsImporterDescription()
         {
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
             mocks.ReplayAll();
 
-            const string name = "Importer name";
+            const string description = "Importer description";
 
             // Call
-            var fileImportActivity = new FileImportActivity(fileImporter, name);
+            var fileImportActivity = new FileImportActivity(fileImporter, description);
 
             // Assert
-            Assert.AreEqual(name, fileImportActivity.Name);
+            Assert.AreEqual(description, fileImportActivity.Description);
             mocks.VerifyAll();
         }
 
@@ -237,8 +237,8 @@ namespace Core.Common.Base.Test.Service
 
         private class TestFileImportActivity : FileImportActivity
         {
-            public TestFileImportActivity(IFileImporter fileImporter, string name, ActivityState state)
-                : base(fileImporter, name)
+            public TestFileImportActivity(IFileImporter fileImporter, string description, ActivityState state)
+                : base(fileImporter, description)
             {
                 State = state;
             }

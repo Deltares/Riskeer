@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Service.MessageProviders
             return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_, locationName);
         }
 
-        public string GetActivityName(string locationName)
+        public string GetActivityDescription(string locationName)
         {
             return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_, locationName);
         }

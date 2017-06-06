@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
             return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_location_0_, locationName);
         }
 
-        public string GetActivityName(string locationName)
+        public string GetActivityDescription(string locationName)
         {
             return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_Calculate_DesignWaterLevel_for_location_0_, locationName);
         }

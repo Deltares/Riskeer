@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
-            Assert.AreEqual(calculation.Name, activity.Name);
+            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }

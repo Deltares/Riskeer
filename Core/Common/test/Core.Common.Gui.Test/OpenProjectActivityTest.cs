@@ -58,7 +58,7 @@ namespace Core.Common.Gui.Test
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
             CollectionAssert.IsEmpty(activity.LogMessages);
-            Assert.AreEqual("Openen van bestaand project", activity.Name);
+            Assert.AreEqual("Openen van bestaand project", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 
@@ -226,7 +226,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Constructor_MigrateProjecthNull_ThrowArgumentException()
+        public void Constructor_MigrateProjectNull_ThrowArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -688,7 +688,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            const string expectedMessage = "Uitvoeren van 'Openen van bestaand project' is gelukt.";
+            const string expectedMessage = "Openen van bestaand project is gelukt.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Finished, activity.State);
@@ -737,7 +737,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van bestaand project is mislukt.",
                                                                            LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
@@ -791,7 +791,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Openen van bestaand project' is mislukt.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van bestaand project is mislukt.",
                                                                            LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
@@ -841,7 +841,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Uitvoeren van 'Openen van bestaand project' is geannuleerd.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van bestaand project is geannuleerd.",
                                                                            LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 

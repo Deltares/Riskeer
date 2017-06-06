@@ -46,7 +46,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
-            Assert.AreEqual(duneLocation.Name, activity.Name);
+            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }

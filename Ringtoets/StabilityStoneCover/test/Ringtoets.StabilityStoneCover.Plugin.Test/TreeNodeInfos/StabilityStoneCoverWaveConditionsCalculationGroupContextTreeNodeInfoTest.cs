@@ -944,8 +944,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[25]);
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[28]);
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[51]);
-                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'Nieuwe berekening' berekenen' is gelukt.", messages[52]);
-                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'Nieuwe berekening' berekenen' is gelukt.", messages[53]);
+                        StringAssert.StartsWith("Golfcondities voor blokken en zuilen berekenen voor 'Nieuwe berekening' is gelukt.", messages[52]);
+                        StringAssert.StartsWith("Golfcondities voor blokken en zuilen berekenen voor 'Nieuwe berekening' is gelukt.", messages[53]);
                     });
                     Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());

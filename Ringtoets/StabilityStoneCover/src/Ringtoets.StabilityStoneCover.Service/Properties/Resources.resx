@@ -129,4 +129,7 @@
   <data name="StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished" xml:space="preserve">
     <value>Berekening '{0}' voor zuilen beëindigd.</value>
   </data>
+  <data name="StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_name_0_" xml:space="preserve">
+    <value>Golfcondities voor blokken en zuilen berekenen voor '{0}'</value>
+  </data>
 </root>

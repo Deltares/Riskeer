@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-            Assert.AreEqual(string.Format("Golfcondities voor blokken en zuilen voor '{0}' berekenen", calculation.Name), activity.Name);
+            Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}'", activity.Description);
 
             mocks.VerifyAll();
         }

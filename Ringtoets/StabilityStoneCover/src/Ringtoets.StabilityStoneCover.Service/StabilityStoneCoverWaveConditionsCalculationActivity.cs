@@ -24,6 +24,7 @@ using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Service.Properties;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {
@@ -71,9 +72,9 @@ namespace Ringtoets.StabilityStoneCover.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            calculationService = new StabilityStoneCoverWaveConditionsCalculationService();
+            Description = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_name_0_, calculation.Name);
 
-            Name = string.Format("Golfcondities voor blokken en zuilen voor '{0}' berekenen", calculation.Name);
+            calculationService = new StabilityStoneCoverWaveConditionsCalculationService();
         }
 
         protected override bool Validate()

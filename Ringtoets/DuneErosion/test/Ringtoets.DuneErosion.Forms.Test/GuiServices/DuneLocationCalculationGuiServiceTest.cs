@@ -155,8 +155,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                  Assert.AreEqual("Duinafslag berekening voor locatie 'B' is niet geconvergeerd.", messageList[5]);
                                                  StringAssert.StartsWith("Duinafslag berekening is uitgevoerd op de tijdelijke locatie", messageList[6]);
                                                  StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[7]);
-                                                 Assert.AreEqual("Uitvoeren van 'A' is gelukt.", messageList[8]);
-                                                 Assert.AreEqual("Uitvoeren van 'B' is gelukt.", messageList[9]);
+                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gelukt.", messageList[8]);
+                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gelukt.", messageList[9]);
                                              });
             }
 

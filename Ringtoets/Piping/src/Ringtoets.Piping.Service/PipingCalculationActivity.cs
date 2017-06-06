@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.Piping.Data;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
@@ -63,7 +64,7 @@ namespace Ringtoets.Piping.Service
             this.norm = norm;
             this.contribution = contribution;
 
-            Name = calculation.Name;
+            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
 
         protected override void OnRun()
