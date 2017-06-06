@@ -44,12 +44,9 @@ namespace Core.Components.OxyPlot.Converter
 
         protected override void SetSeriesStyle(ChartMultipleAreaData data, MultipleAreaSeries series)
         {
-            if (data.Style != null)
-            {
-                series.Fill = ChartDataHelper.Convert(data.Style.FillColor);
-                series.Color = ChartDataHelper.Convert(data.Style.StrokeColor);
-                series.StrokeThickness = data.Style.StrokeThickness;
-            }
+            series.Fill = ChartDataHelper.Convert(data.Style.FillColor);
+            series.Color = ChartDataHelper.Convert(data.Style.StrokeColor);
+            series.StrokeThickness = data.Style.StrokeThickness;
         }
     }
 }

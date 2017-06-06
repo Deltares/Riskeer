@@ -157,10 +157,8 @@ namespace Ringtoets.Piping.Forms.Factories
 
             PipingSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
-            return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}")
-            {
-                Style = new ChartAreaStyle(soilLayer.Color, Color.Black, 1)
-            };
+            return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}",
+                                             new ChartAreaStyle(soilLayer.Color, Color.Black, 1));
         }
 
         /// <summary>

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Styles;
@@ -35,14 +36,39 @@ namespace Core.Components.Charting.Data
         private IEnumerable<Point2D[]> areas;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ChartMultipleAreaData"/>.
+        /// Creates a new instance of <see cref="ChartMultipleAreaData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartMultipleAreaData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartMultipleAreaData(string name) : base(name)
+        public ChartMultipleAreaData(string name)
+            : this(name, new ChartAreaStyle(Color.Gray, Color.Black, 2)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartMultipleAreaData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="ChartMultipleAreaData"/>.</param>
+        /// <param name="style">The style of the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public ChartMultipleAreaData(string name, ChartAreaStyle style) : base(name)
         {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+            Style = style;
             Areas = new List<Point2D[]>();
+        }
+
+        public override bool HasData
+        {
+            get
+            {
+                return areas.Any(l => l.Any());
+            }
         }
 
         /// <summary>
@@ -73,16 +99,8 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Gets or sets the style of the <see cref="ChartMultipleAreaData"/>.
+        /// Gets the style of the <see cref="ChartMultipleAreaData"/>.
         /// </summary>
-        public ChartAreaStyle Style { get; set; }
-
-        public override bool HasData
-        {
-            get
-            {
-                return areas.Any(l => l.Any());
-            }
-        }
+        public ChartAreaStyle Style { get; }
     }
 }

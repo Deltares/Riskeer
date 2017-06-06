@@ -50,7 +50,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartMultipleAreaDataWithTestProperties_ChartMultipleAreaDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartMultipleAreaData = new ChartMultipleAreaData("Test name");
+            var chartMultipleAreaData = new ChartMultipleAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
 
             SetChartMultipleAreaDataTestProperties(chartMultipleAreaData);
 
@@ -67,7 +67,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartMultipleAreaDataWithTestProperties_ChartMultipleAreaDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartMultipleAreaData = new ChartMultipleAreaData("Test name");
+            var chartMultipleAreaData = new ChartMultipleAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
             var chartMultipleAreaDataSeries = new ChartMultipleAreaDataSeries(chartMultipleAreaData);
 
             SetChartMultipleAreaDataTestProperties(chartMultipleAreaData);
@@ -143,7 +143,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         {
             chartMultipleAreaData.Name = "Another name";
             chartMultipleAreaData.IsVisible = false;
-            chartMultipleAreaData.Style = new ChartAreaStyle(Color.Red, Color.Blue, 3);
             chartMultipleAreaData.Areas = new[]
             {
                 new[]
@@ -170,9 +169,9 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.AreEqual("Test name", chartMultipleAreaDataSeries.Title);
             Assert.IsTrue(chartMultipleAreaDataSeries.IsVisible);
 
-            Assert.AreEqual(0, chartMultipleAreaDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Fuchsia.A, Color.Fuchsia.R, Color.Fuchsia.G, Color.Fuchsia.B), chartMultipleAreaDataSeries.Color);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Fuchsia.A, Color.Fuchsia.R, Color.Fuchsia.G, Color.Fuchsia.B), chartMultipleAreaDataSeries.Fill);
+            Assert.AreEqual(3, chartMultipleAreaDataSeries.StrokeThickness);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartMultipleAreaDataSeries.Fill);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartMultipleAreaDataSeries.Color);
 
             Assert.AreEqual(0, chartMultipleAreaDataSeries.Areas.Count);
         }
