@@ -110,6 +110,33 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartAreaData_FillColor_Description {
+            get {
+                return ResourceManager.GetString("ChartAreaData_FillColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartAreaData_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("ChartAreaData_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartAreaData_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("ChartAreaData_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
         public static string ChartData_Color_DisplayName {

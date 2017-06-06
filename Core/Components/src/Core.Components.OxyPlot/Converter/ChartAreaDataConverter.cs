@@ -48,7 +48,7 @@ namespace Core.Components.OxyPlot.Converter
         {
             series.Fill = ChartDataHelper.Convert(data.Style.FillColor);
             series.Color = ChartDataHelper.Convert(data.Style.StrokeColor);
-            series.StrokeThickness = data.Style.Width;
+            series.StrokeThickness = data.Style.StrokeThickness;
         }
     }
 }

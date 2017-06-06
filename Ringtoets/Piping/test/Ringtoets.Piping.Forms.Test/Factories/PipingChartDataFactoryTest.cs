@@ -302,7 +302,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         {
             Assert.AreEqual(fillColor, areaStyle.FillColor);
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
-            Assert.AreEqual(width, areaStyle.Width);
+            Assert.AreEqual(width, areaStyle.StrokeThickness);
         }
     }
 }

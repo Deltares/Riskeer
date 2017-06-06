@@ -268,4 +268,13 @@
   <data name="ChartLineData_Width_Description" xml:space="preserve">
     <value>De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.</value>
   </data>
+  <data name="ChartAreaData_FillColor_Description" xml:space="preserve">
+    <value>De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven.</value>
+  </data>
+  <data name="ChartAreaData_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.</value>
+  </data>
+  <data name="ChartAreaData_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.</value>
+  </data>
 </root>

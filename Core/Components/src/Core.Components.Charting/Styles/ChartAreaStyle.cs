@@ -33,27 +33,27 @@ namespace Core.Components.Charting.Styles
         /// </summary>
         /// <param name="fillColor">The fill color of the area.</param>
         /// <param name="strokeColor">The stroke color of the area.</param>
-        /// <param name="width">The width of the area border.</param>
-        public ChartAreaStyle(Color fillColor, Color strokeColor, int width)
+        /// <param name="strokeThickness">The stroke thickness of the area border.</param>
+        public ChartAreaStyle(Color fillColor, Color strokeColor, int strokeThickness)
         {
             FillColor = fillColor;
             StrokeColor = strokeColor;
-            Width = width;
+            StrokeThickness = strokeThickness;
         }
 
         /// <summary>
-        /// Gets the area fill color.
+        /// Gets or sets the area fill color.
         /// </summary>
-        public Color FillColor { get; private set; }
+        public Color FillColor { get; set; }
 
         /// <summary>
-        /// Gets the area stroke color.
+        /// Gets or sets the area stroke color.
         /// </summary>
-        public Color StrokeColor { get; private set; }
+        public Color StrokeColor { get; set; }
 
         /// <summary>
-        /// Gets the area border width.
+        /// Gets or sets the area border stroke thickness.
         /// </summary>
-        public int Width { get; private set; }
+        public int StrokeThickness { get; set; }
     }
 }
