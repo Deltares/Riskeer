@@ -263,7 +263,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen data gewijzigd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen gegevens gewijzigd.", 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }
@@ -298,7 +298,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen data gewijzigd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen gegevens gewijzigd.", 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }

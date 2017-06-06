@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
             string message = messageProvider.GetCancelledLogMessageText(typeDescriptor);
 
             // Assert
-            const string expectedMessage = "Items importeren afgebroken. Geen data gewijzigd.";
+            const string expectedMessage = "Items importeren afgebroken. Geen gegevens gewijzigd.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
             string message = messageProvider.GetUpdateDataFailedLogMessageText(typeDescriptor);
 
             // Assert
-            const string expectedMessage = "Het importeren van de items is mislukt: {0}. Geen data gewijzigd.";
+            const string expectedMessage = "Het importeren van de items is mislukt: {0}. Geen gegevens gewijzigd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

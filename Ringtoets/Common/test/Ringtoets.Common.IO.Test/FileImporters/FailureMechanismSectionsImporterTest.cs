@@ -456,7 +456,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens gewijzigd.", 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
@@ -489,7 +489,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Vakindeling importeren afgebroken. Geen gegevens gewijzigd.", 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }

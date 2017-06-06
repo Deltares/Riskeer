@@ -64,7 +64,7 @@ namespace Core.Components.Gis.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read);
+            Log.Info(Resources.FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_No_data_changed);
         }
 
         private void AddFeatureBasedMapDataToMapDataCollection(FeatureBasedMapData importedMapData)

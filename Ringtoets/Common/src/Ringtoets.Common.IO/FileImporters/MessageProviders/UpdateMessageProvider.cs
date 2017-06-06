@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
                 throw new ArgumentNullException(nameof(typeDescriptor));
             }
 
-            return string.Format(Resources.Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled, typeDescriptor);
+            return string.Format(Resources.Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled_No_data_changed, typeDescriptor);
         }
 
         public string GetUpdateDataFailedLogMessageText(string typeDescriptor)
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
                 throw new ArgumentNullException(nameof(typeDescriptor));
             }
 
-            return string.Format(Resources.Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__,
+            return string.Format(Resources.Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__No_data_changed,
                                  typeDescriptor.FirstToLower());
         }
     }

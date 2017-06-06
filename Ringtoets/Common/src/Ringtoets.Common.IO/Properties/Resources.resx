@@ -130,8 +130,8 @@
     <value>{0} 
 Er is geen referentielijn geïmporteerd.</value>
   </data>
-  <data name="ReferenceLineImporter_ProgressText_Import_canceled_no_data_read" xml:space="preserve">
-    <value>Referentielijn importeren afgebroken. Geen data gewijzigd.</value>
+  <data name="ReferenceLineImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Referentielijn importeren afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="ReferenceLineImporter_ProgressText_Reading_referenceline" xml:space="preserve">
     <value>Inlezen referentielijn.</value>
@@ -361,8 +361,8 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>{0} 
 Er is geen vakindeling geïmporteerd.</value>
   </data>
-  <data name="FailureMechanismSectionsImporter_Import_canceled_no_data_read" xml:space="preserve">
-    <value>Vakindeling importeren afgebroken. Geen gegevens ingelezen.</value>
+  <data name="FailureMechanismSectionsImporter_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Vakindeling importeren afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
     <value>Inlezen vakindeling.</value>
@@ -376,8 +376,8 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID '{0}'.</value>
   </data>
-  <data name="ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted" xml:space="preserve">
-    <value>Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
+  <data name="ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted_No_data_changed" xml:space="preserve">
+    <value>Voorlandprofielen importeren is afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
@@ -418,8 +418,8 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
     <value>Inlezen van profiellocaties uit een shapebestand.</value>
   </data>
-  <data name="StructuresImporter_User_canceled" xml:space="preserve">
-    <value>Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.</value>
+  <data name="StructuresImporter_User_canceled_No_data_changed" xml:space="preserve">
+    <value>Kunstwerken importeren is afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_StructureId_2_missing_or_invalid_default_values_used" xml:space="preserve">
     <value>Geen definitie gevonden voor parameter '{0}' van kunstwerk '{1}' ({2}). Er wordt een standaard waarde gebruikt.</value>
@@ -522,8 +522,8 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StochastSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StochastSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read" xml:space="preserve">
-    <value>Berekeningenconfiguratie importeren afgebroken. Geen data gewijzigd.</value>
+  <data name="CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Berekeningenconfiguratie importeren afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="CalculationConfigurationImporter_ProgressText_Reading_configuration" xml:space="preserve">
     <value>Inlezen berekeningenconfiguratie.</value>
@@ -553,11 +553,11 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist" xml:space="preserve">
     <value>Het kunstwerk met ID '{0}' bestaat niet.</value>
   </data>
-  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled" xml:space="preserve">
-    <value>{0} importeren afgebroken. Geen data gewijzigd.</value>
+  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled_No_data_changed" xml:space="preserve">
+    <value>{0} importeren afgebroken. Geen gegevens gewijzigd.</value>
   </data>
-  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled" xml:space="preserve">
-    <value>{0} bijwerken afgebroken. Geen data gewijzigd.</value>
+  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled_No_data_changed" xml:space="preserve">
+    <value>{0} bijwerken afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0_" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding: {0}</value>
@@ -643,11 +643,11 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0_" xml:space="preserve">
     <value>Er is geen kunstwerk opgegeven om de stochast '{0}' aan toe te voegen.</value>
   </data>
-  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__" xml:space="preserve">
-    <value>Het bijwerken van de {0} is mislukt: {{0}}. Geen data gewijzigd.</value>
+  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__No_data_changed" xml:space="preserve">
+    <value>Het bijwerken van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd.</value>
   </data>
-  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__" xml:space="preserve">
-    <value>Het importeren van de {0} is mislukt: {{0}}. Geen data gewijzigd.</value>
+  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__No_data_changed" xml:space="preserve">
+    <value>Het importeren van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd.</value>
   </data>
   <data name="VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.

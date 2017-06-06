@@ -149,12 +149,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data gewijzigd..
+        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
+        public static string CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_No_data_changed {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data" +
-                        "_read", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_No_data" +
+                        "_changed", resourceCulture);
             }
         }
         
@@ -693,11 +693,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen gegevens ingelezen..
+        ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string FailureMechanismSectionsImporter_Import_canceled_no_data_read {
+        public static string FailureMechanismSectionsImporter_Import_canceled_No_data_changed {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_canceled_no_data_read", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_canceled_No_data_changed", resourceCulture);
             }
         }
         
@@ -759,12 +759,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen..
+        ///   Looks up a localized string similar to Voorlandprofielen importeren is afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted {
+        public static string ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted_No_data_changed {
             get {
                 return ResourceManager.GetString("ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_abort" +
-                        "ed", resourceCulture);
+                        "ed_No_data_changed", resourceCulture);
             }
         }
         
@@ -993,38 +993,40 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} importeren afgebroken. Geen data gewijzigd..
+        ///   Looks up a localized string similar to {0} importeren afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled {
+        public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled_No_data_changed {
             get {
-                return ResourceManager.GetString("Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled", resourceCulture);
+                return ResourceManager.GetString("Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled_No_data_changed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het importeren van de {0} is mislukt: {{0}}. Geen data gewijzigd..
+        ///   Looks up a localized string similar to Het importeren van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd..
         /// </summary>
-        public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__ {
+        public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__No_data_changed {
             get {
-                return ResourceManager.GetString("Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__", resourceCulture);
+                return ResourceManager.GetString("Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__No_data_chan" +
+                        "ged", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} bijwerken afgebroken. Geen data gewijzigd..
+        ///   Looks up a localized string similar to {0} bijwerken afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled {
+        public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled_No_data_changed {
             get {
-                return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled", resourceCulture);
+                return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled_No_data_changed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de {0} is mislukt: {{0}}. Geen data gewijzigd..
+        ///   Looks up a localized string similar to Het bijwerken van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd..
         /// </summary>
-        public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__ {
+        public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__No_data_changed {
             get {
-                return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__", resourceCulture);
+                return ResourceManager.GetString("Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__No_data_chan" +
+                        "ged", resourceCulture);
             }
         }
         
@@ -1292,11 +1294,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen data gewijzigd..
+        ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string ReferenceLineImporter_ProgressText_Import_canceled_no_data_read {
+        public static string ReferenceLineImporter_ProgressText_Import_canceled_No_data_changed {
             get {
-                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Import_canceled_no_data_read", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Import_canceled_No_data_changed", resourceCulture);
             }
         }
         
@@ -1734,11 +1736,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken importeren is afgebroken. Geen gegevens ingelezen..
+        ///   Looks up a localized string similar to Kunstwerken importeren is afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        public static string StructuresImporter_User_canceled {
+        public static string StructuresImporter_User_canceled_No_data_changed {
             get {
-                return ResourceManager.GetString("StructuresImporter_User_canceled", resourceCulture);
+                return ResourceManager.GetString("StructuresImporter_User_canceled_No_data_changed", resourceCulture);
             }
         }
         

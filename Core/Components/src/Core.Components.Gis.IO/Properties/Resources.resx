@@ -157,8 +157,8 @@ Er is geen kaartlaag geïmporteerd.</value>
   <data name="FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data" xml:space="preserve">
     <value>De data in het shapebestand wordt niet ondersteund.</value>
   </data>
-  <data name="FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read" xml:space="preserve">
-    <value>Kaartlaag toevoegen afgebroken. Geen data gewijzigd.</value>
+  <data name="FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Kaartlaag toevoegen afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="WmtsConnectionInfoReader_Unable_To_Create_WmtsConnectionInfo" xml:space="preserve">
     <value>Het is niet mogelijk om WMTS connectie '{0}' aan te maken met URL '{1}'.</value>

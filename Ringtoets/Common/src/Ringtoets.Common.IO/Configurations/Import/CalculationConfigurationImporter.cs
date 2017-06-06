@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read);
+            Log.Info(Resources.CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_No_data_changed);
         }
 
         protected override bool OnImport()
