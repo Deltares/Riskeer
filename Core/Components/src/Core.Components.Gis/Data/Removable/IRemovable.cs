@@ -21,6 +21,9 @@
 
 namespace Core.Components.Gis.Data.Removable
 {
+    /// <summary>
+    /// Marks a <see cref="FeatureBasedMapData"/> as removable from its collection.
+    /// </summary>
     public interface IRemovable
     {
         
