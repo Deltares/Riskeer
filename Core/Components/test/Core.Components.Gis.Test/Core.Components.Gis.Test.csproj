@@ -54,6 +54,10 @@
     <Compile Include="Data\MapPointDataTest.cs" />
     <Compile Include="Data\MapPolygonDataTest.cs" />
     <Compile Include="Data\FeatureBasedMapDataTest.cs" />
+    <Compile Include="Data\Removable\MapLineDataTest.cs" />
+    <Compile Include="Data\Removable\MapPointDataTest.cs" />
+    <Compile Include="Data\Removable\MapPolygonDataTest.cs" />
+    <Compile Include="Data\Removable\RemovableMapDataConverterTest.cs" />
     <Compile Include="Data\WellKnownTileSourceMapDataTest.cs" />
     <Compile Include="Data\WellKnownTileSourceTest.cs" />
     <Compile Include="Data\WmtsMapDataTest.cs" />

@@ -41,6 +41,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Data\ImageBasedMapData.cs" />
+    <Compile Include="Data\Removable\IRemovable.cs" />
     <Compile Include="Data\MapData.cs" />
     <Compile Include="Data\MapDataCollection.cs" />
     <Compile Include="Data\MapDataCollectionExtensions.cs" />
@@ -48,6 +49,10 @@
     <Compile Include="Data\MapPointData.cs" />
     <Compile Include="Data\MapPolygonData.cs" />
     <Compile Include="Data\FeatureBasedMapData.cs" />
+    <Compile Include="Data\Removable\RemovableMapDataConverter.cs" />
+    <Compile Include="Data\Removable\RemovableMapLineData.cs" />
+    <Compile Include="Data\Removable\RemovableMapPointData.cs" />
+    <Compile Include="Data\Removable\RemovableMapPolygonData.cs" />
     <Compile Include="Data\WellKnownTileSource.cs" />
     <Compile Include="Data\WellKnownTileSourceMapData.cs" />
     <Compile Include="Data\WmtsMapData.cs" />

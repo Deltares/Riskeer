@@ -31,6 +31,7 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
@@ -89,8 +90,8 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.CanRemove);
+            Assert.IsNotNull(info.OnNodeRemoved);
             Assert.IsNotNull(info.CanCheck);
             Assert.IsNotNull(info.IsChecked);
             Assert.IsNotNull(info.OnNodeChecked);
@@ -315,6 +316,79 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void CanRemove_WithRemovableDataAndCollection_ReturnTrue()
+        {
+            // Setup
+            var removable = mocks.StrictMultiMock<MapLineData>(new[]
+            {
+                typeof(IRemovable)
+            }, "name");
+            mocks.ReplayAll();
+
+            // Call
+            bool canRemove = info.CanRemove(removable, new MapDataCollection("collection"));
+
+            // Assert
+            Assert.IsTrue(canRemove);
+        }
+
+        [Test]
+        public void CanRemove_WithoutCollection_ReturnFalse()
+        {
+            // Setup
+            var removable = mocks.StrictMultiMock<MapLineData>(new[]
+            {
+                typeof(IRemovable)
+            }, "name");
+            mocks.ReplayAll();
+
+            // Call
+            bool canRemove = info.CanRemove(removable, null);
+
+            // Assert
+            Assert.IsFalse(canRemove);
+        }
+
+        [Test]
+        public void CanRemove_WithNotRemovableData_ReturnTrue()
+        {
+            // Setup
+            var notRemovable = mocks.StrictMock<MapLineData>("name");
+            mocks.ReplayAll();
+
+            // Call
+            bool canRemove = info.CanRemove(notRemovable, new MapDataCollection("collection"));
+
+            // Assert
+            Assert.IsFalse(canRemove);
+        }
+
+        [Test]
+        public void OnNodeRemoved_WithRemovableDataToRemove_DataRemoved()
+        {
+            // Setup
+            var toRemove = mocks.StrictMultiMock<MapLineData>(new[]
+            {
+                typeof(IRemovable)
+            }, "name");
+            var otherData = mocks.Stub<MapLineData>("name");
+            mocks.ReplayAll();
+
+            var collection = new MapDataCollection("collection");
+            collection.Add(toRemove);
+            collection.Add(otherData);
+
+            // Call
+            info.OnNodeRemoved(toRemove, collection);
+
+            // Assert
+            Assert.AreEqual(new[]
+            {
+                otherData
+            }, collection.Collection);
         }
 
         [TestCase(true)]

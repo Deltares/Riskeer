@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
@@ -69,7 +70,7 @@ namespace Core.Components.Gis.IO.Importers
 
         private void AddFeatureBasedMapDataToMapDataCollection(FeatureBasedMapData importedMapData)
         {
-            ImportTarget.Add(importedMapData);
+            ImportTarget.Add(RemovableMapDataConverter.FromFeatureBasedMapData(importedMapData));
         }
 
         private ReadResult<FeatureBasedMapData> ReadFeatureBasedMapData()

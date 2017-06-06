@@ -26,6 +26,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Forms;
 using MapResources = Core.Plugins.Map.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
@@ -126,6 +127,8 @@ namespace Core.Plugins.Map.Legend
                                                                                                  .AddSeparator()
                                                                                                  .AddPropertiesItem()
                                                                                                  .Build(),
+                CanRemove = CanRemoveMapData,
+                OnNodeRemoved = RemoveFromParent,
                 CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
                 IsChecked = mapPointData => mapPointData.IsVisible,
@@ -141,6 +144,8 @@ namespace Core.Plugins.Map.Legend
                                                                                                  .AddSeparator()
                                                                                                  .AddPropertiesItem()
                                                                                                  .Build(),
+                CanRemove = CanRemoveMapData,
+                OnNodeRemoved = RemoveFromParent,
                 CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
                 IsChecked = mapLineData => mapLineData.IsVisible,
@@ -156,6 +161,8 @@ namespace Core.Plugins.Map.Legend
                                                                                                  .AddSeparator()
                                                                                                  .AddPropertiesItem()
                                                                                                  .Build(),
+                CanRemove = CanRemoveMapData,
+                OnNodeRemoved = RemoveFromParent,
                 CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
                 IsChecked = mapPolygonData => mapPolygonData.IsVisible,
@@ -181,6 +188,21 @@ namespace Core.Plugins.Map.Legend
                                                                                                           .AddPropertiesItem()
                                                                                                           .Build()
             });
+        }
+
+        private static bool CanRemoveMapData(MapData mapData, object parent)
+        {
+            return mapData is IRemovable && parent is MapDataCollection;
+        }
+
+        private static void RemoveFromParent(MapData dataToRemove, object parentData)
+        {
+            if (CanRemoveMapData(dataToRemove, parentData))
+            {
+                var collection = (MapDataCollection) parentData;
+                collection.Remove(dataToRemove);
+                collection.NotifyObservers();
+            }
         }
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData, string toolTip, bool isEnabled)
