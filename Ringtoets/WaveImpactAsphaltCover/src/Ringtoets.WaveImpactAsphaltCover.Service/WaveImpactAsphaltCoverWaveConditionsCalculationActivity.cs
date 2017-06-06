@@ -74,7 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+            Description = string.Format(RingtoetsCommonServiceResources.Perform_wave_conditions_calculation_with_name_0_, calculation.Name);
 
             calculationService = new WaveImpactAsphaltCoverWaveConditionsCalculationService();
         }

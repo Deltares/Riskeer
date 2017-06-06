@@ -209,4 +209,7 @@
   <data name="Perform_calculation_with_name_0_" xml:space="preserve">
     <value>Uitvoeren van berekening '{0}'</value>
   </data>
+  <data name="Perform_wave_conditions_calculation_with_name_0_" xml:space="preserve">
+    <value>Golfcondities berekenen voor '{0}'</value>
+  </data>
 </root>

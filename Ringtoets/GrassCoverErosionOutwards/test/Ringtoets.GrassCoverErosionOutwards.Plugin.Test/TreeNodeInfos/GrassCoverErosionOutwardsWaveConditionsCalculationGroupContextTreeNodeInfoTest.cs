@@ -1020,8 +1020,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", messages[12]);
                         Assert.AreEqual("Berekening van 'Nieuwe berekening' gestart.", messages[15]);
                         Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", messages[25]);
-                        Assert.AreEqual("Uitvoeren van berekening 'Nieuwe berekening' is gelukt.", messages[26]);
-                        Assert.AreEqual("Uitvoeren van berekening 'Nieuwe berekening' is gelukt.", messages[27]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'Nieuwe berekening' is gelukt.", messages[26]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'Nieuwe berekening' is gelukt.", messages[27]);
                     });
                 }
                 Assert.AreEqual(3, calculationA.Output.Items.Count());
