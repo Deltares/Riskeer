@@ -128,14 +128,12 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>The created <see cref="ChartMultipleLineData"/>.</returns>
         public static ChartMultipleLineData CreateWaterLevelsChartData()
         {
-            return new ChartMultipleLineData(Resources.WaveConditionsChartDataFactory_WaterLevels_DisplayName)
-            {
-                Style = new ChartLineStyle(Color.DarkTurquoise, levelThickness, new[]
-                {
-                    6.0,
-                    6.0
-                })
-            };
+            return new ChartMultipleLineData(Resources.WaveConditionsChartDataFactory_WaterLevels_DisplayName,
+                                             new ChartLineStyle(Color.DarkTurquoise, levelThickness, new[]
+                                             {
+                                                 6.0,
+                                                 6.0
+                                             }));
         }
 
         /// <summary>

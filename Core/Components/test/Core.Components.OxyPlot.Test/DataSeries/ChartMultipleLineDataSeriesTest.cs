@@ -51,7 +51,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartMultipleLineDataWithTestProperties_ChartMultipleLineDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartMultipleLineData = new ChartMultipleLineData("Test name");
+            var chartMultipleLineData = new ChartMultipleLineData("Test name", new ChartLineStyle(Color.Red, 3, DashStyle.Dash));
 
             SetChartMultipleLineDataTestProperties(chartMultipleLineData);
 
@@ -68,7 +68,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartMultipleLineDataWithTestProperties_ChartMultipleLineDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartMultipleLineData = new ChartMultipleLineData("Test name");
+            var chartMultipleLineData = new ChartMultipleLineData("Test name", new ChartLineStyle(Color.Red, 3, DashStyle.Dash));
             var chartMultipleLineDataSeries = new ChartMultipleLineDataSeries(chartMultipleLineData);
 
             SetChartMultipleLineDataTestProperties(chartMultipleLineData);
@@ -144,7 +144,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         {
             chartMultipleLineData.Name = "Another name";
             chartMultipleLineData.IsVisible = false;
-            chartMultipleLineData.Style = new ChartLineStyle(Color.Red, 3, DashStyle.Dash);
             chartMultipleLineData.Lines = new[]
             {
                 new[]
@@ -171,9 +170,9 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.AreEqual("Test name", chartMultipleLineDataSeries.Title);
             Assert.IsTrue(chartMultipleLineDataSeries.IsVisible);
 
-            Assert.AreEqual(0, chartMultipleLineDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Fuchsia.A, Color.Fuchsia.R, Color.Fuchsia.G, Color.Fuchsia.B), chartMultipleLineDataSeries.Color);
-            Assert.AreEqual(LineStyle.Solid, chartMultipleLineDataSeries.LineStyle);
+            Assert.AreEqual(3, chartMultipleLineDataSeries.StrokeThickness);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartMultipleLineDataSeries.Color);
+            Assert.AreEqual(LineStyle.Dash, chartMultipleLineDataSeries.LineStyle);
 
             Assert.AreEqual(0, chartMultipleLineDataSeries.Lines.Count);
         }

@@ -21,9 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
 namespace Core.Components.Charting.Test.Data
@@ -40,7 +43,36 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             Assert.IsInstanceOf<ChartData>(data);
             CollectionAssert.IsEmpty(data.Lines);
-            Assert.IsNull(data.Style);
+            Assert.AreEqual(Color.Black, data.Style.Color);
+            Assert.AreEqual(2, data.Style.Width);
+            Assert.AreEqual(DashStyle.Solid, data.Style.DashStyle);
+        }
+
+        [Test]
+        public void Constructor_StyleNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new ChartLineData("test data", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("style", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithStyle_ExpectedValue()
+        {
+            // Setup
+            var style = new ChartLineStyle(Color.Red, 3, DashStyle.DashDot);
+
+            // Call
+            var data = new ChartMultipleLineData("test data", style);
+
+            // Assert
+            Assert.AreEqual("test data", data.Name);
+            CollectionAssert.IsEmpty(data.Lines);
+            Assert.IsInstanceOf<ChartData>(data);
+            Assert.AreSame(style, data.Style);
         }
 
         [Test]

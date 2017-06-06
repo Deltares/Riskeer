@@ -46,13 +46,11 @@ namespace Core.Components.OxyPlot.Converter
         protected override void SetSeriesStyle(ChartMultipleLineData data, MultipleLineSeries series)
         {
             ChartLineStyle lineStyle = data.Style;
-            if (lineStyle != null)
-            {
-                series.Color = ChartDataHelper.Convert(lineStyle.Color);
-                series.StrokeThickness = lineStyle.Width;
-                series.Dashes = lineStyle.Dashes;
-                series.LineStyle = ChartDataHelper.Convert(lineStyle.DashStyle);
-            }
+
+            series.Color = ChartDataHelper.Convert(lineStyle.Color);
+            series.StrokeThickness = lineStyle.Width;
+            series.Dashes = lineStyle.Dashes;
+            series.LineStyle = ChartDataHelper.Convert(lineStyle.DashStyle);
         }
     }
 }

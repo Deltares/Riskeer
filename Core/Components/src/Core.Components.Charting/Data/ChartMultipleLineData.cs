@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Styles;
@@ -35,14 +37,39 @@ namespace Core.Components.Charting.Data
         private IEnumerable<Point2D[]> lines;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ChartMultipleLineData"/>.
+        /// Creates a new instance of <see cref="ChartMultipleLineData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartMultipleLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartMultipleLineData(string name) : base(name)
+        public ChartMultipleLineData(string name)
+            : this(name, new ChartLineStyle(Color.Black, 2, DashStyle.Solid)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartMultipleLineData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="ChartMultipleLineData"/>.</param>
+        /// <param name="style">The style of the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public ChartMultipleLineData(string name, ChartLineStyle style) : base(name)
         {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+            Style = style;
             Lines = new List<Point2D[]>();
+        }
+
+        public override bool HasData
+        {
+            get
+            {
+                return lines.Any(l => l.Any());
+            }
         }
 
         /// <summary>
@@ -75,16 +102,8 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Gets or sets the style of the <see cref="ChartMultipleLineData"/>.
+        /// Gets the style of the <see cref="ChartMultipleLineData"/>.
         /// </summary>
-        public ChartLineStyle Style { get; set; }
-
-        public override bool HasData
-        {
-            get
-            {
-                return lines.Any(l => l.Any());
-            }
-        }
+        public ChartLineStyle Style { get; }
     }
 }
