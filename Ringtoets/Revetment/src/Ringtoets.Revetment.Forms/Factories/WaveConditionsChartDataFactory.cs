@@ -129,11 +129,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         public static ChartMultipleLineData CreateWaterLevelsChartData()
         {
             return new ChartMultipleLineData(Resources.WaveConditionsChartDataFactory_WaterLevels_DisplayName,
-                                             new ChartLineStyle(Color.DarkTurquoise, levelThickness, new[]
-                                             {
-                                                 6.0,
-                                                 6.0
-                                             }));
+                                             new ChartLineStyle(Color.DarkTurquoise, levelThickness, DashStyle.DashDotDot));
         }
 
         /// <summary>

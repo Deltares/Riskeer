@@ -153,7 +153,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Lines);
             Assert.AreEqual("Waterstanden in berekening", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, new []{ 6.0, 6.0 });
+            AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, DashStyle.DashDotDot);
         }
 
         [Test]
@@ -228,13 +228,6 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
-        }
-
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, double[] style)
-        {
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Dashes);
         }
     }
 }
