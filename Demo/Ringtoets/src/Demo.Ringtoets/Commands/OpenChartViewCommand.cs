@@ -204,9 +204,9 @@ namespace Demo.Ringtoets.Commands
                 }
             };
 
-            var points1 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_one)
+            var points1 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_one,
+                                             new ChartPointStyle(Color.Crimson, 6, Color.AntiqueWhite, 3, ChartPointSymbol.Circle))
             {
-                Style = new ChartPointStyle(Color.Crimson, 6, Color.AntiqueWhite, 3, ChartPointSymbol.Circle),
                 Points = new[]
                 {
                     new Point2D(0.2, 0.892 + 0.04),
@@ -220,9 +220,9 @@ namespace Demo.Ringtoets.Commands
                 }
             };
 
-            var points2 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_two)
+            var points2 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_two,
+                                             new ChartPointStyle(Color.FromArgb(190, Color.Gold), 7, Color.DeepSkyBlue, 2, ChartPointSymbol.Diamond))
             {
-                Style = new ChartPointStyle(Color.FromArgb(190, Color.Gold), 7, Color.DeepSkyBlue, 2, ChartPointSymbol.Diamond),
                 Points = new[]
                 {
                     new Point2D(0.0, 0.800 + 0.01),

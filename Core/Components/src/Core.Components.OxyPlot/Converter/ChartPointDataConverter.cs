@@ -39,15 +39,11 @@ namespace Core.Components.OxyPlot.Converter
         protected override void SetSeriesStyle(ChartPointData data, LineSeries series)
         {
             series.LineStyle = LineStyle.None;
-
-            if (data.Style != null)
-            {
-                series.MarkerFill = ChartDataHelper.Convert(data.Style.Color);
-                series.MarkerSize = data.Style.Size;
-                series.MarkerType = ChartDataHelper.Convert(data.Style.Symbol);
-                series.MarkerStroke = ChartDataHelper.Convert(data.Style.StrokeColor);
-                series.MarkerStrokeThickness = data.Style.StrokeThickness;
-            }
+            series.MarkerFill = ChartDataHelper.Convert(data.Style.Color);
+            series.MarkerSize = data.Style.Size;
+            series.MarkerType = ChartDataHelper.Convert(data.Style.Symbol);
+            series.MarkerStroke = ChartDataHelper.Convert(data.Style.StrokeColor);
+            series.MarkerStrokeThickness = data.Style.StrokeThickness;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartPointDataWithTestProperties_ChartPointDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartPointData = new ChartPointData("Test name");
+            var chartPointData = new ChartPointData("Test name", new ChartPointStyle(Color.Red, 4, Color.Blue, 2, ChartPointSymbol.Circle));
 
             SetChartPointDataTestProperties(chartPointData);
 
@@ -68,7 +68,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartPointDataWithTestProperties_ChartPointDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartPointData = new ChartPointData("Test name");
+            var chartPointData = new ChartPointData("Test name", new ChartPointStyle(Color.Red, 4, Color.Blue, 2, ChartPointSymbol.Circle));
             var chartPointDataSeries = new ChartPointDataSeries(chartPointData);
 
             SetChartPointDataTestProperties(chartPointData);
@@ -135,7 +135,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         {
             chartPointData.Name = "Another name";
             chartPointData.IsVisible = false;
-            chartPointData.Style = new ChartPointStyle(Color.Red, 4, Color.Blue, 2, ChartPointSymbol.Circle);
             chartPointData.Points = new[]
             {
                 new Point2D(1.1, 2.2)
@@ -161,11 +160,11 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.AreEqual("Test name", chartPointDataSeries.Title);
             Assert.IsTrue(chartPointDataSeries.IsVisible);
 
-            Assert.AreEqual(3, chartPointDataSeries.MarkerSize);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartPointDataSeries.MarkerFill);
-            Assert.AreEqual(OxyColor.FromArgb(0, 0, 0, 1), chartPointDataSeries.MarkerStroke);
-            Assert.AreEqual(1, chartPointDataSeries.MarkerStrokeThickness);
-            Assert.AreEqual(MarkerType.None, chartPointDataSeries.MarkerType);
+            Assert.AreEqual(4, chartPointDataSeries.MarkerSize);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartPointDataSeries.MarkerFill);
+            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartPointDataSeries.MarkerStroke);
+            Assert.AreEqual(2, chartPointDataSeries.MarkerStrokeThickness);
+            Assert.AreEqual(MarkerType.Circle, chartPointDataSeries.MarkerType);
 
             Assert.AreEqual(0, chartPointDataSeries.ItemsSource.Cast<DataPoint>().Count());
         }
