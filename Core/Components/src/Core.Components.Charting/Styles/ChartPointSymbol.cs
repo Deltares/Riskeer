@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Attributes;
+using Core.Components.Charting.Properties;
+
 namespace Core.Components.Charting.Styles
 {
     /// <summary>
@@ -26,10 +29,15 @@ namespace Core.Components.Charting.Styles
     /// </summary>
     public enum ChartPointSymbol
     {
-        None,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Circle_DisplayName))]
         Circle,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Square_DisplayName))]
         Square,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Diamond_DisplayName))]
         Diamond,
-        Triangle
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Triangle_DisplayName))]
+        Triangle,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Star_DisplayName))]
+        Star
     }
 }

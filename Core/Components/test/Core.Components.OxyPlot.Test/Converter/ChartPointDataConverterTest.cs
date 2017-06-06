@@ -149,11 +149,11 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        [TestCase(ChartPointSymbol.None, MarkerType.None)]
         [TestCase(ChartPointSymbol.Circle, MarkerType.Circle)]
         [TestCase(ChartPointSymbol.Square, MarkerType.Square)]
         [TestCase(ChartPointSymbol.Diamond, MarkerType.Diamond)]
         [TestCase(ChartPointSymbol.Triangle, MarkerType.Triangle)]
+        [TestCase(ChartPointSymbol.Star, MarkerType.Star)]
         public void ConvertSeriesProperties_ChartPointStyleSetWithDifferentChartPointSymbols_AppliesStyleToSeries(ChartPointSymbol symbol, MarkerType expectedMarkerType)
         {
             // Setup

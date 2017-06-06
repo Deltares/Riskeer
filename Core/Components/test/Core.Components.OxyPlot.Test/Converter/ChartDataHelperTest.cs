@@ -120,16 +120,6 @@ namespace Core.Components.OxyPlot.Test.Converter
         #region Convert ChartPointSymbol
 
         [Test]
-        public void Convert_None_ReturnsNone()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.None);
-
-            // Assert
-            Assert.AreEqual(MarkerType.None, markerType);
-        }
-
-        [Test]
         public void Convert_Circle_ReturnsCircle()
         {
             // Call
@@ -167,6 +157,16 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Assert
             Assert.AreEqual(MarkerType.Triangle, markerType);
+        }
+
+        [Test]
+        public void Convert_Star_ReturnsStar()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Star);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Star, markerType);
         }
 
         [Test]

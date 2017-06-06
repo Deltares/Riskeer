@@ -61,7 +61,7 @@ namespace Core.Components.OxyPlot.Converter
                     lineStyle = LineStyle.DashDotDot;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("dashStyle",
+                    throw new InvalidEnumArgumentException(nameof(dashStyle),
                                                            (int) dashStyle,
                                                            typeof(DashStyle));
             }
@@ -80,9 +80,6 @@ namespace Core.Components.OxyPlot.Converter
             MarkerType markerType;
             switch (symbol)
             {
-                case ChartPointSymbol.None:
-                    markerType = MarkerType.None;
-                    break;
                 case ChartPointSymbol.Circle:
                     markerType = MarkerType.Circle;
                     break;
@@ -94,6 +91,9 @@ namespace Core.Components.OxyPlot.Converter
                     break;
                 case ChartPointSymbol.Triangle:
                     markerType = MarkerType.Triangle;
+                    break;
+                case ChartPointSymbol.Star:
+                    markerType = MarkerType.Star;
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(symbol),
