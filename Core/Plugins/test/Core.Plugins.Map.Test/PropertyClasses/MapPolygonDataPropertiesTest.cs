@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -78,14 +79,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor colorProperty = dynamicProperties[fillColorPropertyIndex];
-            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             "Stijl",
                                                                             "Kleur",
                                                                             "De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor widthProperty = dynamicProperties[strokeColorPropertyIndex];
-            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
                                                                             "Stijl",
                                                                             "Lijnkleur",

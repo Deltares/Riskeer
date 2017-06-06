@@ -96,6 +96,7 @@
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
     <Compile Include="Converters\ExpandableArrayConverterTest.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverterTest.cs" />
+    <Compile Include="Converters\ColorTypeConverterTest.cs" />
     <Compile Include="Converters\PngToIconConverterTest.cs" />
     <Compile Include="ExceptionDialogTest.cs" />
     <Compile Include="Forms\MainWindow\MainWindowTest.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="SaveProjectActivityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UITypeEditors\ColorEditorTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="ViewPropertyEditorTest.cs" />
   </ItemGroup>

@@ -23,11 +23,11 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
-using Core.Plugins.Map.UITypeEditors;
+using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.Map.Test.UITypeEditors
+namespace Core.Common.Gui.Test.UITypeEditors
 {
     [TestFixture]
     public class ColorEditorTest

@@ -26,7 +26,7 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace Core.Plugins.Map.UITypeEditors
+namespace Core.Common.Gui.UITypeEditors
 {
     /// <summary>
     /// This class defines dialog from which the user can select a color.

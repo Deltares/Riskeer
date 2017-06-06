@@ -23,6 +23,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
+using Core.Common.Gui.UITypeEditors;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Converters;
@@ -41,7 +43,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(MapColorConverter))]
+        [TypeConverter(typeof(ColorTypeConverter))]
         public Color FillColor
         {
             get
@@ -60,7 +62,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeColor_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(MapColorConverter))]
+        [TypeConverter(typeof(ColorTypeConverter))]
         public Color StrokeColor
         {
             get

@@ -22,12 +22,12 @@
 using System.ComponentModel;
 using System.Drawing;
 
-namespace Core.Plugins.Map.Converters
+namespace Core.Common.Gui.Converters
 {
     /// <summary>
     /// A type converter to convert color objects to and from various other representations.
     /// </summary>
-    public class MapColorConverter : ColorConverter
+    public class ColorTypeConverter : ColorConverter
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {

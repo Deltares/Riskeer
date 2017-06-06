@@ -121,6 +121,7 @@
     <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
+    <Compile Include="Converters\ColorTypeConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="DialogBasedInquiryHelper.cs" />
     <Compile Include="ExceptionDialog.cs">
@@ -232,6 +233,7 @@
     <Compile Include="Forms\ViewHost\DocumentViewController.cs" />
     <Compile Include="IGui.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UITypeEditors\ColorEditor.cs" />
     <Compile Include="UITypeEditors\SelectionEditor.cs" />
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>

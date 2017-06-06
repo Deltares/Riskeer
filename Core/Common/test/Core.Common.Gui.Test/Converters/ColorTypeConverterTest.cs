@@ -21,20 +21,20 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using Core.Plugins.Map.Converters;
+using Core.Common.Gui.Converters;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.Map.Test.Converters
+namespace Core.Common.Gui.Test.Converters
 {
     [TestFixture]
-    public class MapColorConverterTest
+    public class ColorTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedProperties()
         {
             // Call
-            var converter = new MapColorConverter();
+            var converter = new ColorTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<ColorConverter>(converter);
@@ -48,7 +48,7 @@ namespace Core.Plugins.Map.Test.Converters
             var context = mocks.Stub<ITypeDescriptorContext>();
             mocks.ReplayAll();
 
-            var converter = new MapColorConverter();
+            var converter = new ColorTypeConverter();
 
             // Call
             bool standardValuesSupported = converter.GetStandardValuesSupported(context);

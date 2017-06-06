@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -79,7 +80,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             "Stijl",
                                                                             "Kleur",
