@@ -113,7 +113,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kaartlaag toevoegen afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Kaartlaag toevoegen afgebroken. Geen data gewijzigd..
         /// </summary>
         internal static string FeatureBasedMapDataImporter_HandleUserCancelingImport_Import_canceled_no_data_read {
             get {

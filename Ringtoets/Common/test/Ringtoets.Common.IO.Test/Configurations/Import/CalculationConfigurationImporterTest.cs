@@ -143,7 +143,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Berekeningenconfiguratie importeren afgebroken. Geen data gewijzigd.", 1);
             CollectionAssert.IsEmpty(calculationGroup.Children);
             Assert.IsFalse(importSuccessful);
         }

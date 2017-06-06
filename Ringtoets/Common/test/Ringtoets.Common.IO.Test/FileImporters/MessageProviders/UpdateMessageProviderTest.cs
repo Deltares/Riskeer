@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
             string message = messageProvider.GetCancelledLogMessageText(typeDescriptor);
 
             // Assert
-            const string expectedMessage = "Items bijwerken afgebroken. Geen data ingelezen.";
+            const string expectedMessage = "Items bijwerken afgebroken. Geen data gewijzigd.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
             string message = messageProvider.GetUpdateDataFailedLogMessageText(typeDescriptor);
 
             // Assert
-            const string expectedMessage = "Het bijwerken van de items is mislukt: {0}";
+            const string expectedMessage = "Het bijwerken van de items is mislukt: {0}. Geen data gewijzigd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

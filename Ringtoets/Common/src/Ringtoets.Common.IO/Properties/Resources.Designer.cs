@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Berekeningenconfiguratie importeren afgebroken. Geen data gewijzigd..
         /// </summary>
         public static string CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_no_data_read {
             get {
@@ -993,7 +993,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} importeren afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to {0} importeren afgebroken. Geen data gewijzigd..
         /// </summary>
         public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled {
             get {
@@ -1002,7 +1002,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het importeren van de {0} is mislukt: {{0}}.
+        ///   Looks up a localized string similar to Het importeren van de {0} is mislukt: {{0}}. Geen data gewijzigd..
         /// </summary>
         public static string Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__ {
             get {
@@ -1011,7 +1011,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} bijwerken afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to {0} bijwerken afgebroken. Geen data gewijzigd..
         /// </summary>
         public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled {
             get {
@@ -1020,7 +1020,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijwerken van de {0} is mislukt: {{0}}.
+        ///   Looks up a localized string similar to Het bijwerken van de {0} is mislukt: {{0}}. Geen data gewijzigd..
         /// </summary>
         public static string Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__ {
             get {
@@ -1292,7 +1292,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen data gewijzigd..
         /// </summary>
         public static string ReferenceLineImporter_ProgressText_Import_canceled_no_data_read {
             get {
