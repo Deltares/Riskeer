@@ -33,27 +33,27 @@ namespace Core.Components.Gis.Style
         /// </summary>
         /// <param name="fillColor">The fill color of the polygon.</param>
         /// <param name="strokeColor">The stroke color of the polygon.</param>
-        /// <param name="width">The width of the polygon border.</param>
-        public PolygonStyle(Color fillColor, Color strokeColor, int width)
+        /// <param name="strokeThickness">The stroke thickness of the polygon border.</param>
+        public PolygonStyle(Color fillColor, Color strokeColor, int strokeThickness)
         {
             FillColor = fillColor;
             StrokeColor = strokeColor;
-            Width = width;
+            StrokeThickness = strokeThickness;
         }
 
         /// <summary>
-        /// Gets the polygon fill color.
+        /// Gets or sets the polygon fill color.
         /// </summary>
-        public Color FillColor { get; private set; }
+        public Color FillColor { get; set; }
 
         /// <summary>
-        /// Gets the polygon stroke color.
+        /// Gets or sets the polygon stroke color.
         /// </summary>
-        public Color StrokeColor { get; private set; }
+        public Color StrokeColor { get; set; }
 
         /// <summary>
-        /// Gets the polygon border width.
+        /// Gets or sets the polygon border stroke thickness.
         /// </summary>
-        public int Width { get; private set; }
+        public int StrokeThickness { get; set; }
     }
 }

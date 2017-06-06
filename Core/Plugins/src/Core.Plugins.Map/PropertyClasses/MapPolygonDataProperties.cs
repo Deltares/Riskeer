@@ -19,8 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using Core.Common.Gui.Attributes;
+using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
+using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.Properties;
+using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {
@@ -29,6 +36,61 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapPolygonDataProperties : FeatureBasedMapDataProperties<MapPolygonData>
     {
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(MapColorConverter))]
+        public Color FillColor
+        {
+            get
+            {
+                return data.Style.FillColor;
+            }
+            set
+            {
+                data.Style.FillColor = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeColor_Description))]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(MapColorConverter))]
+        public Color StrokeColor
+        {
+            get
+            {
+                return data.Style.StrokeColor;
+            }
+            set
+            {
+                data.Style.StrokeColor = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeThickness_Description))]
+        public int StrokeThickness
+        {
+            get
+            {
+                return data.Style.StrokeThickness;
+            }
+            set
+            {
+                data.Style.StrokeThickness = value;
+                data.NotifyObservers();
+            }
+        }
+
         public override string Type
         {
             get

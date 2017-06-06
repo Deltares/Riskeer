@@ -42,7 +42,7 @@ namespace Core.Components.Gis.Test.Style
             // Assert
             Assert.AreEqual(fillColor, polygonStyle.FillColor);
             Assert.AreEqual(strokeColor, polygonStyle.StrokeColor);
-            Assert.AreEqual(width, polygonStyle.Width);
+            Assert.AreEqual(width, polygonStyle.StrokeThickness);
         }
     }
 }

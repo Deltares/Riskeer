@@ -83,7 +83,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             "Stijl",
                                                                             "Kleur",
-                                                                            "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.");
+                                                                            "De kleur van de lijnen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,

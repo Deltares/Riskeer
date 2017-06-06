@@ -40,7 +40,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_Color_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Color_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(MapColorConverter))]
         public Color Color
@@ -58,7 +58,7 @@ namespace Core.Plugins.Map.PropertyClasses
 
         [PropertyOrder(6)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_Width_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Width_Description))]
         public int Width
         {

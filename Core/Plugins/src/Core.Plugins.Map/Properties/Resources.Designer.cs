@@ -273,15 +273,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven..
-        /// </summary>
-        public static string MapData_Color_Description {
-            get {
-                return ResourceManager.GetString("MapData_Color_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
         public static string MapData_Color_DisplayName {
@@ -323,6 +314,24 @@ namespace Core.Plugins.Map.Properties {
         public static string MapData_Name_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnkleur.
+        /// </summary>
+        public static string MapData_StrokeColor_DisplayName {
+            get {
+                return ResourceManager.GetString("MapData_StrokeColor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijndikte.
+        /// </summary>
+        public static string MapData_StrokeThickness_DisplayName {
+            get {
+                return ResourceManager.GetString("MapData_StrokeThickness_DisplayName", resourceCulture);
             }
         }
         
@@ -420,6 +429,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapLineData_Color_Description {
+            get {
+                return ResourceManager.GetString("MapLineData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
         public static string MapLineData_DashStyle_Description {
@@ -443,15 +461,6 @@ namespace Core.Plugins.Map.Properties {
         public static string MapLineData_Width_Description {
             get {
                 return ResourceManager.GetString("MapLineData_Width_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijndikte.
-        /// </summary>
-        public static string MapLineData_Width_DisplayName {
-            get {
-                return ResourceManager.GetString("MapLineData_Width_DisplayName", resourceCulture);
             }
         }
         
@@ -484,6 +493,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPointData_Color_Description {
+            get {
+                return ResourceManager.GetString("MapPointData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
         public static string MapPointData_Size_Description {
@@ -511,29 +529,11 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijnkleur.
-        /// </summary>
-        public static string MapPointData_StrokeColor_DisplayName {
-            get {
-                return ResourceManager.GetString("MapPointData_StrokeColor_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
         public static string MapPointData_StrokeThickness_Description {
             get {
                 return ResourceManager.GetString("MapPointData_StrokeThickness_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijndikte.
-        /// </summary>
-        public static string MapPointData_StrokeThickness_DisplayName {
-            get {
-                return ResourceManager.GetString("MapPointData_StrokeThickness_DisplayName", resourceCulture);
             }
         }
         
@@ -562,6 +562,33 @@ namespace Core.Plugins.Map.Properties {
             get {
                 object obj = ResourceManager.GetObject("MapPointIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPolygonData_FillColor_Description {
+            get {
+                return ResourceManager.GetString("MapPolygonData_FillColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPolygonData_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("MapPolygonData_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven..
+        /// </summary>
+        public static string MapPolygonData_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("MapPolygonData_StrokeThickness_Description", resourceCulture);
             }
         }
         

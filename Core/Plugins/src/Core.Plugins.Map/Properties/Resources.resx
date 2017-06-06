@@ -274,7 +274,7 @@
   <data name="Categories_Styling" xml:space="preserve">
     <value>Stijl</value>
   </data>
-  <data name="MapData_Color_Description" xml:space="preserve">
+  <data name="MapPointData_Color_Description" xml:space="preserve">
     <value>De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
   <data name="MapData_Color_DisplayName" xml:space="preserve">
@@ -289,13 +289,13 @@
   <data name="MapPointData_StrokeColor_Description" xml:space="preserve">
     <value>De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
-  <data name="MapPointData_StrokeColor_DisplayName" xml:space="preserve">
+  <data name="MapData_StrokeColor_DisplayName" xml:space="preserve">
     <value>Lijnkleur</value>
   </data>
   <data name="MapPointData_StrokeThickness_Description" xml:space="preserve">
     <value>De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
-  <data name="MapPointData_StrokeThickness_DisplayName" xml:space="preserve">
+  <data name="MapData_StrokeThickness_DisplayName" xml:space="preserve">
     <value>Lijndikte</value>
   </data>
   <data name="MapPointData_Symbol_Description" xml:space="preserve">
@@ -313,9 +313,6 @@
   <data name="MapLineData_Width_Description" xml:space="preserve">
     <value>De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
-  <data name="MapLineData_Width_DisplayName" xml:space="preserve">
-    <value>Lijndikte</value>
-  </data>
   <data name="DashStyle_DashDotDot_DisplayName" xml:space="preserve">
     <value>Streep-stip-stip</value>
   </data>
@@ -330,5 +327,17 @@
   </data>
   <data name="DashStyle_Solid_DisplayName" xml:space="preserve">
     <value>Doorgetrokken</value>
+  </data>
+  <data name="MapLineData_Color_Description" xml:space="preserve">
+    <value>De kleur van de lijnen waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPolygonData_FillColor_Description" xml:space="preserve">
+    <value>De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPolygonData_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapPolygonData_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
 </root>

@@ -19,15 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
+using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Map.Test.PropertyClasses
 {
     [TestFixture]
     public class MapPolygonDataPropertiesTest
     {
+        private const int fillColorPropertyIndex = 5;
+        private const int strokeColorPropertyIndex = 6;
+        private const int strokeThicknessPropertyIndex = 7;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -38,6 +52,109 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPolygonData>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Polygonen", properties.Type);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var mapPolygonData = new MapPolygonData("Test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                },
+                ShowLabels = true
+            };
+
+            // Call
+            var properties = new MapPolygonDataProperties
+            {
+                Data = mapPolygonData
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(8, dynamicProperties.Count);
+
+            PropertyDescriptor colorProperty = dynamicProperties[fillColorPropertyIndex];
+            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
+                                                                            "Stijl",
+                                                                            "Kleur",
+                                                                            "De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven.");
+
+            PropertyDescriptor widthProperty = dynamicProperties[strokeColorPropertyIndex];
+            Assert.IsInstanceOf<MapColorConverter>(colorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
+                                                                            "Stijl",
+                                                                            "Lijnkleur",
+                                                                            "De kleur van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.");
+
+            PropertyDescriptor styleProperty = dynamicProperties[strokeThicknessPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
+                                                                            "Stijl",
+                                                                            "Lijndikte",
+                                                                            "De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.");
+        }
+
+        [Test]
+        public void Data_SetNewMapPolygonDataInstance_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            Color fillColor = Color.Aqua;
+            Color strokeColor = Color.Bisque;
+            const int strokeThickness = 4;
+
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(fillColor, strokeColor, strokeThickness));
+            var properties = new MapPolygonDataProperties();
+
+            // Call
+            properties.Data = mapPolygonData;
+
+            // Assert
+            Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
+            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.AreEqual(mapPolygonData.MetaData, properties.GetAvailableMetaDataAttributes());
+
+            Assert.AreEqual(fillColor, properties.FillColor);
+            Assert.AreEqual(strokeColor, properties.StrokeColor);
+            Assert.AreEqual(strokeThickness, properties.StrokeThickness);
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            const int numberOfChangedProperties = 3;
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            mocks.ReplayAll();
+
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(Color.AliceBlue, Color.Blue, 3));
+
+            mapPolygonData.Attach(observerMock);
+
+            var properties = new MapPolygonDataProperties
+            {
+                Data = mapPolygonData
+            };
+
+            Color newFillColor = Color.Blue;
+            Color newStrokeColor = Color.Red;
+            const int newStrokeThickness = 6;
+
+            // Call
+            properties.FillColor = newFillColor;
+            properties.StrokeColor = newStrokeColor;
+            properties.StrokeThickness = newStrokeThickness;
+
+            // Assert
+            Assert.AreEqual(newFillColor, mapPolygonData.Style.FillColor);
+            Assert.AreEqual(newStrokeColor, mapPolygonData.Style.StrokeColor);
+            Assert.AreEqual(newStrokeThickness, mapPolygonData.Style.StrokeThickness);
+            mocks.VerifyAll();
         }
     }
 }
