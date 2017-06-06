@@ -38,12 +38,9 @@ namespace Core.Components.OxyPlot.Converter
 
         protected override void SetSeriesStyle(ChartLineData data, LineSeries series)
         {
-            if (data.Style != null)
-            {
-                series.Color = ChartDataHelper.Convert(data.Style.Color);
-                series.StrokeThickness = data.Style.Width;
-                series.LineStyle = ChartDataHelper.Convert(data.Style.DashStyle);
-            }
+            series.Color = ChartDataHelper.Convert(data.Style.Color);
+            series.StrokeThickness = data.Style.Width;
+            series.LineStyle = ChartDataHelper.Convert(data.Style.DashStyle);
         }
     }
 }

@@ -313,21 +313,6 @@
   <data name="MapLineData_Width_Description" xml:space="preserve">
     <value>De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
-  <data name="DashStyle_DashDotDot_DisplayName" xml:space="preserve">
-    <value>Streep-stip-stip</value>
-  </data>
-  <data name="DashStyle_DashDot_DisplayName" xml:space="preserve">
-    <value>Streep-stip</value>
-  </data>
-  <data name="DashStyle_Dash_DisplayName" xml:space="preserve">
-    <value>Onderbroken</value>
-  </data>
-  <data name="DashStyle_Dot_DisplayName" xml:space="preserve">
-    <value>Gestippeld</value>
-  </data>
-  <data name="DashStyle_Solid_DisplayName" xml:space="preserve">
-    <value>Doorgetrokken</value>
-  </data>
   <data name="MapLineData_Color_Description" xml:space="preserve">
     <value>De kleur van de lijnen waarmee deze kaartlaag wordt weergegeven.</value>
   </data>

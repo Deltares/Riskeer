@@ -77,7 +77,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_DashStyle_Description))]
-//        [TypeConverter(typeof(DashStyleConverter))]
+        [TypeConverter(typeof(DashStyleConverter))]
         public DashStyle DashStyle
         {
             get

@@ -68,7 +68,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Converters\DashStyleConverter.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataProperties.cs" />
     <Compile Include="PropertyClasses\IHasMetaData.cs" />
     <Compile Include="PropertyClasses\MapDataCollectionProperties.cs" />

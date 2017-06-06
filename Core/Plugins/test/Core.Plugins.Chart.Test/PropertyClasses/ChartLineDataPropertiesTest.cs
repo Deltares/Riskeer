@@ -82,7 +82,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
-//            Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
+            Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             "Stijl",
                                                                             "Lijnstijl",

@@ -23,12 +23,12 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using Core.Common.Gui.Converters;
 using Core.Common.Utils;
-using Core.Plugins.Map.Converters;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.Map.Test.Converters
+namespace Core.Common.Gui.Test.Converters
 {
     [TestFixture]
     public class DashStyleConverterTest

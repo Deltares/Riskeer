@@ -29,9 +29,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.Properties;
-using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses
 {

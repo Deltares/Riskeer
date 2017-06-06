@@ -652,4 +652,19 @@
   <data name="GuiUpdateHandler_RunUpdateActivity_Updating_0_" xml:space="preserve">
     <value>Bijwerken van '{0}'</value>
   </data>
+  <data name="DashStyle_DashDotDot_DisplayName" xml:space="preserve">
+    <value>Streep-stip-stip</value>
+  </data>
+  <data name="DashStyle_DashDot_DisplayName" xml:space="preserve">
+    <value>Streep-stip</value>
+  </data>
+  <data name="DashStyle_Dash_DisplayName" xml:space="preserve">
+    <value>Onderbroken</value>
+  </data>
+  <data name="DashStyle_Dot_DisplayName" xml:space="preserve">
+    <value>Gestippeld</value>
+  </data>
+  <data name="DashStyle_Solid_DisplayName" xml:space="preserve">
+    <value>Doorgetrokken</value>
+  </data>
 </root>

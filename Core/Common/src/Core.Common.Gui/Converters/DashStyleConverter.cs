@@ -23,10 +23,10 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils;
-using Core.Plugins.Map.Properties;
 
-namespace Core.Plugins.Map.Converters
+namespace Core.Common.Gui.Converters
 {
     /// <summary>
     /// A type converter to convert <see cref="DashStyle"/> objects to and from various other representations.

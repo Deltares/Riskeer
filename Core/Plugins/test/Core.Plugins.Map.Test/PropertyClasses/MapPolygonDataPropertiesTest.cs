@@ -29,7 +29,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
-using Core.Plugins.Map.Converters;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
