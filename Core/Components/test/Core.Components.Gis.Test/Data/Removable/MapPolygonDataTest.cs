@@ -45,7 +45,7 @@ namespace Core.Components.Gis.Test.Data.Removable
             Assert.IsInstanceOf<IRemovable>(data);
             Assert.AreEqual(Color.DarkGray, data.Style.FillColor);
             Assert.AreEqual(Color.Black, data.Style.StrokeColor);
-            Assert.AreEqual(2, data.Style.Width);
+            Assert.AreEqual(2, data.Style.StrokeThickness);
         }
 
         [Test]
