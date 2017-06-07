@@ -608,20 +608,16 @@ namespace Core.Common.Controls.TreeView
         {
             IList<TreeNode> newlyAddedTreeNodes = new List<TreeNode>();
             object[] expectedChildNodes = treeNodeInfo.ChildNodeObjects != null
-                                               ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
-                                               : new object[0];
+                                              ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
+                                              : new object[0];
 
-            for (var i = 0; i < expectedChildNodes.Length; i++)
+            for (var nodeIndex = 0; nodeIndex < expectedChildNodes.Length; nodeIndex++)
             {
-                if (treeNode.Nodes.Count > i)
-                {
-                    RemovePossiblyOutdatedChildNode(treeNode, treeNode.Nodes[i], expectedChildNodes);
-                }
+                RemovePossiblyOutdatedChildNodeAtIndex(treeNode, nodeIndex, expectedChildNodes);
 
-                object newChildNodeObject = expectedChildNodes[i];
+                object expectedChildNode = expectedChildNodes[nodeIndex];
 
-                // Continue on correct node
-                if (treeNode.Nodes.Count > i && newChildNodeObject.Equals(treeNode.Nodes[i].Tag))
+                if (IsExpectedChildNodePresentAtIndex(treeNode, nodeIndex, expectedChildNode))
                 {
                     continue;
                 }
@@ -634,40 +630,62 @@ namespace Core.Common.Controls.TreeView
                                                                                 })
                                                                                 .ToDictionary(x => x.node.Tag, x => x.index);
 
-                if (currentTagIndexLookup.ContainsKey(newChildNodeObject))
+                if (currentTagIndexLookup.ContainsKey(expectedChildNode))
                 {
-                    // Move existing node
-                    int currentTreeNodeIndex = currentTagIndexLookup[newChildNodeObject];
-                    TreeNode existingTreeNode = currentTreeNodes[currentTreeNodeIndex];
-                    treeNode.Nodes.RemoveAt(currentTreeNodeIndex);
-                    treeNode.Nodes.Insert(i, existingTreeNode);
+                    MoveExistingChildNodeToIndex(treeNode, currentTagIndexLookup, expectedChildNode, currentTreeNodes, nodeIndex);
                 }
                 else
                 {
-                    // Insert new node
-                    TreeNode newTreeNode = CreateTreeNode(treeNode, newChildNodeObject);
-                    treeNode.Nodes.Insert(i, newTreeNode);
-                    newlyAddedTreeNodes.Add(newTreeNode);
+                    newlyAddedTreeNodes.Add(InsertNewChildNode(treeNode, expectedChildNode, nodeIndex));
                 }
             }
 
-            // Remove any outdated nodes at the end
+            RemovePossiblyOutdatedChildNodesAtEnd(treeNode, expectedChildNodes);
+
+            SelectLastNewNode(newlyAddedTreeNodes);
+        }
+
+        private void RemovePossiblyOutdatedChildNodeAtIndex(TreeNode parentNode, int childNodeIndex, IEnumerable<object> expectedChildNodes)
+        {
+            if (parentNode.Nodes.Count > childNodeIndex)
+            {
+                TreeNode possiblyOutdatedChildNode = parentNode.Nodes[childNodeIndex];
+
+                if (!expectedChildNodes.Contains(possiblyOutdatedChildNode.Tag))
+                {
+                    parentNode.Nodes.Remove(possiblyOutdatedChildNode);
+                    RemoveTreeNodeFromLookupRecursively(possiblyOutdatedChildNode);
+                }
+            }
+        }
+
+        private static bool IsExpectedChildNodePresentAtIndex(TreeNode parentNode, int childNodeIndex, object expectedChildNode)
+        {
+            return parentNode.Nodes.Count > childNodeIndex && expectedChildNode.Equals(parentNode.Nodes[childNodeIndex].Tag);
+        }
+
+        private static void MoveExistingChildNodeToIndex(TreeNode parentNode, Dictionary<object, int> currentTagIndexLookup, object existingChildNode, IList<TreeNode> currentTreeNodes, int indexToMoveChildNodeTo)
+        {
+            int currentTreeNodeIndex = currentTagIndexLookup[existingChildNode];
+            TreeNode existingTreeNode = currentTreeNodes[currentTreeNodeIndex];
+            parentNode.Nodes.RemoveAt(currentTreeNodeIndex);
+            parentNode.Nodes.Insert(indexToMoveChildNodeTo, existingTreeNode);
+        }
+
+        private TreeNode InsertNewChildNode(TreeNode treeNode, object expectedChildNode, int nodeIndex)
+        {
+            TreeNode newTreeNode = CreateTreeNode(treeNode, expectedChildNode);
+            treeNode.Nodes.Insert(nodeIndex, newTreeNode);
+
+            return newTreeNode;
+        }
+
+        private static void RemovePossiblyOutdatedChildNodesAtEnd(TreeNode treeNode, object[] expectedChildNodes)
+        {
             IEnumerable<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().Skip(expectedChildNodes.Length).ToList();
             foreach (TreeNode outdatedNode in outdatedTreeNodes)
             {
                 treeNode.Nodes.Remove(outdatedNode);
-            }
-
-            // If relevant, set selection to the last of the added nodes
-            SelectLastNewNode(newlyAddedTreeNodes);
-        }
-
-        private void RemovePossiblyOutdatedChildNode(TreeNode parentNode, TreeNode possiblyOutdatedChildNode, IEnumerable<object> expectedChildNodes)
-        {
-            if (!expectedChildNodes.Contains(possiblyOutdatedChildNode.Tag))
-            {
-                parentNode.Nodes.Remove(possiblyOutdatedChildNode);
-                RemoveTreeNodeFromLookupRecursively(possiblyOutdatedChildNode);
             }
         }
 
