@@ -1182,7 +1182,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Forms.Test
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtils", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtils\Ringtoets.Piping.Integration.TestUtils.csproj", "{A4972765-DDBB-4A1E-B17C-7185577E5591}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtil\Ringtoets.Piping.Integration.TestUtil.csproj", "{A4972765-DDBB-4A1E-B17C-7185577E5591}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1393,7 +1393,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.TestU
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtils.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtils.Test\Ringtoets.Piping.Integration.TestUtils.Test.csproj", "{070DC87D-520B-4A84-8965-ED5012875FCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.TestUtil.Test\Ringtoets.Piping.Integration.TestUtil.Test.csproj", "{070DC87D-520B-4A84-8965-ED5012875FCC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1584,12 +1584,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Integration.TestUtils", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Integration.TestUtils\Ringtoets.MacroStabilityInwards.Integration.TestUtils.csproj", "{FC576B83-0FB4-49C1-AE53-47FF9779110F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Integration.TestUtil", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Integration.TestUtil\Ringtoets.MacroStabilityInwards.Integration.TestUtil.csproj", "{FC576B83-0FB4-49C1-AE53-47FF9779110F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test\Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test.csproj", "{371F39A4-B48D-4298-A7F9-53BABB55DE03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test\Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test.csproj", "{371F39A4-B48D-4298-A7F9-53BABB55DE03}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

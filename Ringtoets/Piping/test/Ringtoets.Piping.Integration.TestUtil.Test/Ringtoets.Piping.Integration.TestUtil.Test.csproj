@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{371F39A4-B48D-4298-A7F9-53BABB55DE03}</ProjectGuid>
+    <ProjectGuid>{070DC87D-520B-4A84-8965-ED5012875FCC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test</RootNamespace>
-    <AssemblyName>Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Integration.TestUtil.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Integration.TestUtil.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,7 +50,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="MacroStabilityInwardsTestDataGeneratorTest.cs" />
+    <Compile Include="PipingTestDataGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,17 +72,17 @@
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
-      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
-      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Integration.TestUtils\Ringtoets.MacroStabilityInwards.Integration.TestUtils.csproj">
-      <Project>{fc576b83-0fb4-49c1-ae53-47ff9779110f}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Integration.TestUtils</Name>
+    <ProjectReference Include="..\Ringtoets.Piping.Integration.TestUtil\Ringtoets.Piping.Integration.TestUtil.csproj">
+      <Project>{A4972765-DDBB-4A1E-B17C-7185577E5591}</Project>
+      <Name>Ringtoets.Piping.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
