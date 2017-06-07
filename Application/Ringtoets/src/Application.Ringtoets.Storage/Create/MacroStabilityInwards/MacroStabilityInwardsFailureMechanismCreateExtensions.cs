@@ -52,9 +52,9 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
         {
             foreach (MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                MacrostabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                MacroStabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.MacrostabilityInwardsSectionResultEntities.Add(sectionResultEntity);
+                section.MacroStabilityInwardsSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }

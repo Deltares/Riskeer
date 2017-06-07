@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
             };
 
             // Call
-            MacrostabilityInwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityInwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
             };
 
             // Call
-            MacrostabilityInwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityInwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

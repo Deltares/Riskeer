@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -589,7 +589,7 @@
           <Property Name="CalculatedReliability" Type="real" />
           <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
         </EntityType>
-        <EntityType Name="MacrostabilityInwardsSectionResultEntity">
+        <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
             <PropertyRef Name="MacrostabilityInwardsSectionResultEntityId" />
           </Key>
@@ -1726,14 +1726,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MacrostabilityInwardsSectionResultEntity_0_0">
+        <Association Name="FK_MacroStabilityInwardsSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
-          <End Role="MacrostabilityInwardsSectionResultEntity" Type="Self.MacrostabilityInwardsSectionResultEntity" Multiplicity="*" />
+          <End Role="MacroStabilityInwardsSectionResultEntity" Type="Self.MacroStabilityInwardsSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismSectionEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Principal>
-            <Dependent Role="MacrostabilityInwardsSectionResultEntity">
+            <Dependent Role="MacroStabilityInwardsSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2258,7 +2258,7 @@
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
-          <EntitySet Name="MacrostabilityInwardsSectionResultEntity" EntityType="Self.MacrostabilityInwardsSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsSectionResultEntity" EntityType="Self.MacroStabilityInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="MacrostabilityOutwardsSectionResultEntity" EntityType="Self.MacrostabilityOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="MicrostabilitySectionResultEntity" EntityType="Self.MicrostabilitySectionResultEntity" store:Type="Tables" />
           <EntitySet Name="PipingCalculationEntity" EntityType="Self.PipingCalculationEntity" store:Type="Tables" />
@@ -2502,9 +2502,9 @@
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
             <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_MacrostabilityInwardsSectionResultEntity_0_0" Association="Self.FK_MacrostabilityInwardsSectionResultEntity_0_0">
+          <AssociationSet Name="FK_MacroStabilityInwardsSectionResultEntity_0_0" Association="Self.FK_MacroStabilityInwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
-            <End Role="MacrostabilityInwardsSectionResultEntity" EntitySet="MacrostabilityInwardsSectionResultEntity" />
+            <End Role="MacroStabilityInwardsSectionResultEntity" EntitySet="MacroStabilityInwardsSectionResultEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0" Association="Self.FK_MacrostabilityOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -2711,7 +2711,7 @@
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
-          <EntitySet Name="MacrostabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityInwardsSectionResultEntity" />
+          <EntitySet Name="MacroStabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" />
           <EntitySet Name="MacrostabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" />
           <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
@@ -2939,9 +2939,9 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_MacrostabilityInwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacrostabilityInwardsSectionResultEntity_0_0">
+          <AssociationSet Name="FK_MacroStabilityInwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
-            <End Role="MacrostabilityInwardsSectionResultEntity" EntitySet="MacrostabilityInwardsSectionResultEntities" />
+            <End Role="MacroStabilityInwardsSectionResultEntity" EntitySet="MacroStabilityInwardsSectionResultEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
@@ -3448,7 +3448,7 @@
           <NavigationProperty Name="GrassCoverSlipOffInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverSlipOffInwardsSectionResultEntity" />
           <NavigationProperty Name="GrassCoverSlipOffOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverSlipOffOutwardsSectionResultEntity" />
           <NavigationProperty Name="HeightStructuresSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_1_0" FromRole="FailureMechanismSectionEntity" ToRole="HeightStructuresSectionResultEntity" />
-          <NavigationProperty Name="MacrostabilityInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacrostabilityInwardsSectionResultEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacroStabilityInwardsSectionResultEntity" />
           <NavigationProperty Name="MacrostabilityOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacrostabilityOutwardsSectionResultEntity" />
           <NavigationProperty Name="MicrostabilitySectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MicrostabilitySectionResultEntity" />
           <NavigationProperty Name="PipingSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingSectionResultEntity" />
@@ -3837,7 +3837,7 @@
           <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationOutputEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
-        <EntityType Name="MacrostabilityInwardsSectionResultEntity">
+        <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
             <PropertyRef Name="MacrostabilityInwardsSectionResultEntityId" />
           </Key>
@@ -3846,7 +3846,7 @@
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Double" />
           <Property Name="LayerThree" Type="Double" />
-          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityInwardsSectionResultEntity_0_0" FromRole="MacrostabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="MacroStabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
           <Key>
@@ -4981,14 +4981,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MacrostabilityInwardsSectionResultEntity_0_0">
+        <Association Name="FK_MacroStabilityInwardsSectionResultEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.MacrostabilityInwardsSectionResultEntity" Role="MacrostabilityInwardsSectionResultEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" Role="MacroStabilityInwardsSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismSectionEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Principal>
-            <Dependent Role="MacrostabilityInwardsSectionResultEntity">
+            <Dependent Role="MacroStabilityInwardsSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -6150,9 +6150,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MacrostabilityInwardsSectionResultEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacrostabilityInwardsSectionResultEntity">
-              <MappingFragment StoreEntitySet="MacrostabilityInwardsSectionResultEntity">
+          <EntitySetMapping Name="MacroStabilityInwardsSectionResultEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
                 <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />

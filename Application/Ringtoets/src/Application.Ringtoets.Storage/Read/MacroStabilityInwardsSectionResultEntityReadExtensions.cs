@@ -29,19 +29,19 @@ namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> based on the
-    /// <see cref="MacrostabilityInwardsSectionResultEntity"/>.
+    /// <see cref="MacroStabilityInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="MacrostabilityInwardsSectionResultEntity"/> and use the information to update a 
+        /// Reads the <see cref="MacroStabilityInwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacrostabilityInwardsSectionResultEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this MacrostabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {

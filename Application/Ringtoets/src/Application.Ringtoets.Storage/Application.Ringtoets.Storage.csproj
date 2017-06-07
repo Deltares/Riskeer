@@ -200,7 +200,7 @@
     </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
     <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
-    <Compile Include="DbContext\MacrostabilityInwardsSectionResultEntity.cs">
+    <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacrostabilityOutwardsSectionResultEntity.cs">

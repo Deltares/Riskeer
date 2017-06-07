@@ -27,18 +27,18 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> related to creating a 
-    /// <see cref="MacrostabilityInwardsSectionResultEntity"/>.
+    /// <see cref="MacroStabilityInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacrostabilityInwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="MacroStabilityInwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>A new <see cref="MacrostabilityInwardsSectionResultEntity"/>.</returns>
-        internal static MacrostabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
+        /// <returns>A new <see cref="MacroStabilityInwardsSectionResultEntity"/>.</returns>
+        internal static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
         {
-            var sectionResultEntity = new MacrostabilityInwardsSectionResultEntity
+            var sectionResultEntity = new MacroStabilityInwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerThree = result.AssessmentLayerThree.ToNaNAsNull()

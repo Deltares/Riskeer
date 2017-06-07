@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new MacrostabilityInwardsSectionResultEntity();
+            var entity = new MacroStabilityInwardsSectionResultEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);
@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new MacrostabilityInwardsSectionResultEntity
+            var entity = new MacroStabilityInwardsSectionResultEntity
             {
                 LayerThree = layerThree,
                 LayerTwoA = layerTwoA,

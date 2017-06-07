@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
             GrassCoverSlipOffInwardsSectionResultEntities = new HashSet<GrassCoverSlipOffInwardsSectionResultEntity>();
             GrassCoverSlipOffOutwardsSectionResultEntities = new HashSet<GrassCoverSlipOffOutwardsSectionResultEntity>();
             HeightStructuresSectionResultEntities = new HashSet<HeightStructuresSectionResultEntity>();
-            MacrostabilityInwardsSectionResultEntities = new HashSet<MacrostabilityInwardsSectionResultEntity>();
+            MacroStabilityInwardsSectionResultEntities = new HashSet<MacroStabilityInwardsSectionResultEntity>();
             MacrostabilityOutwardsSectionResultEntities = new HashSet<MacrostabilityOutwardsSectionResultEntity>();
             MicrostabilitySectionResultEntities = new HashSet<MicrostabilitySectionResultEntity>();
             PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MacrostabilityInwardsSectionResultEntity> MacrostabilityInwardsSectionResultEntities { get; set; }
+        public virtual ICollection<MacroStabilityInwardsSectionResultEntity> MacroStabilityInwardsSectionResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacrostabilityOutwardsSectionResultEntity> MacrostabilityOutwardsSectionResultEntities { get; set; }

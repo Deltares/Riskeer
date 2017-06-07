@@ -507,7 +507,7 @@ namespace Application.Ringtoets.Storage.Read
                                                                              MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
         {
-            foreach (MacrostabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityInwardsSectionResultEntities))
+            foreach (MacroStabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 MacroStabilityInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));

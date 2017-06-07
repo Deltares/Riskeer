@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.DbContext
             HeightStructuresSectionResultEntities.Load();
             HydraulicLocationEntities.Load();
             HydraulicLocationOutputEntities.Load();
-            MacrostabilityInwardsSectionResultEntities.Load();
+            MacroStabilityInwardsSectionResultEntities.Load();
             MacrostabilityOutwardsSectionResultEntities.Load();
             MicrostabilitySectionResultEntities.Load();
             ProjectEntities.Load();

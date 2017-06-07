@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityInwardsSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Count());
         }
     }
 }

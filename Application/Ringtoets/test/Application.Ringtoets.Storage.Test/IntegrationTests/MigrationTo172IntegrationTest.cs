@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "HeightStructuresFailureMechanismMetaEntity",
                 "HeightStructuresSectionResultEntity",
                 "HydraulicLocationEntity",
-                "MacrostabilityInwardsSectionResultEntity",
+                "MacroStabilityInwardsSectionResultEntity",
                 "MacrostabilityOutwardsSectionResultEntity",
                 "MicrostabilitySectionResultEntity",
                 "PipingCalculationEntity",

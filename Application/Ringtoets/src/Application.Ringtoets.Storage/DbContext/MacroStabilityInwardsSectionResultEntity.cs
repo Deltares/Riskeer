@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class MacrostabilityInwardsSectionResultEntity
+    public class MacroStabilityInwardsSectionResultEntity
     {
         public long MacrostabilityInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
