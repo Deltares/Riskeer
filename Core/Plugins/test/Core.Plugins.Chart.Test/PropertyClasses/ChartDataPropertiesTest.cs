@@ -121,7 +121,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(typeProperty,
                                                                             generalCategory,
                                                                             "Type",
-                                                                            "Het type data dat wordt weergegeven in de gegevensreeks.",
+                                                                            "Het type van de data die wordt weergegeven in de gegevensreeks.",
                                                                             true);
 
             PropertyDescriptor isVisibleProperty = dynamicProperties[visiblePropertyIndex];

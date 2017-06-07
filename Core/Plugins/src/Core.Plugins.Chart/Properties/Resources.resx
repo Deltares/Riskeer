@@ -209,7 +209,7 @@
     <value>Weergeven</value>
   </data>
   <data name="ChartDataProperties_Type_Description" xml:space="preserve">
-    <value>Het type data dat wordt weergegeven in de gegevensreeks.</value>
+    <value>Het type van de data die wordt weergegeven in de gegevensreeks.</value>
   </data>
   <data name="ChartDataProperties_Type_DisplayName" xml:space="preserve">
     <value>Type</value>

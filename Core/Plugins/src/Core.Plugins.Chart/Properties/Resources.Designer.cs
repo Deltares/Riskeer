@@ -209,7 +209,7 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het type data dat wordt weergegeven in de gegevensreeks..
+        ///   Looks up a localized string similar to Het type van de data die wordt weergegeven in de gegevensreeks..
         /// </summary>
         public static string ChartDataProperties_Type_Description {
             get {
