@@ -30,7 +30,7 @@ namespace Core.Components.Gis.Test.Style
     public class LineStyleTest
     {
         [Test]
-        public void Constructor_WithAllParameters_SetsProperties()
+        public void Properties_SetValues_PropertyValuesAsExpected()
         {
             // Setup
             Color color = Color.AliceBlue;
