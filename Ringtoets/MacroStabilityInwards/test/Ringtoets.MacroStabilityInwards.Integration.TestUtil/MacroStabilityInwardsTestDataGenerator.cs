@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Integration.TestUtils
+namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

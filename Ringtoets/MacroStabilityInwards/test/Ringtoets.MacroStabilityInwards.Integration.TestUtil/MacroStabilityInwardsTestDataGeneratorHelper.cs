@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Integration.TestUtils
+namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
 {
     /// <summary>
     /// Class to help asserting the <see cref="MacroStabilityInwardsTestDataGenerator"/>.

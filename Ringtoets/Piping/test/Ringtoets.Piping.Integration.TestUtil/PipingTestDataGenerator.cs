@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Integration.TestUtils
+namespace Ringtoets.Piping.Integration.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Integration.TestUtils;
+using Ringtoets.Piping.Integration.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 

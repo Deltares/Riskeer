@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Integration.TestUtils.Test
+namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsTestDataGeneratorTest

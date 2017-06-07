@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Integration.TestUtils.Test
+namespace Ringtoets.Piping.Integration.TestUtil.Test
 {
     [TestFixture]
     public class PipingTestDataGeneratorTest

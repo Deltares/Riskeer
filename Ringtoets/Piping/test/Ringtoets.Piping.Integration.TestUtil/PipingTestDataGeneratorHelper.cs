@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Integration.TestUtils
+namespace Ringtoets.Piping.Integration.TestUtil
 {
     /// <summary>
     /// Class to help asserting the <see cref="PipingTestDataGenerator"/>.
