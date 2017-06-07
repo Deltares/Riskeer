@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// Gets a wave reduction configuration based on the values found in the <paramref name="calculationElement"/>.
         /// </summary>
         /// <param name="calculationElement">The element containing values for wave reduction parameters.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the value for break water type isn't valid.</exception>
         /// <exception cref="FormatException">Thrown when the value for break water height, use foreshore profile or
         /// use breakwater isn't in the correct format to convert to a value.</exception>

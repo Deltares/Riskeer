@@ -838,6 +838,30 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
+        public void GetWaveReductionParameters_CalculationElementNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((XElement) null).GetWaveReductionParameters();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("parentElement", exception.ParamName);
+        }
+
+        [Test]
+        public void GetWaveReductionParameters_OtherDescendantElement_ReturnsNull()
+        {
+            // Setup
+            var xElement = new XElement("root", new XElement("root", new XElement("OtherDescendantElement")));
+
+            // Call
+            WaveReductionConfiguration waveReduction = xElement.GetWaveReductionParameters();
+
+            // Assert
+            Assert.IsNull(waveReduction);
+        }
+
+        [Test]
         public void GetWaveReductionParameters_WithBreakWaterHeight_ReturnsConfiguration()
         {
             // Setup
@@ -858,10 +882,12 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void GetWaveReductionParameters_WithTooLargeBreakWaterHeight_ThrowsOverflowException()
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
+        public void GetWaveReductionParameters_WithTooLargeBreakWaterHeight_ThrowsOverflowException(double heightValue)
         {
             // Setup
-            string height = string.Format(CultureInfo.InvariantCulture, "1{0}", double.MaxValue);
+            string height = string.Format(CultureInfo.InvariantCulture, "{0}9", heightValue);
 
             var breakWaterHeightElement = new XElement("damhoogte", height);
             var waveReductionElement = new XElement("golfreductie", breakWaterHeightElement);

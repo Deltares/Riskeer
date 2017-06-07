@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -36,6 +38,20 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestCalculation,
             TestConfigurationItem>
     {
+        [Test]
+        public void Constructor_NotSupportedCalculation_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new SimpleCalculationConfigurationExporter(new[]
+            {
+                new NotSupportedCalculation()
+            }, "test.xml");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual($"Cannot export calculation of type '{typeof(NotSupportedCalculation)}' using this exporter.", exception.Message);
+        }
+
         protected override TestCalculation CreateCalculation()
         {
             return new TestCalculation("some name");
@@ -44,6 +60,26 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
         protected override SimpleCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
             return new SimpleCalculationConfigurationExporter(calculations, filePath);
+        }
+
+        private class NotSupportedCalculation : ICalculationBase
+        {
+            public string Name { get; set; }
+
+            public void Attach(IObserver observer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Detach(IObserver observer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void NotifyObservers()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 

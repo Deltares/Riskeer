@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid or when any element
-        /// of <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// of <paramref name="calculations"/> is not a <see cref="CalculationGroup"/> nor a <typeparamref name="TCalculation"/>.</exception>
         protected CalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
         {
             if (calculations == null)
@@ -87,6 +87,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// </summary>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <returns>A new <typeparamref name="TWriter"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         protected abstract TWriter CreateWriter(string filePath);
 
         /// <summary>

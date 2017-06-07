@@ -59,8 +59,7 @@ namespace Ringtoets.Common.IO.TestUtil
             TestDelegate test = () => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            AssertInvalidFilePath(exception);
+            Assert.Throws<ArgumentException>(test);
         }
 
         [Test]
@@ -149,12 +148,6 @@ namespace Ringtoets.Common.IO.TestUtil
         protected virtual void AssertDefaultConstructedInstance(TCalculationConfigurationExporter exporter)
         {
             Assert.IsInstanceOf<CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>>(exporter);
-        }
-
-        protected virtual void AssertInvalidFilePath(ArgumentException exception)
-        {
-            Assert.IsNotNull(exception);
-            Assert.IsInstanceOf<ArgumentException>(exception);
         }
 
         protected void WriteAndValidate(IEnumerable<ICalculationBase> configuration, string expectedXmlFilePath)
