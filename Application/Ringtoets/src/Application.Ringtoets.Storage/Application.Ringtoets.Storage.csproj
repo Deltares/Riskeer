@@ -361,8 +361,8 @@
     <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\MacrostabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\MacrostabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensions.cs" />
