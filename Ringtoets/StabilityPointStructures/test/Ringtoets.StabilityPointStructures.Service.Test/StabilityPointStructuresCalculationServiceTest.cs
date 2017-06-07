@@ -830,7 +830,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 

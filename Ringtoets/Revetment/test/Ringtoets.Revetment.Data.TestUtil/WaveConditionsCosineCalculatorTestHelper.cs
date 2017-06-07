@@ -28,12 +28,12 @@ using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 namespace Ringtoets.Revetment.TestUtil
 {
     /// <summary>
-    /// Class that can be used to test <see cref="IWaveConditionsCosineCalculator"/>.
+    /// Class that provide test cases which can be used to test objects using <see cref="IWaveConditionsCosineCalculator"/>.
     /// </summary>
     public static class WaveConditionsCosineCalculatorTestHelper
     {
         /// <summary>
-        /// Gets wave conditions cosine calculators that will fail when called.
+        /// Gets test cases of wave conditions cosine calculators that will fail when called.
         /// </summary>
         public static IEnumerable<TestCaseData> FailingWaveConditionsCosineCalculators
         {

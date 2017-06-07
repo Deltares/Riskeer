@@ -475,7 +475,7 @@ namespace Ringtoets.Revetment.Service.Test
                 new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
 
                 // Assert
-                for (var i = 0; i < input.WaterLevels.Count(); i++)
+                for (var i = 0; i < nrOfCalculators; i++)
                 {
                     WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
