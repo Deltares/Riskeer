@@ -34,18 +34,19 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapLineData : FeatureBasedMapData
     {
+        private static readonly LineStyle defaultLineStyle = new LineStyle {
+            Color = Color.Black,
+            Width = 2,
+            DashStyle = DashStyle.Solid
+        };
+
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapLineData(string name)
-            : this(name, new LineStyle {
-                Color = Color.Black,
-                Width = 2,
-                DashStyle = DashStyle.Solid
-            }) {}
+        public MapLineData(string name) : this(name, defaultLineStyle) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/>.

@@ -33,21 +33,22 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapPointData : FeatureBasedMapData
     {
+        private static readonly PointStyle defaultPointStyle = new PointStyle
+        {
+            Color = Color.Black,
+            Size = 2,
+            Symbol = PointSymbol.Square,
+            StrokeColor = Color.Black,
+            StrokeThickness = 1
+        };
+
         /// <summary>
         /// Creates a new instance of <see cref="MapPointData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPointData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapPointData(string name)
-            : this(name, new PointStyle
-            {
-                Color = Color.Black,
-                Size = 2,
-                Symbol = PointSymbol.Square,
-                StrokeColor = Color.Black,
-                StrokeThickness = 1
-            }) {}
+        public MapPointData(string name) : this(name, defaultPointStyle) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPointData"/>.

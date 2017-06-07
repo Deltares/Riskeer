@@ -33,19 +33,20 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapPolygonData : FeatureBasedMapData
     {
+        private static readonly PolygonStyle defaultPolygonStyle = new PolygonStyle
+        {
+            FillColor = Color.DarkGray,
+            StrokeColor = Color.Black,
+            StrokeThickness = 2
+        };
+
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPolygonData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapPolygonData(string name)
-            : this(name, new PolygonStyle
-            {
-                FillColor = Color.DarkGray,
-                StrokeColor = Color.Black,
-                StrokeThickness = 2
-            }) {}
+        public MapPolygonData(string name) : this(name, defaultPolygonStyle) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonData"/>.
