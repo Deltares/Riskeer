@@ -452,43 +452,41 @@ namespace Core.Common.Controls.TreeView
             OnNodeDataDeleted(treeNode);
         }
 
-        private void CollapseAll(TreeNode treeNode, bool performUpdate = true)
+        private void CollapseAll(TreeNode treeNode)
         {
-            if (performUpdate)
-            {
-                treeView.BeginUpdate();
-            }
+            treeView.BeginUpdate();
 
+            CollapseNodeAndChildNodes(treeNode);
+
+            treeView.EndUpdate();
+        }
+
+        private static void CollapseNodeAndChildNodes(TreeNode treeNode)
+        {
             treeNode.Collapse();
 
             foreach (TreeNode childNode in treeNode.Nodes)
             {
-                CollapseAll(childNode, false);
-            }
-
-            if (performUpdate)
-            {
-                treeView.EndUpdate();
+                CollapseNodeAndChildNodes(childNode);
             }
         }
 
-        private void ExpandAll(TreeNode treeNode, bool performUpdate = true)
+        private void ExpandAll(TreeNode treeNode)
         {
-            if (performUpdate)
-            {
-                treeView.BeginUpdate();
-            }
+            treeView.BeginUpdate();
 
+            ExpandNodeAndChildNodes(treeNode);
+
+            treeView.EndUpdate();
+        }
+
+        private static void ExpandNodeAndChildNodes(TreeNode treeNode)
+        {
             treeNode.Expand();
 
             foreach (TreeNode childNode in treeNode.Nodes)
             {
-                ExpandAll(childNode, false);
-            }
-
-            if (performUpdate)
-            {
-                treeView.EndUpdate();
+                ExpandNodeAndChildNodes(childNode);
             }
         }
 
@@ -609,22 +607,18 @@ namespace Core.Common.Controls.TreeView
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
             IList<TreeNode> newlyAddedTreeNodes = new List<TreeNode>();
-            object[] newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
+            object[] expectedChildNodes = treeNodeInfo.ChildNodeObjects != null
                                                ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
                                                : new object[0];
 
-            for (var i = 0; i < newChildNodeObjects.Length; i++)
+            for (var i = 0; i < expectedChildNodes.Length; i++)
             {
-                // Remove any outdated node at the current position
-                if (treeNode.Nodes.Count > i && !newChildNodeObjects.Contains(treeNode.Nodes[i].Tag))
+                if (treeNode.Nodes.Count > i)
                 {
-                    TreeNode nodeToRemove = treeNode.Nodes[i];
-
-                    treeNode.Nodes.Remove(nodeToRemove);
-                    RemoveTreeNodeFromLookupRecursively(nodeToRemove);
+                    RemovePossiblyOutdatedChildNode(treeNode, treeNode.Nodes[i], expectedChildNodes);
                 }
 
-                object newChildNodeObject = newChildNodeObjects[i];
+                object newChildNodeObject = expectedChildNodes[i];
 
                 // Continue on correct node
                 if (treeNode.Nodes.Count > i && newChildNodeObject.Equals(treeNode.Nodes[i].Tag))
@@ -658,7 +652,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             // Remove any outdated nodes at the end
-            IEnumerable<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().Skip(newChildNodeObjects.Length).ToList();
+            IEnumerable<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().Skip(expectedChildNodes.Length).ToList();
             foreach (TreeNode outdatedNode in outdatedTreeNodes)
             {
                 treeNode.Nodes.Remove(outdatedNode);
@@ -666,6 +660,15 @@ namespace Core.Common.Controls.TreeView
 
             // If relevant, set selection to the last of the added nodes
             SelectLastNewNode(newlyAddedTreeNodes);
+        }
+
+        private void RemovePossiblyOutdatedChildNode(TreeNode parentNode, TreeNode possiblyOutdatedChildNode, IEnumerable<object> expectedChildNodes)
+        {
+            if (!expectedChildNodes.Contains(possiblyOutdatedChildNode.Tag))
+            {
+                parentNode.Nodes.Remove(possiblyOutdatedChildNode);
+                RemoveTreeNodeFromLookupRecursively(possiblyOutdatedChildNode);
+            }
         }
 
         private void SelectLastNewNode(IEnumerable<TreeNode> newTreeNodes)
