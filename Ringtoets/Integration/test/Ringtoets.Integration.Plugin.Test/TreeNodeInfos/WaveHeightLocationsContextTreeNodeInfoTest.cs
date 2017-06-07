@@ -285,12 +285,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
-                var testWaveHeightCalculator = new TestWaveHeightCalculator
+                var calculator = new TestWaveHeightCalculator
                 {
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

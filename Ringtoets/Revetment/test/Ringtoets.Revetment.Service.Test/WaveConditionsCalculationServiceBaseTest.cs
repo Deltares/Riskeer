@@ -458,13 +458,13 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             const string calculationName = "test";
 
-            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
+            var calculator = new TestWaveConditionsCosineCalculator();
             int nrOfCalculators = input.WaterLevels.Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
-                             .Return(testWaveConditionsCosineCalculator)
+                             .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
             mockRepository.ReplayAll();
@@ -478,7 +478,7 @@ namespace Ringtoets.Revetment.Service.Test
                 for (var i = 0; i < input.WaterLevels.Count(); i++)
                 {
                     WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, testWaveConditionsCosineCalculator.ReceivedInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
                 }
             }
             mockRepository.VerifyAll();
@@ -656,22 +656,22 @@ namespace Ringtoets.Revetment.Service.Test
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
-            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
+            var calculator = new TestWaveConditionsCosineCalculator();
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculator);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var service = new WaveConditionsCalculationService();
-                testWaveConditionsCosineCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
                 service.PublicCalculate(a, b, c, norm, input, hcldFilePath, name);
 
                 // Assert
-                Assert.IsTrue(testWaveConditionsCosineCalculator.IsCanceled);
+                Assert.IsTrue(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }

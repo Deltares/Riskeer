@@ -91,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
                              .Return(new TestStructuresClosureCalculator());
             mockRepository.ReplayAll();
@@ -148,16 +148,16 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var testStructuresClosureCalculator = new TestStructuresClosureCalculator
+            var calculator = new TestStructuresClosureCalculator
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
-                             .Return(testStructuresClosureCalculator);
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -204,7 +204,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
                              .Return(new TestStructuresClosureCalculator());
             mockRepository.ReplayAll();
@@ -256,13 +256,13 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var testStructuresClosureCalculator = new TestStructuresClosureCalculator
+            var calculator = new TestStructuresClosureCalculator
             {
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
-                             .Return(testStructuresClosureCalculator);
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

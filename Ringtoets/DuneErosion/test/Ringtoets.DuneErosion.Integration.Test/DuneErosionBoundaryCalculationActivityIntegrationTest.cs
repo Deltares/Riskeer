@@ -97,7 +97,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
         public void Run_InvalidCalculationAndRan_PerformCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var testDunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+            var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
@@ -106,7 +106,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
-                             .Return(testDunesBoundaryConditionsCalculator);
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();

@@ -154,11 +154,11 @@ namespace Ringtoets.Common.Service.Test
             const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
             const double norm = 1.0 / 30;
 
-            var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+            var calculator = new TestDesignWaterLevelCalculator();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderStub.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             calculationMessageProviderStub.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
@@ -176,8 +176,8 @@ namespace Ringtoets.Common.Service.Test
 
                 // Assert
                 AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
-                AssertInput(expectedInput, testDesignWaterLevelCalculator.ReceivedInputs.First());
-                Assert.IsFalse(testDesignWaterLevelCalculator.IsCanceled);
+                AssertInput(expectedInput, calculator.ReceivedInputs.First());
+                Assert.IsFalse(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }
@@ -188,11 +188,11 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+            var calculator = new TestDesignWaterLevelCalculator();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var service = new DesignWaterLevelCalculationService();
-                testDesignWaterLevelCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
                 service.Calculate(hydraulicBoundaryLocation,
@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Service.Test
                                   calculationMessageProviderStub);
 
                 // Assert
-                Assert.IsTrue(testDesignWaterLevelCalculator.IsCanceled);
+                Assert.IsTrue(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }
@@ -228,15 +228,15 @@ namespace Ringtoets.Common.Service.Test
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
 
-            var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator
+            var calculator = new TestDesignWaterLevelCalculator
             {
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = true
             };
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
@@ -291,14 +291,14 @@ namespace Ringtoets.Common.Service.Test
             const string calculationFailedMessage = "calculationFailedUnexplainedMessage";
             const double norm = 1.0 / 30;
 
-            var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator
+            var calculator = new TestDesignWaterLevelCalculator
             {
                 EndInFailure = true
             };
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
@@ -353,15 +353,15 @@ namespace Ringtoets.Common.Service.Test
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
 
-            var testDesignWaterLevelCalculator = new TestDesignWaterLevelCalculator
+            var calculator = new TestDesignWaterLevelCalculator
             {
                 EndInFailure = false,
                 LastErrorFileContent = "An error occurred"
             };
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(testDesignWaterLevelCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
@@ -403,7 +403,7 @@ namespace Ringtoets.Common.Service.Test
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-                Assert.AreEqual(testDesignWaterLevelCalculator.LastErrorFileContent, exceptionMessage);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
             mockRepository.VerifyAll();
         }

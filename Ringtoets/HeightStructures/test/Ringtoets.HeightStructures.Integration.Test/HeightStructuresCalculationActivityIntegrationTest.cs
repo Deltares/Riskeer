@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(new TestStructuresOvertoppingCalculator());
             mockRepository.ReplayAll();
 
@@ -147,15 +147,15 @@ namespace Ringtoets.HeightStructures.Integration.Test
         public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var testStructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator
+            var calculator = new TestStructuresOvertoppingCalculator
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(testStructuresOvertoppingCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -202,7 +202,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(new TestStructuresOvertoppingCalculator());
             mockRepository.ReplayAll();
 
@@ -253,12 +253,12 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var testStructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator
+            var calculator = new TestStructuresOvertoppingCalculator
             {
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(testStructuresOvertoppingCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresOvertoppingCalculator(testDataPath)).Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

@@ -154,13 +154,13 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0 / 30;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
-            var testWaveHeightCalculator = new TestWaveHeightCalculator
+            var calculator = new TestWaveHeightCalculator
             {
                 Converged = true
             };
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
@@ -186,7 +186,7 @@ namespace Ringtoets.Common.Service.Test
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
                     Assert.AreEqual($"Berekening van '{calculationName}' beëindigd.", messages[4]);
                 });
-                WaveHeightCalculationInput waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
+                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.First();
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
@@ -238,14 +238,14 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0 / 30;
             const double expectedWaveHeight = 3.5;
 
-            var testWaveHeightCalculator = new TestWaveHeightCalculator
+            var calculator = new TestWaveHeightCalculator
             {
                 Converged = true,
                 WaveHeight = expectedWaveHeight
             };
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
@@ -279,14 +279,14 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName";
             const string calculationFailedMessage = "Something went wrong";
 
-            var testWaveHeightCalculator = new TestWaveHeightCalculator
+            var calculator = new TestWaveHeightCalculator
             {
                 EndInFailure = true,
                 LastErrorFileContent = calculationFailedMessage
             };
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
@@ -328,13 +328,13 @@ namespace Ringtoets.Common.Service.Test
             const string activityDescription = "activityDescription";
             const string calculationNotConvergedMessage = "GetCalculatedNotConvergedMessage";
 
-            var testWaveHeightCalculator = new TestWaveHeightCalculator
+            var calculator = new TestWaveHeightCalculator
             {
                 Converged = false
             };
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return("GetCalculationName").Repeat.AtLeastOnce();
@@ -387,14 +387,14 @@ namespace Ringtoets.Common.Service.Test
                                                                        double.NaN, CalculationConvergence.NotCalculated)
             };
 
-            var testWaveHeightCalculator = new TestWaveHeightCalculator
+            var calculator = new TestWaveHeightCalculator
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(locationName);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(locationName);

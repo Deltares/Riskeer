@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -115,8 +115,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+            int nrOfCalculators = calculation.InputParameters.WaterLevels.Count() * 2;
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -154,10 +159,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     validFilePath,
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     assessmentSectionStub);
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculator = new TestWaveConditionsCosineCalculator();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
-                             .Return(testWaveConditionsCosineCalculator)
+                             .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
             mockRepository.ReplayAll();
@@ -168,7 +173,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 activity.Run();
 
                 // Assert
-                WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
+                WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(nrOfCalculators, testWaveConditionsInputs.Length);
 
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
@@ -224,9 +229,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            var testWaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(testWaveConditionsCosineCalculator);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculator = new TestWaveConditionsCosineCalculator();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculator);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -277,8 +282,12 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(4);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -339,8 +348,8 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -378,8 +387,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+            int nrOfCalculators = calculation.InputParameters.WaterLevels.Count() * 2;
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -406,7 +420,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -443,7 +457,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                                                                                         stabilityStoneCoverFailureMechanism, mockRepository));
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = true

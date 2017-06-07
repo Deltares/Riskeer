@@ -388,12 +388,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                     gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
 
-                    var testWaveHeightCalculator = new TestWaveHeightCalculator
+                    var waveHeightCalculator = new TestWaveHeightCalculator
                     {
                         EndInFailure = true
                     };
                     var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(waveHeightCalculator);
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
@@ -441,9 +441,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
 
-                var testWaveHeightCalculator = new TestWaveHeightCalculator();
+                var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(testWaveHeightCalculator);
+                calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -459,7 +459,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Assert
-                        WaveHeightCalculationInput waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
+                        WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                         double expectedProbability = assessmentSection.FailureMechanismContribution.Norm

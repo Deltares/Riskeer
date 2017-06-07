@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
                              .Return(new TestStructuresStabilityPointCalculator());
             mockRepository.ReplayAll();
@@ -150,16 +150,16 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         public void Run_InvalidCalculationRan_PerformValidationAndCalculationActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var testStructuresStabilityPointCalculator = new TestStructuresStabilityPointCalculator
+            var calculator = new TestStructuresStabilityPointCalculator
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
-                             .Return(testStructuresStabilityPointCalculator);
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
                              .Return(new TestStructuresStabilityPointCalculator());
             mockRepository.ReplayAll();
@@ -262,13 +262,13 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var testStructuresStabilityPointCalculator = new TestStructuresStabilityPointCalculator
+            var calculator = new TestStructuresStabilityPointCalculator
             {
                 EndInFailure = true
             };
-            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
-                             .Return(testStructuresStabilityPointCalculator);
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
