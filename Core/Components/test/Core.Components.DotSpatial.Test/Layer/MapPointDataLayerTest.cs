@@ -55,7 +55,15 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_MapPointDataWithTestProperties_MapPointDataLayerCreatedAccordingly()
         {
             // Setup
-            var mapPointData = new MapPointData("Test name", new PointStyle(Color.AliceBlue, 4, PointSymbol.Circle));
+            Color color = Color.AliceBlue;
+            var mapPointData = new MapPointData("Test name", new PointStyle
+            {
+                Color = color,
+                Size = 4,
+                Symbol = PointSymbol.Circle,
+                StrokeColor = color,
+                StrokeThickness = 1
+            });
 
             SetMapPointDataTestProperties(mapPointData);
 
@@ -73,7 +81,15 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Update_MapPointDataWithTestProperties_MapPointDataLayerUpdatedAccordingly()
         {
             // Setup
-            var mapPointData = new MapPointData("Test name", new PointStyle(Color.AliceBlue, 4, PointSymbol.Circle));
+            Color color = Color.AliceBlue;
+            var mapPointData = new MapPointData("Test name", new PointStyle
+            {
+                Color = color,
+                Size = 4,
+                Symbol = PointSymbol.Circle,
+                StrokeColor = color,
+                StrokeThickness = 1
+            });
             var mapPointDataLayer = new MapPointDataLayer(mapPointData);
 
             SetMapPointDataTestProperties(mapPointData);
@@ -155,7 +171,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             Assert.IsTrue(mapPointDataLayer.ShowLabels);
 
             Assert.IsNotNull(mapPointDataLayer.LabelLayer);
-            Assert.AreEqual($"[{"2"}]", mapPointDataLayer.LabelLayer.Symbology.Categories[0].Expression);
+            Assert.AreEqual("[2]", mapPointDataLayer.LabelLayer.Symbology.Categories[0].Expression);
 
             var firstSymbol = (SimpleSymbol) mapPointDataLayer.Symbolizer.Symbols[0];
             Assert.AreEqual(Color.AliceBlue, firstSymbol.Color);

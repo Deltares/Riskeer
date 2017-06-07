@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.CalculatedReliability);
             TestHelper.AssertTypeConverter<DesignWaterLevelLocationContextProperties, NoValueRoundedDoubleConverter>(
                 nameof(DesignWaterLevelLocationContextProperties.CalculatedReliability));
-            Assert.AreEqual(string.Empty, properties.Convergence);
+            Assert.IsEmpty(properties.Convergence);
         }
 
         [Test]

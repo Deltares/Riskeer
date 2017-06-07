@@ -70,7 +70,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual("Test feature based map data", properties.Type);
             Assert.AreEqual(mapPointData.IsVisible, properties.IsVisible);
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
-            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
         }
 

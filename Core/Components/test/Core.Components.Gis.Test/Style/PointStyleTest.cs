@@ -37,7 +37,14 @@ namespace Core.Components.Gis.Test.Style
             const PointSymbol style = PointSymbol.Square;
 
             // Call
-            var pointStyle = new PointStyle(color, width, style);
+            var pointStyle = new PointStyle
+            {
+                Color = color,
+                Size = width,
+                Symbol = style,
+                StrokeColor = color,
+                StrokeThickness = 1
+            };
 
             // Assert
             Assert.AreEqual(color, pointStyle.Color);

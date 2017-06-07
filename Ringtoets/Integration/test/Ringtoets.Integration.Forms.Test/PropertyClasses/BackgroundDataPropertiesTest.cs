@@ -87,10 +87,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(backgroundData.IsVisible, properties.IsVisible);
             Assert.AreEqual(backgroundData.Transparency, properties.Transparency);
-            Assert.AreEqual(string.Empty, properties.Name);
-            Assert.AreEqual(string.Empty, properties.SourceCapabilitiesUrl);
-            Assert.AreEqual(string.Empty, properties.SelectedCapabilityIdentifier);
-            Assert.AreEqual(string.Empty, properties.PreferredFormat);
+            Assert.IsEmpty(properties.Name);
+            Assert.IsEmpty(properties.SourceCapabilitiesUrl);
+            Assert.IsEmpty(properties.SelectedCapabilityIdentifier);
+            Assert.IsEmpty(properties.PreferredFormat);
         }
 
         [Test]

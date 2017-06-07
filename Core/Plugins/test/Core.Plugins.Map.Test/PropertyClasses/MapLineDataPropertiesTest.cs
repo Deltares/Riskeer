@@ -77,24 +77,25 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
+            const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de lijnen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
             Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijnstijl",
                                                                             "De stijl van de lijnen waarmee deze kaartlaag wordt weergegeven.");
         }
@@ -107,7 +108,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             const int width = 4;
             const DashStyle dashStyle = DashStyle.DashDot;
 
-            var mapLineData = new MapLineData("Test", new LineStyle(color, width, dashStyle));
+            var mapLineData = new MapLineData("Test", new LineStyle
+            {
+                Color = color,
+                Width = width,
+                DashStyle = dashStyle
+            });
             var properties = new MapLineDataProperties();
 
             // Call
@@ -115,7 +121,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(mapLineData.ShowLabels, properties.ShowLabels);
-            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapLineData.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual(color, properties.Color);
@@ -133,7 +139,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var mapLineData = new MapLineData("Test", new LineStyle(Color.AliceBlue, 3, DashStyle.Solid));
+            var mapLineData = new MapLineData("Test", new LineStyle
+            {
+                Color = Color.AliceBlue,
+                Width = 3,
+                DashStyle = DashStyle.Solid
+            });
 
             mapLineData.Attach(observerMock);
 

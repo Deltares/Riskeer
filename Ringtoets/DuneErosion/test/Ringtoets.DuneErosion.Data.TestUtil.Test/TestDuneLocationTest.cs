@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             var testLocation = new TestDuneLocation();
 
             // Assert
-            Assert.AreEqual(string.Empty, testLocation.Name);
+            Assert.IsEmpty(testLocation.Name);
             Assert.AreEqual(0, testLocation.Location.X);
             Assert.AreEqual(0, testLocation.Location.Y);
             Assert.AreEqual(0, testLocation.Offset.Value);

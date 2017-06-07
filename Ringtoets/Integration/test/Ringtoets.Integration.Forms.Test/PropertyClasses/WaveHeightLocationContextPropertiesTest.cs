@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<WaveHeightLocationContextProperties,
                 NoValueRoundedDoubleConverter>(
                 nameof(WaveHeightLocationContextProperties.CalculatedReliability));
-            Assert.AreEqual(string.Empty, properties.Convergence);
+            Assert.IsEmpty(properties.Convergence);
         }
 
         [Test]

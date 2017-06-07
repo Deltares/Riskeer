@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.UseBreakWater);
             Assert.IsNull(properties.BreakWaterType);
             Assert.AreEqual(RoundedDouble.NaN, properties.BreakWaterHeight);
-            Assert.AreEqual(string.Empty, properties.ToString());
+            Assert.IsEmpty(properties.ToString());
         }
 
         [Test]
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
             Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
-            Assert.AreEqual(string.Empty, properties.ToString());
+            Assert.IsEmpty(properties.ToString());
             mocks.VerifyAll();
         }
 

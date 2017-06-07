@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Chart.Data);
-                Assert.AreEqual(string.Empty, view.Chart.ChartTitle);
+                Assert.IsEmpty(view.Chart.ChartTitle);
             }
         }
 

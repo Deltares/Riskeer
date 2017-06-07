@@ -20,17 +20,24 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
+using System.Windows.Interop;
 using Core.Common.Gui.UITypeEditors;
+using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.UITypeEditors
 {
     [TestFixture]
-    public class ColorEditorTest
+    public class ColorEditorTest : NUnitFormTest
     {
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()
@@ -46,37 +53,27 @@ namespace Core.Common.Gui.Test.UITypeEditors
         public void GetEditStyle_Always_ReturnUITypeEditorEditStyleModal()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             var editor = new ColorEditor();
 
             // Call
-            UITypeEditorEditStyle editStyle = editor.GetEditStyle(context);
+            UITypeEditorEditStyle editStyle = editor.GetEditStyle(null);
 
             // Assert
             Assert.AreEqual(UITypeEditorEditStyle.Modal, editStyle);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void EditValue_WithoutService_ReturnEqualValue()
+        public void EditValue_WithOtherValue_ReturnSameValue()
         {
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            var provider = mocks.Stub<IServiceProvider>();
-            mocks.ReplayAll();
-
+            // Setup
             var editor = new ColorEditor();
-            Color color = Color.Beige;
+            object value = new object();
 
             // Call
-            object value = editor.EditValue(context, provider, color);
+            object editedValue = editor.EditValue(null, null, value);
 
             // Assert
-            Assert.AreEqual(color, value);
-            mocks.VerifyAll();
+            Assert.AreSame(value, editedValue);
         }
 
         [Test]

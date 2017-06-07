@@ -77,7 +77,12 @@ namespace Core.Components.Gis.Test.Data.Removable
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
-            var style = new PolygonStyle(Color.Aqua, Color.DarkGoldenrod, 3);
+            var style = new PolygonStyle
+            {
+                FillColor = Color.Aqua,
+                StrokeColor = Color.DarkGoldenrod,
+                StrokeThickness = 3
+            };
 
             // Call
             var data = new RemovableMapPolygonData("test data", style);

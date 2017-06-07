@@ -245,7 +245,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 
@@ -279,7 +279,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 
@@ -320,7 +320,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 
@@ -398,7 +398,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 
@@ -445,7 +445,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
             Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
             mocks.VerifyAll();
@@ -494,7 +494,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
             Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
             mocks.VerifyAll();
@@ -532,7 +532,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Assert
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(string.Empty, view.Text);
+            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 

@@ -78,7 +78,12 @@ namespace Core.Components.Gis.Test.Data.Removable
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
-            var style = new LineStyle(Color.Red, 5, DashStyle.Dash);
+            var style = new LineStyle
+            {
+                Color = Color.Red,
+                Width = 5,
+                DashStyle = DashStyle.Dash
+            };
 
             // Call
             var data = new RemovableMapLineData("test data", style);

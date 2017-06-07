@@ -158,7 +158,14 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPointDataConverter();
             var mapPointLayer = new MapPointLayer();
             Color expectedColor = Color.FromKnownColor(color);
-            var mapPointData = new MapPointData("test", new PointStyle(expectedColor, width, pointStyle));
+            var mapPointData = new MapPointData("test", new PointStyle
+            {
+                Color = expectedColor,
+                Size = width,
+                Symbol = pointStyle,
+                StrokeColor = expectedColor,
+                StrokeThickness = 1
+            });
 
             // Call
             converter.ConvertLayerProperties(mapPointData, mapPointLayer);

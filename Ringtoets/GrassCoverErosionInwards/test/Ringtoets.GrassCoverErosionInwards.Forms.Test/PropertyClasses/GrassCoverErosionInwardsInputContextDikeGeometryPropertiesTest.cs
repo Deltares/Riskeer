@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual(string.Empty, properties.ToString());
+            Assert.IsEmpty(properties.ToString());
         }
 
         [Test]

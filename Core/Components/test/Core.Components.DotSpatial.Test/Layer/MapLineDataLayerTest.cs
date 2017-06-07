@@ -55,7 +55,12 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_MapLineDataWithTestProperties_MapLineDataLayerCreatedAccordingly()
         {
             // Setup
-            var mapLineData = new MapLineData("Test name", new LineStyle(Color.AliceBlue, 2, DashStyle.DashDot));
+            var mapLineData = new MapLineData("Test name", new LineStyle
+            {
+                Color = Color.AliceBlue,
+                Width = 2,
+                DashStyle = DashStyle.DashDot
+            });
 
             SetMapLineDataTestProperties(mapLineData);
 
@@ -73,7 +78,12 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Update_MapLineDataWithTestProperties_MapLineDataLayerUpdatedAccordingly()
         {
             // Setup
-            var mapLineData = new MapLineData("Test name", new LineStyle(Color.AliceBlue, 2, DashStyle.DashDot));
+            var mapLineData = new MapLineData("Test name", new LineStyle
+            {
+                Color = Color.AliceBlue,
+                Width = 2,
+                DashStyle = DashStyle.DashDot
+            });
             var mapLineDataLayer = new MapLineDataLayer(mapLineData);
 
             SetMapLineDataTestProperties(mapLineData);

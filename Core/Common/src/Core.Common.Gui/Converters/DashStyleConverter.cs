@@ -24,14 +24,13 @@ using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils;
 
 namespace Core.Common.Gui.Converters
 {
     /// <summary>
     /// A type converter to convert <see cref="DashStyle"/> objects to and from various other representations.
     /// </summary>
-    public class DashStyleConverter : EnumTypeConverter
+    public class DashStyleConverter : EnumConverter
     {
         /// <summary>
         /// Creates a new instance of <see cref="DashStyleConverter"/>.

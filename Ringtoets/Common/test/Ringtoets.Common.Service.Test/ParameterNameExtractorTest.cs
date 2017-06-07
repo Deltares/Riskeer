@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Service.Test
             string result = ParameterNameExtractor.GetFromDisplayName(string.Empty);
 
             // Assert
-            Assert.AreEqual(string.Empty, result);
+            Assert.IsEmpty(result);
         }
 
         [Test]

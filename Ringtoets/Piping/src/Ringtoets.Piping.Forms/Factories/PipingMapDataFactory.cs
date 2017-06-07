@@ -42,7 +42,12 @@ namespace Ringtoets.Piping.Forms.Factories
         public static MapLineData CreateSurfaceLinesMapData()
         {
             return new MapLineData(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
-                                   new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid))
+                                   new LineStyle
+                                   {
+                                       Color = Color.DarkSeaGreen,
+                                       Width = 2,
+                                       DashStyle = DashStyle.Solid
+                                   })
             {
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
             };
@@ -55,7 +60,12 @@ namespace Ringtoets.Piping.Forms.Factories
         public static MapLineData CreateStochasticSoilModelsMapData()
         {
             return new MapLineData(PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                                   new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid))
+                                   new LineStyle
+                                   {
+                                       Color = Color.FromArgb(70, Color.SaddleBrown),
+                                       Width = 5,
+                                       DashStyle = DashStyle.Solid
+                                   })
             {
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
             };

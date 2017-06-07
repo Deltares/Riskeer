@@ -40,7 +40,15 @@ namespace Core.Components.Gis.Test.Data.Removable
             // Setup
             const string name = "test";
             var mapFeatures = new MapFeature[0];
-            var pointStyle = new PointStyle(Color.AliceBlue, 3, PointSymbol.Diamond);
+            Color color = Color.AliceBlue;
+            var pointStyle = new PointStyle
+            {
+                Color = color,
+                Size = 3,
+                Symbol = PointSymbol.Diamond,
+                StrokeColor = color,
+                StrokeThickness = 1
+            };
 
             var mapData = new MapPointData(name, pointStyle)
             {
@@ -63,7 +71,12 @@ namespace Core.Components.Gis.Test.Data.Removable
             // Setup
             const string name = "test";
             var mapFeatures = new MapFeature[0];
-            var lineStyle = new LineStyle(Color.AliceBlue, 3, DashStyle.Dash);
+            var lineStyle = new LineStyle
+            {
+                Color = Color.AliceBlue,
+                Width = 3,
+                DashStyle = DashStyle.Dash
+            };
 
             var mapData = new MapLineData(name, lineStyle)
             {
@@ -86,7 +99,12 @@ namespace Core.Components.Gis.Test.Data.Removable
             // Setup
             const string name = "test";
             var mapFeatures = new MapFeature[0];
-            var polygonStyle = new PolygonStyle(Color.AliceBlue, Color.DeepSkyBlue, 3);
+            var polygonStyle = new PolygonStyle
+            {
+                FillColor = Color.AliceBlue,
+                StrokeColor = Color.DeepSkyBlue,
+                StrokeThickness = 3
+            };
 
             var mapData = new MapPolygonData(name, polygonStyle)
             {

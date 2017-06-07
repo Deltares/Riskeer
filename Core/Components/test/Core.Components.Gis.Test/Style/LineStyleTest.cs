@@ -38,7 +38,12 @@ namespace Core.Components.Gis.Test.Style
             const DashStyle style = DashStyle.Solid;
 
             // Call
-            var lineStyle = new LineStyle(color, width, style);
+            var lineStyle = new LineStyle
+            {
+                Color = color,
+                Width = width,
+                DashStyle = style
+            };
 
             // Assert
             Assert.AreEqual(color, lineStyle.Color);

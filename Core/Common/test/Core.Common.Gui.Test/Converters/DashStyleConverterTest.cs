@@ -24,9 +24,7 @@ using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using Core.Common.Gui.Converters;
-using Core.Common.Utils;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Converters
 {
@@ -40,26 +38,21 @@ namespace Core.Common.Gui.Test.Converters
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Assert
-            Assert.IsInstanceOf<EnumTypeConverter>(converter);
+            Assert.IsInstanceOf<EnumConverter>(converter);
         }
 
         [Test]
         public void ConvertTo_ValueNoDashStyle_ThrowNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             var originalValue = new object();
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(context, CultureInfo.InvariantCulture, originalValue, typeof(DashStyle));
+            TestDelegate test = () => converter.ConvertTo(null, CultureInfo.InvariantCulture, originalValue, typeof(DashStyle));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -71,56 +64,41 @@ namespace Core.Common.Gui.Test.Converters
         public void ConvertTo_ValueValidDashStyle_ReturnStringValue(DashStyle originalValue, string expectedConvertedValue)
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Call
-            object converterdValue = converter.ConvertTo(context, CultureInfo.InvariantCulture, originalValue, typeof(DashStyle));
+            object converterdValue = converter.ConvertTo(null, CultureInfo.InvariantCulture, originalValue, typeof(DashStyle));
 
             // Assert
             Assert.AreEqual(expectedConvertedValue, converterdValue);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConvertTo_InvalidDashStyleValue_ThrowArgumentOutOfRangeException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             const DashStyle originalValue = (DashStyle) 100;
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(context, CultureInfo.InvariantCulture, originalValue, typeof(DashStyle));
+            TestDelegate test = () => converter.ConvertTo(null, CultureInfo.InvariantCulture, originalValue, typeof(DashStyle));
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConvertFrom_ValueNoString_ThrowNotSupportedException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             var originalValue = new object();
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Call
-            TestDelegate test = () => converter.ConvertFrom(context, CultureInfo.InvariantCulture, originalValue);
+            TestDelegate test = () => converter.ConvertFrom(null, CultureInfo.InvariantCulture, originalValue);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -132,37 +110,27 @@ namespace Core.Common.Gui.Test.Converters
         public void ConvertFrom_ValidString_ReturnDashStyle(string stringValue, DashStyle expectedDashStyle)
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Call
-            object converterdValue = converter.ConvertFrom(context, CultureInfo.InvariantCulture, stringValue);
+            object converterdValue = converter.ConvertFrom(null, CultureInfo.InvariantCulture, stringValue);
 
             // Assert
             Assert.AreEqual(expectedDashStyle, converterdValue);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConvertFrom_InvalidStringValue_ThrowFormatException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             const string originalValue = "test";
             var converter = new DashStyleConverter(typeof(DashStyle));
 
             // Call
-            TestDelegate test = () => converter.ConvertFrom(context, CultureInfo.InvariantCulture, originalValue);
+            TestDelegate test = () => converter.ConvertFrom(null, CultureInfo.InvariantCulture, originalValue);
 
             // Assert
             Assert.Throws<FormatException>(test);
-            mocks.VerifyAll();
         }
     }
 }

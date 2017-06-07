@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;

@@ -29,19 +29,6 @@ namespace Core.Components.Gis.Style
     public class PolygonStyle
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PolygonStyle"/>.
-        /// </summary>
-        /// <param name="fillColor">The fill color of the polygon.</param>
-        /// <param name="strokeColor">The stroke color of the polygon.</param>
-        /// <param name="strokeThickness">The stroke thickness of the polygon border.</param>
-        public PolygonStyle(Color fillColor, Color strokeColor, int strokeThickness)
-        {
-            FillColor = fillColor;
-            StrokeColor = strokeColor;
-            StrokeThickness = strokeThickness;
-        }
-
-        /// <summary>
         /// Gets or sets the polygon fill color.
         /// </summary>
         public Color FillColor { get; set; }

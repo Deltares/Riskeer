@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 calculation1.NotifyObservers();
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / calculation1.Probability),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set
                 var calculation3 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / calculation1.Probability),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 calculation3.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(
                     sl => sl.Name == "PK001_0001");
@@ -168,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 calculation1.NotifyObservers();
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / calculation1.Probability),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Clear the output of the calculation and make sure the data grid view is updated
                 MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation1);

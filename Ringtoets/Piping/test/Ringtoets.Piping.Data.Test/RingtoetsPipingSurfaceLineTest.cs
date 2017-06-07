@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<Observable>(surfaceLine);
-            Assert.AreEqual(string.Empty, surfaceLine.Name);
+            Assert.IsEmpty(surfaceLine.Name);
             CollectionAssert.IsEmpty(surfaceLine.Points);
             Assert.IsNull(surfaceLine.StartingWorldPoint);
             Assert.IsNull(surfaceLine.EndingWorldPoint);

@@ -40,7 +40,14 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
         public MapPointData(string name)
-            : this(name, new PointStyle(Color.Black, 2, PointSymbol.Square)) {}
+            : this(name, new PointStyle
+            {
+                Color = Color.Black,
+                Size = 2,
+                Symbol = PointSymbol.Square,
+                StrokeColor = Color.Black,
+                StrokeThickness = 1
+            }) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPointData"/>.

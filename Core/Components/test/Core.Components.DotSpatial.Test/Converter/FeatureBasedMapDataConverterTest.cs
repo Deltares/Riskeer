@@ -161,10 +161,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(1.1.ToString(CultureInfo.CurrentCulture), dataRowCollection[0][0]);
             Assert.AreEqual("Feature 1", dataRowCollection[0][1]);
             Assert.AreEqual("Feature 1 extra", dataRowCollection[0][2]);
-            Assert.AreEqual(string.Empty, dataRowCollection[0][3].ToString());
+            Assert.IsEmpty(dataRowCollection[0][3].ToString());
             Assert.AreEqual(2.2.ToString(CultureInfo.CurrentCulture), dataRowCollection[1][0]);
             Assert.AreEqual("Feature 2", dataRowCollection[1][1]);
-            Assert.AreEqual(string.Empty, dataRowCollection[1][2].ToString());
+            Assert.IsEmpty(dataRowCollection[1][2].ToString());
             Assert.AreEqual("Feature 2 extra", dataRowCollection[1][3]);
         }
 

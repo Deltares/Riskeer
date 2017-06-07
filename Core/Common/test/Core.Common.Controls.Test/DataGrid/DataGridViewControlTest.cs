@@ -425,8 +425,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.IsNull(columnData.DataSource);
-                Assert.AreEqual(string.Empty, columnData.ValueMember);
-                Assert.AreEqual(string.Empty, columnData.DisplayMember);
+                Assert.IsEmpty(columnData.ValueMember);
+                Assert.IsEmpty(columnData.DisplayMember);
                 Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
@@ -458,8 +458,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.IsNull(columnData.DataSource);
-                Assert.AreEqual(string.Empty, columnData.ValueMember);
-                Assert.AreEqual(string.Empty, columnData.DisplayMember);
+                Assert.IsEmpty(columnData.ValueMember);
+                Assert.IsEmpty(columnData.DisplayMember);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
@@ -1596,7 +1596,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 dataGridViewCell.Value = "New value";
 
                 // Assert
-                Assert.AreEqual(string.Empty, dataGridViewCell.OwningRow.ErrorText);
+                Assert.IsEmpty(dataGridViewCell.OwningRow.ErrorText);
             }
         }
 
@@ -1650,7 +1650,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Precondition
                 Assert.IsTrue(control.IsCurrentCellInEditMode);
-                Assert.AreEqual(string.Empty, control.Rows[0].ErrorText);
+                Assert.IsEmpty(control.Rows[0].ErrorText);
 
                 // Call
                 gridTester.FireEvent("Leave", EventArgs.Empty);
@@ -1694,7 +1694,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 gridTester.FireEvent("Leave", EventArgs.Empty);
 
                 // Assert
-                Assert.AreEqual(string.Empty, control.Rows[0].ErrorText);
+                Assert.IsEmpty(control.Rows[0].ErrorText);
                 Assert.AreEqual(initialValue.ToString(CultureInfo.CurrentCulture), dataGridViewCell.FormattedValue);
             }
         }

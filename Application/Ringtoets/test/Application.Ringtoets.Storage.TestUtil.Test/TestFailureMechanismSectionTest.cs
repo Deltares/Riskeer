@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             {
                 new Point2D(0, 0)
             }, section.Points);
-            Assert.AreEqual(string.Empty, section.Name);
+            Assert.IsEmpty(section.Name);
         }
     }
 }

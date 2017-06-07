@@ -54,7 +54,12 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_MapPolygonDataWithTestProperties_MapPolygonDataLayerCreatedAccordingly()
         {
             // Setup
-            var mapPolygonData = new MapPolygonData("Test name", new PolygonStyle(Color.AliceBlue, Color.Azure, 2));
+            var mapPolygonData = new MapPolygonData("Test name", new PolygonStyle
+            {
+                FillColor = Color.AliceBlue,
+                StrokeColor = Color.Azure,
+                StrokeThickness = 2
+            });
 
             SetMapPolygonDataTestProperties(mapPolygonData);
 
@@ -72,7 +77,12 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Update_MapPolygonDataWithTestProperties_MapPolygonDataLayerUpdatedAccordingly()
         {
             // Setup
-            var mapPolygonData = new MapPolygonData("Test name", new PolygonStyle(Color.AliceBlue, Color.Azure, 2));
+            var mapPolygonData = new MapPolygonData("Test name", new PolygonStyle
+            {
+                FillColor = Color.AliceBlue,
+                StrokeColor = Color.Azure,
+                StrokeThickness = 2
+            });
             var mapPolygonDataLayer = new MapPolygonDataLayer(mapPolygonData);
 
             SetMapPolygonDataTestProperties(mapPolygonData);

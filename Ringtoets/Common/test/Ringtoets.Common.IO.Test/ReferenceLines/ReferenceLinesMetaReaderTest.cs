@@ -256,7 +256,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Assert
             Assert.AreEqual(1, referenceLineMetas.Count);
             ReferenceLineMeta referenceLineMeta = referenceLineMetas.First();
-            Assert.AreEqual(string.Empty, referenceLineMeta.AssessmentSectionId);
+            Assert.IsEmpty(referenceLineMeta.AssessmentSectionId);
         }
 
         private static void AssertReferenceLineMetas(ReferenceLineMeta expectedReferenceLineMeta, ReferenceLineMeta actualReferenceLineMeta)

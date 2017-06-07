@@ -40,7 +40,12 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
         public MapPolygonData(string name)
-            : this(name, new PolygonStyle(Color.DarkGray, Color.Black, 2)) {}
+            : this(name, new PolygonStyle
+            {
+                FillColor = Color.DarkGray,
+                StrokeColor = Color.Black,
+                StrokeThickness = 2
+            }) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonData"/>.

@@ -117,7 +117,7 @@ namespace Application.Ringtoets.Migration.Core.Test
                 string version = file.GetVersion();
 
                 // Assert
-                Assert.AreEqual(string.Empty, version);
+                Assert.IsEmpty(version);
             }
         }
     }

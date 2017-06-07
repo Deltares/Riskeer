@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.CalculatedReliability);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedReliability));
-            Assert.AreEqual(string.Empty, properties.Convergence);
+            Assert.IsEmpty(properties.Convergence);
         }
 
         [Test]

@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
-            Assert.AreEqual(string.Empty, hydraulicBoundaryLocation.Name);
+            Assert.IsEmpty(hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
             CollectionAssert.AreEqual(new[]
             {
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
-            Assert.AreEqual(string.Empty, hydraulicBoundaryLocation.Name);
+            Assert.IsEmpty(hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
             CollectionAssert.AreEqual(new[]
             {

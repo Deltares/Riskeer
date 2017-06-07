@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using System.Windows.Forms.PropertyGridInternal;
 
 namespace Core.Common.Gui.UITypeEditors
 {
@@ -40,9 +41,7 @@ namespace Core.Common.Gui.UITypeEditors
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            var service = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
-
-            if (service != null)
+            if (value is Color)
             {
                 var color = (Color) value;
 
@@ -75,8 +74,6 @@ namespace Core.Common.Gui.UITypeEditors
             {
                 e.Graphics.FillRectangle(brush, e.Bounds);
             }
-
-            e.Graphics.DrawRectangle(Pens.Black, e.Bounds);
         }
     }
 }

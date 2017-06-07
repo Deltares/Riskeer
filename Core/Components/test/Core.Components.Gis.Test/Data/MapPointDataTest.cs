@@ -82,7 +82,15 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
-            var style = new PointStyle(Color.Aqua, 3, PointSymbol.Circle);
+            Color color = Color.Aqua;
+            var style = new PointStyle
+            {
+                Color = color,
+                Size = 3,
+                Symbol = PointSymbol.Circle,
+                StrokeColor = color,
+                StrokeThickness = 1
+            };
 
             // Call
             var data = new MapPointData("test data", style);

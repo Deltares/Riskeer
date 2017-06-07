@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(properties.UseForeshore);
             Assert.IsNull(properties.Coordinates);
-            Assert.AreEqual(string.Empty, properties.ToString());
+            Assert.IsEmpty(properties.ToString());
         }
 
         [Test]

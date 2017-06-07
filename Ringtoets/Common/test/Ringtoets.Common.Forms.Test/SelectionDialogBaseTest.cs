@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
                 var nameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[nameColumnIndex];
-                Assert.AreEqual(string.Empty, nameColumn.HeaderText);
+                Assert.IsEmpty(nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
                 Assert.IsTrue(nameColumn.ReadOnly);

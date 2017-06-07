@@ -232,7 +232,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapPolygonLayer = new MapPolygonLayer();
             Color expectedFillColor = Color.FromKnownColor(fillColor);
             Color expectedOutlineFillColor = Color.FromKnownColor(outlineFillColor);
-            var mapPolygonData = new MapPolygonData("test", new PolygonStyle(expectedFillColor, expectedOutlineFillColor, width));
+            var mapPolygonData = new MapPolygonData("test", new PolygonStyle
+            {
+                FillColor = expectedFillColor,
+                StrokeColor = expectedOutlineFillColor,
+                StrokeThickness = width
+            });
 
             // Call
             converter.ConvertLayerProperties(mapPolygonData, mapPolygonLayer);

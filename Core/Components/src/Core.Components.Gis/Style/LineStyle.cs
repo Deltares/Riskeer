@@ -30,19 +30,6 @@ namespace Core.Components.Gis.Style
     public class LineStyle
     {
         /// <summary>
-        /// Creates a new instance of <see cref="LineStyle"/>.
-        /// </summary>
-        /// <param name="color">The color of the line.</param>
-        /// <param name="width">The width of the line.</param>
-        /// <param name="dashStyle">The <see cref="System.Drawing.Drawing2D.DashStyle"/> of the line.</param>
-        public LineStyle(Color color, int width, DashStyle dashStyle)
-        {
-            Color = color;
-            Width = width;
-            DashStyle = dashStyle;
-        }
-
-        /// <summary>
         /// Gets or sets the line color.
         /// </summary>
         public Color Color { get; set; }

@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Gui.Converters;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Converters
 {
@@ -44,18 +42,13 @@ namespace Core.Common.Gui.Test.Converters
         public void GetStandardValuesSupported_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var context = mocks.Stub<ITypeDescriptorContext>();
-            mocks.ReplayAll();
-
             var converter = new ColorTypeConverter();
 
             // Call
-            bool standardValuesSupported = converter.GetStandardValuesSupported(context);
+            bool standardValuesSupported = converter.GetStandardValuesSupported(null);
 
             // Assert
             Assert.IsFalse(standardValuesSupported);
-            mocks.VerifyAll();
         }
     }
 }

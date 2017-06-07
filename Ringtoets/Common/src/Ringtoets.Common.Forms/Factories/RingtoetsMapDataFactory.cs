@@ -51,7 +51,12 @@ namespace Ringtoets.Common.Forms.Factories
         public static MapLineData CreateReferenceLineMapData()
         {
             return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName,
-                                   new LineStyle(Color.Red, thickLineWidth, DashStyle.Solid))
+                                   new LineStyle
+                                   {
+                                       Color = Color.Red,
+                                       Width = thickLineWidth,
+                                       DashStyle = DashStyle.Solid
+                                   })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
@@ -63,8 +68,16 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateHydraulicBoundaryLocationsMapData()
         {
+            Color color = Color.DarkBlue;
             return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                                    new PointStyle(Color.DarkBlue, smallPointSize, PointSymbol.Circle))
+                                    new PointStyle
+                                    {
+                                        Color = color,
+                                        Size = smallPointSize,
+                                        Symbol = PointSymbol.Circle,
+                                        StrokeColor = color,
+                                        StrokeThickness = 1
+                                    })
             {
                 ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.MetaData_Name
@@ -78,7 +91,12 @@ namespace Ringtoets.Common.Forms.Factories
         public static MapLineData CreateFailureMechanismSectionsMapData()
         {
             return new MapLineData(Resources.FailureMechanism_Sections_DisplayName,
-                                   new LineStyle(Color.Khaki, thickLineWidth, DashStyle.Dot))
+                                   new LineStyle
+                                   {
+                                       Color = Color.Khaki,
+                                       Width = thickLineWidth,
+                                       DashStyle = DashStyle.Dot
+                                   })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
@@ -92,8 +110,16 @@ namespace Ringtoets.Common.Forms.Factories
         {
             string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
 
+            Color color = Color.DarkKhaki;
             return new MapPointData(mapDataName,
-                                    new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle));
+                                    new PointStyle
+                                    {
+                                        Color = color,
+                                        Size = largePointSize,
+                                        Symbol = PointSymbol.Triangle,
+                                        StrokeColor = color,
+                                        StrokeThickness = 1
+                                    });
         }
 
         /// <summary>
@@ -104,8 +130,16 @@ namespace Ringtoets.Common.Forms.Factories
         {
             string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
 
+            Color color = Color.DarkKhaki;
             return new MapPointData(mapDataName,
-                                    new PointStyle(Color.DarkKhaki, largePointSize, PointSymbol.Triangle));
+                                    new PointStyle
+                                    {
+                                        Color = color,
+                                        Size = largePointSize,
+                                        Symbol = PointSymbol.Triangle,
+                                        StrokeColor = color,
+                                        StrokeThickness = 1
+                                    });
         }
 
         /// <summary>
@@ -115,7 +149,12 @@ namespace Ringtoets.Common.Forms.Factories
         public static MapLineData CreateDikeProfileMapData()
         {
             return new MapLineData(Resources.DikeProfiles_DisplayName,
-                                   new LineStyle(Color.SaddleBrown, thinLineWidth, DashStyle.Solid))
+                                   new LineStyle
+                                   {
+                                       Color = Color.SaddleBrown,
+                                       Width = thinLineWidth,
+                                       DashStyle = DashStyle.Solid
+                                   })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
@@ -128,7 +167,12 @@ namespace Ringtoets.Common.Forms.Factories
         public static MapLineData CreateForeshoreProfileMapData()
         {
             return new MapLineData(Resources.ForeshoreProfiles_DisplayName,
-                                   new LineStyle(Color.DarkOrange, thinLineWidth, DashStyle.Solid))
+                                   new LineStyle
+                                   {
+                                       Color = Color.DarkOrange,
+                                       Width = thinLineWidth,
+                                       DashStyle = DashStyle.Solid
+                                   })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
@@ -140,8 +184,16 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateStructuresMapData()
         {
+            Color color = Color.DarkSeaGreen;
             return new MapPointData(Resources.StructuresCollection_DisplayName,
-                                    new PointStyle(Color.DarkSeaGreen, largePointSize, PointSymbol.Square))
+                                    new PointStyle
+                                    {
+                                        Color = color,
+                                        Size = largePointSize,
+                                        Symbol = PointSymbol.Square,
+                                        StrokeColor = color,
+                                        StrokeThickness = 1
+                                    })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
@@ -154,7 +206,12 @@ namespace Ringtoets.Common.Forms.Factories
         public static MapLineData CreateCalculationsMapData()
         {
             return new MapLineData(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName,
-                                   new LineStyle(Color.MediumPurple, thinLineWidth, DashStyle.Dash))
+                                   new LineStyle
+                                   {
+                                       Color = Color.MediumPurple,
+                                       Width = thinLineWidth,
+                                       DashStyle = DashStyle.Dash
+                                   })
             {
                 ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.MetaData_Name

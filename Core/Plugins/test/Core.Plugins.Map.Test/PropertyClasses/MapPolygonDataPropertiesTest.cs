@@ -76,24 +76,25 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
+            const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[fillColorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor widthProperty = dynamicProperties[strokeColorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijnkleur",
                                                                             "De kleur van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.");
         }
@@ -106,7 +107,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Color strokeColor = Color.Bisque;
             const int strokeThickness = 4;
 
-            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(fillColor, strokeColor, strokeThickness));
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle
+            {
+                FillColor = fillColor,
+                StrokeColor = strokeColor,
+                StrokeThickness = strokeThickness
+            });
             var properties = new MapPolygonDataProperties();
 
             // Call
@@ -114,7 +120,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
-            Assert.AreEqual(string.Empty, properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPolygonData.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual(fillColor, properties.FillColor);
@@ -132,7 +138,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(Color.AliceBlue, Color.Blue, 3));
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle
+            {
+                FillColor = Color.AliceBlue,
+                StrokeColor = Color.Blue,
+                StrokeThickness = 3
+            });
 
             mapPolygonData.Attach(observerMock);
 

@@ -37,7 +37,12 @@ namespace Core.Components.Gis.Test.Style
             const int width = 3;
 
             // Call
-            var polygonStyle = new PolygonStyle(fillColor, strokeColor, width);
+            var polygonStyle = new PolygonStyle
+            {
+                FillColor = fillColor,
+                StrokeColor = strokeColor,
+                StrokeThickness = width
+            };
 
             // Assert
             Assert.AreEqual(fillColor, polygonStyle.FillColor);

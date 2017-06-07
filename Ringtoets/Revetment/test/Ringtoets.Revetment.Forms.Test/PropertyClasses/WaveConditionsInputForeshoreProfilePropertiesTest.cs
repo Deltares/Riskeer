@@ -48,7 +48,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WaveConditionsInput>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual(string.Empty, properties.ToString());
+            Assert.IsEmpty(properties.ToString());
         }
 
         [Test]

@@ -41,10 +41,14 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
         public MapLineData(string name)
-            : this(name, new LineStyle(Color.Black, 2, DashStyle.Solid)) {}
+            : this(name, new LineStyle {
+                Color = Color.Black,
+                Width = 2,
+                DashStyle = DashStyle.Solid
+            }) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="MapLineData"/> with default styling.
+        /// Creates a new instance of <see cref="MapLineData"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
         /// <param name="style">The style of the data.</param>
