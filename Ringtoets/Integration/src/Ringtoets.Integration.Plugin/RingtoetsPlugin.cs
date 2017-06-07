@@ -1232,7 +1232,7 @@ namespace Ringtoets.Integration.Plugin
             var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
             var waveImpactAsphaltCover = nodeData as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
             var closingStructures = nodeData as IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>;
-            var macrostabilityInwards = nodeData as IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>;
+            var macroStabilityInwards = nodeData as IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>;
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
             var stabilityPointConstruction = nodeData as IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>;
 
@@ -1292,10 +1292,10 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(closingStructures.SectionResults, nodeData);
             }
-            if (macrostabilityInwards != null)
+            if (macroStabilityInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(macrostabilityInwards.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(macroStabilityInwards.SectionResults, nodeData);
             }
             if (macrostabilityOutwards != null)
             {

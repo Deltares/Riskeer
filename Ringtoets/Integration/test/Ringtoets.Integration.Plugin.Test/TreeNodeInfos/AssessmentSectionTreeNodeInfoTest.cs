@@ -207,9 +207,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionInwardsFailureMechanismContext.Parent);
 
-                var macrostabilityInwardsFailureMechanismContext = (MacroStabilityInwardsFailureMechanismContext) objects[7];
-                Assert.AreSame(assessmentSection.MacroStabilityInwards, macrostabilityInwardsFailureMechanismContext.WrappedData);
-                Assert.AreSame(assessmentSection, macrostabilityInwardsFailureMechanismContext.Parent);
+                var macroStabilityInwardsFailureMechanismContext = (MacroStabilityInwardsFailureMechanismContext) objects[7];
+                Assert.AreSame(assessmentSection.MacroStabilityInwards, macroStabilityInwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, macroStabilityInwardsFailureMechanismContext.Parent);
                 var macrostabilityOutwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[8];
                 Assert.AreSame(assessmentSection.MacrostabilityOutwards, macrostabilityOutwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, macrostabilityOutwardsFailureMechanismContext.Parent);

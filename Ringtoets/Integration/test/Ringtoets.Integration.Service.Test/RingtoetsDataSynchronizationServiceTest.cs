@@ -556,9 +556,9 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
 
-            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
-            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
@@ -657,8 +657,8 @@ namespace Ringtoets.Integration.Service.Test
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism);
 
-            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
-            CollectionAssert.Contains(changedObjects, macrostabilityInwardsFailureMechanism);
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.Contains(changedObjects, macrostabilityOutwardsFailureMechanism);
@@ -754,8 +754,8 @@ namespace Ringtoets.Integration.Service.Test
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism);
 
-            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
-            CollectionAssert.Contains(changedObjects, macrostabilityInwardsFailureMechanism);
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.Contains(changedObjects, macrostabilityOutwardsFailureMechanism);

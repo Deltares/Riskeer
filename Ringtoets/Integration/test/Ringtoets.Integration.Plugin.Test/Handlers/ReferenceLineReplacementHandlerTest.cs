@@ -241,10 +241,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism);
 
-            MacroStabilityInwardsFailureMechanism macrostabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
-            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macrostabilityInwardsFailureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, macrostabilityInwardsFailureMechanism);
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
