@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class MacrostabilityInwardsSectionResultEntityReadExtensionsTest
+    public class MacroStabilityInwardsSectionResultEntityReadExtensionsTest
     {
         [Test]
         public void Read_SectionResultIsNull_ThrowArgumentNullException()

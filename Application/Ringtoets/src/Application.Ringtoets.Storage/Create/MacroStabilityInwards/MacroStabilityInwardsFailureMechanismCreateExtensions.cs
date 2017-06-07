@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
+namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

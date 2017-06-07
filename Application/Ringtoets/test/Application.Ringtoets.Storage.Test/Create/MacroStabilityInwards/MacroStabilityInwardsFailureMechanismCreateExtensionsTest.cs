@@ -22,13 +22,13 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.MacrostabilityInwards;
+using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
+namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismCreateExtensionsTest

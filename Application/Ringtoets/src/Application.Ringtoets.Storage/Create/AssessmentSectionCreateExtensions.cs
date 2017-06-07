@@ -27,7 +27,7 @@ using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards;
 using Application.Ringtoets.Storage.Create.GrassCoverSlipOffOutwards;
 using Application.Ringtoets.Storage.Create.HeightStructures;
-using Application.Ringtoets.Storage.Create.MacrostabilityInwards;
+using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
 using Application.Ringtoets.Storage.Create.Microstability;
 using Application.Ringtoets.Storage.Create.Piping;

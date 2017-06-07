@@ -23,7 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
+namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> related to creating a 
