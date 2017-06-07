@@ -51,7 +51,6 @@ namespace Core.Common.Gui.Test
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
-            CollectionAssert.IsEmpty(activity.LogMessages);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 

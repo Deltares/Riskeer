@@ -39,7 +39,6 @@ namespace Core.Common.Base.Test.Service
             Assert.AreEqual("Uitvoeren van berekening", activity.Description);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.IsNull(activity.ProgressText);
-            CollectionAssert.IsEmpty(activity.LogMessages);
         }
 
         [Test]

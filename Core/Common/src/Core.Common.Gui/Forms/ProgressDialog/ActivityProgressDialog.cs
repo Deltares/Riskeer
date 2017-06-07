@@ -28,7 +28,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls.Dialogs;
-using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.ProgressDialog
@@ -169,13 +168,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
             try
             {
-                runningActivity.LogMessages.Clear();
-
-                if (RenderedMessageLogAppender.Instance != null)
-                {
-                    RenderedMessageLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);
-                }
-
                 runningActivity.ProgressChanged += ActivityOnProgressChanged;
 
                 // Run the activity
@@ -183,11 +175,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             }
             finally
             {
-                if (RenderedMessageLogAppender.Instance != null)
-                {
-                    RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
-                }
-
                 runningActivity.ProgressChanged -= ActivityOnProgressChanged;
             }
 

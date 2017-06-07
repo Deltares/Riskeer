@@ -72,7 +72,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverterTest.cs" />
-    <Compile Include="Appenders\RenderedMessageLogAppenderTest.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderEvaluationMethodAttributeTest.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />
