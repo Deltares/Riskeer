@@ -29,6 +29,9 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="MacroStabilityInwardsOutputContext"/> for properties panel.
+    /// </summary>
     public class MacroStabilityInwardsOutputContextProperties : ObjectProperties<MacroStabilityInwardsOutputContext>
     {
         [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]

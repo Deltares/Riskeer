@@ -34,7 +34,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Class that holds all piping calculation specific input parameters, i.e.. the values
+    /// Class that holds all piping calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
     public class PipingInput : Observable, ICalculationInput

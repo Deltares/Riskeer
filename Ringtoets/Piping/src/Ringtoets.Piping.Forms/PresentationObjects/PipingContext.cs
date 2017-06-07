@@ -107,7 +107,10 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The piping failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        private static void AssertInputsAreNotNull(object surfaceLines, object stochasticSoilModels, object pipingFailureMechanism, object assessmentSection)
+        private static void AssertInputsAreNotNull(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
+                                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                                   PipingFailureMechanism pipingFailureMechanism,
+                                                   IAssessmentSection assessmentSection)
         {
             if (surfaceLines == null)
             {

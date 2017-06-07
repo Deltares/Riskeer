@@ -107,7 +107,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <param name="macroStabilityInwardsFailureMechanism">The macro stability inwards failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        private static void AssertInputsAreNotNull(object surfaceLines, object stochasticSoilModels, object macroStabilityInwardsFailureMechanism, object assessmentSection)
+        private static void AssertInputsAreNotNull(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines,
+                                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                                   MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
+                                                   IAssessmentSection assessmentSection)
         {
             if (surfaceLines == null)
             {

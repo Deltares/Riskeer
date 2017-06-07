@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Class that holds all macro stability inwards calculation specific input parameters, i.e.. the values
+    /// Class that holds all macro stability inwards calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
     public class MacroStabilityInwardsInput : Observable, ICalculationInput

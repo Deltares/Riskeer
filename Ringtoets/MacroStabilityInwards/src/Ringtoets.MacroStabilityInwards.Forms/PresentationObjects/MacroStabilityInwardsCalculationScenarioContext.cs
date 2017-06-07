@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="MacroStabilityInwardsCalculation"/>
+    /// Presentation object for all data required to configure an instance of <see cref="MacroStabilityInwardsCalculationScenario"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
     public class MacroStabilityInwardsCalculationScenarioContext : MacroStabilityInwardsContext<MacroStabilityInwardsCalculationScenario>, ICalculationContext<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsFailureMechanism>

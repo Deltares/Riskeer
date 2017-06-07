@@ -61,6 +61,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
 
+        /// <summary>
+        /// Gets the failure mechanism which the context belongs to.
+        /// </summary>
         public PipingFailureMechanism FailureMechanism { get; private set; }
     }
 }

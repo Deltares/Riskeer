@@ -106,9 +106,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 return new MapFeature[0];
             }
 
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
-                                                                                                                                                c.InputParameters.SurfaceLine != null &&
-                                                                                                                                                c.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation =
+                calculations.Where(c =>
+                                       c.InputParameters.SurfaceLine != null &&
+                                       c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(

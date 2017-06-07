@@ -87,8 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();

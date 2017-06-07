@@ -49,6 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
         /// maximum tolerated probability of failure.
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when value is not in the range [0, 1].</exception>
         public double A
         {
             get

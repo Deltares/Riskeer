@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms
         /// <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
         /// </summary>
         /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure <see cref="PipingCalculation"/>
-        ///     with.</param>
+        /// with.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure <see cref="PipingCalculation"/> with.</param>
         /// <param name="generalInput">General input to assign to each generated piping calculation.</param>
         /// <returns>A structure of <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and

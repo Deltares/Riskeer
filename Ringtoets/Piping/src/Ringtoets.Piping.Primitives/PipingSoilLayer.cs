@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilLayer"/>, where the top is set to <paramref name="top"/>.
         /// </summary>
-        /// <param name="top"></param>
+        /// <param name="top">The top level of the layer.</param>
         public PipingSoilLayer(double top)
         {
             Top = top;

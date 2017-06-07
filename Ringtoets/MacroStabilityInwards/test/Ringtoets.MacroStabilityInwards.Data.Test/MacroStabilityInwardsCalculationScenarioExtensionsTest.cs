@@ -82,6 +82,41 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_WithoutReferenceLineIntersectionWorldPoint_ThrowsArgumentNullException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+
+            // Call
+            TestDelegate call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceline_ReturnsTrue()
         {
             // Setup

@@ -44,15 +44,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

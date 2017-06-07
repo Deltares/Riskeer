@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="profileName">The name for the <see cref="PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
         /// <param name="atX">The x position from which to obtain a 1D profile.</param>
-        /// <param name="soilProfileId">The indentifier of the profile in the database.</param>
+        /// <param name="soilProfileId">The identifier of the profile in the database.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="atX"/> can not be used to determine intersections with
         /// (is <see cref="double.NaN"/>).</exception>
         internal SoilProfileBuilder2D(string profileName, double atX, long soilProfileId)

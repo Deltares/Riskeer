@@ -36,6 +36,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         private readonly double bottom;
         private readonly long soilProfileId;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="SoilProfileBuilder1D"/>.
+        /// </summary>
+        /// <param name="name">The name of the profile.</param>
+        /// <param name="bottom">The bottom level of the profile.</param>
+        /// <param name="soilProfileId">Identifier of the profile.</param>
         internal SoilProfileBuilder1D(string name, double bottom, long soilProfileId)
         {
             this.name = name;

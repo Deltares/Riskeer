@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
@@ -35,9 +36,14 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="failureMechanism">A <see cref="PipingFailureMechanism"/> forming the context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingScenariosContext(CalculationGroup wrappedData, PipingFailureMechanism failureMechanism)
             : base(wrappedData)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             ParentFailureMechanism = failureMechanism;
         }
 

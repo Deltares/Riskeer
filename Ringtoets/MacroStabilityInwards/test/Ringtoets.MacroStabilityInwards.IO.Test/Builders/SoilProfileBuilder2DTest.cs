@@ -35,10 +35,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
     public class SoilProfileBuilder2DTest
     {
         [Test]
-        [TestCase(null)]
-        [TestCase("name")]
-        public void Constructor_WithNameInvalidX_ThrowsArgumentException(string name)
+        public void Constructor_WithNameInvalidX_ThrowsArgumentException()
         {
+            // Setup
+            const string name = "name";
+
             // Call
             TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN, 0);
 
@@ -49,12 +50,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("name")]
-        public void Constructor_WithNameValidX_DoesNotThrow(string name)
+        public void Constructor_WithNameValidX_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => new SoilProfileBuilder2D(name, 0.0, 0);
+            TestDelegate test = () => new SoilProfileBuilder2D("name", 0.0, 0);
 
             // Assert
             Assert.DoesNotThrow(test);

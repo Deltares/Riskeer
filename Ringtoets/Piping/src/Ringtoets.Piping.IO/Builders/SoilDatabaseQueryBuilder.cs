@@ -175,6 +175,11 @@ namespace Ringtoets.Piping.IO.Builders
                 StochasticSoilModelTableColumns.TableName);
         }
 
+        /// <summary>
+        /// Returns the SQL query to execute to check if the probabilities of the stochastic
+        /// soil profiles are valid.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
         public static string GetStochasticSoilProfileProbabilitiesValidQuery()
         {
             return string.Format(

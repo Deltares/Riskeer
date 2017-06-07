@@ -29,6 +29,9 @@ using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="PipingOutputContext"/> for properties panel.
+    /// </summary>
     public class PipingOutputContextProperties : ObjectProperties<PipingOutputContext>
     {
         [ResourcesCategory(typeof(Resources), nameof(Resources.PipingOutputContext_Categories_Uplift), 1, 4)]

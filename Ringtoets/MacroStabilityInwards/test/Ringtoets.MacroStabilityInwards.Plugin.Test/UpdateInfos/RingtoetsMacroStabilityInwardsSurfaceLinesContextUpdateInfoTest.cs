@@ -46,14 +46,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private MacroStabilityInwardsPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new MacroStabilityInwardsPlugin();
             updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

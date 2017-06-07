@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
-        ///     the source of this row.</param>
+        /// the source of this row.</param>
         /// <param name="calculations"></param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult, IEnumerable<PipingCalculationScenario> calculations) : base(sectionResult)

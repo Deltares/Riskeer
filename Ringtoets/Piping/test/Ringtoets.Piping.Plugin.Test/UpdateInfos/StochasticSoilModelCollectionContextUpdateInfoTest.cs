@@ -47,14 +47,12 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new PipingPlugin();
             updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

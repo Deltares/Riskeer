@@ -44,7 +44,6 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
     /// </summary>
     public class MacroStabilityInwardsInputContextProperties : ObjectProperties<MacroStabilityInwardsInputContext>,
@@ -53,21 +52,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
         private const int assessmentLevelPropertyIndex = 2;
         private const int useHydraulicBoundaryLocationPropertyIndex = 3;
-        private const int dampingFactorExitPropertyIndex = 4;
-        private const int phreaticLevelExitPropertyIndex = 5;
-        private const int piezometricHeadExitPropertyIndex = 6;
-        private const int surfaceLinePropertyIndex = 7;
-        private const int stochasticSoilModelPropertyIndex = 8;
-        private const int stochasticSoilProfilePropertyIndex = 9;
-        private const int entryPointLPropertyIndex = 10;
-        private const int exitPointLPropertyIndex = 11;
-        private const int seepageLengthPropertyIndex = 12;
-        private const int thicknessCoverageLayerPropertyIndex = 13;
-        private const int effectiveThicknessCoverageLayerPropertyIndex = 14;
-        private const int thicknessAquiferLayerPropertyIndex = 15;
-        private const int darcyPermeabilityPropertyIndex = 16;
-        private const int diameter70PropertyIndex = 17;
-        private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 18;
+        private const int surfaceLinePropertyIndex = 4;
+        private const int stochasticSoilModelPropertyIndex = 5;
+        private const int stochasticSoilProfilePropertyIndex = 6;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
