@@ -37,7 +37,6 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.Revetment.Service.Test
 {
@@ -485,8 +484,12 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
-        public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        {
+            nameof(Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError)
+        })]
+        public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(bool endInFailure,
+                                                                                                   string lastErrorFileContent,
                                                                                                    string detailedReport)
         {
             // Setup
@@ -502,6 +505,12 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             int nrOfCalculators = input.WaterLevels.Count();
+
+            var calculatorThatFails = new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            };
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -568,11 +577,20 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
-        public void Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        {
+            nameof(Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError)
+        })]
+        public void Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError(bool endInFailure,
+                                                                                       string lastErrorFileContent,
                                                                                        string detailedReport)
         {
             // Setup
+            var calculatorThatFails = new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            };
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);

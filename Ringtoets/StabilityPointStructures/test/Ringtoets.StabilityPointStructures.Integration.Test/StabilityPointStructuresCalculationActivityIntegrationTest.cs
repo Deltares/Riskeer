@@ -144,9 +144,10 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         }
 
         [Test]
-        [TestCase(true, "An error occurred")]
-        [TestCase(true, null)]
-        [TestCase(false, "An error occurred")]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_InvalidCalculationRan_PerformValidationAndCalculationActivityStateFailed)
+        })]
         public void Run_InvalidCalculationRan_PerformValidationAndCalculationActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
@@ -255,7 +256,11 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation)
+        })]
+        public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -264,7 +269,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var calculator = new TestStructuresStabilityPointCalculator
             {
-                EndInFailure = true
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))

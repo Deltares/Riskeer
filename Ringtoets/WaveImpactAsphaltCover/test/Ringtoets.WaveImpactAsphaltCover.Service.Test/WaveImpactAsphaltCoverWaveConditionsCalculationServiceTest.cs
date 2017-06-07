@@ -38,7 +38,6 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
-using Ringtoets.Revetment.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
@@ -641,14 +640,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
-        public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        {
+            nameof(Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError)
+        })]
+        public void Calculate_ThreeCalculationsFail_ThrowsHydraRingCalculationExceptionAndLogError(bool endInFailure,
+                                                                                                   string lastErrorFileContent,
                                                                                                    string detailedReport)
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 Contribution = 20
+            };
+            var calculatorThatFails = new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
             };
 
             var mockRepository = new MockRepository();
@@ -723,14 +731,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
-        public void Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        {
+            nameof(Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError)
+        })]
+        public void Calculate_OneOutOfThreeCalculationsFails_ReturnsOutputsAndLogError(bool endInFailure,
+                                                                                       string lastErrorFileContent,
                                                                                        string detailedReport)
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 Contribution = 20
+            };
+            var calculatorThatFails = new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
             };
 
             var mockRepository = new MockRepository();

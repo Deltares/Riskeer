@@ -142,10 +142,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         }
 
         [Test]
-        [TestCase(true, "An error occurred")]
-        [TestCase(true, null)]
-        [TestCase(false, "An error occurred")]
-        public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed)
+        })]
+        public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndActivityStateFailed(bool endInFailure,
+                                                                                                       string lastErrorFileContent)
         {
             // Setup
             var calculator = new TestStructuresClosureCalculator
@@ -249,7 +251,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation)
+        })]
+        public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation(bool endInFailure,
+                                                                                                    string lastErrorFileContent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -258,7 +265,8 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var calculator = new TestStructuresClosureCalculator
             {
-                EndInFailure = true
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))

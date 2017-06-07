@@ -357,9 +357,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        [TestCase(true, null)]
-        [TestCase(false, "An error occurred")]
-        [TestCase(true, "An error occurred")]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_ErrorInCalculation_ActivityStateFailed)
+        })]
         public void Run_ErrorInCalculation_ActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
@@ -403,7 +404,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        public void Run_CalculationFailed_OutputNull()
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_CalculationFailed_OutputNull)
+        })]
+        public void Run_CalculationFailed_OutputNull(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -418,7 +423,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator
             {
-                EndInFailure = true
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
             };
 
             int nrOfCalculators = calculation.InputParameters.WaterLevels.Count();

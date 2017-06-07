@@ -91,10 +91,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
         }
 
         [Test]
-        [TestCase(true, "An error occurred")]
-        [TestCase(true, null)]
-        [TestCase(false, "An error occurred")]
-        public void Run_InvalidCalculationAndRan_PerformCalculationAndActivityStateFailed(bool endInFailure, string lastErrorFileContent)
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_InvalidCalculationAndRan_PerformCalculationAndActivityStateFailed)
+        })]
+        public void Run_InvalidCalculationAndRan_PerformCalculationAndActivityStateFailed(bool endInFailure,
+                                                                                          string lastErrorFileContent)
         {
             // Setup
             var calculator = new TestDunesBoundaryConditionsCalculator
