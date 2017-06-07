@@ -38,6 +38,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="soilProfile">The soil profile containing <see cref="MacroStabilityInwardsSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the aquifer layers are sought.</param>
         /// <returns>The thickness of the part of the consecutive aquifer layer(s) (partly) under the <paramref name="level"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the bottommost <see cref= "MacroStabilityInwardsSoilLayer" /> is not part of
+        /// <paramref name="soilProfile"/>.</exception>
         public static double GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(this MacroStabilityInwardsSoilProfile soilProfile, double level)
         {
             return TotalThicknessOfConsecutiveLayersBelowLevel(
@@ -53,6 +56,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="soilProfile">The soil profile containing <see cref="MacroStabilityInwardsSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the coverage layers are sought.</param>
         /// <returns>The thickness of the part of the consecutive coverage layer(s) (partly) under the <paramref name="level"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the bottommost<see cref= "MacroStabilityInwardsSoilLayer" /> is not part of
+        /// <paramref name="soilProfile"/>.</exception>
         public static double GetConsecutiveCoverageLayerThicknessBelowLevel(this MacroStabilityInwardsSoilProfile soilProfile, double level)
         {
             return TotalThicknessOfConsecutiveLayersBelowLevel(
