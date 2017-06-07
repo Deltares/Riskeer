@@ -273,16 +273,19 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_InvalidCalculation_LogsErrorOutputNotUpdated()
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        {
+            nameof(Run_InvalidCalculation_LogsErrorOutputNotUpdated)
+        })]
+        public void Run_InvalidCalculation_LogsErrorOutputNotUpdated(bool endInFailure, string lastErrorFileContent, string detailedReport)
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationFailedMessage = "Something went wrong";
 
             var calculator = new TestWaveHeightCalculator
             {
-                EndInFailure = true,
-                LastErrorFileContent = calculationFailedMessage
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -290,7 +293,8 @@ namespace Ringtoets.Common.Service.Test
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(detailedReport);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(null)).IgnoreArguments().Return(detailedReport);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
@@ -313,7 +317,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, calculationFailedMessage, 6);
+                TestHelper.AssertLogMessageIsGenerated(call, detailedReport, 6);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             }
@@ -372,9 +376,10 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCase(true, null)]
-        [TestCase(true, "An error occurred")]
-        [TestCase(false, "An error occurred")]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError)
+        })]
         public void Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
