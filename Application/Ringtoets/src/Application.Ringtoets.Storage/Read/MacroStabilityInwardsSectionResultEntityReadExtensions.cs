@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Read
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> based on the
     /// <see cref="MacrostabilityInwardsSectionResultEntity"/>.
     /// </summary>
-    internal static class MacrostabilityInwardsSectionResultEntityReadExtensions
+    internal static class MacroStabilityInwardsSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="MacrostabilityInwardsSectionResultEntity"/> and use the information to update a 

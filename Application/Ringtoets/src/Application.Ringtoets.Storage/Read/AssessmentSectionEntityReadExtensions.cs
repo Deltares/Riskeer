@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadTechnicalInnovationFailureMechanism(assessmentSection, collector);
             entity.ReadWaterPressureAsphaltCoverFailureMechanism(assessmentSection, collector);
             entity.ReadClosingStructuresFailureMechanism(assessmentSection, collector);
-            entity.ReadMacrostabilityInwardsFailureMechanism(assessmentSection, collector);
+            entity.ReadMacroStabilityInwardsFailureMechanism(assessmentSection, collector);
             entity.ReadMacrostabilityOutwardsFailureMechanism(assessmentSection, collector);
             entity.ReadWaveImpactAsphaltCoverFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionOutwardsFailureMechanism(assessmentSection, collector);
@@ -174,10 +174,10 @@ namespace Application.Ringtoets.Storage.Read
             closingStructuresFailureMechanismEntity?.ReadAsClosingStructuresFailureMechanism(assessmentSection.ClosingStructures, collector);
         }
 
-        private static void ReadMacrostabilityInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadMacroStabilityInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            FailureMechanismEntity macrostabilityInwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacroStabilityInwards);
-            macrostabilityInwardsFailureMechanismEntity?.ReadAsMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, collector);
+            FailureMechanismEntity macroStabilityInwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacroStabilityInwards);
+            macroStabilityInwardsFailureMechanismEntity?.ReadAsMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, collector);
         }
 
         private static void ReadMacrostabilityOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

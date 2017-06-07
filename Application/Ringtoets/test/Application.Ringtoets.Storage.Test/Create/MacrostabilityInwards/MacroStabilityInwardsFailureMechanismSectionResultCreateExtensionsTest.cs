@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
 {
     [TestFixture]
-    public class MacrostabilityInwardsFailureMechanismSectionResultCreateExtensionsTest
+    public class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_WithResults_ReturnsEntityWithExpectedResults()

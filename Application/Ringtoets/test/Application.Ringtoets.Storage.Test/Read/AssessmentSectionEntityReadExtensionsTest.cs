@@ -1168,7 +1168,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            FailureMechanismEntity macrostabilityInwards = CreateFailureMechanismEntity(
+            FailureMechanismEntity macroStabilityInwards = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.MacroStabilityInwards);
             FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.MacrostabilityOutwards);
@@ -1185,7 +1185,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             FailureMechanismEntity technicalInnovations = CreateFailureMechanismEntity(
                 isRelevant, FailureMechanismType.TechnicalInnovations);
 
-            entity.FailureMechanismEntities.Add(macrostabilityInwards);
+            entity.FailureMechanismEntities.Add(macroStabilityInwards);
             entity.FailureMechanismEntities.Add(macrostabilityOutwards);
             entity.FailureMechanismEntities.Add(microstability);
             entity.FailureMechanismEntities.Add(strengthAndStabilityParallelConstruction);
@@ -1201,8 +1201,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            AssertFailureMechanismEqual(isRelevant, 2, macrostabilityInwards.InputComments,
-                                        macrostabilityInwards.OutputComments, macrostabilityInwards.NotRelevantComments,
+            AssertFailureMechanismEqual(isRelevant, 2, macroStabilityInwards.InputComments,
+                                        macroStabilityInwards.OutputComments, macroStabilityInwards.NotRelevantComments,
                                         section.MacroStabilityInwards);
             AssertFailureMechanismEqual(isRelevant, 2, macrostabilityOutwards.InputComments,
                                         macrostabilityOutwards.OutputComments, macrostabilityOutwards.NotRelevantComments,

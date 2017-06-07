@@ -500,10 +500,10 @@ namespace Application.Ringtoets.Storage.Read
                                                                          ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadMacrostabilityInwardsMechanismSectionResults(failureMechanism, collector);
+            entity.ReadMacroStabilityInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
-        private static void ReadMacrostabilityInwardsMechanismSectionResults(this FailureMechanismEntity entity,
+        private static void ReadMacroStabilityInwardsMechanismSectionResults(this FailureMechanismEntity entity,
                                                                              MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
         {

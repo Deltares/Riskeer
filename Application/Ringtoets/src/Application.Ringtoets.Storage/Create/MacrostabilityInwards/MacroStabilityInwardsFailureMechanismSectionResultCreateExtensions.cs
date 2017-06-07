@@ -29,7 +29,7 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
     /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="MacrostabilityInwardsSectionResultEntity"/>.
     /// </summary>
-    internal static class MacrostabilityInwardsFailureMechanismSectionResultCreateExtensions
+    internal static class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="MacrostabilityInwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.

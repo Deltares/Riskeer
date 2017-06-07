@@ -361,8 +361,8 @@
     <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensions.cs" />
@@ -427,7 +427,7 @@
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />

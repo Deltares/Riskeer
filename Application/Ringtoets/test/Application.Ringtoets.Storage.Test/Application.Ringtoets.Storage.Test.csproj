@@ -154,8 +154,8 @@
     <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensionsTest.cs" />
@@ -222,7 +222,7 @@
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
