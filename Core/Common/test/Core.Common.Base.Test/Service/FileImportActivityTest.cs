@@ -221,6 +221,27 @@ namespace Core.Common.Base.Test.Service
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Finish_FileImportActivityWithFileImporterObservableTargetAndNoneState_ObserversOfTargetAreNotNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var target = new ObservableList<object>();
+            target.Attach(observer);
+
+            var fileImporter = new SimpleFileImporter<ObservableList<object>>(target);
+            var fileImportActivity = new TestFileImportActivity(fileImporter, "", ActivityState.None);
+
+            // Call
+            fileImportActivity.Finish();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private class SimpleFileImporter<T> : FileImporterBase<T>
         {
             public SimpleFileImporter(T importTarget) : base("", importTarget) {}

@@ -71,20 +71,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Cancel_Always_StateCanceledCanceledTrue()
-        {
-            // Setup
-            var activity = new TestHydraRingActivity();
-
-            // Call
-            activity.Cancel();
-
-            // Assert
-            Assert.AreEqual(activity.State, ActivityState.Canceled);
-            Assert.IsTrue(activity.Canceled);
-        }
-
-        [Test]
         public void UpdateProgressText_Always_SetsProgressTextWithFormat()
         {
             // Setup
@@ -97,14 +83,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             activity.PublicUpdateProgressText(currentStepName, currentStep, totalStep);
 
             // Assert
-            Assert.AreEqual(string.Format("Stap {0} van {1} | {2}", currentStep, totalStep, currentStepName), activity.ProgressText);
+            Assert.AreEqual($"Stap {currentStep} van {totalStep} | {currentStepName}", activity.ProgressText);
         }
     }
 
     public class TestHydraRingActivity : HydraRingActivityBase
     {
-        public bool Canceled { get; private set; }
-        public bool Finished { get; private set; }
         public bool Calculated { get; private set; }
 
         public bool IsValid { private get; set; }
@@ -114,15 +98,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             UpdateProgressText(currentStepName, currentStep, totalStep);
         }
 
-        protected override void OnCancel()
-        {
-            Canceled = true;
-        }
+        protected override void OnCancel() {}
 
-        protected override void OnFinish()
-        {
-            Finished = true;
-        }
+        protected override void OnFinish() {}
 
         protected override void PerformCalculation()
         {

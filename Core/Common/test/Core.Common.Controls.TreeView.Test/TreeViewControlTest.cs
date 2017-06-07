@@ -1920,7 +1920,13 @@ namespace Core.Common.Controls.TreeView.Test
             /// <summary>
             /// Gets the data (before or after modification).
             /// </summary>
-            public object[] Data => data.ToArray();
+            public object[] Data
+            {
+                get
+                {
+                    return data.ToArray();
+                }
+            }
 
             /// <summary>
             /// Modifies the data.
