@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Service.Test
 
                 // Assert
                 AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
-                AssertInput(expectedInput, calculator.ReceivedInputs.First());
+                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();

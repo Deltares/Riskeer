@@ -1050,7 +1050,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
-                EndInFailure = true
+                EndInFailure = false
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -1069,7 +1069,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
+                HydraRingCalculationException exception = null;
 
                 // Call
                 Action call = () =>
@@ -1082,9 +1082,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
                     }
-                    catch (HydraRingCalculationException)
+                    catch (HydraRingCalculationException e)
                     {
-                        exceptionThrown = true;
+                        exception = e;
                     }
                 };
 
@@ -1098,8 +1098,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
                 });
-                Assert.IsTrue(exceptionThrown);
+                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
                 Assert.IsNull(calculation.Output);
+                Assert.AreEqual(overtoppingCalculator.LastErrorFileContent, exception.Message);
             }
         }
 
@@ -1258,7 +1259,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFile);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                LastErrorFileContent = "An error occurred"
+                LastErrorFileContent = "An error occurred",
+                EndInFailure = false
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());

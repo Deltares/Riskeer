@@ -1138,6 +1138,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
             mockRepository.VerifyAll();
         }

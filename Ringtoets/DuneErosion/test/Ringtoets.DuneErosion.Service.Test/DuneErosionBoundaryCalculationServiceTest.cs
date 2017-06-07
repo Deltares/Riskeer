@@ -497,6 +497,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocation.Output);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
 
             mockRepository.VerifyAll();

@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -485,7 +486,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     Assert.AreEqual(18, msgs.Length);
 
                     Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
-
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[1]);
 
                     var i = 2;
@@ -793,6 +793,201 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Assert.IsNull(calculation.Output);
             }
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
+        public void Calculate_OneOutOfThreeBlocksCalculationsFails_ReturnsOutputsAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+                                                                                             string detailedReport)
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(5);
+
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new StabilityStoneCoverWaveConditionsCalculationService();
+
+                // Call
+                Action call = () => service.Calculate(calculation,
+                                                      assessmentSectionStub,
+                                                      failureMechanism.GeneralInput,
+                                                      validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(25, msgs.Length);
+
+                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
+
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[1]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[2]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[3]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[5]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[6]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[8]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[9]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[10]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[11]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken beëindigd.", msgs[12]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen gestart.", msgs[13]);
+
+                    var i = 14;
+                    foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
+                    {
+                        Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' gestart.", msgs[i++]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
+                        Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' beëindigd.", msgs[i++]);
+                    }
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen beëindigd.", msgs[23]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[24]);
+                });
+
+                WaveConditionsOutput[] blocksWaveConditionsOutputs = calculation.Output.BlocksOutput.ToArray();
+                Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
+                AssertFailedCalculationOutput(blocksWaveConditionsOutputs[0]);
+
+                WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
+                Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(typeof(WaveConditionsCosineCalculatorTestHelper), nameof(WaveConditionsCosineCalculatorTestHelper.FailingWaveConditionsCosineCalculators))]
+        public void Calculate_OneOutOfThreeColumnsCalculationsFails_ReturnsOutputsAndLogError(TestWaveConditionsCosineCalculator calculatorThatFails,
+                                                                                              string detailedReport)
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(3);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Twice();
+
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new StabilityStoneCoverWaveConditionsCalculationService();
+
+                // Call
+                Action call = () => service.Calculate(calculation,
+                                                      assessmentSectionStub,
+                                                      failureMechanism.GeneralInput,
+                                                      validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(25, msgs.Length);
+
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[1]);
+
+                    var i = 2;
+                    foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
+                    {
+                        Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' gestart.", msgs[i++]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
+                        Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevel}' beëindigd.", msgs[i++]);
+                    }
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken beëindigd.", msgs[11]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen gestart.", msgs[12]);
+
+                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[13]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[14]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[15]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[16]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[17]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[18]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[19]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[20]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[21]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[22]);
+
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen beëindigd.", msgs[23]);
+                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[24]);
+                });
+
+                WaveConditionsOutput[] blocksWaveConditionsOutputs = calculation.Output.BlocksOutput.ToArray();
+                Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
+
+                WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
+                Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
+                AssertFailedCalculationOutput(columnsWaveConditionsOutputs[0]);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        private static void AssertFailedCalculationOutput(WaveConditionsOutput actual)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaterLevel);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaveHeight);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WavePeakPeriod);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaveAngle);
+            Assert.AreEqual(RoundedDouble.NaN, actual.WaveDirection);
+            Assert.AreEqual(double.NaN, actual.TargetProbability);
+            Assert.AreEqual(RoundedDouble.NaN, actual.TargetReliability);
+            Assert.AreEqual(double.NaN, actual.CalculatedProbability);
+            Assert.AreEqual(RoundedDouble.NaN, actual.CalculatedReliability);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actual.CalculationConvergence);
         }
 
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()

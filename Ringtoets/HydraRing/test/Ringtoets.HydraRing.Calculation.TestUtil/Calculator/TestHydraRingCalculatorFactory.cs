@@ -114,7 +114,6 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     {
         public readonly List<T> ReceivedInputs = new List<T>();
         public event EventHandler CalculationFinishedHandler;
-        public string HydraulicBoundaryDatabaseDirectory { get; set; }
         public bool EndInFailure { get; set; }
         public bool IsCanceled { get; set; }
 
