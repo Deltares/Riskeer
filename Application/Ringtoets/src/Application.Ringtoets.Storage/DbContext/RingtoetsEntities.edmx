@@ -591,9 +591,9 @@
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
-            <PropertyRef Name="MacrostabilityInwardsSectionResultEntityId" />
+            <PropertyRef Name="MacroStabilityInwardsSectionResultEntityId" />
           </Key>
-          <Property Name="MacrostabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="real" />
@@ -3839,9 +3839,9 @@
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
-            <PropertyRef Name="MacrostabilityInwardsSectionResultEntityId" />
+            <PropertyRef Name="MacroStabilityInwardsSectionResultEntityId" />
           </Key>
-          <Property Name="MacrostabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Double" />
@@ -6157,7 +6157,7 @@
                 <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
-                <ScalarProperty Name="MacrostabilityInwardsSectionResultEntityId" ColumnName="MacrostabilityInwardsSectionResultEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsSectionResultEntityId" ColumnName="MacroStabilityInwardsSectionResultEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

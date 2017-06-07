@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public class MacroStabilityInwardsSectionResultEntity
     {
-        public long MacrostabilityInwardsSectionResultEntityId { get; set; }
+        public long MacroStabilityInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
         public double? LayerTwoA { get; set; }
