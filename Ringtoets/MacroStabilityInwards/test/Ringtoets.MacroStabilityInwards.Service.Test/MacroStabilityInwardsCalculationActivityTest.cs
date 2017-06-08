@@ -26,6 +26,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
@@ -128,10 +129,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{validMacroStabilityInwardsCalculation.Name}' gestart.", msgs[0]);
-                Assert.AreEqual($"Validatie van '{validMacroStabilityInwardsCalculation.Name}' beëindigd.", msgs[1]);
-                Assert.AreEqual($"Berekening van '{validMacroStabilityInwardsCalculation.Name}' gestart.", msgs[2]);
-                Assert.AreEqual($"Berekening van '{validMacroStabilityInwardsCalculation.Name}' beëindigd.", msgs[3]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(validMacroStabilityInwardsCalculation.Name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(validMacroStabilityInwardsCalculation.Name, msgs[1]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(validMacroStabilityInwardsCalculation.Name, msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(validMacroStabilityInwardsCalculation.Name, msgs[3]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validMacroStabilityInwardsCalculation.Output);

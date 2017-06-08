@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Service.TestUtil;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -67,7 +68,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
             });
         }
 
@@ -85,7 +86,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[0]);
             });
         }
 
@@ -103,7 +104,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                Assert.AreEqual($"Berekening van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(name, msgs[0]);
             });
         }
 
@@ -121,7 +122,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                Assert.AreEqual($"Berekening van '{name}' beëindigd.", msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(name, msgs[0]);
             });
         }
 

@@ -26,6 +26,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -130,10 +131,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{validPipingCalculation.Name}' gestart.", msgs[0]);
-                Assert.AreEqual($"Validatie van '{validPipingCalculation.Name}' beëindigd.", msgs[1]);
-                Assert.AreEqual($"Berekening van '{validPipingCalculation.Name}' gestart.", msgs[2]);
-                Assert.AreEqual($"Berekening van '{validPipingCalculation.Name}' beëindigd.", msgs[3]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(validPipingCalculation.Name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(validPipingCalculation.Name, msgs[1]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(validPipingCalculation.Name, msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(validPipingCalculation.Name, msgs[3]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validPipingCalculation.Output);

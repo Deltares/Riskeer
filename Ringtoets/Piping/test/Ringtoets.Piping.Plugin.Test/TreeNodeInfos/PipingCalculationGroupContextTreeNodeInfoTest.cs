@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms;
@@ -998,10 +999,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
-                        Assert.AreEqual($"Validatie van '{validCalculation.Name}' gestart.", msgs[0]);
-                        Assert.AreEqual($"Validatie van '{validCalculation.Name}' beëindigd.", msgs[1]);
-                        Assert.AreEqual($"Validatie van '{invalidCalculation.Name}' gestart.", msgs[2]);
-                        Assert.AreEqual($"Validatie van '{invalidCalculation.Name}' beëindigd.", msgs[8]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(validCalculation.Name, msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(validCalculation.Name, msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(invalidCalculation.Name, msgs[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(invalidCalculation.Name, msgs[8]);
                     });
                 }
             }

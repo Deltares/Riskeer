@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -149,9 +150,9 @@ namespace Ringtoets.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{calculationName}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             mockRepository.VerifyAll();
@@ -195,11 +196,11 @@ namespace Ringtoets.Common.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(5, messages.Length);
-                    Assert.AreEqual($"Validatie van '{calculationName}' gestart.", messages[0]);
-                    Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", messages[1]);
-                    Assert.AreEqual($"Berekening van '{calculationName}' gestart.", messages[2]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, messages[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, messages[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, messages[2]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
-                    Assert.AreEqual($"Berekening van '{calculationName}' beëindigd.", messages[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[4]);
                 });
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.First();

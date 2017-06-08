@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -97,9 +98,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[1]);
-                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -140,9 +141,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(13, msgs.Length);
-                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
-                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
 
                     var i = 2;
                     foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
@@ -303,13 +304,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
 
                     Assert.AreEqual(7, msgs.Length);
-                    Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
-                    Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' gestart.", msgs[3]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' beëindigd.", msgs[5]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);

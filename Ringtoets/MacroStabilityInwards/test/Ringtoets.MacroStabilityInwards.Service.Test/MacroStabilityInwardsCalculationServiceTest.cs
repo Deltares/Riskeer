@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
@@ -259,9 +260,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
 
-                Assert.AreEqual($"Berekening van '{name}' gestart.", msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(name, msgs[2]);
                 Assert.AreEqual($"Berekening van '{name}' beëindigd.", msgs.Last());
             });
         }

@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms;
@@ -820,10 +821,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(7, msgs.Length);
-                        Assert.AreEqual($"Validatie van '{validCalculation.Name}' gestart.", msgs[0]);
-                        Assert.AreEqual($"Validatie van '{validCalculation.Name}' beëindigd.", msgs[1]);
-                        Assert.AreEqual($"Validatie van '{invalidCalculation.Name}' gestart.", msgs[2]);
-                        Assert.AreEqual($"Validatie van '{invalidCalculation.Name}' beëindigd.", msgs[6]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(validCalculation.Name, msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(validCalculation.Name, msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(invalidCalculation.Name, msgs[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(invalidCalculation.Name, msgs[6]);
                     });
                 }
             }

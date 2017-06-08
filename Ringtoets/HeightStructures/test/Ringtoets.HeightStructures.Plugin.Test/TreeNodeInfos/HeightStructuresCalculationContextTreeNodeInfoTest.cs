@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -1175,11 +1176,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(6, msgs.Length);
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
-                        Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[2]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                        Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[4]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[5]);
                     });
 
@@ -1239,8 +1240,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' gestart.", msgs[0]);
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' beëindigd.", msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     });
                 }
             }

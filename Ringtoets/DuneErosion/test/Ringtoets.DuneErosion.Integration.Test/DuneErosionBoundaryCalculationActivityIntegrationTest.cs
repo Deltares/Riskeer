@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Service;
@@ -79,10 +80,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                              {
                                                  string[] msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 Assert.AreEqual($"Berekening van '{duneLocation.Name}' gestart.", msgs[0]);
+                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(duneLocation.Name, msgs[0]);
                                                  Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
                                                  StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 Assert.AreEqual($"Berekening van '{duneLocation.Name}' beëindigd.", msgs[3]);
+                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(duneLocation.Name, msgs[3]);
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

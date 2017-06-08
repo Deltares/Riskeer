@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
@@ -963,9 +964,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual($"Validatie van '{name}' gestart.", msgs.First());
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
 
-                Assert.AreEqual($"Berekening van '{name}' gestart.", msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(name, msgs[2]);
                 Assert.AreEqual($"Berekening van '{name}' beëindigd.", msgs.Last());
             });
         }

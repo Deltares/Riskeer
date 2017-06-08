@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -103,9 +104,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 string name = calculation.Name;
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -135,9 +136,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 string name = calculation.Name;
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -177,9 +178,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -224,9 +225,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -277,9 +278,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -325,7 +326,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
@@ -410,7 +411,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
@@ -495,7 +496,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
@@ -580,7 +581,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(43, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDurationParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[3]);
@@ -703,9 +704,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen belastingschematisering geselecteerd.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
             });
         }
 
@@ -1401,9 +1402,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -1516,10 +1517,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1583,10 +1584,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
                     Assert.AreEqual($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1652,10 +1653,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
                     StringAssert.StartsWith($"De berekening voor kunstwerk puntconstructies '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening van '{calculation.Name}' beëindigd.", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
