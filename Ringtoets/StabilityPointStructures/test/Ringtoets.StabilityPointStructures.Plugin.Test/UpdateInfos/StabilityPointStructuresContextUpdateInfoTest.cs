@@ -47,14 +47,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private StabilityPointStructuresPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new StabilityPointStructuresPlugin();
             updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StabilityPointStructuresContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

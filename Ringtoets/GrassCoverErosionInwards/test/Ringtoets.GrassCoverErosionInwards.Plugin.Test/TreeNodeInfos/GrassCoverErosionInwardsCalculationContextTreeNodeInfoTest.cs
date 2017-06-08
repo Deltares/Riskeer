@@ -66,12 +66,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         [Test]
@@ -1125,14 +1132,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                            DikeHeight = 10,
                                                            Orientation = 10
                                                        }));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
         }
     }
 }

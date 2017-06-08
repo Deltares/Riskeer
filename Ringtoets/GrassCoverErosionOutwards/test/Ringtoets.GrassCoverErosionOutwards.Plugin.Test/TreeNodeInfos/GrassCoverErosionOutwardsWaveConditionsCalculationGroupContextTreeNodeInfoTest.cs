@@ -86,8 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             gui = mocks.Stub<IGui>();
@@ -98,7 +97,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

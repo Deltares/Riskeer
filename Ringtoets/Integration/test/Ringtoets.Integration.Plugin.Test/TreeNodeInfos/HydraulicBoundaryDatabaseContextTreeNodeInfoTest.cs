@@ -61,8 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private readonly string testDataPathNoSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoSettings");
         private readonly string testDataPathInvalidSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseSettingsInvalid");
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
         }

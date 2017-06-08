@@ -63,15 +63,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

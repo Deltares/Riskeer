@@ -36,13 +36,11 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
     {
         private GuiFormsMessageWindow.MessageWindowLogAppender originalValue;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             originalValue = GuiFormsMessageWindow.MessageWindowLogAppender.Instance;
         }
 
-        [TearDown]
         public override void TearDown()
         {
             base.TearDown();

@@ -49,7 +49,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int failureProbabilityColumnIndex = 3;
         private Form testForm;
 
-        [SetUp]
         public override void Setup()
         {
             base.Setup();
@@ -57,7 +56,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             testForm = new Form();
         }
 
-        [TearDown]
         public override void TearDown()
         {
             base.TearDown();

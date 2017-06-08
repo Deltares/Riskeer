@@ -82,8 +82,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             gui = mocks.Stub<IGui>();
@@ -95,7 +94,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

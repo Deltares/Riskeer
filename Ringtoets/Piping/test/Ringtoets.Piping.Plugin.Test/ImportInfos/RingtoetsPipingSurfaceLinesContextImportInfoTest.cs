@@ -46,14 +46,12 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         private ImportInfo importInfo;
         private PipingPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new PipingPlugin();
             importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

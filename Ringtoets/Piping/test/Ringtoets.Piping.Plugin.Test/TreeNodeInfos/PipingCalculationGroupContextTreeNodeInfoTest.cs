@@ -94,6 +94,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationGroupContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -1863,14 +1871,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             });
             surfaceLine.SetDikeToeAtRiverAt(new Point3D(2, 0, 3));
             surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
         }
     }
 }

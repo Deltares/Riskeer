@@ -48,14 +48,12 @@ namespace Ringtoets.Integration.Forms.Test
         private ITileSourceFactory tileFactory;
         private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mockRepository = new MockRepository();
             tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
         }
 
-        [TearDown]
         public override void TearDown()
         {
             mockRepository.VerifyAll();

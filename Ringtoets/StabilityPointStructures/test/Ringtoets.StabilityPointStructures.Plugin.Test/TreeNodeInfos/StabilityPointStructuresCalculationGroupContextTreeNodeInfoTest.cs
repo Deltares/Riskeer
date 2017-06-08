@@ -81,8 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             gui = mocks.Stub<IGui>();
@@ -94,7 +93,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresCalculationGroupContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

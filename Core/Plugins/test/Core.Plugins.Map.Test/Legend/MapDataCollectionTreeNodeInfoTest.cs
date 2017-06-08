@@ -56,8 +56,7 @@ namespace Core.Plugins.Map.Test.Legend
         private TreeNodeInfo info;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
@@ -68,6 +67,13 @@ namespace Core.Plugins.Map.Test.Legend
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(MapDataCollection)];
+        }
+
+        public override void TearDown()
+        {
+            mapLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -533,13 +539,6 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 Assert.DoesNotThrow(call);
             }
-        }
-
-        public override void TearDown()
-        {
-            mapLegendView.Dispose();
-
-            mocks.VerifyAll();
         }
     }
 }

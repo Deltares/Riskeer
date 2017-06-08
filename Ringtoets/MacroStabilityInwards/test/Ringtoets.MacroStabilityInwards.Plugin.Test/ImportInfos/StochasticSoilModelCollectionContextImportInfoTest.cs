@@ -46,14 +46,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
         private ImportInfo importInfo;
         private MacroStabilityInwardsPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new MacroStabilityInwardsPlugin();
             importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

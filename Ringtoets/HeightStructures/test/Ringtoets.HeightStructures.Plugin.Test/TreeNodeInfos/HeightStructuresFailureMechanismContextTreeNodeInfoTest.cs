@@ -67,12 +67,19 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+
+            base.TearDown();
         }
 
         [Test]
@@ -867,14 +874,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     });
                 }
             }
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocksRepository.VerifyAll();
-
-            base.TearDown();
         }
     }
 }

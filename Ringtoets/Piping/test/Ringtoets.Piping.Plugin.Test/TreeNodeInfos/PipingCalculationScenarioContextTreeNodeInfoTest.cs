@@ -70,6 +70,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationScenarioContext));
         }
 
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -1061,14 +1069,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     ExitPointL = (RoundedDouble) 1
                 }
             };
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
         }
     }
 }

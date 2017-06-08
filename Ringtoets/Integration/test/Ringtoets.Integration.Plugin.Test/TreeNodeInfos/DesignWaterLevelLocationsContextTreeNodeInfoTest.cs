@@ -54,8 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mockRepository = new MockRepository();
         }

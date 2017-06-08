@@ -65,8 +65,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
         private MockRepository mocksRepository;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocksRepository = new MockRepository();
         }

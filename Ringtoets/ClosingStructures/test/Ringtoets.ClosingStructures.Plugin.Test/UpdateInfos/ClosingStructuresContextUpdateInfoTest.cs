@@ -47,14 +47,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private ClosingStructuresPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new ClosingStructuresPlugin();
             updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(ClosingStructuresContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

@@ -47,14 +47,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private HeightStructuresPlugin plugin;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             plugin = new HeightStructuresPlugin();
             updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(HeightStructuresContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

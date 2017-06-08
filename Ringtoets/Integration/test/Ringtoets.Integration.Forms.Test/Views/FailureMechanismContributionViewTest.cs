@@ -53,7 +53,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int probabilitySpaceColumnIndex = 4;
         private Form testForm;
 
-        [SetUp]
         public override void Setup()
         {
             base.Setup();
@@ -61,7 +60,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             testForm = new Form();
         }
 
-        [TearDown]
         public override void TearDown()
         {
             testForm.Dispose();

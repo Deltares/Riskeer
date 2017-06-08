@@ -79,8 +79,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             gui = mocks.Stub<IGui>();
@@ -91,7 +90,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

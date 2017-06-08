@@ -58,15 +58,13 @@ namespace Core.Components.Gis.Forms.Test.Views
         private ITileSourceFactory tileFactory;
         private IWmtsCapabilityFactory wmtsCapabilityFactory;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mockRepository = new MockRepository();
             tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
             wmtsCapabilityFactory = mockRepository.StrictMock<IWmtsCapabilityFactory>();
         }
 
-        [TearDown]
         public override void TearDown()
         {
             mockRepository.VerifyAll();

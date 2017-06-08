@@ -58,7 +58,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int exitPointLColumnIndex = 8;
         private Form testForm;
 
-        [SetUp]
         public override void Setup()
         {
             base.Setup();
@@ -66,7 +65,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             testForm = new Form();
         }
 
-        [TearDown]
         public override void TearDown()
         {
             base.TearDown();

@@ -42,8 +42,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         private MockRepository mockRepository;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mockRepository = new MockRepository();
         }

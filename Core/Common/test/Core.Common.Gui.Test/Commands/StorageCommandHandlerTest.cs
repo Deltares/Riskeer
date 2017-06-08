@@ -40,8 +40,7 @@ namespace Core.Common.Gui.Test.Commands
     {
         private MockRepository mocks;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
         }

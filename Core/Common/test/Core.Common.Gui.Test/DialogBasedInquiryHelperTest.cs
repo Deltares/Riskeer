@@ -36,11 +36,15 @@ namespace Core.Common.Gui.Test
         private IWin32Window dialogParent;
         private MockRepository mocks;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             dialogParent = mocks.StrictMock<IWin32Window>();
+        }
+
+        public override void TearDown()
+        {
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -305,11 +309,6 @@ namespace Core.Common.Gui.Test
 
             Assert.AreEqual(description, title);
             Assert.AreEqual(query, actualQuery);
-            mocks.VerifyAll();
-        }
-
-        public override void TearDown()
-        {
             mocks.VerifyAll();
         }
     }

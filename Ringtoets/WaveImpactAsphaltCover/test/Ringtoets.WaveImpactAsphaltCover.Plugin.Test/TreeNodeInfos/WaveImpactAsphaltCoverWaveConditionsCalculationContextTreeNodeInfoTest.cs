@@ -65,15 +65,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();

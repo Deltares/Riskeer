@@ -67,15 +67,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
 
-        [SetUp]
-        public void SetUp()
+        public override void Setup()
         {
             mocksRepository = new MockRepository();
             plugin = new ClosingStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext));
         }
 
-        [TearDown]
         public override void TearDown()
         {
             plugin.Dispose();
