@@ -100,6 +100,15 @@ namespace Core.Components.Charting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor grootte moet in het bereik {0} liggen..
+        /// </summary>
+        internal static string Size_Value_should_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("Size_Value_should_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vierkant.
         /// </summary>
         internal static string Square_DisplayName {
@@ -118,11 +127,29 @@ namespace Core.Components.Charting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor lijndikte moet in het bereik {0} liggen..
+        /// </summary>
+        internal static string StrokeThickness_Value_should_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("StrokeThickness_Value_should_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driehoek.
         /// </summary>
         internal static string Triangle_DisplayName {
             get {
                 return ResourceManager.GetString("Triangle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor lijndikte moet in het bereik {0} liggen..
+        /// </summary>
+        internal static string Width_Value_should_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("Width_Value_should_be_in_Range_0_", resourceCulture);
             }
         }
     }

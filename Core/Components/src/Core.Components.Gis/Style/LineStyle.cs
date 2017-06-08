@@ -43,6 +43,7 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets or sets the line width.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
         public int Width
         {
             get

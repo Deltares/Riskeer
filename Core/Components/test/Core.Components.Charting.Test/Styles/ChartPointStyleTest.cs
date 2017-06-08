@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
@@ -54,6 +56,78 @@ namespace Core.Components.Charting.Test.Styles
             Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
             Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
             Assert.AreEqual(symbol, pointStyle.Symbol);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-10)]
+        [TestCase(49)]
+        [TestCase(501)]
+        [TestCase(int.MaxValue)]
+        [TestCase(int.MinValue)]
+        public void Size_SetInvalidValue_ThrowsArgumentOutOfRangeException(int invalidValue)
+        {
+            // Setup
+            var pointStyle = new ChartPointStyle();
+
+            // Call
+            TestDelegate test = () => pointStyle.Size = invalidValue;
+
+            // Assert
+            const string message = "De waarde voor grootte moet in het bereik [0, 48] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(48)]
+        public void Size_SetValidValue_ValueSet(int validValue)
+        {
+            // Setup
+            var pointStyle = new ChartPointStyle();
+
+            // Call
+            pointStyle.Size = validValue;
+
+            // Assert
+            Assert.AreEqual(validValue, pointStyle.Size);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-10)]
+        [TestCase(49)]
+        [TestCase(501)]
+        [TestCase(int.MaxValue)]
+        [TestCase(int.MinValue)]
+        public void StrokeThickness_SetInvalidValue_ThrowsArgumentOutOfRangeException(int invalidValue)
+        {
+            // Setup
+            var pointStyle = new ChartPointStyle();
+
+            // Call
+            TestDelegate test = () => pointStyle.StrokeThickness = invalidValue;
+
+            // Assert
+            const string message = "De waarde voor lijndikte moet in het bereik [0, 48] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(48)]
+        public void StrokeThickness_SetValidValue_ValueSet(int validValue)
+        {
+            // Setup
+            var pointStyle = new ChartPointStyle();
+
+            // Call
+            pointStyle.StrokeThickness = validValue;
+
+            // Assert
+            Assert.AreEqual(validValue, pointStyle.StrokeThickness);
         }
     }
 }

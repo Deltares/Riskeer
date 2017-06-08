@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using Core.Common.Base.Data;
+using Core.Components.Charting.Properties;
 
 namespace Core.Components.Charting.Styles
 {
@@ -28,6 +31,9 @@ namespace Core.Components.Charting.Styles
     /// </summary>
     public class ChartAreaStyle
     {
+        private readonly Range<int> strokeThicknessValidityRange = new Range<int>(0, 48);
+        private int strokeThickness;
+
         /// <summary>
         /// Gets or sets the area fill color.
         /// </summary>
@@ -41,6 +47,25 @@ namespace Core.Components.Charting.Styles
         /// <summary>
         /// Gets or sets the area border stroke thickness.
         /// </summary>
-        public int StrokeThickness { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
+        public int StrokeThickness
+        {
+            get
+            {
+                return strokeThickness;
+            }
+            set
+            {
+                if (strokeThicknessValidityRange.InRange(value))
+                {
+                    strokeThickness = value;
+                }
+                else
+                {
+                    string message = string.Format(Resources.StrokeThickness_Value_should_be_in_Range_0_, strokeThicknessValidityRange);
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+            }
+        }
     }
 }

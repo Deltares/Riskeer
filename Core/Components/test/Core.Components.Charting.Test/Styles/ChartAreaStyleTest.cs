@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
@@ -48,6 +50,42 @@ namespace Core.Components.Charting.Test.Styles
             Assert.AreEqual(fillColor, areaStyle.FillColor);
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
             Assert.AreEqual(width, areaStyle.StrokeThickness);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-10)]
+        [TestCase(49)]
+        [TestCase(501)]
+        [TestCase(int.MaxValue)]
+        [TestCase(int.MinValue)]
+        public void StrokeThickness_SetInvalidValue_ThrowsArgumentOutOfRangeException(int invalidValue)
+        {
+            // Setup
+            var polygonStyle = new ChartAreaStyle();
+
+            // Call
+            TestDelegate test = () => polygonStyle.StrokeThickness = invalidValue;
+
+            // Assert
+            const string message = "De waarde voor lijndikte moet in het bereik [0, 48] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(48)]
+        public void StrokeThickness_SetValidValue_ValueSet(int validValue)
+        {
+            // Setup
+            var polygonStyle = new ChartAreaStyle();
+
+            // Call
+            polygonStyle.StrokeThickness = validValue;
+
+            // Assert
+            Assert.AreEqual(validValue, polygonStyle.StrokeThickness);
         }
     }
 }

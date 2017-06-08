@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
 
@@ -49,6 +51,42 @@ namespace Core.Components.Charting.Test.Styles
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-10)]
+        [TestCase(49)]
+        [TestCase(501)]
+        [TestCase(int.MaxValue)]
+        [TestCase(int.MinValue)]
+        public void Width_SetInvalidValue_ThrowsArgumentOutOfRangeException(int invalidValue)
+        {
+            // Setup
+            var lineStyle = new ChartLineStyle();
+
+            // Call
+            TestDelegate test = () => lineStyle.Width = invalidValue;
+
+            // Assert
+            const string message = "De waarde voor lijndikte moet in het bereik [0, 48] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(48)]
+        public void Width_SetValidValue_ValueSet(int validValue)
+        {
+            // Setup
+            var lineStyle = new ChartLineStyle();
+
+            // Call
+            lineStyle.Width = validValue;
+
+            // Assert
+            Assert.AreEqual(validValue, lineStyle.Width);
         }
     }
 }

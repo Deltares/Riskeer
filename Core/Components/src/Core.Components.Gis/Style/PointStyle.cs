@@ -44,6 +44,7 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets or sets the point size.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
         public int Size
         {
             get
@@ -77,6 +78,7 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets or sets the stroke thickness.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
         public int StrokeThickness
         {
             get

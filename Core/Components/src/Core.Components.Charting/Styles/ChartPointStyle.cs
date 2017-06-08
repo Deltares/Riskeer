@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using Core.Common.Base.Data;
+using Core.Components.Charting.Properties;
 
 namespace Core.Components.Charting.Styles
 {
@@ -28,6 +31,12 @@ namespace Core.Components.Charting.Styles
     /// </summary>
     public class ChartPointStyle
     {
+        private readonly Range<int> strokeThicknessValidityRange = new Range<int>(0, 48);
+        private readonly Range<int> sizeValidityRange = new Range<int>(0, 48);
+
+        private int size;
+        private int strokeThickness;
+
         /// <summary>
         /// Gets or sets the point color.
         /// </summary>
@@ -41,12 +50,50 @@ namespace Core.Components.Charting.Styles
         /// <summary>
         /// Gets or sets the point size.
         /// </summary>
-        public int Size { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
+        public int Size
+        {
+            get
+            {
+                return size;
+            }
+            set
+            {
+                if (sizeValidityRange.InRange(value))
+                {
+                    size = value;
+                }
+                else
+                {
+                    string message = string.Format(Resources.Size_Value_should_be_in_Range_0_, sizeValidityRange);
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the point stroke thickness.
         /// </summary>
-        public int StrokeThickness { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
+        public int StrokeThickness
+        {
+            get
+            {
+                return strokeThickness;
+            }
+            set
+            {
+                if (strokeThicknessValidityRange.InRange(value))
+                {
+                    strokeThickness = value;
+                }
+                else
+                {
+                    string message = string.Format(Resources.StrokeThickness_Value_should_be_in_Range_0_, strokeThicknessValidityRange);
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the point symbol.

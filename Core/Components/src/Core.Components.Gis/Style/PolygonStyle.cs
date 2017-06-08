@@ -47,6 +47,7 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets or sets the polygon border stroke thickness.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [0, 48].</exception>
         public int StrokeThickness
         {
             get
