@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Core.Common.Base.Data;
+using Core.Components.Gis.Properties;
 
 namespace Core.Components.Gis.Style
 {
@@ -29,6 +32,9 @@ namespace Core.Components.Gis.Style
     /// </summary>
     public class LineStyle
     {
+        private readonly Range<int> widthValidityRange = new Range<int>(0, 48);
+        private int width;
+
         /// <summary>
         /// Gets or sets the line color.
         /// </summary>
@@ -37,7 +43,25 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets or sets the line width.
         /// </summary>
-        public int Width { get; set; }
+        public int Width
+        {
+            get
+            {
+                return width;
+            }
+            set
+            {
+                if (widthValidityRange.InRange(value))
+                {
+                    width = value;
+                }
+                else
+                {
+                    string message = string.Format(Resources.Width_Value_should_be_in_Range_0_, widthValidityRange);
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the line style.

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -244,6 +245,28 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             AssertAreEqual(new PolygonSymbolizer(expectedFillColor, expectedOutlineFillColor, width), mapPolygonLayer.Symbolizer);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void ConvertLayerProperties_MapPolygonDataWithStrokeThicknessZero_MapPolygonLayerOutlineColorTransparent()
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var mapPolygonLayer = new MapPolygonLayer();
+            Color expectedFillColor = Color.FromKnownColor(new Random(21).NextEnum<KnownColor>());
+            var mapPolygonData = new MapPolygonData("test", new PolygonStyle
+            {
+                FillColor = expectedFillColor,
+                StrokeColor = Color.ForestGreen,
+                StrokeThickness = 0
+            });
+
+            // Call
+            converter.ConvertLayerProperties(mapPolygonData, mapPolygonLayer);
+
+            // Assert
+            AssertAreEqual(new PolygonSymbolizer(expectedFillColor, Color.Transparent, 0), mapPolygonLayer.Symbolizer);
         }
 
         private static Point2D[] CreateRectangularRing(double xy1, double xy2)

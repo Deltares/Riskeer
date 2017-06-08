@@ -156,4 +156,13 @@
   <data name="Star_DisplayName" xml:space="preserve">
     <value>Ster</value>
   </data>
+  <data name="Width_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor lijndikte moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="StrokeThickness_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor lijndikte moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="Size_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor grootte moet in het bereik {0} liggen.</value>
+  </data>
 </root>

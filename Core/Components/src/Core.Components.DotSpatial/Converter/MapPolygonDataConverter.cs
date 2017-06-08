@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
@@ -64,7 +65,12 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPolygonData mapData)
         {
-            return new PolygonSymbolizer(mapData.Style.FillColor, mapData.Style.StrokeColor, mapData.Style.StrokeThickness);
+            Color strokeColor = mapData.Style.StrokeColor;
+            if (mapData.Style.StrokeThickness == 0)
+            {
+                strokeColor = Color.Transparent;
+            }
+            return new PolygonSymbolizer(mapData.Style.FillColor, strokeColor, mapData.Style.StrokeThickness);
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
