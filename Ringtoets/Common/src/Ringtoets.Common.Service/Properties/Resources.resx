@@ -138,25 +138,25 @@
   <data name="Validation_Subject_0_started" xml:space="preserve">
     <value>Validatie van '{0}' gestart.</value>
   </data>
-  <data name="DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
     <value>Toetspeil berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation_no_error_report" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
   </data>
-  <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
     <value>Toetspeil berekenen voor locatie '{0}'</value>
   </data>
   <data name="Hydraulic_boundary_database_connection_failed_0_" xml:space="preserve">
     <value>Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}</value>
   </data>
-  <data name="WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
+  <data name="WaveHeightCalculationActivity_WaveHeight_calculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
     <value>Golfhoogte berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_no_error_report" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
   </data>
-  <data name="WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_" xml:space="preserve">
+  <data name="WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
     <value>Golfhoogte berekenen voor locatie '{0}'</value>
   </data>
   <data name="Validation_Invalid_BreakWaterHeight_value" xml:space="preserve">

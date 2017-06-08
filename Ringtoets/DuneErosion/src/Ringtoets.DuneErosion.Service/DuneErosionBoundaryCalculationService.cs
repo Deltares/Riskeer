@@ -179,7 +179,7 @@ namespace Ringtoets.DuneErosion.Service
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
-                log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged, duneLocationName);
+                log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_DuneLocation_0_not_converged, duneLocationName);
             }
 
             return new DuneLocationOutput(converged,

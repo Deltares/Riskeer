@@ -120,10 +120,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toetspeil berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        public static string DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged {
+        public static string DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_HydraulicBoundaryLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_n" +
-                        "ot_converged", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_HydraulicBou" +
+                        "ndaryLocation_0_not_converged", resourceCulture);
             }
         }
         
@@ -161,10 +161,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
-        public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_ {
+        public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_ {
             get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0" +
-                        "_", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicB" +
+                        "oundaryLocation_0_", resourceCulture);
             }
         }
         
@@ -330,10 +330,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        public static string WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged {
+        public static string WaveHeightCalculationActivity_WaveHeight_calculation_for_HydraulicBoundaryLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeight_calculation_for_HydraulicBoundaryLocatio" +
+                        "n_0_not_converged", resourceCulture);
             }
         }
         
@@ -371,9 +371,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
-        public static string WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_ {
+        public static string WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_ {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLoca" +
+                        "tion_0_", resourceCulture);
             }
         }
     }

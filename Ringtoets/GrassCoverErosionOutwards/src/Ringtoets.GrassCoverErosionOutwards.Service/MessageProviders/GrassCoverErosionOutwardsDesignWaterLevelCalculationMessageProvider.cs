@@ -32,12 +32,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
     {
         public string GetCalculationName(string locationName)
         {
-            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_location_0_, locationName);
+            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_HydraulicBoundaryLocation_0_, locationName);
         }
 
         public string GetActivityDescription(string locationName)
         {
-            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_Calculate_DesignWaterLevel_for_location_0_, locationName);
+            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_Calculate_DesignWaterLevel_for_HydraulicBoundaryLocation_0_, locationName);
         }
 
         public string GetCalculationFailedMessage(string locationName, string failureMessage)
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
 
         public string GetCalculatedNotConvergedMessage(string locationName)
         {
-            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_DesignWaterLevel_calculation_for_location_0_not_converged, locationName);
+            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_DesignWaterLevel_calculation_for_HydraulicBoundaryLocation_0_not_converged, locationName);
         }
     }
 }

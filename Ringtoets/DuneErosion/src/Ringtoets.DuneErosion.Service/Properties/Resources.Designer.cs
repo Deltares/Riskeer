@@ -84,10 +84,10 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_location_with_name_0_ {
+        internal static string DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_ {
             get {
                 return ResourceManager.GetString("DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_fo" +
-                        "r_location_with_name_0_", resourceCulture);
+                        "r_DuneLocation_with_name_0_", resourceCulture);
             }
         }
         
@@ -125,10 +125,10 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_location_0_not_converged {
+        internal static string DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_DuneLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_lo" +
-                        "cation_0_not_converged", resourceCulture);
+                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_Du" +
+                        "neLocation_0_not_converged", resourceCulture);
             }
         }
         

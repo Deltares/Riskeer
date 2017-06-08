@@ -86,22 +86,9 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             int activityCount = activities.Count();
             CancellationToken cancellationToken = cancellationTokenSource.Token;
 
-            // Run all activities as part of a task
-            task = Task.Factory.StartNew(() => { RunAllActivities(activityCount, cancellationToken); }, cancellationToken);
+            task = RunAllActivitiesAsTask(activityCount, cancellationToken);
 
-            // Afterwards, perform actions that (might) affect the UI thread.
-            task.ContinueWith(t =>
-            {
-                if (InvokeRequired)
-                {
-                    FinishActivitiesAndCloseDialogDelegate wrappingUpDelegate = FinishAllActivitiesAndCloseDialog;
-                    Invoke(wrappingUpDelegate);
-                }
-                else
-                {
-                    FinishAllActivitiesAndCloseDialog();
-                }
-            }, CancellationToken.None);
+            FinishAllActivitiesInThreadSafeManner();
         }
 
         protected override Button GetCancelButton()
@@ -113,7 +100,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         {
             if (keyData == Keys.Escape)
             {
-                CancelActivities();
+                CancelRunningActivities();
                 return true;
             }
 
@@ -137,11 +124,15 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             base.Dispose(disposing);
         }
 
+        private Task RunAllActivitiesAsTask(int activityCount, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew(() => { RunAllActivities(activityCount, cancellationToken); }, cancellationToken);
+        }
+
         private void RunAllActivities(int activityCount, CancellationToken cancellationToken)
         {
             for (var i = 0; i < activityCount; i++)
             {
-                // Check for cancellation
                 if (cancellationToken.IsCancellationRequested)
                 {
                     break;
@@ -170,7 +161,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             {
                 runningActivity.ProgressChanged += ActivityOnProgressChanged;
 
-                // Run the activity
                 runningActivity.Run();
             }
             finally
@@ -178,17 +168,23 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 runningActivity.ProgressChanged -= ActivityOnProgressChanged;
             }
 
-            // Update the progress bar
-            var progressBarValue = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
-            if (InvokeRequired)
+            UpdateProgressBar(stepNumberForProgressNotification, activityCount);
+        }
+
+        private void FinishAllActivitiesInThreadSafeManner()
+        {
+            task.ContinueWith(t =>
             {
-                UpdateProgressBarDelegate updateDelegate = UpdateProgressBar;
-                Invoke(updateDelegate, progressBarValue);
-            }
-            else
-            {
-                UpdateProgressBar(progressBarValue);
-            }
+                if (InvokeRequired)
+                {
+                    FinishActivitiesAndCloseDialogDelegate wrappingUpDelegate = FinishAllActivitiesAndCloseDialog;
+                    Invoke(wrappingUpDelegate);
+                }
+                else
+                {
+                    FinishAllActivitiesAndCloseDialog();
+                }
+            }, CancellationToken.None);
         }
 
         private void FinishAllActivitiesAndCloseDialog()
@@ -201,53 +197,46 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             Close();
         }
 
-        private void UpdateProgressBar(int progressBarValue)
-        {
-            progressBar.Value = progressBarValue;
-        }
-
-        private void UpdateProgressControls(int stepNumberForProgressNotification, int activityCount)
-        {
-            // Update the activity description label
-            labelActivityDescription.Text = runningActivity.Description;
-
-            // Update the visibility of the activity progress text related controls
-            pictureBoxActivityProgressText.Visible = false;
-            labelActivityProgressText.Visible = false;
-
-            // Update the activity counter label
-            labelActivityCounter.Text = string.Format(CultureInfo.CurrentCulture,
-                                                      Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1,
-                                                      stepNumberForProgressNotification, activityCount);
-        }
-
-        private void ButtonCancelClick(object sender, EventArgs e)
-        {
-            CancelActivities();
-        }
-
         private void ActivityProgressDialogFormClosing(object sender, FormClosingEventArgs e)
         {
             if (task != null && task.Status == TaskStatus.Running)
             {
-                // Perform a cancel action when the activities are still running
-                CancelActivities();
+                CancelRunningActivities();
 
-                // Cancel the close action
                 e.Cancel = true;
             }
         }
 
-        private void CancelActivities()
+        private void ButtonCancelClick(object sender, EventArgs e)
         {
-            // Cancel all activities in the queue
-            cancellationTokenSource.Cancel();
+            CancelRunningActivities();
+        }
 
-            // Cancel the currently running activity
+        private void CancelRunningActivities()
+        {
+            cancellationTokenSource.Cancel();
             runningActivity.Cancel();
 
-            // Update the activity counter label
             labelActivityCounter.Text = Resources.ActivityProgressDialog_CancelActivities_Quit_after_finishing_current_activity;
+        }
+
+        private void UpdateProgressBar(int stepNumberForProgressNotification, int activityCount)
+        {
+            var progressBarValue = (int) Math.Round(100.0 / activityCount * stepNumberForProgressNotification);
+            if (InvokeRequired)
+            {
+                UpdateProgressBarDelegate updateDelegate = UpdateProgressBar;
+                Invoke(updateDelegate, progressBarValue);
+            }
+            else
+            {
+                UpdateProgressBar(progressBarValue);
+            }
+        }
+
+        private void UpdateProgressBar(int progressBarValue)
+        {
+            progressBar.Value = progressBarValue;
         }
 
         private void ActivityOnProgressChanged(object sender, EventArgs e)
@@ -269,15 +258,22 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             }
         }
 
+        private void UpdateProgressControls(int stepNumberForProgressNotification, int activityCount)
+        {
+            labelActivityDescription.Text = runningActivity.Description;
+            pictureBoxActivityProgressText.Visible = false;
+            labelActivityProgressText.Visible = false;
+            labelActivityCounter.Text = string.Format(CultureInfo.CurrentCulture,
+                                                      Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1,
+                                                      stepNumberForProgressNotification, activityCount);
+        }
+
         private void UpdateProgressControls(Activity activity)
         {
             bool progressTextNullOrEmpty = string.IsNullOrEmpty(activity.ProgressText);
 
-            // Update the visibility of the activity progress text related controls
             pictureBoxActivityProgressText.Visible = !progressTextNullOrEmpty;
             labelActivityProgressText.Visible = !progressTextNullOrEmpty;
-
-            // Update the activity progress text label
             labelActivityProgressText.Text = progressTextNullOrEmpty ? string.Empty : activity.ProgressText;
         }
     }

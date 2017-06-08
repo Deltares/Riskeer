@@ -40,13 +40,12 @@ namespace Core.Common.Controls.Test.Dialogs
             var mocks = new MockRepository();
             var icon = mocks.Stub<Icon>();
 
+            // Call
             TestDelegate test = () => new TestDialog(null, icon, 1, 2);
 
-            // Call
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-
             // Assert
-            StringAssert.EndsWith("dialogParent", message);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("dialogParent", paramName);
         }
 
         [Test]
@@ -56,13 +55,12 @@ namespace Core.Common.Controls.Test.Dialogs
             var mocks = new MockRepository();
             var window = mocks.Stub<IWin32Window>();
 
+            // Call
             TestDelegate test = () => new TestDialog(window, (Icon) null, 1, 2);
 
-            // Call
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-
             // Assert
-            StringAssert.EndsWith("icon", message);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("icon", paramName);
         }
 
         [Test]
@@ -72,13 +70,12 @@ namespace Core.Common.Controls.Test.Dialogs
             var mocks = new MockRepository();
             var window = mocks.Stub<IWin32Window>();
 
+            // Call
             TestDelegate test = () => new TestDialog(window, (Bitmap) null, 1, 2);
 
-            // Call
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-
             // Assert
-            StringAssert.EndsWith("icon", message);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("icon", paramName);
         }
 
         [Test]

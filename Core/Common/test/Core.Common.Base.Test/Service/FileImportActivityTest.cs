@@ -38,7 +38,7 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            StringAssert.EndsWith("fileImporter", paramName);
+            Assert.AreEqual("fileImporter", paramName);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            StringAssert.EndsWith("description", paramName);
+            Assert.AreEqual("description", paramName);
             mocks.VerifyAll();
         }
 
