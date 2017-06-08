@@ -24,7 +24,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
     /// <summary>
     /// Container of identifiers related to closing structure calculation configuration schema definitions.
     /// </summary>
-    public static class ClosingStructuresConfigurationSchemaIdentifiers
+    internal static class ClosingStructuresConfigurationSchemaIdentifiers
     {
         #region parameters
 

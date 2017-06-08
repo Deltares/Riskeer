@@ -24,7 +24,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
     /// <summary>
     /// Container of identifiers related to stability point structures calculation configuration schema definitions.
     /// </summary>
-    public static class StabilityPointStructuresConfigurationSchemaIdentifiers
+    internal static class StabilityPointStructuresConfigurationSchemaIdentifiers
     {
         /// <summary>
         /// The identifier for the area flow apertures stochast name.

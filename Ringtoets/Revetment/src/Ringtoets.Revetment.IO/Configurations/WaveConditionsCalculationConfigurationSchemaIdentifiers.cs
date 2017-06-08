@@ -29,31 +29,31 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <summary>
         /// The tag of elements containing the upper boundary of revetment.
         /// </summary>
-        internal const string UpperBoundaryRevetment = "bovengrensbekleding";
+        public const string UpperBoundaryRevetment = "bovengrensbekleding";
 
         /// <summary>
         /// The tag of elements containing the lower boundary of revetment.
         /// </summary>
-        internal const string LowerBoundaryRevetment = "ondergrensbekleding";
+        public const string LowerBoundaryRevetment = "ondergrensbekleding";
 
         /// <summary>
         /// The tag of elements containing the upper boundary of water level.
         /// </summary>
-        internal const string UpperBoundaryWaterLevels = "bovengrenswaterstanden";
+        public const string UpperBoundaryWaterLevels = "bovengrenswaterstanden";
 
         /// <summary>
         /// The tag of elements containing the lower boundary of water level.
         /// </summary>
-        internal const string LowerBoundaryWaterLevels = "ondergrenswaterstanden";
+        public const string LowerBoundaryWaterLevels = "ondergrenswaterstanden";
 
         /// <summary>
         /// The tag of elements containing the step size of the water levels.
         /// </summary>
-        internal const string StepSize = "stapgrootte";
+        public const string StepSize = "stapgrootte";
 
         /// <summary>
         /// The tag of elements containing the name of the foreshore profile.
         /// </summary>
-        internal const string ForeshoreProfile = "voorlandprofiel";
+        public const string ForeshoreProfile = "voorlandprofiel";
     }
 }

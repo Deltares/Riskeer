@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             ReadDikeHeightCalculationType(calculationConfiguration, calculation);
             ReadOvertoppingRateCalculationType(calculationConfiguration, calculation);
 
-            if (TryReadCriticalWaveReduction(calculationConfiguration, calculation)
+            if (TryReadCriticalFlowRate(calculationConfiguration, calculation)
                 && TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
                 && TryReadDikeProfile(calculationConfiguration.DikeProfileId, calculation)
                 && TryReadOrientation(calculationConfiguration, calculation)
@@ -238,13 +238,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the critical wave reduction.
+        /// Reads the critical flow rate.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>true</c> if reading all required wave reduction parameters was successful,
+        /// <returns><c>true</c> if reading all required critical flow rate parameters was successful,
         /// <c>false</c> otherwise.</returns>
-        private bool TryReadCriticalWaveReduction(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private bool TryReadCriticalFlowRate(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
         {
             return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,

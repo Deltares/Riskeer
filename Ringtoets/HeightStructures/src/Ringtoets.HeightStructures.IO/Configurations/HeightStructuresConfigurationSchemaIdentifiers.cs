@@ -24,7 +24,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
     /// <summary>
     /// Container of identifiers related to height structure calculation configuration schema definitions.
     /// </summary>
-    public static class HeightStructuresConfigurationSchemaIdentifiers
+    internal static class HeightStructuresConfigurationSchemaIdentifiers
     {
         #region stochasts
 

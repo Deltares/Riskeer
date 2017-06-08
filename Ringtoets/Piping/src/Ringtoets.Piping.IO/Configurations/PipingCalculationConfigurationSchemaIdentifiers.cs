@@ -29,41 +29,41 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <summary>
         /// The identifier for assessment level elements.
         /// </summary>
-        internal const string AssessmentLevelElement = "toetspeil";
+        public const string AssessmentLevelElement = "toetspeil";
 
         /// <summary>
         /// The identifier for surface line elements.
         /// </summary>
-        internal const string SurfaceLineElement = "profielschematisatie";
+        public const string SurfaceLineElement = "profielschematisatie";
 
         /// <summary>
         /// The identifier for entry point elements.
         /// </summary>
-        internal const string EntryPointLElement = "intredepunt";
+        public const string EntryPointLElement = "intredepunt";
 
         /// <summary>
         /// The identifier for exit point elements.
         /// </summary>
-        internal const string ExitPointLElement = "uittredepunt";
+        public const string ExitPointLElement = "uittredepunt";
 
         /// <summary>
         /// The identifier for stochastic soil model elements.
         /// </summary>
-        internal const string StochasticSoilModelElement = "ondergrondmodel";
+        public const string StochasticSoilModelElement = "ondergrondmodel";
 
         /// <summary>
         /// The identifier for stochastic soil profile elements.
         /// </summary>
-        internal const string StochasticSoilProfileElement = "ondergrondschematisatie";
+        public const string StochasticSoilProfileElement = "ondergrondschematisatie";
 
         /// <summary>
         /// The identifier for the phreatic level exit stochast names.
         /// </summary>
-        internal const string PhreaticLevelExitStochastName = "polderpeil";
+        public const string PhreaticLevelExitStochastName = "polderpeil";
 
         /// <summary>
         /// The identifier for the damping factor exit stochast names.
         /// </summary>
-        internal const string DampingFactorExitStochastName = "dempingsfactor";
+        public const string DampingFactorExitStochastName = "dempingsfactor";
     }
 }

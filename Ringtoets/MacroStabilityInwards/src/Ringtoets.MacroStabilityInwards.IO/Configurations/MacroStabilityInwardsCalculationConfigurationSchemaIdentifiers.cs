@@ -29,21 +29,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The identifier for assessment level elements.
         /// </summary>
-        internal const string AssessmentLevelElement = "toetspeil";
+        public const string AssessmentLevelElement = "toetspeil";
 
         /// <summary>
         /// The identifier for surface line elements.
         /// </summary>
-        internal const string SurfaceLineElement = "profielschematisatie";
+        public const string SurfaceLineElement = "profielschematisatie";
 
         /// <summary>
         /// The identifier for stochastic soil model elements.
         /// </summary>
-        internal const string StochasticSoilModelElement = "ondergrondmodel";
+        public const string StochasticSoilModelElement = "ondergrondmodel";
 
         /// <summary>
         /// The identifier for stochastic soil profile elements.
         /// </summary>
-        internal const string StochasticSoilProfileElement = "ondergrondschematisatie";
+        public const string StochasticSoilProfileElement = "ondergrondschematisatie";
     }
 }
