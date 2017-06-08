@@ -312,11 +312,12 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(null)).IgnoreArguments().Return(detailedReport);
             mockRepository.ReplayAll();
 
+            var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
+                                                             double.NaN, double.NaN,
+                                                             double.NaN, CalculationConvergence.CalculatedConverged);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
-                                                                             double.NaN, double.NaN,
-                                                                             double.NaN, CalculationConvergence.CalculatedConverged)
+                DesignWaterLevelOutput = output
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -332,7 +333,7 @@ namespace Ringtoets.Common.Service.Test
 
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(call, detailedReport, 6);
-                Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+                Assert.AreSame(output, hydraulicBoundaryLocation.DesignWaterLevelOutput);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }
             mockRepository.VerifyAll();

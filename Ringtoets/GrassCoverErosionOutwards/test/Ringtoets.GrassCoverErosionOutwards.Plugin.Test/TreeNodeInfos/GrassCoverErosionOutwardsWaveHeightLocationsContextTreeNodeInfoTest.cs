@@ -443,7 +443,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
