@@ -37,6 +37,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
     [TestFixture]
     public class ChartLineDataSeriesTest
     {
+        private static readonly Color color = Color.Blue;
+
         [Test]
         public void Constructor_WithoutChartLineData_ThrowsArgumentNullException()
         {
@@ -54,7 +56,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             // Setup
             var chartLineData = new ChartLineData("Test name", new ChartLineStyle
             {
-                Color = Color.Blue,
+                Color = color,
                 Width = 3,
                 DashStyle = DashStyle.DashDot
             });
@@ -76,7 +78,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             // Setup
             var chartLineData = new ChartLineData("Test name", new ChartLineStyle
             {
-                Color = Color.Blue,
+                Color = color,
                 Width = 3,
                 DashStyle = DashStyle.DashDot
             });
@@ -158,7 +160,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsFalse(chartLineDataSeries.IsVisible);
 
             Assert.AreEqual(3, chartLineDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartLineDataSeries.Color);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), chartLineDataSeries.Color);
             Assert.AreEqual(LineStyle.DashDot, chartLineDataSeries.LineStyle);
 
             Assert.AreEqual(1, chartLineDataSeries.ItemsSource.Cast<DataPoint>().Count());
@@ -170,7 +172,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsTrue(chartLineDataSeries.IsVisible);
 
             Assert.AreEqual(3, chartLineDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartLineDataSeries.Color);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), chartLineDataSeries.Color);
             Assert.AreEqual(LineStyle.DashDot, chartLineDataSeries.LineStyle);
 
             Assert.AreEqual(0, chartLineDataSeries.ItemsSource.Cast<DataPoint>().Count());

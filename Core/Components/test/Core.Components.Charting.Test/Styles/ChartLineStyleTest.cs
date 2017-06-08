@@ -49,30 +49,6 @@ namespace Core.Components.Charting.Test.Styles
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
-            Assert.IsNull(lineStyle.Dashes);
-        }
-
-        [Test]
-        public void Constructor_WithDashes_SetsProperties()
-        {
-            // Setup
-            Color color = Color.AliceBlue;
-            const int width = 3;
-            double[] style = { 3.6, 5.2 };
-
-            // Call
-            var lineStyle = new ChartLineStyle
-            {
-                Color = color,
-                Width = width,
-                Dashes = style
-            };
-
-            // Assert
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.Dashes);
-            Assert.AreEqual(DashStyle.Solid, lineStyle.DashStyle);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Core.Plugins.Chart.PropertyClasses
     /// </summary>
     public class ChartAreaDataProperties : ChartDataProperties<ChartAreaData>
     {
-        [PropertyOrder(5)]
+        [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_FillColor_Description))]
@@ -55,7 +55,7 @@ namespace Core.Plugins.Chart.PropertyClasses
             }
         }
 
-        [PropertyOrder(6)]
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_StrokeColor_Description))]
@@ -74,7 +74,7 @@ namespace Core.Plugins.Chart.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_StrokeThickness_Description))]

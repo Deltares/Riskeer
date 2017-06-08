@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 
@@ -39,11 +40,12 @@ namespace Core.Components.OxyPlot.Converter
         protected override void SetSeriesStyle(ChartPointData data, LineSeries series)
         {
             series.LineStyle = LineStyle.None;
-            series.MarkerFill = ChartDataHelper.Convert(data.Style.Color);
-            series.MarkerSize = data.Style.Size;
-            series.MarkerType = ChartDataHelper.Convert(data.Style.Symbol);
-            series.MarkerStroke = ChartDataHelper.Convert(data.Style.StrokeColor);
-            series.MarkerStrokeThickness = data.Style.StrokeThickness;
+            ChartPointStyle style = data.Style;
+            series.MarkerFill = ChartDataHelper.Convert(style.Color);
+            series.MarkerSize = style.Size;
+            series.MarkerType = ChartDataHelper.Convert(style.Symbol);
+            series.MarkerStroke = ChartDataHelper.Convert(style.StrokeColor);
+            series.MarkerStrokeThickness = style.StrokeThickness;
         }
     }
 }

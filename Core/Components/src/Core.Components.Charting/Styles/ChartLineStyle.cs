@@ -43,11 +43,5 @@ namespace Core.Components.Charting.Styles
         /// Gets or sets the line dash style.
         /// </summary>
         public DashStyle DashStyle { get; set; }
-
-        /// <summary>
-        /// Gets the line style.
-        /// Overrides <see cref="DashStyle"/>.
-        /// </summary>
-        public double[] Dashes { get; set; }
     }
 }

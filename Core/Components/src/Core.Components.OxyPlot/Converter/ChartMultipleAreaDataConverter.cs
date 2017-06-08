@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using Core.Components.OxyPlot.CustomSeries;
 using OxyPlot;
 
@@ -44,9 +45,10 @@ namespace Core.Components.OxyPlot.Converter
 
         protected override void SetSeriesStyle(ChartMultipleAreaData data, MultipleAreaSeries series)
         {
-            series.Fill = ChartDataHelper.Convert(data.Style.FillColor);
-            series.Color = ChartDataHelper.Convert(data.Style.StrokeColor);
-            series.StrokeThickness = data.Style.StrokeThickness;
+            ChartAreaStyle style = data.Style;
+            series.Fill = ChartDataHelper.Convert(style.FillColor);
+            series.Color = ChartDataHelper.Convert(style.StrokeColor);
+            series.StrokeThickness = style.StrokeThickness;
         }
     }
 }

@@ -68,23 +68,25 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(6, dynamicProperties.Count);
 
+            const string styleCategory = "Stijl";
+
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);            
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
             Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijnstijl",
                                                                             "De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
         }

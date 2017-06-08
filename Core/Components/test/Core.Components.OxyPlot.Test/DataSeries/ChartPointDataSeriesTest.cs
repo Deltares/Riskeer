@@ -36,6 +36,9 @@ namespace Core.Components.OxyPlot.Test.DataSeries
     [TestFixture]
     public class ChartPointDataSeriesTest
     {
+        private static readonly Color color = Color.Red;
+        private static readonly Color strokeColor = Color.Blue;
+
         [Test]
         public void Constructor_WithoutChartPointData_ThrowsArgumentNullException()
         {
@@ -53,8 +56,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             // Setup
             var chartPointData = new ChartPointData("Test name", new ChartPointStyle
             {
-                Color = Color.Red,
-                StrokeColor = Color.Blue,
+                Color = color,
+                StrokeColor = strokeColor,
                 Size = 4,
                 StrokeThickness = 2,
                 Symbol = ChartPointSymbol.Circle
@@ -77,8 +80,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             // Setup
             var chartPointData = new ChartPointData("Test name", new ChartPointStyle
             {
-                Color = Color.Red,
-                StrokeColor = Color.Blue,
+                Color = color,
+                StrokeColor = strokeColor,
                 Size = 4,
                 StrokeThickness = 2,
                 Symbol = ChartPointSymbol.Circle
@@ -161,8 +164,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsFalse(chartPointDataSeries.IsVisible);
 
             Assert.AreEqual(4, chartPointDataSeries.MarkerSize);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartPointDataSeries.MarkerFill);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartPointDataSeries.MarkerStroke);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), chartPointDataSeries.MarkerFill);
+            Assert.AreEqual(OxyColor.FromArgb(strokeColor.A, strokeColor.R, strokeColor.G, strokeColor.B), chartPointDataSeries.MarkerStroke);
             Assert.AreEqual(2, chartPointDataSeries.MarkerStrokeThickness);
             Assert.AreEqual(MarkerType.Circle, chartPointDataSeries.MarkerType);
 
@@ -175,8 +178,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsTrue(chartPointDataSeries.IsVisible);
 
             Assert.AreEqual(4, chartPointDataSeries.MarkerSize);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartPointDataSeries.MarkerFill);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartPointDataSeries.MarkerStroke);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), chartPointDataSeries.MarkerFill);
+            Assert.AreEqual(OxyColor.FromArgb(strokeColor.A, strokeColor.R, strokeColor.G, strokeColor.B), chartPointDataSeries.MarkerStroke);
             Assert.AreEqual(2, chartPointDataSeries.MarkerStrokeThickness);
             Assert.AreEqual(MarkerType.Circle, chartPointDataSeries.MarkerType);
 

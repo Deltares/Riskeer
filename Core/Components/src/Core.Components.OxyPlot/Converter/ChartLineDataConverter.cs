@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 
@@ -38,9 +39,10 @@ namespace Core.Components.OxyPlot.Converter
 
         protected override void SetSeriesStyle(ChartLineData data, LineSeries series)
         {
-            series.Color = ChartDataHelper.Convert(data.Style.Color);
-            series.StrokeThickness = data.Style.Width;
-            series.LineStyle = ChartDataHelper.Convert(data.Style.DashStyle);
+            ChartLineStyle style = data.Style;
+            series.Color = ChartDataHelper.Convert(style.Color);
+            series.StrokeThickness = style.Width;
+            series.LineStyle = ChartDataHelper.Convert(style.DashStyle);
         }
     }
 }

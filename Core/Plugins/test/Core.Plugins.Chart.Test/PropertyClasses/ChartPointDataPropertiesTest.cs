@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Design;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
@@ -71,36 +70,38 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
 
+            const string styleCategory = "Stijl";
+
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijnkleur",
                                                                             "De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor sizeProperty = dynamicProperties[sizePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Grootte",
                                                                             "De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor symbolProperty = dynamicProperties[symbolPropertyIndex];
             Assert.IsInstanceOf<EnumTypeConverter>(symbolProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(symbolProperty,
-                                                                            "Stijl",
+                                                                            styleCategory,
                                                                             "Symbool",
                                                                             "Het symbool waarmee deze gegevensreeks wordt weergegeven.");
         }

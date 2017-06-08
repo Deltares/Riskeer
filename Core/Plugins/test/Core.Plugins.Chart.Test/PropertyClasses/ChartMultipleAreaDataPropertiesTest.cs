@@ -67,23 +67,25 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(6, dynamicProperties.Count);
 
-            PropertyDescriptor colorProperty = dynamicProperties[fillColorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
-                                                                            "Stijl",
+            const string styleCategory = "Stijl";
+
+            PropertyDescriptor fillColorProperty = dynamicProperties[fillColorPropertyIndex];
+            Assert.IsInstanceOf<ColorTypeConverter>(fillColorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fillColorProperty,
+                                                                            styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
 
-            PropertyDescriptor widthProperty = dynamicProperties[strokeColorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
-                                                                            "Stijl",
+            PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
+            Assert.IsInstanceOf<ColorTypeConverter>(fillColorProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
+                                                                            styleCategory,
                                                                             "Lijnkleur",
                                                                             "De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
 
-            PropertyDescriptor styleProperty = dynamicProperties[strokeThicknessPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
-                                                                            "Stijl",
+            PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
+                                                                            styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
         }

@@ -34,6 +34,9 @@ namespace Core.Components.OxyPlot.Test.DataSeries
     [TestFixture]
     public class ChartAreaDataSeriesTest
     {
+        private static readonly Color fillColor = Color.Red;
+        private static readonly Color strokeColor = Color.Blue;
+
         [Test]
         public void Constructor_WithoutChartAreaData_ThrowsArgumentNullException()
         {
@@ -51,8 +54,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             // Setup
             var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle
             {
-                FillColor = Color.Red,
-                StrokeColor = Color.Blue,
+                FillColor = fillColor,
+                StrokeColor = strokeColor,
                 StrokeThickness = 3
             });
 
@@ -73,8 +76,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             // Setup
             var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle
             {
-                FillColor = Color.Red,
-                StrokeColor = Color.Blue,
+                FillColor = fillColor,
+                StrokeColor = strokeColor,
                 StrokeThickness = 3
             });
             var chartAreaDataSeries = new ChartAreaDataSeries(chartAreaData);
@@ -155,8 +158,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsFalse(chartAreaDataSeries.IsVisible);
 
             Assert.AreEqual(3, chartAreaDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartAreaDataSeries.Fill);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartAreaDataSeries.Color);
+            Assert.AreEqual(OxyColor.FromArgb(fillColor.A, fillColor.R, fillColor.G, fillColor.B), chartAreaDataSeries.Fill);
+            Assert.AreEqual(OxyColor.FromArgb(strokeColor.A, strokeColor.R, strokeColor.G, strokeColor.B), chartAreaDataSeries.Color);
 
             Assert.AreEqual(1, chartAreaDataSeries.Points.Count);
         }
@@ -167,8 +170,8 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             Assert.IsTrue(chartAreaDataSeries.IsVisible);
 
             Assert.AreEqual(3, chartAreaDataSeries.StrokeThickness);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B), chartAreaDataSeries.Fill);
-            Assert.AreEqual(OxyColor.FromArgb(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B), chartAreaDataSeries.Color);
+            Assert.AreEqual(OxyColor.FromArgb(fillColor.A, fillColor.R, fillColor.G, fillColor.B), chartAreaDataSeries.Fill);
+            Assert.AreEqual(OxyColor.FromArgb(strokeColor.A, strokeColor.R, strokeColor.G, strokeColor.B), chartAreaDataSeries.Color);
 
             Assert.AreEqual(0, chartAreaDataSeries.Points.Count);
         }
