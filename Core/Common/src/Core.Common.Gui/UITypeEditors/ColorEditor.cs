@@ -24,8 +24,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using System.Windows.Forms.PropertyGridInternal;
 
 namespace Core.Common.Gui.UITypeEditors
 {

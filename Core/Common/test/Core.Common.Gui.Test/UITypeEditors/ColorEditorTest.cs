@@ -19,20 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.Drawing.Design;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using System.Windows.Interop;
 using Core.Common.Gui.UITypeEditors;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.UITypeEditors
 {
