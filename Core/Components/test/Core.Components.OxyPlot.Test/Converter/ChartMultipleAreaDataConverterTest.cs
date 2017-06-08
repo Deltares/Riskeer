@@ -95,7 +95,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
             var multipleAreaSeries = new MultipleAreaSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartMultipleAreaData("test", new ChartAreaStyle(expectedColor, Color.Red, 3));
+            var data = new ChartMultipleAreaData("test", new ChartAreaStyle
+            {
+                FillColor = expectedColor,
+                StrokeColor = Color.Red,
+                StrokeThickness = 3
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleAreaSeries);
@@ -114,7 +119,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
             var multipleAreaSeries = new MultipleAreaSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartMultipleAreaData("test", new ChartAreaStyle(Color.Red, expectedColor, 3));
+            var data = new ChartMultipleAreaData("test", new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = expectedColor,
+                StrokeThickness = 3
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleAreaSeries);
@@ -132,7 +142,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
             var multipleAreaSeries = new MultipleAreaSeries();
-            var data = new ChartMultipleAreaData("test", new ChartAreaStyle(Color.Red, Color.Red, width));
+            var data = new ChartMultipleAreaData("test", new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = Color.Red,
+                StrokeThickness = width
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleAreaSeries);

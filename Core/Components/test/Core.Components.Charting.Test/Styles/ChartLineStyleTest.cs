@@ -38,7 +38,12 @@ namespace Core.Components.Charting.Test.Styles
             const DashStyle style = DashStyle.Solid;
 
             // Call
-            var lineStyle = new ChartLineStyle(color, width, style);
+            var lineStyle = new ChartLineStyle
+            {
+                Color = color,
+                Width = width,
+                DashStyle = style
+            };
 
             // Assert
             Assert.AreEqual(color, lineStyle.Color);
@@ -56,7 +61,12 @@ namespace Core.Components.Charting.Test.Styles
             double[] style = { 3.6, 5.2 };
 
             // Call
-            var lineStyle = new ChartLineStyle(color, width, style);
+            var lineStyle = new ChartLineStyle
+            {
+                Color = color,
+                Width = width,
+                Dashes = style
+            };
 
             // Assert
             Assert.AreEqual(color, lineStyle.Color);

@@ -84,7 +84,14 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartPointData("test", new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle));
+            var data = new ChartPointData("test", new ChartPointStyle
+            {
+                Color = expectedColor,
+                StrokeColor = Color.Red,
+                Size = 3,
+                StrokeThickness = 2,
+                Symbol = ChartPointSymbol.Circle
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);
@@ -103,7 +110,14 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartPointData("test", new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle));
+            var data = new ChartPointData("test", new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = expectedColor,
+                Size = 3,
+                StrokeThickness = 2,
+                Symbol = ChartPointSymbol.Circle
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);
@@ -121,7 +135,14 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
-            var data = new ChartPointData("test", new ChartPointStyle(Color.Red, width, Color.Red, 2, ChartPointSymbol.Circle));
+            var data = new ChartPointData("test", new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = Color.Red,
+                Size = width,
+                StrokeThickness = 2,
+                Symbol = ChartPointSymbol.Circle
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);
@@ -139,7 +160,14 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
-            var data = new ChartPointData("test", new ChartPointStyle(Color.Red, 3, Color.Red, strokeThickness, ChartPointSymbol.Circle));
+            var data = new ChartPointData("test", new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = Color.Red,
+                Size = 3,
+                StrokeThickness = strokeThickness,
+                Symbol = ChartPointSymbol.Circle
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);
@@ -159,7 +187,14 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var lineSeries = new LineSeries();
-            var data = new ChartPointData("test", new ChartPointStyle(Color.Red, 3, Color.Red, 2, symbol));
+            var data = new ChartPointData("test", new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = Color.Red,
+                Size = 3,
+                StrokeThickness = 2,
+                Symbol = symbol
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);

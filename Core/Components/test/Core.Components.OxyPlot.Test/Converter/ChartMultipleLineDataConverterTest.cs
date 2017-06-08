@@ -96,7 +96,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleLineDataConverter();
             var multipleLineSeries = new MultipleLineSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartMultipleLineData("test", new ChartLineStyle(expectedColor, 3, DashStyle.Solid));
+            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            {
+                Color = expectedColor,
+                Width = 3,
+                DashStyle = DashStyle.Solid
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleLineSeries);
@@ -114,7 +119,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartMultipleLineDataConverter();
             var multipleLineSeries = new MultipleLineSeries();
-            var data = new ChartMultipleLineData("test", new ChartLineStyle(Color.Red, width, DashStyle.Solid));
+            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = width,
+                DashStyle = DashStyle.Solid
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleLineSeries);
@@ -134,7 +144,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartMultipleLineDataConverter();
             var multipleLineSeries = new MultipleLineSeries();
-            var data = new ChartMultipleLineData("test", new ChartLineStyle(Color.Red, 3, dashStyle));
+            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = 3,
+                DashStyle = dashStyle
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleLineSeries);
@@ -156,7 +171,12 @@ namespace Core.Components.OxyPlot.Test.Converter
                 random.NextDouble(),
                 random.NextDouble()
             };
-            var data = new ChartMultipleLineData("test", new ChartLineStyle(Color.Red, 3, dashes));
+            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = 3,
+                Dashes = dashes
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, multipleLineSeries);

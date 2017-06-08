@@ -43,7 +43,12 @@ namespace Ringtoets.Piping.Forms.Factories
         public static ChartLineData CreateSurfaceLineChartData()
         {
             return new ChartLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName,
-                                     new ChartLineStyle(Color.Sienna, 2, DashStyle.Solid));
+                                     new ChartLineStyle
+                                     {
+                                         Color = Color.Sienna,
+                                         Width = 2,
+                                         DashStyle = DashStyle.Solid
+                                     });
         }
 
         /// <summary>
@@ -158,7 +163,12 @@ namespace Ringtoets.Piping.Forms.Factories
             PipingSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
             return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}",
-                                             new ChartAreaStyle(soilLayer.Color, Color.Black, 1));
+                                             new ChartAreaStyle
+                                             {
+                                                 FillColor = soilLayer.Color,
+                                                 StrokeColor = Color.Black,
+                                                 StrokeThickness = 1
+                                             });
         }
 
         /// <summary>
@@ -190,12 +200,26 @@ namespace Ringtoets.Piping.Forms.Factories
 
         private static ChartPointStyle GetGeneralPointStyle(Color color)
         {
-            return new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
+            return new ChartPointStyle
+            {
+                Color = color,
+                StrokeColor = Color.Transparent,
+                Size = 8,
+                StrokeThickness = 0,
+                Symbol = ChartPointSymbol.Triangle
+            };
         }
 
         private static ChartPointStyle GetCharacteristicPointStyle(Color indianRed)
         {
-            return new ChartPointStyle(indianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+            return new ChartPointStyle
+            {
+                Color = indianRed,
+                StrokeColor = Color.Transparent,
+                Size = 8,
+                StrokeThickness = 0,
+                Symbol = ChartPointSymbol.Circle
+            };
         }
     }
 }

@@ -77,7 +77,14 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_WithStyle_ExpectedValue()
         {
             // Setup
-            var style = new ChartPointStyle(Color.Red, 2, Color.Blue, 2, ChartPointSymbol.Circle);
+            var style = new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = Color.Blue,
+                Size = 2,
+                StrokeThickness = 2,
+                Symbol = ChartPointSymbol.Circle
+            };
 
             // Call
             var data = new ChartPointData("test data", style);

@@ -96,7 +96,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             Color strokeColor = Color.Bisque;
             const int strokeThickness = 4;
 
-            var chartAreaData = new ChartAreaData("Test", new ChartAreaStyle(fillColor, strokeColor, strokeThickness));
+            var chartAreaData = new ChartAreaData("Test", new ChartAreaStyle
+            {
+                FillColor = fillColor,
+                StrokeColor = strokeColor,
+                StrokeThickness = strokeThickness
+            });
             var properties = new ChartAreaDataProperties();
 
             // Call
@@ -118,7 +123,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var chartAreaData = new ChartAreaData("Test", new ChartAreaStyle(Color.AliceBlue, Color.Blue, 3));
+            var chartAreaData = new ChartAreaData("Test", new ChartAreaStyle
+            {
+                FillColor = Color.AliceBlue,
+                StrokeColor = Color.Blue,
+                StrokeThickness = 3
+            });
 
             chartAreaData.Attach(observerMock);
 

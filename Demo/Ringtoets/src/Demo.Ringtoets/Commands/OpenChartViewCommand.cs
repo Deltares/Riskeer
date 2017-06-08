@@ -57,7 +57,12 @@ namespace Demo.Ringtoets.Commands
         public void Execute()
         {
             var line1 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_one,
-                                          new ChartLineStyle(Color.DarkRed, 3, DashStyle.Solid))
+                                          new ChartLineStyle
+                                          {
+                                              Color = Color.DarkRed,
+                                              Width = 3,
+                                              DashStyle = DashStyle.Solid
+                                          })
             {
                 Points = new[]
                 {
@@ -87,7 +92,12 @@ namespace Demo.Ringtoets.Commands
             };
 
             var line2 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_two,
-                                          new ChartLineStyle(Color.DarkSlateBlue, 2, DashStyle.DashDot))
+                                          new ChartLineStyle
+                                          {
+                                              Color = Color.DarkSlateBlue,
+                                              Width = 2,
+                                              DashStyle = DashStyle.DashDot
+                                          })
             {
                 Points = new[]
                 {
@@ -117,7 +127,12 @@ namespace Demo.Ringtoets.Commands
             };
 
             var area1 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_one,
-                                          new ChartAreaStyle(Color.DarkSeaGreen, Color.DarkGreen, 5))
+                                          new ChartAreaStyle
+                                          {
+                                              FillColor = Color.DarkSeaGreen,
+                                              StrokeColor = Color.DarkGreen,
+                                              StrokeThickness = 5
+                                          })
             {
                 Points = new[]
                 {
@@ -158,7 +173,12 @@ namespace Demo.Ringtoets.Commands
             };
 
             var area2 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_two,
-                                          new ChartAreaStyle(Color.FromArgb(120, Color.Wheat), Color.DarkOrange, 2))
+                                          new ChartAreaStyle
+                                          {
+                                              FillColor = Color.FromArgb(120, Color.Wheat),
+                                              StrokeColor = Color.DarkOrange,
+                                              StrokeThickness = 2
+                                          })
             {
                 Points = new[]
                 {
@@ -205,7 +225,14 @@ namespace Demo.Ringtoets.Commands
             };
 
             var points1 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_one,
-                                             new ChartPointStyle(Color.Crimson, 6, Color.AntiqueWhite, 3, ChartPointSymbol.Circle))
+                                             new ChartPointStyle
+                                             {
+                                                 Color = Color.Crimson,
+                                                 StrokeColor = Color.AntiqueWhite,
+                                                 Size = 6,
+                                                 StrokeThickness = 3,
+                                                 Symbol = ChartPointSymbol.Circle
+                                             })
             {
                 Points = new[]
                 {
@@ -221,7 +248,14 @@ namespace Demo.Ringtoets.Commands
             };
 
             var points2 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_two,
-                                             new ChartPointStyle(Color.FromArgb(190, Color.Gold), 7, Color.DeepSkyBlue, 2, ChartPointSymbol.Diamond))
+                                             new ChartPointStyle
+                                             {
+                                                 Color = Color.FromArgb(190, Color.Gold),
+                                                 StrokeColor = Color.DeepSkyBlue,
+                                                 Size = 7,
+                                                 StrokeThickness = 2,
+                                                 Symbol = ChartPointSymbol.Diamond
+                                             })
             {
                 Points = new[]
                 {

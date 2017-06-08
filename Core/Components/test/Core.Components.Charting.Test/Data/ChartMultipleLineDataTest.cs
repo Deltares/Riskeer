@@ -63,7 +63,12 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_WithStyle_ExpectedValue()
         {
             // Setup
-            var style = new ChartLineStyle(Color.Red, 3, DashStyle.DashDot);
+            var style = new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = 3,
+                DashStyle = DashStyle.DashDot
+            };
 
             // Call
             var data = new ChartMultipleLineData("test data", style);

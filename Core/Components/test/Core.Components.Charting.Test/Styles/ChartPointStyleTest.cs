@@ -39,7 +39,14 @@ namespace Core.Components.Charting.Test.Styles
             const ChartPointSymbol symbol = ChartPointSymbol.Circle;
 
             // Call
-            var pointStyle = new ChartPointStyle(color, size, strokeColor, strokeThickness, symbol);
+            var pointStyle = new ChartPointStyle
+            {
+                Color = color,
+                StrokeColor = strokeColor,
+                Size = size,
+                StrokeThickness = strokeThickness,
+                Symbol = symbol
+            };
 
             // Assert
             Assert.AreEqual(color, pointStyle.Color);

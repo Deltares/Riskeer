@@ -84,7 +84,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartLineDataConverter();
             var lineSeries = new LineSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartLineData("test", new ChartLineStyle(expectedColor, 3, DashStyle.Solid));
+            var data = new ChartLineData("test", new ChartLineStyle
+            {
+                Color = expectedColor,
+                Width = 3,
+                DashStyle = DashStyle.Solid
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);
@@ -102,7 +107,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartLineDataConverter();
             var lineSeries = new LineSeries();
-            var data = new ChartLineData("test", new ChartLineStyle(Color.Red, width, DashStyle.Solid));
+            var data = new ChartLineData("test", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = width,
+                DashStyle = DashStyle.Solid
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);
@@ -122,7 +132,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartLineDataConverter();
             var lineSeries = new LineSeries();
-            var data = new ChartLineData("test", new ChartLineStyle(Color.Red, 3, dashStyle));
+            var data = new ChartLineData("test", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = 3,
+                DashStyle = dashStyle
+            });
 
             // Call
             converter.ConvertSeriesProperties(data, lineSeries);

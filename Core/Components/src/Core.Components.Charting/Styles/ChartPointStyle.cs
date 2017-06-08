@@ -29,23 +29,6 @@ namespace Core.Components.Charting.Styles
     public class ChartPointStyle
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ChartPointStyle"/>.
-        /// </summary>
-        /// <param name="color">The color of the point.</param>
-        /// <param name="size">The size of the point.</param>
-        /// <param name="strokeColor">The color of the stroke of the point.</param>
-        /// <param name="strokeThickness">The thickness of the stroke of the point.</param>
-        /// <param name="symbol">The symbol of the point.</param>
-        public ChartPointStyle(Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
-        {
-            Color = color;
-            StrokeColor = strokeColor;
-            Size = size;
-            StrokeThickness = strokeThickness;
-            Symbol = symbol;
-        }
-
-        /// <summary>
         /// Gets or sets the point color.
         /// </summary>
         public Color Color { get; set; }

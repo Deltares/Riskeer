@@ -52,7 +52,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartLineDataWithTestProperties_ChartLineDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartLineData = new ChartLineData("Test name", new ChartLineStyle(Color.Blue, 3, DashStyle.DashDot));
+            var chartLineData = new ChartLineData("Test name", new ChartLineStyle
+            {
+                Color = Color.Blue,
+                Width = 3,
+                DashStyle = DashStyle.DashDot
+            });
 
             SetChartLineDataTestProperties(chartLineData);
 
@@ -69,7 +74,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartLineDataWithTestProperties_ChartLineDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartLineData = new ChartLineData("Test name", new ChartLineStyle(Color.Blue, 3, DashStyle.DashDot));
+            var chartLineData = new ChartLineData("Test name", new ChartLineStyle
+            {
+                Color = Color.Blue,
+                Width = 3,
+                DashStyle = DashStyle.DashDot
+            });
             var chartLineDataSeries = new ChartLineDataSeries(chartLineData);
 
             SetChartLineDataTestProperties(chartLineData);

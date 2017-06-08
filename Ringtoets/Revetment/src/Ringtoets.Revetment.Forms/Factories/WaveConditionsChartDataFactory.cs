@@ -70,7 +70,12 @@ namespace Ringtoets.Revetment.Forms.Factories
         public static ChartLineData CreateRevetmentChartData(Color lineColor)
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_Revetment_DisplayName,
-                                     new ChartLineStyle(lineColor, revetmentThickness, DashStyle.Solid));
+                                     new ChartLineStyle
+                                     {
+                                         Color = lineColor,
+                                         Width = revetmentThickness,
+                                         DashStyle = DashStyle.Solid
+                                     });
         }
 
         /// <summary>
@@ -81,7 +86,12 @@ namespace Ringtoets.Revetment.Forms.Factories
         public static ChartLineData CreateRevetmentBaseChartData(Color lineColor)
         {
             return new ChartLineData(Resources.WaveConditionsChartDataFactory_RevetmentBase_DisplayName,
-                                     new ChartLineStyle(Color.FromArgb(120, lineColor), revetmentThickness, DashStyle.Dash));
+                                     new ChartLineStyle
+                                     {
+                                         Color = Color.FromArgb(120, lineColor),
+                                         Width = revetmentThickness,
+                                         DashStyle = DashStyle.Dash
+                                     });
         }
 
         /// <summary>
@@ -119,7 +129,12 @@ namespace Ringtoets.Revetment.Forms.Factories
             }
 
             return new ChartLineData(chartDataName,
-                                     new ChartLineStyle(Color.LightCoral, levelThickness, DashStyle.Solid));
+                                     new ChartLineStyle
+                                     {
+                                         Color = Color.LightCoral,
+                                         Width = levelThickness,
+                                         DashStyle = DashStyle.Solid
+                                     });
         }
 
         /// <summary>
@@ -129,7 +144,12 @@ namespace Ringtoets.Revetment.Forms.Factories
         public static ChartMultipleLineData CreateWaterLevelsChartData()
         {
             return new ChartMultipleLineData(Resources.WaveConditionsChartDataFactory_WaterLevels_DisplayName,
-                                             new ChartLineStyle(Color.DarkTurquoise, levelThickness, DashStyle.DashDotDot));
+                                             new ChartLineStyle
+                                             {
+                                                 Color = Color.DarkTurquoise,
+                                                 Width = levelThickness,
+                                                 DashStyle = DashStyle.DashDotDot
+                                             });
         }
 
         /// <summary>
@@ -155,12 +175,22 @@ namespace Ringtoets.Revetment.Forms.Factories
 
         private static ChartLineStyle GetRevetmentBoundaryStyle(Color lineColor)
         {
-            return new ChartLineStyle(lineColor, levelThickness, DashStyle.Solid);
+            return new ChartLineStyle
+            {
+                Color = lineColor,
+                Width = levelThickness,
+                DashStyle = DashStyle.Solid
+            };
         }
 
         private static ChartLineStyle GetWaterLevelsBoundaryStyle()
         {
-            return new ChartLineStyle(Color.MediumBlue, levelThickness, DashStyle.Solid);
+            return new ChartLineStyle
+            {
+                Color = Color.MediumBlue,
+                Width = levelThickness,
+                DashStyle = DashStyle.Solid
+            };
         }
     }
 }

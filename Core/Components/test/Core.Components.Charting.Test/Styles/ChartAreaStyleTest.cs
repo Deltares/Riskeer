@@ -37,7 +37,12 @@ namespace Core.Components.Charting.Test.Styles
             const int width = 3;
 
             // Call
-            var areaStyle = new ChartAreaStyle(fillColor, strokeColor, width);
+            var areaStyle = new ChartAreaStyle
+            {
+                FillColor = fillColor,
+                StrokeColor = strokeColor,
+                StrokeThickness = width
+            };
 
             // Assert
             Assert.AreEqual(fillColor, areaStyle.FillColor);

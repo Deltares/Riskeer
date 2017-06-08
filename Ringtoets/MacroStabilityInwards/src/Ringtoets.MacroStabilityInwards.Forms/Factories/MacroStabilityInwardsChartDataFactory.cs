@@ -42,7 +42,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartLineData CreateSurfaceLineChartData()
         {
             return new ChartLineData(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName,
-                                     new ChartLineStyle(Color.Sienna, 2, DashStyle.Solid));
+                                     new ChartLineStyle
+                                     {
+                                         Color = Color.Sienna,
+                                         Width = 2,
+                                         DashStyle = DashStyle.Solid
+                                     });
         }
 
         /// <summary>
@@ -77,7 +82,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             MacroStabilityInwardsSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
             return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}",
-                                             new ChartAreaStyle(soilLayer.Color, Color.Black, 1));
+                                             new ChartAreaStyle
+                                             {
+                                                 FillColor = soilLayer.Color,
+                                                 StrokeColor = Color.Black,
+                                                 StrokeThickness = 1
+                                             });
         }
 
         /// <summary>

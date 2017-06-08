@@ -51,7 +51,14 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartPointDataWithTestProperties_ChartPointDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartPointData = new ChartPointData("Test name", new ChartPointStyle(Color.Red, 4, Color.Blue, 2, ChartPointSymbol.Circle));
+            var chartPointData = new ChartPointData("Test name", new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = Color.Blue,
+                Size = 4,
+                StrokeThickness = 2,
+                Symbol = ChartPointSymbol.Circle
+            });
 
             SetChartPointDataTestProperties(chartPointData);
 
@@ -68,7 +75,14 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartPointDataWithTestProperties_ChartPointDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartPointData = new ChartPointData("Test name", new ChartPointStyle(Color.Red, 4, Color.Blue, 2, ChartPointSymbol.Circle));
+            var chartPointData = new ChartPointData("Test name", new ChartPointStyle
+            {
+                Color = Color.Red,
+                StrokeColor = Color.Blue,
+                Size = 4,
+                StrokeThickness = 2,
+                Symbol = ChartPointSymbol.Circle
+            });
             var chartPointDataSeries = new ChartPointDataSeries(chartPointData);
 
             SetChartPointDataTestProperties(chartPointData);

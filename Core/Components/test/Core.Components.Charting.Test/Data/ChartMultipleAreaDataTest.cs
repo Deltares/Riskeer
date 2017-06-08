@@ -76,7 +76,12 @@ namespace Core.Components.Charting.Test.Data
         public void Constructor_WithStyle_ExpectedValue()
         {
             // Setup
-            var style = new ChartAreaStyle(Color.Red, Color.Fuchsia, 3);
+            var style = new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = Color.Fuchsia,
+                StrokeThickness = 3
+            };
 
             // Call
             var data = new ChartMultipleAreaData("test data", style);

@@ -50,7 +50,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartMultipleAreaDataWithTestProperties_ChartMultipleAreaDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartMultipleAreaData = new ChartMultipleAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
+            var chartMultipleAreaData = new ChartMultipleAreaData("Test name", new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = Color.Blue,
+                StrokeThickness = 3
+            });
 
             SetChartMultipleAreaDataTestProperties(chartMultipleAreaData);
 
@@ -67,7 +72,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartMultipleAreaDataWithTestProperties_ChartMultipleAreaDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartMultipleAreaData = new ChartMultipleAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
+            var chartMultipleAreaData = new ChartMultipleAreaData("Test name", new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = Color.Blue,
+                StrokeThickness = 3
+            });
             var chartMultipleAreaDataSeries = new ChartMultipleAreaDataSeries(chartMultipleAreaData);
 
             SetChartMultipleAreaDataTestProperties(chartMultipleAreaData);

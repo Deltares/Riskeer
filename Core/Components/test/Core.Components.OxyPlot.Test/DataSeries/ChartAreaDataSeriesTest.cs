@@ -49,7 +49,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartAreaDataWithTestProperties_ChartAreaDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
+            var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = Color.Blue,
+                StrokeThickness = 3
+            });
 
             SetChartAreaDataTestProperties(chartAreaData);
 
@@ -66,7 +71,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartAreaDataWithTestProperties_ChartAreaDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle(Color.Red, Color.Blue, 3));
+            var chartAreaData = new ChartAreaData("Test name", new ChartAreaStyle
+            {
+                FillColor = Color.Red,
+                StrokeColor = Color.Blue,
+                StrokeThickness = 3
+            });
             var chartAreaDataSeries = new ChartAreaDataSeries(chartAreaData);
 
             SetChartAreaDataTestProperties(chartAreaData);

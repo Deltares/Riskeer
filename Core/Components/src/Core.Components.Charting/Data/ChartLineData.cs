@@ -31,14 +31,20 @@ namespace Core.Components.Charting.Data
     /// </summary>
     public class ChartLineData : PointBasedChartData
     {
+        private static readonly ChartLineStyle defaultChartLineStyle = new ChartLineStyle
+        {
+            Color = Color.Black,
+            Width = 2,
+            DashStyle = DashStyle.Solid
+        };
+
         /// <summary>
         /// Creates a new instance of <see cref="ChartLineData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartLineData(string name)
-            : this(name, new ChartLineStyle(Color.Black, 2, DashStyle.Solid)) {}
+        public ChartLineData(string name) : this(name, defaultChartLineStyle) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartLineData"/>.
@@ -47,6 +53,8 @@ namespace Core.Components.Charting.Data
         /// <param name="style">The style of the data.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
         public ChartLineData(string name, ChartLineStyle style) : base(name)
         {
             if (style == null)

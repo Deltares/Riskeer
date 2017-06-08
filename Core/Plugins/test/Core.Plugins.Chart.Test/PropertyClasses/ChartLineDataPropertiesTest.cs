@@ -97,7 +97,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             const int width = 4;
             const DashStyle dashStyle = DashStyle.DashDot;
 
-            var chartLineData = new ChartLineData("Test", new ChartLineStyle(color, width, dashStyle));
+            var chartLineData = new ChartLineData("Test", new ChartLineStyle
+            {
+                Color = color,
+                Width = width,
+                DashStyle = dashStyle
+            });
             var properties = new ChartLineDataProperties();
 
             // Call
@@ -119,7 +124,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var chartLineData = new ChartLineData("Test", new ChartLineStyle(Color.AliceBlue, 3, DashStyle.Solid));
+            var chartLineData = new ChartLineData("Test", new ChartLineStyle
+            {
+                Color = Color.AliceBlue,
+                Width = 3,
+                DashStyle = DashStyle.Solid
+            });
 
             chartLineData.Attach(observerMock);
 

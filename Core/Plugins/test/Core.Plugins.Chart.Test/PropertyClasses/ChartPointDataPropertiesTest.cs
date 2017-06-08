@@ -115,7 +115,14 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             const int strokeThickness = 2;
             const ChartPointSymbol symbol = ChartPointSymbol.Circle;
 
-            var chartPointData = new ChartPointData("Test", new ChartPointStyle(color, size, strokeColor, strokeThickness, symbol));
+            var chartPointData = new ChartPointData("Test", new ChartPointStyle
+            {
+                Color = color,
+                StrokeColor = strokeColor,
+                Size = size,
+                StrokeThickness = strokeThickness,
+                Symbol = symbol
+            });
             var properties = new ChartPointDataProperties();
 
             // Call
@@ -139,7 +146,14 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var chartPointData = new ChartPointData("Test", new ChartPointStyle(Color.AliceBlue, 3, Color.Fuchsia, 1, ChartPointSymbol.Circle));
+            var chartPointData = new ChartPointData("Test", new ChartPointStyle
+            {
+                Color = Color.AliceBlue,
+                StrokeColor = Color.Fuchsia,
+                Size = 3,
+                StrokeThickness = 1,
+                Symbol = ChartPointSymbol.Circle
+            });
 
             chartPointData.Attach(observerMock);
 

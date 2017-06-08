@@ -30,14 +30,20 @@ namespace Core.Components.Charting.Data
     /// </summary>
     public class ChartAreaData : PointBasedChartData
     {
+        private static readonly ChartAreaStyle defaultChartAreaStyle = new ChartAreaStyle
+        {
+            FillColor = Color.Gray,
+            StrokeColor = Color.Black,
+            StrokeThickness = 2
+        };
+
         /// <summary>
         /// Creates a new instance of <see cref="ChartAreaData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartAreaData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartAreaData(string name)
-            : this(name, new ChartAreaStyle(Color.Gray, Color.Black, 2)) {}
+        public ChartAreaData(string name) : this(name, defaultChartAreaStyle) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartAreaData"/>.

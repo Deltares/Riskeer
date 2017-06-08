@@ -29,19 +29,6 @@ namespace Core.Components.Charting.Styles
     public class ChartAreaStyle
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ChartAreaStyle"/>.
-        /// </summary>
-        /// <param name="fillColor">The fill color of the area.</param>
-        /// <param name="strokeColor">The stroke color of the area.</param>
-        /// <param name="strokeThickness">The stroke thickness of the area border.</param>
-        public ChartAreaStyle(Color fillColor, Color strokeColor, int strokeThickness)
-        {
-            FillColor = fillColor;
-            StrokeColor = strokeColor;
-            StrokeThickness = strokeThickness;
-        }
-
-        /// <summary>
         /// Gets or sets the area fill color.
         /// </summary>
         public Color FillColor { get; set; }

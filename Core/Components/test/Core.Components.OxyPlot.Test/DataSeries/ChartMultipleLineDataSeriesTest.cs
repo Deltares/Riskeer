@@ -51,7 +51,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Constructor_ChartMultipleLineDataWithTestProperties_ChartMultipleLineDataSeriesCreatedAccordingly()
         {
             // Setup
-            var chartMultipleLineData = new ChartMultipleLineData("Test name", new ChartLineStyle(Color.Red, 3, DashStyle.Dash));
+            var chartMultipleLineData = new ChartMultipleLineData("Test name", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = 3,
+                DashStyle = DashStyle.Dash
+            });
 
             SetChartMultipleLineDataTestProperties(chartMultipleLineData);
 
@@ -68,7 +73,12 @@ namespace Core.Components.OxyPlot.Test.DataSeries
         public void Update_ChartMultipleLineDataWithTestProperties_ChartMultipleLineDataSeriesUpdatedAccordingly()
         {
             // Setup
-            var chartMultipleLineData = new ChartMultipleLineData("Test name", new ChartLineStyle(Color.Red, 3, DashStyle.Dash));
+            var chartMultipleLineData = new ChartMultipleLineData("Test name", new ChartLineStyle
+            {
+                Color = Color.Red,
+                Width = 3,
+                DashStyle = DashStyle.Dash
+            });
             var chartMultipleLineDataSeries = new ChartMultipleLineDataSeries(chartMultipleLineData);
 
             SetChartMultipleLineDataTestProperties(chartMultipleLineData);
