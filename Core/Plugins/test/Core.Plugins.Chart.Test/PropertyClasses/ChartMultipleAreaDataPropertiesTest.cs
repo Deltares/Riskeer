@@ -77,7 +77,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             "De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(fillColorProperty.Converter);
+            Assert.IsInstanceOf<ColorTypeConverter>(strokeColorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijnkleur",
