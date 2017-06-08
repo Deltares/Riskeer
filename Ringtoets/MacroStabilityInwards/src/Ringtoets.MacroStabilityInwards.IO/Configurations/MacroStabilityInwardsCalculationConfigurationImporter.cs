@@ -37,7 +37,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// Imports a macro stability inwards calculation configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationImporter : CalculationConfigurationImporter<MacroStabilityInwardsCalculationConfigurationReader, MacroStabilityInwardsCalculationConfiguration>
+    public class MacroStabilityInwardsCalculationConfigurationImporter
+        : CalculationConfigurationImporter<
+            MacroStabilityInwardsCalculationConfigurationReader,
+            MacroStabilityInwardsCalculationConfiguration>
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
@@ -100,11 +103,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryData(MacroStabilityInwardsCalculationConfiguration calculationConfiguration, MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TryReadHydraulicBoundaryData(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                  MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
             HydraulicBoundaryLocation location;
 
-            bool locationRead = TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocation, calculationConfiguration.Name, availableHydraulicBoundaryLocations, out location);
+            bool locationRead = TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName,
+                                                                 calculationConfiguration.Name,
+                                                                 availableHydraulicBoundaryLocations,
+                                                                 out location);
 
             if (!locationRead)
             {
@@ -131,18 +138,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
         /// set which is not available in <see cref="MacroStabilityInwardsFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration, MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TryReadSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                        MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
-            if (calculationConfiguration.SurfaceLine != null)
+            if (calculationConfiguration.SurfaceLineName != null)
             {
                 RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                                                                                        .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLine);
+                                                                                        .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
                 if (surfaceLine == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
-                                                          calculationConfiguration.SurfaceLine),
+                                                          calculationConfiguration.SurfaceLineName),
                                                       macroStabilityInwardsCalculation.Name);
                     return false;
                 }
@@ -165,18 +173,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadStochasticSoilModel(MacroStabilityInwardsCalculationConfiguration calculationConfiguration, MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TryReadStochasticSoilModel(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
-            if (calculationConfiguration.StochasticSoilModel != null)
+            if (calculationConfiguration.StochasticSoilModelName != null)
             {
                 StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                                                                .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModel);
+                                                                .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
 
                 if (soilModel == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
-                                                          calculationConfiguration.StochasticSoilModel),
+                                                          calculationConfiguration.StochasticSoilModelName),
                                                       macroStabilityInwardsCalculation.Name);
                     return false;
                 }
@@ -186,8 +195,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
-                                                          calculationConfiguration.StochasticSoilModel,
-                                                          calculationConfiguration.SurfaceLine),
+                                                          calculationConfiguration.StochasticSoilModelName,
+                                                          calculationConfiguration.SurfaceLineName),
                                                       macroStabilityInwardsCalculation.Name);
                     return false;
                 }
@@ -208,27 +217,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration, MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TryReadStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                  MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
-            if (calculationConfiguration.StochasticSoilProfile != null)
+            if (calculationConfiguration.StochasticSoilProfileName != null)
             {
                 if (macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
-                                                          calculationConfiguration.StochasticSoilProfile),
+                                                          calculationConfiguration.StochasticSoilProfileName),
                                                       macroStabilityInwardsCalculation.Name);
                     return false;
                 }
 
-                StochasticSoilProfile soilProfile = macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
-                                                                                    .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfile);
+                StochasticSoilProfile soilProfile = macroStabilityInwardsCalculation.InputParameters
+                                                                                    .StochasticSoilModel
+                                                                                    .StochasticSoilProfiles
+                                                                                    .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
 
                 if (soilProfile == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
-                                                          calculationConfiguration.StochasticSoilProfile, calculationConfiguration.StochasticSoilModel),
+                                                          calculationConfiguration.StochasticSoilProfileName,
+                                                          calculationConfiguration.StochasticSoilModelName),
                                                       macroStabilityInwardsCalculation.Name);
                     return false;
                 }

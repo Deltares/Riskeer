@@ -74,8 +74,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             Assert.IsNaN(configuration.UpperBoundaryWaterLevels);
             Assert.IsNaN(configuration.Orientation);
             Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
-            Assert.IsNull(configuration.HydraulicBoundaryLocation);
-            Assert.IsNull(configuration.ForeshoreProfile);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.WaveReduction);
         }
 
@@ -124,8 +124,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             Assert.AreEqual(upperBoundaryWaterLevels, configuration.UpperBoundaryWaterLevels);
             Assert.AreEqual(orientation, configuration.Orientation);
             Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.One, configuration.StepSize);
-            Assert.AreEqual(locationName, configuration.HydraulicBoundaryLocation);
-            Assert.AreEqual(foreshoreProfileName, configuration.ForeshoreProfile);
+            Assert.AreEqual(locationName, configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual(foreshoreProfileName, configuration.ForeshoreProfileId);
             Assert.AreEqual(breakWaterHeight, configuration.WaveReduction.BreakWaterHeight);
             Assert.AreEqual(ConfigurationBreakWaterType.Wall, configuration.WaveReduction.BreakWaterType);
             Assert.IsTrue(configuration.WaveReduction.UseForeshoreProfile);

@@ -39,7 +39,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
     /// <typeparam name="TConfiguration">The <see cref="IConfigurationItem"/> type used to convert 
     /// <typeparamref name="TCalculation"/> into before writing to XML using a <typeparamref name="TWriter"/>.
     /// </typeparam>
-    public abstract class CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration> : IFileExporter
+    public abstract class CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>
+        : IFileExporter
         where TWriter : CalculationConfigurationWriter<TConfiguration>
         where TCalculation : class, ICalculation
         where TConfiguration : class, IConfigurationItem

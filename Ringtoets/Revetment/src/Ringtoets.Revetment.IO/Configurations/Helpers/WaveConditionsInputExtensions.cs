@@ -48,7 +48,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
             }
             var calculationConfiguration = new WaveConditionsCalculationConfiguration(calculationName)
             {
-                HydraulicBoundaryLocation = input.HydraulicBoundaryLocation?.Name,
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
                 LowerBoundaryRevetment = input.LowerBoundaryRevetment,
                 UpperBoundaryRevetment = input.UpperBoundaryRevetment,
                 LowerBoundaryWaterLevels = input.LowerBoundaryWaterLevels,
@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 return;
             }
 
-            configuration.ForeshoreProfile = input.ForeshoreProfile?.Id;
+            configuration.ForeshoreProfileId = input.ForeshoreProfile?.Id;
             configuration.WaveReduction = new WaveReductionConfiguration
             {
                 UseForeshoreProfile = input.UseForeshore,

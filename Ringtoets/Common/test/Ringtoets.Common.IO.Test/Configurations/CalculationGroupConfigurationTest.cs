@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -29,6 +30,28 @@ namespace Ringtoets.Common.IO.Test.Configurations
     [TestFixture]
     public class CalculationGroupConfigurationTest
     {
+        [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new CalculationGroupConfiguration(null, Enumerable.Empty<IConfigurationItem>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("name", paramName);
+        }
+
+        [Test]
+        public void Constructor_ItemsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new CalculationGroupConfiguration("name", null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("items", paramName);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {

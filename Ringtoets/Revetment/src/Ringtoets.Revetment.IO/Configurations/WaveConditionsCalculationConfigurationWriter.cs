@@ -67,7 +67,7 @@ namespace Ringtoets.Revetment.IO.Configurations
             WriteElementWhenContentAvailable(
                 writer,
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                configuration.HydraulicBoundaryLocation);
+                configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(
                 writer,
@@ -92,7 +92,7 @@ namespace Ringtoets.Revetment.IO.Configurations
             WriteElementWhenContentAvailable(
                 writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile,
-                configuration.ForeshoreProfile);
+                configuration.ForeshoreProfileId);
 
             WriteElementWhenContentAvailable(
                 writer,

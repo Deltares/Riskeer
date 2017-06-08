@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Configurations
         }
 
         /// <summary>
-        /// Gets or sets the Id of the structure.
+        /// Gets or sets the id of the structure.
         /// </summary>
         public string StructureId { get; set; }
 
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.IO.Configurations
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
                 }
                 name = value;
             }

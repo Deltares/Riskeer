@@ -54,12 +54,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             WriteElementWhenContentAvailable(
                 writer,
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                configuration.HydraulicBoundaryLocation);
+                configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(
                 writer,
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement,
-                configuration.DikeProfile);
+                configuration.DikeProfileId);
             WriteElementWhenContentAvailable(
                 writer,
                 ConfigurationSchemaIdentifiers.Orientation,

@@ -57,10 +57,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             var calculation2 = CreateFullCalculationConfiguration();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
-            calculation2.HydraulicBoundaryLocation = "PUNT_SCH_17";
-            calculation2.SurfaceLine = "PK001_0002";
-            calculation2.StochasticSoilModel = "PK001_0002_Macrostabiliteit";
-            calculation2.StochasticSoilProfile = "W1-6_4_1D1";
+            calculation2.HydraulicBoundaryLocationName = "PUNT_SCH_17";
+            calculation2.SurfaceLineName = "PK001_0002";
+            calculation2.StochasticSoilModelName = "PK001_0002_Macrostabiliteit";
+            calculation2.StochasticSoilProfileName = "W1-6_4_1D1";
 
             var calculationGroup2 = new CalculationGroupConfiguration("PK001_0002", new IConfigurationItem[]
             {
@@ -102,10 +102,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         {
             return new MacroStabilityInwardsCalculationConfiguration("PK001_0001 W1-6_0_1D1")
             {
-                HydraulicBoundaryLocation = "PUNT_KAT_18",
-                SurfaceLine = "PK001_0001",
-                StochasticSoilModel = "PK001_0001_Macrostabiliteit",
-                StochasticSoilProfile = "W1-6_0_1D1"
+                HydraulicBoundaryLocationName = "PUNT_KAT_18",
+                SurfaceLineName = "PK001_0001",
+                StochasticSoilModelName = "PK001_0001_Macrostabiliteit",
+                StochasticSoilProfileName = "W1-6_0_1D1"
             };
         }
 

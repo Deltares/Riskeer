@@ -89,9 +89,9 @@ namespace Ringtoets.Revetment.IO.Configurations
 
             ReadStepSize(calculationConfiguration, waveConditionsCalculation);
 
-            if (TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocation, waveConditionsCalculation)
+            if (TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, waveConditionsCalculation)
                 && TryReadBoundaries(calculationConfiguration, waveConditionsCalculation)
-                && TryReadForeshoreProfile(calculationConfiguration.ForeshoreProfile, waveConditionsCalculation)
+                && TryReadForeshoreProfile(calculationConfiguration.ForeshoreProfileId, waveConditionsCalculation)
                 && TryReadOrientation(calculationConfiguration, waveConditionsCalculation)
                 && calculationConfiguration.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
                                                                                 waveConditionsCalculation.Name, Log))

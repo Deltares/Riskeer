@@ -32,19 +32,21 @@ namespace Ringtoets.HeightStructures.IO.Configurations
     /// <summary>
     /// Exports a height structures calculation configuration and stores it as an XML file.
     /// </summary>
-    public class HeightStructuresCalculationConfigurationExporter : CalculationConfigurationExporter<
-        HeightStructuresCalculationConfigurationWriter,
-        StructuresCalculation<HeightStructuresInput>,
-        HeightStructuresCalculationConfiguration>
+    public class HeightStructuresCalculationConfigurationExporter
+        : CalculationConfigurationExporter<
+            HeightStructuresCalculationConfigurationWriter,
+            StructuresCalculation<HeightStructuresInput>,
+            HeightStructuresCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="calculations">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
+        public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+            : base(calculations, filePath) {}
 
         protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {

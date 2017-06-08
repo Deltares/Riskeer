@@ -154,8 +154,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         {
             return new GrassCoverErosionInwardsCalculationConfiguration("Berekening 1")
             {
-                HydraulicBoundaryLocation = "Locatie1",
-                DikeProfile = "id",
+                HydraulicBoundaryLocationName = "Locatie1",
+                DikeProfileId = "id",
                 Orientation = 67.1,
                 DikeHeightCalculationType = ConfigurationHydraulicLoadsCalculationType.NoCalculation,
                 OvertoppingRateCalculationType = ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm,

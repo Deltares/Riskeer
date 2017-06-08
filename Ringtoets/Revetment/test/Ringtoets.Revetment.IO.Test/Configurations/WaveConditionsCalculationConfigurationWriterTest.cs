@@ -89,13 +89,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             var calculation = new WaveConditionsCalculationConfiguration("Berekening 1")
             {
-                HydraulicBoundaryLocation = "Locatie1",
+                HydraulicBoundaryLocationName = "Locatie1",
                 UpperBoundaryRevetment = (RoundedDouble) 1.5,
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
                 LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
                 StepSize = ConfigurationWaveConditionsInputStepSize.One,
-                ForeshoreProfile = "profiel1",
+                ForeshoreProfileId = "profiel1",
                 Orientation = (RoundedDouble) 67.1,
                 WaveReduction = new WaveReductionConfiguration
                 {

@@ -33,17 +33,20 @@ namespace Ringtoets.StabilityStoneCover.IO.Exporters
     /// Exports a stability stone cover calculation configuration and stores it as an XML file.
     /// </summary>
     public class StabilityStoneCoverCalculationConfigurationExporter
-        : CalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
+        : CalculationConfigurationExporter<
+            WaveConditionsCalculationConfigurationWriter,
+            StabilityStoneCoverWaveConditionsCalculation,
+            WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public StabilityStoneCoverCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
-            : base(configuration, filePath) {}
+        public StabilityStoneCoverCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+            : base(calculations, filePath) {}
 
         protected override WaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
         {

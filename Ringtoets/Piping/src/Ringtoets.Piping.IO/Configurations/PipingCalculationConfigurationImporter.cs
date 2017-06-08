@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.Data;
@@ -38,7 +37,9 @@ namespace Ringtoets.Piping.IO.Configurations
     /// Imports a piping calculation configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    public class PipingCalculationConfigurationImporter : CalculationConfigurationImporter<PipingCalculationConfigurationReader, PipingCalculationConfiguration>
+    public class PipingCalculationConfigurationImporter
+        : CalculationConfigurationImporter<PipingCalculationConfigurationReader,
+            PipingCalculationConfiguration>
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly PipingFailureMechanism failureMechanism;
@@ -103,11 +104,15 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryData(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TryReadHydraulicBoundaryData(PipingCalculationConfiguration calculationConfiguration,
+                                                  PipingCalculationScenario pipingCalculation)
         {
             HydraulicBoundaryLocation location;
 
-            bool locationRead = TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocation, calculationConfiguration.Name, availableHydraulicBoundaryLocations, out location);
+            bool locationRead = TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName,
+                                                                 calculationConfiguration.Name,
+                                                                 availableHydraulicBoundaryLocations,
+                                                                 out location);
 
             if (!locationRead)
             {
@@ -136,16 +141,16 @@ namespace Ringtoets.Piping.IO.Configurations
         /// set which is not available in <see cref="PipingFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
         private bool TryReadSurfaceLine(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
         {
-            if (calculationConfiguration.SurfaceLine != null)
+            if (calculationConfiguration.SurfaceLineName != null)
             {
                 RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                                                                         .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLine);
+                                                                         .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
                 if (surfaceLine == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.PipingCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
-                                                          calculationConfiguration.SurfaceLine),
+                                                          calculationConfiguration.SurfaceLineName),
                                                       pipingCalculation.Name);
                     return false;
                 }
@@ -167,7 +172,7 @@ namespace Ringtoets.Piping.IO.Configurations
             bool hasEntryPoint = calculationConfiguration.EntryPointL.HasValue;
             bool hasExitPoint = calculationConfiguration.ExitPointL.HasValue;
 
-            if (calculationConfiguration.SurfaceLine == null && (hasEntryPoint || hasExitPoint))
+            if (calculationConfiguration.SurfaceLineName == null && (hasEntryPoint || hasExitPoint))
             {
                 Log.LogCalculationConversionError(Resources.PipingCalculationConfigurationImporter_ReadSurfaceLine_EntryPointL_or_ExitPointL_defined_without_SurfaceLine,
                                                   pipingCalculation.Name);
@@ -226,16 +231,16 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <c>true</c> otherwise.</returns>
         private bool TryReadStochasticSoilModel(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
         {
-            if (calculationConfiguration.StochasticSoilModel != null)
+            if (calculationConfiguration.StochasticSoilModelName != null)
             {
                 StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                                                                .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModel);
+                                                                .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
 
                 if (soilModel == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
-                                                          calculationConfiguration.StochasticSoilModel),
+                                                          calculationConfiguration.StochasticSoilModelName),
                                                       pipingCalculation.Name);
                     return false;
                 }
@@ -245,8 +250,8 @@ namespace Ringtoets.Piping.IO.Configurations
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
-                                                          calculationConfiguration.StochasticSoilModel,
-                                                          calculationConfiguration.SurfaceLine),
+                                                          calculationConfiguration.StochasticSoilModelName,
+                                                          calculationConfiguration.SurfaceLineName),
                                                       pipingCalculation.Name);
                     return false;
                 }
@@ -269,25 +274,29 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <c>true</c> otherwise.</returns>
         private bool TryReadStochasticSoilProfile(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
         {
-            if (calculationConfiguration.StochasticSoilProfile != null)
+            if (calculationConfiguration.StochasticSoilProfileName != null)
             {
                 if (pipingCalculation.InputParameters.StochasticSoilModel == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
-                                                          calculationConfiguration.StochasticSoilProfile),
+                                                          calculationConfiguration.StochasticSoilProfileName),
                                                       pipingCalculation.Name);
                     return false;
                 }
 
-                StochasticSoilProfile soilProfile = pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
-                                                                     .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfile);
+                StochasticSoilProfile soilProfile = pipingCalculation
+                    .InputParameters
+                    .StochasticSoilModel
+                    .StochasticSoilProfiles
+                    .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
 
                 if (soilProfile == null)
                 {
                     Log.LogCalculationConversionError(string.Format(
                                                           Resources.PipingCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
-                                                          calculationConfiguration.StochasticSoilProfile, calculationConfiguration.StochasticSoilModel),
+                                                          calculationConfiguration.StochasticSoilProfileName,
+                                                          calculationConfiguration.StochasticSoilModelName),
                                                       pipingCalculation.Name);
                     return false;
                 }
@@ -317,7 +326,7 @@ namespace Ringtoets.Piping.IO.Configurations
                 pipingCalculation.InputParameters,
                 calculationConfiguration.DampingFactorExit,
                 i => i.DampingFactorExit,
-                (i,s) => i.DampingFactorExit = s,
+                (i, s) => i.DampingFactorExit = s,
                 Log);
         }
 

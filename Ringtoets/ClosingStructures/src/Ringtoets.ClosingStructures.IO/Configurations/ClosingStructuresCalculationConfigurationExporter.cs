@@ -33,19 +33,21 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
     /// <summary>
     /// Exports a closing structures calculation configuration and stores it as an XML file.
     /// </summary>
-    public class ClosingStructuresCalculationConfigurationExporter : CalculationConfigurationExporter<
-        ClosingStructuresCalculationConfigurationWriter,
-        StructuresCalculation<ClosingStructuresInput>,
-        ClosingStructuresCalculationConfiguration>
+    public class ClosingStructuresCalculationConfigurationExporter
+        : CalculationConfigurationExporter<
+            ClosingStructuresCalculationConfigurationWriter,
+            StructuresCalculation<ClosingStructuresInput>,
+            ClosingStructuresCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="calculations">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
+        public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) 
+            : base(calculations, filePath) {}
 
         protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<ClosingStructuresInput> calculation)
         {

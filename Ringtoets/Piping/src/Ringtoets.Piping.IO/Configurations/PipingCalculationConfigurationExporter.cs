@@ -31,16 +31,21 @@ namespace Ringtoets.Piping.IO.Configurations
     /// <summary>
     /// Exports a piping calculation configuration and stores it as an XML file.
     /// </summary>
-    public class PipingCalculationConfigurationExporter : CalculationConfigurationExporter<PipingCalculationConfigurationWriter, PipingCalculation, PipingCalculationConfiguration>
+    public class PipingCalculationConfigurationExporter 
+        : CalculationConfigurationExporter<
+            PipingCalculationConfigurationWriter, 
+            PipingCalculation, 
+            PipingCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath) : base(configuration, filePath) {}
+        public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) 
+            : base(calculations, filePath) {}
 
         protected override PipingCalculationConfigurationWriter CreateWriter(string filePath)
         {
@@ -55,7 +60,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
             if (input.HydraulicBoundaryLocation != null)
             {
-                calculationConfiguration.HydraulicBoundaryLocation = input.HydraulicBoundaryLocation.Name;
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
             }
             else if(input.UseAssessmentLevelManualInput)
             {
@@ -67,15 +72,15 @@ namespace Ringtoets.Piping.IO.Configurations
 
             if (input.SurfaceLine != null)
             {
-                calculationConfiguration.SurfaceLine = input.SurfaceLine.Name;
+                calculationConfiguration.SurfaceLineName = input.SurfaceLine.Name;
                 calculationConfiguration.EntryPointL = input.EntryPointL;
                 calculationConfiguration.ExitPointL = input.ExitPointL;
             }
 
             if (input.StochasticSoilModel != null)
             {
-                calculationConfiguration.StochasticSoilModel = input.StochasticSoilModel.Name;
-                calculationConfiguration.StochasticSoilProfile = input.StochasticSoilProfile?.SoilProfile.Name;
+                calculationConfiguration.StochasticSoilModelName = input.StochasticSoilModel.Name;
+                calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
 
             return calculationConfiguration;

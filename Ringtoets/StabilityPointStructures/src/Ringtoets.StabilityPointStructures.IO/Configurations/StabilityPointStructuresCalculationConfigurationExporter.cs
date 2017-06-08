@@ -33,15 +33,16 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
     /// <summary>
     /// Exports a stability point structures calculation configuration and stores it as an XML file.
     /// </summary>
-    public class StabilityPointStructuresCalculationConfigurationExporter : CalculationConfigurationExporter<
-        StabilityPointStructuresCalculationConfigurationWriter,
-        StructuresCalculation<StabilityPointStructuresInput>,
-        StabilityPointStructuresCalculationConfiguration>
+    public class StabilityPointStructuresCalculationConfigurationExporter
+        : CalculationConfigurationExporter<
+            StabilityPointStructuresCalculationConfigurationWriter,
+            StructuresCalculation<StabilityPointStructuresInput>,
+            StabilityPointStructuresCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="calculations">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

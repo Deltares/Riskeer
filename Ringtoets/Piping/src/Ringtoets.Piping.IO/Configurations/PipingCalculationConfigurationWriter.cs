@@ -55,11 +55,11 @@ namespace Ringtoets.Piping.IO.Configurations
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                             configuration.HydraulicBoundaryLocation);
+                                             configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,
                                              PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
-                                             configuration.SurfaceLine);
+                                             configuration.SurfaceLineName);
             WriteElementWhenContentAvailable(writer,
                                              PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement,
                                              configuration.EntryPointL);
@@ -68,10 +68,10 @@ namespace Ringtoets.Piping.IO.Configurations
                                              configuration.ExitPointL);
             WriteElementWhenContentAvailable(writer,
                                              PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
-                                             configuration.StochasticSoilModel);
+                                             configuration.StochasticSoilModelName);
             WriteElementWhenContentAvailable(writer,
                                              PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
-                                             configuration.StochasticSoilProfile);
+                                             configuration.StochasticSoilProfileName);
 
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 

@@ -42,12 +42,12 @@ namespace Ringtoets.Revetment.IO.Configurations
         }
 
         /// <summary>
-        /// Gets the name of the hydraulic boundary location of the calculation.
+        /// Gets or sets the name of the hydraulic boundary location of the calculation.
         /// </summary>
-        public string HydraulicBoundaryLocation { get; set; }
+        public string HydraulicBoundaryLocationName { get; set; }
 
         /// <summary>
-        /// Gets the upper boundary of the revetment of the calculation.
+        /// Gets or sets the upper boundary of the revetment of the calculation.
         /// </summary>
         public double? UpperBoundaryRevetment { get; set; }
 
@@ -57,27 +57,27 @@ namespace Ringtoets.Revetment.IO.Configurations
         public double? LowerBoundaryRevetment { get; set; }
 
         /// <summary>
-        /// Gets the upper boundary of the water levels of the calculation.
+        /// Gets or sets the upper boundary of the water levels of the calculation.
         /// </summary>
         public double? UpperBoundaryWaterLevels { get; set; }
 
         /// <summary>
-        /// Gets the lower boundary of the water levels of the calculation.
+        /// Gets or sets the lower boundary of the water levels of the calculation.
         /// </summary>
         public double? LowerBoundaryWaterLevels { get; set; }
 
         /// <summary>
-        /// Gets the step size of the calculation.
+        /// Gets or sets the step size of the calculation.
         /// </summary>
         public ConfigurationWaveConditionsInputStepSize? StepSize { get; set; }
 
         /// <summary>
-        /// Gets the name of the foreshore profile of the calculation.
+        /// Gets or sets the id of the foreshore profile of the calculation.
         /// </summary>
-        public string ForeshoreProfile { get; set; }
+        public string ForeshoreProfileId { get; set; }
 
         /// <summary>
-        /// Gets the orientation of the calculation.
+        /// Gets or sets the orientation of the calculation.
         /// </summary>
         public double? Orientation { get; set; }
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Revetment.IO.Configurations
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
                 }
                 name = value;
             }

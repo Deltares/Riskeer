@@ -42,29 +42,29 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Gets the assessment level of the calculation.
+        /// Gets or sets the assessment level of the calculation.
         /// </summary>
         public double? AssessmentLevel { get; set; }
 
         /// <summary>
-        /// Gets the name of the hydraulic boundary location of the calculation.
+        /// Gets or sets the name of the hydraulic boundary location of the calculation.
         /// </summary>
-        public string HydraulicBoundaryLocation { get; set; }
+        public string HydraulicBoundaryLocationName { get; set; }
 
         /// <summary>
-        /// Gets the name of the surface line of the calculation.
+        /// Gets or sets the name of the surface line of the calculation.
         /// </summary>
-        public string SurfaceLine { get; set; }
+        public string SurfaceLineName { get; set; }
 
         /// <summary>
-        /// Gets the name of the stochastic soil model of the calculation.
+        /// Gets or sets the name of the stochastic soil model of the calculation.
         /// </summary>
-        public string StochasticSoilModel { get; set; }
+        public string StochasticSoilModelName { get; set; }
 
         /// <summary>
-        /// Gets the name of the stochastic soil profile of the calculation.
+        /// Gets or sets the name of the stochastic soil profile of the calculation.
         /// </summary>
-        public string StochasticSoilProfile { get; set; }
+        public string StochasticSoilProfileName { get; set; }
 
         /// <summary>
         /// Gets or sets the name for the calculation.
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
                 }
                 name = value;
             }

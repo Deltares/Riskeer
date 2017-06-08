@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.Common.IO.Configurations
@@ -33,8 +34,17 @@ namespace Ringtoets.Common.IO.Configurations
         /// </summary>
         /// <param name="name">The name of the calculation group.</param>
         /// <param name="items">The collection of nested <see cref="IConfigurationItem"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public CalculationGroupConfiguration(string name, IEnumerable<IConfigurationItem> items)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (items == null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
             Name = name;
             Items = items;
         }
@@ -42,7 +52,7 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// Gets the collection of nested <see cref="IConfigurationItem"/>.
         /// </summary>
-        public IEnumerable<IConfigurationItem> Items { get; private set; }
+        public IEnumerable<IConfigurationItem> Items { get; }
 
         public string Name { get; }
     }

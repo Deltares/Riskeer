@@ -52,10 +52,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.AreEqual(name, readCalculation.Name);
             Assert.IsNull(readCalculation.AssessmentLevel);
-            Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
-            Assert.IsNull(readCalculation.SurfaceLine);
-            Assert.IsNull(readCalculation.StochasticSoilModel);
-            Assert.IsNull(readCalculation.StochasticSoilProfile);
+            Assert.IsNull(readCalculation.HydraulicBoundaryLocationName);
+            Assert.IsNull(readCalculation.SurfaceLineName);
+            Assert.IsNull(readCalculation.StochasticSoilModelName);
+            Assert.IsNull(readCalculation.StochasticSoilProfileName);
         }
 
         [Test]
@@ -73,19 +73,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var readCalculation = new MacroStabilityInwardsCalculationConfiguration(calculationName)
             {
                 AssessmentLevel = assessmentLevel,
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                SurfaceLine = surfaceLine,
-                StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = stochasticSoilProfile
+                HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
+                SurfaceLineName = surfaceLine,
+                StochasticSoilModelName = stochasticSoilModel,
+                StochasticSoilProfileName = stochasticSoilProfile
             };
 
             // Assert
             Assert.AreEqual(calculationName, readCalculation.Name);
             Assert.AreEqual(assessmentLevel, readCalculation.AssessmentLevel);
-            Assert.AreEqual(hydraulicBoundaryLocation, readCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(surfaceLine, readCalculation.SurfaceLine);
-            Assert.AreEqual(stochasticSoilModel, readCalculation.StochasticSoilModel);
-            Assert.AreEqual(stochasticSoilProfile, readCalculation.StochasticSoilProfile);
+            Assert.AreEqual(hydraulicBoundaryLocation, readCalculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual(surfaceLine, readCalculation.SurfaceLineName);
+            Assert.AreEqual(stochasticSoilModel, readCalculation.StochasticSoilModelName);
+            Assert.AreEqual(stochasticSoilProfile, readCalculation.StochasticSoilProfileName);
         }
     }
 }

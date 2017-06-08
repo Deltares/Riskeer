@@ -198,13 +198,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
-            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.UpperBoundaryRevetment);
             Assert.IsNull(calculation.LowerBoundaryRevetment);
             Assert.IsNull(calculation.UpperBoundaryWaterLevels);
             Assert.IsNull(calculation.LowerBoundaryWaterLevels);
             Assert.IsNull(calculation.StepSize);
-            Assert.IsNull(calculation.ForeshoreProfile);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.Orientation);
             Assert.IsNull(calculation.WaveReduction);
         }
@@ -302,13 +302,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
-            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
+            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
             Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
             Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
-            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfile);
+            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfileId);
             Assert.AreEqual(5.5, calculation.Orientation);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
@@ -332,13 +332,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
-            Assert.IsNull(calculation.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.IsNull(calculation.UpperBoundaryWaterLevels);
             Assert.IsNull(calculation.LowerBoundaryWaterLevels);
             Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
-            Assert.IsNull(calculation.ForeshoreProfile);
+            Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNull(calculation.Orientation);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);

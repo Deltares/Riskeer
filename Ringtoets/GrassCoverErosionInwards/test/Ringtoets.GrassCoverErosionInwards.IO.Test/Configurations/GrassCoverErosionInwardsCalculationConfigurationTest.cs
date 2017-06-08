@@ -51,8 +51,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.AreEqual(name, readCalculation.Name);
-            Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
-            Assert.IsNull(readCalculation.DikeProfile);
+            Assert.IsNull(readCalculation.HydraulicBoundaryLocationName);
+            Assert.IsNull(readCalculation.DikeProfileId);
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.DikeHeight);
             Assert.IsNull(readCalculation.DikeHeightCalculationType);
@@ -83,8 +83,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var readCalculation = new GrassCoverErosionInwardsCalculationConfiguration(calculationName)
             {
                 Name = calculationName,
-                HydraulicBoundaryLocation = hydraulicBoundaryLocationName,
-                DikeProfile = dikeProfileId,
+                HydraulicBoundaryLocationName = hydraulicBoundaryLocationName,
+                DikeProfileId = dikeProfileId,
                 Orientation = orientation,
                 DikeHeight = dikeHeight,
                 DikeHeightCalculationType = dikeHeightCalculationType,
@@ -105,8 +105,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             Assert.AreEqual(calculationName, readCalculation.Name);
-            Assert.AreEqual(hydraulicBoundaryLocationName, readCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(dikeProfileId, readCalculation.DikeProfile);
+            Assert.AreEqual(hydraulicBoundaryLocationName, readCalculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual(dikeProfileId, readCalculation.DikeProfileId);
             Assert.AreEqual(orientation, readCalculation.Orientation);
             Assert.AreEqual(dikeHeight, readCalculation.DikeHeight);
             Assert.AreEqual(dikeHeightCalculationType, readCalculation.DikeHeightCalculationType);

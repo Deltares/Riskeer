@@ -42,47 +42,47 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Gets the assessment level of the piping calculation.
+        /// Gets or sets the assessment level of the piping calculation.
         /// </summary>
         public double? AssessmentLevel { get; set; }
 
         /// <summary>
-        /// Gets the name of the hydraulic boundary location of the piping calculation.
+        /// Gets or sets the name of the hydraulic boundary location of the piping calculation.
         /// </summary>
-        public string HydraulicBoundaryLocation { get; set; }
+        public string HydraulicBoundaryLocationName { get; set; }
 
         /// <summary>
-        /// Gets the name of the surface line of the piping calculation.
+        /// Gets or sets the name of the surface line of the piping calculation.
         /// </summary>
-        public string SurfaceLine { get; set; }
+        public string SurfaceLineName { get; set; }
 
         /// <summary>
-        /// Gets the l-coordinate of the entry point of the piping calculation.
+        /// Gets or sets the l-coordinate of the entry point of the piping calculation.
         /// </summary>
         public double? EntryPointL { get; set; }
 
         /// <summary>
-        /// Gets the l-coordinate of the exit point of the piping calculation.
+        /// Gets or sets the l-coordinate of the exit point of the piping calculation.
         /// </summary>
         public double? ExitPointL { get; set; }
 
         /// <summary>
-        /// Gets the name of the stochastic soil model of the piping calculation.
+        /// Gets or sets the name of the stochastic soil model of the piping calculation.
         /// </summary>
-        public string StochasticSoilModel { get; set; }
+        public string StochasticSoilModelName { get; set; }
 
         /// <summary>
-        /// Gets the name of the stochastic soil profile of the piping calculation.
+        /// Gets or sets the name of the stochastic soil profile of the piping calculation.
         /// </summary>
-        public string StochasticSoilProfile { get; set; }
+        public string StochasticSoilProfileName { get; set; }
 
         /// <summary>
-        /// Gets the configuration of the phreatic level exit of the piping calculation.
+        /// Gets or sets the configuration of the phreatic level exit of the piping calculation.
         /// </summary>
         public StochastConfiguration PhreaticLevelExit{ get; set; }
 
         /// <summary>
-        /// Gets the configuration of the damping factor exit of the piping calculation.
+        /// Gets or sets the configuration of the damping factor exit of the piping calculation.
         /// </summary>
         public StochastConfiguration DampingFactorExit { get; set; }
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.IO.Configurations
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
                 }
                 name = value;
             }

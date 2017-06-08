@@ -44,35 +44,35 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Gets the name of the hydraulic boundary location of the read grass cover erosion
+        /// Gets or sets the name of the hydraulic boundary location of the read grass cover erosion
         /// inwards calculation.
         /// </summary>
-        public string HydraulicBoundaryLocation { get; set; }
+        public string HydraulicBoundaryLocationName { get; set; }
 
         /// <summary>
-        /// Gets the Id of the dike profile of the read grass cover erosion inwards calculation.
+        /// Gets or sets the id of the dike profile of the read grass cover erosion inwards calculation.
         /// </summary>
-        public string DikeProfile { get; set; }
+        public string DikeProfileId { get; set; }
 
         /// <summary>
-        /// Gets the orientation of the grass cover erosion inwards calculation.
+        /// Gets or sets the orientation of the grass cover erosion inwards calculation.
         /// </summary>
         public double? Orientation { get; set; }
 
         /// <summary>
-        /// Gets the dike height of the grass cover erosion inwards calculation.
+        /// Gets or sets the dike height of the grass cover erosion inwards calculation.
         /// </summary>
         public double? DikeHeight { get; set; }
 
         /// <summary>
-        /// Gets the value for how the dike height should be calculated for the grass cover
+        /// Gets or sets the value for how the dike height should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
         public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; set; }
 
         /// <summary>
-        /// Gets the value for how the overtopping rate should be calculated for the grass cover
-        /// erosion inwards calculation.
+        /// Gets or sets the value for how the overtopping rate should be calculated for the grass 
+        /// cover erosion inwards calculation.
         /// </summary>
         public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
         
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a structure calculation configuration.");
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
                 }
                 name = value;
             }

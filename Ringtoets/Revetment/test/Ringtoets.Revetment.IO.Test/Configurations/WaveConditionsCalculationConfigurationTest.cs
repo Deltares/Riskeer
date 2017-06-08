@@ -51,13 +51,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.AreEqual(name, readCalculation.Name);
-            Assert.IsNull(readCalculation.HydraulicBoundaryLocation);
+            Assert.IsNull(readCalculation.HydraulicBoundaryLocationName);
             Assert.IsNull(readCalculation.UpperBoundaryRevetment);
             Assert.IsNull(readCalculation.LowerBoundaryRevetment);
             Assert.IsNull(readCalculation.UpperBoundaryWaterLevels);
             Assert.IsNull(readCalculation.LowerBoundaryWaterLevels);
             Assert.IsNull(readCalculation.StepSize);
-            Assert.IsNull(readCalculation.ForeshoreProfile);
+            Assert.IsNull(readCalculation.ForeshoreProfileId);
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.WaveReduction);
         }
@@ -83,13 +83,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             // Call
             var readWaveConditionsCalculation = new WaveConditionsCalculationConfiguration(calculationName)
             {
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
                 UpperBoundaryRevetment = upperBoundaryRevetment,
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = stepSize,
-                ForeshoreProfile = foreshoreProfileName,
+                ForeshoreProfileId = foreshoreProfileName,
                 Orientation = orientation,
                 WaveReduction = new WaveReductionConfiguration
                 {
@@ -102,13 +102,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             // Assert
             Assert.AreEqual(calculationName, readWaveConditionsCalculation.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation, readWaveConditionsCalculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(hydraulicBoundaryLocation, readWaveConditionsCalculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(upperBoundaryRevetment, readWaveConditionsCalculation.UpperBoundaryRevetment);
             Assert.AreEqual(lowerBoundaryRevetment, readWaveConditionsCalculation.LowerBoundaryRevetment);
             Assert.AreEqual(upperBoundaryWaterLevels, readWaveConditionsCalculation.UpperBoundaryWaterLevels);
             Assert.AreEqual(lowerBoundaryWaterLevels, readWaveConditionsCalculation.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, readWaveConditionsCalculation.StepSize);
-            Assert.AreEqual(foreshoreProfileName, readWaveConditionsCalculation.ForeshoreProfile);
+            Assert.AreEqual(foreshoreProfileName, readWaveConditionsCalculation.ForeshoreProfileId);
             Assert.AreEqual(orientation, readWaveConditionsCalculation.Orientation);
             Assert.AreEqual(useBreakWater, readWaveConditionsCalculation.WaveReduction.UseBreakWater);
             Assert.AreEqual(breakWaterType, readWaveConditionsCalculation.WaveReduction.BreakWaterType);

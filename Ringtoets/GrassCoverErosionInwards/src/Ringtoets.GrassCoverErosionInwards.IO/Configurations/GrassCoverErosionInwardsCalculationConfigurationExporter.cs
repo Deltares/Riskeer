@@ -43,12 +43,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
-            : base(configuration, filePath) {}
+        public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+            : base(calculations, filePath) {}
 
         protected override GrassCoverErosionInwardsCalculationConfigurationWriter CreateWriter(string filePath)
         {
@@ -60,11 +60,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculation.Name);
 
-            configuration.HydraulicBoundaryLocation = input.HydraulicBoundaryLocation?.Name;
+            configuration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
 
             if (input.DikeProfile != null)
             {
-                configuration.DikeProfile = input.DikeProfile.Id;
+                configuration.DikeProfileId = input.DikeProfile.Id;
                 configuration.DikeHeight = input.DikeHeight;
                 configuration.Orientation = input.Orientation;
 

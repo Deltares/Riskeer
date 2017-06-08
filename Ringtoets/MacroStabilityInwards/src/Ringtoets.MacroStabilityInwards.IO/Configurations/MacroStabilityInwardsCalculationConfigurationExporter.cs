@@ -30,7 +30,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Exports a macro stability inwards calculation configuration and stores it as an XML file.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationExporter : CalculationConfigurationExporter<
+    public class MacroStabilityInwardsCalculationConfigurationExporter 
+        : CalculationConfigurationExporter<
         MacroStabilityInwardsCalculationConfigurationWriter, 
         MacroStabilityInwardsCalculation,
         MacroStabilityInwardsCalculationConfiguration>
@@ -38,11 +39,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public MacroStabilityInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath) : base(configuration, filePath) {}
+        public MacroStabilityInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) 
+            : base(calculations, filePath) {}
 
         protected override MacroStabilityInwardsCalculationConfigurationWriter CreateWriter(string filePath)
         {
@@ -57,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             if (input.HydraulicBoundaryLocation != null)
             {
-                calculationConfiguration.HydraulicBoundaryLocation = input.HydraulicBoundaryLocation.Name;
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
             }
             else if (input.UseAssessmentLevelManualInput)
             {
@@ -66,13 +68,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             if (input.SurfaceLine != null)
             {
-                calculationConfiguration.SurfaceLine = input.SurfaceLine.Name;
+                calculationConfiguration.SurfaceLineName = input.SurfaceLine.Name;
             }
 
             if (input.StochasticSoilModel != null)
             {
-                calculationConfiguration.StochasticSoilModel = input.StochasticSoilModel.Name;
-                calculationConfiguration.StochasticSoilProfile = input.StochasticSoilProfile?.SoilProfile.Name;
+                calculationConfiguration.StochasticSoilModelName = input.StochasticSoilModel.Name;
+                calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
 
             return calculationConfiguration;

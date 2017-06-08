@@ -34,14 +34,16 @@ using Ringtoets.Common.IO.Configurations.Export;
 namespace Ringtoets.Common.IO.TestUtil
 {
     [TestFixture]
-    public abstract class CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<TCalculationConfigurationExporter, TWriter, TCalculation, TConfiguration>
+    public abstract class CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+        TCalculationConfigurationExporter, TWriter, TCalculation, TConfiguration>
         where TCalculation : class, ICalculation
         where TWriter : CalculationConfigurationWriter<TConfiguration>
         where TConfiguration : class, IConfigurationItem
-        where TCalculationConfigurationExporter : CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>
+        where TCalculationConfigurationExporter : CalculationConfigurationExporter<
+            TWriter, TCalculation, TConfiguration>
     {
         [Test]
-        public void Constructor_ConfigurationNull_ThrowArgumentNullException()
+        public void Constructor_CalculationsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => CallConfigurationFilePathConstructor(null, "test.xml");

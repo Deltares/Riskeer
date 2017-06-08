@@ -52,12 +52,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsInstanceOf<IConfigurationItem>(readPipingCalculation);
             Assert.AreEqual(name, readPipingCalculation.Name);
             Assert.IsNull(readPipingCalculation.AssessmentLevel);
-            Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocation);
-            Assert.IsNull(readPipingCalculation.SurfaceLine);
+            Assert.IsNull(readPipingCalculation.HydraulicBoundaryLocationName);
+            Assert.IsNull(readPipingCalculation.SurfaceLineName);
             Assert.IsNull(readPipingCalculation.EntryPointL);
             Assert.IsNull(readPipingCalculation.ExitPointL);
-            Assert.IsNull(readPipingCalculation.StochasticSoilModel);
-            Assert.IsNull(readPipingCalculation.StochasticSoilProfile);
+            Assert.IsNull(readPipingCalculation.StochasticSoilModelName);
+            Assert.IsNull(readPipingCalculation.StochasticSoilProfileName);
             Assert.IsNull(readPipingCalculation.PhreaticLevelExit);
             Assert.IsNull(readPipingCalculation.DampingFactorExit);
         }
@@ -83,12 +83,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var readPipingCalculation = new PipingCalculationConfiguration(calculationName)
             {
                 AssessmentLevel = assessmentLevel,
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                SurfaceLine = surfaceLine,
+                HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
+                SurfaceLineName = surfaceLine,
                 EntryPointL = entryPointL,
                 ExitPointL = exitPointL,
-                StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = stochasticSoilProfile,
+                StochasticSoilModelName = stochasticSoilModel,
+                StochasticSoilProfileName = stochasticSoilProfile,
                 PhreaticLevelExit = new StochastConfiguration
                 {
                     Mean = phreaticLevelExitMean,
@@ -104,12 +104,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.AreEqual(calculationName, readPipingCalculation.Name);
             Assert.AreEqual(assessmentLevel, readPipingCalculation.AssessmentLevel);
-            Assert.AreEqual(hydraulicBoundaryLocation, readPipingCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(surfaceLine, readPipingCalculation.SurfaceLine);
+            Assert.AreEqual(hydraulicBoundaryLocation, readPipingCalculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual(surfaceLine, readPipingCalculation.SurfaceLineName);
             Assert.AreEqual(entryPointL, readPipingCalculation.EntryPointL);
             Assert.AreEqual(exitPointL, readPipingCalculation.ExitPointL);
-            Assert.AreEqual(stochasticSoilModel, readPipingCalculation.StochasticSoilModel);
-            Assert.AreEqual(stochasticSoilProfile, readPipingCalculation.StochasticSoilProfile);
+            Assert.AreEqual(stochasticSoilModel, readPipingCalculation.StochasticSoilModelName);
+            Assert.AreEqual(stochasticSoilProfile, readPipingCalculation.StochasticSoilProfileName);
             Assert.AreEqual(phreaticLevelExitMean, readPipingCalculation.PhreaticLevelExit.Mean);
             Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExit.Mean);

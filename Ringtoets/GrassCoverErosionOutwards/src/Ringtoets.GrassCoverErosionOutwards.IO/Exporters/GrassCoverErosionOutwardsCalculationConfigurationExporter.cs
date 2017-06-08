@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations.Helpers;
 
@@ -34,17 +33,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
     /// Exports a grass cover erosion outwards calculation configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionOutwardsCalculationConfigurationExporter
-        : CalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter, GrassCoverErosionOutwardsWaveConditionsCalculation, WaveConditionsCalculationConfiguration>
+        : CalculationConfigurationExporter<
+            WaveConditionsCalculationConfigurationWriter,
+            GrassCoverErosionOutwardsWaveConditionsCalculation,
+            WaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="configuration">The calculation configuration to export.</param>
+        /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> configuration, string filePath)
-            : base(configuration, filePath) {}
+        public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+            : base(calculations, filePath) {}
 
         protected override WaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
         {

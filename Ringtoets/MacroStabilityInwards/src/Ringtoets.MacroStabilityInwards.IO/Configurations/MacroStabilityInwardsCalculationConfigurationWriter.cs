@@ -56,17 +56,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                             configuration.HydraulicBoundaryLocation);
+                                             configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
-                                             configuration.SurfaceLine);
+                                             configuration.SurfaceLineName);
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
-                                             configuration.StochasticSoilModel);
+                                             configuration.StochasticSoilModelName);
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
-                                             configuration.StochasticSoilProfile);
+                                             configuration.StochasticSoilProfileName);
 
             writer.WriteEndElement();
         }

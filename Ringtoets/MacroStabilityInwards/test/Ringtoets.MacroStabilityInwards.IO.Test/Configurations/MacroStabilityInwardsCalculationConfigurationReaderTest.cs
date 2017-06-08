@@ -126,10 +126,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation.SurfaceLine);
-            Assert.IsNull(calculation.StochasticSoilModel);
-            Assert.IsNull(calculation.StochasticSoilProfile);
+            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
+            Assert.IsNull(calculation.SurfaceLineName);
+            Assert.IsNull(calculation.StochasticSoilModelName);
+            Assert.IsNull(calculation.StochasticSoilProfileName);
         }
 
         [Test]
@@ -189,10 +189,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocation);
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLine);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
+            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
+            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
         }
 
         [Test]
@@ -215,10 +215,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocation);
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLine);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModel);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
+            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
+            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
         }
 
         [Test]
@@ -237,10 +237,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation.SurfaceLine);
-            Assert.IsNull(calculation.StochasticSoilModel);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfile);
+            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
+            Assert.IsNull(calculation.SurfaceLineName);
+            Assert.IsNull(calculation.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
         }
     }
 }
