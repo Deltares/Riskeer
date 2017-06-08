@@ -19,10 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Style;
@@ -40,59 +36,22 @@ namespace Core.Components.Gis.Test.Data.Removable
             var data = new RemovableMapLineData("test data");
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.IsInstanceOf<MapLineData>(data);
             Assert.IsInstanceOf<IRemovable>(data);
-            Assert.AreEqual(Color.Black, data.Style.Color);
-            Assert.AreEqual(2, data.Style.Width);
-            Assert.AreEqual(DashStyle.Solid, data.Style.DashStyle);
         }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("        ")]
-        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
-        {
-            // Call
-            TestDelegate test = () => new RemovableMapLineData(invalidName);
-
-            // Assert
-            const string expectedMessage = "A name must be set to the map data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_StyleNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new RemovableMapLineData("test data", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("style", exception.ParamName);
-        }
-
+        
         [Test]
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
-            var style = new LineStyle
-            {
-                Color = Color.Red,
-                Width = 5,
-                DashStyle = DashStyle.Dash
-            };
+            var style = new LineStyle();
 
             // Call
             var data = new RemovableMapLineData("test data", style);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
-            Assert.AreSame(style, data.Style);
+            Assert.IsInstanceOf<MapLineData>(data);
+            Assert.IsInstanceOf<IRemovable>(data);
         }
     }
 }

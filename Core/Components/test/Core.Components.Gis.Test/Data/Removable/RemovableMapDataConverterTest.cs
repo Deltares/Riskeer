@@ -134,5 +134,15 @@ namespace Core.Components.Gis.Test.Data.Removable
             var exception = Assert.Throws<NotSupportedException>(test);
             Assert.AreEqual("The given mapData was not convertible to IRemovable data.", exception.Message);
         }
+
+        [Test]
+        public void FromFeatureBasedMapData_WithoutData_ThrowsNotSupportedException()
+        {
+            // Call
+            TestDelegate test = () => RemovableMapDataConverter.FromFeatureBasedMapData(null);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace Core.Components.Gis.Data.Removable
         public RemovableMapLineData(string name) : base(name) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="MapLineData"/> with default styling.
+        /// Creates a new instance of <see cref="MapLineData"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
         /// <param name="style">The style of the data.</param>

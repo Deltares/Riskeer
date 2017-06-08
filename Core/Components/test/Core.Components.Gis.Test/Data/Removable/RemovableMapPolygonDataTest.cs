@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Drawing;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Style;
@@ -39,59 +36,22 @@ namespace Core.Components.Gis.Test.Data.Removable
             var data = new RemovableMapPolygonData("test data");
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.IsInstanceOf<MapPolygonData>(data);
             Assert.IsInstanceOf<IRemovable>(data);
-            Assert.AreEqual(Color.DarkGray, data.Style.FillColor);
-            Assert.AreEqual(Color.Black, data.Style.StrokeColor);
-            Assert.AreEqual(2, data.Style.StrokeThickness);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("        ")]
-        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
-        {
-            // Call
-            TestDelegate test = () => new RemovableMapPolygonData(invalidName);
-
-            // Assert
-            const string expectedMessage = "A name must be set to the map data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_StyleNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new RemovableMapPolygonData("test data", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("style", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
-            var style = new PolygonStyle
-            {
-                FillColor = Color.Aqua,
-                StrokeColor = Color.DarkGoldenrod,
-                StrokeThickness = 3
-            };
+            var style = new PolygonStyle();
 
             // Call
             var data = new RemovableMapPolygonData("test data", style);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
-            Assert.AreSame(style, data.Style);
+            Assert.IsInstanceOf<MapPolygonData>(data);
+            Assert.IsInstanceOf<IRemovable>(data);
         }
     }
 }

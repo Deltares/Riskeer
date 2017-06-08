@@ -355,7 +355,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void CanRemove_WithNotRemovableData_ReturnTrue()
+        public void CanRemove_WithNotRemovableData_ReturnFalse()
         {
             // Setup
             var notRemovable = mocks.StrictMock<MapPolygonData>("name");
@@ -387,7 +387,7 @@ namespace Core.Plugins.Map.Test.Legend
             info.OnNodeRemoved(toRemove, collection);
 
             // Assert
-            Assert.AreEqual(new[]
+            CollectionAssert.AreEqual(new[]
             {
                 otherData
             }, collection.Collection);

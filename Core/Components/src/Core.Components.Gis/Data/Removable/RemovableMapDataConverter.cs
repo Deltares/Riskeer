@@ -24,14 +24,14 @@ using System;
 namespace Core.Components.Gis.Data.Removable
 {
     /// <summary>
-    /// Helper for converting <see cref="FeatureBasedMapData"/> to <see cref="FeatureBasedMapData"/>
+    /// Converts <see cref="FeatureBasedMapData"/> to <see cref="FeatureBasedMapData"/>
     /// implementing <see cref="IRemovable"/>.
     /// </summary>
     public static class RemovableMapDataConverter
     {
         /// <summary>
         /// Converts the given <paramref name="mapData"/> to <see cref="FeatureBasedMapData"/> 
-        /// implementing <see cref="IRemovable"/>
+        /// implementing <see cref="IRemovable"/>.
         /// </summary>
         /// <param name="mapData">The map data to convert.</param>
         /// <returns>A new <see cref="FeatureBasedMapData"/> implementing <see cref="IRemovable"/>.</returns>
