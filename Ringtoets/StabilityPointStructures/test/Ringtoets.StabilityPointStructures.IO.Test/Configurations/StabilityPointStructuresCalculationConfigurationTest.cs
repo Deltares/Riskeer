@@ -166,5 +166,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.AreEqual(verticalDistance, configuration.VerticalDistance);
             Assert.AreEqual(volumicWeightWater, configuration.VolumicWeightWater);
         }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new StabilityPointStructuresCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
     }
 }

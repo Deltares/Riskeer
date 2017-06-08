@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
     public class MacroStabilityInwardsCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsCalculationConfiguration(null);
@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
+        public void Constructor_WithName_ExpectedValues()
         {
             // Setup
             const string name = "some name";
@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAsExpected()
+        public void SimpleProperties_SetNewValues_NewValuesSet()
         {
             // Setup
             const string calculationName = "Name of the calculation";
@@ -86,6 +86,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(surfaceLine, readCalculation.SurfaceLineName);
             Assert.AreEqual(stochasticSoilModel, readCalculation.StochasticSoilModelName);
             Assert.AreEqual(stochasticSoilProfile, readCalculation.StochasticSoilProfileName);
+        }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new MacroStabilityInwardsCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 PhreaticLevelExit = new StochastConfiguration
                 {
                     Mean = phreaticLevelExitMean,
-                    StandardDeviation = phreaticLevelExitStandardDeviation,
+                    StandardDeviation = phreaticLevelExitStandardDeviation
                 },
                 DampingFactorExit = new StochastConfiguration
                 {
@@ -114,6 +114,19 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExit.Mean);
             Assert.AreEqual(dampingFactorExitStandardDeviation, readPipingCalculation.DampingFactorExit.StandardDeviation);
+        }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new PipingCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

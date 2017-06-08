@@ -30,7 +30,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
     public class WaveConditionsCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_ConstructionPropertiesNull_ThrowArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new WaveConditionsCalculationConfiguration(null);
@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
+        public void Constructor_WithName_ExpectedValues()
         {
             // Setup
             var name = "some name";
@@ -63,7 +63,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAsExpected()
+        public void SimpleProperties_SetNewValues_NewValuesSet()
         {
             // Setup
             const string calculationName = "Name of the calculation";
@@ -114,6 +114,19 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.AreEqual(breakWaterType, readWaveConditionsCalculation.WaveReduction.BreakWaterType);
             Assert.AreEqual(breakWaterHeight, readWaveConditionsCalculation.WaveReduction.BreakWaterHeight);
             Assert.AreEqual(useForeshore, readWaveConditionsCalculation.WaveReduction.UseForeshoreProfile);
+        }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new WaveConditionsCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

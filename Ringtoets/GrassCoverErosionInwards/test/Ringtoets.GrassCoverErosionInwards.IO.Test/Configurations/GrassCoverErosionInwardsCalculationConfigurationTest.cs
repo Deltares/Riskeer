@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
     public class GrassCoverErosionInwardsCalculationConfigurationTest
     {
         [Test]
-        public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfiguration(null);
@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithoutValues_PropertiesAreDefault()
+        public void Constructor_WithName_ExpectedValues()
         {
             // Setup
             const string name = "name";
@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithValuesSet_PropertiesAsExpected()
+        public void SimpleProperties_SetNewValues_NewValuesSet()
         {
             // Setup
             const string calculationName = "Name of the calculation";
@@ -117,6 +117,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(useForeshore, readCalculation.WaveReduction.UseForeshoreProfile);
             Assert.AreEqual(criticalFlowMean, readCalculation.CriticalFlowRate.Mean);
             Assert.AreEqual(critifalFlowStandardDeviation, readCalculation.CriticalFlowRate.StandardDeviation);
+        }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new GrassCoverErosionInwardsCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

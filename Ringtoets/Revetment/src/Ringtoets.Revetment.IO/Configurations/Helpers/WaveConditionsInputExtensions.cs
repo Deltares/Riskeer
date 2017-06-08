@@ -68,7 +68,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
         /// <param name="input">The wave conditions input to update from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         private static void SetConfigurationForeshoreProfileDependendProperties(WaveConditionsCalculationConfiguration configuration,
-                                                                               WaveConditionsInput input)
+                                                                                WaveConditionsInput input)
         {
             if (configuration == null)
             {

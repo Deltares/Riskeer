@@ -65,5 +65,18 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.AreSame(levelCrestStructure, configuration.LevelCrestStructure);
         }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new HeightStructuresCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
     }
 }

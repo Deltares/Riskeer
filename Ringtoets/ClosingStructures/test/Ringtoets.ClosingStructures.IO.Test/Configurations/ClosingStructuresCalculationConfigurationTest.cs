@@ -108,5 +108,18 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(failureProbabilityReparation, configuration.FailureProbabilityReparation);
             Assert.AreEqual(probabilityOrFrequencyOpenStructureBeforeFlooding, configuration.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
         }
+
+        [Test]
+        public void Name_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculationConfiguration = new ClosingStructuresCalculationConfiguration("valid name");
+
+            // Call
+            TestDelegate test = () => calculationConfiguration.Name = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
     }
 }
