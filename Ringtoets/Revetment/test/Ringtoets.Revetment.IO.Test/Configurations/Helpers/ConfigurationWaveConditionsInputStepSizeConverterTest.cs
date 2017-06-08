@@ -49,10 +49,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            bool canConvertToString = converter.CanConvertTo(typeof(string));
+            bool canConvertTo = converter.CanConvertTo(typeof(string));
 
             // Assert
-            Assert.IsTrue(canConvertToString);
+            Assert.IsTrue(canConvertTo);
         }
 
         [Test]
@@ -62,10 +62,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            bool canConvertToString = converter.CanConvertTo(typeof(WaveConditionsInputStepSize));
+            bool canConvertTo = converter.CanConvertTo(typeof(WaveConditionsInputStepSize));
 
             // Assert
-            Assert.IsTrue(canConvertToString);
+            Assert.IsTrue(canConvertTo);
         }
 
         [Test]
@@ -75,10 +75,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            bool canConvertToNonString = converter.CanConvertTo(typeof(object));
+            bool canConvertTo = converter.CanConvertTo(typeof(object));
 
             // Assert
-            Assert.IsFalse(canConvertToNonString);
+            Assert.IsFalse(canConvertTo);
         }
 
         [Test]
@@ -93,10 +93,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
+            object convertTo = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
 
             // Assert
-            Assert.AreEqual(expectedText, result);
+            Assert.AreEqual(expectedText, convertTo);
         }
 
         [Test]
@@ -124,10 +124,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            object result = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(WaveConditionsInputStepSize));
+            object convertTo = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(WaveConditionsInputStepSize));
 
             // Assert
-            Assert.AreEqual(expectedText, result);
+            Assert.AreEqual(expectedText, convertTo);
         }
 
         [Test]
@@ -163,10 +163,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            bool canConvertFromNullableDouble = converter.CanConvertFrom(typeof(double?));
+            bool canConvertFrom = converter.CanConvertFrom(typeof(double?));
 
             // Assert
-            Assert.IsTrue(canConvertFromNullableDouble);
+            Assert.IsTrue(canConvertFrom);
         }
 
         [Test]
@@ -176,10 +176,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            bool canConvertFromNullableDouble = converter.CanConvertFrom(typeof(WaveConditionsInputStepSize));
+            bool canConvertFrom = converter.CanConvertFrom(typeof(WaveConditionsInputStepSize));
 
             // Assert
-            Assert.IsTrue(canConvertFromNullableDouble);
+            Assert.IsTrue(canConvertFrom);
         }
 
         [Test]
@@ -189,10 +189,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            bool canConvertFromString = converter.CanConvertFrom(typeof(object));
+            bool canConvertFrom = converter.CanConvertFrom(typeof(object));
 
             // Assert
-            Assert.IsFalse(canConvertFromString);
+            Assert.IsFalse(canConvertFrom);
         }
 
         [Test]
@@ -206,10 +206,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            object result = converter.ConvertFrom(null, CultureInfo.CurrentCulture, value);
+            object convertFrom = converter.ConvertFrom(null, CultureInfo.CurrentCulture, value);
 
             // Assert
-            Assert.AreEqual(expectedResult, result);
+            Assert.AreEqual(expectedResult, convertFrom);
         }
 
         [Test]
@@ -255,10 +255,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            object result = converter.ConvertFrom(value);
+            object convertFrom = converter.ConvertFrom(value);
 
             // Assert
-            Assert.AreEqual(expectedResult, result);
+            Assert.AreEqual(expectedResult, convertFrom);
         }
 
         [Test]

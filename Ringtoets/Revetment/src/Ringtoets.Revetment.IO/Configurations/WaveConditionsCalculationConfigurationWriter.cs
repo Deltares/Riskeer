@@ -32,11 +32,8 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// Base implementation of a writer for calculations that contain <see cref="WaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    /// <typeparam name="T">The type of calculations that are written to file.</typeparam>
     public class WaveConditionsCalculationConfigurationWriter : CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
     {
-        private readonly ConfigurationWaveConditionsInputStepSizeConverter configurationWaveConditionsInputStepSizeConverter;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter"/>.
         /// </summary>
@@ -49,10 +46,8 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public WaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath)
-        {
-            configurationWaveConditionsInputStepSizeConverter = new ConfigurationWaveConditionsInputStepSizeConverter();
-        }
+        public WaveConditionsCalculationConfigurationWriter(string filePath)
+            : base(filePath) {}
 
         /// <summary>
         /// Writes a single calculation with its <paramref name="configuration"/> in XML format to file.

@@ -188,7 +188,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>falce</c> when the orientation is invalid, <c>true</c> otherwise.</returns>
+        /// <returns><c>false</c> when the orientation is invalid, <c>true</c> otherwise.</returns>
         private bool TryReadOrientation(WaveConditionsCalculationConfiguration calculationConfiguration, ICalculation<WaveConditionsInput> calculation)
         {
             if (calculationConfiguration.Orientation.HasValue)

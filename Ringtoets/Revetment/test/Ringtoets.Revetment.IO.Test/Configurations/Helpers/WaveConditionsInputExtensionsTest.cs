@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Revetment.Data;

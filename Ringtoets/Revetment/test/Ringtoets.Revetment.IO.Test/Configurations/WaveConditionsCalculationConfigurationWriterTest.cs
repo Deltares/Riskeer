@@ -19,18 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
-using System.Xml;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.Revetment.IO.Test.Configurations
@@ -131,19 +125,6 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         protected override WaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
             return new WaveConditionsCalculationConfigurationWriter(filePath);
-        }
-    }
-
-    public class SimpleWaveConditionsCalculation : Observable, ICalculation
-    {
-        public WaveConditionsInput Input { get; } = new WaveConditionsInput();
-        public string Name { get; set; }
-        public bool HasOutput { get; }
-        public Comment Comments { get; }
-
-        public void ClearOutput()
-        {
-            throw new NotImplementedException();
         }
     }
 }
