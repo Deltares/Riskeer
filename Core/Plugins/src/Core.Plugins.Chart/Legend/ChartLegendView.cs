@@ -125,7 +125,7 @@ namespace Core.Plugins.Chart.Legend
                 CanDrop = ChartDataContextCanDropAndInsert,
                 CanInsert = ChartDataContextCanDropAndInsert,
                 OnDrop = ChartDataContextOnDrop,
-                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData, treeView)
+                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData.WrappedData, treeView)
                                                                                                  .AddCustomItem(CreateZoomToExtentsItem(nodeData.WrappedData))
                                                                                                  .AddSeparator()
                                                                                                  .AddPropertiesItem()

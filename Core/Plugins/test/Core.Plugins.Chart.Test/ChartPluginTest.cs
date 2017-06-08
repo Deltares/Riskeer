@@ -154,7 +154,7 @@ namespace Core.Plugins.Chart.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, propertyInfos.Length);
+                Assert.AreEqual(6, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -165,6 +165,11 @@ namespace Core.Plugins.Chart.Test
                     propertyInfos,
                     typeof(ChartLineData),
                     typeof(ChartLineDataProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ChartAreaData),
+                    typeof(ChartAreaDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
