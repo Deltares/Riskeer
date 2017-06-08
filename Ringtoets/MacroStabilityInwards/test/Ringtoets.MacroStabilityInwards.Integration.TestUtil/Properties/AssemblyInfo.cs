@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.Integration.TestUtils")]
-[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.Integration.TestUtils")]
+[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.Integration.TestUtil")]
+[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.Integration.TestUtil")]
 [assembly: Guid("8e0055e0-7e51-4bcc-badb-33ca07bf4174")]

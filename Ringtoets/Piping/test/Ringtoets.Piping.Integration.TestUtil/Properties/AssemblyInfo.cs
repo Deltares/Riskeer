@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.Integration.TestUtils")]
-[assembly: AssemblyProduct("Ringtoets.Piping.Integration.TestUtils")]
+[assembly: AssemblyTitle("Ringtoets.Piping.Integration.TestUtil")]
+[assembly: AssemblyProduct("Ringtoets.Piping.Integration.TestUtil")]
 [assembly: Guid("73ccaa49-4c40-4083-978b-cb516693236a")]
