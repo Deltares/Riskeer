@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         public WaveReductionConfiguration WaveReduction { get; set; }
 
         /// <summary>
-        /// Gets the critical flow distribution for the grass cover erosion inwards calculation.
+        /// Gets or sets the critical flow distribution for the grass cover erosion inwards calculation.
         /// </summary>
         public StochastConfiguration CriticalFlowRate { get; set; }
 

@@ -52,7 +52,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         public double? UpperBoundaryRevetment { get; set; }
 
         /// <summary>
-        /// Gets the lower boundary of the revetment of the calculation.
+        /// Gets or sets the lower boundary of the revetment of the calculation.
         /// </summary>
         public double? LowerBoundaryRevetment { get; set; }
 
