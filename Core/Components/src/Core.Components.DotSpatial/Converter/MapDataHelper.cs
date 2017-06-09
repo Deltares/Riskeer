@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using DotSpatial.Symbology;
@@ -62,6 +64,40 @@ namespace Core.Components.DotSpatial.Converter
                                                            typeof(PointShape));
             }
             return shape;
+        }
+
+        /// <summary>
+        /// Converts <see cref="LineDashStyle"/> to <see cref="DashStyle"/>.
+        /// </summary>
+        /// <param name="dashStyle">The <see cref="LineDashStyle"/> to convert.</param>
+        /// <returns>The converted <see cref="DashStyle"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="dashStyle"/> 
+        /// cannot be converted.</exception>
+        public static DashStyle Convert(LineDashStyle dashStyle)
+        {
+            var lineStyle = DashStyle.Solid;
+            switch (dashStyle)
+            {
+                case LineDashStyle.Solid:
+                    break;
+                case LineDashStyle.Dash:
+                    lineStyle = DashStyle.Dash;
+                    break;
+                case LineDashStyle.Dot:
+                    lineStyle = DashStyle.Dot;
+                    break;
+                case LineDashStyle.DashDot:
+                    lineStyle = DashStyle.DashDot;
+                    break;
+                case LineDashStyle.DashDotDot:
+                    lineStyle = DashStyle.DashDotDot;
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(dashStyle),
+                                                           (int)dashStyle,
+                                                           typeof(LineDashStyle));
+            }
+            return lineStyle;
         }
     }
 }

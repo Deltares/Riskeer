@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Style;
 using DotSpatial.Symbology;
@@ -30,6 +31,8 @@ namespace Core.Components.DotSpatial.Test.Converter
     [TestFixture]
     public class MapDataHelperTest
     {
+        #region Convert symbol
+
         [Test]
         public void Convert_Circle_ReturnDefault()
         {
@@ -89,5 +92,71 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(test);
         }
+
+        #endregion
+
+        #region Convert DashStyle
+
+        [Test]
+        public void Convert_Solid_ReturnsSolid()
+        {
+            // Call
+            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.Solid);
+
+            // Assert
+            Assert.AreEqual(DashStyle.Solid, dashStyle);
+        }
+
+        [Test]
+        public void Convert_Dash_ReturnsDash()
+        {
+            // Call
+            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.Dash);
+
+            // Assert
+            Assert.AreEqual(DashStyle.Dash, dashStyle);
+        }
+
+        [Test]
+        public void Convert_Dot_ReturnsDot()
+        {
+            // Call
+            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.Dot);
+
+            // Assert
+            Assert.AreEqual(DashStyle.Dot, dashStyle);
+        }
+
+        [Test]
+        public void Convert_DashDot_ReturnsDashDot()
+        {
+            // Call
+            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.DashDot);
+
+            // Assert
+            Assert.AreEqual(DashStyle.DashDot, dashStyle);
+        }
+
+        [Test]
+        public void Convert_DashDotDot_ReturnsDashDotDot()
+        {
+            // Call
+            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.DashDotDot);
+
+            // Assert
+            Assert.AreEqual(DashStyle.DashDotDot, dashStyle);
+        }
+
+        [Test]
+        public void Convert_Unknown_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate call = () => MapDataHelper.Convert((LineDashStyle) 100);
+
+            // Assert
+            Assert.Throws<InvalidEnumArgumentException>(call);
+        }
+
+        #endregion
     }
 }
