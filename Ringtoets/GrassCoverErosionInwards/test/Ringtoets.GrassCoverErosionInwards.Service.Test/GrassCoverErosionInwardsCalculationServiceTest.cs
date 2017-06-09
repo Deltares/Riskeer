@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -608,8 +609,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 EndInFailure = true
             };
+            var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
@@ -653,9 +655,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt.", msgs[2]);
-                StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                    overtoppingCalculator.OutputDirectory,
+                    msgs[1]);
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                    calculation.Name,
+                    dikeHeightCalculator.LastErrorFileContent,
+                    msgs[2]);
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                    dikeHeightCalculator.OutputDirectory,
+                    msgs[3]);
                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
@@ -680,8 +692,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 EndInFailure = true
             };
+            var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
@@ -725,9 +738,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt.", msgs[2]);
-                StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                    overtoppingCalculator.OutputDirectory,
+                    msgs[1]);
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                    calculation.Name,
+                    overtoppingRateCalculator.LastErrorFileContent,
+                    msgs[2]);
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                    overtoppingRateCalculator.OutputDirectory,
+                    msgs[3]);
                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
@@ -964,8 +987,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        calculation.Name,
+                        overtoppingCalculator.LastErrorFileContent,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.IsNull(calculation.Output);
@@ -1029,8 +1059,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    Assert.AreEqual($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        calculation.Name,
+                        overtoppingCalculator.LastErrorFileContent,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
@@ -1095,8 +1132,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        calculation.Name,
+                        overtoppingCalculator.LastErrorFileContent,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
@@ -1122,8 +1166,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = true
             };
+            var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
@@ -1166,9 +1211,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
-                    StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                        calculation.Name,
+                        dikeHeightCalculator.LastErrorFileContent,
+                        msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                        dikeHeightCalculator.OutputDirectory,
+                        msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1192,8 +1247,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 EndInFailure = true
             };
+            var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
@@ -1236,9 +1292,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    Assert.AreEqual($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[2]);
-                    StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                        calculation.Name,
+                        dikeHeightCalculator.LastErrorFileContent,
+                        msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                        dikeHeightCalculator.OutputDirectory,
+                        msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1264,7 +1330,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 EndInFailure = false
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            var overtoppingCalculator = new TestOvertoppingCalculator();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
@@ -1306,9 +1373,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
-                    StringAssert.StartsWith("De HBN berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                        calculation.Name,
+                        dikeHeightCalculator.LastErrorFileContent,
+                        msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
+                        dikeHeightCalculator.OutputDirectory,
+                        msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                     Assert.AreEqual(5, msgs.Length);
                 });
@@ -1334,8 +1412,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 LastErrorFileContent = "An error occurred",
                 EndInFailure = true
             };
+            var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator());
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
@@ -1379,9 +1459,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
-                    StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                        calculation.Name,
+                        overtoppingRateCalculator.LastErrorFileContent,
+                        msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                        overtoppingRateCalculator.OutputDirectory,
+                        msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1405,8 +1495,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 EndInFailure = true
             };
+            var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator());
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
@@ -1450,9 +1541,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    Assert.AreEqual($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[2]);
-                    StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                        calculation.Name,
+                        overtoppingRateCalculator.LastErrorFileContent,
+                        msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                        overtoppingRateCalculator.OutputDirectory,
+                        msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1473,7 +1574,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            mockRepository,
                                                                                                            validFile);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
+            var overtoppingCalculator = new TestOvertoppingCalculator();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 EndInFailure = false,
@@ -1520,9 +1622,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    StringAssert.StartsWith($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[2]);
-                    StringAssert.StartsWith("De overslagdebiet berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
+                        overtoppingCalculator.OutputDirectory,
+                        msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                        calculation.Name,
+                        overtoppingRateCalculator.LastErrorFileContent,
+                        msgs[2]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
+                        GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
+                        overtoppingRateCalculator.OutputDirectory,
+                        msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                     Assert.AreEqual(5, msgs.Length);
                 });

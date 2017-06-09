@@ -38,6 +38,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -51,9 +52,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationActivityIntegrationTest
     {
-        private const string overtoppingCalculationDescription = "overloop en overslag";
-        private const string overtoppingRateCalculationDescription = "overslagdebiet";
-        private const string hbnCalculationDescription = "HBN";
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
@@ -215,22 +213,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                    });
         }
 
-        private static void AssertCalculationFinishedMessage(string calculationDescription, string calculatorOutputDirectory, string actual)
-        {
-            Assert.AreEqual($"De {calculationDescription} berekening is uitgevoerd op de tijdelijke locatie '{calculatorOutputDirectory}'. " +
-                            "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.",
-                            actual);
-        }
-
-        private static void AssertCalculationFailedMessage(string calculationDescription, string calculationName, string detailedReport, string actual)
-        {
-            Assert.AreEqual($"De {calculationDescription} berekening voor grasbekleding erosie kruin en binnentalud '{calculationName}' is niet gelukt. " +
-                            (detailedReport != null
-                                 ? $"Bekijk het foutrapport door op details te klikken.\r\n{detailedReport}"
-                                 : "Er is geen foutrapport beschikbaar."),
-                            actual);
-        }
-
         #region Overtopping calculations
 
         [Test]
@@ -353,7 +335,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
                     Assert.AreEqual($"De overloop en overslag berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet gelukt. {detailedReport}", msgs[3]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, calculator.OutputDirectory, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, calculator.OutputDirectory, msgs[4]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[5]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -400,7 +382,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -642,9 +624,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFailedMessage(hbnCalculationDescription, calculation.Name, dikeHeightCalculator.LastErrorFileContent, msgs[4]);
-                    AssertCalculationFinishedMessage(hbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, calculation.Name, dikeHeightCalculator.LastErrorFileContent, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -700,9 +682,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFailedMessage(hbnCalculationDescription, calculation.Name, dikeHeightCalculator.LastErrorFileContent, msgs[4]);
-                    AssertCalculationFinishedMessage(hbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, calculation.Name, dikeHeightCalculator.LastErrorFileContent, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -759,9 +741,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFailedMessage(hbnCalculationDescription, calculation.Name, dikeHeightCalculator.LastErrorFileContent, msgs[4]);
-                    AssertCalculationFinishedMessage(hbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, calculation.Name, dikeHeightCalculator.LastErrorFileContent, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -824,8 +806,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFinishedMessage(hbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription, dikeHeightCalculator.OutputDirectory, msgs[4]);
                     Assert.AreEqual($"De HBN berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet geconvergeerd.", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
@@ -1073,9 +1055,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFailedMessage(overtoppingRateCalculationDescription, calculation.Name, overtoppingRateCalculator.LastErrorFileContent, msgs[4]);
-                    AssertCalculationFinishedMessage(overtoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, calculation.Name, overtoppingRateCalculator.LastErrorFileContent, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -1131,9 +1113,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFailedMessage(overtoppingRateCalculationDescription, calculation.Name, overtoppingRateCalculator.LastErrorFileContent, msgs[4]);
-                    AssertCalculationFinishedMessage(overtoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, calculation.Name, overtoppingRateCalculator.LastErrorFileContent, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -1190,9 +1172,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFailedMessage(overtoppingRateCalculationDescription, calculation.Name, overtoppingRateCalculator.LastErrorFileContent, msgs[4]);
-                    AssertCalculationFinishedMessage(overtoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, calculation.Name, overtoppingRateCalculator.LastErrorFileContent, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -1255,8 +1237,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    AssertCalculationFinishedMessage(overtoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
-                    AssertCalculationFinishedMessage(overtoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[4]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription, overtoppingCalculator.OutputDirectory, msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription, overtoppingRateCalculator.OutputDirectory, msgs[4]);
                     Assert.AreEqual($"De overslagdebiet berekening voor grasbekleding erosie kruin en binnentalud '{calculation.Name}' is niet geconvergeerd.", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
