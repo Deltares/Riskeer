@@ -120,10 +120,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toetspeil berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        public static string DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_HydraulicBoundaryLocation_0_not_converged {
+        public static string DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_HydraulicBou" +
-                        "ndaryLocation_0_not_converged", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoun" +
+                        "daryLocation_0_not_converged", resourceCulture);
             }
         }
         
@@ -138,23 +138,23 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        public static string DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation_no_error_report {
+        public static string DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calcul" +
-                        "ation_no_error_report", resourceCulture);
+                return ResourceManager.GetString("DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
+                        "_0_click_details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
-        ///{1}.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevel_0_calculation_click_details_for_last_error_report_1 {
+        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevel_0_calculat" +
-                        "ion_click_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
+                        "_0_no_error_report", resourceCulture);
             }
         }
         
@@ -330,10 +330,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        public static string WaveHeightCalculationActivity_WaveHeight_calculation_for_HydraulicBoundaryLocation_0_not_converged {
+        public static string WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeight_calculation_for_HydraulicBoundaryLocatio" +
-                        "n_0_not_converged", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation" +
+                        "_0_not_converged", resourceCulture);
             }
         }
         
@@ -351,20 +351,20 @@ namespace Ringtoets.Common.Service.Properties {
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_details_for_last_error_report_1 {
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_d" +
-                        "etails_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_det" +
+                        "ails_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_no_error_report {
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_no_erro" +
-                        "r_report", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_" +
+                        "report", resourceCulture);
             }
         }
         

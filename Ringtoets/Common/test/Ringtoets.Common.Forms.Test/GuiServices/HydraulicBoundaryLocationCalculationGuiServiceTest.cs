@@ -235,15 +235,15 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             const string hydraulicLocationName = "name";
             const string calculationName = "calculationName";
-            const string notConvergedMessage = "not converged";
+            const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(notConvergedMessage);
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -272,7 +272,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[2]);
-                    Assert.AreEqual(notConvergedMessage, msgs[3]);
+                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[3]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[5]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
@@ -286,15 +286,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string calculationName = "calculationName";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(string.Empty).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -484,15 +483,15 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             const string hydraulicLocationName = "name";
             const string calculationName = "calculationName";
-            const string notConvergedMessage = "not converged";
+            const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(notConvergedMessage);
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -521,7 +520,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[2]);
-                    Assert.AreEqual(notConvergedMessage, msgs[3]);
+                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[3]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[5]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
@@ -535,15 +534,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string calculationName = "calculationName";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return("activityDescription");
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return("not converged");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(string.Empty).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>

@@ -151,8 +151,6 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
-            const string calculationName = "locationName";
-            const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
             const double norm = 1.0 / 30;
 
             var calculator = new TestDesignWaterLevelCalculator();
@@ -161,8 +159,8 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProviderStub.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProviderStub.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
+            calculationMessageProviderStub.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
+            calculationMessageProviderStub.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0);
@@ -225,7 +223,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
-            const string calculationName = "locationName";
+            const string calculationName = "calculationName";
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
 
@@ -288,8 +286,8 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
-            const string calculationName = "locationName";
-            const string calculationFailedMessage = "calculationFailedUnexplainedMessage";
+            const string calculationName = "calculationName";
+            const string calculationFailedUnexplainedMessage = "calculationFailedUnexplainedMessage";
             const double norm = 1.0 / 30;
 
             var calculator = new TestDesignWaterLevelCalculator
@@ -302,7 +300,7 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedMessage);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedUnexplainedMessage);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
@@ -333,7 +331,7 @@ namespace Ringtoets.Common.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[0]);
-                    StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
+                    StringAssert.StartsWith(calculationFailedUnexplainedMessage, msgs[1]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[3]);
                 });
@@ -350,7 +348,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
-            const string calculationName = "locationName";
+            const string calculationName = "calculationName";
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
 

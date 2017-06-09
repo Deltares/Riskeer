@@ -85,20 +85,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de Waterstand bij doorsnede-eis berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevel_0_calculation_click_details_for_last_error_report_1 {
+        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevel_0_calculation" +
-                        "_click_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevelCalculation_0_" +
+                        "click_details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de Waterstand bij doorsnede-eis berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevel_0_calculation_no_error_report {
+        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevel_0_calculation" +
-                        "_no_error_report", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevelCalculation_0_" +
+                        "no_error_report", resourceCulture);
             }
         }
         
@@ -106,30 +106,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation_click_details_for_last_error_report_1 {
+        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation_click" +
-                        "_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeightCalculation_0_click_" +
+                        "details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation_no_error_report {
+        public static string GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeightCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation_no_er" +
-                        "ror_report", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeightCalculation_0_no_err" +
+                        "or_report", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Waterstand bij doorsnede-eis berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_DesignWaterLevel_calculation_for_HydraulicBoundaryLocation_0_not_converged {
+        public static string GrassCoverErosionOutwardsPlugin_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_DesignWaterLevel_calculation_for_HydraulicBoundar" +
-                        "yLocation_0_not_converged", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_DesignWaterLevelCalculation_for_HydraulicBoundary" +
+                        "Location_0_not_converged", resourceCulture);
             }
         }
         
@@ -175,10 +175,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_WaveHeight_calculation_for_HydraulicBoundaryLocation_0_not_converged {
+        public static string GrassCoverErosionOutwardsPlugin_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_WaveHeight_calculation_for_HydraulicBoundaryLocat" +
-                        "ion_0_not_converged", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_WaveHeightCalculation_for_HydraulicBoundaryLocati" +
+                        "on_0_not_converged", resourceCulture);
             }
         }
         

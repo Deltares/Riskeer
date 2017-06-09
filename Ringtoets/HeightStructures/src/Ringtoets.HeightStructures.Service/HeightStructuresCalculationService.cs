@@ -157,12 +157,12 @@ namespace Ringtoets.HeightStructures.Service
                     string lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
-                        log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_no_error_report,
+                        log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_HeightStructuresCalculation_0_no_error_report,
                                         calculationName);
                     }
                     else
                     {
-                        log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_report_1,
+                        log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_HeightStructuresCalculation_0_click_details_for_last_error_report_1,
                                         calculationName, lastErrorContent);
                     }
 
@@ -176,7 +176,7 @@ namespace Ringtoets.HeightStructures.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_report_1,
+                    log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_HeightStructuresCalculation_0_click_details_for_last_error_report_1,
                                     calculationName, lastErrorFileContent);
                 }
 

@@ -105,20 +105,20 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1 {
+        internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculati" +
-                        "on_click_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0" +
+                        "_click_details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_no_error_report {
+        internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculati" +
-                        "on_no_error_report", resourceCulture);
+                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0" +
+                        "_no_error_report", resourceCulture);
             }
         }
         

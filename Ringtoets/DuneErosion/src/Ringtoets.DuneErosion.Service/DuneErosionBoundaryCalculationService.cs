@@ -110,12 +110,12 @@ namespace Ringtoets.DuneErosion.Service
                     string lastErrorContent = calculator.LastErrorFileContent;
                     if (string.IsNullOrEmpty(lastErrorContent))
                     {
-                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_no_error_report,
+                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0_no_error_report,
                                         calculationName);
                     }
                     else
                     {
-                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1,
+                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0_click_details_for_last_error_report_1,
                                         calculationName, lastErrorContent);
                     }
 
@@ -129,7 +129,7 @@ namespace Ringtoets.DuneErosion.Service
                 bool hasErrorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (hasErrorOccurred)
                 {
-                    log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_dune_erosion_0_calculation_click_details_for_last_error_report_1,
+                    log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionCalculation_0_click_details_for_last_error_report_1,
                                     calculationName, lastErrorFileContent);
                 }
 
