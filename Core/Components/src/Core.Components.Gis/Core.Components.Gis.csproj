@@ -66,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Style\LineDashStyle.cs" />
     <Compile Include="Style\LineStyle.cs" />
     <Compile Include="Geometries\MapGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

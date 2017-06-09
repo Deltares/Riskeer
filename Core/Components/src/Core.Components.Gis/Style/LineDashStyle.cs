@@ -20,24 +20,24 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Core.Components.Charting.Properties;
+using Core.Components.Gis.Properties;
 
-namespace Core.Components.Charting.Styles
+namespace Core.Components.Gis.Style
 {
     /// <summary>
-    /// All dash styles supported by <see cref="ChartLineStyle"/>.
+    /// All dash styles supported by <see cref="LineStyle"/>.
     /// </summary>
-    public enum ChartLineDashStyle
+    public enum LineDashStyle
     {
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_Solid_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_Solid_DisplayName))]
         Solid,
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_Dash_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_Dash_DisplayName))]
         Dash,
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_Dot_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_Dot_DisplayName))]
         Dot,
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_DashDot_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_DashDot_DisplayName))]
         DashDot,
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_DashDotDot_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_DashDotDot_DisplayName))]
         DashDotDot
     }
 }

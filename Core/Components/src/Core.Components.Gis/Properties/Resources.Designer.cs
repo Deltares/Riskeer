@@ -154,6 +154,51 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onderbroken.
+        /// </summary>
+        internal static string LineDashStyle_Dash_DisplayName {
+            get {
+                return ResourceManager.GetString("LineDashStyle_Dash_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streep-stip.
+        /// </summary>
+        internal static string LineDashStyle_DashDot_DisplayName {
+            get {
+                return ResourceManager.GetString("LineDashStyle_DashDot_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streep-stip-stip.
+        /// </summary>
+        internal static string LineDashStyle_DashDotDot_DisplayName {
+            get {
+                return ResourceManager.GetString("LineDashStyle_DashDotDot_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestippeld.
+        /// </summary>
+        internal static string LineDashStyle_Dot_DisplayName {
+            get {
+                return ResourceManager.GetString("LineDashStyle_Dot_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doorgetrokken.
+        /// </summary>
+        internal static string LineDashStyle_Solid_DisplayName {
+            get {
+                return ResourceManager.GetString("LineDashStyle_Solid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OpenStreetMap.
         /// </summary>
         internal static string OpenStreetMap_DisplayName {

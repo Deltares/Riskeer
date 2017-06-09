@@ -165,4 +165,19 @@
   <data name="Size_Value_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor grootte moet in het bereik {0} liggen.</value>
   </data>
+  <data name="LineDashStyle_DashDotDot_DisplayName" xml:space="preserve">
+    <value>Streep-stip-stip</value>
+  </data>
+  <data name="LineDashStyle_DashDot_DisplayName" xml:space="preserve">
+    <value>Streep-stip</value>
+  </data>
+  <data name="LineDashStyle_Dash_DisplayName" xml:space="preserve">
+    <value>Onderbroken</value>
+  </data>
+  <data name="LineDashStyle_Dot_DisplayName" xml:space="preserve">
+    <value>Gestippeld</value>
+  </data>
+  <data name="LineDashStyle_Solid_DisplayName" xml:space="preserve">
+    <value>Doorgetrokken</value>
+  </data>
 </root>

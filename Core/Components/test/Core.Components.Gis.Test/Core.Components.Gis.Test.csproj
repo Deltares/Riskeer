@@ -68,6 +68,7 @@
     <Compile Include="Features\MapFeatureTest.cs" />
     <Compile Include="Geometries\MapGeometryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Style\LineDashStyleTest.cs" />
     <Compile Include="Style\LineStyleTest.cs" />
     <Compile Include="Style\PointStyleTest.cs" />
     <Compile Include="Style\PointSymbolTest.cs" />
