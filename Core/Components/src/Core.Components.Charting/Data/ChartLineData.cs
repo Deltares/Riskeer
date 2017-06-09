@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
@@ -35,7 +34,7 @@ namespace Core.Components.Charting.Data
         {
             Color = Color.Black,
             Width = 2,
-            DashStyle = DashStyle.Solid
+            DashStyle = ChartLineDashStyle.Solid
         };
 
         /// <summary>

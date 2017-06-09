@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using OxyPlot;
@@ -35,35 +34,35 @@ namespace Core.Components.OxyPlot.Converter
     public static class ChartDataHelper
     {
         /// <summary>
-        /// Converts <see cref="DashStyle"/> to <see cref="LineStyle"/>.
+        /// Converts <see cref="ChartLineDashStyle"/> to <see cref="LineStyle"/>.
         /// </summary>
-        /// <param name="dashStyle">The <see cref="DashStyle"/> to convert.</param>
+        /// <param name="dashStyle">The <see cref="ChartLineDashStyle"/> to convert.</param>
         /// <returns>The converted <see cref="LineStyle"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="dashStyle"/> 
         /// cannot be converted.</exception>
-        public static LineStyle Convert(DashStyle dashStyle)
+        public static LineStyle Convert(ChartLineDashStyle dashStyle)
         {
             var lineStyle = LineStyle.Solid;
             switch (dashStyle)
             {
-                case DashStyle.Solid:
+                case ChartLineDashStyle.Solid:
                     break;
-                case DashStyle.Dash:
+                case ChartLineDashStyle.Dash:
                     lineStyle = LineStyle.Dash;
                     break;
-                case DashStyle.Dot:
+                case ChartLineDashStyle.Dot:
                     lineStyle = LineStyle.Dot;
                     break;
-                case DashStyle.DashDot:
+                case ChartLineDashStyle.DashDot:
                     lineStyle = LineStyle.DashDot;
                     break;
-                case DashStyle.DashDotDot:
+                case ChartLineDashStyle.DashDotDot:
                     lineStyle = LineStyle.DashDotDot;
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(dashStyle),
                                                            (int) dashStyle,
-                                                           typeof(DashStyle));
+                                                           typeof(ChartLineDashStyle));
             }
             return lineStyle;
         }

@@ -120,6 +120,21 @@
   <data name="Circle_DisplayName" xml:space="preserve">
     <value>Cirkel</value>
   </data>
+  <data name="ChartLineDashStyle_DashDotDot_DisplayName" xml:space="preserve">
+    <value>Streep-stip-stip</value>
+  </data>
+  <data name="ChartLineDashStyle_DashDot_DisplayName" xml:space="preserve">
+    <value>Streep-stip</value>
+  </data>
+  <data name="ChartLineDashStyle_Dash_DisplayName" xml:space="preserve">
+    <value>Onderbroken</value>
+  </data>
+  <data name="ChartLineDashStyle_Dot_DisplayName" xml:space="preserve">
+    <value>Gestippeld</value>
+  </data>
+  <data name="ChartLineDashStyle_Solid_DisplayName" xml:space="preserve">
+    <value>Doorgetrokken</value>
+  </data>
   <data name="Diamond_DisplayName" xml:space="preserve">
     <value>Ruit</value>
   </data>

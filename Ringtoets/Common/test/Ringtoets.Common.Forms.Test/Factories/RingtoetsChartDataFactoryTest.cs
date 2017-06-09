@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
@@ -39,10 +38,10 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             // Assert
             Assert.AreEqual("Voorlandprofiel", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.DarkOrange, 2, ChartLineDashStyle.Solid);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);

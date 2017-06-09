@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.Base.Data;
 using Core.Components.Charting.Properties;
 
@@ -67,6 +66,6 @@ namespace Core.Components.Charting.Styles
         /// <summary>
         /// Gets or sets the line dash style.
         /// </summary>
-        public DashStyle DashStyle { get; set; }
+        public ChartLineDashStyle DashStyle { get; set; }
     }
 }

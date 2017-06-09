@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -44,7 +43,7 @@ namespace Core.Components.Charting.Test.Data
             Assert.IsInstanceOf<PointBasedChartData>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
-            Assert.AreEqual(DashStyle.Solid, data.Style.DashStyle);
+            Assert.AreEqual(ChartLineDashStyle.Solid, data.Style.DashStyle);
         }
 
         [Test]
@@ -80,7 +79,7 @@ namespace Core.Components.Charting.Test.Data
             {
                 Color = Color.Red,
                 Width = 3,
-                DashStyle = DashStyle.DashDot
+                DashStyle = ChartLineDashStyle.DashDot
             };
 
             // Call

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -58,7 +57,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             {
                 Color = color,
                 Width = 3,
-                DashStyle = DashStyle.DashDot
+                DashStyle = ChartLineDashStyle.DashDot
             });
 
             SetChartLineDataTestProperties(chartLineData);
@@ -80,7 +79,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries
             {
                 Color = color,
                 Width = 3,
-                DashStyle = DashStyle.DashDot
+                DashStyle = ChartLineDashStyle.DashDot
             });
             var chartLineDataSeries = new ChartLineDataSeries(chartLineData);
 

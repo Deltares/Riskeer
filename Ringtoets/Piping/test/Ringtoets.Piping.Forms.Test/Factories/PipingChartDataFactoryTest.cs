@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -44,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Profielschematisatie", data.Name);
-            AssertEqualStyle(data.Style, Color.Sienna, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.Sienna, 2, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -282,7 +281,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             Assert.AreEqual("soilLayerIndex", paramName);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);

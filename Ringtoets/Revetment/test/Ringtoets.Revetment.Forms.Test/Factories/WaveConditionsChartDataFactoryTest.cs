@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
@@ -46,7 +45,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 3, DashStyle.Solid);
+            AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -61,7 +60,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 3, DashStyle.Solid);
+            AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -76,7 +75,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 8, DashStyle.Solid);
+            AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -91,7 +90,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Hulplijn bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 8, DashStyle.Dash);
+            AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Dash);
         }
 
         [Test]
@@ -103,7 +102,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens waterstanden", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumBlue, 3, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -115,7 +114,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens waterstanden", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumBlue, 3, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -141,7 +140,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Points);
             Assert.AreEqual(designWaterLevelName, data.Name);
-            AssertEqualStyle(data.Style, Color.LightCoral, 3, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.LightCoral, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -153,7 +152,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Lines);
             Assert.AreEqual("Waterstanden in berekening", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, DashStyle.DashDotDot);
+            AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, ChartLineDashStyle.DashDotDot);
         }
 
         [Test]
@@ -223,7 +222,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);

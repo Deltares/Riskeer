@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
@@ -37,7 +36,7 @@ namespace Core.Components.Charting.Test.Styles
             // Setup
             Color color = Color.AliceBlue;
             const int width = 3;
-            const DashStyle style = DashStyle.Solid;
+            const ChartLineDashStyle style = ChartLineDashStyle.Solid;
 
             // Call
             var lineStyle = new ChartLineStyle

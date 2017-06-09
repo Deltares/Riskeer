@@ -22,7 +22,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
@@ -88,7 +87,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             {
                 Color = expectedColor,
                 Width = 3,
-                DashStyle = DashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid
             });
 
             // Call
@@ -111,7 +110,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             {
                 Color = Color.Red,
                 Width = width,
-                DashStyle = DashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid
             });
 
             // Call
@@ -122,12 +121,12 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        [TestCase(DashStyle.Solid, LineStyle.Solid)]
-        [TestCase(DashStyle.Dash, LineStyle.Dash)]
-        [TestCase(DashStyle.Dot, LineStyle.Dot)]
-        [TestCase(DashStyle.DashDot, LineStyle.DashDot)]
-        [TestCase(DashStyle.DashDotDot, LineStyle.DashDotDot)]
-        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentDashStyles_AppliesStyleToSeries(DashStyle dashStyle, LineStyle expectedLineStyle)
+        [TestCase(ChartLineDashStyle.Solid, LineStyle.Solid)]
+        [TestCase(ChartLineDashStyle.Dash, LineStyle.Dash)]
+        [TestCase(ChartLineDashStyle.Dot, LineStyle.Dot)]
+        [TestCase(ChartLineDashStyle.DashDot, LineStyle.DashDot)]
+        [TestCase(ChartLineDashStyle.DashDotDot, LineStyle.DashDotDot)]
+        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentDashStyles_AppliesStyleToSeries(ChartLineDashStyle dashStyle, LineStyle expectedLineStyle)
         {
             // Setup
             var converter = new ChartLineDataConverter();

@@ -54,6 +54,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Styles\ChartAreaStyle.cs" />
+    <Compile Include="Styles\ChartLineDashStyle.cs" />
     <Compile Include="Styles\ChartLineStyle.cs" />
     <Compile Include="Styles\ChartPointStyle.cs" />
     <Compile Include="Styles\ChartPointSymbol.cs" />

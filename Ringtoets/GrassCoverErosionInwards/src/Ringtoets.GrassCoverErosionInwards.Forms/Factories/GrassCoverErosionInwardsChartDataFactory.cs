@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -48,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
                                      {
                                          Color = Color.SaddleBrown,
                                          Width = 2,
-                                         DashStyle = DashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid
                                      });
         }
 
@@ -63,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
                                      {
                                          Color = Color.MediumSeaGreen,
                                          Width = 2,
-                                         DashStyle = DashStyle.Dash
+                                         DashStyle = ChartLineDashStyle.Dash
                                      });
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using NUnit.Framework;
@@ -42,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
 
             // Assert
             Assert.AreEqual("Dijkprofiel", data.Name);
-            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -53,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
 
             // Assert
             Assert.AreEqual("Dijkhoogte", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, DashStyle.Dash);
+            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, ChartLineDashStyle.Dash);
         }
 
         [Test]
@@ -151,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);

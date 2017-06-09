@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -47,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Factories
                                      {
                                          Color = Color.Sienna,
                                          Width = 2,
-                                         DashStyle = DashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid
                                      });
         }
 

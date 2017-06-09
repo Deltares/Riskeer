@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Styles;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
@@ -59,7 +58,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_Solid_ReturnsSolid()
         {
             // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.Solid);
+            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.Solid);
 
             // Assert
             Assert.AreEqual(LineStyle.Solid, lineStyle);
@@ -69,7 +68,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_Dash_ReturnsDash()
         {
             // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.Dash);
+            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.Dash);
 
             // Assert
             Assert.AreEqual(LineStyle.Dash, lineStyle);
@@ -79,7 +78,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_Dot_ReturnsDot()
         {
             // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.Dot);
+            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.Dot);
 
             // Assert
             Assert.AreEqual(LineStyle.Dot, lineStyle);
@@ -89,7 +88,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_DashDot_ReturnsDashDot()
         {
             // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.DashDot);
+            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.DashDot);
 
             // Assert
             Assert.AreEqual(LineStyle.DashDot, lineStyle);
@@ -99,17 +98,17 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void Convert_DashDotDot_ReturnsDashDotDot()
         {
             // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(DashStyle.DashDotDot);
+            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.DashDotDot);
 
             // Assert
             Assert.AreEqual(LineStyle.DashDotDot, lineStyle);
         }
 
         [Test]
-        public void Convert_Custom_ThrowsInvalidEnumArgumentException()
+        public void Convert_Unknown_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate call = () => ChartDataHelper.Convert(DashStyle.Custom);
+            TestDelegate call = () => ChartDataHelper.Convert((ChartLineDashStyle) 100);
 
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(call);

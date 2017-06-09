@@ -21,10 +21,10 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Core.Plugins.Chart.PropertyClasses;
@@ -71,7 +71,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);            
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
@@ -84,7 +84,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
-            Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
+            Assert.IsInstanceOf<EnumTypeConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
@@ -97,7 +97,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             // Setup
             Color color = Color.Aqua;
             const int width = 4;
-            const DashStyle dashStyle = DashStyle.DashDot;
+            const ChartLineDashStyle dashStyle = ChartLineDashStyle.DashDot;
 
             var chartLineData = new ChartLineData("Test", new ChartLineStyle
             {
@@ -130,7 +130,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             {
                 Color = Color.AliceBlue,
                 Width = 3,
-                DashStyle = DashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid
             });
 
             chartLineData.Attach(observerMock);
@@ -142,7 +142,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
 
             Color newColor = Color.Blue;
             const int newWidth = 6;
-            const DashStyle newDashStyle = DashStyle.DashDot;
+            const ChartLineDashStyle newDashStyle = ChartLineDashStyle.DashDot;
 
             // Call
             properties.Color = newColor;

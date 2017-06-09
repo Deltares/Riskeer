@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
@@ -61,7 +60,7 @@ namespace Demo.Ringtoets.Commands
                                           {
                                               Color = Color.DarkRed,
                                               Width = 3,
-                                              DashStyle = DashStyle.Solid
+                                              DashStyle = ChartLineDashStyle.Solid
                                           })
             {
                 Points = new[]
@@ -96,7 +95,7 @@ namespace Demo.Ringtoets.Commands
                                           {
                                               Color = Color.DarkSlateBlue,
                                               Width = 2,
-                                              DashStyle = DashStyle.DashDot
+                                              DashStyle = ChartLineDashStyle.DashDot
                                           })
             {
                 Points = new[]

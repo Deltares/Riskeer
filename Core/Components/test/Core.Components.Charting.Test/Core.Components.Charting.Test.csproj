@@ -63,6 +63,7 @@
     <Compile Include="Data\ChartPointDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Styles\ChartAreaStyleTest.cs" />
+    <Compile Include="Styles\ChartLineDashStyleTest.cs" />
     <Compile Include="Styles\ChartLineStyleTest.cs" />
     <Compile Include="Styles\ChartPointStyleTest.cs" />
   </ItemGroup>

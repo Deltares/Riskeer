@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.Common.Forms.Factories;
@@ -74,7 +73,7 @@ namespace Ringtoets.Revetment.Forms.Factories
                                      {
                                          Color = lineColor,
                                          Width = revetmentThickness,
-                                         DashStyle = DashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid
                                      });
         }
 
@@ -90,7 +89,7 @@ namespace Ringtoets.Revetment.Forms.Factories
                                      {
                                          Color = Color.FromArgb(120, lineColor),
                                          Width = revetmentThickness,
-                                         DashStyle = DashStyle.Dash
+                                         DashStyle = ChartLineDashStyle.Dash
                                      });
         }
 
@@ -133,7 +132,7 @@ namespace Ringtoets.Revetment.Forms.Factories
                                      {
                                          Color = Color.LightCoral,
                                          Width = levelThickness,
-                                         DashStyle = DashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid
                                      });
         }
 
@@ -148,7 +147,7 @@ namespace Ringtoets.Revetment.Forms.Factories
                                              {
                                                  Color = Color.DarkTurquoise,
                                                  Width = levelThickness,
-                                                 DashStyle = DashStyle.DashDotDot
+                                                 DashStyle = ChartLineDashStyle.DashDotDot
                                              });
         }
 
@@ -179,7 +178,7 @@ namespace Ringtoets.Revetment.Forms.Factories
             {
                 Color = lineColor,
                 Width = levelThickness,
-                DashStyle = DashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid
             };
         }
 
@@ -189,7 +188,7 @@ namespace Ringtoets.Revetment.Forms.Factories
             {
                 Color = Color.MediumBlue,
                 Width = levelThickness,
-                DashStyle = DashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid
             };
         }
     }
