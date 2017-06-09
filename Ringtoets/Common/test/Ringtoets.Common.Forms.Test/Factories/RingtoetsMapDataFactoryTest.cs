@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;

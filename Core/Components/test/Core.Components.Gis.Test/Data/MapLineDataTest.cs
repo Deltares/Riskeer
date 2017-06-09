@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;

@@ -118,7 +118,6 @@
     <Compile Include="Commands\StorageCommandHandler.cs" />
     <Compile Include="Commands\ViewCommandHandler.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
-    <Compile Include="Converters\DashStyleConverter.cs" />
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
     <Compile Include="Converters\ColorTypeConverter.cs" />

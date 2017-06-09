@@ -93,7 +93,6 @@
     <Compile Include="ContextMenu\StrictContextMenuItemTest.cs" />
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
-    <Compile Include="Converters\DashStyleConverterTest.cs" />
     <Compile Include="Converters\ExpandableArrayConverterTest.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverterTest.cs" />
     <Compile Include="Converters\ColorTypeConverterTest.cs" />
