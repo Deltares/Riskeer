@@ -67,6 +67,6 @@ namespace Core.Components.Gis.Style
         /// <summary>
         /// Gets or sets the line style.
         /// </summary>
-        public DashStyle DashStyle { get; set; }
+        public LineDashStyle DashStyle { get; set; }
     }
 }

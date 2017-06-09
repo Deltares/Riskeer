@@ -22,12 +22,13 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
-using System.Drawing.Drawing2D;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.UITypeEditors;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Style;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses
@@ -77,8 +78,8 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_DashStyle_Description))]
-        [TypeConverter(typeof(DashStyleConverter))]
-        public DashStyle DashStyle
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public LineDashStyle DashStyle
         {
             get
             {

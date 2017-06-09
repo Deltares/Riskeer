@@ -29,6 +29,7 @@ using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -169,7 +170,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapLineDataWithStyle_ConvertsStyleToMapLineLayer(
             [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor color,
             [Values(1, 5)] int width,
-            [Values(DashStyle.Solid, DashStyle.Dash)] DashStyle lineStyle)
+            [Values(LineDashStyle.Solid, LineDashStyle.Dash)] LineDashStyle lineStyle)
         {
             // Setup
             Color expectedColor = Color.FromKnownColor(color);
@@ -186,7 +187,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             converter.ConvertLayerProperties(mapLineData, mapLineLayer);
 
             // Assert
-            AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, width, lineStyle, LineCap.Round), mapLineLayer.Symbolizer);
+            AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, width, MapDataHelper.Convert(lineStyle), LineCap.Round), mapLineLayer.Symbolizer);
         }
 
         private static void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)

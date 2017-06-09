@@ -21,11 +21,11 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -93,7 +93,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
-            Assert.IsInstanceOf<DashStyleConverter>(styleProperty.Converter);
+            Assert.IsInstanceOf<EnumTypeConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
@@ -106,7 +106,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             Color color = Color.Aqua;
             const int width = 4;
-            const DashStyle dashStyle = DashStyle.DashDot;
+            const LineDashStyle dashStyle = LineDashStyle.DashDot;
 
             var mapLineData = new MapLineData("Test", new LineStyle
             {
@@ -143,7 +143,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             {
                 Color = Color.AliceBlue,
                 Width = 3,
-                DashStyle = DashStyle.Solid
+                DashStyle = LineDashStyle.Solid
             });
 
             mapLineData.Attach(observerMock);
@@ -155,7 +155,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             Color newColor = Color.Blue;
             const int newWidth = 6;
-            const DashStyle newDashStyle = DashStyle.DashDot;
+            const LineDashStyle newDashStyle = LineDashStyle.DashDot;
 
             // Call
             properties.Color = newColor;

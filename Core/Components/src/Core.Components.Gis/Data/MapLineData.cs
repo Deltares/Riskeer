@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
@@ -37,7 +36,7 @@ namespace Core.Components.Gis.Data
         private static readonly LineStyle defaultLineStyle = new LineStyle {
             Color = Color.Black,
             Width = 2,
-            DashStyle = DashStyle.Solid
+            DashStyle = LineDashStyle.Solid
         };
 
         /// <summary>

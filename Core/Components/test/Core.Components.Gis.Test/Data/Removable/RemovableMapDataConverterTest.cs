@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
@@ -75,7 +74,7 @@ namespace Core.Components.Gis.Test.Data.Removable
             {
                 Color = Color.AliceBlue,
                 Width = 3,
-                DashStyle = DashStyle.Dash
+                DashStyle = LineDashStyle.Dash
             };
 
             var mapData = new MapLineData(name, lineStyle)

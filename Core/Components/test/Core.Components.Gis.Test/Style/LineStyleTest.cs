@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
@@ -37,7 +36,7 @@ namespace Core.Components.Gis.Test.Style
             // Setup
             Color color = Color.AliceBlue;
             const int width = 3;
-            const DashStyle style = DashStyle.Solid;
+            const LineDashStyle style = LineDashStyle.Solid;
 
             // Call
             var lineStyle = new LineStyle

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Referentielijn", data.Name);
-            AssertEqualStyle(data.Style, Color.Red, 3, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.Red, 3, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Vakindeling", data.Name);
-            AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
+            AssertEqualStyle(data.Style, Color.Khaki, 3, LineDashStyle.Dot);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Dijkprofielen", data.Name);
-            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Voorlandprofielen", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.DarkOrange, 2, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
@@ -143,10 +143,10 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             Assert.IsEmpty(data.Features);
             Assert.AreEqual("Berekeningen", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumPurple, 2, DashStyle.Dash);
+            AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
         }
 
-        private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, DashStyle style)
+        private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);

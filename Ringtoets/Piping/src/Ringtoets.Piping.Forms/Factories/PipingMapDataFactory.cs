@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Piping.Data;
@@ -46,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Factories
                                    {
                                        Color = Color.DarkSeaGreen,
                                        Width = 2,
-                                       DashStyle = DashStyle.Solid
+                                       DashStyle = LineDashStyle.Solid
                                    })
             {
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name
@@ -64,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Factories
                                    {
                                        Color = Color.FromArgb(70, Color.SaddleBrown),
                                        Width = 5,
-                                       DashStyle = DashStyle.Solid
+                                       DashStyle = LineDashStyle.Solid
                                    })
             {
                 SelectedMetaDataAttribute = RingtoetsCommonFormsResources.MetaData_Name

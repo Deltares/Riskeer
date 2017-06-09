@@ -44,7 +44,11 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapLineData mapData)
         {
-            return new LineSymbolizer(mapData.Style.Color, mapData.Style.Color, mapData.Style.Width, mapData.Style.DashStyle, LineCap.Round);
+            return new LineSymbolizer(mapData.Style.Color,
+                                      mapData.Style.Color,
+                                      mapData.Style.Width,
+                                      MapDataHelper.Convert(mapData.Style.DashStyle),
+                                      LineCap.Round);
         }
 
         private static IBasicGeometry GetGeometry(MapFeature mapFeature)

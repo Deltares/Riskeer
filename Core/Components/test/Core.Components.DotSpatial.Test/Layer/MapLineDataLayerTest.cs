@@ -28,6 +28,7 @@ using Core.Components.DotSpatial.Layer;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
@@ -59,7 +60,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             {
                 Color = Color.AliceBlue,
                 Width = 2,
-                DashStyle = DashStyle.DashDot
+                DashStyle = LineDashStyle.DashDot
             });
 
             SetMapLineDataTestProperties(mapLineData);
@@ -82,7 +83,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             {
                 Color = Color.AliceBlue,
                 Width = 2,
-                DashStyle = DashStyle.DashDot
+                DashStyle = LineDashStyle.DashDot
             });
             var mapLineDataLayer = new MapLineDataLayer(mapLineData);
 

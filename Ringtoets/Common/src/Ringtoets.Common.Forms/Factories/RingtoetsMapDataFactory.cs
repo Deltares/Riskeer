@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -55,7 +53,7 @@ namespace Ringtoets.Common.Forms.Factories
                                    {
                                        Color = Color.Red,
                                        Width = thickLineWidth,
-                                       DashStyle = DashStyle.Solid
+                                       DashStyle = LineDashStyle.Solid
                                    })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
@@ -95,7 +93,7 @@ namespace Ringtoets.Common.Forms.Factories
                                    {
                                        Color = Color.Khaki,
                                        Width = thickLineWidth,
-                                       DashStyle = DashStyle.Dot
+                                       DashStyle = LineDashStyle.Dot
                                    })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
@@ -153,7 +151,7 @@ namespace Ringtoets.Common.Forms.Factories
                                    {
                                        Color = Color.SaddleBrown,
                                        Width = thinLineWidth,
-                                       DashStyle = DashStyle.Solid
+                                       DashStyle = LineDashStyle.Solid
                                    })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
@@ -171,7 +169,7 @@ namespace Ringtoets.Common.Forms.Factories
                                    {
                                        Color = Color.DarkOrange,
                                        Width = thinLineWidth,
-                                       DashStyle = DashStyle.Solid
+                                       DashStyle = LineDashStyle.Solid
                                    })
             {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
@@ -210,7 +208,7 @@ namespace Ringtoets.Common.Forms.Factories
                                    {
                                        Color = Color.MediumPurple,
                                        Width = thinLineWidth,
-                                       DashStyle = DashStyle.Dash
+                                       DashStyle = LineDashStyle.Dash
                                    })
             {
                 ShowLabels = true,
