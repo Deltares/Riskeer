@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -350,7 +351,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Calculate_GeneralInpuNull_ThrowArgumentNullException()
+        public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -850,15 +851,15 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                                                       validFilePath);
 
                 // Assert
+                RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
+
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(25, msgs.Length);
-
-                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
-                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
-                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
-                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken gestart.", msgs[1]);
@@ -893,7 +894,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
                 WaveConditionsOutput[] blocksWaveConditionsOutputs = calculation.Output.BlocksOutput.ToArray();
                 Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
-                AssertFailedCalculationOutput(blocksWaveConditionsOutputs[0]);
+
+                double targetNorm = assessmentSectionStub.FailureMechanismContribution.Norm;
+                AssertFailedCalculationOutput(waterLevelUpperBoundaryRevetment, targetNorm, blocksWaveConditionsOutputs[0]);
 
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
@@ -951,6 +954,11 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                                                       validFilePath);
 
                 // Assert
+                RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
+                RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
+                RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
+
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
@@ -969,11 +977,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor blokken beëindigd.", msgs[11]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor zuilen gestart.", msgs[12]);
-
-                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
-                    RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
-                    RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
-                    RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
                     Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[13]);
                     Assert.AreEqual($"Berekening '{calculation.Name}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[14]);
@@ -997,23 +1000,28 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
-                AssertFailedCalculationOutput(columnsWaveConditionsOutputs[0]);
+
+                double targetNorm = assessmentSectionStub.FailureMechanismContribution.Norm;
+                AssertFailedCalculationOutput(waterLevelUpperBoundaryRevetment, targetNorm, columnsWaveConditionsOutputs[0]);
             }
             mockRepository.VerifyAll();
         }
 
-        private static void AssertFailedCalculationOutput(WaveConditionsOutput actual)
+        private static void AssertFailedCalculationOutput(double waterLevel, double targetNorm, WaveConditionsOutput actual)
         {
+            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
+            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
+
             Assert.IsNotNull(actual);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaterLevel);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaveHeight);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WavePeakPeriod);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaveAngle);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaveDirection);
-            Assert.AreEqual(double.NaN, actual.TargetProbability);
-            Assert.AreEqual(RoundedDouble.NaN, actual.TargetReliability);
-            Assert.AreEqual(double.NaN, actual.CalculatedProbability);
-            Assert.AreEqual(RoundedDouble.NaN, actual.CalculatedReliability);
+            Assert.AreEqual(waterLevel, actual.WaterLevel, actual.WaterLevel.GetAccuracy());
+            Assert.IsNaN(actual.WaveHeight);
+            Assert.IsNaN(actual.WavePeakPeriod);
+            Assert.IsNaN(actual.WaveAngle);
+            Assert.IsNaN(actual.WaveDirection);
+            Assert.AreEqual(targetProbability, actual.TargetProbability);
+            Assert.AreEqual(targetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
+            Assert.IsNaN(actual.CalculatedProbability);
+            Assert.IsNaN(actual.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actual.CalculationConvergence);
         }
 

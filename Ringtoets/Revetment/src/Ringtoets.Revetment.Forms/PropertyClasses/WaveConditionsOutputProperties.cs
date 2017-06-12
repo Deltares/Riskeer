@@ -25,7 +25,6 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Properties;
@@ -99,17 +98,19 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_Description))]
-        public string TargetProbability
+        public double TargetProbability
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.TargetProbability);
+                return data.TargetProbability;
             }
         }
 
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetReliability_Description))]
@@ -121,17 +122,19 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedProbability_Description))]
-        public string CalculatedProbability
+        public double CalculatedProbability
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.CalculatedProbability);
+                return data.CalculatedProbability;
             }
         }
 
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedReliability_Description))]

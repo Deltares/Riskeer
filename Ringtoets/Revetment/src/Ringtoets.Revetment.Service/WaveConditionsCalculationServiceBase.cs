@@ -27,7 +27,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
@@ -176,7 +175,7 @@ namespace Ringtoets.Revetment.Service
                     else
                     {
                         calculationsFailed++;
-                        outputs.Add(CreateFailedWaveConditionsOutput());
+                        outputs.Add(WaveConditionsOutputFactory.CreateFailedOutput(waterLevel, norm));
                     }
                 }
                 finally
@@ -198,20 +197,6 @@ namespace Ringtoets.Revetment.Service
             }
 
             return outputs;
-        }
-
-        private static WaveConditionsOutput CreateFailedWaveConditionsOutput()
-        {
-            return new WaveConditionsOutput(double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            double.NaN,
-                                            CalculationConvergence.CalculatedNotConverged);
         }
 
         private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
@@ -279,14 +264,14 @@ namespace Ringtoets.Revetment.Service
             {
                 calculator.Calculate(calculationInput);
 
-                output = WaveConditionsService.Calculate(waterLevel,
-                                                         calculator.WaveHeight,
-                                                         calculator.WavePeakPeriod,
-                                                         calculator.WaveAngle,
-                                                         calculator.WaveDirection,
-                                                         norm,
-                                                         calculator.ReliabilityIndex,
-                                                         calculator.Converged);
+                output = WaveConditionsOutputFactory.CreateOutput(waterLevel,
+                                                                  calculator.WaveHeight,
+                                                                  calculator.WavePeakPeriod,
+                                                                  calculator.WaveAngle,
+                                                                  calculator.WaveDirection,
+                                                                  norm,
+                                                                  calculator.ReliabilityIndex,
+                                                                  calculator.Converged);
             }
             catch (Exception e) when (e is HydraRingCalculationException || e is ArgumentOutOfRangeException)
             {

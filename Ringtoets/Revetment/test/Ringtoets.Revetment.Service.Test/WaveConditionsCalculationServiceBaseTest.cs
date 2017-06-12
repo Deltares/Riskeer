@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -649,7 +650,7 @@ namespace Ringtoets.Revetment.Service.Test
                 WaveConditionsOutput[] waveConditionsOutputs = service.Outputs.ToArray();
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
-                AssertFailedCalculationOutput(waveConditionsOutputs[0]);
+                AssertFailedCalculationOutput(waterLevelUpperBoundary, norm, waveConditionsOutputs[0]);
             }
             mockRepository.VerifyAll();
         }
@@ -695,18 +696,21 @@ namespace Ringtoets.Revetment.Service.Test
             mockRepository.VerifyAll();
         }
 
-        private static void AssertFailedCalculationOutput(WaveConditionsOutput actual)
+        private static void AssertFailedCalculationOutput(double waterLevel, double targetNorm, WaveConditionsOutput actual)
         {
+            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
+            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
+
             Assert.IsNotNull(actual);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaterLevel);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaveHeight);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WavePeakPeriod);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaveAngle);
-            Assert.AreEqual(RoundedDouble.NaN, actual.WaveDirection);
-            Assert.AreEqual(double.NaN, actual.TargetProbability);
-            Assert.AreEqual(RoundedDouble.NaN, actual.TargetReliability);
-            Assert.AreEqual(double.NaN, actual.CalculatedProbability);
-            Assert.AreEqual(RoundedDouble.NaN, actual.CalculatedReliability);
+            Assert.AreEqual(waterLevel, actual.WaterLevel, actual.WaterLevel.GetAccuracy());
+            Assert.IsNaN(actual.WaveHeight);
+            Assert.IsNaN(actual.WavePeakPeriod);
+            Assert.IsNaN(actual.WaveAngle);
+            Assert.IsNaN(actual.WaveDirection);
+            Assert.AreEqual(targetProbability, actual.TargetProbability);
+            Assert.AreEqual(targetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
+            Assert.IsNaN(actual.CalculatedProbability);
+            Assert.IsNaN(actual.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actual.CalculationConvergence);
         }
 

@@ -27,7 +27,6 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.TestUtil;
@@ -78,12 +77,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedOutputProperty.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
             Assert.AreEqual(expectedOutputProperty.WaveAngle, firstOutputProperties.WaveAngle);
             Assert.AreEqual(expectedOutputProperty.WaveDirection, firstOutputProperties.WaveDirection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedOutputProperty.TargetProbability),
-                            firstOutputProperties.TargetProbability);
+            Assert.AreEqual(expectedOutputProperty.TargetProbability, firstOutputProperties.TargetProbability);
             Assert.AreEqual(expectedOutputProperty.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedOutputProperty.TargetProbability),
-                            firstOutputProperties.TargetProbability);
+            Assert.AreEqual(expectedOutputProperty.TargetProbability, firstOutputProperties.TargetProbability);
             Assert.AreEqual(expectedOutputProperty.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
 
