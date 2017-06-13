@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -42,6 +41,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
+using Ringtoets.Revetment.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 {
@@ -823,35 +823,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.Items.ToArray();
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
-                double targetNorm = TargetNorm(assessmentSectionStub, failureMechanism);
-                AssertFailedCalculationOutput(waterLevelUpperBoundaryRevetment, targetNorm, waveConditionsOutputs[0]);
+                double targetNorm = CalculateTargetNorm(assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                        failureMechanismContribution,
+                                                        failureMechanism.GeneralInput.N);
+                WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
+                                                                  targetNorm,
+                                                                  waveConditionsOutputs[0]);
             }
             mockRepository.VerifyAll();
         }
 
-        private static double TargetNorm(IAssessmentSection assessmentSectionStub, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static double CalculateTargetNorm(double norm, double contribution, int N)
         {
-            return assessmentSectionStub.FailureMechanismContribution.Norm
-                   * (failureMechanism.Contribution / 100)
-                   / failureMechanism.GeneralInput.N;
-        }
-
-        private static void AssertFailedCalculationOutput(double waterLevel, double targetNorm, WaveConditionsOutput actual)
-        {
-            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
-            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
-
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(waterLevel, actual.WaterLevel, actual.WaterLevel.GetAccuracy());
-            Assert.IsNaN(actual.WaveHeight);
-            Assert.IsNaN(actual.WavePeakPeriod);
-            Assert.IsNaN(actual.WaveAngle);
-            Assert.IsNaN(actual.WaveDirection);
-            Assert.AreEqual(targetProbability, actual.TargetProbability);
-            Assert.AreEqual(targetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
-            Assert.IsNaN(actual.CalculatedProbability);
-            Assert.IsNaN(actual.CalculatedReliability);
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actual.CalculationConvergence);
+            return norm * (contribution / 100) / N;
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()

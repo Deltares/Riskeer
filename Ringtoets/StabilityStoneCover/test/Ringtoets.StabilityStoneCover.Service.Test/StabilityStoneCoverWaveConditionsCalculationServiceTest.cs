@@ -24,12 +24,10 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -40,6 +38,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
+using Ringtoets.Revetment.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test
@@ -896,7 +895,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
 
                 double targetNorm = assessmentSectionStub.FailureMechanismContribution.Norm;
-                AssertFailedCalculationOutput(waterLevelUpperBoundaryRevetment, targetNorm, blocksWaveConditionsOutputs[0]);
+                WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
+                                                                  targetNorm,
+                                                                  blocksWaveConditionsOutputs[0]);
 
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
@@ -1002,27 +1003,11 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
 
                 double targetNorm = assessmentSectionStub.FailureMechanismContribution.Norm;
-                AssertFailedCalculationOutput(waterLevelUpperBoundaryRevetment, targetNorm, columnsWaveConditionsOutputs[0]);
+                WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
+                                                                  targetNorm,
+                                                                  columnsWaveConditionsOutputs[0]);
             }
             mockRepository.VerifyAll();
-        }
-
-        private static void AssertFailedCalculationOutput(double waterLevel, double targetNorm, WaveConditionsOutput actual)
-        {
-            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
-            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
-
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(waterLevel, actual.WaterLevel, actual.WaterLevel.GetAccuracy());
-            Assert.IsNaN(actual.WaveHeight);
-            Assert.IsNaN(actual.WavePeakPeriod);
-            Assert.IsNaN(actual.WaveAngle);
-            Assert.IsNaN(actual.WaveDirection);
-            Assert.AreEqual(targetProbability, actual.TargetProbability);
-            Assert.AreEqual(targetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
-            Assert.IsNaN(actual.CalculatedProbability);
-            Assert.IsNaN(actual.CalculatedReliability);
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actual.CalculationConvergence);
         }
 
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()

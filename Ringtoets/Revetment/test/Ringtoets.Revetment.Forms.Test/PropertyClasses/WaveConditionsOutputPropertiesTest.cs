@@ -59,30 +59,20 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidDataOfFailedCalculation_ReturnsExpectedValues()
+        public void GetProperties_ValuesNaN_ReturnsExpectedValues()
         {
             // Setup
-            var random = new Random(12);
-            double waterLevel = random.NextDouble();
-            const double waveHeight = double.NaN;
-            const double wavePeakPeriod = double.NaN;
-            const double waveAngle = double.NaN;
-            const double waveDirection = double.NaN;
-            double targetProbability = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            const double calculatedProbability = double.NaN;
-            const double calculatedReliability = double.NaN;
             var convergence = new Random().NextEnumValue<CalculationConvergence>();
 
             // Call
             var properties = new WaveConditionsOutputProperties
             {
-                Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
-                                                targetReliability, calculatedProbability, calculatedReliability, convergence)
+                Data = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                double.NaN, double.NaN, double.NaN, convergence)
             };
 
             // Assert
-            Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
+            Assert.IsNaN(properties.WaterLevel);
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(WaveConditionsOutputProperties.WaterLevel));
 
@@ -102,11 +92,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(WaveConditionsOutputProperties.WaveAngle));
 
-            Assert.AreEqual(targetProbability, properties.TargetProbability, properties.TargetProbability);
+            Assert.IsNaN(properties.TargetProbability);
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoProbabilityValueDoubleConverter>(
                 nameof(WaveConditionsOutputProperties.TargetProbability));
 
-            Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
+            Assert.IsNaN(properties.TargetReliability);
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>
                 (nameof(WaveConditionsOutputProperties.TargetReliability));
 
@@ -146,40 +136,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.WaterLevel));
-
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.WaveHeight));
-
             Assert.AreEqual(wavePeakPeriod, properties.WavePeakPeriod, properties.WavePeakPeriod.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.WavePeakPeriod));
-
             Assert.AreEqual(waveDirection, properties.WaveDirection, properties.WaveDirection.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.WaveAngle));
-
             Assert.AreEqual(waveAngle, properties.WaveAngle, properties.WaveAngle.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.WaveAngle));
-
             Assert.AreEqual(targetProbability, properties.TargetProbability);
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoProbabilityValueDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.TargetProbability));
-
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoProbabilityValueDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.TargetProbability));
-
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoProbabilityValueDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.CalculatedProbability));
-
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
-            TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
-                nameof(WaveConditionsOutputProperties.CalculatedReliability));
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);
