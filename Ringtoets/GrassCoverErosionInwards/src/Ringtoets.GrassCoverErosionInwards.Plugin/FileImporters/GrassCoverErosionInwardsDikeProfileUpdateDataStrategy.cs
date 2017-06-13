@@ -99,6 +99,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
                 affectedObjects.Add(calculation.InputParameters);
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
+                if (!objectToUpdate.ForeshoreGeometry.Any())
+                {
+                    calculation.InputParameters.UseForeshore = false;
+                }
+
                 GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                     FailureMechanism.SectionResults,
                     FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
