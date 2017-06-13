@@ -21,9 +21,7 @@
 
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
-using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -184,8 +182,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertDikeProfiles(MigratedDatabaseReader reader)
         {
             const string validateDikeProfiles =
-                "SELECT COUNT(DISTINCT(Name)) = COUNT() " +
-                "AND COUNT(DISTINCT(Id)) = COUNT() FROM DikeProfileEntity";
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM DikeProfileEntity " +
+                "GROUP BY [FailureMechanismEntityId]";
             reader.AssertReturnedDataIsValid(validateDikeProfiles);
         }
 
