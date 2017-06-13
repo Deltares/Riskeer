@@ -1654,6 +1654,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Service.TestUtil.Test", "Ringtoets\Common\test\Ringtoets.Common.Service.TestUtil.Test\Ringtoets.Common.Service.TestUtil.Test.csproj", "{78E175F5-19D3-4F8E-87F1-A38880C51C03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test", "Ringtoets\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test\Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test.csproj", "{CE7E92A2-00F7-423A-98F2-C5F78437D54D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -4160,6 +4170,22 @@ Global
 		{61506E11-2D00-44FE-AB74-44D5766DF457}.Release|x86.Build.0 = Release|x86
 		{61506E11-2D00-44FE-AB74-44D5766DF457}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{61506E11-2D00-44FE-AB74-44D5766DF457}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.Debug|x86.ActiveCfg = Debug|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.Debug|x86.Build.0 = Debug|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.Release|x86.ActiveCfg = Release|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.Release|x86.Build.0 = Release|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.Debug|x86.ActiveCfg = Debug|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.Debug|x86.Build.0 = Debug|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.Release|x86.ActiveCfg = Release|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.Release|x86.Build.0 = Release|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4517,6 +4543,8 @@ Global
 		{1FD22BC2-B3D5-49D5-9E9B-694BE547DB6D} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{52093DA6-D545-476A-ADFD-12F56625E36B} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{61506E11-2D00-44FE-AB74-44D5766DF457} = {1C1E8754-CF61-4858-9CEE-3E5DE344474F}
+		{78E175F5-19D3-4F8E-87F1-A38880C51C03} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
+		{CE7E92A2-00F7-423A-98F2-C5F78437D54D} = {1C1E8754-CF61-4858-9CEE-3E5DE344474F}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1
