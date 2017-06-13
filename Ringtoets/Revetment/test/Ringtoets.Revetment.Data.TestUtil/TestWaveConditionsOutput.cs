@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.TestUtil
+namespace Ringtoets.Revetment.Data.TestUtil
 {
     /// <summary>
     /// Simple wave conditions output that can be used for testing.

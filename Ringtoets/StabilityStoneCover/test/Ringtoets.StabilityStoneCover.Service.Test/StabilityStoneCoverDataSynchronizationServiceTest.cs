@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test

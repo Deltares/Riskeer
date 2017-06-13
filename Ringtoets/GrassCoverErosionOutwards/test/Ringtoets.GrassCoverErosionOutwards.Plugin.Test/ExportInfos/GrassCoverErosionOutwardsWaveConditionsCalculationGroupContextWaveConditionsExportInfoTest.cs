@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.IO.WaveConditions;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos

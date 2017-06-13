@@ -29,7 +29,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.IO.WaveConditions;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;

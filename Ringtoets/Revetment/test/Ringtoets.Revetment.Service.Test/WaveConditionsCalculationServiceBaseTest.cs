@@ -38,7 +38,7 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Service.Test
 {

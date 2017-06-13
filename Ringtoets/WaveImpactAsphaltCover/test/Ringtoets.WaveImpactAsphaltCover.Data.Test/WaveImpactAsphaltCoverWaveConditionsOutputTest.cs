@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 {

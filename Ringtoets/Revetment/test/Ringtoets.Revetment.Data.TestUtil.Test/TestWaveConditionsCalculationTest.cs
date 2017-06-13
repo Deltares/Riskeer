@@ -22,9 +22,8 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.TestUtil.Test
+namespace Ringtoets.Revetment.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestWaveConditionsCalculationTest

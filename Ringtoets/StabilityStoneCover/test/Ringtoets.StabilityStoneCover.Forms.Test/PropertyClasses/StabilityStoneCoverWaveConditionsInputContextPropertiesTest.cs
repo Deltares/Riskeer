@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 

@@ -6,8 +6,8 @@
     <ProjectGuid>{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Revetment.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Revetment.TestUtil.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Revetment.Data.TestUtil.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Revetment.Data.TestUtil.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -23,9 +23,8 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.TestUtil
+namespace Ringtoets.Revetment.Data.TestUtil
 {
     /// <summary>
     /// A test helper to assert <see cref="WaveConditionsOutput"/>.

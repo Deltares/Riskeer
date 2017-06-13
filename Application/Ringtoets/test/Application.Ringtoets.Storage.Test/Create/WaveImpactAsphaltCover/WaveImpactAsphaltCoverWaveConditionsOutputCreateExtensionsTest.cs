@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
 {

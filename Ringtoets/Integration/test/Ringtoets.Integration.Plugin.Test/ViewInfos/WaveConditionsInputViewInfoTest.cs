@@ -40,7 +40,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.TestUtil;
 using Ringtoets.Revetment.Forms.Views;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;

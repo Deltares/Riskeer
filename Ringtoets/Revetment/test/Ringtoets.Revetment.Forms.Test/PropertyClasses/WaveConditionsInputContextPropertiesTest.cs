@@ -43,7 +43,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.TestUtil;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 {

@@ -38,7 +38,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.TestUtils;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;

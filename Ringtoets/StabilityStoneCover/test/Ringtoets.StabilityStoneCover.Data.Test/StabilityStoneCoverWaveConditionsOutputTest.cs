@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
 {

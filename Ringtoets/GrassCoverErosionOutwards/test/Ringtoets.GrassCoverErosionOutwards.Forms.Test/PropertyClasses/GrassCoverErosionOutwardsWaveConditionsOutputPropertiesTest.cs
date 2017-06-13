@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {

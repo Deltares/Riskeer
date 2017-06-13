@@ -22,10 +22,9 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Revetment.TestUtil
+namespace Ringtoets.Revetment.Data.TestUtil
 {
     /// <summary>
     /// Creates a simple <see cref="ICalculation{T}"/> implementation

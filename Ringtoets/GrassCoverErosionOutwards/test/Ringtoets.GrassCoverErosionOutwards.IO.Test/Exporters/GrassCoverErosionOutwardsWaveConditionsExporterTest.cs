@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.WaveConditions;
-using Ringtoets.Revetment.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
 {
