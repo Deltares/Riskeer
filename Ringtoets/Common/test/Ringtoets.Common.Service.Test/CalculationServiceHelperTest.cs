@@ -45,13 +45,32 @@ namespace Ringtoets.Common.Service.Test
             Action call = () => CalculationServiceHelper.LogMessagesAsError(format, errorMessages);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new []
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(string.Format(format, errorMessages[0]), msgs[0]);
-                StringAssert.StartsWith(string.Format(format, errorMessages[1]), msgs[1]);
-            });
+                Tuple.Create(string.Format(format, errorMessages[0]), LogLevelConstant.Error),
+                Tuple.Create(string.Format(format, errorMessages[1]), LogLevelConstant.Error)
+            }, 2);
+        }
+
+        [Test]
+        public void LogMessagesAsWarning_Always_LogsMessagesInGivenFormat()
+        {
+            // Setup
+            var warningMessages = new[]
+            {
+                "Test 1",
+                "Test 2"
+            };
+
+            // Call
+            Action call = () => CalculationServiceHelper.LogMessagesAsWarning(warningMessages);
+
+            // Assert
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            {
+                Tuple.Create(warningMessages[0], LogLevelConstant.Warn),
+                Tuple.Create(warningMessages[1], LogLevelConstant.Warn)
+            }, 2);
         }
 
         [Test]
