@@ -5,7 +5,7 @@ TargetProject version: 17.1
 */
 PRAGMA foreign_keys = OFF;
 
-ATTACH DATABASE [{0}] AS SOURCEPROJECT;
+ATTACH DATABASE '{0}' AS SOURCEPROJECT;
 
 INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
@@ -189,20 +189,35 @@ INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SO
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
-INSERT INTO StochasticSoilModelEntity 
+INSERT INTO StochasticSoilModelEntity (
+	[StochasticSoilModelEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[SegmentName],
+	[StochasticSoilModelSegmentPointXml],
+	[Order])
 SELECT 
 	[StochasticSoilModelEntityId],
 	[FailuremechanismEntityId],
-	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	CASE WHEN Suffix THEN [Name] || ' (' || SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength) || Suffix || ')' ELSE [Name] END AS [Name],
 	[SegmentName],
 	[StochasticSoilModelSegmentPointXml],
 	[Order]
-	FROM (SELECT *, (SELECT count(*)
-                     FROM [SOURCEPROJECT].StochasticSoilModelEntity
-                     WHERE SSM.StochasticSoilModelEntityId > StochasticSoilModelEntityId
-                     AND SSM.Name IS Name
-                     AND SSM.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
-	FROM [SOURCEPROJECT].StochasticSoilModelEntity SSM);
+	FROM 
+	(
+		SELECT *, MAX(MaxLength - LENGTH(NAME), 0) as SuffixPreLength, 
+		(
+			SELECT COUNT() 
+			FROM [SOURCEPROJECT].StochasticSoilModelEntity
+			WHERE SSM.StochasticSoilModelEntityId > StochasticSoilModelEntityId
+			AND SSM.Name IS Name
+			AND SSM.FailuremechanismEntityId = FailuremechanismEntityId
+		) AS Suffix 
+		FROM [SOURCEPROJECT].StochasticSoilModelEntity SSM
+		JOIN (
+			SELECT MAX(LENGTH(Name)-3) as MaxLength FROM [SOURCEPROJECT].StochasticSoilModelEntity
+		)
+	);
 INSERT INTO StochasticSoilProfileEntity 
 SELECT
     [StochasticSoilProfileEntityId],
@@ -216,21 +231,37 @@ SELECT
     [Order] 
 FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
-INSERT INTO SurfaceLineEntity
-SELECT 
+INSERT INTO SurfaceLineEntity (
 	[SurfaceLineEntityId],
-	[FailuremechanismEntityId],
-	CASE WHEN Suffix THEN [Name] || '(' || Suffix || ')' ELSE [Name] END as [Name],
+	[FailureMechanismEntityId],
+	[Name],
 	[ReferenceLineIntersectionX],
 	[ReferenceLineIntersectionY],
 	[PointsXml],
-	[Order]
-	FROM (SELECT *, (SELECT count(*)
-                     FROM [SOURCEPROJECT].SurfaceLineEntity
-                     WHERE SL.SurfaceLineEntityId > SurfaceLineEntityId
-                     AND SL.Name IS Name
-                     AND SL.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
-	FROM [SOURCEPROJECT].SurfaceLineEntity SL);
+	[Order])
+SELECT 
+	[SurfaceLineEntityId],
+	[FailuremechanismEntityId],
+	CASE WHEN Suffix THEN [Name] || ' (' || SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength) || Suffix || ')' ELSE [Name] END AS [Name],
+	[ReferenceLineIntersectionX],
+	[ReferenceLineIntersectionY],
+	[PointsXml],
+	[Order]	
+	FROM 
+	(
+		SELECT *, MAX(MaxLength - LENGTH(NAME), 0) as SuffixPreLength, 
+		(
+			SELECT COUNT() 
+			FROM [SOURCEPROJECT].SurfaceLineEntity
+			WHERE SL.SurfaceLineEntityId > SurfaceLineEntityId
+			AND SL.Name IS Name
+			AND SL.FailuremechanismEntityId = FailuremechanismEntityId
+	) AS Suffix 
+		FROM [SOURCEPROJECT].SurfaceLineEntity SL
+		JOIN (
+			SELECT MAX(LENGTH(Name)-3) as MaxLength FROM [SOURCEPROJECT].SurfaceLineEntity
+		)
+	);
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO VersionEntity (
 	[VersionId], 
@@ -295,7 +326,7 @@ SELECT BackgroundDataEntityId,
 /* 
 Write migration logging 
 */
-ATTACH DATABASE [{1}] AS LOGDATABASE;
+ATTACH DATABASE '{1}' AS LOGDATABASE;
 
 CREATE TEMP TABLE log_output_deleted (
 	'NrDeleted' INTEGER NOT NULL
