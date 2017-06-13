@@ -31,7 +31,29 @@ namespace Ringtoets.Common.Service.Test
     public class CalculationServiceHelperTest
     {
         [Test]
-        public void LogMessagesAsError_Always_LogsMessagesInGivenFormat()
+        public void LogMessagesAsError_FormatNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("format", exception.ParamName);
+        }
+
+        [Test]
+        public void LogMessagesAsError_ErrorMessagesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError("", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("errorMessages", exception.ParamName);
+        }
+
+        [Test]
+        public void LogMessagesAsError_WithFormatAndErrorMessages_LogsMessagesInGivenFormat()
         {
             // Setup
             const string format = "Message: {0}";
@@ -53,7 +75,18 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogMessagesAsWarning_Always_LogsMessagesInGivenFormat()
+        public void LogMessagesAsWarning_WarningMessagesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsWarning(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("warningMessages", exception.ParamName);
+        }
+
+        [Test]
+        public void LogMessagesAsWarning_WithFormatAndWarningMessages_LogsMessagesInGivenFormat()
         {
             // Setup
             var warningMessages = new[]

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using log4net;
 using Ringtoets.Common.Service.Properties;
 
@@ -36,8 +37,18 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="format">The format for the message.</param>
         /// <param name="errorMessages">The messages to log.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         public static void LogMessagesAsError(string format, params string[] errorMessages)
         {
+            if (format == null)
+            {
+                throw new ArgumentNullException(nameof(format));
+            }
+            if (errorMessages == null)
+            {
+                throw new ArgumentNullException(nameof(errorMessages));
+            }
             foreach (string errorMessage in errorMessages)
             {
                 log.ErrorFormat(format, errorMessage);
@@ -48,8 +59,14 @@ namespace Ringtoets.Common.Service
         /// Logs messages as warnings.
         /// </summary>
         /// <param name="warningMessages">The messages to log.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="warningMessages"/>
+        /// is <c>null</c>.</exception>
         public static void LogMessagesAsWarning(params string[] warningMessages)
         {
+            if (warningMessages == null)
+            {
+                throw new ArgumentNullException(nameof(warningMessages));
+            }
             foreach (string waningMessage in warningMessages)
             {
                 log.Warn(waningMessage);
