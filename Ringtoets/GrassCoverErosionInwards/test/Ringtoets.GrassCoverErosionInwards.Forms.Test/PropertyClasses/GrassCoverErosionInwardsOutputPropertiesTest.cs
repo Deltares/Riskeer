@@ -167,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput,
+            var output = new GrassCoverErosionInwardsOutput(10, true, probabilityAssessmentOutput,
                                                             dikeHeightOutput,
                                                             overtoppingRateOutput);
 
@@ -207,7 +207,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
             }
 
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput,
+            var output = new GrassCoverErosionInwardsOutput(2, true, probabilityAssessmentOutput,
                                                             dikeHeightOutput,
                                                             overtoppingRateOutput);
 
@@ -235,11 +235,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_WithoutDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues()
+        [TestCase(double.NaN)]
+        [TestCase(10)]
+        public void PropertyAttributes_WithoutDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues(double waveHeight)
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, null, null);
+            var output = new GrassCoverErosionInwardsOutput(waveHeight, true, probabilityAssessmentOutput, null, null);
 
             // Call
             var properties = new GrassCoverErosionInwardsOutputProperties
@@ -248,13 +250,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            int propertiesCount = double.IsNaN(waveHeight) ? 6 : 7;
 
-            AssertResultOutputProperties(dynamicProperties);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(propertiesCount, dynamicProperties.Count);
+
+            AssertResultOutputProperties(dynamicProperties, !double.IsNaN(waveHeight));
         }
 
-        private static void AssertResultOutputProperties(PropertyDescriptorCollection dynamicProperties)
+        private static void AssertResultOutputProperties(PropertyDescriptorCollection dynamicProperties, bool waveHeightCalculated = true)
         {
             const string resultCategory = "\t\tResultaat";
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
@@ -292,14 +296,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
-                                                                            resultCategory,
-                                                                            "Indicatieve golfhoogte (Hs) [m]",
-                                                                            "De golfhoogte van de overslag deelberekening.",
-                                                                            true);
+            if (waveHeightCalculated)
+            {
+                PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+                                                                                resultCategory,
+                                                                                "Indicatieve golfhoogte (Hs) [m]",
+                                                                                "De golfhoogte van de overslag deelberekening.",
+                                                                                true);
+            }
 
-            PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
+            int realDominantIndex = waveHeightCalculated ?
+                                        isDominantIndex :
+                                        isDominantIndex - 1;
+
+            PropertyDescriptor isDominantProperty = dynamicProperties[realDominantIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
                                                                             resultCategory,
                                                                             "Overslag dominant [-]",
