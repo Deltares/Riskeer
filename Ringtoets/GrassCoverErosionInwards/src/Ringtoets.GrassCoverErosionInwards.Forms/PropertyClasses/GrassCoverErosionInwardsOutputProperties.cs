@@ -43,7 +43,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
             return propertyName.Contains(nameof(DikeHeight)) && data.DikeHeightOutput != null
-                   || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateOutput != null;
+                   || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateOutput != null
+                   || propertyName.Equals(nameof(WaveHeight)) && !double.IsNaN(data.WaveHeight);
         }
 
         #region GrassCoverErosionInwards result
@@ -109,6 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(6)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result), 1, 3)]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_WaveHeight_Displayname))]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), nameof(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_WaveHeight_Description))]
