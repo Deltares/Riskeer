@@ -124,11 +124,11 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Charting.Forms\Core.Components.Chart.Forms.csproj">
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
       <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
       <Name>Core.Components.Chart.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Charting\Core.Components.Chart.csproj">
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj">
       <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
       <Name>Core.Components.Chart</Name>
     </ProjectReference>
@@ -136,7 +136,7 @@
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Components\test\Core.Components.Charting.TestUtil\Core.Components.Chart.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Components\test\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj">
       <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
       <Name>Core.Components.Chart.TestUtil</Name>
     </ProjectReference>

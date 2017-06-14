@@ -59,7 +59,7 @@
       <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Charting\Core.Components.Chart.csproj">
+    <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj">
       <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
       <Name>Core.Components.Chart</Name>
       <Private>False</Private>

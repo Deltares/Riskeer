@@ -119,7 +119,7 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Chart.Forms.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
       <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
       <Name>Core.Components.Chart.Forms</Name>
       <Private>True</Private>

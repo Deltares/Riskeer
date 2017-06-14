@@ -395,7 +395,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot.For
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart", "Core\Components\src\Core.Components.Charting\Core.Components.Chart.csproj", "{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart", "Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj", "{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -410,12 +410,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.Test", "Core\Components\test\Core.Components.Charting.Test\Core.Components.Chart.Test.csproj", "{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.Test", "Core\Components\test\Core.Components.Chart.Test\Core.Components.Chart.Test.csproj", "{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.TestUtil", "Core\Components\test\Core.Components.Charting.TestUtil\Core.Components.Chart.TestUtil.csproj", "{E900A014-CA87-4374-87F0-813D653A9698}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.TestUtil", "Core\Components\test\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj", "{E900A014-CA87-4374-87F0-813D653A9698}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -524,7 +524,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms",
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.Forms", "Core\Components\src\Core.Components.Charting.Forms\Core.Components.Chart.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.Forms", "Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1639,7 +1639,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.TestUtil.Test", "Core\Components\test\Core.Components.Charting.TestUtil.Test\Core.Components.Chart.TestUtil.Test.csproj", "{1FD22BC2-B3D5-49D5-9E9B-694BE547DB6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.TestUtil.Test", "Core\Components\test\Core.Components.Chart.TestUtil.Test\Core.Components.Chart.TestUtil.Test.csproj", "{1FD22BC2-B3D5-49D5-9E9B-694BE547DB6D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
