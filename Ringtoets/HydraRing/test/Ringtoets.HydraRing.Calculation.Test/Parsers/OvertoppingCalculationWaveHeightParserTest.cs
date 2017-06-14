@@ -186,5 +186,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.AreEqual(expectedWaveHeight, parser.Output.WaveHeight, 1e-11);
             Assert.AreEqual(expectedOvertoppingDominant, parser.Output.IsOvertoppingDominant);
         }
+
+        [Test]
+        public void Parse_WaveHeightNull_OutputSet()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "ValidFileWaveHeightNull");
+            var parser = new OvertoppingCalculationWaveHeightParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            Assert.IsNaN(parser.Output.WaveHeight);
+            Assert.IsFalse(parser.Output.IsOvertoppingDominant);
+        }
     }
 }
