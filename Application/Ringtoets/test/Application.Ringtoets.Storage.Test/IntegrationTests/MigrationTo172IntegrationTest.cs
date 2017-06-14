@@ -35,33 +35,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private const string newVersion = "17.2";
 
         [Test]
-        public void Given171Project_WhenMigratingTo172WithSquareBracketsInPath_DoesNotThrowException()
-        {
-            // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                               "Empty valid [Release 17.1].rtd");
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-
-            const string name = nameof(Given171Project_WhenMigratingTo172WithSquareBracketsInPath_DoesNotThrowException);
-            string targetFilePath = TestHelper.GetScratchPadPath(name);
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(name, "[Release 17.1]", ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
-            {
-                LogPath = logFilePath
-            };
-
-            using (new FileDisposeHelper(logFilePath))
-            using (new FileDisposeHelper(targetFilePath))
-            {
-                // When
-                TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
-
-                // Then
-                Assert.DoesNotThrow(call);
-            }
-        }
-
-        [Test]
         public void Given171Project_WhenUpgradedTo172_ThenProjectAsExpected()
         {
             // Given

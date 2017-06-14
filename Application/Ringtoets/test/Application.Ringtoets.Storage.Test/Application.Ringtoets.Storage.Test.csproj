@@ -99,6 +99,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
     <Compile Include="Exceptions\CannotDetermineFingerprintExceptionTest.cs" />
+    <Compile Include="IntegrationTests\MigrationIntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo172IntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo171IntegrationTest.cs" />
     <Compile Include="IntegrationTests\StorageMigrationIntegrationTest.cs" />
