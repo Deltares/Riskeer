@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Forms;
 
 namespace Demo.Ringtoets.Views
 {

@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using Core.Components.OxyPlot.Converter;
 using Core.Components.OxyPlot.CustomSeries;
 

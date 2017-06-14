@@ -21,7 +21,7 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
 using OxyPlot;

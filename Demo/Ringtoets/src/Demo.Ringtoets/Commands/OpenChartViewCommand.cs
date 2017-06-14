@@ -23,8 +23,8 @@ using System.Drawing;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Styles;
 using Demo.Ringtoets.Properties;
 
 namespace Demo.Ringtoets.Commands

@@ -21,9 +21,9 @@
 
 using System;
 using System.Drawing;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Styles;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.Chart.Data
 {
     /// <summary>
     /// This class represents data in 2D space which is visible as a line.

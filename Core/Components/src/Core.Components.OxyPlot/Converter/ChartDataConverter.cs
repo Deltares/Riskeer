@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter

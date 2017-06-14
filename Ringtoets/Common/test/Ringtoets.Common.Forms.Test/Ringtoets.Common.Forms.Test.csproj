@@ -166,9 +166,9 @@
       <Project>{e02482c7-f12b-42f0-bb2b-c7ec17503a72}</Project>
       <Name>Core.Components.BruTile</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Chart.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
-      <Name>Core.Components.Charting</Name>
+      <Name>Core.Components.Chart</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>

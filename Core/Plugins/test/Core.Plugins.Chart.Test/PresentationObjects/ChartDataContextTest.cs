@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.TestUtil;
 using Core.Plugins.Chart.PresentationObjects;
 using NUnit.Framework;
 

@@ -239,9 +239,9 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Chart.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
-      <Name>Core.Components.Charting</Name>
+      <Name>Core.Components.Chart</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">

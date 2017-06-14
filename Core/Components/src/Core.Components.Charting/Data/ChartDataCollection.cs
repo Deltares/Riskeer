@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.Chart.Data
 {
     /// <summary>
     /// This class represents a collection of <see cref="ChartData"/>.

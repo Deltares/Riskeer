@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.Chart.Data
 {
     /// <summary>
-    /// Exentions methods for <see cref="ChartDataCollection"/>.
+    /// Extension methods for <see cref="ChartDataCollection"/>.
     /// </summary>
     public static class ChartDataCollectionExtensions
     {

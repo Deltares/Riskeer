@@ -24,7 +24,7 @@ using System.Threading;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
 using Demo.Ringtoets.GUIs;
 using Demo.Ringtoets.Views;

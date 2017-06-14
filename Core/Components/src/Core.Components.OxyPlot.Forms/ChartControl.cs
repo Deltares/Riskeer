@@ -25,8 +25,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.DataSeries;
 using OxyPlot.Series;
 

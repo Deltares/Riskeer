@@ -168,13 +168,13 @@
       <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
       <Name>Core.Components.BruTile</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Chart.Forms.csproj">
       <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
-      <Name>Core.Components.Charting.Forms</Name>
+      <Name>Core.Components.Chart.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Chart.csproj">
       <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
-      <Name>Core.Components.Charting</Name>
+      <Name>Core.Components.Chart</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>

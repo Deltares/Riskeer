@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.Chart.Test

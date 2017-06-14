@@ -144,7 +144,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Integration.TestUtil\Ringtoets.Piping.Integration.TestUtil.csproj">
       <Project>{A4972765-DDBB-4A1E-B17C-7185577E5591}</Project>
-      <Name>Ringtoets.Piping.Integration.TestUtils</Name>
+      <Name>Ringtoets.Piping.Integration.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.IO.TestUtil\Ringtoets.Piping.IO.TestUtil.csproj">
       <Project>{4A675B7E-96AD-4911-B154-85385C9330C3}</Project>

@@ -22,10 +22,10 @@
 using System;
 using System.Drawing;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Styles;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Test.Styles
+namespace Core.Components.Chart.Test.Styles
 {
     [TestFixture]
     public class ChartPointStyleTest

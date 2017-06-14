@@ -22,7 +22,7 @@
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Forms;
 using Fluent;
 
 namespace Core.Plugins.Chart

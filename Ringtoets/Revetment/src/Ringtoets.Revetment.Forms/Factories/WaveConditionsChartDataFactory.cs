@@ -21,8 +21,8 @@
 
 using System;
 using System.Drawing;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Styles;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Properties;

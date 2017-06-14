@@ -22,9 +22,9 @@
 using System;
 using System.Drawing;
 using Core.Common.Base.Data;
-using Core.Components.Charting.Properties;
+using Core.Components.Chart.Properties;
 
-namespace Core.Components.Charting.Styles
+namespace Core.Components.Chart.Styles
 {
     /// <summary>
     /// This class represents styling of a point on a chart.

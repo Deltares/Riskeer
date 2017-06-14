@@ -21,10 +21,10 @@
 
 using Core.Common.Controls.Views;
 
-namespace Core.Components.Charting.Forms
+namespace Core.Components.Chart.Forms
 {
     /// <summary>
-    /// Interface describing <see cref="Core.Common.Controls.Views.IView"/> that contain a <see cref="IChartControl"/> as one of its components.
+    /// Interface describing <see cref="IView"/> that contain a <see cref="IChartControl"/> as one of its components.
     /// </summary>
     public interface IChartView : IView
     {

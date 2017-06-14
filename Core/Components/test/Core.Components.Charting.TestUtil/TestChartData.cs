@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 
-namespace Core.Components.Charting.TestUtil
+namespace Core.Components.Chart.TestUtil
 {
     /// <summary>
     /// A class representing a ChartData type which is not in the regular codebase.

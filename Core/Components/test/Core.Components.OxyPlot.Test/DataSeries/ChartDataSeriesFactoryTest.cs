@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.TestUtil;
 using Core.Components.OxyPlot.DataSeries;
 using NUnit.Framework;
 

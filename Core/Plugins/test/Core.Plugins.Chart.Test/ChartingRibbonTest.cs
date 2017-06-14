@@ -24,7 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Forms;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;

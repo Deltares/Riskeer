@@ -110,7 +110,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Integration.TestUtil\Ringtoets.Piping.Integration.TestUtil.csproj">
       <Project>{A4972765-DDBB-4A1E-B17C-7185577E5591}</Project>
-      <Name>Ringtoets.Piping.Integration.TestUtils</Name>
+      <Name>Ringtoets.Piping.Integration.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>

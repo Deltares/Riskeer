@@ -25,8 +25,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Forms;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.Legend

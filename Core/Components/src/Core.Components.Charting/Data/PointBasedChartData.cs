@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.Chart.Data
 {
     /// <summary>
     /// Base class for <see cref="ChartData"/> that is based on an array of points in 2D space.

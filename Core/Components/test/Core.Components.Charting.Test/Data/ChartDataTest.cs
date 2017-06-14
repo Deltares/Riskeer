@@ -22,11 +22,10 @@
 using System;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
+using Core.Components.Chart.TestUtil;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Test.Data
+namespace Core.Components.Chart.Test.Data
 {
     [TestFixture]
     public class ChartDataTest

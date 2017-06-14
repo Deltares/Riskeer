@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 
 namespace Core.Plugins.Chart.PresentationObjects
 {

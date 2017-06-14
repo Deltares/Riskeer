@@ -21,7 +21,7 @@
 
 using System;
 using System.Globalization;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 
 namespace Core.Components.OxyPlot.DataSeries
 {

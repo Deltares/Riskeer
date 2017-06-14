@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.TestUtil.Test
+namespace Core.Components.Chart.TestUtil.Test
 {
     [TestFixture]
     public class TestChartDataTest

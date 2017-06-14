@@ -22,8 +22,8 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Styles;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 

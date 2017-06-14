@@ -22,8 +22,8 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Forms;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;

@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Test.Data
+namespace Core.Components.Chart.Test.Data
 {
     [TestFixture]
     public class PointBasedChartDataTest

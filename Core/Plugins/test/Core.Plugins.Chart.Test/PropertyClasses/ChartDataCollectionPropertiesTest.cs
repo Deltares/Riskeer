@@ -22,7 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 

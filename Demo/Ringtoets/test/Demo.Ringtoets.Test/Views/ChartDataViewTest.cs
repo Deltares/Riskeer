@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using Core.Components.OxyPlot.Forms;
 using Demo.Ringtoets.Views;
 using NUnit.Framework;

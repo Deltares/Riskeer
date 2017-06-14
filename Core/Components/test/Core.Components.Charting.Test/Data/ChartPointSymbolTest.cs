@@ -21,10 +21,10 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Styles;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Test.Data
+namespace Core.Components.Chart.Test.Data
 {
     [TestFixture]
     public class ChartPointSymbolTest : EnumTestFixture<ChartPointSymbol>

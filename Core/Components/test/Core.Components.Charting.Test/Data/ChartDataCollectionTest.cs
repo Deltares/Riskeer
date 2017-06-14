@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.TestUtil;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Test.Data
+namespace Core.Components.Chart.Test.Data
 {
     [TestFixture]
     public class ChartDataCollectionTest

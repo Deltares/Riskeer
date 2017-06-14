@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
 using Demo.Ringtoets.Ribbons;
 using Demo.Ringtoets.Views;

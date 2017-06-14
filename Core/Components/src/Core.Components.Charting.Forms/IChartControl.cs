@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 
-namespace Core.Components.Charting.Forms
+namespace Core.Components.Chart.Forms
 {
     /// <summary>
     /// Interface describing general chart interactions.

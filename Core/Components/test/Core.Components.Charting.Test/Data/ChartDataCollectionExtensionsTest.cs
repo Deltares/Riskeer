@@ -21,10 +21,10 @@
 
 using System;
 using System.Linq;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using NUnit.Framework;
 
-namespace Core.Components.Charting.Test.Data
+namespace Core.Components.Chart.Test.Data
 {
     [TestFixture]
     public class ChartDataCollectionExtensionsTest

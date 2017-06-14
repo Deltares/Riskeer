@@ -24,7 +24,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;

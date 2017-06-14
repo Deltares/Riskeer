@@ -21,8 +21,7 @@
 
 using System;
 using Core.Common.TestUtil;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
+using Core.Components.Chart.TestUtil;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
 using OxyPlot.Series;

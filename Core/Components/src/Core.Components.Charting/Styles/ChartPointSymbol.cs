@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Core.Components.Charting.Properties;
+using Core.Components.Chart.Properties;
 
-namespace Core.Components.Charting.Styles
+namespace Core.Components.Chart.Styles
 {
     /// <summary>
     /// All symbols supported by <see cref="ChartPointStyle"/>.

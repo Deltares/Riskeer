@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Styles;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.Chart.Data
 {
     /// <summary>
     /// This class represents data in 2D space which forms multiple lines.

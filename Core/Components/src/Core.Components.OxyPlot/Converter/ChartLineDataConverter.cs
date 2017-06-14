@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Styles;
+using Core.Components.Chart.Data;
+using Core.Components.Chart.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 

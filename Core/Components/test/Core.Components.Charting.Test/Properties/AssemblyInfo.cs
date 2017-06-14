@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Core.Components.Charting.Test")]
-[assembly: AssemblyProduct("Core.Components.Charting.Test")]
+[assembly: AssemblyTitle("Core.Components.Chart.Test")]
+[assembly: AssemblyProduct("Core.Components.Chart.Test")]
 [assembly: Guid("da0ce3e0-6a5d-438f-a29d-797a82c4d72b")]

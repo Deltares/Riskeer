@@ -26,7 +26,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.UITypeEditors;
 using Core.Common.Utils.Attributes;
-using Core.Components.Charting.Data;
+using Core.Components.Chart.Data;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.PropertyClasses
