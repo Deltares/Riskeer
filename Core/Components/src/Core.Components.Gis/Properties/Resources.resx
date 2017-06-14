@@ -180,4 +180,10 @@
   <data name="LineDashStyle_Solid_DisplayName" xml:space="preserve">
     <value>Doorgetrokken</value>
   </data>
+  <data name="Hexagon_DisplayName" xml:space="preserve">
+    <value>Hexagon</value>
+  </data>
+  <data name="Pentagon_DisplayName" xml:space="preserve">
+    <value>Pentagon</value>
+  </data>
 </root>

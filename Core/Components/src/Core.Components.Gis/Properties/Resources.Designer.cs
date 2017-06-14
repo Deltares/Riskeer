@@ -145,6 +145,15 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hexagon.
+        /// </summary>
+        internal static string Hexagon_DisplayName {
+            get {
+                return ResourceManager.GetString("Hexagon_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De transparantie moet in het bereik {0} liggen..
         /// </summary>
         internal static string ImageBasedMapData_Transparency_Value_must_be_in_Range_0_ {
@@ -204,6 +213,15 @@ namespace Core.Components.Gis.Properties {
         internal static string OpenStreetMap_DisplayName {
             get {
                 return ResourceManager.GetString("OpenStreetMap_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pentagon.
+        /// </summary>
+        internal static string Pentagon_DisplayName {
+            get {
+                return ResourceManager.GetString("Pentagon_DisplayName", resourceCulture);
             }
         }
         

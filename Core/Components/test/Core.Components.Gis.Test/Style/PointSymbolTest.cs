@@ -49,6 +49,12 @@ namespace Core.Components.Gis.Test.Style
                     },
                     {
                         PointSymbol.Star, "Ster"
+                    },
+                    {
+                        PointSymbol.Hexagon, "Hexagon"
+                    },
+                    {
+                        PointSymbol.Pentagon, "Pentagon"
                     }
                 };
             }
@@ -74,6 +80,12 @@ namespace Core.Components.Gis.Test.Style
                     },
                     {
                         PointSymbol.Star, 4
+                    },
+                    {
+                        PointSymbol.Hexagon, 5
+                    },
+                    {
+                        PointSymbol.Pentagon, 6
                     }
                 };
             }

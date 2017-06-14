@@ -84,6 +84,26 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Convert_Hexagon_ReturnStar()
+        {
+            // Call
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Hexagon);
+
+            // Assert
+            Assert.AreEqual(PointShape.Hexagon, symbol);
+        }
+
+        [Test]
+        public void Convert_Pentagon_ReturnStar()
+        {
+            // Call
+            PointShape symbol = MapDataHelper.Convert(PointSymbol.Pentagon);
+
+            // Assert
+            Assert.AreEqual(PointShape.Pentagon, symbol);
+        }
+
+        [Test]
         public void Convert_InvalidPointSymbol_ThrowsInvalidEnumArgumentException()
         {
             // Call

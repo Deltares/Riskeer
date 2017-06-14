@@ -38,6 +38,10 @@ namespace Core.Components.Gis.Style
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Diamond_DisplayName))]
         Diamond,
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Star_DisplayName))]
-        Star
+        Star,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Hexagon_DisplayName))]
+        Hexagon,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Pentagon_DisplayName))]
+        Pentagon
     }
 }
