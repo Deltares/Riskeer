@@ -156,4 +156,10 @@
   <data name="Width_Value_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor lijndikte moet in het bereik {0} liggen.</value>
   </data>
+  <data name="Cross_DisplayName" xml:space="preserve">
+    <value>Kruis</value>
+  </data>
+  <data name="Plus_DisplayName" xml:space="preserve">
+    <value>Plus</value>
+  </data>
 </root>

@@ -49,6 +49,12 @@ namespace Core.Components.Charting.Test.Data
                     },
                     {
                         ChartPointSymbol.Star, "Ster"
+                    },
+                    {
+                        ChartPointSymbol.Cross, "Kruis"
+                    },
+                    {
+                        ChartPointSymbol.Plus, "Plus"
                     }
                 };
             }
@@ -74,6 +80,12 @@ namespace Core.Components.Charting.Test.Data
                     },
                     {
                         ChartPointSymbol.Star, 4
+                    },
+                    {
+                        ChartPointSymbol.Cross, 5
+                    },
+                    {
+                        ChartPointSymbol.Plus, 6
                     }
                 };
             }

@@ -94,6 +94,12 @@ namespace Core.Components.OxyPlot.Converter
                 case ChartPointSymbol.Star:
                     markerType = MarkerType.Star;
                     break;
+                case ChartPointSymbol.Cross:
+                    markerType = MarkerType.Cross;
+                    break;
+                case ChartPointSymbol.Plus:
+                    markerType = MarkerType.Plus;
+                    break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(symbol),
                                                            (int) symbol,

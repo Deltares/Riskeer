@@ -169,6 +169,26 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
+        public void Convert_Cross_ReturnsTriangle()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Cross);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Cross, markerType);
+        }
+
+        [Test]
+        public void Convert_Plus_ReturnsStar()
+        {
+            // Call
+            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Plus);
+
+            // Assert
+            Assert.AreEqual(MarkerType.Plus, markerType);
+        }
+
+        [Test]
         public void Convert_UnknownChartPointSymbol_ThrowsInvalidEnumArgumentException()
         {
             // Call

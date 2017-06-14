@@ -38,6 +38,10 @@ namespace Core.Components.Charting.Styles
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Triangle_DisplayName))]
         Triangle,
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Star_DisplayName))]
-        Star
+        Star,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Cross_DisplayName))]
+        Cross,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Plus_DisplayName))]
+        Plus
     }
 }

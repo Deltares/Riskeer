@@ -136,11 +136,29 @@ namespace Core.Components.Charting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kruis.
+        /// </summary>
+        internal static string Cross_DisplayName {
+            get {
+                return ResourceManager.GetString("Cross_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ruit.
         /// </summary>
         internal static string Diamond_DisplayName {
             get {
                 return ResourceManager.GetString("Diamond_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plus.
+        /// </summary>
+        internal static string Plus_DisplayName {
+            get {
+                return ResourceManager.GetString("Plus_DisplayName", resourceCulture);
             }
         }
         
