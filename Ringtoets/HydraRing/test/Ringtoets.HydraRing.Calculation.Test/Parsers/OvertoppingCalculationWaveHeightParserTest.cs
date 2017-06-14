@@ -101,7 +101,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [Test]
         [TestCase("EmptyDatabase")]
         [TestCase("EmptyTableDesignBeta")]
-        [TestCase("EmptyTableDesignPointResults")]
         [TestCase("EmptyTableGoverningWind")]
         public void Parse_WithDataNotComplete_ThrowsHydraRingFileParserException(string subFolder)
         {
@@ -152,22 +151,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
-        }
-
-        [Test]
-        public void Parse_NotAllColumnsHaveResults_ThrowsHydraRingFileParserException()
-        {
-            // Setup
-            string path = Path.Combine(testDirectory, "ValidFileNoWaveHeight");
-            var parser = new OvertoppingCalculationWaveHeightParser();
-
-            // Call
-            TestDelegate test = () => parser.Parse(path, 1);
-
-            // Assert
-            var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
-            Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
 
         [Test]
