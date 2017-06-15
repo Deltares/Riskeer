@@ -60,6 +60,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="CategoryPlotViewTest.cs" />
     <Compile Include="ChartControlTest.cs" />
     <Compile Include="LinearPlotViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -43,6 +43,7 @@
     <Reference Include="OxyPlot.WindowsForms">
       <HintPath>..\..\..\..\packages\OxyPlot.WindowsForms.1.0.0-unstable1953\lib\net40\OxyPlot.WindowsForms.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -51,6 +52,9 @@
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="CategoryPlotView.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ChartControl.cs">
       <SubType>Component</SubType>
