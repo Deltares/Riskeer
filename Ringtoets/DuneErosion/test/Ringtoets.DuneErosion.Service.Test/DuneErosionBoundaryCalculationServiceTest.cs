@@ -47,13 +47,22 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabasePath_ReturnsTrue()
         {
             // Setup
+            const string locationName = "locationName";
             var valid = false;
 
             // Call
-            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(validFilePath);
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(locationName, validFilePath);
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+
+                string calculationName = GetCalculationName(locationName);
+                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
+            });
             Assert.IsTrue(valid);
         }
 
@@ -61,19 +70,25 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
         {
             // Setup
+            const string locationName = "locationName";
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             var valid = false;
 
             // Call
-            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(locationName, notValidFilePath);
 
             // Assert
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            TestHelper.AssertLogMessages(call, messages =>
             {
-                Tuple.Create("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
-                             $"Fout bij het lezen van bestand '{notValidFilePath}': het bestand bestaat niet.",
-                             LogLevelConstant.Error)
-            }, 1);
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+
+                string calculationName = GetCalculationName(locationName);
+                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
+                                        $"Fout bij het lezen van bestand '{notValidFilePath}'", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+            });
             Assert.IsFalse(valid);
         }
 
@@ -81,20 +96,26 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
+            const string locationName = "locationName";
             string notValidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
             string missingConfigFilePath = Path.Combine(testDataPath, "HRD nosettings.config.sqlite");
             var valid = false;
 
             // Call
-            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(locationName, notValidFilePath);
 
             // Assert
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            TestHelper.AssertLogMessages(call, messages =>
             {
-                Tuple.Create("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
-                             $"Fout bij het lezen van bestand '{missingConfigFilePath}': het bestand bestaat niet.",
-                             LogLevelConstant.Error)
-            }, 1);
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+
+                string calculationName = GetCalculationName(locationName);
+                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
+                                        $"Fout bij het lezen van bestand '{missingConfigFilePath}'", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+            });
             Assert.IsFalse(valid);
         }
 

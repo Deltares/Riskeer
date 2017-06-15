@@ -51,16 +51,25 @@ namespace Ringtoets.DuneErosion.Service
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// Error and status information is logged during the execution of the operation.
         /// </summary>
+        /// <param name="duneLocationName">The name of the dune location.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary 
         /// database file which to validate.</param>
         /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
-        public static bool Validate(string hydraulicBoundaryDatabaseFilePath)
+        public static bool Validate(string duneLocationName, string hydraulicBoundaryDatabaseFilePath)
         {
+            string calculationName = GetCalculationName(duneLocationName);
+
+            CalculationServiceHelper.LogValidationBegin(calculationName);
+
             string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
 
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                                                         validationProblems);
+
+            CalculationServiceHelper.LogValidationEnd(calculationName);
+
             return !validationProblems.Any();
         }
 

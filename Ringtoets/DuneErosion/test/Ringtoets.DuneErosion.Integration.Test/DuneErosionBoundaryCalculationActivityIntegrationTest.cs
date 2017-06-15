@@ -75,11 +75,14 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                              messages =>
                                              {
                                                  string[] msgs = messages.ToArray();
-                                                 Assert.AreEqual(4, msgs.Length);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[0]);
-                                                 Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
-                                                 StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[3]);
+                                                 Assert.AreEqual(6, msgs.Length);
+
+                                                 CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                                                 CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
+                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[2]);
+                                                 Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[3]);
+                                                 StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[5]);
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

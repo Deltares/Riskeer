@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Service
                 return true;
             }
 
-            return DuneErosionBoundaryCalculationService.Validate(hydraulicBoundaryDatabaseFilePath);
+            return DuneErosionBoundaryCalculationService.Validate(duneLocation.Name, hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void PerformCalculation()
