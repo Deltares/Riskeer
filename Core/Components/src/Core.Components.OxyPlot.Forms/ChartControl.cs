@@ -227,17 +227,17 @@ namespace Core.Components.OxyPlot.Forms
 
         private void InitializePlotView()
         {
+            plotController = new DynamicPlotController();
+
             plotView = new LinearPlotView
             {
                 BackColor = Color.White,
                 Model =
                 {
                     IsLegendVisible = false
-                }
+                },
+                Controller = plotController
             };
-
-            plotController = new DynamicPlotController();
-            plotView.Controller = plotController;
 
             Controls.Add(plotView);
         }
