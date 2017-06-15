@@ -82,8 +82,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(DikeProfile removedObject)
         {
-            return GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(FailureMechanism,
-                                                                                        removedObject);
+            var affectedObjects = new List<IObservable>();
+
+            affectedObjects.AddRange(GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(FailureMechanism,
+                                                                                        removedObject));
+
+            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults,
+                                         FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()));
+            return affectedObjects;
         }
 
         private IEnumerable<IObservable> UpdateDikeDependentData(DikeProfile objectToUpdate)
