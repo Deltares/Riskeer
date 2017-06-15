@@ -79,6 +79,17 @@ namespace Ringtoets.HeightStructures.IO
             return heightStructures;
         }
 
+        /// <summary>
+        /// Creates a <see cref="HeightStructure"/> based on the <paramref name="structureLocation"/>
+        /// and property values defined by <paramref name="structureParameterRows"/>.
+        /// </summary>
+        /// <param name="structureLocation">The representation of the structure.</param>
+        /// <param name="structureParameterRows">The parameters of the structure.</param>
+        /// <returns>A <see cref="HeightStructure"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
+        /// contains an element with <see cref="StructuresParameterRow.ParameterId"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
+        /// contains a parameter definition with a duplicate name.</exception>
         private HeightStructure CreateHeightStructure(StructureLocation structureLocation,
                                                       IEnumerable<StructuresParameterRow> structureParameterRows)
         {
