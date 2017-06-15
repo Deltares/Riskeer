@@ -254,6 +254,99 @@ namespace Ringtoets.Common.IO.Structures
             return ValidateStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
         }
 
+        /// <summary>
+        /// Gets the relevant parameters for a height structure from a collection of <see cref="StructuresParameterRow"/>.
+        /// </summary>
+        /// <param name="structureParameterRows"></param>
+        /// <returns>A collection of <see cref="StructuresParameterRow"/> which are relevant 
+        /// for a height structure.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
+        /// contain duplicate elements.</exception>
+        public static IEnumerable<StructuresParameterRow> GetRelevantHeightStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        {
+            return GetStructuresParameters(structureParameterRows, heightStructuresRules);
+        }
+
+        /// <summary>
+        /// Gets the relevant parameters for a closing structure from a collection of <see cref="StructuresParameterRow"/>.
+        /// </summary>
+        /// <param name="structureParameterRows"></param>
+        /// <returns>A collection of <see cref="StructuresParameterRow"/> which are relevant 
+        /// for a closing structure.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
+        /// contain duplicate elements.</exception>
+        public static IEnumerable<StructuresParameterRow> GetRelevantClosingStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        {
+            return GetStructuresParameters(structureParameterRows, closingStructuresRules);
+        }
+
+        /// <summary>
+        /// Gets the relevant parameters for a stability point structure from a collection of <see cref="StructuresParameterRow"/>.
+        /// </summary>
+        /// <param name="structureParameterRows"></param>
+        /// <returns>A collection of <see cref="StructuresParameterRow"/> which are relevant 
+        /// for a stability point structure.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
+        /// contain duplicate elements.</exception>
+        public static IEnumerable<StructuresParameterRow> GetRelevantStabilityPointStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        {
+            return GetStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
+        }
+
+        /// <summary>
+        /// Retrieves all the relevant structure parameters from the <paramref name="structureParameterRows"/>
+        /// based on given rules.
+        /// </summary>
+        /// <param name="structureParameterRows">The structure parameters which need to be filtered.</param>
+        /// <param name="rules">The rules which determines which parameters should be retrieved.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with <see cref="StructuresParameterRow"/>
+        /// based on the <paramref name="rules"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
+        /// contain duplicate elements.</exception>
+        private static IEnumerable<StructuresParameterRow> GetStructuresParameters(IList<StructuresParameterRow> structureParameterRows,
+                                                                                   Dictionary<string, Func<StructuresParameterRow, List<string>>> rules)
+        {
+            if (structureParameterRows == null)
+            {
+                throw new ArgumentNullException(nameof(structureParameterRows));
+            }
+
+            var parameters = new List<StructuresParameterRow>();
+            foreach (string parameterName in rules.Keys)
+            {
+                int count = structureParameterRows.Count(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
+                if (count > 1)
+                {
+                    string exceptionMessage = string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_repeated, parameterName);
+                    throw new ArgumentException(exceptionMessage);
+                }
+                if (count == 1)
+                {
+                    parameters.Add(structureParameterRows.Single(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName)));
+                }
+            }
+
+            return parameters;
+        }
+
+        /// <summary>
+        /// Validates the relevant parameters in <see cref="structureParameterRows"/>
+        /// based on rules.
+        /// </summary>
+        /// <param name="structureParameterRows">The <see cref="StructuresParameterRow"/>
+        /// which need to be validated.</param>
+        /// <param name="rules">The rules to be used for the validation.</param>
+        /// <returns>A <see cref="ValidationResult"/> containing the validation result.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
+        /// is <c>null</c>.</exception>
         private static ValidationResult ValidateStructuresParameters(IList<StructuresParameterRow> structureParameterRows,
                                                                      Dictionary<string, Func<StructuresParameterRow, List<string>>> rules)
         {
@@ -267,7 +360,7 @@ namespace Ringtoets.Common.IO.Structures
 
             foreach (string name in rules.Keys)
             {
-                int count = structureParameterRows.Count(row => string.Equals(row.ParameterId, name, StringComparison.OrdinalIgnoreCase));
+                int count = structureParameterRows.Count(row => GetMatchingStructuresParameterRow(row.ParameterId, name));
 
                 if (count < 1)
                 {
@@ -282,7 +375,7 @@ namespace Ringtoets.Common.IO.Structures
                 }
 
                 List<string> validationMessages = rules[name](structureParameterRows.First(
-                                                                  row => string.Equals(row.ParameterId, name, StringComparison.OrdinalIgnoreCase)));
+                                                                  row => GetMatchingStructuresParameterRow(row.ParameterId, name)));
 
                 if (validationMessages.Count > 0)
                 {
@@ -296,6 +389,11 @@ namespace Ringtoets.Common.IO.Structures
             }
 
             return new ValidationResult(errorMessages);
+        }
+
+        private static bool GetMatchingStructuresParameterRow(string parameterId, string parameterName)
+        {
+            return string.Equals(parameterId, parameterName, StringComparison.OrdinalIgnoreCase);
         }
 
         private static List<string> DoubleRule(StructuresParameterRow row)

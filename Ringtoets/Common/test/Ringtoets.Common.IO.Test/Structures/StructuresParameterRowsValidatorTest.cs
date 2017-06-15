@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Structures;
 
@@ -195,6 +196,20 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        public void ValidateHeightStructuresParameters_ParametersAllValid_IsValidTrueAndNoErrorMessage()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = GetAllValidHeightStructuresParameterRows();
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsTrue(validationResult.IsValid);
+            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
+        }
+
+        [Test]
         public void ValidateHeightStructuresParameters_VarianceValueConversionWithNegativeMean_NoErrorMessage()
         {
             // Setup
@@ -273,6 +288,176 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        public void GetRelevantHeightStructuresParameters_StructureParametersRowsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structureParameterRows", paramName);
+        }
+
+        [Test]
+        public void GetRelevantHeightStructuresParameters_ParameterIdDuplicated_ThrowsArgumentException()
+        {
+            // Setup
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
+                NumericalValue = 180.0
+            };
+
+            var structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                structuresParameterRow
+            };
+
+            // Call
+            TestDelegate call = () =>
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(structureParameterRows);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("Parameter 'KW_HOOGTE1' komt meerdere keren voor.", exception.Message);
+        }
+
+        [Test]
+        public void GetRelevantHeightStructuresParameters_NoParametersPresent_ReturnsNoParameters()
+        {
+            // Setup
+            var structuresParameterRows = new List<StructuresParameterRow>();
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(structuresParameterRows);
+
+            // Assert
+            CollectionAssert.IsEmpty(parameters);
+        }
+
+        [Test]
+        public void GetRelevantHeightStructuresParameters_OnlyIrrelevantParametersPresent_ReturnsNoParameters()
+        {
+            // Setup
+            var irrelevantParameter = new StructuresParameterRow
+            {
+                ParameterId = "I am irrelevant :(",
+                LineNumber = 10
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(new[]
+                {
+                    irrelevantParameter
+                });
+
+            // Assert
+            CollectionAssert.IsEmpty(parameters);
+        }
+
+        [Test]
+        public void GetRelevantHeightStructuresParameters_AllParametersPresent_ReturnsAllParameters()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = GetAllValidHeightStructuresParameterRows();
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(structureParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(structureParameterRows, parameters);
+        }
+
+        [Test]
+        public void GetRelevantHeightStructuresParameters_AllParametersPresentAndExtraParameters_ReturnsOnlyRelevantParameters()
+        {
+            // Setup
+            IEnumerable<StructuresParameterRow> expectedParameterRows = GetAllValidHeightStructuresParameterRows();
+
+            const string extraParameterName = "Extra Parameter";
+            var extraParameter = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName,
+                LineNumber = 10
+            };
+            var extraParameter2 = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName,
+                LineNumber = 11
+            };
+
+            List<StructuresParameterRow> readParameterRows = expectedParameterRows.ToList();
+            readParameterRows.Add(extraParameter);
+            readParameterRows.Add(extraParameter2);
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(readParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameterRows, parameters);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(HeightStructureParameters))]
+        public void GetRelevantHeightStructuresParameters_SingleParameterPresent_ReturnsParameters(StructuresParameterRow structuresParameterRow)
+        {
+            // Setup
+            var expectedParameter = new[]
+            {
+                structuresParameterRow
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(new[]
+                {
+                    structuresParameterRow
+                });
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameter, parameters);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(HeightStructureParameters))]
+        public void GetRelevantHeightStructuresParameters_SingleParameterPresentAndExtraParameters_ReturnsOnlyRelevantParameters(StructuresParameterRow structuresParameterRow)
+        {
+            // Setup
+            var expectedParameterRows = new[]
+            {
+                structuresParameterRow
+            };
+
+            const string extraParameterName = "Extra Parameter";
+            var extraParameter = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+            var extraParameter2 = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+            var readParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                extraParameter,
+                extraParameter2
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(readParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameterRows, parameters);
+        }
+
+        [Test]
         public void ValidateClosingStructuresParameters_StructureParameterRowsNull_ThrowsArgumentNullException()
         {
             // Call
@@ -284,7 +469,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParameterIdsDuplicated_IsValidFasleAndErrorMessages()
+        public void ValidateClosingStructuresParameters_ParameterIdsDuplicated_IsValidFalseAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -497,117 +682,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void ValidateClosingStructuresParameters_ParametersAllValid_IsValidTrueAndNoErrorMessages()
         {
             // Setup
-            var structureParameterRows = new List<StructuresParameterRow>
-            {
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
-                    NumericalValue = 3,
-                    VarianceValue = 1.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 1
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
-                    NumericalValue = 1,
-                    VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 2
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
-                    NumericalValue = 123,
-                    LineNumber = 3
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
-                    NumericalValue = 0,
-                    VarianceValue = 10.0,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 4
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
-                    NumericalValue = 1,
-                    VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 5
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
-                    NumericalValue = 9,
-                    VarianceValue = 10.0,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 6
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
-                    NumericalValue = 1,
-                    VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 7
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
-                    NumericalValue = 1,
-                    VarianceValue = 2,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 8
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
-                    NumericalValue = 2,
-                    VarianceValue = 3,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 9
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
-                    NumericalValue = 9,
-                    VarianceValue = 3,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 10
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
-                    NumericalValue = 123,
-                    LineNumber = 11
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
-                    NumericalValue = 0.6,
-                    LineNumber = 12
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
-                    NumericalValue = 14,
-                    LineNumber = 13
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
-                    NumericalValue = 0.8,
-                    LineNumber = 14
-                },
-                new StructuresParameterRow
-                {
-                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
-                    AlphanumericValue = "verticalewand",
-                    LineNumber = 15
-                }
-            };
+            List<StructuresParameterRow> structureParameterRows = GetAllValidClosingStructuresParameterRows();
 
             // Call
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
@@ -743,6 +818,174 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsTrue(validationResult.IsValid,
                           "Expected to be valid, but found following errors: {0}",
                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
+        }
+
+        [Test]
+        public void GetRelevantClosingStructuresParameters_StructureParametersRowsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structureParameterRows", paramName);
+        }
+
+        [Test]
+        public void GetRelevantClosingStructuresParameters_ParameterIdDuplicated_ThrowsArgumentException()
+        {
+            // Setup
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
+                NumericalValue = 180.0
+            };
+
+            var structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                structuresParameterRow
+            };
+
+            // Call
+            TestDelegate call = () =>
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(structureParameterRows);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("Parameter 'KW_BETSLUIT1' komt meerdere keren voor.", exception.Message);
+        }
+
+        [Test]
+        public void GetRelevantClosingStructuresParameters_NoParametersPresent_ReturnsNoParameters()
+        {
+            // Setup
+            var structuresParameterRows = new List<StructuresParameterRow>();
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(structuresParameterRows);
+
+            // Assert
+            CollectionAssert.IsEmpty(parameters);
+        }
+
+        [Test]
+        public void GetRelevantClosingStructuresParameters_OnlyIrrelevantParametersPresent_ReturnsNoParameters()
+        {
+            // Setup
+            var irrelevantParameter = new StructuresParameterRow
+            {
+                ParameterId = "I am irrelevant :("
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(new[]
+                {
+                    irrelevantParameter
+                });
+
+            // Assert
+            CollectionAssert.IsEmpty(parameters);
+        }
+
+        [Test]
+        public void GetRelevantClosingStructuresParameters_AllParametersPresent_ReturnsAllParameters()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = GetAllValidClosingStructuresParameterRows();
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(structureParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(structureParameterRows, parameters);
+        }
+
+        [Test]
+        public void GetRelevantClosingStructuresParameters_AllParametersPresentAndExtraParameters_ReturnsOnlyRelevantParameters()
+        {
+            // Setup
+            IEnumerable<StructuresParameterRow> expectedParameterRows = GetAllValidClosingStructuresParameterRows();
+
+            const string extraParameterName = "Extra Parameter";
+            var extraParameter = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+            var extraParameter2 = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+
+            List<StructuresParameterRow> readParameterRows = expectedParameterRows.ToList();
+            readParameterRows.Add(extraParameter);
+            readParameterRows.Add(extraParameter2);
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(readParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameterRows, parameters);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ClosingStructureParameters))]
+        public void GetRelevantClosingStructuresParameters_SingleParameterPresent_ReturnsParameters(StructuresParameterRow structuresParameterRow)
+        {
+            // Setup
+            var expectedParameter = new[]
+            {
+                structuresParameterRow
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(new[]
+                {
+                    structuresParameterRow
+                });
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameter, parameters);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ClosingStructureParameters))]
+        public void GetRelevantClosingStructuresParameters_SingleParameterPresentAndExtraParameters_ReturnsOnlyRelevantParameters(StructuresParameterRow structuresParameterRow)
+        {
+            // Setup
+            var expectedParameterRows = new[]
+            {
+                structuresParameterRow
+            };
+
+            const string extraParameterName = "Extra Parameter";
+            var extraParameter = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+            var extraParameter2 = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+
+            var readParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                extraParameter,
+                extraParameter2
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(readParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameterRows, parameters);
         }
 
         [Test]
@@ -1064,6 +1307,20 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        public void ValidateStabilityPointStructuresParameters_ParametersAllValid_IsValidTrueAndNoErrorMessages()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = GetAllValidStabilityPointStructuresParameterRows();
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsTrue(validationResult.IsValid);
+            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
+        }
+
+        [Test]
         public void ValidateStabilityPointStructuresParameters_VarianceValueConversionWithNegativeMean_NoErrorMessage()
         {
             // Setup
@@ -1267,6 +1524,529 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsTrue(validationResult.IsValid,
                           "Expected to be valid, but found following errors: {0}",
                           string.Join(Environment.NewLine, validationResult.ErrorMessages));
+        }
+
+        [Test]
+        public void GetRelevantStabilityPointStructuresParameters_StructureParametersRowsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structureParameterRows", paramName);
+        }
+
+        [Test]
+        public void GetRelevantStabilityPointStructuresParameters_ParameterIdDuplicated_ThrowsArgumentException()
+        {
+            // Setup
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
+                NumericalValue = 180.0
+            };
+
+            var structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                structuresParameterRow
+            };
+
+            // Call
+            TestDelegate call = () =>
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(structureParameterRows);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("Parameter 'KW_STERSTAB1' komt meerdere keren voor.", exception.Message);
+        }
+
+        [Test]
+        public void GetRelevantStabilityPointStructuresParameters_NoParametersPresent_ReturnsNoParameters()
+        {
+            // Setup
+            var structuresParameterRows = new List<StructuresParameterRow>();
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(structuresParameterRows);
+
+            // Assert
+            CollectionAssert.IsEmpty(parameters);
+        }
+
+        [Test]
+        public void GetRelevantStabilityPointStructuresParameters_OnlyIrrelevantParametersPresent_ReturnsNoParameters()
+        {
+            // Setup
+            var irrelevantParameter = new StructuresParameterRow
+            {
+                ParameterId = "I am irrelevant :("
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(new[]
+                {
+                    irrelevantParameter
+                });
+
+            // Assert
+            CollectionAssert.IsEmpty(parameters);
+        }
+
+        [Test]
+        public void GetRelevantStabilityPointStructuresParameters_AllParametersPresent_ReturnsAllParameters()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = GetAllValidStabilityPointStructuresParameterRows();
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(structureParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(structureParameterRows, parameters);
+        }
+
+        [Test]
+        public void GetRelevantStabilityPointStructuresParameters_AllParametersPresentAndExtraParameters_ReturnsOnlyRelevantParameters()
+        {
+            // Setup
+            IEnumerable<StructuresParameterRow> expectedParameterRows = GetAllValidStabilityPointStructuresParameterRows();
+
+            const string extraParameterName = "Extra Parameter";
+            var extraParameter = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+            var extraParameter2 = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+
+            List<StructuresParameterRow> readParameterRows = expectedParameterRows.ToList();
+            readParameterRows.Add(extraParameter);
+            readParameterRows.Add(extraParameter2);
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(readParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameterRows, parameters);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(StabilityPointStructureParameters))]
+        public void GetRelevantStabilityPointStructuresParameters_SingleParameterPresent_ReturnsParameters(StructuresParameterRow structuresParameterRow)
+        {
+            // Setup
+            var expectedParameter = new[]
+            {
+                structuresParameterRow
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(new[]
+                {
+                    structuresParameterRow
+                });
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameter, parameters);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(StabilityPointStructureParameters))]
+        public void GetRelevantStabilityPointStructuresParameters_SingleParameterPresentAndExtraParameters_ReturnsOnlyRelevantParameters(StructuresParameterRow structuresParameterRow)
+        {
+            // Setup
+            var expectedParameterRows = new[]
+            {
+                structuresParameterRow
+            };
+
+            const string extraParameterName = "Extra Parameter";
+            var extraParameter = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+            var extraParameter2 = new StructuresParameterRow
+            {
+                ParameterId = extraParameterName
+            };
+
+            var readParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                extraParameter,
+                extraParameter2
+            };
+
+            // Call
+            IEnumerable<StructuresParameterRow> parameters =
+                StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(readParameterRows);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedParameterRows, parameters);
+        }
+
+        private static List<StructuresParameterRow> GetAllValidClosingStructuresParameterRows()
+        {
+            return new List<StructuresParameterRow>
+            {
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
+                    NumericalValue = 3,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
+                    NumericalValue = 1,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 2
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
+                    NumericalValue = 123,
+                    LineNumber = 3
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
+                    NumericalValue = 0,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 4
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
+                    NumericalValue = 1,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 5
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
+                    NumericalValue = 9,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 6
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
+                    NumericalValue = 1,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 7
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
+                    NumericalValue = 1,
+                    VarianceValue = 2,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 8
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
+                    NumericalValue = 2,
+                    VarianceValue = 3,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 9
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
+                    NumericalValue = 9,
+                    VarianceValue = 3,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 10
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
+                    NumericalValue = 123,
+                    LineNumber = 11
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
+                    NumericalValue = 0.6,
+                    LineNumber = 12
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
+                    NumericalValue = 14,
+                    LineNumber = 13
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
+                    NumericalValue = 0.8,
+                    LineNumber = 14
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
+                    AlphanumericValue = "verticalewand",
+                    LineNumber = 15
+                }
+            };
+        }
+
+        private static List<StructuresParameterRow> GetAllValidHeightStructuresParameterRows()
+        {
+            return new List<StructuresParameterRow>
+            {
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
+                    NumericalValue = 180.0,
+                    LineNumber = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
+                    NumericalValue = 5.9,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 2
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword3,
+                    NumericalValue = 18.5,
+                    VarianceValue = 0.05,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 3
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword4,
+                    NumericalValue = 0.1,
+                    VarianceValue = 0.15,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 4
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword5,
+                    NumericalValue = 4,
+                    VarianceValue = 0.05,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 5
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword6,
+                    NumericalValue = 1,
+                    LineNumber = 6
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword7,
+                    NumericalValue = 500000,
+                    VarianceValue = 0.1,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 7
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
+                    NumericalValue = 6.5,
+                    VarianceValue = 0.1,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 8
+                }
+            };
+        }
+
+        private static List<StructuresParameterRow> GetAllValidStabilityPointStructuresParameterRows()
+        {
+            return new List<StructuresParameterRow>
+            {
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword2,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword3,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword4,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword5,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword6,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword7,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword8,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword9,
+                    NumericalValue = 1,
+                    VarianceValue = 0.01,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword10,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword11,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword12,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword13,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword14,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword15,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword16,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword17,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword18,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword19,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword21,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
+                    NumericalValue = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword23,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword24,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword25,
+                    NumericalValue = 1,
+                    VarianceValue = 0,
+                    VarianceType = VarianceType.StandardDeviation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword26,
+                    AlphanumericValue = "LageDrempel"
+                }
+            };
         }
 
         private static IEnumerable<TestCaseData> HeightStructureParameters()
