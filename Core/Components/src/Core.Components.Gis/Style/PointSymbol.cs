@@ -31,16 +31,22 @@ namespace Core.Components.Gis.Style
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Circle_DisplayName))]
         Circle,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Square_DisplayName))]
         Square,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Triangle_DisplayName))]
         Triangle,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Diamond_DisplayName))]
         Diamond,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Star_DisplayName))]
         Star,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Hexagon_DisplayName))]
         Hexagon,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Pentagon_DisplayName))]
         Pentagon
     }

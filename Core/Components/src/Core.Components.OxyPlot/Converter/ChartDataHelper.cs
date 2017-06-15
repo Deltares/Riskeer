@@ -38,7 +38,7 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         /// <param name="dashStyle">The <see cref="ChartLineDashStyle"/> to convert.</param>
         /// <returns>The converted <see cref="LineStyle"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="dashStyle"/> 
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dashStyle"/> 
         /// cannot be converted.</exception>
         public static LineStyle Convert(ChartLineDashStyle dashStyle)
         {
@@ -72,7 +72,7 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         /// <param name="symbol">The <see cref="ChartPointSymbol"/> to convert.</param>
         /// <returns>The converted <see cref="MarkerType"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="symbol"/> 
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="symbol"/> 
         /// cannot be converted.</exception>
         public static MarkerType Convert(ChartPointSymbol symbol)
         {

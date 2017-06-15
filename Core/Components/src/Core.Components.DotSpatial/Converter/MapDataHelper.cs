@@ -38,6 +38,8 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="symbol">The symbol to convert.</param>
         /// <returns>The converted <see cref="PointShape"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="symbol"/> 
+        /// cannot be converted.</exception>
         public static PointShape Convert(PointSymbol symbol)
         {
             PointShape shape;
@@ -77,7 +79,7 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="dashStyle">The <see cref="LineDashStyle"/> to convert.</param>
         /// <returns>The converted <see cref="DashStyle"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="dashStyle"/> 
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dashStyle"/> 
         /// cannot be converted.</exception>
         public static DashStyle Convert(LineDashStyle dashStyle)
         {
@@ -100,7 +102,7 @@ namespace Core.Components.DotSpatial.Converter
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(dashStyle),
-                                                           (int)dashStyle,
+                                                           (int) dashStyle,
                                                            typeof(LineDashStyle));
             }
             return lineStyle;

@@ -31,12 +31,16 @@ namespace Core.Components.Chart.Styles
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_Solid_DisplayName))]
         Solid,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_Dash_DisplayName))]
         Dash,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_Dot_DisplayName))]
         Dot,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_DashDot_DisplayName))]
         DashDot,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineDashStyle_DashDotDot_DisplayName))]
         DashDotDot
     }

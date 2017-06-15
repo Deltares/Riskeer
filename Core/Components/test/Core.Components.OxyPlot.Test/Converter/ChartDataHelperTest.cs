@@ -31,8 +31,6 @@ namespace Core.Components.OxyPlot.Test.Converter
     [TestFixture]
     public class ChartDataHelperTest
     {
-        #region Convert Color
-
         [Test]
         [TestCase(KnownColor.Blue)]
         [TestCase(KnownColor.Red)]
@@ -50,62 +48,24 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.AreEqual(originalColor, oxyColor);
         }
 
-        #endregion
-
-        #region Convert DashStyle
-
         [Test]
-        public void Convert_Solid_ReturnsSolid()
+        [TestCase(ChartLineDashStyle.Solid, LineStyle.Solid)]
+        [TestCase(ChartLineDashStyle.Dash, LineStyle.Dash)]
+        [TestCase(ChartLineDashStyle.Dot, LineStyle.Dot)]
+        [TestCase(ChartLineDashStyle.DashDot, LineStyle.DashDot)]
+        [TestCase(ChartLineDashStyle.DashDotDot, LineStyle.DashDotDot)]
+        public void Convert_ValidChartLineDashStyle_ReturnsExpectedLineStyle(ChartLineDashStyle chartLineDashStyle,
+                                                                             LineStyle expectedLineStyle)
         {
             // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.Solid);
+            LineStyle lineStyle = ChartDataHelper.Convert(chartLineDashStyle);
 
             // Assert
-            Assert.AreEqual(LineStyle.Solid, lineStyle);
+            Assert.AreEqual(expectedLineStyle, lineStyle);
         }
 
         [Test]
-        public void Convert_Dash_ReturnsDash()
-        {
-            // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.Dash);
-
-            // Assert
-            Assert.AreEqual(LineStyle.Dash, lineStyle);
-        }
-
-        [Test]
-        public void Convert_Dot_ReturnsDot()
-        {
-            // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.Dot);
-
-            // Assert
-            Assert.AreEqual(LineStyle.Dot, lineStyle);
-        }
-
-        [Test]
-        public void Convert_DashDot_ReturnsDashDot()
-        {
-            // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.DashDot);
-
-            // Assert
-            Assert.AreEqual(LineStyle.DashDot, lineStyle);
-        }
-
-        [Test]
-        public void Convert_DashDotDot_ReturnsDashDotDot()
-        {
-            // Call
-            LineStyle lineStyle = ChartDataHelper.Convert(ChartLineDashStyle.DashDotDot);
-
-            // Assert
-            Assert.AreEqual(LineStyle.DashDotDot, lineStyle);
-        }
-
-        [Test]
-        public void Convert_Unknown_ThrowsInvalidEnumArgumentException()
+        public void Convert_InvalidChartLineDashStyle_ThrowsInvalidEnumArgumentException()
         {
             // Call
             TestDelegate call = () => ChartDataHelper.Convert((ChartLineDashStyle) 100);
@@ -114,82 +74,26 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.Throws<InvalidEnumArgumentException>(call);
         }
 
-        #endregion
-
-        #region Convert ChartPointSymbol
-
         [Test]
-        public void Convert_Circle_ReturnsCircle()
+        [TestCase(ChartPointSymbol.Circle, MarkerType.Circle)]
+        [TestCase(ChartPointSymbol.Square, MarkerType.Square)]
+        [TestCase(ChartPointSymbol.Diamond, MarkerType.Diamond)]
+        [TestCase(ChartPointSymbol.Triangle, MarkerType.Triangle)]
+        [TestCase(ChartPointSymbol.Star, MarkerType.Star)]
+        [TestCase(ChartPointSymbol.Cross, MarkerType.Cross)]
+        [TestCase(ChartPointSymbol.Plus, MarkerType.Plus)]
+        public void Convert_ValidChartPointSymbol_ReturnsExpectedMarkerType(ChartPointSymbol chartPointSymbol,
+                                                                            MarkerType expectedMarkerType)
         {
             // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Circle);
+            MarkerType markerType = ChartDataHelper.Convert(chartPointSymbol);
 
             // Assert
-            Assert.AreEqual(MarkerType.Circle, markerType);
+            Assert.AreEqual(expectedMarkerType, markerType);
         }
 
         [Test]
-        public void Convert_Square_ReturnsSquare()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Square);
-
-            // Assert
-            Assert.AreEqual(MarkerType.Square, markerType);
-        }
-
-        [Test]
-        public void Convert_Diamond_ReturnsDiamond()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Diamond);
-
-            // Assert
-            Assert.AreEqual(MarkerType.Diamond, markerType);
-        }
-
-        [Test]
-        public void Convert_Triangle_ReturnsTriangle()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Triangle);
-
-            // Assert
-            Assert.AreEqual(MarkerType.Triangle, markerType);
-        }
-
-        [Test]
-        public void Convert_Star_ReturnsStar()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Star);
-
-            // Assert
-            Assert.AreEqual(MarkerType.Star, markerType);
-        }
-
-        [Test]
-        public void Convert_Cross_ReturnsTriangle()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Cross);
-
-            // Assert
-            Assert.AreEqual(MarkerType.Cross, markerType);
-        }
-
-        [Test]
-        public void Convert_Plus_ReturnsStar()
-        {
-            // Call
-            MarkerType markerType = ChartDataHelper.Convert(ChartPointSymbol.Plus);
-
-            // Assert
-            Assert.AreEqual(MarkerType.Plus, markerType);
-        }
-
-        [Test]
-        public void Convert_UnknownChartPointSymbol_ThrowsInvalidEnumArgumentException()
+        public void Convert_InvalidChartPointSymbol_ThrowsInvalidEnumArgumentException()
         {
             // Call
             TestDelegate call = () => ChartDataHelper.Convert((ChartPointSymbol) 10);
@@ -197,7 +101,5 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(call);
         }
-
-        #endregion
     }
 }

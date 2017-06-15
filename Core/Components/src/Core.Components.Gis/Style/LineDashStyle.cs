@@ -31,12 +31,16 @@ namespace Core.Components.Gis.Style
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_Solid_DisplayName))]
         Solid,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_Dash_DisplayName))]
         Dash,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_Dot_DisplayName))]
         Dot,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_DashDot_DisplayName))]
         DashDot,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LineDashStyle_DashDotDot_DisplayName))]
         DashDotDot
     }

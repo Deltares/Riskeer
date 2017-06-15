@@ -39,7 +39,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(PointSymbol.Star, PointShape.Star)]
         [TestCase(PointSymbol.Hexagon, PointShape.Hexagon)]
         [TestCase(PointSymbol.Pentagon, PointShape.Pentagon)]
-        public void Convert_ValidPointSymbol_ReturnExpectedShape(PointSymbol pointSymbol, PointShape expectedShape)
+        public void Convert_ValidPointSymbol_ReturnExpectedShape(PointSymbol pointSymbol,
+                                                                 PointShape expectedShape)
         {
             // Call
             PointShape symbol = MapDataHelper.Convert(pointSymbol);
@@ -64,7 +65,8 @@ namespace Core.Components.DotSpatial.Test.Converter
         [TestCase(LineDashStyle.Dot, DashStyle.Dot)]
         [TestCase(LineDashStyle.DashDot, DashStyle.DashDot)]
         [TestCase(LineDashStyle.DashDotDot, DashStyle.DashDotDot)]
-        public void Convert_ValidLineDashStyle_ReturnsExpectedDashStyle(LineDashStyle lineDashStyle, DashStyle expectedDashStyle)
+        public void Convert_ValidLineDashStyle_ReturnsExpectedDashStyle(LineDashStyle lineDashStyle,
+                                                                        DashStyle expectedDashStyle)
         {
             // Call
             DashStyle dashStyle = MapDataHelper.Convert(lineDashStyle);
