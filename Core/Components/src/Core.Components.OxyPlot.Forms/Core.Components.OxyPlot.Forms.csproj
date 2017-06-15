@@ -69,6 +69,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="StackChartControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -95,6 +98,11 @@
     <ProjectReference Include="..\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
       <Project>{2344a7bd-7e25-4a1a-982e-6c674af5167a}</Project>
       <Name>Core.Components.OxyPlot</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
+      <Project>{72109E33-6518-4632-ACCF-6CBF2A312711}</Project>
+      <Name>Core.Components.Stack.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

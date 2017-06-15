@@ -27,14 +27,12 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
-using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms.Test
 {
@@ -56,9 +54,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.IsTrue(chart.IsPanningEnabled);
                 Assert.IsFalse(chart.IsRectangleZoomingEnabled);
 
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
-                Assert.AreEqual(Color.White, view.BackColor);
-                Assert.IsFalse(view.Model.IsLegendVisible);
+                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().First();
+                Assert.AreEqual(Color.White, plotView.BackColor);
+                Assert.IsFalse(plotView.Model.IsLegendVisible);
             }
         }
 
@@ -336,7 +334,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
 
                 form.Show();
@@ -363,7 +361,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
 
                 form.Show();
@@ -384,13 +382,13 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase("Title")]
         [TestCase("Test")]
         [TestCase("Label")]
-        public void SetModelTitle_Always_SetsNewTitleToModelAndViewInvalidated(string newTitle)
+        public void SetChartTitle_Always_SetsNewTitleToModelAndViewInvalidated(string newTitle)
         {
             // Setup
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
 
                 form.Show();
@@ -424,7 +422,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                     }
                 };
                 var collection = new ChartDataCollection("collection");
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 var invalidated = 0;
 
                 collection.Add(testData);
@@ -457,7 +455,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 var chart = new ChartControl();
                 var testData = new ChartLineData("test data");
                 var collection = new ChartDataCollection("collection");
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 var invalidated = 0;
 
                 collection.Add(testData);
@@ -488,7 +486,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
                 form.Show();
 
@@ -549,7 +547,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
                 form.Show();
 
@@ -610,7 +608,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
                 form.Show();
 
@@ -648,7 +646,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
                 form.Show();
 
@@ -693,7 +691,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var view = TypeUtils.GetField<PlotView>(chart, "plotView");
+                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().First();
                 form.Controls.Add(chart);
                 form.Show();
 
