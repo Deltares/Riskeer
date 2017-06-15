@@ -263,7 +263,66 @@ namespace Ringtoets.ClosingStructures.IO.Test
         {
             // Setup
             var importTarget = new StructureCollection<ClosingStructure>();
-            string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter), "Kunstwerken.shp");
+            string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),
+                                           "MissingParameters", "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+
+                var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+                {
+                    Name = "test",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                });
+
+                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[1];
+                Assert.AreEqual(1, readStructures.Count());
+                ClosingStructure importedStructure = readStructures.First();
+                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
+                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+                Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
+            });
+            mocks.ReplayAll();
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine,
+                                                                   filePath, messageProvider, updateStrategy);
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, msgs =>
+            {
+                string[] messages = msgs.ToArray();
+                Assert.AreEqual(9, messages.Length);
+
+                const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
+
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT1' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[0]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT5' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[3]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT8' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[6]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_BETSLUIT14' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[8]);
+                // Don't care about the other messages.
+            });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_MissingParametersAndDuplicateIrrelevantParameter_LogWarningAndContinueImportWithDefaultValues()
+        {
+            // Setup
+            var importTarget = new StructureCollection<ClosingStructure>();
+            string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),
+                                           "MissingAndDuplicateIrrelevantParameters", "Kunstwerken.shp");
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
@@ -358,6 +417,49 @@ namespace Ringtoets.ClosingStructures.IO.Test
         }
 
         [Test]
+        public void Import_NoParameterIdsDefinedAndOnlyDuplicateUnknownParameterId_TrueAndImportTargetUpdated()
+        {
+            // Setup
+            var importTarget = new StructureCollection<ClosingStructure>();
+            string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithOnlyDuplicateIrrelevantParameterInCsv",
+                                           "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<ClosingStructure>>();
+            mocks.ReplayAll();
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(154493.618, 568995.991),
+                new Point2D(156844.169, 574771.498),
+                new Point2D(157910.502, 579115.458),
+                new Point2D(163625.153, 585151.261)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var structuresImporter = new ClosingStructuresImporter(importTarget,
+                                                                   referenceLine,
+                                                                   filePath,
+                                                                   messageProvider,
+                                                                   updateStrategy);
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            string csvFilePath = Path.ChangeExtension(filePath, "csv");
+            string message = CreateExpectedErrorMessage(csvFilePath, "Eerste kunstwerk 6-3", "KWK_1", new[]
+            {
+                "Geen geldige parameter definities gevonden."
+            });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
+            Assert.IsFalse(importResult);
+            Assert.AreEqual(0, importTarget.Count);
+        }
+
+        [Test]
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -376,7 +478,8 @@ namespace Ringtoets.ClosingStructures.IO.Test
             strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().Return(observables);
             mocks.ReplayAll();
 
-            string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter), "Kunstwerken.shp");
+            string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),
+                                           "MissingParameters", "Kunstwerken.shp");
 
             var importTarget = new StructureCollection<ClosingStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();

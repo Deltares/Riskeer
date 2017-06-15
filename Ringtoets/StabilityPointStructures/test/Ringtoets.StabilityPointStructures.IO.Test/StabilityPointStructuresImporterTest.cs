@@ -273,7 +273,71 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         public void Import_MissingParameters_LogWarningAndContinueImportWithDefaultValues()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter), "Kunstwerken.shp");
+            string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter),
+                                           "MissingParameters", "Kunstwerken.shp");
+
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            {
+                Assert.AreSame(importTarget, i.Arguments[0]);
+                Assert.AreEqual(filePath, i.Arguments[2]);
+
+                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[1];
+
+                Assert.AreEqual(1, readStructures.Count());
+                StabilityPointStructure importedStructure = readStructures.First();
+                var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = "test",
+                    Location = new Point2D(0, 0),
+                    Id = "id"
+                });
+                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
+                DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
+                Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
+                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+            });
+            mocks.ReplayAll();
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, msgs =>
+            {
+                string[] messages = msgs.ToArray();
+                Assert.AreEqual(11, messages.Length);
+
+                const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
+
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB2' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[0]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB6' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[4]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB12' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[7]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB20' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[9]);
+                Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB25' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[10]);
+                // Don't care about the other messages.
+            });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_MissingParametersAndDuplicateIrrelevantParameter_LogWarningAndContinueImportWithDefaultValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter),
+                                           "MissingAndDuplicateIrrelevantParameters", "Kunstwerken.shp");
 
             var importTarget = new StructureCollection<StabilityPointStructure>();
 
@@ -371,6 +435,87 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_NoParameterIdsDefinedAndOnlyDuplicateUnknownParameterId_TrueAndImportTargetUpdated()
+        {
+            // Setup
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+            string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithOnlyDuplicateIrrelevantParameterInCsv",
+                                           "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
+            mocks.ReplayAll();
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(154493.618, 568995.991),
+                new Point2D(156844.169, 574771.498),
+                new Point2D(157910.502, 579115.458),
+                new Point2D(163625.153, 585151.261)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget,
+                                                                          referenceLine,
+                                                                          filePath,
+                                                                          messageProvider,
+                                                                          updateStrategy);
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            string csvFilePath = Path.ChangeExtension(filePath, "csv");
+            string message = CreateExpectedErrorMessage(csvFilePath, "Eerste kunstwerk 6-3", "KWK_1", new[]
+            {
+                "Geen geldige parameter definities gevonden."
+            });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
+            Assert.IsFalse(importResult);
+            Assert.AreEqual(0, importTarget.Count);
+        }
+
+        [Test]
+        public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
+        {
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+
+            var observableA = mocks.StrictMock<IObservable>();
+            observableA.Expect(o => o.NotifyObservers());
+            var observableB = mocks.StrictMock<IObservable>();
+            observableB.Expect(o => o.NotifyObservers());
+            IObservable[] observables =
+            {
+                observableA,
+                observableB
+            };
+
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().Return(observables);
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter),
+                                           "MissingParameters", "Kunstwerken.shp")
+                ;
+
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+            ReferenceLine referenceLine = CreateReferenceLine();
+
+            var importer = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath,
+                                                                messageProvider, strategy);
+
+            importer.Import();
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            // Assertions performed in TearDown
         }
 
         private static ReferenceLine CreateReferenceLine()
