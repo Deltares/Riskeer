@@ -83,14 +83,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                double waveHeight = double.NaN;
                 object waveHeightResult = result[waveHeightColumn];
 
-                if (waveHeightResult.GetType() != typeof(DBNull))   
-                {
-                    waveHeight = Convert.ToDouble(waveHeightResult);
-                }
-                
+                double waveHeight = waveHeightResult.GetType() != typeof(DBNull)
+                                        ? Convert.ToDouble(waveHeightResult)
+                                        : double.NaN;
+
                 bool isOvertoppingDominant = Convert.ToBoolean(result[isOvertoppingDominantColumn]);
 
                 Output = new OvertoppingCalculationWaveHeightOutput(waveHeight,
