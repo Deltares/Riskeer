@@ -39,18 +39,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilModel_Id_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilModel_Id_Description))]
-        public long Id
-        {
-            get
-            {
-                return data.Id;
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilModel_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilModel_Name_Description))]
         public string Name
@@ -61,19 +49,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilModel_SegmentName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilModel_SegmentName_Description))]
-        public string SegmentName
-        {
-            get
-            {
-                return data.SegmentName;
-            }
-        }
-
-        [PropertyOrder(4)]
+        [PropertyOrder(2)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilModel_Geometry_DisplayName))]
@@ -86,7 +62,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilModel_StochasticSoilProfiles_DisplayName))]

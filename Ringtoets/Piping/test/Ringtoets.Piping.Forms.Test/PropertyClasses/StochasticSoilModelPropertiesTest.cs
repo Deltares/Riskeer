@@ -34,11 +34,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     [TestFixture]
     public class StochasticSoilModelPropertiesTest
     {
-        private const int stochasticSoilModelIdPropertyIndex = 0;
-        private const int stochasticSoilModelNamePropertyIndex = 1;
-        private const int stochasticSoilModelSegmentNamePropertyIndex = 2;
-        private const int stochasticSoilModelGeometryPropertyIndex = 3;
-        private const int stochasticSoilModelStochasticSoilProfilesPropertyIndex = 4;
+        private const int stochasticSoilModelNamePropertyIndex = 0;
+        private const int stochasticSoilModelGeometryPropertyIndex = 1;
+        private const int stochasticSoilModelStochasticSoilProfilesPropertyIndex = 2;
 
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -75,8 +73,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(stochasticSoilModel.Name, properties.Name);
-            Assert.AreEqual(stochasticSoilModel.SegmentName, properties.SegmentName);
-            Assert.AreEqual(stochasticSoilModel.Id, properties.Id);
             Assert.AreEqual(stochasticSoilModel.Geometry[0], properties.Geometry[0]);
 
             Assert.IsInstanceOf<StochasticSoilProfileProperties[]>(properties.StochasticSoilProfiles);
@@ -107,14 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
-
-            PropertyDescriptor stochasticSoilModelIdProperty = dynamicProperties[stochasticSoilModelIdPropertyIndex];
-            Assert.IsNotNull(stochasticSoilModelIdProperty);
-            Assert.IsTrue(stochasticSoilModelIdProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", stochasticSoilModelIdProperty.Category);
-            Assert.AreEqual("ID", stochasticSoilModelIdProperty.DisplayName);
-            Assert.AreEqual("ID van het stochastische ondergrondmodel in de database.", stochasticSoilModelIdProperty.Description);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor stochasticSoilModelNameProperty = dynamicProperties[stochasticSoilModelNamePropertyIndex];
             Assert.IsNotNull(stochasticSoilModelNameProperty);
@@ -122,13 +111,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Algemeen", stochasticSoilModelNameProperty.Category);
             Assert.AreEqual("Naam", stochasticSoilModelNameProperty.DisplayName);
             Assert.AreEqual("Naam van het stochastische ondergrondmodel.", stochasticSoilModelNameProperty.Description);
-
-            PropertyDescriptor stochasticSoilModelSegmentNameProperty = dynamicProperties[stochasticSoilModelSegmentNamePropertyIndex];
-            Assert.IsNotNull(stochasticSoilModelSegmentNameProperty);
-            Assert.IsTrue(stochasticSoilModelSegmentNameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", stochasticSoilModelSegmentNameProperty.Category);
-            Assert.AreEqual("Segment naam", stochasticSoilModelSegmentNameProperty.DisplayName);
-            Assert.AreEqual("Naam van het stochastische ondergrondmodel segment.", stochasticSoilModelSegmentNameProperty.Description);
 
             PropertyDescriptor stochasticSoilModelGeometryProperty = dynamicProperties[stochasticSoilModelGeometryPropertyIndex];
             Assert.IsNotNull(stochasticSoilModelGeometryProperty);

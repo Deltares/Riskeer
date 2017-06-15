@@ -1411,24 +1411,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID van het stochastische ondergrondmodel in de database..
-        /// </summary>
-        public static string StochasticSoilModel_Id_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_Id_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ID.
-        /// </summary>
-        public static string StochasticSoilModel_Id_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_Id_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam van het stochastische ondergrondmodel..
         /// </summary>
         public static string StochasticSoilModel_Name_Description {
@@ -1443,24 +1425,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string StochasticSoilModel_Name_DisplayName {
             get {
                 return ResourceManager.GetString("StochasticSoilModel_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het stochastische ondergrondmodel segment..
-        /// </summary>
-        public static string StochasticSoilModel_SegmentName_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_SegmentName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Segment naam.
-        /// </summary>
-        public static string StochasticSoilModel_SegmentName_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_SegmentName_DisplayName", resourceCulture);
             }
         }
         

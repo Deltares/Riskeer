@@ -478,23 +478,11 @@
   <data name="StochasticSoilModel_Geometry_DisplayName" xml:space="preserve">
     <value>Geometrie</value>
   </data>
-  <data name="StochasticSoilModel_Id_Description" xml:space="preserve">
-    <value>ID van het stochastische ondergrondmodel in de database.</value>
-  </data>
-  <data name="StochasticSoilModel_Id_DisplayName" xml:space="preserve">
-    <value>ID</value>
-  </data>
   <data name="StochasticSoilModel_Name_Description" xml:space="preserve">
     <value>Naam van het stochastische ondergrondmodel.</value>
   </data>
   <data name="StochasticSoilModel_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
-  </data>
-  <data name="StochasticSoilModel_SegmentName_Description" xml:space="preserve">
-    <value>Naam van het stochastische ondergrondmodel segment.</value>
-  </data>
-  <data name="StochasticSoilModel_SegmentName_DisplayName" xml:space="preserve">
-    <value>Segment naam</value>
   </data>
   <data name="StochasticSoilModel_StochasticSoilProfiles_Description" xml:space="preserve">
     <value>Ondergrondschematisaties uit de database.</value>
