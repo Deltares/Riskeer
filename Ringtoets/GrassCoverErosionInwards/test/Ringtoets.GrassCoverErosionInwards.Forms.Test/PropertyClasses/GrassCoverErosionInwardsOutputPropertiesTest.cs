@@ -306,9 +306,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int realDominantIndex = waveHeightCalculated ?
-                                        isDominantIndex :
-                                        isDominantIndex - 1;
+            int realDominantIndex = waveHeightCalculated
+                                        ? isDominantIndex
+                                        : isDominantIndex - 1;
 
             PropertyDescriptor isDominantProperty = dynamicProperties[realDominantIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
