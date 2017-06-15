@@ -43,5 +43,26 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 
             Assert.IsNull(testLocation.Output);
         }
+
+        [Test]
+        public void ConstructorWithName_ExpectedValues()
+        {
+            // Setup
+            const string name = "new name";
+
+            // Call
+            var testLocation = new TestDuneLocation(name);
+
+            // Assert
+            Assert.AreEqual(name, testLocation.Name);
+            Assert.AreEqual(0, testLocation.Location.X);
+            Assert.AreEqual(0, testLocation.Location.Y);
+            Assert.AreEqual(0, testLocation.Offset.Value);
+            Assert.AreEqual(0, testLocation.Orientation.Value);
+            Assert.AreEqual(0, testLocation.CoastalAreaId);
+            Assert.AreEqual(0, testLocation.D50.Value);
+
+            Assert.IsNull(testLocation.Output);
+        }
     }
 }

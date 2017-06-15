@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
@@ -32,6 +35,7 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Service
 {
@@ -46,22 +50,41 @@ namespace Ringtoets.DuneErosion.Service
         private IDunesBoundaryConditionsCalculator calculator;
 
         /// <summary>
+        /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary 
+        /// database file which to validate.</param>
+        /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
+        public static bool Validate(string hydraulicBoundaryDatabaseFilePath)
+        {
+            string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
+
+            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                                        validationProblems);
+            return !validationProblems.Any();
+        }
+
+        /// <summary>
         /// Performs a dune erosion calculation based on the supplied <see cref="DuneLocation"/>
         /// and sets the <see cref="DuneLocation.Output"/> if the calculation is successful.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required to perform the calculation.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds information about the contribution and 
+        /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required 
+        /// to perform the calculation.</param>
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds 
+        /// information about the contribution and 
         /// the general inputs used in the calculation.</param>
-        /// <param name="norm">The norm of the assessment section.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic 
+        /// boundary database file.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> 
+        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
         /// <item>The contribution of the failure mechanism is zero.</item>
-        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
+        /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] 
+        /// range and is not <see cref="double.NaN"/>.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -70,7 +93,8 @@ namespace Ringtoets.DuneErosion.Service
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing 
+        /// the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
                               DuneErosionFailureMechanism failureMechanism,
                               double norm,
@@ -86,21 +110,25 @@ namespace Ringtoets.DuneErosion.Service
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory);
-
-            string calculationName = duneLocation.Name;
+            string duneLocationName = duneLocation.Name;
+            string calculationName = GetCalculationName(duneLocationName);
 
             CalculationServiceHelper.LogCalculationBegin(calculationName);
 
+            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory);
+
             var exceptionThrown = false;
+
             try
             {
-                DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation, norm, hydraulicBoundaryDatabaseFilePath);
+                DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation,
+                                                                                       norm,
+                                                                                       hydraulicBoundaryDatabaseFilePath);
                 calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    duneLocation.Output = CreateDuneLocationOutput(duneLocation.Name, calculationInput.Beta, norm);
+                    duneLocation.Output = CreateDuneLocationOutput(duneLocationName, calculationInput.Beta, norm);
                 }
             }
             catch (HydraRingCalculationException)
@@ -108,16 +136,11 @@ namespace Ringtoets.DuneErosion.Service
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
-                    if (string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_no_error_report,
-                                        calculationName);
-                    }
-                    else
-                    {
-                        log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1,
-                                        calculationName, lastErrorContent);
-                    }
+                    log.Error(string.IsNullOrEmpty(lastErrorContent)
+                                  ? string.Format(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_no_error_report,
+                                                  duneLocationName)
+                                  : string.Format(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1,
+                                                  duneLocationName, lastErrorContent));
 
                     exceptionThrown = true;
                     throw;
@@ -130,10 +153,12 @@ namespace Ringtoets.DuneErosion.Service
                 if (hasErrorOccurred)
                 {
                     log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1,
-                                    calculationName, lastErrorFileContent);
+                                    duneLocationName, lastErrorFileContent);
                 }
 
-                FinalizeCalculation(calculationName, true);
+                log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
+                               calculator.OutputDirectory);
+                CalculationServiceHelper.LogCalculationEnd(calculationName);
 
                 if (hasErrorOccurred)
                 {
@@ -151,14 +176,9 @@ namespace Ringtoets.DuneErosion.Service
             canceled = true;
         }
 
-        private void FinalizeCalculation(string calculationName, bool calculationExecuted)
+        private static string GetCalculationName(string duneLocationName)
         {
-            if (calculationExecuted)
-            {
-                log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
-                               calculator.OutputDirectory);
-            }
-            CalculationServiceHelper.LogCalculationEnd(calculationName);
+            return string.Format(Resources.CalculationName_of_DuneLocation_0, duneLocationName);
         }
 
         /// <summary>
@@ -221,6 +241,20 @@ namespace Ringtoets.DuneErosion.Service
             var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, hydraulicBoundaryDatabaseFilePath);
             return dunesBoundaryConditionsCalculationInput;
+        }
+
+        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)
+        {
+            var validationResult = new List<string>();
+
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                validationResult.Add(validationProblem);
+            }
+
+            return validationResult.ToArray();
         }
     }
 }

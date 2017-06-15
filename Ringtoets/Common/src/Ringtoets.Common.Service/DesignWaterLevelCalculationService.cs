@@ -197,7 +197,7 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Creates the input for an wave height calculation.
+        /// Creates the input for a wave height calculation.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>
         /// to create the input from.</param>

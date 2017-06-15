@@ -136,4 +136,7 @@
   <data name="DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_" xml:space="preserve">
     <value>Hydraulische randvoorwaarden berekenen voor locatie '{0}'</value>
   </data>
+  <data name="CalculationName_of_DuneLocation_0" xml:space="preserve">
+    <value>Hydraulische belasting berekenen voor locatie '{0}'</value>
+  </data>
 </root>

@@ -75,15 +75,16 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 Action call = () => activity.Run();
 
                 // Assert
+                string calculationName = $"Hydraulische belasting berekenen voor locatie '{duneLocation.Name}'";
                 TestHelper.AssertLogMessages(call,
                                              messages =>
                                              {
                                                  string[] msgs = messages.ToArray();
                                                  Assert.AreEqual(4, msgs.Length);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(duneLocation.Name, msgs[0]);
+                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[0]);
                                                  Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[1]);
                                                  StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(duneLocation.Name, msgs[3]);
+                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[3]);
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
