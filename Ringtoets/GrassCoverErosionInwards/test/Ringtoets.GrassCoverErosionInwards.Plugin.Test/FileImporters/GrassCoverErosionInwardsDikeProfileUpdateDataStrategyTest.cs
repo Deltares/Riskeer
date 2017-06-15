@@ -631,7 +631,68 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateForeshoreProfilesWithImportedData_CalculationWithOutputAndForeshoreProfileUpdatedWithProfileWithoutGeometry_UpdatesCalculation()
+        public void UpdateDikeProfilesWithImportedData_CalculationWithToBeRemovedDikeProfile_UpdatesSectionResults()
+        {
+            // Setup
+            const string dikeProfileId = "ID of removed profile";
+
+            var matchingPoint = new Point2D(0, 0);
+            var removedProfile = new TestDikeProfile(matchingPoint, dikeProfileId);
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = removedProfile
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section", new[]
+            {
+                matchingPoint,
+                new Point2D(10, 10)
+            }));
+
+            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults,
+                failureMechanism.Calculations
+                                .Cast<GrassCoverErosionInwardsCalculation>());
+
+            DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
+            dikeProfiles.AddRange(new[]
+            {
+                removedProfile
+            }, sourceFilePath);
+
+            // Precondition
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
+                                                                                                     .ToArray();
+            Assert.AreEqual(1, sectionResults.Length);
+            Assert.AreSame(affectedCalculation, sectionResults[0].Calculation);
+
+            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
+                                                                                                   Enumerable.Empty<DikeProfile>(),
+                                                                                                   sourceFilePath);
+            // Assert
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                dikeProfiles,
+                affectedCalculation.InputParameters,
+                sectionResults[0]
+            }, affectedObjects);
+
+            sectionResults = failureMechanism.SectionResults.ToArray();
+            Assert.AreEqual(1, sectionResults.Length);
+            Assert.IsNull(sectionResults[0].Calculation);
+        }
+
+        [Test]
+        public void UpdateDikeProfilesWithImportedData_CalculationWithOutputAndForeshoreProfileUpdatedWithProfileWithoutGeometry_UpdatesCalculation()
         {
             // Setup
             const string id = "profile ID";
