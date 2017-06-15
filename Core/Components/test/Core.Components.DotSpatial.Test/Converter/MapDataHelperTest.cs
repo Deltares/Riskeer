@@ -31,76 +31,21 @@ namespace Core.Components.DotSpatial.Test.Converter
     [TestFixture]
     public class MapDataHelperTest
     {
-        #region Convert symbol
-
         [Test]
-        public void Convert_Circle_ReturnDefault()
+        [TestCase(PointSymbol.Circle, PointShape.Ellipse)]
+        [TestCase(PointSymbol.Square, PointShape.Rectangle)]
+        [TestCase(PointSymbol.Triangle, PointShape.Triangle)]
+        [TestCase(PointSymbol.Diamond, PointShape.Diamond)]
+        [TestCase(PointSymbol.Star, PointShape.Star)]
+        [TestCase(PointSymbol.Hexagon, PointShape.Hexagon)]
+        [TestCase(PointSymbol.Pentagon, PointShape.Pentagon)]
+        public void Convert_ValidPointSymbol_ReturnExpectedShape(PointSymbol pointSymbol, PointShape expectedShape)
         {
             // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Circle);
+            PointShape symbol = MapDataHelper.Convert(pointSymbol);
 
             // Assert
-            Assert.AreEqual(PointShape.Ellipse, symbol);
-        }
-
-        [Test]
-        public void Convert_Square_ReturnRectangle()
-        {
-            // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Square);
-
-            // Assert
-            Assert.AreEqual(PointShape.Rectangle, symbol);
-        }
-
-        [Test]
-        public void Convert_Triangle_ReturnTriangle()
-        {
-            // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Triangle);
-
-            // Assert
-            Assert.AreEqual(PointShape.Triangle, symbol);
-        }
-
-        [Test]
-        public void Convert_Diamond_ReturnDiamond()
-        {
-            // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Diamond);
-
-            // Assert
-            Assert.AreEqual(PointShape.Diamond, symbol);
-        }
-
-        [Test]
-        public void Convert_Star_ReturnStar()
-        {
-            // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Star);
-
-            // Assert
-            Assert.AreEqual(PointShape.Star, symbol);
-        }
-
-        [Test]
-        public void Convert_Hexagon_ReturnStar()
-        {
-            // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Hexagon);
-
-            // Assert
-            Assert.AreEqual(PointShape.Hexagon, symbol);
-        }
-
-        [Test]
-        public void Convert_Pentagon_ReturnStar()
-        {
-            // Call
-            PointShape symbol = MapDataHelper.Convert(PointSymbol.Pentagon);
-
-            // Assert
-            Assert.AreEqual(PointShape.Pentagon, symbol);
+            Assert.AreEqual(expectedShape, symbol);
         }
 
         [Test]
@@ -113,62 +58,23 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.Throws<InvalidEnumArgumentException>(test);
         }
 
-        #endregion
-
-        #region Convert DashStyle
-
         [Test]
-        public void Convert_Solid_ReturnsSolid()
+        [TestCase(LineDashStyle.Solid, DashStyle.Solid)]
+        [TestCase(LineDashStyle.Dash, DashStyle.Dash)]
+        [TestCase(LineDashStyle.Dot, DashStyle.Dot)]
+        [TestCase(LineDashStyle.DashDot, DashStyle.DashDot)]
+        [TestCase(LineDashStyle.DashDotDot, DashStyle.DashDotDot)]
+        public void Convert_ValidLineDashStyle_ReturnsExpectedDashStyle(LineDashStyle lineDashStyle, DashStyle expectedDashStyle)
         {
             // Call
-            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.Solid);
+            DashStyle dashStyle = MapDataHelper.Convert(lineDashStyle);
 
             // Assert
-            Assert.AreEqual(DashStyle.Solid, dashStyle);
+            Assert.AreEqual(expectedDashStyle, dashStyle);
         }
 
         [Test]
-        public void Convert_Dash_ReturnsDash()
-        {
-            // Call
-            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.Dash);
-
-            // Assert
-            Assert.AreEqual(DashStyle.Dash, dashStyle);
-        }
-
-        [Test]
-        public void Convert_Dot_ReturnsDot()
-        {
-            // Call
-            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.Dot);
-
-            // Assert
-            Assert.AreEqual(DashStyle.Dot, dashStyle);
-        }
-
-        [Test]
-        public void Convert_DashDot_ReturnsDashDot()
-        {
-            // Call
-            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.DashDot);
-
-            // Assert
-            Assert.AreEqual(DashStyle.DashDot, dashStyle);
-        }
-
-        [Test]
-        public void Convert_DashDotDot_ReturnsDashDotDot()
-        {
-            // Call
-            DashStyle dashStyle = MapDataHelper.Convert(LineDashStyle.DashDotDot);
-
-            // Assert
-            Assert.AreEqual(DashStyle.DashDotDot, dashStyle);
-        }
-
-        [Test]
-        public void Convert_Unknown_ThrowsInvalidEnumArgumentException()
+        public void Convert_InvalidLineDashStyle_ThrowsInvalidEnumArgumentException()
         {
             // Call
             TestDelegate call = () => MapDataHelper.Convert((LineDashStyle) 100);
@@ -176,7 +82,5 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(call);
         }
-
-        #endregion
     }
 }
