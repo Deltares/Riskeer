@@ -71,14 +71,11 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required 
         /// to perform the calculation.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds 
-        /// information about the contribution and 
-        /// the general inputs used in the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic 
         /// boundary database file.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> 
-        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -96,17 +93,12 @@ namespace Ringtoets.DuneErosion.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing 
         /// the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
-                              DuneErosionFailureMechanism failureMechanism,
                               double norm,
                               string hydraulicBoundaryDatabaseFilePath)
         {
             if (duneLocation == null)
             {
                 throw new ArgumentNullException(nameof(duneLocation));
-            }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);

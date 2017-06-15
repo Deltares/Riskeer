@@ -33,7 +33,6 @@ namespace Ringtoets.DuneErosion.Service
     public class DuneErosionBoundaryCalculationActivity : HydraRingActivityBase
     {
         private readonly DuneLocation duneLocation;
-        private readonly DuneErosionFailureMechanism failureMechanism;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly double norm;
         private readonly DuneErosionBoundaryCalculationService calculationService;
@@ -42,15 +41,11 @@ namespace Ringtoets.DuneErosion.Service
         /// Creates a new instance of <see cref="DuneErosionBoundaryCalculationActivity"/>.
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to perform the calculation for.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> that holds 
-        /// information about the contribution and the general inputs used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that 
         /// should be used for performing the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or
-        /// <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> is <c>null</c>.</exception>
         public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,
-                                                      DuneErosionFailureMechanism failureMechanism,
                                                       string hydraulicBoundaryDatabaseFilePath,
                                                       double norm)
         {
@@ -58,13 +53,8 @@ namespace Ringtoets.DuneErosion.Service
             {
                 throw new ArgumentNullException(nameof(duneLocation));
             }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
 
             this.duneLocation = duneLocation;
-            this.failureMechanism = failureMechanism;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.norm = norm;
 
@@ -90,7 +80,6 @@ namespace Ringtoets.DuneErosion.Service
             if (State != ActivityState.Skipped)
             {
                 calculationService.Calculate(duneLocation,
-                                             failureMechanism,
                                              norm,
                                              hydraulicBoundaryDatabaseFilePath);
             }

@@ -89,9 +89,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.Count > 0 ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.Count > 0 ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = DuneLocationsContextMenuStrip
             };
         }
@@ -269,7 +267,6 @@ namespace Ringtoets.DuneErosion.Plugin
                     }
 
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
-                                                                context.FailureMechanism,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
                     context.NotifyObservers();

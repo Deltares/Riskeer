@@ -175,7 +175,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private void HandleCalculateSelectedLocations(IEnumerable<DuneLocation> locationsToCalculate)
         {
             CalculationGuiService.Calculate(locationsToCalculate,
-                                            FailureMechanism,
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                             FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
 

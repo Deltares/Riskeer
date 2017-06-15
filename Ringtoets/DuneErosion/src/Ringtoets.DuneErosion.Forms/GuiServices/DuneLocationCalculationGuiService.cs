@@ -54,13 +54,11 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// Performs the calculation for all <paramref name="locations"/>.
         /// </summary>
         /// <param name="locations">The <see cref="DuneLocation"/> objects to perform the calculation for.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/>
-        ///  that holds information about the contribution and the general inputs used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file 
+        /// that should be used for performing the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
         public void Calculate(IEnumerable<DuneLocation> locations,
-                              DuneErosionFailureMechanism failureMechanism,
                               string hydraulicBoundaryDatabaseFilePath,
                               double norm)
         {
@@ -68,16 +66,12 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             {
                 throw new ArgumentNullException(nameof(locations));
             }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
 
-            ActivityProgressDialogRunner.Run(viewParent, locations
-                                                 .Select(l => new DuneErosionBoundaryCalculationActivity(l,
-                                                                                                         failureMechanism,
-                                                                                                         hydraulicBoundaryDatabaseFilePath,
-                                                                                                         norm)).ToArray());
+            ActivityProgressDialogRunner.Run(
+                viewParent,
+                locations.Select(l => new DuneErosionBoundaryCalculationActivity(l,
+                                                                                 hydraulicBoundaryDatabaseFilePath,
+                                                                                 norm)).ToArray());
         }
     }
 }

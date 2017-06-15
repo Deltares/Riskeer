@@ -52,10 +52,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
                                                 new DuneLocation.ConstructionProperties
                                                 {
@@ -65,7 +61,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     D50 = 0.000007
                                                 });
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
-                                                                      failureMechanism,
                                                                       validFilePath,
                                                                       1.0 / 30000);
 
@@ -113,7 +108,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
                                                 new DuneLocation.ConstructionProperties
                                                 {
@@ -123,7 +117,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     D50 = 0.000007
                                                 });
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
-                                                                      failureMechanism,
                                                                       validFilePath,
                                                                       1.0 / 30000);
 
@@ -147,17 +140,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
             var initialOutput = new TestDuneLocationOutput();
             var duneLocation = new TestDuneLocation
             {
                 Output = initialOutput
             };
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
-                                                                      failureMechanism,
                                                                       validFilePath,
                                                                       1.0 / 30000);
 

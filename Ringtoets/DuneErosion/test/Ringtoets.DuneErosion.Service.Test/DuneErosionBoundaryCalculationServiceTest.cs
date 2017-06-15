@@ -30,7 +30,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -105,28 +104,12 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Call
             TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(
                 null,
-                new DuneErosionFailureMechanism(),
                 1,
                 validFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("duneLocation", exception.ParamName);
-        }
-
-        [Test]
-        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(
-                new TestDuneLocation(),
-                null,
-                1,
-                validFilePath);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -161,7 +144,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Call
                 new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
-                    failureMechanism,
                     mechanismSpecificNorm,
                     validFilePath);
 
@@ -216,7 +198,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
-                    failureMechanism,
                     mechanismSpecificNorm,
                     validFilePath);
 
@@ -283,7 +264,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
-                    failureMechanism,
                     failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                     validFilePath);
 
@@ -340,7 +320,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Call
                 service.Calculate(
                     duneLocation,
-                    failureMechanism,
                     failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                     validFilePath);
 
@@ -392,7 +371,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                     {
                         new DuneErosionBoundaryCalculationService().Calculate(
                             duneLocation,
-                            failureMechanism,
                             failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                             validFilePath);
                     }
@@ -463,7 +441,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                     {
                         new DuneErosionBoundaryCalculationService().Calculate(
                             duneLocation,
-                            failureMechanism,
                             failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                             validFilePath);
                     }
@@ -536,7 +513,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                     {
                         new DuneErosionBoundaryCalculationService().Calculate(
                             duneLocation,
-                            failureMechanism,
                             failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                             validFilePath);
                     }

@@ -55,15 +55,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_LocationsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-
             using (var viewParent = new Form())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
-                                                               failureMechanism,
                                                                "path",
                                                                1.0 / 30000);
 
@@ -74,56 +71,31 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
-                                                               null,
-                                                               "path",
-                                                               1.0 / 30000);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("failureMechanism", exception.ParamName);
-            }
-        }
-
-        [Test]
         public void Calculate_ValidData_ScheduleAllLocations()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var failureMechanism = new DuneErosionFailureMechanism
+            var duneLocations = new[]
             {
-                Contribution = 10
-            };
-            failureMechanism.DuneLocations.AddRange(
-                new[]
+                new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                 {
-                    new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                    {
-                        CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
-                    }),
-                    new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                    {
-                        CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
-                    })
-                });
+                    CoastalAreaId = 0,
+                    Offset = 0,
+                    Orientation = 0,
+                    D50 = 0.000007
+                }),
+                new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                {
+                    CoastalAreaId = 0,
+                    Offset = 0,
+                    Orientation = 0,
+                    D50 = 0.000007
+                })
+            };
 
             var mockRepository = new MockRepository();
-            int nrOfCalculators = failureMechanism.DuneLocations.Count;
+            int nrOfCalculators = duneLocations.Length;
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
                              .Return(new TestDunesBoundaryConditionsCalculator())
@@ -137,8 +109,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestHelper.AssertLogMessages(() => guiService.Calculate(failureMechanism.DuneLocations,
-                                                                        failureMechanism,
+                TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocations,
                                                                         validFilePath,
                                                                         1.0 / 200),
                                              messages =>
