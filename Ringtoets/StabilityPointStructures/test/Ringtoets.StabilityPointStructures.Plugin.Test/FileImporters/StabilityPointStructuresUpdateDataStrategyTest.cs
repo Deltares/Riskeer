@@ -698,6 +698,72 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             Assert.AreSame(calculation, sectionResults[1].Calculation);
         }
 
+        [Test]
+        public void UpdateStructuresWithImportedData_SectionResultWithStructureImportedStructureWithSameIdRemoved_UpdatesCalculationInput()
+        {
+            // Setup
+            const string sameId = "id";
+            var originalMatchingPoint = new Point2D(0, 0);
+            StabilityPointStructure removedStructure = new TestStabilityPointStructure(originalMatchingPoint, sameId);
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = removedStructure
+                }
+            };
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                }
+            };
+            failureMechanism.StabilityPointStructures.AddRange(new[]
+            {
+                removedStructure
+            }, sourceFilePath);
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section", new[]
+            {
+                originalMatchingPoint,
+                new Point2D(10, 10)
+            }));
+
+            StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
+                                                                         failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+
+            var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
+
+            // Precondition
+            Assert.AreEqual(1, sectionResults.Length);
+            Assert.AreSame(calculation, sectionResults[0].Calculation);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
+                failureMechanism.StabilityPointStructures,
+                Enumerable.Empty<StabilityPointStructure>(),
+                sourceFilePath);
+
+            // Assert
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                failureMechanism.StabilityPointStructures,
+                calculation.InputParameters,
+                sectionResults[0]
+            }, affectedObjects);
+
+            sectionResults = failureMechanism.SectionResults.ToArray();
+            Assert.AreEqual(1, sectionResults.Length);
+            Assert.IsNull(sectionResults[0].Calculation);
+        }
+
         private static void AssertStabilityPointStructure(StabilityPointStructure expectedStabilityPointStructure,
                                                           StabilityPointStructure actualStabilityPointStructure)
         {
