@@ -71,7 +71,9 @@ namespace Ringtoets.HeightStructures.IO
                     ThrowValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                 }
 
-                HeightStructure heightStructure = CreateHeightStructure(structureLocation, structureParameterRows);
+                IEnumerable<StructuresParameterRow> heightStructureParameterRows =
+                    StructuresParameterRowsValidator.GetRelevantHeightStructuresParameters(structureParameterRows);
+                HeightStructure heightStructure = CreateHeightStructure(structureLocation, heightStructureParameterRows);
                 heightStructures.Add(heightStructure);
             }
             return heightStructures;

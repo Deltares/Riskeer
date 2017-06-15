@@ -73,7 +73,9 @@ namespace Ringtoets.StabilityPointStructures.IO
                     ThrowValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                 }
 
-                StabilityPointStructure stabilityPointStructure = CreateStabilityPointStructure(structureLocation, structureParameterRows);
+                IEnumerable<StructuresParameterRow> stabilityPointStructureParameters =
+                    StructuresParameterRowsValidator.GetRelevantStabilityPointStructuresParameters(structureParameterRows);
+                StabilityPointStructure stabilityPointStructure = CreateStabilityPointStructure(structureLocation, stabilityPointStructureParameters);
                 stabilityPointStructures.Add(stabilityPointStructure);
             }
             return stabilityPointStructures;

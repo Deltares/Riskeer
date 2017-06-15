@@ -314,6 +314,48 @@ namespace Ringtoets.HeightStructures.IO.Test
         }
 
         [Test]
+        public void Import_AllParameterIdsDefinedAndDuplicateUnknownParameterId_TrueAndImportTargetUpdated()
+        {
+            // Setup
+            var importTarget = new StructureCollection<HeightStructure>();
+            string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithDuplicateIrrelevantParameterInCsv",
+                                           "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(invocation.Arguments[0], importTarget);
+                        Assert.AreSame(invocation.Arguments[2], filePath);
+
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        Assert.AreEqual(1, readStructures.Count());
+                    })
+                    .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(154493.618, 568995.991),
+                new Point2D(156844.169, 574771.498),
+                new Point2D(157910.502, 579115.458),
+                new Point2D(163625.153, 585151.261)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importer = new HeightStructuresImporter(importTarget, referenceLine, filePath,
+                                                        messageProvider, strategy);
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
         public void Import_CancelOfImportWhenReadingShapeFile_CancelsImportAndLogs()
         {
             // Setup

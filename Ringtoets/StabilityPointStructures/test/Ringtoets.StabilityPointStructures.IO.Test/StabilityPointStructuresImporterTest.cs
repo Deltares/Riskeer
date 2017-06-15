@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -327,6 +328,48 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                 Assert.AreEqual($"Geen definitie gevonden voor parameter 'KW_STERSTAB25' van kunstwerk {structure}. Er wordt een standaard waarde gebruikt.", messages[10]);
                 // Don't care about the other messages.
             });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_AllParameterIdsDefinedAndDuplicateUnknownParameterId_TrueAndImportTargetUpdated()
+        {
+            // Setup
+            var importTarget = new StructureCollection<StabilityPointStructure>();
+            string filePath = Path.Combine(commonIoTestDataPath, "StructuresWithDuplicateIrrelevantParameterInCsv",
+                                           "Kunstwerken.shp");
+
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var strategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+                    .WhenCalled(invocation =>
+                    {
+                        Assert.AreSame(invocation.Arguments[0], importTarget);
+                        Assert.AreSame(invocation.Arguments[2], filePath);
+
+                        var readStructures = (IEnumerable<StabilityPointStructure>) invocation.Arguments[1];
+                        Assert.AreEqual(1, readStructures.Count());
+                    })
+                    .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(154493.618, 568995.991),
+                new Point2D(156844.169, 574771.498),
+                new Point2D(157910.502, 579115.458),
+                new Point2D(163625.153, 585151.261)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importer = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath,
+                                                                messageProvider, strategy);
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
             Assert.IsTrue(importResult);
         }
 

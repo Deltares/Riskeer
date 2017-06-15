@@ -73,7 +73,9 @@ namespace Ringtoets.ClosingStructures.IO
                     ThrowValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                 }
 
-                ClosingStructure closingStructure = CreateClosingStructure(structureLocation, structureParameterRows);
+                IEnumerable<StructuresParameterRow> closingStructureParameters =
+                    StructuresParameterRowsValidator.GetRelevantClosingStructuresParameters(structureParameterRows);
+                ClosingStructure closingStructure = CreateClosingStructure(structureLocation, closingStructureParameters);
                 closingStructures.Add(closingStructure);
             }
             return closingStructures;
