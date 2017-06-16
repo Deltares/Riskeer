@@ -231,7 +231,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             long stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
             string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
-            string segmentName = Convert.ToString(dataReader[SegmentTableColumns.SegmentName]);
             return new StochasticSoilModel(stochasticSoilModelId, stochasticSoilModelName);
         }
 

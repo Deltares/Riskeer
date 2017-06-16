@@ -40,26 +40,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         protected override IEnumerable<StochasticSoilModel> UniqueElements()
         {
-            yield return new StochasticSoilModel(5, "Model A", "segmentA");
-            yield return new StochasticSoilModel(6, "Model B", "segmentA");
+            yield return new StochasticSoilModel(5, "Model A");
+            yield return new StochasticSoilModel(6, "Model B");
         }
 
         protected override IEnumerable<StochasticSoilModel> SingleNonUniqueElements()
         {
             const string someName = "Soil model";
-            yield return new StochasticSoilModel(5, someName, "segmentA");
-            yield return new StochasticSoilModel(6, someName, "segmentB");
+            yield return new StochasticSoilModel(5, someName);
+            yield return new StochasticSoilModel(6, someName);
         }
 
         protected override IEnumerable<StochasticSoilModel> MultipleNonUniqueElements()
         {
             const string someName = "Soil model";
             const string someOtherName = "Other soil model";
-            yield return new StochasticSoilModel(5, someName, "segmentA");
-            yield return new StochasticSoilModel(6, someName, "segmentB");
-            yield return new StochasticSoilModel(7, someOtherName, "segmentC");
-            yield return new StochasticSoilModel(8, someOtherName, "segmentD");
-            yield return new StochasticSoilModel(9, someOtherName, "segmentE");
+            yield return new StochasticSoilModel(5, someName);
+            yield return new StochasticSoilModel(6, someName);
+            yield return new StochasticSoilModel(7, someOtherName);
+            yield return new StochasticSoilModel(8, someOtherName);
+            yield return new StochasticSoilModel(9, someOtherName);
         }
 
         protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<StochasticSoilModel> itemsToAdd)

@@ -39,12 +39,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         /// <param name="id">Database identifier of the stochastic soil model.</param>
         /// <param name="name">Name of the segment soil model.</param>
-        /// <param name="segmentName">Name of the segment soil model segment.</param>
-        public StochasticSoilModel(long id, string name, string segmentName)
+        public StochasticSoilModel(long id, string name)
         {
             Id = id;
             Name = name;
-            SegmentName = segmentName;
             Geometry = new List<Point2D>();
             StochasticSoilProfiles = new List<StochasticSoilProfile>();
         }
@@ -58,11 +56,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets the name of the segment soil model.
         /// </summary>
         public string Name { get; private set; }
-
-        /// <summary>
-        /// /// Gets the name of the segment soil model segment.
-        /// </summary>
-        public string SegmentName { get; private set; }
 
         /// <summary>
         /// Gets the list of geometry points.
@@ -95,7 +88,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             Id = fromModel.Id;
             Name = fromModel.Name;
-            SegmentName = fromModel.SegmentName;
             Geometry.Clear();
             foreach (Point2D point in fromModel.Geometry)
             {

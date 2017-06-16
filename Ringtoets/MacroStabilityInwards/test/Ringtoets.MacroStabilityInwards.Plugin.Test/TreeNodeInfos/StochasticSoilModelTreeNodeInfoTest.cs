@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string name = "test test 123";
-            var model = new StochasticSoilModel(1, name, "a");
+            var model = new StochasticSoilModel(1, name);
 
             // Call
             string text = info.Text(model);
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var model = new StochasticSoilModel(1, "A", "B");
+            var model = new StochasticSoilModel(1, "A");
 
             // Call
             Image image = info.Image(model);
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
-            var stochasticSoilModel = new StochasticSoilModel(0, "Name", "Name");
+            var stochasticSoilModel = new StochasticSoilModel(0, "Name");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var model = new StochasticSoilModel(1, "A", "B");
+            var model = new StochasticSoilModel(1, "A");
 
             var mocks = new MockRepository();
 

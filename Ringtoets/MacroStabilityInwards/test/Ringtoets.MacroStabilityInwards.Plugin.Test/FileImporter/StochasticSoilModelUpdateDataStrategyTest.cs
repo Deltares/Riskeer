@@ -489,7 +489,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
         private StochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
         {
-            var model = new StochasticSoilModel(-1, modelName, "segment name");
+            var model = new StochasticSoilModel(-1, modelName);
             foreach (string profileName in profileNames)
             {
                 model.StochasticSoilProfiles.Add(

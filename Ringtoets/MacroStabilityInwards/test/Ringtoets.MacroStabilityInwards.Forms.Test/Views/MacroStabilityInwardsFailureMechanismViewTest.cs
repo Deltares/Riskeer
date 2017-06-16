@@ -254,13 +254,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var stochasticSoilModel1 = new StochasticSoilModel(0, "name1", "");
+                var stochasticSoilModel1 = new StochasticSoilModel(0, "name1");
                 stochasticSoilModel1.Geometry.AddRange(new[]
                 {
                     new Point2D(1.0, 2.0),
                     new Point2D(1.1, 2.2)
                 });
-                var stochasticSoilModel2 = new StochasticSoilModel(0, "name2", "");
+                var stochasticSoilModel2 = new StochasticSoilModel(0, "name2");
                 stochasticSoilModel2.Geometry.AddRange(new[]
                 {
                     new Point2D(3.0, 4.0),
@@ -684,7 +684,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var stochasticSoilModel = new StochasticSoilModel(0, "", "");
+                var stochasticSoilModel = new StochasticSoilModel(0, "");
 
                 stochasticSoilModel.Geometry.AddRange(new[]
                 {

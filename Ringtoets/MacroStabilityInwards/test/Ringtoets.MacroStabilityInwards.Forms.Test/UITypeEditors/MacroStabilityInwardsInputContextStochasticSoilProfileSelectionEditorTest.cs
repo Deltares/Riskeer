@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             {
                 SoilProfile = new TestMacroStabilityInwardsSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "Model", string.Empty)
+            var stochasticSoilModel = new StochasticSoilModel(0, "Model")
             {
                 Geometry =
                 {
