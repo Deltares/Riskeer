@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Removes the <see cref="DikeProfile"/> from the <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// Removes the <see cref="DikeProfile"/>, unassigns them from the <paramref name="calculations"/>
         /// and clears all the data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="dikeProfileToRemove">The dike profile to remove.</param>
@@ -187,52 +187,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 dikeProfiles
             };
-            affectedObjects.AddRange(ClearDikeProfileDependentData(calculations, sectionResults, affectedCalculations));
+            affectedObjects.AddRange(ClearDikeProfileDependentData(sectionResults, affectedCalculations, calculations));
 
             dikeProfiles.Remove(dikeProfileToRemove);
             return affectedObjects;
         }
 
         /// <summary>
-        /// Removes all the <see cref="DikeProfile"/> from the <see cref="GrassCoverErosionInwardsFailureMechanism"/>
-        /// and clears all data that depends on it, either directly or indirectly.
+        /// Clears <paramref name="dikeProfiles"/>, unassigns the elements from the <paramref name="calculations"/>
+        /// and clears all the data that depends on it, either directly or indirectly.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism for which all
-        /// the dike profiles need to be removed.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of all affected objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveAllDikeProfiles(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        /// <param name="calculations">The calculations that may have 
+        /// an assigned element of <see cref="dikeProfiles"/>.</param>
+        /// <param name="dikeProfiles">The collection to be cleared.</param>
+        /// <param name="sectionResults">The section results that may have an assignment to a calculation 
+        /// based on the elements of <paramref name="dikeProfiles"/>.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of all affected objects by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllDikeProfiles(IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
+                                                                     DikeProfileCollection dikeProfiles,
+                                                                     IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
         {
-            if (failureMechanism == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(calculations));
+            }
+            if (dikeProfiles == null)
+            {
+                throw new ArgumentNullException(nameof(dikeProfiles));
+            }
+            if (sectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResults));
             }
 
             IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations =
-                failureMechanism.Calculations
-                                .Cast<GrassCoverErosionInwardsCalculation>()
-                                .Where(calc => calc.InputParameters.DikeProfile != null)
-                                .ToArray();
+                calculations.Where(calc => calc.InputParameters.DikeProfile != null)
+                            .ToArray();
 
-            var affectedObjects = new List<IObservable>();
-            foreach (GrassCoverErosionInwardsCalculation calculation in affectedCalculations)
+            var affectedObjects = new List<IObservable>
             {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
-                affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
-            }
+                dikeProfiles
+            };
+            affectedObjects.AddRange(ClearDikeProfileDependentData(sectionResults,
+                                                                   affectedCalculations,
+                                                                   calculations));
 
-            failureMechanism.DikeProfiles.Clear();
-            affectedObjects.Add(failureMechanism.DikeProfiles);
+            dikeProfiles.Clear();
             return affectedObjects;
         }
 
-        private static IEnumerable<IObservable> ClearDikeProfileDependentData(IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
-                                                                              IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                                                              IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations)
+        private static IEnumerable<IObservable> ClearDikeProfileDependentData(
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculationsWithRemovedDikeProfile,
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             var affectedObjects = new List<IObservable>();
-            foreach (GrassCoverErosionInwardsCalculation calculation in affectedCalculations)
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculationsWithRemovedDikeProfile)
             {
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
