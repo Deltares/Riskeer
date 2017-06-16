@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
             calculation2.InputParameters.EntryPointL = (RoundedDouble) 0.3;
             calculation2.InputParameters.ExitPointL = (RoundedDouble) 0.4;
-            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Piping", string.Empty);
+            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel(1, "PK001_0002_Piping");
             calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new PipingSoilProfile("W1-6_4_1D1", 0, new[]

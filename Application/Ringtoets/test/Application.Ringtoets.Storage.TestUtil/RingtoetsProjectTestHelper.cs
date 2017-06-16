@@ -672,7 +672,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new StochasticSoilModel(-1, "modelName", "modelSegmentName")
+                new StochasticSoilModel(-1, "modelName")
                 {
                     Geometry =
                     {

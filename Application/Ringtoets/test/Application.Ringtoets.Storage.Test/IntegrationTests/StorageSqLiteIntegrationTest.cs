@@ -583,7 +583,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 StochasticSoilModel actualModel = actualModels[i];
 
                 Assert.AreEqual(expectedModel.Name, actualModel.Name);
-                Assert.AreEqual(expectedModel.SegmentName, actualModel.SegmentName);
                 AssertSegmentPoints(expectedModel.Geometry, actualModel.Geometry);
                 AssertStochasticSoilProfiles(expectedModel.StochasticSoilProfiles, actualModel.StochasticSoilProfiles);
             }

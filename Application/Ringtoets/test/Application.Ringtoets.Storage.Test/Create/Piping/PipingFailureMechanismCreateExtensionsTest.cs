@@ -149,8 +149,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             const string somePath = "some/path/to/file";
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new StochasticSoilModel(-1, "name", "segmentName"),
-                new StochasticSoilModel(-1, "name2", "segmentName2")
+                new StochasticSoilModel(-1, "name"),
+                new StochasticSoilModel(-1, "name2")
             }, somePath);
 
             var registry = new PersistenceRegistry();

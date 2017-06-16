@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Integration.TestUtil
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
                     SurfaceLine = surfaceline,
-                    StochasticSoilModel = new StochasticSoilModel(1, "PK001_0001_Piping", string.Empty),
+                    StochasticSoilModel = new StochasticSoilModel(1, "PK001_0001_Piping"),
                     StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
                     {
                         SoilProfile = new PipingSoilProfile("W1-6_0_1D1", 0, new[]
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Integration.TestUtil
                 surfaceline1,
                 surfaceline2
             }, "some/path/to/surfacelines");
-            var stochasticSoilModel1 = new StochasticSoilModel(1, "A", "B")
+            var stochasticSoilModel1 = new StochasticSoilModel(1, "A")
             {
                 Geometry =
                 {
@@ -264,7 +264,7 @@ namespace Ringtoets.Piping.Integration.TestUtil
                     new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
                 }
             };
-            var stochasticSoilModel2 = new StochasticSoilModel(2, "C", "D")
+            var stochasticSoilModel2 = new StochasticSoilModel(2, "C")
             {
                 Geometry =
                 {

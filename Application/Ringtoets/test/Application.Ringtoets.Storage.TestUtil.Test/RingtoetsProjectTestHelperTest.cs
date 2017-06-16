@@ -92,7 +92,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual(-1, soilModel.Id);
             Assert.AreEqual("modelName", soilModel.Name);
-            Assert.AreEqual("modelSegmentName", soilModel.SegmentName);
             Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
             StochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
             Assert.AreEqual(0.2, stochasticSoilProfile1.Probability);

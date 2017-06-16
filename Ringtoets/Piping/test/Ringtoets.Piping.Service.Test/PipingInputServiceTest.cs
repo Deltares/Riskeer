@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SetMatchingStochasticSoilModel_SurfaceLineOverlappingSingleSoilModel_SetsSoilModel()
         {
             // Setup
-            var soilModel = new StochasticSoilModel(1, "A", "B");
+            var soilModel = new StochasticSoilModel(1, "A");
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
@@ -50,8 +50,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
-            var soilModel1 = new StochasticSoilModel(1, "A", "B");
-            var soilModel2 = new StochasticSoilModel(2, "C", "D");
+            var soilModel1 = new StochasticSoilModel(1, "A");
+            var soilModel2 = new StochasticSoilModel(2, "C");
 
             // Call
             PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
@@ -68,14 +68,14 @@ namespace Ringtoets.Piping.Service.Test
         public void SetMatchingStochasticSoilModel_CurrentSoilModelNotInOverlappingMultipleSoilModels_ClearsModel()
         {
             // Setup
-            var nonOverlappingSoilModel = new StochasticSoilModel(1, "A", "B");
+            var nonOverlappingSoilModel = new StochasticSoilModel(1, "A");
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 StochasticSoilModel = nonOverlappingSoilModel
             };
 
-            var soilModel1 = new StochasticSoilModel(1, "A", "B");
-            var soilModel2 = new StochasticSoilModel(2, "C", "D");
+            var soilModel1 = new StochasticSoilModel(1, "A");
+            var soilModel2 = new StochasticSoilModel(2, "C");
 
             // Call
             PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var soilProfile = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1);
 
-            var soilModel = new StochasticSoilModel(1, "A", "B");
+            var soilModel = new StochasticSoilModel(1, "A");
             soilModel.StochasticSoilProfiles.Add(soilProfile);
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SyncStochasticSoilProfileWithStochasticSoilModel_MultipleStochasticSoilProfilesInStochasticSoilModel_DoesNotSetStochasticSoilProfile()
         {
             // Setup
-            var soilModel = new StochasticSoilModel(1, "A", "B");
+            var soilModel = new StochasticSoilModel(1, "A");
             soilModel.StochasticSoilProfiles.AddRange(new[]
             {
                 new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1),
@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var soilProfile = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1);
 
-            var soilModel = new StochasticSoilModel(1, "A", "B");
+            var soilModel = new StochasticSoilModel(1, "A");
             soilModel.StochasticSoilProfiles.Add(soilProfile);
 
             var pipingInput = new PipingInput(new GeneralPipingInput())

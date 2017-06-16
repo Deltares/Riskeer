@@ -34,18 +34,17 @@ namespace Ringtoets.Piping.Data.Test
     public class StochasticSoilModelTest
     {
         [Test]
-        [TestCase(1234L, "", "")]
-        [TestCase(5678L, "segmentSoilModelName", "segmentName")]
-        public void Constructor_Always_ExpectedValues(long segmentSoilModelId, string segmentSoilModelName, string segmentName)
+        [TestCase(1234L, "")]
+        [TestCase(5678L, "segmentSoilModelName")]
+        public void Constructor_Always_ExpectedValues(long segmentSoilModelId, string segmentSoilModelName)
         {
             // Call
-            var stochasticSoilModel = new StochasticSoilModel(segmentSoilModelId, segmentSoilModelName, segmentName);
+            var stochasticSoilModel = new StochasticSoilModel(segmentSoilModelId, segmentSoilModelName);
 
             // Assert
             Assert.IsInstanceOf<Observable>(stochasticSoilModel);
             Assert.AreEqual(segmentSoilModelId, stochasticSoilModel.Id);
             Assert.AreEqual(segmentSoilModelName, stochasticSoilModel.Name);
-            Assert.AreEqual(segmentName, stochasticSoilModel.SegmentName);
             CollectionAssert.IsEmpty(stochasticSoilModel.Geometry);
             CollectionAssert.IsEmpty(stochasticSoilModel.StochasticSoilProfiles);
         }
@@ -56,8 +55,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             const long expectedSegmentSoilModelId = 1234L;
             const string expectedSegmentSoilModelName = "someSegmentSoilModelName";
-            const string expectedSegmentName = "someSegmentName";
-            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName, expectedSegmentName);
+            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName);
             var point2D = new Point2D(1.0, 2.0);
 
             // Call
@@ -66,7 +64,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModel.Id);
             Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModel.Name);
-            Assert.AreEqual(expectedSegmentName, stochasticSoilModel.SegmentName);
             Assert.AreEqual(1, stochasticSoilModel.Geometry.Count);
             Assert.AreEqual(point2D, stochasticSoilModel.Geometry[0]);
         }
@@ -77,8 +74,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             const long expectedSegmentSoilModelId = 1234L;
             const string expectedSegmentSoilModelName = "someSegmentSoilModelName";
-            const string expectedSegmentName = "someSegmentName";
-            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName, expectedSegmentName);
+            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName);
 
             var mockRepository = new MockRepository();
             var stochasticSoilProfileProbabilityMock = mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
@@ -90,7 +86,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModel.Id);
             Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModel.Name);
-            Assert.AreEqual(expectedSegmentName, stochasticSoilModel.SegmentName);
             Assert.AreEqual(1, stochasticSoilModel.StochasticSoilProfiles.Count);
             Assert.AreEqual(stochasticSoilProfileProbabilityMock, stochasticSoilModel.StochasticSoilProfiles[0]);
             mockRepository.VerifyAll();
@@ -100,7 +95,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Update_WithNullModel_ThrowsArgumentNullException()
         {
             // Setup
-            var model = new StochasticSoilModel(1234, "name", "segment");
+            var model = new StochasticSoilModel(1234, "name");
 
             // Call
             TestDelegate test = () => model.Update(null);
@@ -114,7 +109,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Update_ModelWithUpdatedProperties_PropertiesUpdated()
         {
             // Setup
-            var model = new StochasticSoilModel(1234, "name", "segment");
+            var model = new StochasticSoilModel(1234, "name");
             model.Geometry.AddRange(new[]
             {
                 new Point2D(1, 2),
@@ -123,13 +118,12 @@ namespace Ringtoets.Piping.Data.Test
 
             const int expectedId = 1236;
             const string expectedName = "otherName";
-            const string expectedSegmentName = "otherSegmentName";
             var expectedGeometry = new[]
             {
                 new Point2D(4, 2)
             };
 
-            var otherModel = new StochasticSoilModel(expectedId, expectedName, expectedSegmentName);
+            var otherModel = new StochasticSoilModel(expectedId, expectedName);
             otherModel.Geometry.AddRange(expectedGeometry);
 
             // Call
@@ -138,7 +132,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(expectedId, model.Id);
             Assert.AreEqual(expectedName, model.Name);
-            Assert.AreEqual(expectedSegmentName, model.SegmentName);
             CollectionAssert.AreEqual(expectedGeometry, model.Geometry);
 
             CollectionAssert.IsEmpty(difference.AddedProfiles);
@@ -317,8 +310,7 @@ namespace Ringtoets.Piping.Data.Test
             model.StochasticSoilProfiles.Add(stochasticProfileB);
 
             const string otherName = "other name";
-            const string otherSegmentName = "other segment";
-            var otherModel = new StochasticSoilModel(41, otherName, otherSegmentName);
+            var otherModel = new StochasticSoilModel(41, otherName);
 
             var otherPointA = new Point2D(2, 0);
             var otherPointB = new Point2D(3, 0);
@@ -344,7 +336,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(otherName, model.Name);
-            Assert.AreEqual(otherSegmentName, model.SegmentName);
             Assert.AreSame(otherPointA, model.Geometry[0]);
             Assert.AreSame(otherPointB, model.Geometry[1]);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
@@ -410,7 +401,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ToString_WithName_ReturnsName(string name)
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1, name, "segmentName");
+            var stochasticSoilModel = new StochasticSoilModel(1, name);
 
             // Call & Assert
             Assert.AreEqual(name, stochasticSoilModel.ToString());
@@ -426,7 +417,7 @@ namespace Ringtoets.Piping.Data.Test
 
         private StochasticSoilModel CreateEmptyModel()
         {
-            var model = new StochasticSoilModel(1234, "name", "segment");
+            var model = new StochasticSoilModel(1234, "name");
             return model;
         }
     }

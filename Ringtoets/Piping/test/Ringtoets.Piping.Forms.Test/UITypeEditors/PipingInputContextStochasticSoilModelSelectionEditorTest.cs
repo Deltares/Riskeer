@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
-                StochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName")
+                StochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName")
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
                                                             calculationItem,
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "Model", string.Empty)
+            var stochasticSoilModel = new StochasticSoilModel(0, "Model")
             {
                 Geometry =
                 {

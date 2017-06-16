@@ -353,7 +353,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = null;
-            var soilModel = new StochasticSoilModel(1, "A", "B");
+            var soilModel = new StochasticSoilModel(1, "A");
 
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);

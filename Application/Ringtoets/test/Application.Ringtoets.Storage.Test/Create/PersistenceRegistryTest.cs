@@ -321,7 +321,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var soilModel = new StochasticSoilModel(1, "A", "1");
+            var soilModel = new StochasticSoilModel(1, "A");
             registry.Register(new StochasticSoilModelEntity(), soilModel);
 
             // Call
@@ -336,7 +336,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var soilModel = new StochasticSoilModel(1, "A", "1");
+            var soilModel = new StochasticSoilModel(1, "A");
 
             // Call
             bool result = registry.Contains(soilModel);
@@ -350,8 +350,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var soilModel = new StochasticSoilModel(1, "A", "B");
-            registry.Register(new StochasticSoilModelEntity(), new StochasticSoilModel(3, "B", "4"));
+            var soilModel = new StochasticSoilModel(1, "A");
+            registry.Register(new StochasticSoilModelEntity(), new StochasticSoilModel(3, "B"));
 
             // Call
             bool result = registry.Contains(soilModel);
@@ -1268,7 +1268,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var soilModel = new StochasticSoilModel(5, "6", "7");
+            var soilModel = new StochasticSoilModel(5, "6");
             var entity = new StochasticSoilModelEntity();
             registry.Register(entity, soilModel);
 
@@ -1284,7 +1284,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var soilModel = new StochasticSoilModel(5, "6", "7");
+            var soilModel = new StochasticSoilModel(5, "6");
 
             // Call
             TestDelegate test = () => registry.Get(soilModel);
@@ -1298,8 +1298,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var soilModel = new StochasticSoilModel(5, "6", "7");
-            registry.Register(new StochasticSoilModelEntity(), new StochasticSoilModel(1, "2", "3"));
+            var soilModel = new StochasticSoilModel(5, "6");
+            registry.Register(new StochasticSoilModelEntity(), new StochasticSoilModel(1, "2"));
 
             // Call
             TestDelegate test = () => registry.Get(soilModel);

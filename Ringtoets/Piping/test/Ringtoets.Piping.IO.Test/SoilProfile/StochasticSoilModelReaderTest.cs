@@ -314,7 +314,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 };
                 Assert.AreEqual(expectedNrOfModels, nrOfModels);
 
-                CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.SegmentName));
                 CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
                 CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
                 CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
@@ -371,7 +370,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 };
                 Assert.AreEqual(expectedNrOfModels, nrOfModels);
 
-                CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.SegmentName));
                 CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
                 CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
                 CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
@@ -472,7 +470,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             };
 
             Assert.AreEqual(2, readModels.Count);
-            CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.SegmentName));
             CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
             CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
             CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
