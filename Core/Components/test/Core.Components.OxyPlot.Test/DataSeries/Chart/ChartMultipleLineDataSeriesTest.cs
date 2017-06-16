@@ -27,10 +27,11 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.CustomSeries;
 using Core.Components.OxyPlot.DataSeries;
+using Core.Components.OxyPlot.DataSeries.Chart;
 using NUnit.Framework;
 using OxyPlot;
 
-namespace Core.Components.OxyPlot.Test.DataSeries
+namespace Core.Components.OxyPlot.Test.DataSeries.Chart
 {
     [TestFixture]
     public class ChartMultipleLineDataSeriesTest

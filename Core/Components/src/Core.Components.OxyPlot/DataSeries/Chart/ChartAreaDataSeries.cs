@@ -22,48 +22,48 @@
 using System;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
-using Core.Components.OxyPlot.Converter;
+using Core.Components.OxyPlot.Converter.Chart;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.DataSeries
+namespace Core.Components.OxyPlot.DataSeries.Chart
 {
     /// <summary>
-    /// A <see cref="LineSeries"/> based on and updated according to the wrapped <see cref="ChartPointData"/>.
+    /// A <see cref="AreaSeries"/> based on and updated according to the wrapped <see cref="ChartAreaData"/>.
     /// </summary>
-    public class ChartPointDataSeries : LineSeries, IChartDataSeries
+    public class ChartAreaDataSeries : AreaSeries, IChartDataSeries
     {
-        private readonly ChartPointData chartPointData;
-        private readonly ChartPointDataConverter converter = new ChartPointDataConverter();
+        private readonly ChartAreaData chartAreaData;
+        private readonly ChartAreaDataConverter converter = new ChartAreaDataConverter();
 
         private Point2D[] drawnPoints;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ChartPointDataSeries"/>.
+        /// Creates a new instance of <see cref="ChartAreaDataSeries"/>.
         /// </summary>
-        /// <param name="chartPointData">The <see cref="ChartPointData"/> which the chart point data series is based upon.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartPointData"/> is <c>null</c>.</exception>
-        public ChartPointDataSeries(ChartPointData chartPointData)
+        /// <param name="chartAreaData">The <see cref="ChartAreaData"/> which the chart area data series is based upon.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartAreaData"/> is <c>null</c>.</exception>
+        public ChartAreaDataSeries(ChartAreaData chartAreaData)
         {
-            if (chartPointData == null)
+            if (chartAreaData == null)
             {
-                throw new ArgumentNullException(nameof(chartPointData));
+                throw new ArgumentNullException(nameof(chartAreaData));
             }
 
-            this.chartPointData = chartPointData;
+            this.chartAreaData = chartAreaData;
 
             Update();
         }
 
         public void Update()
         {
-            if (!ReferenceEquals(chartPointData.Points, drawnPoints))
+            if (!ReferenceEquals(chartAreaData.Points, drawnPoints))
             {
-                converter.ConvertSeriesData(chartPointData, this);
+                converter.ConvertSeriesData(chartAreaData, this);
 
-                drawnPoints = chartPointData.Points;
+                drawnPoints = chartAreaData.Points;
             }
 
-            converter.ConvertSeriesProperties(chartPointData, this);
+            converter.ConvertSeriesProperties(chartAreaData, this);
         }
     }
 }

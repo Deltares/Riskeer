@@ -25,11 +25,12 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.DataSeries;
+using Core.Components.OxyPlot.DataSeries.Chart;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Test.DataSeries
+namespace Core.Components.OxyPlot.Test.DataSeries.Chart
 {
     [TestFixture]
     public class ChartAreaDataSeriesTest

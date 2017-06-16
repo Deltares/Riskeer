@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using Core.Components.Chart.Data;
 
-namespace Core.Components.OxyPlot.DataSeries
+namespace Core.Components.OxyPlot.DataSeries.Chart
 {
     /// <summary>
     /// A factory to create <see cref="IChartDataSeries"/> based on <see cref="ChartData"/>.

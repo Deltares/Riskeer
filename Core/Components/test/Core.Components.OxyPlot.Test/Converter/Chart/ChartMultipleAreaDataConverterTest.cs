@@ -27,12 +27,12 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
-using Core.Components.OxyPlot.Converter;
+using Core.Components.OxyPlot.Converter.Chart;
 using Core.Components.OxyPlot.CustomSeries;
 using NUnit.Framework;
 using OxyPlot;
 
-namespace Core.Components.OxyPlot.Test.Converter
+namespace Core.Components.OxyPlot.Test.Converter.Chart
 {
     [TestFixture]
     public class ChartMultipleAreaDataConverterTest

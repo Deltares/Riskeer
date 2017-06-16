@@ -23,9 +23,10 @@ using System;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.TestUtil;
 using Core.Components.OxyPlot.DataSeries;
+using Core.Components.OxyPlot.DataSeries.Chart;
 using NUnit.Framework;
 
-namespace Core.Components.OxyPlot.Test.DataSeries
+namespace Core.Components.OxyPlot.Test.DataSeries.Chart
 {
     [TestFixture]
     public class ChartDataSeriesFactoryTest

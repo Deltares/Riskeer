@@ -25,7 +25,7 @@ using Core.Components.Chart.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.OxyPlot.Converter.Chart
 {
     /// <summary>
     /// The converter that converts <see cref="ChartLineData"/> data into <see cref="LineSeries"/> data.

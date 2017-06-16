@@ -20,82 +20,70 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
-using Core.Components.OxyPlot.Converter;
-using Core.Components.OxyPlot.CustomSeries;
+using Core.Components.OxyPlot.Converter.Chart;
 using NUnit.Framework;
 using OxyPlot;
+using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Test.Converter
+namespace Core.Components.OxyPlot.Test.Converter.Chart
 {
     [TestFixture]
-    public class ChartMultipleLineDataConverterTest
+    public class ChartLineDataConverterTest
     {
         [Test]
         public void DefaultConstructor_IsChartDataConverter()
         {
             // Call
-            var converter = new ChartMultipleLineDataConverter();
+            var converter = new ChartLineDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ChartDataConverter<ChartMultipleLineData, MultipleLineSeries>>(converter);
+            Assert.IsInstanceOf<ChartDataConverter<ChartLineData, LineSeries>>(converter);
         }
 
         [Test]
-        public void ConvertSeriesItems_ChartMultipleLineDataWithRandomLineData_ConvertsAllLinesToMultipleLineSeries()
+        public void ConvertSeriesItems_ChartLineDataWithRandomPointData_ConvertsAllPointsToLineSeries()
         {
             // Setup
-            var converter = new ChartMultipleLineDataConverter();
-            var multipleLineSeries = new MultipleLineSeries();
+            var converter = new ChartLineDataConverter();
+            var lineSeries = new LineSeries();
             var random = new Random(21);
             int randomCount = random.Next(5, 10);
-
-            var points1 = new Collection<Point2D>();
-            var points2 = new Collection<Point2D>();
+            var points = new Collection<Point2D>();
 
             for (var i = 0; i < randomCount; i++)
             {
-                points1.Add(new Point2D(random.NextDouble(), random.NextDouble()));
-                points2.Add(new Point2D(random.NextDouble(), random.NextDouble()));
+                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var lines = new List<Point2D[]>
+            var lineData = new ChartLineData("test data")
             {
-                points1.ToArray(),
-                points2.ToArray()
-            };
-
-            var lineData = new ChartMultipleLineData("test data")
-            {
-                Lines = lines
+                Points = points.ToArray()
             };
 
             // Call
-            converter.ConvertSeriesData(lineData, multipleLineSeries);
+            converter.ConvertSeriesData(lineData, lineSeries);
 
             // Assert
-            Assert.AreEqual(2, multipleLineSeries.Lines.Count);
-            CollectionAssert.AreEqual(lines.ElementAt(0).Select(t => new DataPoint(t.X, t.Y)), multipleLineSeries.Lines[0]);
-            CollectionAssert.AreEqual(lines.ElementAt(1).Select(t => new DataPoint(t.X, t.Y)), multipleLineSeries.Lines[1]);
+            CollectionAssert.AreEqual(points.Select(p => new DataPoint(p.X, p.Y)), lineSeries.ItemsSource);
         }
 
         [Test]
         [TestCase(KnownColor.AliceBlue)]
         [TestCase(KnownColor.Azure)]
         [TestCase(KnownColor.Beige)]
-        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentStrokeColors_AppliesStyleToSeries(KnownColor color)
+        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentColors_AppliesStyleToSeries(KnownColor color)
         {
             // Setup
-            var converter = new ChartMultipleLineDataConverter();
-            var multipleLineSeries = new MultipleLineSeries();
+            var converter = new ChartLineDataConverter();
+            var lineSeries = new LineSeries();
             Color expectedColor = Color.FromKnownColor(color);
-            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            var data = new ChartLineData("test", new ChartLineStyle
             {
                 Color = expectedColor,
                 Width = 3,
@@ -103,22 +91,22 @@ namespace Core.Components.OxyPlot.Test.Converter
             });
 
             // Call
-            converter.ConvertSeriesProperties(data, multipleLineSeries);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            Assert.AreEqual(OxyColor.FromArgb(expectedColor.A, expectedColor.R, expectedColor.G, expectedColor.B), multipleLineSeries.Color);
+            AssertColors(expectedColor, lineSeries.Color);
         }
 
         [Test]
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(7)]
-        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentStrokeWidths_AppliesStyleToSeries(int width)
+        public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentWidths_AppliesStyleToSeries(int width)
         {
             // Setup
-            var converter = new ChartMultipleLineDataConverter();
-            var multipleLineSeries = new MultipleLineSeries();
-            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            var converter = new ChartLineDataConverter();
+            var lineSeries = new LineSeries();
+            var data = new ChartLineData("test", new ChartLineStyle
             {
                 Color = Color.Red,
                 Width = width,
@@ -126,10 +114,10 @@ namespace Core.Components.OxyPlot.Test.Converter
             });
 
             // Call
-            converter.ConvertSeriesProperties(data, multipleLineSeries);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            Assert.AreEqual(width, multipleLineSeries.StrokeThickness);
+            Assert.AreEqual(width, lineSeries.StrokeThickness);
         }
 
         [Test]
@@ -141,9 +129,9 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void ConvertSeriesProperties_ChartLineStyleSetWithDifferentDashStyles_AppliesStyleToSeries(ChartLineDashStyle dashStyle, LineStyle expectedLineStyle)
         {
             // Setup
-            var converter = new ChartMultipleLineDataConverter();
-            var multipleLineSeries = new MultipleLineSeries();
-            var data = new ChartMultipleLineData("test", new ChartLineStyle
+            var converter = new ChartLineDataConverter();
+            var lineSeries = new LineSeries();
+            var data = new ChartLineData("test", new ChartLineStyle
             {
                 Color = Color.Red,
                 Width = 3,
@@ -151,11 +139,15 @@ namespace Core.Components.OxyPlot.Test.Converter
             });
 
             // Call
-            converter.ConvertSeriesProperties(data, multipleLineSeries);
+            converter.ConvertSeriesProperties(data, lineSeries);
 
             // Assert
-            Assert.AreEqual(expectedLineStyle, multipleLineSeries.LineStyle);
-            Assert.IsNull(multipleLineSeries.Dashes);
+            Assert.AreEqual(expectedLineStyle, lineSeries.LineStyle);
+        }
+
+        private static void AssertColors(Color color, OxyColor oxyColor)
+        {
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), oxyColor);
         }
     }
 }

@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using Core.Components.Chart.TestUtil;
-using Core.Components.OxyPlot.Converter;
+using Core.Components.OxyPlot.Converter.Chart;
 using NUnit.Framework;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Test.Converter
+namespace Core.Components.OxyPlot.Test.Converter.Chart
 {
     [TestFixture]
     public class ChartDataConverterTest

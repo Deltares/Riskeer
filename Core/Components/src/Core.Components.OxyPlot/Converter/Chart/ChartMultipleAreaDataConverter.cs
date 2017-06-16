@@ -26,30 +26,29 @@ using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.CustomSeries;
 using OxyPlot;
 
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.OxyPlot.Converter.Chart
 {
     /// <summary>
-    /// The converter that converts <see cref="ChartMultipleLineData"/> data into <see cref="MultipleLineSeries"/> data.
+    /// The converter that converts <see cref="ChartMultipleAreaData"/> data into <see cref="MultipleAreaSeries"/> data.
     /// </summary>
-    public class ChartMultipleLineDataConverter : ChartDataConverter<ChartMultipleLineData, MultipleLineSeries>
+    public class ChartMultipleAreaDataConverter : ChartDataConverter<ChartMultipleAreaData, MultipleAreaSeries>
     {
-        protected override void SetSeriesData(ChartMultipleLineData data, MultipleLineSeries series)
+        protected override void SetSeriesData(ChartMultipleAreaData data, MultipleAreaSeries series)
         {
-            series.Lines.Clear();
+            series.Areas.Clear();
 
-            foreach (Point2D[] line in data.Lines)
+            foreach (Point2D[] area in data.Areas)
             {
-                series.Lines.Add(line.Select(p => new DataPoint(p.X, p.Y)).ToArray());
+                series.Areas.Add(area.Select(p => new DataPoint(p.X, p.Y)).ToArray());
             }
         }
 
-        protected override void SetSeriesStyle(ChartMultipleLineData data, MultipleLineSeries series)
+        protected override void SetSeriesStyle(ChartMultipleAreaData data, MultipleAreaSeries series)
         {
-            ChartLineStyle lineStyle = data.Style;
-
-            series.Color = ChartDataHelper.Convert(lineStyle.Color);
-            series.StrokeThickness = lineStyle.Width;
-            series.LineStyle = ChartDataHelper.Convert(lineStyle.DashStyle);
+            ChartAreaStyle style = data.Style;
+            series.Fill = ChartDataHelper.Convert(style.FillColor);
+            series.Color = ChartDataHelper.Convert(style.StrokeColor);
+            series.StrokeThickness = style.StrokeThickness;
         }
     }
 }

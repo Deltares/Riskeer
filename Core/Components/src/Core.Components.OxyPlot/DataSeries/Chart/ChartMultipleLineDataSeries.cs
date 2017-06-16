@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
-using Core.Components.OxyPlot.Converter;
+using Core.Components.OxyPlot.Converter.Chart;
 using Core.Components.OxyPlot.CustomSeries;
 
-namespace Core.Components.OxyPlot.DataSeries
+namespace Core.Components.OxyPlot.DataSeries.Chart
 {
     /// <summary>
     /// A <see cref="MultipleLineSeries"/> based on and updated according to the wrapped <see cref="ChartMultipleLineData"/>.

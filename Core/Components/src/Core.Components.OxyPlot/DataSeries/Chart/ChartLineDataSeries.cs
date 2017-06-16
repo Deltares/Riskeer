@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
-using Core.Components.OxyPlot.Converter;
+using Core.Components.OxyPlot.Converter.Chart;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.DataSeries
+namespace Core.Components.OxyPlot.DataSeries.Chart
 {
     /// <summary>
     /// A <see cref="LineSeries"/> based on and updated according to the wrapped <see cref="ChartLineData"/>.

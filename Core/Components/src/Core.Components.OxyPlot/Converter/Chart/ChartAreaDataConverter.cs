@@ -25,27 +25,32 @@ using Core.Components.Chart.Styles;
 using OxyPlot;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.OxyPlot.Converter.Chart
 {
     /// <summary>
-    /// The converter that converts <see cref="ChartPointData"/> data into <see cref="LineSeries"/> data.
+    /// The converter that converts <see cref="ChartAreaData"/> data into <see cref="AreaSeries"/> data.
     /// </summary>
-    public class ChartPointDataConverter : ChartDataConverter<ChartPointData, LineSeries>
+    public class ChartAreaDataConverter : ChartDataConverter<ChartAreaData, AreaSeries>
     {
-        protected override void SetSeriesData(ChartPointData data, LineSeries series)
+        protected override void SetSeriesData(ChartAreaData data, AreaSeries series)
         {
-            series.ItemsSource = data.Points.Select(p => new DataPoint(p.X, p.Y));
+            series.Points.Clear();
+            series.Points2.Clear();
+
+            series.Points.AddRange(data.Points.Select(p => new DataPoint(p.X, p.Y)));
+
+            if (series.Points.Count > 0)
+            {
+                series.Points2.Add(series.Points[0]);
+            }
         }
 
-        protected override void SetSeriesStyle(ChartPointData data, LineSeries series)
+        protected override void SetSeriesStyle(ChartAreaData data, AreaSeries series)
         {
-            series.LineStyle = LineStyle.None;
-            ChartPointStyle style = data.Style;
-            series.MarkerFill = ChartDataHelper.Convert(style.Color);
-            series.MarkerSize = style.Size;
-            series.MarkerType = ChartDataHelper.Convert(style.Symbol);
-            series.MarkerStroke = ChartDataHelper.Convert(style.StrokeColor);
-            series.MarkerStrokeThickness = style.StrokeThickness;
+            ChartAreaStyle style = data.Style;
+            series.Fill = ChartDataHelper.Convert(style.FillColor);
+            series.Color = ChartDataHelper.Convert(style.StrokeColor);
+            series.StrokeThickness = style.StrokeThickness;
         }
     }
 }

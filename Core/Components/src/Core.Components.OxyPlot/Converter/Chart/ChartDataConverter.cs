@@ -23,7 +23,7 @@ using System;
 using Core.Components.Chart.Data;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.OxyPlot.Converter.Chart
 {
     /// <summary>
     /// Abstract base class for transforming <see cref="ChartData"/> data into <see cref="Series"/> data.

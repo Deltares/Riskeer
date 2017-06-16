@@ -48,24 +48,24 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converter\ChartAreaDataConverter.cs" />
+    <Compile Include="Converter\Chart\ChartAreaDataConverter.cs" />
     <Compile Include="Converter\ChartDataHelper.cs" />
-    <Compile Include="Converter\ChartMultipleAreaDataConverter.cs" />
-    <Compile Include="Converter\ChartLineDataConverter.cs" />
-    <Compile Include="Converter\ChartMultipleLineDataConverter.cs" />
-    <Compile Include="Converter\ChartPointDataConverter.cs" />
+    <Compile Include="Converter\Chart\ChartMultipleAreaDataConverter.cs" />
+    <Compile Include="Converter\Chart\ChartLineDataConverter.cs" />
+    <Compile Include="Converter\Chart\ChartMultipleLineDataConverter.cs" />
+    <Compile Include="Converter\Chart\ChartPointDataConverter.cs" />
     <Compile Include="CustomSeries\MultipleLineSeries.cs" />
-    <Compile Include="DataSeries\ChartAreaDataSeries.cs" />
-    <Compile Include="DataSeries\ChartLineDataSeries.cs" />
-    <Compile Include="DataSeries\ChartMultipleAreaDataSeries.cs" />
-    <Compile Include="DataSeries\ChartMultipleLineDataSeries.cs" />
+    <Compile Include="DataSeries\Chart\ChartAreaDataSeries.cs" />
+    <Compile Include="DataSeries\Chart\ChartLineDataSeries.cs" />
+    <Compile Include="DataSeries\Chart\ChartMultipleAreaDataSeries.cs" />
+    <Compile Include="DataSeries\Chart\ChartMultipleLineDataSeries.cs" />
     <Compile Include="DataSeries\IChartDataSeries.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
     <Compile Include="DynamicPlotController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Converter\ChartDataConverter.cs" />
-    <Compile Include="DataSeries\ChartDataSeriesFactory.cs" />
-    <Compile Include="DataSeries\ChartPointDataSeries.cs" />
+    <Compile Include="Converter\Chart\ChartDataConverter.cs" />
+    <Compile Include="DataSeries\Chart\ChartDataSeriesFactory.cs" />
+    <Compile Include="DataSeries\Chart\ChartPointDataSeries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

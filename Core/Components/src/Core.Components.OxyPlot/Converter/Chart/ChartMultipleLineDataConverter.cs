@@ -26,29 +26,30 @@ using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.CustomSeries;
 using OxyPlot;
 
-namespace Core.Components.OxyPlot.Converter
+namespace Core.Components.OxyPlot.Converter.Chart
 {
     /// <summary>
-    /// The converter that converts <see cref="ChartMultipleAreaData"/> data into <see cref="MultipleAreaSeries"/> data.
+    /// The converter that converts <see cref="ChartMultipleLineData"/> data into <see cref="MultipleLineSeries"/> data.
     /// </summary>
-    public class ChartMultipleAreaDataConverter : ChartDataConverter<ChartMultipleAreaData, MultipleAreaSeries>
+    public class ChartMultipleLineDataConverter : ChartDataConverter<ChartMultipleLineData, MultipleLineSeries>
     {
-        protected override void SetSeriesData(ChartMultipleAreaData data, MultipleAreaSeries series)
+        protected override void SetSeriesData(ChartMultipleLineData data, MultipleLineSeries series)
         {
-            series.Areas.Clear();
+            series.Lines.Clear();
 
-            foreach (Point2D[] area in data.Areas)
+            foreach (Point2D[] line in data.Lines)
             {
-                series.Areas.Add(area.Select(p => new DataPoint(p.X, p.Y)).ToArray());
+                series.Lines.Add(line.Select(p => new DataPoint(p.X, p.Y)).ToArray());
             }
         }
 
-        protected override void SetSeriesStyle(ChartMultipleAreaData data, MultipleAreaSeries series)
+        protected override void SetSeriesStyle(ChartMultipleLineData data, MultipleLineSeries series)
         {
-            ChartAreaStyle style = data.Style;
-            series.Fill = ChartDataHelper.Convert(style.FillColor);
-            series.Color = ChartDataHelper.Convert(style.StrokeColor);
-            series.StrokeThickness = style.StrokeThickness;
+            ChartLineStyle lineStyle = data.Style;
+
+            series.Color = ChartDataHelper.Convert(lineStyle.Color);
+            series.StrokeThickness = lineStyle.Width;
+            series.LineStyle = ChartDataHelper.Convert(lineStyle.DashStyle);
         }
     }
 }
