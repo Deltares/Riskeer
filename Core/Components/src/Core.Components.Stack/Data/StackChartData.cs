@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base;
 
 namespace Core.Components.Stack.Data
@@ -31,34 +32,86 @@ namespace Core.Components.Stack.Data
     /// </summary>
     public class StackChartData : Observable
     {
+        private readonly List<ColumnChartData> columns;
+        private readonly List<RowChartData> rows;
+
         /// <summary>
         /// Creates a new instance of <see cref="StackChartData"/>.
         /// </summary>
         public StackChartData()
         {
-            Columns = new List<ColumnChartData>();
-            Rows = new List<RowChartData>();
+            columns = new List<ColumnChartData>();
+            rows = new List<RowChartData>();
         }
 
         /// <summary>
         /// Gets the columns of the <see cref="StackChartData"/>.
         /// </summary>
-        public List<ColumnChartData> Columns { get; }
+        public IEnumerable<ColumnChartData> Columns
+        {
+            get
+            {
+                return columns;
+            }
+        }
 
         /// <summary>
         /// Gets the rows of the <see cref="StackChartData"/>.
         /// </summary>
-        public List<RowChartData> Rows { get; }
+        public IEnumerable<RowChartData> Rows
+        {
+            get
+            {
+                return rows;
+            }
+        }
 
         /// <summary>
         /// Adds a column to the <see cref="StackChartData"/>.
         /// </summary>
         /// <param name="name">The name of the column.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="name"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
         public void AddColumn(string name)
         {
-            Columns.Add(new ColumnChartData(name));
+            columns.Add(new ColumnChartData(name));
+        }
+
+        /// <summary>
+        /// Adds a columns to <see cref="StackChartData"/> with
+        /// values to add to the rows that are already present.
+        /// </summary>
+        /// <param name="name">The name of the column.</param>
+        /// <param name="values">The values to add to the rows for this column.</param>
+        /// <exception cref="InvalidOperationException">Thrown when no <see cref="Rows"/>
+        /// are present.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the amount of
+        /// <paramref name="values"/> is not equal to the amount of <see cref="Rows"/>.</exception>
+        public void AddColumnWithValues(string name, List<double> values)
+        {
+            if (!Rows.Any())
+            {
+                throw new InvalidOperationException("Rows should be added before this method is called.");
+            }
+
+            if (values == null)
+            {
+                throw new ArgumentNullException(nameof(values));
+            }
+
+            if (values.Count != rows.Count)
+            {
+                throw new ArgumentException("The number of value items must be the same as the number of rows.");
+            }
+
+            AddColumn(name);
+
+            for (var i = 0; i < values.Count; i++)
+            {
+                rows[i].Values.Add(values[i]);
+            }
         }
 
         /// <summary>
@@ -67,25 +120,23 @@ namespace Core.Components.Stack.Data
         /// <param name="name">The name of the row.</param>
         /// <param name="values">The values of the row.</param>
         /// <param name="color">The color of the row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="name"/> or <paramref name="values"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the
-        /// amount of <paramref name="values"/> is not equal to
-        /// the amount of <see cref="Columns"/>.</exception>
-        public void AddRow(string name, double[] values, Color? color = null)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> 
+        /// or <paramref name="values"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the amount of 
+        /// <paramref name="values"/> is not equal to the amount of <see cref="Columns"/>.</exception>
+        public void AddRow(string name, List<double> values, Color? color = null)
         {
             if (values == null)
             {
                 throw new ArgumentNullException(nameof(values));
             }
 
-            if (values.Length != Columns.Count)
+            if (values.Count != columns.Count)
             {
                 throw new ArgumentException("The number of value items must be the same as the number of columns.");
             }
 
-            Rows.Add(new RowChartData(name, values, color));
+            rows.Add(new RowChartData(name, values, color));
         }
     }
 }

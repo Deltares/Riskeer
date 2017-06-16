@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
@@ -33,7 +34,7 @@ namespace Core.Components.Stack.Test.Data
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RowChartData(null, new double[0], Color.White);
+            TestDelegate test = () => new RowChartData(null, new List<double>(), Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -57,7 +58,7 @@ namespace Core.Components.Stack.Test.Data
             // Setup
             const string name = "Row 1";
             Color color = Color.Blue;
-            var values = new[]
+            var values = new List<double>
             {
                 1.2,
                 2.3

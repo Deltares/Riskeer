@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -69,9 +70,115 @@ namespace Core.Components.Stack.Test.Data
             data.AddColumn(columnName);
 
             // Assert
-            Assert.AreEqual(1, data.Columns.Count);
+            Assert.AreEqual(1, data.Columns.Count());
             ColumnChartData column = data.Columns.First();
             Assert.AreEqual(columnName, column.Name);
+        }
+
+        [Test]
+        public void AddColumnWithValues_NameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var data = new StackChartData();
+            data.AddColumn("Column 1");
+            data.AddRow("Row 1", new List<double>
+            {
+                4.5
+            });
+
+            // Call
+            TestDelegate test = () => data.AddColumnWithValues(null, new List<double>
+            {
+                1
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void AddColumnWithValues_ValuesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var data = new StackChartData();
+            data.AddColumn("Column 1");
+            data.AddRow("Row 1", new List<double>
+            {
+                4.5
+            });
+
+            // Call
+            TestDelegate test = () => data.AddColumnWithValues("test", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("values", exception.ParamName);
+        }
+
+        [Test]
+        public void AddColumnWithValues_NumberOfRowsDifferentThanValueItems_ThrowsArgumentException()
+        {
+            // Setup
+            var data = new StackChartData();
+            data.AddColumn("Column 1");
+            data.AddRow("Row 1", new List<double>
+            {
+                4.5
+            });
+
+            // Call
+            TestDelegate test = () => data.AddColumnWithValues("test", new List<double>
+            {
+                2.1,
+                3.4
+            });
+
+            // Assert
+            const string message = "The number of value items must be the same as the number of rows.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        [Test]
+        public void AddColumnWithValues_NoRowsAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var data = new StackChartData();
+
+            // Call
+            TestDelegate test = () => data.AddColumnWithValues("test", new List<double>());
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(test);
+            Assert.AreEqual("Rows should be added before this method is called.", exception.Message);
+        }
+
+        [Test]
+        public void AddColumnWithValues_ValidData_AddColumnAndValuesExistingRows()
+        {
+            // Setup
+            var data = new StackChartData();
+            data.AddColumn("Column 1");
+            data.AddRow("Row 1", new List<double>
+            {
+                1.0
+            });
+
+            // Call
+            data.AddColumnWithValues("Column 2", new List<double>
+            {
+                2.0
+            });
+
+            // Assert
+            Assert.AreEqual(2, data.Columns.Count());
+            Assert.AreEqual("Column 2", data.Columns.Last().Name);
+            Assert.AreEqual(1, data.Rows.Count());
+            CollectionAssert.AreEqual(new[]
+            {
+                1.0,
+                2.0
+            }, data.Rows.First().Values);
         }
 
         [Test]
@@ -81,7 +188,7 @@ namespace Core.Components.Stack.Test.Data
             var data = new StackChartData();
 
             // Call
-            TestDelegate test = () => data.AddRow(null, new double[0], Color.White);
+            TestDelegate test = () => data.AddRow(null, new List<double>(), Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -110,7 +217,7 @@ namespace Core.Components.Stack.Test.Data
             var data = new StackChartData();
 
             // Call
-            TestDelegate test = () => data.AddRow("test", new[]
+            TestDelegate test = () => data.AddRow("test", new List<double>
             {
                 2.1
             });
@@ -125,7 +232,7 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             const string name = "Row 1";
-            var values = new[]
+            var values = new List<double>
             {
                 1.2
             };
@@ -138,10 +245,10 @@ namespace Core.Components.Stack.Test.Data
             data.AddRow(name, values, color);
 
             // Assert
-            Assert.AreEqual(1, data.Rows.Count);
+            Assert.AreEqual(1, data.Rows.Count());
             RowChartData row = data.Rows.First();
             Assert.AreEqual(name, row.Name);
-            Assert.AreSame(values, row.Values);
+            CollectionAssert.AreEqual(values, row.Values);
             Assert.AreEqual(color, row.Color);
         }
 
@@ -150,7 +257,7 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             const string name = "Row 1";
-            var values = new[]
+            var values = new List<double>
             {
                 1.2
             };
@@ -162,10 +269,10 @@ namespace Core.Components.Stack.Test.Data
             data.AddRow(name, values);
 
             // Assert
-            Assert.AreEqual(1, data.Rows.Count);
+            Assert.AreEqual(1, data.Rows.Count());
             RowChartData row = data.Rows.First();
             Assert.AreEqual(name, row.Name);
-            Assert.AreSame(values, row.Values);
+            CollectionAssert.AreEqual(values, row.Values);
             Assert.IsNull(row.Color);
         }
     }
