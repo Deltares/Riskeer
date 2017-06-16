@@ -61,11 +61,16 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.IsInstanceOf<Point2D>(location);
             Assert.AreEqual(x, location.X);
             Assert.AreEqual(y, location.Y);
+
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculation>(hydraulicBoundaryLocation.DesignWaterLevelCalculation);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculation>(hydraulicBoundaryLocation.WaveHeightCalculation);
+
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+
+            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
         }
 

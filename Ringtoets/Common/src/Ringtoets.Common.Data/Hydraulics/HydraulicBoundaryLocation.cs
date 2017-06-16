@@ -48,12 +48,15 @@ namespace Ringtoets.Common.Data.Hydraulics
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
+
+            DesignWaterLevelCalculation = new HydraulicBoundaryLocationCalculation();
+            WaveHeightCalculation = new HydraulicBoundaryLocationCalculation();
         }
 
         /// <summary>
         /// Gets the database id of the hydraulic boundary location.
         /// </summary>
-        public long Id { get; private set; }
+        public long Id { get; }
 
         /// <summary>
         /// Gets the name of the hydraulic boundary location.
@@ -63,12 +66,39 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the coordinates of the hydraulic boundary location.
         /// </summary>
-        public Point2D Location { get; private set; }
+        public Point2D Location { get; }
+
+        /// <summary>
+        /// Gets the design water level calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation { get; }
+
+        /// <summary>
+        ///  Gets the wave height calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationCalculation WaveHeightCalculation { get; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        #region Design water level
 
         /// <summary>
         /// Gets or sets the output of a design water level calculation.
         /// </summary>
-        public HydraulicBoundaryLocationOutput DesignWaterLevelOutput { get; set; }
+        public HydraulicBoundaryLocationOutput DesignWaterLevelOutput
+        {
+            get
+            {
+                return DesignWaterLevelCalculation.Output;
+            }
+            set
+            {
+                DesignWaterLevelCalculation.Output = value;
+            }
+        }
 
         /// <summary>
         /// Gets the design water level of the hydraulic boundary location.
@@ -77,7 +107,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return DesignWaterLevelOutput?.Result ?? RoundedDouble.NaN;
+                return DesignWaterLevelCalculation.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -88,14 +118,28 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return DesignWaterLevelOutput?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                return DesignWaterLevelCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
             }
         }
+
+        #endregion
+
+        #region Wave height
 
         /// <summary>
         /// Gets or sets the output of a wave height calculation.
         /// </summary>
-        public HydraulicBoundaryLocationOutput WaveHeightOutput { get; set; }
+        public HydraulicBoundaryLocationOutput WaveHeightOutput
+        {
+            get
+            {
+                return WaveHeightCalculation.Output;
+            }
+            set
+            {
+                WaveHeightCalculation.Output = value;
+            }
+        }
 
         /// <summary>
         /// Gets the wave height of the hydraulic boundary location.
@@ -104,24 +148,21 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return WaveHeightOutput?.Result ?? RoundedDouble.NaN;
+                return WaveHeightCalculation.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
         /// <summary>
-        /// Gets the convergence status of the waveheight calculation.
+        /// Gets the convergence status of the wave height calculation.
         /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence
         {
             get
             {
-                return WaveHeightOutput?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                return WaveHeightCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
             }
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        #endregion
     }
 }
