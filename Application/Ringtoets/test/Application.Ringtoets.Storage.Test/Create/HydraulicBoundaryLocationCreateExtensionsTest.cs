@@ -105,8 +105,14 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevelOutput = hydraulicBoundaryLocationDesignWaterLevelOutput,
-                WaveHeightOutput = hydraulicBoundaryLocationWaveHeightOutput
+                DesignWaterLevelCalculation =
+                {
+                    Output = hydraulicBoundaryLocationDesignWaterLevelOutput
+                },
+                WaveHeightCalculation =
+                {
+                    Output = hydraulicBoundaryLocationWaveHeightOutput
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -215,8 +221,14 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevelOutput = hydraulicBoundaryLocationDesignWaterLevelOutput,
-                WaveHeightOutput = hydraulicBoundaryLocationWaveHeightOutput
+                DesignWaterLevelCalculation =
+                {
+                    Output = hydraulicBoundaryLocationDesignWaterLevelOutput
+                },
+                WaveHeightCalculation =
+                {
+                    Output = hydraulicBoundaryLocationWaveHeightOutput
+                }
             };
             var registry = new PersistenceRegistry();
 

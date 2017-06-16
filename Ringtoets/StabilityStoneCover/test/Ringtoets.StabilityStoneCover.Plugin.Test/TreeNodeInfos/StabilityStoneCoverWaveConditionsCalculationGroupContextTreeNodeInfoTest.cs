@@ -79,25 +79,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
-            plugin = new StabilityStoneCoverPlugin
-            {
-                Gui = gui
-            };
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -810,7 +791,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.0)
+                        DesignWaterLevelCalculation =
+                        {
+                            Output = new TestHydraulicBoundaryLocationOutput(12.0)
+                        }
                     },
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
@@ -828,7 +812,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12.0)
+                        DesignWaterLevelCalculation =
+                        {
+                            Output = new TestHydraulicBoundaryLocationOutput(12.0)
+                        }
                     },
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
@@ -1544,13 +1531,38 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }
         }
 
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            gui = mocks.Stub<IGui>();
+            plugin = new StabilityStoneCoverPlugin
+            {
+                Gui = gui
+            };
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
         {
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+                    {
+                        DesignWaterLevelCalculation =
+                        {
+                            Output = new TestHydraulicBoundaryLocationOutput(9.3)
+                        }
+                    },
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1561,7 +1573,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(9.3);
             return calculation;
         }
     }

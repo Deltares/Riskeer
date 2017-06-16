@@ -467,7 +467,10 @@ namespace Ringtoets.Revetment.Data.Test
             // Call
             waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                }
             };
 
             // Assert
@@ -791,7 +794,10 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                    }
                 },
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
@@ -815,7 +821,10 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(5.78)
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(5.78)
+                    }
                 },
                 LowerBoundaryRevetment = (RoundedDouble) 6,
                 UpperBoundaryRevetment = (RoundedDouble) 6.10,
@@ -866,7 +875,10 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                    }
                 },
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,

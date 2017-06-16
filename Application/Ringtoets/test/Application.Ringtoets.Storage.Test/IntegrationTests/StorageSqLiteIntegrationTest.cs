@@ -58,12 +58,6 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using PipingCalculationScenario = Ringtoets.Piping.Data.PipingCalculationScenario;
-using PipingInput = Ringtoets.Piping.Data.PipingInput;
-using PipingOutput = Ringtoets.Piping.Data.PipingOutput;
-using PipingProbabilityAssessmentInput = Ringtoets.Piping.Data.PipingProbabilityAssessmentInput;
-using PipingSemiProbabilisticOutput = Ringtoets.Piping.Data.PipingSemiProbabilisticOutput;
-using RingtoetsPipingSurfaceLineCollection = Ringtoets.Piping.Data.RingtoetsPipingSurfaceLineCollection;
 using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
 using StochasticSoilModelCollection = Ringtoets.Piping.Data.StochasticSoilModelCollection;
 using StochasticSoilProfile = Ringtoets.Piping.Data.StochasticSoilProfile;
@@ -1802,10 +1796,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
 
-            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.DesignWaterLevelOutput,
-                                                  actualBoundaryLocation.DesignWaterLevelOutput);
-            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.WaveHeightOutput,
-                                                  actualBoundaryLocation.WaveHeightOutput);
+            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.DesignWaterLevelCalculation.Output,
+                                                  actualBoundaryLocation.DesignWaterLevelCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.WaveHeightCalculation.Output,
+                                                  actualBoundaryLocation.WaveHeightCalculation.Output);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput expectedOutput,

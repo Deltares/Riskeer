@@ -65,20 +65,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new WaveImpactAsphaltCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -954,7 +940,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                 {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(12)
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(12)
+                    }
                 };
                 calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) 1.0;
                 calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) 10.0;
@@ -1421,6 +1410,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     // Check expectancies in TearDown()
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new WaveImpactAsphaltCoverPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+            base.TearDown();
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()

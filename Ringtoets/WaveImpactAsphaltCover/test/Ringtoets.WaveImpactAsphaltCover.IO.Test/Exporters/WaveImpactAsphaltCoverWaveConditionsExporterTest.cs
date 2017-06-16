@@ -28,8 +28,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
 
@@ -156,7 +156,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                         {
                             HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
                             {
-                                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(28.36844)
+                                DesignWaterLevelCalculation =
+                                {
+                                    Output = new TestHydraulicBoundaryLocationOutput(28.36844)
+                                }
                             },
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,

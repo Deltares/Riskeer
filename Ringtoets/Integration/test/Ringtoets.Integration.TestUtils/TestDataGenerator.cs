@@ -71,10 +71,16 @@ namespace Ringtoets.Integration.TestUtils
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
-                    1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged),
-                WaveHeightOutput = new HydraulicBoundaryLocationOutput(
-                    2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(
+                        1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(
+                        2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
+                }
             };
 
             var assessmentSection = new AssessmentSection(composition)
@@ -118,7 +124,7 @@ namespace Ringtoets.Integration.TestUtils
         /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
         /// possible configurations of the parent and nested calculations, but without the output of the 
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>, <see cref="HydraulicBoundaryLocation.WaveHeightOutput"/> 
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>, <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/> 
         /// and <see cref="DuneLocation.Output"/>.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
@@ -884,12 +890,18 @@ namespace Ringtoets.Integration.TestUtils
                                                                       hydraulicBoundaryLocation.Location.X,
                                                                       hydraulicBoundaryLocation.Location.Y)
             {
-                WaveHeightOutput = new HydraulicBoundaryLocationOutput(
-                    hydraulicBoundaryLocation.WaveHeight + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
-                    hydraulicBoundaryLocation.WaveHeightCalculationConvergence),
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
-                    hydraulicBoundaryLocation.DesignWaterLevel + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
-                    hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence)
+                WaveHeightCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(
+                        hydraulicBoundaryLocation.WaveHeight + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
+                        hydraulicBoundaryLocation.WaveHeightCalculationConvergence)
+                },
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(
+                        hydraulicBoundaryLocation.DesignWaterLevel + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
+                        hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence)
+                }
             };
             failureMechanism.HydraulicBoundaryLocations.Add(internalHydroLocation);
             var profile1 = new ForeshoreProfile(new Point2D(0, 0),

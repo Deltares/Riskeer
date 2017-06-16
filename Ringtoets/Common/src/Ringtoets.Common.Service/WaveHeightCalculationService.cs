@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    hydraulicBoundaryLocation.WaveHeightOutput = CreateHydraulicBoundaryLocationOutput(
+                    hydraulicBoundaryLocation.WaveHeightCalculation.Output = CreateHydraulicBoundaryLocationOutput(
                         messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
                 }
             }

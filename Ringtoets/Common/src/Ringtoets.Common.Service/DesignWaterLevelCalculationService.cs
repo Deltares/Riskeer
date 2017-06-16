@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    hydraulicBoundaryLocation.DesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(
+                    hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = CreateHydraulicBoundaryLocationOutput(
                         messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
                 }
             }

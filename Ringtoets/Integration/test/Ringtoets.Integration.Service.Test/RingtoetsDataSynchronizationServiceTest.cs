@@ -339,8 +339,8 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsNull(grassCoverErosionLocation.DesignWaterLevelOutput);
-            Assert.IsNull(grassCoverErosionLocation.WaveHeightOutput);
+            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
             Assert.IsNull(duneLocation.Output);
 
             mockRepository.VerifyAll();
@@ -409,8 +409,8 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsNull(grassCoverErosionLocation.DesignWaterLevelOutput);
-            Assert.IsNull(grassCoverErosionLocation.WaveHeightOutput);
+            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
             Assert.IsNull(duneLocation.Output);
         }
 
@@ -468,10 +468,10 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNull(grassCoverErosionLocation.DesignWaterLevelOutput);
-            Assert.IsNull(grassCoverErosionLocation.WaveHeightOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
             Assert.IsNull(duneLocation.Output);
 
             mockRepository.VerifyAll();
@@ -1273,7 +1273,7 @@ namespace Ringtoets.Integration.Service.Test
             }, "path");
 
             TestCalculationWithForeshoreProfile calculationWithForeshoreProfileAndOutput =
-                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
+                TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(foreshoreProfile);
             TestCalculationWithForeshoreProfile calculationWithForeshoreProfile =
                 TestCalculationWithForeshoreProfile.CreateCalculationWithoutOutput(foreshoreProfile);
             TestCalculationWithForeshoreProfile calculationWithoutForeshoreProfile =
@@ -1565,7 +1565,8 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism) where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
+        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
+            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {
@@ -1579,7 +1580,7 @@ namespace Ringtoets.Integration.Service.Test
 
         private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return hydraulicBoundaryLocation.DesignWaterLevelOutput != null || hydraulicBoundaryLocation.WaveHeightOutput != null;
+            return hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput;
         }
 
         #region TestData

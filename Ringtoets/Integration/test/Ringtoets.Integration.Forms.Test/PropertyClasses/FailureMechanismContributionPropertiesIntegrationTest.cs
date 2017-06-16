@@ -147,10 +147,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
             Assert.AreEqual(originalReturnPeriodValue, properties.ReturnPeriod);
-            Assert.IsNotNull(hydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNotNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNotNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNotNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
             Assert.IsNotNull(pipingCalculation.Output);
             Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -173,10 +173,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
             });
             Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
-            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
-            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightOutput);
-            Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);

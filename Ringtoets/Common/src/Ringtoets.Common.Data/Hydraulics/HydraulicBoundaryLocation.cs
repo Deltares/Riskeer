@@ -86,21 +86,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         #region Design water level
 
         /// <summary>
-        /// Gets or sets the output of a design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationOutput DesignWaterLevelOutput
-        {
-            get
-            {
-                return DesignWaterLevelCalculation.Output;
-            }
-            set
-            {
-                DesignWaterLevelCalculation.Output = value;
-            }
-        }
-
-        /// <summary>
         /// Gets the design water level of the hydraulic boundary location.
         /// </summary>
         public RoundedDouble DesignWaterLevel
@@ -125,21 +110,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         #endregion
 
         #region Wave height
-
-        /// <summary>
-        /// Gets or sets the output of a wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationOutput WaveHeightOutput
-        {
-            get
-            {
-                return WaveHeightCalculation.Output;
-            }
-            set
-            {
-                WaveHeightCalculation.Output = value;
-            }
-        }
 
         /// <summary>
         /// Gets the wave height of the hydraulic boundary location.

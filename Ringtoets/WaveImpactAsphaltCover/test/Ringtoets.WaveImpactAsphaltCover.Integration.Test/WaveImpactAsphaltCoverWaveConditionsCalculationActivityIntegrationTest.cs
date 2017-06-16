@@ -372,7 +372,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(9.3);
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(9.3);
             return calculation;
         }
 

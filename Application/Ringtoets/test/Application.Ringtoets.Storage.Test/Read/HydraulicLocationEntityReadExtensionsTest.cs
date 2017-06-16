@@ -89,8 +89,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
-            Assert.IsNull(location.DesignWaterLevelOutput);
-            Assert.IsNull(location.WaveHeightOutput);
+            Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -127,7 +127,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = "someName",
                 HydraulicLocationOutputEntities =
                 {
-                    designWaterLevelOutputEntity, waveheightOutputEntity
+                    designWaterLevelOutputEntity,
+                    waveheightOutputEntity
                 }
             };
 
@@ -140,8 +141,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(location);
             Assert.AreEqual((RoundedDouble) designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
-            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelOutput);
-            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightOutput);
+            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation.Output);
         }
 
         [Test]

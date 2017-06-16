@@ -86,7 +86,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.TargetProbability ?? double.NaN;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output;
+                return output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -99,7 +100,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.TargetReliability ?? RoundedDouble.NaN;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output;
+                return output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -112,7 +114,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.CalculatedProbability ?? double.NaN;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output;
+                return output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -125,7 +128,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.CalculatedReliability ?? RoundedDouble.NaN;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output;
+                return output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -137,7 +141,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelOutput?.CalculationConvergence ?? CalculationConvergence.NotCalculated).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence).DisplayName;
             }
         }
     }

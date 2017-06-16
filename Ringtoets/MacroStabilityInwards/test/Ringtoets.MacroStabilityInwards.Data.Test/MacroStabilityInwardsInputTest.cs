@@ -85,13 +85,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputIsFalseWithHydraulicLocationSetAndDesignWaterLevelOutputSet_ReturnCalculatedAssessmentLevel()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            input.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
-
             double calculatedAssessmentLevel = new Random(21).NextDouble();
-            testHydraulicBoundaryLocation.DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel);
+            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel)
+                }
+            };
+
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+            };
 
             // Call
             RoundedDouble newAssessmentLevel = input.AssessmentLevel;

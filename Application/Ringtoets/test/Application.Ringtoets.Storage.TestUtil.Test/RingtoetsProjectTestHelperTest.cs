@@ -337,12 +337,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(152.3, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(2938.5, hydraulicBoundaryLocation.Location.Y);
 
-            AssertHydraulicBoundaryLocationDesignWaterLevelOutput(hydraulicBoundaryLocation.DesignWaterLevelOutput);
-            AssertHydraulicBoundaryLocationWaveHeightOutputOutput(hydraulicBoundaryLocation.WaveHeightOutput);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(hydraulicBoundaryLocation.WaveHeightCalculation);
         }
 
-        private static void AssertHydraulicBoundaryLocationDesignWaterLevelOutput(HydraulicBoundaryLocationOutput output)
+        private static void AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
+            Assert.IsFalse(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+
+            HydraulicBoundaryLocationOutput output = calculation.Output;
             Assert.AreEqual(12.4, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
@@ -351,8 +354,11 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
         }
 
-        private static void AssertHydraulicBoundaryLocationWaveHeightOutputOutput(HydraulicBoundaryLocationOutput output)
+        private static void AssertHydraulicBoundaryLocationWaveHeightCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
+            Assert.IsFalse(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+
+            HydraulicBoundaryLocationOutput output = calculation.Output;
             Assert.AreEqual(2.4, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(0, output.TargetProbability);
             Assert.AreEqual(0, output.TargetReliability, output.TargetReliability.GetAccuracy());

@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
         protected override bool RequiresConfirmation(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             return base.RequiresConfirmation(failureMechanism) ||
-                   failureMechanism.HydraulicBoundaryLocations.Any(c => c.WaveHeightOutput != null || c.DesignWaterLevelOutput != null);
+                   failureMechanism.HydraulicBoundaryLocations.Any(c => c.WaveHeightCalculation.HasOutput || c.DesignWaterLevelCalculation.HasOutput);
         }
 
         protected override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)

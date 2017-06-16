@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
                 return output?.TargetProbability ?? double.NaN;
             }
         }
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
                 return output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
                 return output?.CalculatedProbability ?? double.NaN;
             }
         }
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightOutput;
+                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
                 return output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }

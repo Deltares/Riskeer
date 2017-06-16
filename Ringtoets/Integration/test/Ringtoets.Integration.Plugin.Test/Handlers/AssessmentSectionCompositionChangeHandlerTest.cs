@@ -145,7 +145,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             HydraulicBoundaryLocation[] hblWithOutput = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                          .SelectMany(f => f.HydraulicBoundaryLocations)
-                                                                         .Where(loc => loc.DesignWaterLevelOutput != null || loc.WaveHeightOutput != null)
+                                                                         .Where(loc => loc.DesignWaterLevelCalculation.HasOutput
+                                                                                       || loc.WaveHeightCalculation.HasOutput)
                                                                          .ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler();
@@ -158,7 +159,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                         "All calculations that had output still have them.");
 
             Assert.True(duneLocationWithOutput.All(loc => loc.Output != null));
-            Assert.True(hblWithOutput.All(loc => loc.DesignWaterLevelOutput != null || loc.WaveHeightOutput != null));
+            Assert.True(hblWithOutput.All(loc => loc.DesignWaterLevelCalculation.HasOutput || loc.WaveHeightCalculation.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
         }
@@ -219,8 +220,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
-                Assert.IsNull(location.WaveHeightOutput);
-                Assert.IsNull(location.DesignWaterLevelOutput);
+                Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
+                Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
@@ -273,8 +274,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
-                Assert.IsNotNull(location.WaveHeightOutput);
-                Assert.IsNotNull(location.DesignWaterLevelOutput);
+                Assert.IsTrue(location.DesignWaterLevelCalculation.HasOutput);
+                Assert.IsTrue(location.WaveHeightCalculation.HasOutput);
             }
 
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
@@ -329,8 +330,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
-                Assert.IsNull(location.WaveHeightOutput);
-                Assert.IsNull(location.DesignWaterLevelOutput);
+                Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
+                Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
@@ -374,8 +375,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
-                Assert.IsNotNull(location.WaveHeightOutput);
-                Assert.IsNotNull(location.DesignWaterLevelOutput);
+                Assert.IsTrue(location.DesignWaterLevelCalculation.HasOutput);
+                Assert.IsTrue(location.WaveHeightCalculation.HasOutput);
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {

@@ -59,8 +59,14 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             HydraulicBoundaryLocation location = new TestHydraulicBoundaryLocation
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(designWaterLevel),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(waveHeight)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
+                }
             };
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
@@ -71,8 +77,8 @@ namespace Ringtoets.Common.Service.Test
             IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
 
             // Assert
-            Assert.IsNull(location.DesignWaterLevelOutput);
-            Assert.IsNull(location.WaveHeightOutput);
+            Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
             Assert.IsNaN(location.DesignWaterLevel);
             Assert.IsNaN(location.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);

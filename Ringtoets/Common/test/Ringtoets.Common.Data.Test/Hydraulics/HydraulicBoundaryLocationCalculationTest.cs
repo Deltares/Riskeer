@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -36,6 +37,25 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationInput>(calculation.InputParameters);
             Assert.IsNull(calculation.Output);
+            Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        public void HasOutput_WithOrWithoutOutput_ReturnsExpectedValue(
+            [Values(true, false)] bool setOutput)
+        {
+            // Setup
+            var calculation = new HydraulicBoundaryLocationCalculation();
+            if (setOutput)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationOutput(5);
+            }
+
+            // Call
+            bool hasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.AreEqual(setOutput, hasOutput);
         }
     }
 }

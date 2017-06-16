@@ -59,8 +59,8 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            CreateHydraulicLocationOutput(entity, location.DesignWaterLevelOutput, HydraulicLocationOutputType.DesignWaterLevel);
-            CreateHydraulicLocationOutput(entity, location.WaveHeightOutput, HydraulicLocationOutputType.WaveHeight);
+            CreateHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation.Output, HydraulicLocationOutputType.DesignWaterLevel);
+            CreateHydraulicLocationOutput(entity, location.WaveHeightCalculation.Output, HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);
             return entity;
@@ -107,9 +107,9 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.DesignWaterLevelOutput,
+            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation.Output,
                                                                    HydraulicLocationOutputType.DesignWaterLevel);
-            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.WaveHeightOutput,
+            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.WaveHeightCalculation.Output,
                                                                    HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);

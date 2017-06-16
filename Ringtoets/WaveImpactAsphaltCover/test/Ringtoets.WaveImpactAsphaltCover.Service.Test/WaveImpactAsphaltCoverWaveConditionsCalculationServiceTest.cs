@@ -213,7 +213,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             mockRepository.ReplayAll();
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = null;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = null;
 
             var isValid = true;
 

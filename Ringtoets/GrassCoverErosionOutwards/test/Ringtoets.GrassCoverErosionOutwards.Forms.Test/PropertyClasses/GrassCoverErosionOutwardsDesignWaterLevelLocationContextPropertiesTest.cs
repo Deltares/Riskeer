@@ -114,11 +114,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(designWaterLevel, targetProbability,
-                                                                             targetReliability,
-                                                                             calculatedProbability,
-                                                                             calculatedReliability,
-                                                                             convergence)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(designWaterLevel,
+                                                                 targetProbability,
+                                                                 targetReliability,
+                                                                 calculatedProbability,
+                                                                 calculatedReliability,
+                                                                 convergence)
+                }
             };
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {

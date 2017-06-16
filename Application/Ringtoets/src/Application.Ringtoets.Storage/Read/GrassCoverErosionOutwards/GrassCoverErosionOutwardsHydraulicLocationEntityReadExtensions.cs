@@ -58,13 +58,13 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             if (designWaterLevelOutputEntity != null)
             {
-                hydraulicBoundaryLocation.DesignWaterLevelOutput = designWaterLevelOutputEntity.Read();
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
             }
 
             IHydraulicLocationOutputEntity waveHeightOutputEntity = GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
             if (waveHeightOutputEntity != null)
             {
-                hydraulicBoundaryLocation.WaveHeightOutput = waveHeightOutputEntity.Read();
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = waveHeightOutputEntity.Read();
             }
 
             collector.Read(entity, hydraulicBoundaryLocation);

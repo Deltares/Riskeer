@@ -174,15 +174,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var locations = new List<HydraulicBoundaryLocation>
             {
-                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
-                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
-                {
-                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(1.23)
-                },
-                new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-                {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(2.45)
-                }
+                new TestHydraulicBoundaryLocation()
             };
 
             // Call
@@ -244,7 +236,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(10.23)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(10.23)
+                }
             };
 
             locations.Clear();
@@ -281,7 +276,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
-            locations.ForEach(loc => loc.DesignWaterLevelOutput = null);
+            locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
 
             var refreshed = false;
             dataGridView.Invalidated += (sender, args) => refreshed = true;
@@ -431,11 +426,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(1.23)
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                    }
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(2.45)
+                    WaveHeightCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                    }
                 }
             };
             return view;

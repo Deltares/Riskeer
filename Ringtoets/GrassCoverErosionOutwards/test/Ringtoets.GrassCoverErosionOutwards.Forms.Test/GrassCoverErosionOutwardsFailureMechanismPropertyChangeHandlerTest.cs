@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
                 null,
                 3,
-                (f, v) => { });
+                (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 null,
-                (f, v) => { });
+                (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                 Calculations = calculations;
                 ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
                 Locations = locations;
-                ExpectedAffectedLocations = locations.Where(c => c.DesignWaterLevelOutput != null || c.WaveHeightOutput != null).ToArray();
+                ExpectedAffectedLocations = locations.Where(c => c.DesignWaterLevelCalculation.HasOutput || c.WaveHeightCalculation.HasOutput).ToArray();
             }
 
             public ICollection<HydraulicBoundaryLocation> Locations { get; }
@@ -315,8 +315,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         {
             return new TestHydraulicBoundaryLocation
             {
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(0.5),
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(2.3)
+                WaveHeightCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(0.5)
+                },
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.3)
+                }
             };
         }
     }

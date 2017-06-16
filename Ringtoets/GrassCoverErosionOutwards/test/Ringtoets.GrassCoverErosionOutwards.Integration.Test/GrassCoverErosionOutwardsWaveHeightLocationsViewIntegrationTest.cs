@@ -116,11 +116,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(1.23)
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                    }
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(2.45)
+                    WaveHeightCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                    }
                 }
             };
             return view;

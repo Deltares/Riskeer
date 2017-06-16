@@ -43,5 +43,16 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets or sets the output of the hydraulic boundary location calculation.
         /// </summary>
         public HydraulicBoundaryLocationOutput Output { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not this calculation item contains calculation output.
+        /// </summary>
+        public bool HasOutput
+        {
+            get
+            {
+                return Output != null;
+            }
+        }
     }
 }

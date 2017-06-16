@@ -66,11 +66,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Constructor_FilePathNull_ThrowArgumentException()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
@@ -86,12 +82,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Constructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
-            };
-
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
@@ -109,11 +100,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Constructor_WaveHeightNameNull_ThrowArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
@@ -134,8 +121,14 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
+                }
             };
 
             string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
@@ -171,8 +164,14 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
+                }
             };
 
             string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
@@ -209,8 +208,14 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
+                }
             };
 
             string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");

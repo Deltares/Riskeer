@@ -52,8 +52,6 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using PipingCalculationScenario = Ringtoets.Piping.Data.PipingCalculationScenario;
-using PipingSemiProbabilisticOutput = Ringtoets.Piping.Data.PipingSemiProbabilisticOutput;
 using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
 using StochasticSoilProfile = Ringtoets.Piping.Data.StochasticSoilProfile;
 
@@ -331,10 +329,16 @@ namespace Application.Ringtoets.Storage.TestUtil
             };
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
-                                                                             double.NaN, double.NaN,
-                                                                             double.NaN, CalculationConvergence.NotCalculated),
-                WaveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
+                                                                 double.NaN, double.NaN,
+                                                                 double.NaN, CalculationConvergence.NotCalculated)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+                }
             });
 
             return hydraulicBoundaryDatabase;

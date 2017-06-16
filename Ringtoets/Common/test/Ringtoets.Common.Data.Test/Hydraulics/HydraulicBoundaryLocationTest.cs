@@ -67,11 +67,13 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output);
 
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightCalculation.Output);
         }
 
         [Test]

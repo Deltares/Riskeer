@@ -225,9 +225,12 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(3.0, norm, double.NaN,
-                                                                             double.NaN, double.NaN,
-                                                                             CalculationConvergence.CalculatedConverged)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(3.0, norm, double.NaN,
+                                                                 double.NaN, double.NaN,
+                                                                 CalculationConvergence.CalculatedConverged)
+                }
             };
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
@@ -315,7 +318,10 @@ namespace Ringtoets.Common.Service.Test
                                                              double.NaN, CalculationConvergence.CalculatedConverged);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                DesignWaterLevelOutput = output
+                DesignWaterLevelCalculation =
+                {
+                    Output = output
+                }
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -331,7 +337,7 @@ namespace Ringtoets.Common.Service.Test
 
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(call, detailedReport, 6);
-                Assert.AreSame(output, hydraulicBoundaryLocation.DesignWaterLevelOutput);
+                Assert.AreSame(output, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }
             mockRepository.VerifyAll();
@@ -359,9 +365,12 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
-                                                                             double.NaN, double.NaN,
-                                                                             double.NaN, CalculationConvergence.CalculatedConverged)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
+                                                                 double.NaN, double.NaN,
+                                                                 double.NaN, CalculationConvergence.CalculatedConverged)
+                }
             };
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -398,9 +407,12 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName 1";
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
-                DesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
-                                                                             double.NaN, double.NaN,
-                                                                             double.NaN, CalculationConvergence.NotCalculated)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN,
+                                                                 double.NaN, double.NaN,
+                                                                 double.NaN, CalculationConvergence.NotCalculated)
+                }
             };
 
             var calculator = new TestDesignWaterLevelCalculator

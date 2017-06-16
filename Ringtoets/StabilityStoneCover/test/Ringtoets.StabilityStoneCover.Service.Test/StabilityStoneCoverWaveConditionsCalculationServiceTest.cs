@@ -37,8 +37,8 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test
@@ -213,7 +213,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             mockRepository.ReplayAll();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = null;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = null;
 
             var isValid = true;
 

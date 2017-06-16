@@ -90,8 +90,14 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(111.111),
-                WaveHeightOutput = new TestHydraulicBoundaryLocationOutput(222.222)
+                DesignWaterLevelCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
+                }
             };
 
             string directoryPath = TestHelper.GetScratchPadPath("WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile");

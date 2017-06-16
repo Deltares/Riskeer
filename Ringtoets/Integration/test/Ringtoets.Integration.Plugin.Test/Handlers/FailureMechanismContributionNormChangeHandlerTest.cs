@@ -196,8 +196,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsNull(location.WaveHeightOutput);
-                Assert.IsNull(location.DesignWaterLevelOutput);
+                Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
+                Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
             }
             foreach (DuneLocation duneLocation in section.DuneErosion.DuneLocations)
             {
@@ -242,8 +242,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in section.HydraulicBoundaryDatabase.Locations
                                                                   .Concat(section.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsNull(location.DesignWaterLevelOutput);
-                Assert.IsNull(location.WaveHeightOutput);
+                Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
+                Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
             }
             foreach (DuneLocation duneLocation in section.DuneErosion.DuneLocations)
             {

@@ -40,8 +40,8 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.Service;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 {
@@ -215,7 +215,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelOutput = null;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = null;
 
             var isValid = true;
 
@@ -846,7 +846,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "locationName", 0, 0)
                     {
-                        DesignWaterLevelOutput = new TestHydraulicBoundaryLocationOutput(9.3)
+                        DesignWaterLevelCalculation =
+                        {
+                            Output = new TestHydraulicBoundaryLocationOutput(9.3)
+                        }
                     },
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
