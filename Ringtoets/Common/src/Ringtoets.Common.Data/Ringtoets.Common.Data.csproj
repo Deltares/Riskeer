@@ -63,6 +63,8 @@
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculation.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInput.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutput.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
