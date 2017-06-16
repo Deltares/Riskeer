@@ -181,9 +181,9 @@
     <value>Doorgetrokken</value>
   </data>
   <data name="Hexagon_DisplayName" xml:space="preserve">
-    <value>Hexagon</value>
+    <value>Zeshoek</value>
   </data>
   <data name="Pentagon_DisplayName" xml:space="preserve">
-    <value>Pentagon</value>
+    <value>Vijfhoek</value>
   </data>
 </root>

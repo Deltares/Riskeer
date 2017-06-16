@@ -145,7 +145,7 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hexagon.
+        ///   Looks up a localized string similar to Zeshoek.
         /// </summary>
         internal static string Hexagon_DisplayName {
             get {
@@ -217,7 +217,7 @@ namespace Core.Components.Gis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pentagon.
+        ///   Looks up a localized string similar to Vijfhoek.
         /// </summary>
         internal static string Pentagon_DisplayName {
             get {

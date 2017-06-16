@@ -51,10 +51,10 @@ namespace Core.Components.Gis.Test.Style
                         PointSymbol.Star, "Ster"
                     },
                     {
-                        PointSymbol.Hexagon, "Hexagon"
+                        PointSymbol.Hexagon, "Zeshoek"
                     },
                     {
-                        PointSymbol.Pentagon, "Pentagon"
+                        PointSymbol.Pentagon, "Vijfhoek"
                     }
                 };
             }
