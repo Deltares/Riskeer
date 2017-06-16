@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
 
-            var model = new StochasticSoilModel(-1, entity.Name);
+            var model = new StochasticSoilModel(entity.Name);
             entity.ReadStochasticSoilProfiles(model, collector);
             entity.ReadSegmentPoints(model);
 

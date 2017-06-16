@@ -245,7 +245,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithStochasticSoilModelEntityInCollector_CalculationHasAlreadyReadStochasticSoilModel()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1, "A");
+            var stochasticSoilModel = new StochasticSoilModel("A");
             var stochasticSoilModelEntity = new StochasticSoilModelEntity();
 
             var stochasticSoilProfile = new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 1);

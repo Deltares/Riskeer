@@ -37,20 +37,13 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.
         /// </summary>
-        /// <param name="id">Database identifier of the stochastic soil model.</param>
         /// <param name="name">Name of the segment soil model.</param>
-        public StochasticSoilModel(long id, string name)
+        public StochasticSoilModel(string name)
         {
-            Id = id;
             Name = name;
             Geometry = new List<Point2D>();
             StochasticSoilProfiles = new List<StochasticSoilProfile>();
         }
-
-        /// <summary>
-        /// Gets the database identifier of the stochastic soil model.
-        /// </summary>
-        public long Id { get; private set; }
 
         /// <summary>
         /// Gets the name of the segment soil model.
@@ -86,7 +79,6 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException(nameof(fromModel));
             }
 
-            Id = fromModel.Id;
             Name = fromModel.Name;
             Geometry.Clear();
             foreach (Point2D point in fromModel.Geometry)

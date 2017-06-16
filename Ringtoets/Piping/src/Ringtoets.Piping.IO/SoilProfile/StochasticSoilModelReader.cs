@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 return null;
             }
             StochasticSoilModel stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
-            long currentSegmentSoilModelId = stochasticSoilModelSegment.Id;
+            long currentSegmentSoilModelId = ReadStochasticSoilModelSegmentId();
             do
             {
                 // Read Points
@@ -125,27 +125,32 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     stochasticSoilModelSegment.Geometry.Add(point2D);
                 }
                 MoveNext();
-            } while (HasNext && ReadStochasticSoilModelSegment().Id == currentSegmentSoilModelId);
+            } while (HasNext && ReadStochasticSoilModelSegmentId() == currentSegmentSoilModelId);
 
-            AddStochasticSoilProfiles(stochasticSoilModelSegment);
+            AddStochasticSoilProfiles(stochasticSoilModelSegment, currentSegmentSoilModelId);
 
             return stochasticSoilModelSegment;
         }
 
-        private void AddStochasticSoilProfiles(StochasticSoilModel stochasticSoilModelSegment)
+        private void AddStochasticSoilProfiles(StochasticSoilModel stochasticSoilModelSegment,
+                                               long stochasticSoilModelSegmentId)
         {
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(filePath))
             {
                 while (stochasticSoilProfileReader.HasNext)
                 {
-                    AddStochasticSoilProfile(stochasticSoilModelSegment, stochasticSoilProfileReader);
+                    AddStochasticSoilProfile(stochasticSoilModelSegment,
+                                             stochasticSoilProfileReader,
+                                             stochasticSoilModelSegmentId);
                 }
             }
         }
 
-        private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment, StochasticSoilProfileReader stochasticSoilProfileReader)
+        private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment,
+                                                     StochasticSoilProfileReader stochasticSoilProfileReader,
+                                                     long stochasticSoilSegementId)
         {
-            StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegment.Id);
+            StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilSegementId);
             if (stochasticSoilProfile != null)
             {
                 stochasticSoilModelSegment.StochasticSoilProfiles.Add(stochasticSoilProfile);
@@ -229,9 +234,13 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilModel ReadStochasticSoilModelSegment()
         {
-            long stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
             string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
-            return new StochasticSoilModel(stochasticSoilModelId, stochasticSoilModelName);
+            return new StochasticSoilModel(stochasticSoilModelName);
+        }
+
+        private long ReadStochasticSoilModelSegmentId()
+        {
+            return Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
         }
 
         private Point2D ReadSegmentPoint()

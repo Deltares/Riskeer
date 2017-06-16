@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "Model")
+            var stochasticSoilModel = new StochasticSoilModel("Model")
             {
                 Geometry =
                 {

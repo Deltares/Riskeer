@@ -1637,7 +1637,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
-            var stochasticSoilModelA = new StochasticSoilModel(1, "Model A")
+            var stochasticSoilModelA = new StochasticSoilModel("Model A")
             {
                 Geometry =
                 {
@@ -1668,7 +1668,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
-            var stochasticSoilModelE = new StochasticSoilModel(1, "Model E")
+            var stochasticSoilModelE = new StochasticSoilModel("Model E")
             {
                 Geometry =
                 {
@@ -1683,7 +1683,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModelA,
-                new StochasticSoilModel(1, "Model C")
+                new StochasticSoilModel("Model C")
                 {
                     Geometry =
                     {

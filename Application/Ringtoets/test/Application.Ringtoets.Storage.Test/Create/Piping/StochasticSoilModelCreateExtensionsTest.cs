@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             int order = new Random(1).Next();
             const string testName = "testName";
-            var stochasticSoilModel = new StochasticSoilModel(-1, testName);
+            var stochasticSoilModel = new StochasticSoilModel(testName);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             const string testName = "testName";
-            var stochasticSoilModel = new StochasticSoilModel(-1, testName);
+            var stochasticSoilModel = new StochasticSoilModel(testName);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesAndStochasticSoilProfileEntitiesSet()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(-1, "testName");
+            var stochasticSoilModel = new StochasticSoilModel("testName");
             stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1)
             {
                 SoilProfile = new TestPipingSoilProfile()
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithGeometryPoints_ReturnsStochasticSoilModelEntityWithPropertiesAndStochasticSoilModelSegmentPointEntitiesSet()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(-1, "testName");
+            var stochasticSoilModel = new StochasticSoilModel("testName");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(-12.34, 56.78),
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_SameModelCreatedMultipleTimes_ReturnSameEntity()
         {
             // Setup
-            var soilModel = new StochasticSoilModel(1, "A");
+            var soilModel = new StochasticSoilModel("A");
 
             var registry = new PersistenceRegistry();
 

@@ -466,7 +466,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName");
+            var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
@@ -1279,7 +1279,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName");
+            var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
@@ -1324,7 +1324,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName");
+            var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(testPipingSoilProfile);
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -1379,14 +1379,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel1 = new StochasticSoilModel(0, "StochasticSoilModel1Name");
+            var stochasticSoilModel1 = new StochasticSoilModel("StochasticSoilModel1Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile1);
 
             var stochasticSoilProfile2 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel2 = new StochasticSoilModel(0, "StochasticSoilModel2Name");
+            var stochasticSoilModel2 = new StochasticSoilModel("StochasticSoilModel2Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
             var inputParameters = new PipingInput(new GeneralPipingInput())
@@ -1532,7 +1532,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             var soilModels = new[]
             {
-                new StochasticSoilModel(1, "A")
+                new StochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -1544,7 +1544,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                         new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel(2, "C")
+                new StochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -1556,7 +1556,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                         new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
                     }
                 },
-                new StochasticSoilModel(3, "E")
+                new StochasticSoilModel("E")
                 {
                     Geometry =
                     {
@@ -1634,7 +1634,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var model = new StochasticSoilModel(1, "A")
+            var model = new StochasticSoilModel("A")
             {
                 StochasticSoilProfiles =
                 {
@@ -2070,7 +2070,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private static StochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
         {
-            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName");
+            var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234)
             {
                 SoilProfile = new TestPipingSoilProfile()

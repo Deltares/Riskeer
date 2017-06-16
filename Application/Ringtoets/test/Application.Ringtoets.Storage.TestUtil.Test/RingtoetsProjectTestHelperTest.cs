@@ -90,7 +90,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual("some/path/to/stochasticSoilModelFile", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
-            Assert.AreEqual(-1, soilModel.Id);
             Assert.AreEqual("modelName", soilModel.Name);
             Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
             StochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];

@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string name = "test test 123";
-            var model = new StochasticSoilModel(1, name);
+            var model = new StochasticSoilModel(name);
 
             // Call
             string text = info.Text(model);
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var model = new StochasticSoilModel(1, "A");
+            var model = new StochasticSoilModel("A");
 
             // Call
             Image image = info.Image(model);
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
-            var stochasticSoilModel = new StochasticSoilModel(0, "Name");
+            var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var model = new StochasticSoilModel(1, "A");
+            var model = new StochasticSoilModel("A");
 
             var mocks = new MockRepository();
 

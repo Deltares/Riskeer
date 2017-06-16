@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1324, "Name");
+            var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
             var pipingSoilProfile = new PipingSoilProfile("PipingSoilProfile", 0, new List<PipingSoilLayer>
             {
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1324, "Name");
+            var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
             var pipingSoilProfile = new PipingSoilProfile("PipingSoilProfile", 0, new List<PipingSoilLayer>
             {

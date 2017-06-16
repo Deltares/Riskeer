@@ -728,7 +728,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var soilModels = new[]
             {
-                new StochasticSoilModel(1, "A")
+                new StochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -740,7 +740,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                         new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel(2, "C")
+                new StochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -797,7 +797,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             var soilModels = new[]
             {
-                new StochasticSoilModel(1, "A")
+                new StochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -809,7 +809,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                         new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel(2, "C")
+                new StochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -821,7 +821,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                         new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
                     }
                 },
-                new StochasticSoilModel(3, "E")
+                new StochasticSoilModel("E")
                 {
                     Geometry =
                     {
@@ -886,7 +886,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilInputs()
         {
             // Setup
-            var soilModel = new StochasticSoilModel(1, "A")
+            var soilModel = new StochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -944,7 +944,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilModelInput()
         {
             // Setup
-            var soilModel = new StochasticSoilModel(1, "A")
+            var soilModel = new StochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -1033,7 +1033,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var soilModels = new[]
             {
-                new StochasticSoilModel(1, "A")
+                new StochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -1045,7 +1045,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                         new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel(2, "C")
+                new StochasticSoilModel("C")
                 {
                     Geometry =
                     {

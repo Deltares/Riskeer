@@ -487,9 +487,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         /// <param name="modelName">Name of the created model.</param>
         /// <param name="profileNames">List of names for the profiles to be added to the model.</param>
         /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
-        private StochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
+        private static StochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
         {
-            var model = new StochasticSoilModel(-1, modelName);
+            var model = new StochasticSoilModel(modelName);
             foreach (string profileName in profileNames)
             {
                 model.StochasticSoilProfiles.Add(

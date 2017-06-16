@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
         {
             // Setup
-            var newModel = new StochasticSoilModel(0, "test");
+            var newModel = new StochasticSoilModel("test");
             var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(newModel);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
