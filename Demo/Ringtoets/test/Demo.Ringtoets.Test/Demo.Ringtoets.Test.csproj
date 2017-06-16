@@ -70,11 +70,13 @@
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\OpenChartViewCommandTest.cs" />
     <Compile Include="Commands\OpenMapViewCommandTest.cs" />
+    <Compile Include="Commands\OpenStackChartViewCommandTest.cs" />
     <Compile Include="GUIs\DemoProjectPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ribbons\RingtoetsDemoProjectRibbonTest.cs" />
     <Compile Include="Views\ChartDataViewTest.cs" />
     <Compile Include="Views\MapDataViewTest.cs" />
+    <Compile Include="Views\StackChartDataViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -112,6 +114,14 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
+      <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>
+      <Name>Core.Components.Stack.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj">
+      <Project>{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}</Project>
+      <Name>Core.Components.Stack</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>

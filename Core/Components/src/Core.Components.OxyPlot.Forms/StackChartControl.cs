@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 
 namespace Core.Components.OxyPlot.Forms
@@ -49,7 +50,7 @@ namespace Core.Components.OxyPlot.Forms
             Controls.Add(plotView);
         }
 
-        public object Data { get; set; }
+        public StackChartData Data { get; set; }
 
         public string ChartTitle
         {

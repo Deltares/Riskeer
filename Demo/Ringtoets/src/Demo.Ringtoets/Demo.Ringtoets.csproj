@@ -40,6 +40,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -53,6 +54,7 @@
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommand.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
+    <Compile Include="Commands\OpenStackChartViewCommand.cs" />
     <Compile Include="GUIs\DemoProjectPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -74,6 +76,12 @@
     </Compile>
     <Compile Include="Views\MapDataView.Designer.cs">
       <DependentUpon>MapDataView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StackChartDataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StackChartDataView.Designer.cs">
+      <DependentUpon>StackChartDataView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +133,16 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
+      <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>
+      <Name>Core.Components.Stack.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj">
+      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
+      <Name>Core.Components.Stack</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
@@ -217,6 +235,9 @@
     <EmbeddedResource Include="Views\MapDataView.resx">
       <DependentUpon>MapDataView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\StackChartDataView.resx">
+      <DependentUpon>StackChartDataView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
@@ -253,6 +274,7 @@
     <None Include="Resources\map.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\chart_bar.png" />
     <Content Include="Resources\chart_line.png" />
     <Content Include="Resources\folder-horizontal.png" />
     <Content Include="Resources\folder-horizontal_large.png" />

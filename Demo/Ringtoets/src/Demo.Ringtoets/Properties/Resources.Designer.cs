@@ -92,6 +92,25 @@ namespace Demo.Ringtoets.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kolom grafiek.
+        /// </summary>
+        public static string Column_Chart {
+            get {
+                return ResourceManager.GetString("Column_Chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ColumnChartIcon {
+            get {
+                object obj = ResourceManager.GetObject("ColumnChartIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Demo.
         /// </summary>
         public static string Demo {

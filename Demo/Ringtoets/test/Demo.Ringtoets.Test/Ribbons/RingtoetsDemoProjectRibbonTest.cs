@@ -103,5 +103,31 @@ namespace Demo.Ringtoets.Test.Ribbons
             // Assert
             mocks.VerifyAll();
         }
+
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void OpenStackChartViewButton_OnClick_ExecutesOpenStackChartViewCommand()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var button = ribbon.GetRibbonControl().FindName("OpenStackChartViewButton") as Button;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have an open stack chart view button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
     }
 }

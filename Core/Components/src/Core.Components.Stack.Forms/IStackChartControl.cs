@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Components.Stack.Data;
+
 namespace Core.Components.Stack.Forms
 {
     /// <summary>
@@ -29,7 +31,7 @@ namespace Core.Components.Stack.Forms
         /// <summary>
         /// Gets or sets the data to show in the <see cref="IStackChartControl"/>.
         /// </summary>
-        object Data { get; set; }
+        StackChartData Data { get; set; }
 
         /// <summary>
         /// Gets or sets the title of the stack chart.

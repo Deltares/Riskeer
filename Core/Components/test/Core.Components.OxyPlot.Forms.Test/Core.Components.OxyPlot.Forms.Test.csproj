@@ -101,6 +101,10 @@
       <Project>{72109E33-6518-4632-ACCF-6CBF2A312711}</Project>
       <Name>Core.Components.Stack.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj">
+      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
+      <Name>Core.Components.Stack</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

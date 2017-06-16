@@ -34,7 +34,7 @@ namespace Demo.Ringtoets.Ribbons
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewAssessmentSection, openMapViewCommand, openChartViewCommand;
+        private readonly ICommand addNewAssessmentSection, openMapViewCommand, openChartViewCommand, openStackChartViewCommand;
 
         public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
         {
@@ -43,6 +43,7 @@ namespace Demo.Ringtoets.Ribbons
             addNewAssessmentSection = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
             openChartViewCommand = new OpenChartViewCommand(viewCommands);
             openMapViewCommand = new OpenMapViewCommand(viewCommands);
+            openStackChartViewCommand = new OpenStackChartViewCommand(viewCommands);
         }
 
         public Ribbon GetRibbonControl()
@@ -65,6 +66,11 @@ namespace Demo.Ringtoets.Ribbons
         private void ButtonOpenMapView_Click(object sender, RoutedEventArgs e)
         {
             openMapViewCommand.Execute();
+        }
+
+        private void ButtonOpenStackChartView_Click(object sender, RoutedEventArgs e)
+        {
+            openStackChartViewCommand.Execute();
         }
     }
 }

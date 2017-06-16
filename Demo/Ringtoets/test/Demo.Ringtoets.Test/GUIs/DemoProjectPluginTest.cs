@@ -26,6 +26,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
+using Core.Components.Stack.Data;
 using Demo.Ringtoets.GUIs;
 using Demo.Ringtoets.Views;
 using NUnit.Framework;
@@ -68,7 +69,7 @@ namespace Demo.Ringtoets.Test.GUIs
                 ViewInfo[] views = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, views.Length);
+                Assert.AreEqual(3, views.Length);
 
                 ViewInfo chartViewInfo = views[0];
                 Assert.AreEqual(typeof(ChartDataCollection), chartViewInfo.DataType);
@@ -79,6 +80,11 @@ namespace Demo.Ringtoets.Test.GUIs
                 Assert.AreEqual(typeof(MapData), mapViewInfo.DataType);
                 Assert.AreEqual(typeof(MapDataView), mapViewInfo.ViewType);
                 Assert.AreEqual("Kaart", mapViewInfo.GetViewName(new MapDataView(), null));
+
+                ViewInfo stackChartViewInfo = views[2];
+                Assert.AreEqual(typeof(StackChartData), stackChartViewInfo.DataType);
+                Assert.AreEqual(typeof(StackChartDataView), stackChartViewInfo.ViewType);
+                Assert.AreEqual("Diagram", stackChartViewInfo.GetViewName(new StackChartDataView(), null));
             }
         }
     }

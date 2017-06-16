@@ -24,6 +24,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
+using Core.Components.Stack.Data;
 using Demo.Ringtoets.Ribbons;
 using Demo.Ringtoets.Views;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
@@ -56,6 +57,12 @@ namespace Demo.Ringtoets.GUIs
             {
                 Image = CoreCommonGuiResources.DocumentHS,
                 GetViewName = (v, o) => CoreCommonGuiResources.DotSpatialPlugin_GetViewInfoObjects_Map
+            };
+
+            yield return new ViewInfo<StackChartData, StackChartDataView>
+            {
+                Image = CoreCommonGuiResources.DocumentHS,
+                GetViewName = (v, o) => ChartResources.OxyPlotPlugin_GetViewInfos_Diagram
             };
         }
     }
