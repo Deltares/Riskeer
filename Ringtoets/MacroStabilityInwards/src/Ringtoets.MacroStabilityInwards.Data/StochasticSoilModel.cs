@@ -37,9 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.
         /// </summary>
-        /// <param name="id">Database identifier of the stochastic soil model.</param>
         /// <param name="name">Name of the segment soil model.</param>
-        public StochasticSoilModel(long id, string name)
+        public StochasticSoilModel(string name)
         {
             Name = name;
             Geometry = new List<Point2D>();

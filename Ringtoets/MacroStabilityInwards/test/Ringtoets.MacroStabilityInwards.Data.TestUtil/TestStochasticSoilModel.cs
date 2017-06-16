@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// Creates a new instance of <see cref="TestStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">The name of the stochastic soil model.</param>
-        public TestStochasticSoilModel(string name) : base(0, name)
+        public TestStochasticSoilModel(string name) : base(name)
         {
             StochasticSoilProfiles.AddRange(new[]
             {

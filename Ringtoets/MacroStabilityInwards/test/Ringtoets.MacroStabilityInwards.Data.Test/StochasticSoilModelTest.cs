@@ -36,10 +36,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [Test]
         [TestCase("")]
         [TestCase("segmentSoilModelName")]
-        public void Constructor_Always_ExpectedValues(long segmentSoilModelId, string segmentSoilModelName)
+        public void Constructor_Always_ExpectedValues(string segmentSoilModelName)
         {
             // Call
-            var stochasticSoilModel = new StochasticSoilModel(segmentSoilModelId, segmentSoilModelName);
+            var stochasticSoilModel = new StochasticSoilModel(segmentSoilModelName);
 
             // Assert
             Assert.IsInstanceOf<Observable>(stochasticSoilModel);
@@ -52,9 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void PropertySegmentPoints_Always_ReturnsExpectedValues()
         {
             // Setup
-            const long expectedSegmentSoilModelId = 1234L;
             const string expectedSegmentSoilModelName = "someSegmentSoilModelName";
-            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName);
+            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelName);
             var point2D = new Point2D(1.0, 2.0);
 
             // Call
@@ -70,9 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void PropertyStochasticSoilProfileProbabilities_Always_ReturnsExpectedValues()
         {
             // Setup
-            const long expectedSegmentSoilModelId = 1234L;
             const string expectedSegmentSoilModelName = "someSegmentSoilModelName";
-            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName);
+            var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelName);
 
             var mockRepository = new MockRepository();
             var stochasticSoilProfileProbabilityMock = mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
@@ -92,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Update_WithNullModel_ThrowsArgumentNullException()
         {
             // Setup
-            var model = new StochasticSoilModel(1234, "name");
+            var model = new StochasticSoilModel("name");
 
             // Call
             TestDelegate test = () => model.Update(null);
@@ -106,21 +104,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Update_ModelWithUpdatedProperties_PropertiesUpdated()
         {
             // Setup
-            var model = new StochasticSoilModel(1234, "name");
+            var model = new StochasticSoilModel("name");
             model.Geometry.AddRange(new[]
             {
                 new Point2D(1, 2),
                 new Point2D(4, 5)
             });
 
-            const int expectedId = 1236;
             const string expectedName = "otherName";
             var expectedGeometry = new[]
             {
                 new Point2D(4, 2)
             };
 
-            var otherModel = new StochasticSoilModel(expectedId, expectedName);
+            var otherModel = new StochasticSoilModel(expectedName);
             otherModel.Geometry.AddRange(expectedGeometry);
 
             // Call
@@ -306,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             model.StochasticSoilProfiles.Add(stochasticProfileB);
 
             const string otherName = "other name";
-            var otherModel = new StochasticSoilModel(41, otherName);
+            var otherModel = new StochasticSoilModel(otherName);
 
             var otherPointA = new Point2D(2, 0);
             var otherPointB = new Point2D(3, 0);
@@ -397,7 +394,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void ToString_WithName_ReturnsName(string name)
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1, name);
+            var stochasticSoilModel = new StochasticSoilModel(name);
 
             // Call & Assert
             Assert.AreEqual(name, stochasticSoilModel.ToString());
@@ -413,7 +410,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         private StochasticSoilModel CreateEmptyModel()
         {
-            var model = new StochasticSoilModel(1234, "name");
+            var model = new StochasticSoilModel("name");
             return model;
         }
     }

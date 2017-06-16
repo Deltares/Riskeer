@@ -1444,7 +1444,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
-            var stochasticSoilModelA = new StochasticSoilModel(1, "Model A")
+            var stochasticSoilModelA = new StochasticSoilModel("Model A")
             {
                 Geometry =
                 {
@@ -1475,7 +1475,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
-            var stochasticSoilModelE = new StochasticSoilModel(1, "Model E")
+            var stochasticSoilModelE = new StochasticSoilModel("Model E")
             {
                 Geometry =
                 {
@@ -1490,7 +1490,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModelA,
-                new StochasticSoilModel(1, "Model C")
+                new StochasticSoilModel("Model C")
                 {
                     Geometry =
                     {

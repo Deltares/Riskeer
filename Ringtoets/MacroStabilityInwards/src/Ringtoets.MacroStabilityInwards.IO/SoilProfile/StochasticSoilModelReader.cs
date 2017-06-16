@@ -234,9 +234,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 
         private StochasticSoilModel ReadStochasticSoilModelSegment()
         {
-            long stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
             string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
-            return new StochasticSoilModel(stochasticSoilModelId, stochasticSoilModelName);
+            return new StochasticSoilModel(stochasticSoilModelName);
         }
 
         private long ReadStochasticSoildModelSegmentId()

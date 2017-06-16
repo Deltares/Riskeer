@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1324, "Name");
+            var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
             var soilProfile = new MacroStabilityInwardsSoilProfile("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer>
             {
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1324, "Name");
+            var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
             var soilProfile = new MacroStabilityInwardsSoilProfile("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer>
             {

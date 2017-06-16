@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 new Point3D(2.5, 1.0, 1.0),
                 new Point3D(5.0, 1.0, 0.0)
             });
-            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel");
+            var stochasticSoilModel = new StochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),
@@ -219,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 new Point3D(3.0, 0.0, 1.0),
                 new Point3D(3.0, -5.0, 0.0)
             });
-            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel");
+            var stochasticSoilModel = new StochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),
@@ -303,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
-            var stochasticSoilModel = new StochasticSoilModel(1, "Ondergrondmodel");
+            var stochasticSoilModel = new StochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
             stochasticSoilModel.Geometry.AddRange(new[]
             {

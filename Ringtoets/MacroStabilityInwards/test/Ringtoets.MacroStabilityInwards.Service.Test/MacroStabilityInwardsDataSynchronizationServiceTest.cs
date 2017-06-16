@@ -353,7 +353,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = null;
-            var soilModel = new StochasticSoilModel(1, "A");
+            var soilModel = new StochasticSoilModel("A");
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
