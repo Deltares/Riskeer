@@ -61,6 +61,7 @@
     <Compile Include="DataSeries\Chart\ChartMultipleLineDataSeries.cs" />
     <Compile Include="DataSeries\IChartDataSeries.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
+    <Compile Include="DataSeries\Stack\StackChartDataSeries.cs" />
     <Compile Include="DynamicPlotController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converter\Chart\ChartDataConverter.cs" />
