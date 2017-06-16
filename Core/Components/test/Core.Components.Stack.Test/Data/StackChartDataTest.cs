@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
 
@@ -92,6 +93,7 @@ namespace Core.Components.Stack.Test.Data
         { 
             // Setup
             var data = new StackChartData();
+            data.AddColumn("Column 1");
 
             // Call
             TestDelegate test = () => data.AddRow("test", null, Color.White);
@@ -99,6 +101,23 @@ namespace Core.Components.Stack.Test.Data
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("values", exception.ParamName);
+        }
+
+        [Test]
+        public void AddRow_NumberOfColumnsDifferentThanValueItems_ThrowsArgumentException()
+        {
+            // Setup
+            var data = new StackChartData();
+
+            // Call
+            TestDelegate test = () => data.AddRow("test", new[]
+            {
+                2.1
+            });
+
+            // Assert
+            const string message = "The number of value items must be the same as the number of columns.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
         [Test]
@@ -113,6 +132,7 @@ namespace Core.Components.Stack.Test.Data
             Color color = Color.Yellow;
 
             var data = new StackChartData();
+            data.AddColumn("Column 1");
 
             // Call
             data.AddRow(name, values, color);
@@ -136,6 +156,7 @@ namespace Core.Components.Stack.Test.Data
             };
 
             var data = new StackChartData();
+            data.AddColumn("Column 1");
 
             // Call
             data.AddRow(name, values);

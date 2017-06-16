@@ -70,9 +70,21 @@ namespace Core.Components.Stack.Data
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="name"/> or <paramref name="values"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the
+        /// amount of <paramref name="values"/> is not equal to
+        /// the amount of <see cref="Columns"/>.</exception>
         public void AddRow(string name, double[] values, Color? color = null)
         {
-            // Check if the number of items is the same as the number of columns
+            if (values == null)
+            {
+                throw new ArgumentNullException(nameof(values));
+            }
+
+            if (values.Length != Columns.Count)
+            {
+                throw new ArgumentException("The number of value items must be the same as the number of columns.");
+            }
+
             Rows.Add(new RowChartData(name, values, color));
         }
     }
