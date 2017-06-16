@@ -110,6 +110,7 @@
     <Compile Include="Parsers\ConvergenceParserTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\HydraRingDatabaseParseHelperTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParserTest.cs" />
     <Compile Include="Readers\HydraRingDatabaseReaderTest.cs" />
     <Compile Include="Parsers\LastErrorFileParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />

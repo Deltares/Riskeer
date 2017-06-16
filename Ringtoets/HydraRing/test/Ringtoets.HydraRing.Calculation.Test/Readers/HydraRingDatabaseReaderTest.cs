@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
@@ -112,7 +113,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
         }
 
         [Test]
-        public void Execute_EmptyDatabase_ThrowHydraRingDatabaseReaderException()
+        public void ReadLine_EmptyDatabase_ReturnsNull()
         {
             // Setup
             string directory = Path.Combine(testDirectory, emptyDatabase);
@@ -120,11 +121,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
             using (var reader = new HydraRingDatabaseReader(directory, query, 1))
             {
                 // Call
-                TestDelegate test = () => reader.ReadLine();
+                Dictionary<string, object> result = reader.ReadLine();
 
                 // Assert
-                var exception = Assert.Throws<HydraRingDatabaseReaderException>(test);
-                Assert.AreEqual("Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+                Assert.IsNull(result);
             }
         }
     }

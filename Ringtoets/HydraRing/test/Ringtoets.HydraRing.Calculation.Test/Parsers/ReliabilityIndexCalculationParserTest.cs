@@ -107,7 +107,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
-            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
         }
 
         [Test]
@@ -123,7 +122,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
             Assert.AreEqual("Er is geen resultaat voor de betrouwbaarheidsindex van de berekende kans van voorkomen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
-            Assert.IsInstanceOf<HydraRingDatabaseReaderException>(exception.InnerException);
         }
 
         [Test]

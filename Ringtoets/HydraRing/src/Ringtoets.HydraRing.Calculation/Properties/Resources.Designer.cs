@@ -129,15 +129,6 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen resultaat gevonden in de Hydra-Ring uitvoerdatabase..
-        /// </summary>
-        internal static string HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file {
-            get {
-                return ResourceManager.GetString("HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file {

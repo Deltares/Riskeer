@@ -56,17 +56,33 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             {
                 using (var reader = new HydraRingDatabaseReader(workingDirectory, query, sectionId))
                 {
-                    return reader.ReadLine();
+                    return ReadLineFromReader(exceptionMessage, reader);
                 }
             }
             catch (SQLiteException e)
             {
                 throw new HydraRingFileParserException(Resources.Parse_Cannot_read_result_in_output_file, e);
             }
-            catch (HydraRingDatabaseReaderException e)
+        }
+
+        /// <summary>
+        /// Tries to read a result from the reader and throws an exception if no row could be read.
+        /// </summary>
+        /// <param name="exceptionMessage">The message to use in the exception when reading fails.</param>
+        /// <param name="reader">The reader to read a row from.</param>
+        /// <returns>A single row from the reader.</returns>
+        /// <exception cref="HydraRingFileParserException">Thrown when no row could be read from the reader
+        /// <paramref name="reader"/>.</exception>
+        private static Dictionary<string, object> ReadLineFromReader(string exceptionMessage, HydraRingDatabaseReader reader)
+        {
+            Dictionary<string, object> result = reader.ReadLine();
+
+            if (result != null)
             {
-                throw new HydraRingFileParserException(exceptionMessage, e);
+                return result;
             }
+
+            throw new HydraRingFileParserException(exceptionMessage);
         }
 
         private static void ValidateParameters(string workingDirectory,

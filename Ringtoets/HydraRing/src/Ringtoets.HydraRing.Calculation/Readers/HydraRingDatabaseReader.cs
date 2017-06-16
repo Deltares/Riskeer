@@ -85,9 +85,8 @@ namespace Ringtoets.HydraRing.Calculation.Readers
         /// Executes the query on the database and reads the next row.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the key 
-        /// of the column and the value.</returns>
-        /// <exception cref="HydraRingDatabaseReaderException">Thrown when 
-        /// an error encounters while reading the database.</exception>
+        /// of the column and the value. Or <c>null</c> if no row could
+        /// be read from the reader.</returns>
         public Dictionary<string, object> ReadLine()
         {
             if (reader.Read())
@@ -102,7 +101,7 @@ namespace Ringtoets.HydraRing.Calculation.Readers
                 return results;
             }
 
-            throw new HydraRingDatabaseReaderException(Resources.HydraRingDatabaseReader_ReadLine_No_result_found_in_output_file);
+            return null;
         }
 
         public void Dispose()
@@ -158,6 +157,16 @@ namespace Ringtoets.HydraRing.Calculation.Readers
         private void OpenConnection()
         {
             connection.Open();
+        }
+
+        /// <summary>
+        /// Progresses the reader to the next result in the data set.
+        /// </summary>
+        /// <returns><c>true</c> if there was another result in the data set, <c>false</c>
+        /// otherwise.</returns>
+        public bool NextResult()
+        {
+            return reader.NextResult();
         }
     }
 }
