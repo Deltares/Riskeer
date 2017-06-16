@@ -294,12 +294,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     "36006_Piping",
                     "36007_Piping"
                 };
-                var expectedModelIds = new[]
-                {
-                    2,
-                    4,
-                    6
-                };
                 var expectedSegmentPointCount = new[]
                 {
                     1797,
@@ -348,12 +342,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     "36005_Piping",
                     "36006_Piping",
                     "36007_Piping"
-                };
-                var expectedModelIds = new[]
-                {
-                    2,
-                    4,
-                    6
                 };
                 var expectedSegmentPointCount = new[]
                 {
@@ -450,11 +438,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             {
                 "36005_Piping",
                 "36007_Piping"
-            };
-            var expectedModelIds = new[]
-            {
-                2,
-                6
             };
             var expectedSegmentPointCount = new[]
             {

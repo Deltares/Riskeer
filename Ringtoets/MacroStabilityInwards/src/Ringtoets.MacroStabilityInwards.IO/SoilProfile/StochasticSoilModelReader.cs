@@ -127,25 +127,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
                 MoveNext();
             } while (HasNext && ReadStochasticSoildModelSegmentId() == currentSegmentSoilModelId);
 
-            AddStochasticSoilProfiles(stochasticSoilModelSegment);
+            AddStochasticSoilProfiles(stochasticSoilModelSegment, currentSegmentSoilModelId);
 
             return stochasticSoilModelSegment;
         }
 
-        private void AddStochasticSoilProfiles(StochasticSoilModel stochasticSoilModelSegment)
+        private void AddStochasticSoilProfiles(StochasticSoilModel stochasticSoilModelSegment,
+                                               long stochasticSoilModelSegmentId)
         {
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(filePath))
             {
                 while (stochasticSoilProfileReader.HasNext)
                 {
-                    AddStochasticSoilProfile(stochasticSoilModelSegment, stochasticSoilProfileReader);
+                    AddStochasticSoilProfile(stochasticSoilModelSegment,
+                                             stochasticSoilProfileReader,
+                                             stochasticSoilModelSegmentId);
                 }
             }
         }
 
-        private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment, StochasticSoilProfileReader stochasticSoilProfileReader)
+        private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment,
+                                                     StochasticSoilProfileReader stochasticSoilProfileReader,
+                                                     long stochasticSoilModelSegmentId)
         {
-            StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegment.Id);
+            StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegmentId);
             if (stochasticSoilProfile != null)
             {
                 stochasticSoilModelSegment.StochasticSoilProfiles.Add(stochasticSoilProfile);

@@ -34,9 +34,9 @@ namespace Ringtoets.Piping.Data.Test
     public class StochasticSoilModelTest
     {
         [Test]
-        [TestCase(1234L, "")]
-        [TestCase(5678L, "segmentSoilModelName")]
-        public void Constructor_Always_ExpectedValues(long segmentSoilModelId, string segmentSoilModelName)
+        [TestCase("")]
+        [TestCase("segmentSoilModelName")]
+        public void Constructor_Always_ExpectedValues(string segmentSoilModelName)
         {
             // Call
             var stochasticSoilModel = new StochasticSoilModel(segmentSoilModelName);

@@ -294,12 +294,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                     "36006_Piping",
                     "36007_Piping"
                 };
-                var expectedModelIds = new[]
-                {
-                    2,
-                    4,
-                    6
-                };
                 var expectedSegmentPointCount = new[]
                 {
                     1797,
@@ -315,7 +309,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 Assert.AreEqual(expectedNrOfModels, nrOfModels);
 
                 CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
-                CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
                 CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
                 CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
 
@@ -350,12 +343,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                     "36006_Piping",
                     "36007_Piping"
                 };
-                var expectedModelIds = new[]
-                {
-                    2,
-                    4,
-                    6
-                };
                 var expectedSegmentPointCount = new[]
                 {
                     1797,
@@ -371,7 +358,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 Assert.AreEqual(expectedNrOfModels, nrOfModels);
 
                 CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
-                CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
                 CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
                 CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
 
@@ -453,11 +439,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 "36005_Piping",
                 "36007_Piping"
             };
-            var expectedModelIds = new[]
-            {
-                2,
-                6
-            };
             var expectedSegmentPointCount = new[]
             {
                 1797,
@@ -471,7 +452,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             Assert.AreEqual(2, readModels.Count);
             CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
-            CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
             CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
             CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
         }

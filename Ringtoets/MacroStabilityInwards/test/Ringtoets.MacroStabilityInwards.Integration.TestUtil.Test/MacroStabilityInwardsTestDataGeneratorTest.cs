@@ -192,7 +192,6 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
 
             if (hasSoilModel)
             {
-                Assert.AreEqual(1, calculation.InputParameters.StochasticSoilModel.Id);
                 Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
 
                 if (hasSoilProfile)

@@ -41,16 +41,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="name">Name of the segment soil model.</param>
         public StochasticSoilModel(long id, string name)
         {
-            Id = id;
             Name = name;
             Geometry = new List<Point2D>();
             StochasticSoilProfiles = new List<StochasticSoilProfile>();
         }
-
-        /// <summary>
-        /// Gets the database identifier of the stochastic soil model.
-        /// </summary>
-        public long Id { get; private set; }
 
         /// <summary>
         /// Gets the name of the segment soil model.
@@ -86,7 +80,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(fromModel));
             }
 
-            Id = fromModel.Id;
             Name = fromModel.Name;
             Geometry.Clear();
             foreach (Point2D point in fromModel.Geometry)
