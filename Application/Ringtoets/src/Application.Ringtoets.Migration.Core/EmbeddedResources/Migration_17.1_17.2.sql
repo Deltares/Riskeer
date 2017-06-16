@@ -429,7 +429,19 @@ SELECT
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
 	WHERE FailureMechanismType = 7
 	GROUP BY FailureMechanismEntityID;
-INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
+INSERT INTO StochasticSoilModelEntity(
+	[StochasticSoilModelEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[StochasticSoilModelSegmentPointXml],
+	[Order])
+SELECT
+	[StochasticSoilModelEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[StochasticSoilModelSegmentPointXml],
+	[Order]
+	FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;

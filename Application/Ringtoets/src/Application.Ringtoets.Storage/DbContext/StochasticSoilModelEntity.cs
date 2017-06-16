@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public long StochasticSoilModelEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
-        public string SegmentName { get; set; }
         public string StochasticSoilModelSegmentPointXml { get; set; }
         public int Order { get; set; }
 

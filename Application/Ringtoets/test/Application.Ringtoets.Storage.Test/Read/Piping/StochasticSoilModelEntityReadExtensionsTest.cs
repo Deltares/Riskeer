@@ -57,7 +57,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new StochasticSoilModelEntity
             {
                 Name = "Name",
-                SegmentName = "SegmentName",
                 StochasticSoilModelSegmentPointXml = xml
             };
 
@@ -74,11 +73,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             // Setup
             const string testName = "testName";
-            const string testSegmentName = "testSegmentName";
             var entity = new StochasticSoilModelEntity
             {
                 Name = testName,
-                SegmentName = testSegmentName,
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var collector = new ReadConversionCollector();
@@ -89,7 +86,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.IsNotNull(model);
             Assert.AreEqual(testName, model.Name);
-
             Assert.IsTrue(collector.Contains(entity));
         }
 
