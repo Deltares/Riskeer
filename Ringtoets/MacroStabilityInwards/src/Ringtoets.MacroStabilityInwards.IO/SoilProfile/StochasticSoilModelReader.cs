@@ -115,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
                 return null;
             }
             StochasticSoilModel stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
-            long currentSegmentSoilModelId = stochasticSoilModelSegment.Id;
+            long currentSegmentSoilModelId = ReadStochasticSoildModelSegmentId();
             do
             {
                 // Read Points
@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
                     stochasticSoilModelSegment.Geometry.Add(point2D);
                 }
                 MoveNext();
-            } while (HasNext && ReadStochasticSoilModelSegment().Id == currentSegmentSoilModelId);
+            } while (HasNext && ReadStochasticSoildModelSegmentId() == currentSegmentSoilModelId);
 
             AddStochasticSoilProfiles(stochasticSoilModelSegment);
 
@@ -232,6 +232,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             long stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
             string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
             return new StochasticSoilModel(stochasticSoilModelId, stochasticSoilModelName);
+        }
+
+        private long ReadStochasticSoildModelSegmentId()
+        {
+            return Convert.ToInt64(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelId]);
         }
 
         private Point2D ReadSegmentPoint()
