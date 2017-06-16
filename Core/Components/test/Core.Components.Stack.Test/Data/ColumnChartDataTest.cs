@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
 
@@ -38,6 +39,17 @@ namespace Core.Components.Stack.Test.Data
 
             // Assert
             Assert.AreEqual(name, column.Name);
+        }
+
+        [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new ColumnChartData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
         }
     }
 }

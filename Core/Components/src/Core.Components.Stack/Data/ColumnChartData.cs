@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Core.Components.Stack.Data
 {
     /// <summary>
@@ -30,8 +32,14 @@ namespace Core.Components.Stack.Data
         /// Creates a new instance of <see cref="ColumnChartData"/>.
         /// </summary>
         /// <param name="name">The name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="name"/> is <c>null</c>.</exception>
         public ColumnChartData(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
             Name = name;
         }
 

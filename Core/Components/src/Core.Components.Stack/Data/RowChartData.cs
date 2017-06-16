@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 
 namespace Core.Components.Stack.Data
@@ -33,22 +34,22 @@ namespace Core.Components.Stack.Data
         /// </summary>
         /// <param name="name">The name of the row.</param>
         /// <param name="values">The values of the row.</param>
-        public RowChartData(string name, double[] values)
+        /// <param name="color">The color of the row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="name"/> or <paramref name="values"/>
+        /// is <c>null</c>.</exception>
+        public RowChartData(string name, double[] values, Color? color)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (values == null)
+            {
+                throw new ArgumentNullException(nameof(values));
+            }
             Name = name;
             Values = values;
-            Color = null;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="RowChartData"/>.
-        /// </summary>
-        /// <param name="name">The name of the row.</param>
-        /// <param name="color">The color of the row.</param>
-        /// <param name="values">The values of the row.</param>
-        public RowChartData(string name, Color color, double[] values)
-            : this(name, values)
-        {
             Color = color;
         }
 

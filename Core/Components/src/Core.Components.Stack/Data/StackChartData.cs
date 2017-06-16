@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Core.Common.Base;
 
 namespace Core.Components.Stack.Data
@@ -52,6 +54,8 @@ namespace Core.Components.Stack.Data
         /// Adds a column to the <see cref="StackChartData"/>.
         /// </summary>
         /// <param name="name">The name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="name"/> is <c>null</c>.</exception>
         public void AddColumn(string name)
         {
             Columns.Add(new ColumnChartData(name));
@@ -60,11 +64,16 @@ namespace Core.Components.Stack.Data
         /// <summary>
         /// Adds a row to the <see cref="StackChartData"/>.
         /// </summary>
-        /// <param name="row">The row to add.</param>
-        public void AddRow(RowChartData row)
+        /// <param name="name">The name of the row.</param>
+        /// <param name="values">The values of the row.</param>
+        /// <param name="color">The color of the row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="name"/> or <paramref name="values"/>
+        /// is <c>null</c>.</exception>
+        public void AddRow(string name, double[] values, Color? color = null)
         {
             // Check if the number of items is the same as the number of columns
-            Rows.Add(row);
+            Rows.Add(new RowChartData(name, values, color));
         }
     }
 }

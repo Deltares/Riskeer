@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
@@ -29,7 +30,29 @@ namespace Core.Components.Stack.Test.Data
     public class RowChartDataTest
     {
         [Test]
-        public void Constructor_WithColor_ExpectedValues()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new RowChartData(null, new double[0], Color.White);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValuesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new RowChartData("test", null, Color.White);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("values", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
         {
             // Setup
             const string name = "Row 1";
@@ -41,32 +64,12 @@ namespace Core.Components.Stack.Test.Data
             };
 
             // Call
-            var row = new RowChartData(name, color, values);
+            var row = new RowChartData(name, values, color);
 
             // Assert
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(color, row.Color);
             CollectionAssert.AreEqual(values, row.Values);
-        }
-
-        [Test]
-        public void Constructor_WithoutColor_ExpectedValues()
-        {
-            // Setup
-            const string name = "Row 1";
-            var values = new[]
-            {
-                1.2,
-                2.3
-            };
-
-            // Call
-            var row = new RowChartData(name, values);
-
-            // Assert
-            Assert.AreEqual(name, row.Name);            
-            CollectionAssert.AreEqual(values, row.Values);
-            Assert.IsNull(row.Color);
         }
     }
 }
