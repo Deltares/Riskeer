@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
@@ -68,7 +69,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> ClearData(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            return GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(failureMechanism);
+            return GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(
+                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(),
+                failureMechanism.DikeProfiles,
+                failureMechanism.SectionResults);
         }
     }
 }
