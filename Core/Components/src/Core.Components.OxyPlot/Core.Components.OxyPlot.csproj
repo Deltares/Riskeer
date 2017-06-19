@@ -54,6 +54,7 @@
     <Compile Include="Converter\Chart\ChartLineDataConverter.cs" />
     <Compile Include="Converter\Chart\ChartMultipleLineDataConverter.cs" />
     <Compile Include="Converter\Chart\ChartPointDataConverter.cs" />
+    <Compile Include="Converter\Stack\RowChartDataConverter.cs" />
     <Compile Include="CustomSeries\MultipleLineSeries.cs" />
     <Compile Include="DataSeries\Chart\ChartAreaDataSeries.cs" />
     <Compile Include="DataSeries\Chart\ChartLineDataSeries.cs" />

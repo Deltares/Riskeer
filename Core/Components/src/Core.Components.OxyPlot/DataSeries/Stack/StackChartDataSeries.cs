@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Components.OxyPlot.Converter.Stack;
 using Core.Components.Stack.Data;
 using OxyPlot.Series;
 
@@ -30,17 +32,40 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
     /// </summary>
     public class StackChartDataSeries : ColumnSeries, IChartDataSeries
     {
-        public StackChartDataSeries(RowChartData data)
+        private readonly RowChartData rowChartData;
+
+        private List<double> drawnValues;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StackChartDataSeries"/>.
+        /// </summary>
+        /// <param name="rowChartData">The <see cref="RowChartData"/> which the series is based upon.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="rowChartData"/> is <c>null</c>.</exception>
+        public StackChartDataSeries(RowChartData rowChartData)
         {
-            if (data == null)
+            if (rowChartData == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException(nameof(rowChartData));
             }
+
+            this.rowChartData = rowChartData;
+
+            IsStacked = true;
+            StrokeThickness = 1;
+
+            Update();
         }
 
         public void Update()
         {
-            
+            if (!ReferenceEquals(rowChartData.Values, drawnValues))
+            {
+                RowChartDataConverter.ConvertSeriesData(rowChartData, this);
+
+                drawnValues = rowChartData.Values;
+            }
+
+            RowChartDataConverter.ConvertSeriesProperties(rowChartData, this);
         }
     }
 }

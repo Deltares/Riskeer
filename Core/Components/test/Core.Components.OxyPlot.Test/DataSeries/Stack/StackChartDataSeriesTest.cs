@@ -21,10 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using Core.Components.OxyPlot.DataSeries;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Test.DataSeries.Stack
@@ -40,18 +43,31 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("data", exception.ParamName);
+            Assert.AreEqual("rowChartData", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            Color color = Color.Blue;
+            var values = new List<double>
+            {
+                0.3,
+                0.5,
+                0.2
+            };
+
             // Call
-            var series = new StackChartDataSeries(new RowChartData("data", new List<double>(), null));
+            var series = new StackChartDataSeries(new RowChartData("data", values, color));
 
             // Assert
             Assert.IsInstanceOf<ColumnSeries>(series);
             Assert.IsInstanceOf<IChartDataSeries>(series);
+            Assert.IsTrue(series.IsStacked);
+            Assert.AreEqual(1, series.StrokeThickness);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), series.FillColor);
+            CollectionAssert.AreEqual(values, series.Items.Select(i => i.Value));
         }
     }
 }

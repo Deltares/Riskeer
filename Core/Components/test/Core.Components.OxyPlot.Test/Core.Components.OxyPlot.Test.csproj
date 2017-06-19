@@ -65,6 +65,7 @@
     <Compile Include="Converter\Chart\ChartLineDataConverterTest.cs" />
     <Compile Include="Converter\Chart\ChartMultipleAreaDataConverterTest.cs" />
     <Compile Include="Converter\Chart\ChartPointDataConverterTest.cs" />
+    <Compile Include="Converter\Stack\RowChartDataConverterTest.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeriesTest.cs" />
     <Compile Include="CustomSeries\MultipleLineSeriesTest.cs" />
     <Compile Include="DataSeries\Chart\ChartMultipleLineDataSeriesTest.cs" />
