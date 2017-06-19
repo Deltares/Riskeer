@@ -275,10 +275,9 @@ namespace Ringtoets.Common.Service.Test
         public void Run_ValidCalculationAndRun_SetsDesignWaterLevelAndConvergence(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             // Setup
-            string locationName = hydraulicBoundaryLocation.Name;
-
             const double norm = 1.0 / 30;
             const double expectedDesignWaterLevel = 3.5;
+            string locationName = hydraulicBoundaryLocation.Name;
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -435,17 +434,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName 1";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
-            {
-                DesignWaterLevelCalculation =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = true
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(double.NaN)
-                }
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
 
             var calculator = new TestDesignWaterLevelCalculator
             {
