@@ -55,41 +55,47 @@ namespace Ringtoets.Common.Data.Hydraulics
             CalculatedProbability = calculatedProbability;
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
             CalculationConvergence = calculationConvergence;
+            HasIllustrationPoints = false;
         }
 
         /// <summary>
         /// Gets the result of the calculation.
         /// </summary>
-        public RoundedDouble Result { get; private set; }
+        public RoundedDouble Result { get; }
 
         /// <summary>
         /// Gets the target probability.
         /// [1/year]
         /// </summary>
-        public double TargetProbability { get; private set; }
+        public double TargetProbability { get; }
 
         /// <summary>
         /// Gets the target beta.
         /// [-]
         /// </summary>
-        public RoundedDouble TargetReliability { get; private set; }
+        public RoundedDouble TargetReliability { get; }
 
         /// <summary>
         /// Gets the calculated probability.
         /// [1/year]
         /// </summary>
-        public double CalculatedProbability { get; private set; }
+        public double CalculatedProbability { get; }
 
         /// <summary>
         /// Gets the calculated reliability.
         /// [-]
         /// </summary>
-        public RoundedDouble CalculatedReliability { get; private set; }
+        public RoundedDouble CalculatedReliability { get; }
 
         /// <summary>
         /// Gets the convergence status of the calculation.
         /// [-]
         /// </summary>
-        public CalculationConvergence CalculationConvergence { get; private set; }
+        public CalculationConvergence CalculationConvergence { get; }
+
+        /// <summary>
+        /// Gets if the output contains illustration points.
+        /// </summary>
+        public bool HasIllustrationPoints { get; }
     }
 }

@@ -110,6 +110,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.IsFalse(output.HasIllustrationPoints);
         }
     }
 }

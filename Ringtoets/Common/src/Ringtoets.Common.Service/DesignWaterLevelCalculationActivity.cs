@@ -112,7 +112,9 @@ namespace Ringtoets.Common.Service
         {
             get
             {
-                return !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+                HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;
+                return calculation.HasOutput
+                       && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasIllustrationPoints;
             }
         }
     }
