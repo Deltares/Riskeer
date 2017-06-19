@@ -175,7 +175,6 @@
     </Compile>
     <Compile Include="Factories\RingtoetsMapDataFactory.cs" />
     <Compile Include="Views\SelectableRow.cs" />
-    <Compile Include="Views\WaveHeightLocationRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

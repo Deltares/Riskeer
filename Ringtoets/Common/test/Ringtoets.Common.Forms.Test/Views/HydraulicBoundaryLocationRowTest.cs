@@ -21,9 +21,11 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -66,6 +68,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(locationname, row.Name);
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
+
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationRow, NoValueRoundedDoubleConverter>(
+                nameof(HydraulicBoundaryLocationRow.Result));
             Assert.IsNaN(row.Result);
 
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
