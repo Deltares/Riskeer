@@ -111,12 +111,14 @@
     <Compile Include="Parsers\DunesBoundaryConditionsCalculationParser.cs" />
     <Compile Include="Parsers\ConvergenceParser.cs" />
     <Compile Include="Parsers\HydraRingDatabaseParseHelper.cs" />
+    <Compile Include="Parsers\IllustrationPoints\FaultTreeIllustrationPoint.cs" />
     <Compile Include="Parsers\IllustrationPoints\GeneralResult.cs" />
     <Compile Include="Parsers\IllustrationPoints\IIllustrationPoint.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointQueries.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsDatabaseConstants.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParser.cs" />
     <Compile Include="Parsers\IllustrationPoints\Stochast.cs" />
+    <Compile Include="Parsers\IllustrationPoints\SubmechanismIllustrationPoint.cs" />
     <Compile Include="Parsers\IllustrationPoints\WindDirection.cs" />
     <Compile Include="Readers\HydraRingDatabaseReader.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />

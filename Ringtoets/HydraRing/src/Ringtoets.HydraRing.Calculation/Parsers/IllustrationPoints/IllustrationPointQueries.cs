@@ -67,12 +67,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "UNION " +
             "SELECT FaultTreeId, Id2, Type2, CombinFunction " +
             "FROM FaultTrees)," +
-            $"children(" +
+            "children(" +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeParentId}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine}" +
-            $") AS(" +
+            ") AS(" +
             $"SELECT {IllustrationPointsDatabaseConstants.RecursiveFaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeChildId}, " +
             $"child_of.{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
@@ -81,7 +81,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "WHERE id NOT IN " +
             $"(SELECT {IllustrationPointsDatabaseConstants.RecursiveFaultTreeChildId} FROM child_of) " +
             "UNION ALL " +
-            "SELECT id, child_id, child_of.type, child_of.combine " +
+            $"SELECT {IllustrationPointsDatabaseConstants.RecursiveFaultTreeId}, " +
+            $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeChildId}, " +
+            $"child_of.{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
+            $"child_of.{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine} " +
             "FROM child_of " +
             $"JOIN children USING({IllustrationPointsDatabaseConstants.RecursiveFaultTreeId}) " +
             $"WHERE children.{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType} = \"faulttree\") " +
@@ -90,6 +93,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine} " +
-            $"FROM children;";
+            "FROM children;";
     }
 }

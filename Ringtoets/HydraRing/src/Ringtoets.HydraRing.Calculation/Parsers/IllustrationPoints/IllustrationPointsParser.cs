@@ -42,7 +42,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 IllustrationPointQueries.ClosingSituations,
                 IllustrationPointQueries.WindDirections,
                 IllustrationPointQueries.GeneralAlphaValues,
-                IllustrationPointQueries.GeneralBetaValues);
+                IllustrationPointQueries.GeneralBetaValues,
+                IllustrationPointQueries.RecursiveFaultTree);
 
             try
             {
@@ -67,12 +68,63 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             reader.NextResult();
             ParseWindDirections(reader);
             reader.NextResult();
-            ParseAlphaValues(reader);
+            ParseGeneralAlphaValues(reader);
             reader.NextResult();
-            ParseBetaValue(reader);
+            ParseGeneralBetaValue(reader);
+            reader.NextResult();
+            var faultTreeRoot = ParseFaultTree(reader);
+
+            if (faultTreeRoot == null)
+            {
+                
+            }
         }
 
-        private void ParseBetaValue(HydraRingDatabaseReader reader)
+        private FaultTreeIllustrationPoint ParseFaultTree(HydraRingDatabaseReader reader)
+        {
+            var faultTree = new Dictionary<int, FaultTreeIllustrationPoint>();
+            var subMechanism = new Dictionary<int, SubmechanismIllustrationPoint>();
+            FaultTreeIllustrationPoint root = null;
+
+            Dictionary<string, object>[] readFaultTrees = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            if (readFaultTrees.Length > 0)
+            {
+                foreach (Dictionary<string, object> readFaultTree in readFaultTrees)
+                {
+                    int parentId = Convert.ToInt32(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeParentId]);
+                    int id = Convert.ToInt32(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeId]);
+                    string type = Convert.ToString(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeType]);
+                    string combine = Convert.ToString(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine]);
+
+                    if (!faultTree.ContainsKey(parentId))
+                    {
+                        root = new FaultTreeIllustrationPoint();
+                        faultTree[parentId] = root;
+                    }
+
+                    faultTree[parentId].Combine = combine;
+                    if (type == "faulttree")
+                    {
+                        if (!faultTree.ContainsKey(id))
+                        {
+                            faultTree[id] = new FaultTreeIllustrationPoint();
+                        }
+                        faultTree[parentId].AddChild(faultTree[id]);
+                    }
+                    if (type == "submechanism")
+                    {
+                        if (!subMechanism.ContainsKey(id))
+                        {
+                            subMechanism[id] = new SubmechanismIllustrationPoint();
+                        }
+                        faultTree[parentId].AddChild(subMechanism[id]);
+                    }
+                }
+            }
+            return root;
+        }
+
+        private void ParseGeneralBetaValue(HydraRingDatabaseReader reader)
         {
             IEnumerable<Dictionary<string, object>> betaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
             if (betaValues.Count() != 1)
@@ -82,7 +134,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             Output.Beta = Convert.ToDouble(betaValues.First()[IllustrationPointsDatabaseConstants.BetaValue]);
         }
 
-        private void ParseAlphaValues(HydraRingDatabaseReader reader)
+        private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
         {
             IEnumerable<Dictionary<string, object>> alphaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
             Output.Stochasts = alphaValues.Select(a => new Stochast
