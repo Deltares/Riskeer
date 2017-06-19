@@ -19,12 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Components.Stack.Data;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.DataSeries.Stack
 {
+    /// <summary>
+    /// A <see cref="ColumnSeries"/> based on and updated according to the wrapped <see cref="StackChartData"/>.
+    /// </summary>
     public class StackChartDataSeries : ColumnSeries, IChartDataSeries
     {
+        public StackChartDataSeries(RowChartData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+        }
+
         public void Update()
         {
             

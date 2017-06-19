@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Core.Components.DotSpatial")]
-[assembly: AssemblyProduct("Core.Components.DotSpatial")]
+[assembly: AssemblyTitle("Core.Components.Chart.Forms")]
+[assembly: AssemblyProduct("Core.Components.Chart.Forms")]
 [assembly: Guid("2465CCA1-C505-4827-9454-4FD5FD9194CD")]

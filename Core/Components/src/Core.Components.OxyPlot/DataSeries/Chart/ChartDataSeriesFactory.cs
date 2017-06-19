@@ -35,8 +35,8 @@ namespace Core.Components.OxyPlot.DataSeries.Chart
         /// </summary>
         /// <param name="data">The <see cref="ChartData"/> to create a <see cref="IChartDataSeries"/> from.</param>
         /// <returns>A <see cref="IChartDataSeries"/> instance.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when the given <paramref name="data"/> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="data"/> type is not supported.</exception>
         public static IChartDataSeries Create(ChartData data)
         {
             if (data == null)

@@ -21,37 +21,32 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Components.OxyPlot.DataSeries;
-using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
-using NUnit.Framework;
-using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Test.DataSeries.Stack
+namespace Core.Components.OxyPlot.DataSeries.Stack
 {
-    [TestFixture]
-    public class StackChartDataSeriesTest
+    /// <summary>
+    /// A factory to create <see cref="StackChartDataSeries"/> based on <see cref="StackChartData"/>.
+    /// </summary>
+    internal static class StackChartDataSeriesFactory
     {
-        [Test]
-        public void Constructor_RowChartDataNull_ThrowsArgumentNullException()
+        /// <summary>
+        /// Creates a <see cref="StackChartDataSeries"/> based on <paramref name="data"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="StackChartData"/> to create <see cref="StackChartDataSeries"/> from.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="StackChartDataSeries"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public static IEnumerable<StackChartDataSeries> Create(StackChartData data)
         {
-            // Call
-            TestDelegate test = () => new StackChartDataSeries(null);
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
 
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("data", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call
-            var series = new StackChartDataSeries(new RowChartData("data", new List<double>(), null));
-
-            // Assert
-            Assert.IsInstanceOf<ColumnSeries>(series);
-            Assert.IsInstanceOf<IChartDataSeries>(series);
+            foreach (RowChartData row in data.Rows)
+            {
+                yield return new StackChartDataSeries(row);
+            }            
         }
     }
 }

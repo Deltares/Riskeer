@@ -21,22 +21,21 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Components.OxyPlot.DataSeries;
+using System.Linq;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
-using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Test.DataSeries.Stack
 {
     [TestFixture]
-    public class StackChartDataSeriesTest
+    public class StackChartDataSeriesFactoryTest
     {
         [Test]
-        public void Constructor_RowChartDataNull_ThrowsArgumentNullException()
+        public void Create_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StackChartDataSeries(null);
+            TestDelegate test = () => StackChartDataSeriesFactory.Create(null).ToList();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -44,14 +43,34 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Create_EmptyStackChartData_ReturnEmptyEnumerable()
         {
             // Call
-            var series = new StackChartDataSeries(new RowChartData("data", new List<double>(), null));
+            IEnumerable<StackChartDataSeries> series = StackChartDataSeriesFactory.Create(new StackChartData());
 
             // Assert
-            Assert.IsInstanceOf<ColumnSeries>(series);
-            Assert.IsInstanceOf<IChartDataSeries>(series);
+            CollectionAssert.IsEmpty(series);
+        }
+
+        [Test]
+        public void Create_CompleteStackChartData_ReturnChartDataSeriesForRows()
+        {
+            // Setup
+            var data = new StackChartData();
+            data.AddColumn("Column 1");
+            data.AddColumn("Column 2");
+
+            data.AddRow("Row 1", new List<double>
+            {
+                0.1,
+                0.9
+            });
+
+            // Call
+            IEnumerable<StackChartDataSeries> series = StackChartDataSeriesFactory.Create(data);
+            
+            // Assert
+            Assert.AreEqual(data.Rows.Count(), series.Count());
         }
     }
 }

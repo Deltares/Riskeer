@@ -72,6 +72,7 @@
     <Compile Include="DataSeries\Chart\ChartLineDataSeriesTest.cs" />
     <Compile Include="DataSeries\Chart\ChartAreaDataSeriesTest.cs" />
     <Compile Include="DataSeries\Chart\ChartMultipleAreaDataSeriesTest.cs" />
+    <Compile Include="DataSeries\Stack\StackChartDataSeriesFactoryTest.cs" />
     <Compile Include="DataSeries\Stack\StackChartDataSeriesTest.cs" />
     <Compile Include="DynamicPlotControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
       <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>
       <Name>Core.Components.OxyPlot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj">
+      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
+      <Name>Core.Components.Stack</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj">
       <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
