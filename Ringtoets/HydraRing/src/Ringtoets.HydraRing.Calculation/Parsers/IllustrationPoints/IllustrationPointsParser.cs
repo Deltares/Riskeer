@@ -94,6 +94,28 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             ParseSubMechanismResults(reader);
             reader.NextResult();
             ParseFaultTree(reader);
+            if (Output.IllustrationPoints == null)
+            {
+                SetSubMechanismAsRootIllustrationPoint();
+            }
+        }
+
+        private void SetSubMechanismAsRootIllustrationPoint()
+        {
+            var rootIllustrationPoints = new List<IllustrationPointTreeNode>();
+            foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in GetAllWindDirectionClosingSituationCombinations())
+            {
+                var illustrationPoint = new SubmechanismIllustrationPoint
+                {
+                    Beta = subMechanismBetaValues.First().Value,
+                    ClosingSituation = windDirectionClosingSituation.Item4,
+                    WindDirection = windDirectionClosingSituation.Item2
+                };
+                AddRange(illustrationPoint.Results, subMechanismResults.First().Value);
+                AddRange(illustrationPoint.Stochasts, subMechanismStochasts.First().Value);
+                rootIllustrationPoints.Add(new IllustrationPointTreeNode(illustrationPoint));
+            }
+            Output.IllustrationPoints = rootIllustrationPoints;
         }
 
         private void ParseFaultTreeAlphaValues(HydraRingDatabaseReader reader)
@@ -205,7 +227,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseFaultTree(HydraRingDatabaseReader reader)
         {
-            var rootIllustrationPoints = new List<IllustrationPointTreeNode>();
 
             IEnumerable<Tuple<int, WindDirection, int, string>> windDirectionClosingSituations =
                 GetAllWindDirectionClosingSituationCombinations();
@@ -213,6 +234,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             Dictionary<string, object>[] readFaultTrees = GetIterator(reader).TakeWhile(r => r != null).ToArray();
             if (readFaultTrees.Length > 0)
             {
+                var rootIllustrationPoints = new List<IllustrationPointTreeNode>();
+
                 var results = new List<Tuple<int?, int, Type, CombinationType>>();
 
                 foreach (Dictionary<string, object> readFaultTree in readFaultTrees)
@@ -235,9 +258,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     Tuple<int?, int, Type, CombinationType> root = results.Single(r => !r.Item1.HasValue);
                     rootIllustrationPoints.Add(BuildFaultTree(windDirectionClosingSituation, root.Item2, root.Item4, results));
                 }
-            }
 
-            Output.IllustrationPoints = rootIllustrationPoints;
+                Output.IllustrationPoints = rootIllustrationPoints;
+            }
         }
 
         private IEnumerable<Tuple<int, WindDirection, int, string>> GetAllWindDirectionClosingSituationCombinations()

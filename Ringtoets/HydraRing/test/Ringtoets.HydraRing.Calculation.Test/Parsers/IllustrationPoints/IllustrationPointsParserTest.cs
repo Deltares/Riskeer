@@ -111,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         public void Parse_ValidDataForOtherSection_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, "ValidOutputSection1");
+            string path = Path.Combine(testDirectory, "ValidStructuresStabilityOutputSection1");
             var parser = new IllustrationPointsParser();
 
             // Call
@@ -124,10 +124,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         }
 
         [Test]
-        public void Parse_ValidData_SetsOutputAsExpected()
+        public void Parse_ValidStructuresStabilityData_SetsOutputAsExpected()
         {
             // Setup
-            string path = Path.Combine(testDirectory, "ValidOutputSection1");
+            string path = Path.Combine(testDirectory, "ValidStructuresStabilityOutputSection1");
             var parser = new IllustrationPointsParser();
 
             // Call
@@ -140,6 +140,25 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.AreEqual(1.19513, generalResult.Beta);
             Assert.AreEqual(46, generalResult.Stochasts.Count());
             Assert.AreEqual(12, generalResult.IllustrationPoints.Count());
+        }
+
+        [Test]
+        public void Parse_ValidDesignWaterLevelData_SetsOutputAsExpected()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "ValidDesignWaterLevelOutputSection1");
+            var parser = new IllustrationPointsParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            GeneralResult generalResult = parser.Output;
+            Assert.NotNull(generalResult);
+            Assert.NotNull(generalResult.GoverningWind);
+            Assert.AreEqual(4.45304, generalResult.Beta);
+            Assert.AreEqual(6, generalResult.Stochasts.Count());
+            Assert.AreEqual(16, generalResult.IllustrationPoints.Count());
         }
     }
 }
