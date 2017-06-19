@@ -30,18 +30,18 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
     /// <summary>
     /// A <see cref="ColumnSeries"/> based on and updated according to the wrapped <see cref="StackChartData"/>.
     /// </summary>
-    public class StackChartDataSeries : ColumnSeries, IChartDataSeries
+    public class RowChartDataSeries : ColumnSeries, IChartDataSeries
     {
         private readonly RowChartData rowChartData;
 
         private List<double> drawnValues;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StackChartDataSeries"/>.
+        /// Creates a new instance of <see cref="RowChartDataSeries"/>.
         /// </summary>
         /// <param name="rowChartData">The <see cref="RowChartData"/> which the series is based upon.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="rowChartData"/> is <c>null</c>.</exception>
-        public StackChartDataSeries(RowChartData rowChartData)
+        public RowChartDataSeries(RowChartData rowChartData)
         {
             if (rowChartData == null)
             {

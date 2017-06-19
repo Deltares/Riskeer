@@ -26,17 +26,17 @@ using Core.Components.Stack.Data;
 namespace Core.Components.OxyPlot.DataSeries.Stack
 {
     /// <summary>
-    /// A factory to create <see cref="StackChartDataSeries"/> based on <see cref="StackChartData"/>.
+    /// A factory to create <see cref="RowChartDataSeries"/> based on <see cref="StackChartData"/>.
     /// </summary>
-    internal static class StackChartDataSeriesFactory
+    internal static class RowChartDataSeriesFactory
     {
         /// <summary>
-        /// Creates a <see cref="StackChartDataSeries"/> based on <paramref name="data"/>.
+        /// Creates a <see cref="RowChartDataSeries"/> based on <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="StackChartData"/> to create <see cref="StackChartDataSeries"/> from.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="StackChartDataSeries"/>.</returns>
+        /// <param name="data">The <see cref="StackChartData"/> to create <see cref="RowChartDataSeries"/> from.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="RowChartDataSeries"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public static IEnumerable<StackChartDataSeries> Create(StackChartData data)
+        public static IEnumerable<RowChartDataSeries> Create(StackChartData data)
         {
             if (data == null)
             {
@@ -45,7 +45,7 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
 
             foreach (RowChartData row in data.Rows)
             {
-                yield return new StackChartDataSeries(row);
+                yield return new RowChartDataSeries(row);
             }            
         }
     }

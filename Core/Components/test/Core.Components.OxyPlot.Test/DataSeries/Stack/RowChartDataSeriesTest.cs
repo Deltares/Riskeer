@@ -21,56 +21,53 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using Core.Components.OxyPlot.DataSeries;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Test.DataSeries.Stack
 {
     [TestFixture]
-    public class StackChartDataSeriesFactoryTest
+    public class RowChartDataSeriesTest
     {
         [Test]
-        public void Create_DataNull_ThrowsArgumentNullException()
+        public void Constructor_RowChartDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StackChartDataSeriesFactory.Create(null).ToList();
+            TestDelegate test = () => new RowChartDataSeries(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("data", exception.ParamName);
+            Assert.AreEqual("rowChartData", exception.ParamName);
         }
 
         [Test]
-        public void Create_EmptyStackChartData_ReturnEmptyEnumerable()
-        {
-            // Call
-            IEnumerable<StackChartDataSeries> series = StackChartDataSeriesFactory.Create(new StackChartData());
-
-            // Assert
-            CollectionAssert.IsEmpty(series);
-        }
-
-        [Test]
-        public void Create_CompleteStackChartData_ReturnChartDataSeriesForRows()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var data = new StackChartData();
-            data.AddColumn("Column 1");
-            data.AddColumn("Column 2");
-
-            data.AddRow("Row 1", new List<double>
+            Color color = Color.Blue;
+            var values = new List<double>
             {
-                0.1,
-                0.9
-            });
+                0.3,
+                0.5,
+                0.2
+            };
 
             // Call
-            IEnumerable<StackChartDataSeries> series = StackChartDataSeriesFactory.Create(data);
-            
+            var series = new RowChartDataSeries(new RowChartData("data", values, color));
+
             // Assert
-            Assert.AreEqual(data.Rows.Count(), series.Count());
+            Assert.IsInstanceOf<ColumnSeries>(series);
+            Assert.IsInstanceOf<IChartDataSeries>(series);
+            Assert.IsTrue(series.IsStacked);
+            Assert.AreEqual(1, series.StrokeThickness);
+            Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), series.FillColor);
+            CollectionAssert.AreEqual(values, series.Items.Select(i => i.Value));
         }
     }
 }
