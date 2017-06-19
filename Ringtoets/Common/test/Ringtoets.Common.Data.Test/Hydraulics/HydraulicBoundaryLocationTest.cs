@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -74,6 +75,40 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
             Assert.IsNull(hydraulicBoundaryLocation.WaveHeightCalculation.Output);
+        }
+
+        [Test]
+        [TestCase(CalculationConvergence.CalculatedConverged)]
+        [TestCase(CalculationConvergence.CalculatedNotConverged)]
+        public void DesignWaterLevelCalculationConvergence_ValidOutput_SetsCalculationOutputAndCalculationConvergence(CalculationConvergence converged)
+        {
+            // Setup
+            var location = new HydraulicBoundaryLocation(0, "", 0, 0);
+            var output = new TestHydraulicBoundaryLocationOutput(0, converged);
+
+            // Call
+            location.DesignWaterLevelCalculation.Output = output;
+
+            // Assert
+            Assert.AreSame(output, location.DesignWaterLevelCalculation.Output);
+            Assert.AreEqual(converged, location.DesignWaterLevelCalculationConvergence);
+        }
+
+        [Test]
+        [TestCase(CalculationConvergence.CalculatedConverged)]
+        [TestCase(CalculationConvergence.CalculatedNotConverged)]
+        public void WaveHeightCalculationConvergence_ValidOutput_SetsCalculationOutputAndCalculationConvergence(CalculationConvergence converged)
+        {
+            // Setup
+            var location = new HydraulicBoundaryLocation(0, "", 0, 0);
+            var output = new TestHydraulicBoundaryLocationOutput(0, converged);
+
+            // Call
+            location.WaveHeightCalculation.Output = output;
+
+            // Assert
+            Assert.AreSame(output, location.WaveHeightCalculation.Output);
+            Assert.AreEqual(converged, location.WaveHeightCalculationConvergence);
         }
 
         [Test]

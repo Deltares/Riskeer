@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
@@ -84,6 +85,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual(orientation, duneLocation.Orientation.Value);
             Assert.AreEqual(d50, duneLocation.D50.Value);
             Assert.IsNull(duneLocation.Output);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocation.CalculationConvergence);
         }
 
         [Test]
@@ -129,6 +131,24 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(6, duneLocation.D50.NumberOfDecimalPlaces);
             Assert.AreEqual(0.123457, duneLocation.D50, duneLocation.D50.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(CalculationConvergence.CalculatedConverged)]
+        [TestCase(CalculationConvergence.CalculatedNotConverged)]
+        public void Output_ValidOutput_SetsOutputAndCalculationConvergence(CalculationConvergence converged)
+        {
+            // Setup
+            var duneLocation = new DuneLocation(0, "dune", new Point2D(0, 0), new DuneLocation.ConstructionProperties());
+            var output = new DuneLocationOutput(converged,
+                                                new DuneLocationOutput.ConstructionProperties());
+
+            // Call
+            duneLocation.Output = output;
+
+            // Assert
+            Assert.AreSame(output, duneLocation.Output);
+            Assert.AreEqual(converged, duneLocation.CalculationConvergence);
         }
     }
 }

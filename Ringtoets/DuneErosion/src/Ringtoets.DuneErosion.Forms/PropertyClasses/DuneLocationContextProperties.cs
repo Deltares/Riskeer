@@ -201,7 +201,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.DuneLocation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DuneLocation.CalculationConvergence).DisplayName;
             }
         }
 
