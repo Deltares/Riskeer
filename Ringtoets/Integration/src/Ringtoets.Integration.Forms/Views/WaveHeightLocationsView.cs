@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
     /// </summary>
-    public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
+    public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
@@ -97,15 +97,15 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        protected override WaveHeightLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
-            return new WaveHeightLocationRow(location);
+            return new HydraulicBoundaryLocationRow(location, location.WaveHeightCalculation);
         }
 
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(WaveHeightLocationRow.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
                                                  Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
         }
 

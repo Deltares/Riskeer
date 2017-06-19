@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation, null);
+            TestDelegate call = () => new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -57,8 +57,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var calculation = new HydraulicBoundaryLocationCalculation();
 
             // Call
-            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
-                                                           calculation);
+            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+                                                       calculation);
 
             // Assert
             Assert.IsInstanceOf<CalculatableRow<HydraulicBoundaryLocation>>(row);
@@ -79,8 +79,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var calculation = new HydraulicBoundaryLocationCalculation();
-            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
-                                                           calculation);
+            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+                                                       calculation);
 
             // Call
             row.IncludeIllustrationPoints = setIllustrationPoints;
@@ -96,8 +96,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var calculation = new HydraulicBoundaryLocationCalculation();
-            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
-                                                           calculation);
+            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+                                                       calculation);
 
             var random = new Random(432);
             var locationOutput = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
@@ -107,13 +107,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(locationOutput.Result, row.Result);
-        }
-
-        private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
-        {
-            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                    HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-                : base(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation) {}
         }
     }
 }

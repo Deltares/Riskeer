@@ -21,7 +21,7 @@
 
 namespace Ringtoets.Common.Forms.Views
 {
-    partial class HydraulicBoundaryLocationsView<T>
+    partial class HydraulicBoundaryLocationsView
     {
         /// <summary> 
         /// Required designer variable.

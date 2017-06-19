@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
-    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>
+    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
@@ -95,15 +95,15 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        protected override DesignWaterLevelLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
-            return new DesignWaterLevelLocationRow(location);
+            return new HydraulicBoundaryLocationRow(location, location.DesignWaterLevelCalculation);
         }
 
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(DesignWaterLevelLocationRow.DesignWaterLevel),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
                                                  Resources.HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName);
         }
 

@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>>(view);
+                Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Assert
                 var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
-                var dataBoundItem = selectedLocationRow.DataBoundItem as DesignWaterLevelLocationRow;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
 
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);

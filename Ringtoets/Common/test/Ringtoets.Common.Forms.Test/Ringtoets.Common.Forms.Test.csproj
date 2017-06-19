@@ -119,7 +119,6 @@
     <Compile Include="Views\CalculatableViewTest.cs" />
     <Compile Include="Views\FailureMechanismViewTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
-    <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs" />
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelperTest.cs" />
     <Compile Include="Views\FailureMechanismSectionResultRowTest.cs" />

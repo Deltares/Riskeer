@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new WaveHeightLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationsView<WaveHeightLocationRow>>(view);
+                Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Assert
                 var selection = view.Selection as WaveHeightLocationContext;
-                var dataBoundItem = selectedLocationRow.DataBoundItem as WaveHeightLocationRow;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
 
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);

@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>
     /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
+    public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
@@ -98,9 +98,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
         }
 
-        protected override WaveHeightLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
-            return new WaveHeightLocationRow(location);
+            return new HydraulicBoundaryLocationRow(location, location.WaveHeightCalculation);
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             return currentRow != null
                        ? new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>) Data,
-                                                                                ((WaveHeightLocationRow) currentRow.DataBoundItem).CalculatableObject)
+                                                                                ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
         }
 
@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(WaveHeightLocationRow.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
                                                  Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName);
         }
 
@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             for (var i = 0; i < count; i++)
             {
-                HydraulicBoundaryLocation locationFromGrid = ((WaveHeightLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
+                HydraulicBoundaryLocation locationFromGrid = ((HydraulicBoundaryLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
                 if (!ReferenceEquals(locationFromGrid, locations[i]))
                 {
                     return true;

@@ -29,10 +29,11 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in order to get a consistent look and feel.
+    /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in 
+    /// order to get a consistent look and feel.
     /// </summary>
-    /// <typeparam name="T">The type of the row objects which are shown in the data table.</typeparam>
-    public abstract partial class HydraulicBoundaryLocationsView<T> : CalculatableView<HydraulicBoundaryLocation> where T : HydraulicBoundaryLocationRow
+    public abstract partial class HydraulicBoundaryLocationsView
+        : CalculatableView<HydraulicBoundaryLocation>
     {
         private IEnumerable<HydraulicBoundaryLocation> locations;
 
@@ -77,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="location">The location for which to create a new row.</param>
         /// <returns>The newly created row.</returns>
-        protected abstract T CreateNewRow(HydraulicBoundaryLocation location);
+        protected abstract HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location);
 
         /// <summary>
         /// Handles the calculation of the <paramref name="locations"/>.

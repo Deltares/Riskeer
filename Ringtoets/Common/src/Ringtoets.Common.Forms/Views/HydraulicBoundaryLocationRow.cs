@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationRow : CalculatableRow<HydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationRow : CalculatableRow<HydraulicBoundaryLocation>
     {
         private readonly HydraulicBoundaryLocationCalculation calculation;
 
@@ -41,8 +41,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
         /// <param name="hydraulicBoundaryLocationCalculation">The calculation of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                               HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+        public HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocationCalculation == null)

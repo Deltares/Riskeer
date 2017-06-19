@@ -252,11 +252,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 : base(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation) {}
         }
 
-        private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView<TestHydraulicBoundaryLocationRow>
+        private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
             public override IAssessmentSection AssessmentSection { get; set; }
 
-            protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+            protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
             {
                 return new TestHydraulicBoundaryLocationRow(location,
                                                             location.WaveHeightCalculation);

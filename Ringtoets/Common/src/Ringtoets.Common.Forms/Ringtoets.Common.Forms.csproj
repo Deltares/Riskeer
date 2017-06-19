@@ -139,7 +139,6 @@
     <Compile Include="Views\FailureMechanismView.Designer.cs">
       <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
