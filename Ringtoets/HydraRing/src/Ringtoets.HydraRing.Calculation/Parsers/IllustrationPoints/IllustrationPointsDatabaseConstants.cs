@@ -23,6 +23,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     public static class IllustrationPointsDatabaseConstants
     {
+        public const string FaultTreeId = "FaultTreeId";
+        public const string SubMechanismId = "SubMechanismId";
+
         public const string ClosingSituationId = "ClosingSituationId";
         public const string ClosingSituationName = "ClosingSituationName";
 
@@ -34,8 +37,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         public const string StochastName = "StochastName";
         public const string AlphaValue = "AlphaValue";
         public const string Duration = "Duration";
+        public const string Realization = "X";
 
         public const string BetaValue = "BetaValue";
+
+        public const string IllustrationPointResultValue = "Value";
+        public const string IllustrationPointResultDescription = "OutputVarDescription";
 
         public const string RecursiveFaultTreeId = "id";
         public const string RecursiveFaultTreeChildId = "childId";

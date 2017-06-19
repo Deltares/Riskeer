@@ -19,10 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     public class SubmechanismIllustrationPoint : IIllustrationPoint
     {
-       
+        public SubmechanismIllustrationPoint()
+        {
+            Results = new List<IllustrationPointResult>();
+            Stochasts = new List<Stochast>();
+        }
+        public ICollection<Stochast> Stochasts { get; }
+
+        public double Beta { get; set; }
+
+        public WindDirection WindDirection { get; set; }
+
+        public string ClosingSituation { get; set; }
+
+        public ICollection<IllustrationPointResult> Results { get; }
+
     }
 }

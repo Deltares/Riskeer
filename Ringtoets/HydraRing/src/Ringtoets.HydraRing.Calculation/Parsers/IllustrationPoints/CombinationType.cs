@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,34 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
-    /// <summary>
-    /// The general illustration points result.
-    /// </summary>
-    public class GeneralResult
+    public enum CombinationType
     {
-        /// <summary>
-        /// Gets or sets the general beta value.
-        /// </summary>
-        public double Beta { get; set; }
-
-        /// <summary>
-        /// Gets or sets the governing wind direction.
-        /// </summary>
-        public WindDirection GoverningWind { get; set; }
-
-        /// <summary>
-        /// Gets or sets the general alpha values.
-        /// </summary>
-        public IEnumerable<Stochast> Stochasts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tree of illustration points for each 
-        /// wind direction and closing situation.
-        /// </summary>
-        public IEnumerable<IllustrationPointTreeNode> IllustrationPoints { get; set; }
+        Or, And
     }
 }

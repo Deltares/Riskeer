@@ -139,6 +139,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.NotNull(generalResult.GoverningWind);
             Assert.AreEqual(1.19513, generalResult.Beta);
             Assert.AreEqual(46, generalResult.Stochasts.Count());
+            Assert.AreEqual(12, generalResult.IllustrationPoints.Count());
         }
     }
 }
