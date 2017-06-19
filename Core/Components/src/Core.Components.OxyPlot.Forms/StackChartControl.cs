@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
+using OxyPlot.Axes;
 
 namespace Core.Components.OxyPlot.Forms
 {
@@ -32,6 +36,7 @@ namespace Core.Components.OxyPlot.Forms
     public class StackChartControl : Control, IStackChartControl
     {
         private readonly CategoryPlotView plotView;
+        private StackChartData data;
 
         /// <summary>
         /// Creates a new <see cref="StackChartControl"/>.
@@ -50,7 +55,30 @@ namespace Core.Components.OxyPlot.Forms
             Controls.Add(plotView);
         }
 
-        public StackChartData Data { get; set; }
+        public StackChartData Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                if (data != null)
+                {
+                    var axis = plotView.Model.Axes.First() as CategoryAxis;
+                    axis.Labels.Clear();
+                    plotView.Model.Series.Clear();
+                }
+
+                data = value;
+
+                if (data != null)
+                {
+                    AddLabels();
+                    DrawColumns();
+                }
+            }
+        }
 
         public string ChartTitle
         {
@@ -69,6 +97,26 @@ namespace Core.Components.OxyPlot.Forms
             plotView.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        private void AddLabels()
+        {
+            foreach (ColumnChartData column in data.Columns)
+            {
+                var axis = plotView.Model.Axes.First() as CategoryAxis;
+
+                axis.Labels.Add(column.Name);
+            }
+        }
+
+        private void DrawColumns()
+        {
+            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(data);
+
+            foreach (RowChartDataSeries rowChartDataSeries in series)
+            {
+                plotView.Model.Series.Add(rowChartDataSeries);
+            }
         }
     }
 }

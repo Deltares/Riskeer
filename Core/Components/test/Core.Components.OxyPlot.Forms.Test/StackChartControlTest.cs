@@ -19,11 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 using NUnit.Framework;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Forms.Test
 {
@@ -45,6 +50,128 @@ namespace Core.Components.OxyPlot.Forms.Test
             CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
             Assert.AreEqual(Color.White, plotView.BackColor);
             Assert.IsTrue(plotView.Model.IsLegendVisible);
+        }
+
+        [Test]
+        public void GivenChartControlWithoutData_WhenDataSetToStackChartData_ThenChartControlUpdated()
+        {
+            // Given
+            using (var chart = new StackChartControl())
+            {
+                var data = new StackChartData();
+                data.AddColumn("Column 1");
+                data.AddColumn("Column 2");
+                data.AddRow("Row 1", new List<double>
+                {
+                    0.4,
+                    0.2
+                });
+                data.AddRow("Row 2", new List<double>
+                {
+                    0.6,
+                    0.8
+                });
+
+                // When
+                chart.Data = data;
+
+                // Then
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
+                AssertSeriesAndColumns(plotView);
+            }
+        }
+
+        [Test]
+        public void GivenChartControlWithData_WhenDataSetToOtherStackChartData_ThenChartControlUpdated()
+        {
+            // Given
+            using (var chart = new StackChartControl())
+            {
+                var data = new StackChartData();
+                data.AddColumn("Column 1");
+                data.AddColumn("Column 2");
+                data.AddRow("Row 1", new List<double>
+                {
+                    0.4,
+                    0.2
+                });
+                data.AddRow("Row 2", new List<double>
+                {
+                    0.6,
+                    0.8
+                });
+
+                chart.Data = data;
+
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
+                AssertSeriesAndColumns(plotView);
+
+                // When
+                var newData = new StackChartData();
+                newData.AddColumn("Column 3");
+                newData.AddColumn("Column 4");
+                newData.AddRow("Row 3", new List<double>
+                {
+                    0.5,
+                    0.7
+                });
+                newData.AddRow("Row 4", new List<double>
+                {
+                    0.5,
+                    0.3
+                });
+                chart.Data = newData;
+
+                // Then
+                ElementCollection<Series> series = plotView.Model.Series;
+                Assert.AreEqual(2, series.Count);
+                Assert.AreEqual("Row 3", series[0].Title);
+                Assert.AreEqual("Row 4", series[1].Title);
+
+                var axis = plotView.Model.Axes.First() as CategoryAxis;
+
+                Assert.AreEqual(2, axis.Labels.Count);
+                Assert.AreEqual("Column 3", axis.Labels[0]);
+                Assert.AreEqual("Column 4", axis.Labels[1]);
+            }
+        }
+
+        [Test]
+        public void GivenChartControlWithData_WhenDataSetToNull_ThenChartControlUpdated()
+        {
+            // Given
+            using (var chart = new StackChartControl())
+            {
+                var data = new StackChartData();
+                data.AddColumn("Column 1");
+                data.AddColumn("Column 2");
+                data.AddRow("Row 1", new List<double>
+                {
+                    0.4,
+                    0.2
+                });
+                data.AddRow("Row 2", new List<double>
+                {
+                    0.6,
+                    0.8
+                });
+
+                chart.Data = data;
+
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
+                AssertSeriesAndColumns(plotView);
+
+                // When
+                chart.Data = null;
+
+                // Then
+                ElementCollection<Series> series = plotView.Model.Series;
+                CollectionAssert.IsEmpty(series);
+
+                var axis = plotView.Model.Axes.First() as CategoryAxis;
+
+                CollectionAssert.IsEmpty(axis.Labels);
+            }
         }
 
         [Test]
@@ -72,6 +199,20 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual(chart.ChartTitle, newTitle);
                 Assert.AreEqual(1, invalidated);
             }
+        }
+
+        private static void AssertSeriesAndColumns(CategoryPlotView plotView)
+        {
+            ElementCollection<Series> series = plotView.Model.Series;
+            Assert.AreEqual(2, series.Count);
+            Assert.AreEqual("Row 1", series[0].Title);
+            Assert.AreEqual("Row 2", series[1].Title);
+
+            var axis = plotView.Model.Axes.First() as CategoryAxis;
+
+            Assert.AreEqual(2, axis.Labels.Count);
+            Assert.AreEqual("Column 1", axis.Labels[0]);
+            Assert.AreEqual("Column 2", axis.Labels[1]);
         }
     }
 }
