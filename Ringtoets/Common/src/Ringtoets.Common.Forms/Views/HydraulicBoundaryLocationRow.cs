@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -30,13 +33,39 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public abstract class HydraulicBoundaryLocationRow : CalculatableRow<HydraulicBoundaryLocation>
     {
+        private readonly HydraulicBoundaryLocationCalculation calculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationRow"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            : base(hydraulicBoundaryLocation) {}
+        /// <param name="hydraulicBoundaryLocationCalculation">The calculation of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                               HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+            : base(hydraulicBoundaryLocation)
+        {
+            if (hydraulicBoundaryLocationCalculation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
+            }
+            calculation = hydraulicBoundaryLocationCalculation;
+        }
+
+        /// <summary>
+        /// Gets or sets if the illustration points need to be included.
+        /// </summary>
+        public bool IncludeIllustrationPoints
+        {
+            get
+            {
+                return calculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+            }
+        }
 
         /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
@@ -68,6 +97,18 @@ namespace Ringtoets.Common.Forms.Views
             get
             {
                 return CalculatableObject.Location;
+            }
+        }
+
+        /// <summary>
+        /// Gets the result of the <see cref="HydraulicBoundaryLocationCalculation"/>.
+        /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble Result
+        {
+            get
+            {
+                return calculation.Output?.Result ?? RoundedDouble.NaN;
             }
         }
     }

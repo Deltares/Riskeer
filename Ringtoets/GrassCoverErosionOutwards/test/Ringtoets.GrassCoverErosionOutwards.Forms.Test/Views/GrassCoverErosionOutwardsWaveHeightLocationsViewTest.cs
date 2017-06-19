@@ -49,10 +49,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     public class GrassCoverErosionOutwardsWaveHeightLocationsViewTest
     {
         private const int locationCalculateColumnIndex = 0;
-        private const int locationNameColumnIndex = 1;
-        private const int locationIdColumnIndex = 2;
-        private const int locationColumnIndex = 3;
-        private const int locationWaveHeightColumnIndex = 4;
+        private const int includeIllustrationPointsColumnIndex = 1;
+        private const int locationNameColumnIndex = 2;
+        private const int locationIdColumnIndex = 3;
+        private const int locationColumnIndex = 4;
+        private const int locationWaveHeightColumnIndex = 5;
 
         private Form testForm;
         private MockRepository mockRepository;
@@ -100,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Call
             using (GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView())
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
                 DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
                 selectedLocationRow.Cells[0].Value = true;
 
@@ -121,28 +122,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             ShowWaveHeightLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(5, dataGridView.ColumnCount);
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            Assert.AreEqual(6, dataGridView.ColumnCount);
 
             var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
-            const string expectedLocationCalculateHeaderText = "Berekenen";
-            Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
+
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            Assert.AreEqual("Illustratiepunten", includeIllustrationPointsColumn.HeaderText);
 
             var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
-            const string expectedLocationNameHeaderText = "Naam";
-            Assert.AreEqual(expectedLocationNameHeaderText, locationNameColumn.HeaderText);
+            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
 
             var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
-            const string expectedLocationIdHeaderText = "ID";
-            Assert.AreEqual(expectedLocationIdHeaderText, locationIdColumn.HeaderText);
+            Assert.AreEqual("ID", locationIdColumn.HeaderText);
 
             var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-            const string expectedLocationHeaderText = "Coördinaten [m]";
-            Assert.AreEqual(expectedLocationHeaderText, locationColumn.HeaderText);
+            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
             var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
-            const string expectedLocationWaveHeightHeaderText = "Golfhoogte bij doorsnede-eis [m]";
-            Assert.AreEqual(expectedLocationWaveHeightHeaderText, locationWaveHeightColumn.HeaderText);
+            Assert.AreEqual("Golfhoogte bij doorsnede-eis [m]", locationWaveHeightColumn.HeaderText);
+
+            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
+            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
@@ -187,32 +189,44 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             ShowFullyConfiguredWaveHeightLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(4, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(6, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[locationWaveHeightColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(6, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[locationWaveHeightColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
-            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(6, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[locationWaveHeightColumnIndex].FormattedValue);
+
+            cells = rows[3].Cells;
+            Assert.AreEqual(6, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+            Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
+            Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[locationWaveHeightColumnIndex].FormattedValue);
         }
 
@@ -224,16 +238,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             object dataGridViewSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
-            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(4, rows.Count);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10, 10)
             {
                 WaveHeightCalculation =
                 {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
                     Output = new TestHydraulicBoundaryLocationOutput(10)
                 }
             };
@@ -247,8 +265,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, rows.Count);
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(6, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
@@ -265,22 +284,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(4, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
 
             // Call
             locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
             locations.NotifyObservers();
 
             // Assert
-            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(4, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -291,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             object dataGridViewSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -352,7 +373,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -380,7 +401,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // When
             if (rowSelected)
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
@@ -428,6 +449,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     DesignWaterLevelCalculation =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                    }
+                },
+                new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
+                {
+                    WaveHeightCalculation =
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        }
                     }
                 }
             };

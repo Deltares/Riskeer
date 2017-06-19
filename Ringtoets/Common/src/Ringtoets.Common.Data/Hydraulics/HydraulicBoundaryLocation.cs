@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets the convergence status of the design waterlevel calculation.
+        /// Gets the convergence status of the design water level calculation.
         /// </summary>
         public CalculationConvergence DesignWaterLevelCalculationConvergence
         {

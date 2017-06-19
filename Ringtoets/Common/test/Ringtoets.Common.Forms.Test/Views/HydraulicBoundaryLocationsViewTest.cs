@@ -37,9 +37,10 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class HydraulicBoundaryLocationsViewTest
     {
         private const int locationCalculateColumnIndex = 0;
-        private const int locationNameColumnIndex = 1;
-        private const int locationIdColumnIndex = 2;
-        private const int locationColumnIndex = 3;
+        private const int includeIllustrationPointsColumnIndex = 1;
+        private const int locationNameColumnIndex = 2;
+        private const int locationIdColumnIndex = 3;
+        private const int locationColumnIndex = 4;
         private Form testForm;
 
         [SetUp]
@@ -74,26 +75,24 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(4, dataGridView.ColumnCount);
+            Assert.AreEqual(5, dataGridView.ColumnCount);
 
             var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
-            const string expectedLocationCalculateHeaderText = "Berekenen";
-            Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
+
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            Assert.AreEqual("Illustratiepunten", includeIllustrationPointsColumn.HeaderText);
 
             var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
-            const string expectedLocationNameHeaderText = "Naam";
-            Assert.AreEqual(expectedLocationNameHeaderText, locationNameColumn.HeaderText);
+            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
 
             var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
-            const string expectedLocationIdHeaderText = "ID";
-            Assert.AreEqual(expectedLocationIdHeaderText, locationIdColumn.HeaderText);
+            Assert.AreEqual("ID", locationIdColumn.HeaderText);
 
             var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-            const string expectedLocationHeaderText = "Coördinaten [m]";
-            Assert.AreEqual(expectedLocationHeaderText, locationColumn.HeaderText);
+            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-            var button = (Button) buttonTester.TheObject;
+            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
         }
 
@@ -136,30 +135,41 @@ namespace Ringtoets.Common.Forms.Test.Views
             ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(4, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
+
+            cells = rows[3].Cells;
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+            Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
+            Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -222,13 +232,24 @@ namespace Ringtoets.Common.Forms.Test.Views
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
                 });
+                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
+                {
+                    WaveHeightCalculation =
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        }
+                    }
+                });
             }
         }
 
         private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
         {
-            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(hydraulicBoundaryLocation) {}
+            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                    HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+                : base(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation) {}
         }
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView<TestHydraulicBoundaryLocationRow>
@@ -237,7 +258,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
             {
-                return new TestHydraulicBoundaryLocationRow(location);
+                return new TestHydraulicBoundaryLocationRow(location,
+                                                            location.WaveHeightCalculation);
             }
 
             protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)

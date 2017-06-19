@@ -62,6 +62,8 @@ namespace Ringtoets.Common.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
+            dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationRow.IncludeIllustrationPoints),
+                                                  RingtoetsCommonFormsResources.HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Name),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Id),

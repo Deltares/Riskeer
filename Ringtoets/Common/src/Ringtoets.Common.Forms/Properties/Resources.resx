@@ -993,4 +993,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip" xml:space="preserve">
     <value>Alle berekeningen met een voorlandprofiel bijwerken.</value>
   </data>
+  <data name="HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten</value>
+  </data>
 </root>

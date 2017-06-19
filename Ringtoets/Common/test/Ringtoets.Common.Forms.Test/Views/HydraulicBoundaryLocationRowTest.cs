@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -30,7 +32,21 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class HydraulicBoundaryLocationRowTest
     {
         [Test]
-        public void Constructor_WithHydraulicBoundaryLocationContext_PropertiesFromHydraulicBoundaryLocation()
+        public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            TestDelegate call = () => new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocationCalculation", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithHydraulicBoundaryLocation_PropertiesFromHydraulicBoundaryLocation()
         {
             // Setup
             const int id = 1;
@@ -38,9 +54,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY);
+            var calculation = new HydraulicBoundaryLocationCalculation();
 
             // Call
-            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation);
+            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+                                                           calculation);
 
             // Assert
             Assert.IsInstanceOf<CalculatableRow<HydraulicBoundaryLocation>>(row);
@@ -48,14 +66,54 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(locationname, row.Name);
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
+            Assert.IsNaN(row.Result);
+
             Assert.AreSame(hydraulicBoundaryLocation, row.CalculatableObject);
             Assert.IsFalse(row.ShouldCalculate);
         }
 
+        [Test]
+        public void IncludeIllustrationPoints_NewValue_SetsProperties(
+            [Values(true, false)] bool setIllustrationPoints)
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation();
+            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+                                                           calculation);
+
+            // Call
+            row.IncludeIllustrationPoints = setIllustrationPoints;
+
+            // Assert
+            Assert.AreEqual(setIllustrationPoints, row.IncludeIllustrationPoints);
+            Assert.AreEqual(setIllustrationPoints, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+        }
+
+        [Test]
+        public void Result_WithCalculationOutput_ReturnsResult()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation();
+            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+                                                           calculation);
+
+            var random = new Random(432);
+            var locationOutput = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+
+            // Call
+            calculation.Output = locationOutput;
+
+            // Assert
+            Assert.AreEqual(locationOutput.Result, row.Result);
+        }
+
         private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
         {
-            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(hydraulicBoundaryLocation) {}
+            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                    HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+                : base(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation) {}
         }
     }
 }
