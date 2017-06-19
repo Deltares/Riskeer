@@ -54,7 +54,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Sets the title of the plot view.
+        /// Gets or sets the title of the plot view.
         /// </summary>
         public string ModelTitle
         {
@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Sets the title of the bottom axis in the view.
+        /// Gets or sets the title of the bottom axis in the view.
         /// </summary>
         public string BottomAxisTitle
         {
@@ -86,7 +86,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Sets the title of the left axis in the view.
+        /// Gets or sets the title of the left axis in the view.
         /// </summary>
         public string LeftAxisTitle
         {

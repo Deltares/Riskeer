@@ -128,7 +128,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual("Row 3", series[0].Title);
                 Assert.AreEqual("Row 4", series[1].Title);
 
-                var axis = plotView.Model.Axes.First() as CategoryAxis;
+                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
 
                 Assert.AreEqual(2, axis.Labels.Count);
                 Assert.AreEqual("Column 3", axis.Labels[0]);
@@ -168,7 +168,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 ElementCollection<Series> series = plotView.Model.Series;
                 CollectionAssert.IsEmpty(series);
 
-                var axis = plotView.Model.Axes.First() as CategoryAxis;
+                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
 
                 CollectionAssert.IsEmpty(axis.Labels);
             }
@@ -208,7 +208,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual("Row 1", series[0].Title);
             Assert.AreEqual("Row 2", series[1].Title);
 
-            var axis = plotView.Model.Axes.First() as CategoryAxis;
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
 
             Assert.AreEqual(2, axis.Labels.Count);
             Assert.AreEqual("Column 1", axis.Labels[0]);

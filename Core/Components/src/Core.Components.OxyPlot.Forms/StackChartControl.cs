@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
-using OxyPlot.Axes;
 
 namespace Core.Components.OxyPlot.Forms
 {
@@ -65,8 +64,7 @@ namespace Core.Components.OxyPlot.Forms
             {
                 if (data != null)
                 {
-                    var axis = plotView.Model.Axes.First() as CategoryAxis;
-                    axis.Labels.Clear();
+                    plotView.ClearLabels();
                     plotView.Model.Series.Clear();
                 }
 
@@ -101,12 +99,7 @@ namespace Core.Components.OxyPlot.Forms
 
         private void AddLabels()
         {
-            foreach (ColumnChartData column in data.Columns)
-            {
-                var axis = plotView.Model.Axes.First() as CategoryAxis;
-
-                axis.Labels.Add(column.Name);
-            }
+            plotView.AddLabels(data.Columns.Select(column => column.Name));
         }
 
         private void DrawColumns()

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -31,17 +33,37 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     internal sealed class CategoryPlotView : PlotView
     {
+        private readonly CategoryAxis categoryAxis;
+
         /// <summary>
         /// Creates a new <see cref="CategoryPlotView"/>.
         /// </summary>
         public CategoryPlotView()
         {
             Dock = DockStyle.Fill;
+            categoryAxis = new CategoryAxis
+            {
+                MinorStep = 1,
+                Angle = 45,
+                AbsoluteMinimum = -0.5,
+                IsPanEnabled = false,
+                IsZoomEnabled = false
+            };
+
             Model = new PlotModel
             {
                 Axes =
                 {
-                    new CategoryAxis()
+                    categoryAxis,
+                    new LinearAxis
+                    {
+                        AbsoluteMinimum = 0,
+                        AbsoluteMaximum = 1,
+                        MaximumPadding = 0.06,
+                        MinimumPadding = 0,
+                        IsPanEnabled = false,
+                        IsZoomEnabled = false
+                    }
                 },
                 LegendBorderThickness = 0,
                 LegendOrientation = LegendOrientation.Horizontal,
@@ -51,7 +73,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Sets the title of the plot view.
+        /// Gets or sets the title of the plot view.
         /// </summary>
         public string ModelTitle
         {
@@ -64,6 +86,32 @@ namespace Core.Components.OxyPlot.Forms
                 Model.Title = value;
                 InvalidatePlot(false);
             }
+        }
+
+        /// <summary>
+        /// Adds labels to the <see cref="CategoryAxis"/>
+        /// </summary>
+        /// <param name="labels">The labels to add.</param>
+        /// <exception cref="ArgumentNullException">Thrown
+        /// when <paramref name="labels"/> is <c>null</c>.</exception>
+        public void AddLabels(IEnumerable<string> labels)
+        {
+            if (labels == null)
+            {
+                throw new ArgumentNullException(nameof(labels));
+            }
+
+            categoryAxis.Labels.AddRange(labels);
+
+            categoryAxis.AbsoluteMaximum = categoryAxis.Labels.Count - 0.5;
+        }
+
+        /// <summary>
+        /// Clears the labels of the <see cref="CategoryAxis"/>.
+        /// </summary>
+        public void ClearLabels()
+        {
+            categoryAxis.Labels.Clear();
         }
     }
 }

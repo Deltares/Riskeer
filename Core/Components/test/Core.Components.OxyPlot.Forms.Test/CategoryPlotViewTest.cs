@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using System.Windows.Forms;
 using NUnit.Framework;
 using OxyPlot;
@@ -43,9 +45,14 @@ namespace Core.Components.OxyPlot.Forms.Test
             PlotModel plotModel = plotView.Model;
 
             ElementCollection<Axis> axes = plotModel.Axes;
-            Assert.AreEqual(1, axes.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(axes, typeof(CategoryAxis));
+            Assert.AreEqual(2, axes.Count);
 
+            CategoryAxis categoryAxis = axes.OfType<CategoryAxis>().First();
+            Assert.AreEqual(1, categoryAxis.MinorStep);
+            Assert.AreEqual(45, categoryAxis.Angle);
+
+            Assert.IsInstanceOf<LinearAxis>(axes[1]);
+            
             Assert.AreEqual(0, plotModel.LegendBorderThickness);
             Assert.AreEqual(LegendOrientation.Horizontal, plotModel.LegendOrientation);
             Assert.AreEqual(LegendPlacement.Outside, plotModel.LegendPlacement);
@@ -75,6 +82,61 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual(view.ModelTitle, newTitle);
                 Assert.AreEqual(1, invalidated);
             }
+        }
+
+        [Test]
+        public void AddLabels_LabelsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var plotView = new CategoryPlotView();
+
+            // Call
+            TestDelegate test = () => plotView.AddLabels(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("labels", exception.ParamName);
+        }
+
+        [Test]
+        public void AddLabel_WithLabel_LabelAddedAndAbsoluteMaximumSet()
+        {
+            // Setup
+            const string label = "Test";
+            var plotView = new CategoryPlotView();
+
+            // Call
+            plotView.AddLabels(new[]
+            {
+                label
+            });
+
+            // Assert
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+            Assert.AreEqual(1, axis.Labels.Count);
+            Assert.AreEqual(label, axis.Labels[0]);
+            Assert.AreEqual(0.5, axis.AbsoluteMaximum);
+        }
+
+        [Test]
+        public void ClearLabels_Always_LabelsCleared()
+        {
+            // Setup
+            var plotView = new CategoryPlotView();
+            plotView.AddLabels(new[]
+            {
+                "Test"
+            });
+
+            // Precondition
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+            Assert.AreEqual(1, axis.Labels.Count);
+
+            // Call
+            plotView.ClearLabels();
+
+            // Assert
+            CollectionAssert.IsEmpty(axis.Labels);
         }
     }
 }
