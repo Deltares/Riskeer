@@ -68,22 +68,17 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// </summary>
         public Point2D Location { get; }
 
-        /// <summary>
-        /// Gets the design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation { get; }
-
-        /// <summary>
-        ///  Gets the wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation WaveHeightCalculation { get; }
-
         public override string ToString()
         {
             return Name;
         }
 
         #region Design water level
+
+        /// <summary>
+        /// Gets the design water level calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation { get; }
 
         /// <summary>
         /// Gets the design water level of the hydraulic boundary location.
@@ -110,6 +105,11 @@ namespace Ringtoets.Common.Data.Hydraulics
         #endregion
 
         #region Wave height
+
+        /// <summary>
+        ///  Gets the wave height calculation.
+        /// </summary>
+        public HydraulicBoundaryLocationCalculation WaveHeightCalculation { get; }
 
         /// <summary>
         /// Gets the wave height of the hydraulic boundary location.

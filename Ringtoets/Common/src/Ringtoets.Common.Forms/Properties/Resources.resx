@@ -994,6 +994,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Alle berekeningen met een voorlandprofiel bijwerken.</value>
   </data>
   <data name="HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName" xml:space="preserve">
-    <value>Illustratiepunten</value>
+    <value>Illustratiepunten inlezen</value>
   </data>
 </root>

@@ -1512,7 +1512,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Illustratiepunten.
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
         /// </summary>
         public static string HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName {
             get {

@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
 
             var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
-            Assert.AreEqual("Illustratiepunten", includeIllustrationPointsColumn.HeaderText);
+            Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
 
             var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
             Assert.AreEqual("Naam", locationNameColumn.HeaderText);
