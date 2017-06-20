@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Setup
             const string locationName = "locationName";
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var valid = false;
+            var valid = true;
 
             // Call
             Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(locationName, notValidFilePath);
@@ -170,7 +170,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                 // Assert
                 DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, mechanismSpecificNorm);
-                AssertInput(expectedInput, calculator.ReceivedInputs.First());
+                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
             }
 

@@ -92,7 +92,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             var calculation = new TestClosingStructuresCalculation();
 
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);

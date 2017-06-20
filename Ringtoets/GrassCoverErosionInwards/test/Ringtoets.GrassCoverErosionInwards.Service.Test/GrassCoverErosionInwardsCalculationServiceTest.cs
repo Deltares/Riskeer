@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             // Call
-            var isValid = false;
+            var isValid = true;
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert

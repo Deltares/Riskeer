@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var calculation = new TestHeightStructuresCalculation();
 
             // Call
-            var isValid = false;
+            var isValid = true;
             Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert

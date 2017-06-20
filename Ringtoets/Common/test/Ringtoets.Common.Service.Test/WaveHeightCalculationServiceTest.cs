@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string calculationName = "calculationName";
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var valid = false;
+            var valid = true;
 
             var mockRepository = new MockRepository();
             var messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();

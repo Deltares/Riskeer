@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var calculation = new TestStabilityPointStructuresCalculation();
 
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);

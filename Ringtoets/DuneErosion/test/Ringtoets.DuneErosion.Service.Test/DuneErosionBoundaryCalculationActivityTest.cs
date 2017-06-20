@@ -154,7 +154,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[4]);
                 });
 
-                DunesBoundaryConditionsCalculationInput calculationInput = calculator.ReceivedInputs.First();
+                DunesBoundaryConditionsCalculationInput calculationInput = calculator.ReceivedInputs.Single();
 
                 Assert.AreEqual(duneLocation.Id, calculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), calculationInput.Beta);

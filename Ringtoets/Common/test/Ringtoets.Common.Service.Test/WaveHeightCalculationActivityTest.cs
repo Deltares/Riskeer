@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Service.Test
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[4]);
                 });
-                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.First();
+                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
