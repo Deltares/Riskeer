@@ -21,8 +21,12 @@
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
+    /// <summary>
+    /// The ways two illustration points can be combined in a result.
+    /// </summary>
     public enum CombinationType
     {
-        Or, And
+        Or,
+        And
     }
 }

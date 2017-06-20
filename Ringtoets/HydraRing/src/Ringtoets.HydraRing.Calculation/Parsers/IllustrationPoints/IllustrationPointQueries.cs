@@ -21,13 +21,22 @@
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
+    /// <summary>
+    /// Collection of queries used for reading illustration points from the Hydra-Ring database.
+    /// </summary>
     public static class IllustrationPointQueries
     {
+        /// <summary>
+        /// Selects all the closing situations.
+        /// </summary>
         public static readonly string ClosingSituations = 
             $"SELECT {IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
             "ClosingSituationName " +
             "FROM ClosingSituations;";
 
+        /// <summary>
+        /// Selects all wind direction with a flag whether it is the wind direction is governing.
+        /// </summary>
         public static readonly string WindDirections =
             $"SELECT WindDirections.{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionName}, " +
@@ -37,6 +46,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "JOIN GoverningWind " +
             "WHERE OuterIterationId = (SELECT MAX(OuterIterationID) FROM GoverningWind);";
 
+        /// <summary>
+        /// Selects the alpha values for a general result.
+        /// </summary>
         public static readonly string GeneralAlphaValues =
             $"SELECT {IllustrationPointsDatabaseConstants.StochastName}, " +
             $"{IllustrationPointsDatabaseConstants.AlphaValue}, " +
@@ -47,6 +59,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignAlpha) " +
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignAlpha);";
 
+        /// <summary>
+        /// Selects the beta values for a general result.
+        /// </summary>
         public static readonly string GeneralBetaValues =
             $"SELECT {IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM DesignBeta " +
@@ -54,6 +69,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignAlpha) " +
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignAlpha);";
 
+        /// <summary>
+        /// Selects the alpha values for each fault tree illustration point.
+        /// </summary>
         public static readonly string FaultTreeAlphaValues = 
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
@@ -69,6 +87,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignAlpha) " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignAlpha);";
 
+        /// <summary>
+        /// Selects the beta values for each fault tree illustration point.
+        /// </summary>
         public static readonly string FaultTreeBetaValues = 
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
@@ -81,6 +102,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignBeta) " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignBeta);";
 
+        /// <summary>
+        /// Selects the alpha values for each sub mechanism illustration point.
+        /// </summary>
         public static readonly string SubMechanismAlphaValues =
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
@@ -97,6 +121,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignAlpha) " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignAlpha);";
 
+        /// <summary>
+        /// Selects the beta values for each sub mechanism illustration point.
+        /// </summary>
         public static readonly string SubMechanismBetaValues =
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
@@ -109,6 +136,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignBeta) " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignBeta);";
 
+        /// <summary>
+        /// Selects the output variables for each sub mechanism illustration point.
+        /// </summary>
         public static readonly string SubMechanismIllustrationPointResults =
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
@@ -122,6 +152,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "WHERE PeriodId = (SELECT MIN(PeriodId) FROM DesignPointResults) " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignPointResults);";
 
+        /// <summary>
+        /// Selects all the illustration points from the fault tree.
+        /// </summary>
         public static readonly string RecursiveFaultTree =
             "WITH RECURSIVE " +
             "combineFunctions(id, combine) AS (" +

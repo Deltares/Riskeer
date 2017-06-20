@@ -192,7 +192,7 @@ namespace Core.Common.Utils.Test
                 {
                     TestName = "Equals_FileFilterGeneratorAFileFilterGeneratorB_True"
                 },
-                new TestCaseData(generatorA, generatorC, false)
+                new TestCaseData(generatorB, generatorC, false)
                 {
                     TestName = "Equals_FileFilterGeneratorBFileFilterGeneratorC_False"
                 },

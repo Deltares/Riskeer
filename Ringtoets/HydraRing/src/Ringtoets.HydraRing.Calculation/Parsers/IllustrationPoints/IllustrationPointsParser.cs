@@ -29,6 +29,9 @@ using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
+    /// <summary>
+    /// Parser for transforming values for illustration points from the database into a data structure.
+    /// </summary>
     public class IllustrationPointsParser : IHydraRingFileParser
     {
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
@@ -37,10 +40,14 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> subMechanismBetaValues = new Dictionary<ThreeKeyIndex, double>();
         private readonly Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>>();
-        public GeneralResult Output = new GeneralResult();
 
         private IDictionary<int, WindDirection> windDirections;
         private IDictionary<int, string> closingSituations;
+
+        /// <summary>
+        /// The result of parsing the illustration points in the Hydra-Ring database.
+        /// </summary>
+        public readonly GeneralResult Output = new GeneralResult();
 
         public void Parse(string workingDirectory, int sectionId)
         {
@@ -102,18 +109,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void SetSubMechanismAsRootIllustrationPoint()
         {
-            var rootIllustrationPoints = new List<IllustrationPointTreeNode>();
+            var rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
             foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in GetAllWindDirectionClosingSituationCombinations())
             {
-                var illustrationPoint = new SubmechanismIllustrationPoint
+                var illustrationPoint = new SubMechanismIllustrationPoint
                 {
-                    Beta = subMechanismBetaValues.First().Value,
-                    ClosingSituation = windDirectionClosingSituation.Item4,
-                    WindDirection = windDirectionClosingSituation.Item2
+                    Beta = subMechanismBetaValues.First().Value
                 };
                 AddRange(illustrationPoint.Results, subMechanismResults.First().Value);
                 AddRange(illustrationPoint.Stochasts, subMechanismStochasts.First().Value);
-                rootIllustrationPoints.Add(new IllustrationPointTreeNode(illustrationPoint));
+
+                rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
+                    new IllustrationPointTreeNode(illustrationPoint);
             }
             Output.IllustrationPoints = rootIllustrationPoints;
         }
@@ -227,40 +234,51 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseFaultTree(HydraRingDatabaseReader reader)
         {
-
             IEnumerable<Tuple<int, WindDirection, int, string>> windDirectionClosingSituations =
                 GetAllWindDirectionClosingSituationCombinations();
 
             Dictionary<string, object>[] readFaultTrees = GetIterator(reader).TakeWhile(r => r != null).ToArray();
             if (readFaultTrees.Length > 0)
             {
-                var rootIllustrationPoints = new List<IllustrationPointTreeNode>();
+                List<Tuple<int?, int, Type, CombinationType>> results = CreateResultTuples(readFaultTrees);
 
-                var results = new List<Tuple<int?, int, Type, CombinationType>>();
-
-                foreach (Dictionary<string, object> readFaultTree in readFaultTrees)
-                {
-                    object parentIdObject = readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeParentId];
-                    int? parentId = parentIdObject != DBNull.Value ? Convert.ToInt32(parentIdObject) : (int?) null;
-                    int id = Convert.ToInt32(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeId]);
-                    string type = Convert.ToString(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeType]);
-                    string combine = Convert.ToString(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine]);
-
-                    results.Add(Tuple.Create(
-                                    parentId,
-                                    id,
-                                    type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubmechanismIllustrationPoint),
-                                    combine == "and" ? CombinationType.And : CombinationType.Or));
-                }
-
+                var rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
                 foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in windDirectionClosingSituations)
                 {
                     Tuple<int?, int, Type, CombinationType> root = results.Single(r => !r.Item1.HasValue);
-                    rootIllustrationPoints.Add(BuildFaultTree(windDirectionClosingSituation, root.Item2, root.Item4, results));
+
+                    rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
+                        BuildFaultTree(windDirectionClosingSituation, root.Item2, root.Item4, results);
                 }
 
                 Output.IllustrationPoints = rootIllustrationPoints;
             }
+        }
+
+        private static List<Tuple<int?, int, Type, CombinationType>> CreateResultTuples(Dictionary<string, object>[] readFaultTrees)
+        {
+            var results = new List<Tuple<int?, int, Type, CombinationType>>();
+
+            foreach (Dictionary<string, object> readFaultTree in readFaultTrees)
+            {
+                object parentIdObject = readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeParentId];
+                int? parentId = parentIdObject != DBNull.Value ? Convert.ToInt32(parentIdObject) : (int?) null;
+                int id = Convert.ToInt32(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeId]);
+                string type = Convert.ToString(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeType]);
+                string combine = Convert.ToString(readFaultTree[IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine]);
+
+                results.Add(Tuple.Create(
+                                parentId,
+                                id,
+                                type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubMechanismIllustrationPoint),
+                                combine == "and" ? CombinationType.And : CombinationType.Or));
+            }
+            return results;
+        }
+
+        private static WindDirectionClosingSituation CreateFaultTreeKey(Tuple<int, WindDirection, int, string> windDirectionClosingSituation)
+        {
+            return new WindDirectionClosingSituation(windDirectionClosingSituation.Item2, windDirectionClosingSituation.Item4);
         }
 
         private IEnumerable<Tuple<int, WindDirection, int, string>> GetAllWindDirectionClosingSituationCombinations()
@@ -279,8 +297,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, faultTreeId);
             var illustrationPoint = new FaultTreeIllustrationPoint
             {
-                WindDirection = windDirectionClosingSituation.Item2,
-                ClosingSituation = windDirectionClosingSituation.Item4,
                 Beta = faultTreeBetaValues[dataKey],
                 Combine = combinationType
             };
@@ -302,10 +318,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private IllustrationPointTreeNode BuildSubMechanism(Tuple<int, WindDirection, int, string> windDirectionClosingSituation, int subMechanismId)
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismId);
-            var illustrationPoint = new SubmechanismIllustrationPoint
+            var illustrationPoint = new SubMechanismIllustrationPoint
             {
-                WindDirection = windDirectionClosingSituation.Item2,
-                ClosingSituation = windDirectionClosingSituation.Item4,
                 Beta = subMechanismBetaValues[dataKey]
             };
             if (subMechanismStochasts.ContainsKey(dataKey))
@@ -431,42 +445,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 return windDirectionId == other.windDirectionId
                        && closingSituationId == other.closingSituationId
                        && illustrationPointId == other.illustrationPointId;
-            }
-        }
-
-        private struct WindDirectionClosingSituation
-        {
-            private readonly WindDirection windDirection;
-            private readonly string closingSituation;
-
-            public WindDirectionClosingSituation(WindDirection windDirection, string closingSituation)
-            {
-                this.windDirection = windDirection;
-                this.closingSituation = closingSituation;
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj))
-                {
-                    return false;
-                }
-                return obj is WindDirectionClosingSituation
-                       && Equals((WindDirectionClosingSituation) obj);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    return ((windDirection?.GetHashCode() ?? 0) * 397) ^ (closingSituation?.GetHashCode() ?? 0);
-                }
-            }
-
-            private bool Equals(WindDirectionClosingSituation other)
-            {
-                return Equals(windDirection, other.windDirection)
-                       && string.Equals(closingSituation, other.closingSituation);
             }
         }
     }

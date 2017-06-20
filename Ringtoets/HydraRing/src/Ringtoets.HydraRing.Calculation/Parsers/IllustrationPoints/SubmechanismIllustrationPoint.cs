@@ -23,22 +23,25 @@ using System.Collections.Generic;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
-    public class SubmechanismIllustrationPoint : IIllustrationPoint
+    /// <summary>
+    /// Illustration point which contains the result of applying the sub mechanism.
+    /// </summary>
+    public class SubMechanismIllustrationPoint : IIllustrationPoint
     {
-        public SubmechanismIllustrationPoint()
-        {
-            Results = new List<IllustrationPointResult>();
-            Stochasts = new List<Stochast>();
-        }
-        public ICollection<Stochast> Stochasts { get; }
+        /// <summary>
+        /// Gets the stochasts that were realized.
+        /// </summary>
+        public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();
 
-        public double Beta { get; set; }
+        /// <summary>
+        /// Gets the beta values that were realized.
+        /// </summary>
+        public double Beta { get; set; } = double.NaN;
 
-        public WindDirection WindDirection { get; set; }
-
-        public string ClosingSituation { get; set; }
-
-        public ICollection<IllustrationPointResult> Results { get; }
+        /// <summary>
+        /// Gets the output variables.
+        /// </summary>
+        public ICollection<IllustrationPointResult> Results { get; } = new List<IllustrationPointResult>();
 
     }
 }

@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     /// <summary>
-    /// Container of alpha value definitions read from Hydra-Ringt output database.
+    /// Container of alpha value definitions read from Hydra-Ring output database.
     /// </summary>
     public class Stochast
     {
@@ -34,11 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Gets or sets the duration.
         /// </summary>
-        public double Duration { get; set; }
+        public double Duration { get; set; } = double.NaN;
 
         /// <summary>
         /// Getst he alpha value.
         /// </summary>
-        public double Alpha { get; set; }
+        public double Alpha { get; set; } = double.NaN;
     }
 }

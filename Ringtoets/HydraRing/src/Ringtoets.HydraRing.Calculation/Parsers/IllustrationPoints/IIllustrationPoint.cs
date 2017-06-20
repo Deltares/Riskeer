@@ -21,8 +21,8 @@
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
-    public interface IIllustrationPoint
-    {
-        
-    }
+    /// <summary>
+    /// Placeholder interface for an illustration point.
+    /// </summary>
+    public interface IIllustrationPoint {}
 }

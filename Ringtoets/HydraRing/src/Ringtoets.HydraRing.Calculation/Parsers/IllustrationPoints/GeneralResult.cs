@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Gets or sets the general beta value.
         /// </summary>
-        public double Beta { get; set; }
+        public double Beta { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the governing wind direction.
@@ -47,6 +47,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// Gets or sets the tree of illustration points for each 
         /// wind direction and closing situation.
         /// </summary>
-        public IEnumerable<IllustrationPointTreeNode> IllustrationPoints { get; set; }
+        public Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> IllustrationPoints { get; set; }
     }
 }

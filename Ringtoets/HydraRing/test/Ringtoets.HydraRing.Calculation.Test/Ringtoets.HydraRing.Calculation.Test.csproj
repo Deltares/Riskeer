@@ -44,6 +44,10 @@
       <HintPath>..\..\..\..\packages\NUnit.3.6.0\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -110,7 +114,15 @@
     <Compile Include="Parsers\ConvergenceParserTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\HydraRingDatabaseParseHelperTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\FaultTreeIllustrationPointTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\GeneralResultTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\IllustrationPointResultTest.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParserTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\IllustrationPointTreeNodeTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\StochastTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\SubMechanismIllustrationPointTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\WindDirectionClosingSituationTest.cs" />
+    <Compile Include="Parsers\IllustrationPoints\WindDirectionTest.cs" />
     <Compile Include="Readers\HydraRingDatabaseReaderTest.cs" />
     <Compile Include="Parsers\LastErrorFileParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />

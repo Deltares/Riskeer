@@ -123,6 +123,7 @@
     <Compile Include="Parsers\IllustrationPoints\Stochast.cs" />
     <Compile Include="Parsers\IllustrationPoints\SubmechanismIllustrationPoint.cs" />
     <Compile Include="Parsers\IllustrationPoints\WindDirection.cs" />
+    <Compile Include="Parsers\IllustrationPoints\WindDirectionClosingSituation.cs" />
     <Compile Include="Readers\HydraRingDatabaseReader.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />

@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// <summary>
     /// A wind direction for which illustration points are determined.
     /// </summary>
-    public class WindDirection
+    public sealed class WindDirection
     {
         /// <summary>
         /// Gets or sets the descriptive name.
@@ -34,6 +34,32 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Gets or sets the angle.
         /// </summary>
-        public double Angle { get; set; }
+        public double Angle { get; set; } = double.NaN;
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            return obj.GetType() == GetType() && Equals((WindDirection) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Name?.GetHashCode() ?? 0) * 397) ^ Angle.GetHashCode();
+            }
+        }
+
+        private bool Equals(WindDirection other)
+        {
+            return string.Equals(Name, other.Name) && Angle.Equals(other.Angle);
+        }
     }
 }

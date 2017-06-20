@@ -19,19 +19,42 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
+    /// <summary>
+    /// A node that is part of a tree, that has illustration point data attached to it.
+    /// Multiple nodes form the tree structure describing how the illustration points are 
+    /// related.
+    /// </summary>
     public class IllustrationPointTreeNode
     {
+        /// <summary>
+        /// Creates a new node with associated data.
+        /// </summary>
+        /// <param name="data">The data that is attached to this node.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
+        /// is <c>null</c>.</exception>
         public IllustrationPointTreeNode(IIllustrationPoint data)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
             Data = data;
             Children = new List<IllustrationPointTreeNode>(2);
         }
 
+        /// <summary>
+        /// Gets the data attached to this node.
+        /// </summary>
         public IIllustrationPoint Data { get; }
+
+        /// <summary>
+        /// Gets the child nodes of this node.
+        /// </summary>
         public IList<IllustrationPointTreeNode> Children { get; }
     }
 }

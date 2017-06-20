@@ -23,21 +23,26 @@ using System.Collections.Generic;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
+    /// <summary>
+    /// An illustration points which uses the results of two sub illustration points
+    /// to obtain a result.
+    /// </summary>
     public class FaultTreeIllustrationPoint : IIllustrationPoint
     {
-        public FaultTreeIllustrationPoint()
-        {
-            Stochasts = new List<Stochast>();
-        }
+        /// <summary>
+        /// Gets the combined stochasts of its children.
+        /// </summary>
+        public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();
 
-        public ICollection<Stochast> Stochasts { get; }
-
-        public double Beta { get; set; }
+        /// <summary>
+        /// Gets the combined beta values of its children.
+        /// </summary>
+        public double Beta { get; set; } = double.NaN;
         
-        public WindDirection WindDirection { get; set; }
-
-        public string ClosingSituation { get; set; }
-
+        /// <summary>
+        /// The way in which the sub illustartion points are combined to
+        /// obtain a result for the fault tree illustration point.
+        /// </summary>
         public CombinationType Combine { get; set; }
     }
 }
