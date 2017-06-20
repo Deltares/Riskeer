@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Coupure Worp">
     <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
-    <kunstwerk>Coupure Worp</kunstwerk>
+    <kunstwerk>KWK_1</kunstwerk>
     <orientatie>45</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
     <instroommodel>lagedrempel</instroommodel>
@@ -62,7 +62,7 @@
   <map naam="Gevoeligheid">
     <berekening naam="hr locatie 486">
       <hrlocatie>IJ_1_52-2_dk_00486</hrlocatie>
-      <kunstwerk>Coupure Worp</kunstwerk>
+      <kunstwerk>KWK_1</kunstwerk>
       <orientatie>45</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
       <instroommodel>lagedrempel</instroommodel>

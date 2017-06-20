@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="12_2_00100 Segment_12004_1D1">
+    <hrlocatie>YM_2_12-2_dk_00012</hrlocatie>
     <profielschematisatie>12_2_00100</profielschematisatie>
     <intredepunt>0.5</intredepunt>
     <uittredepunt>69</uittredepunt>
@@ -18,6 +19,7 @@
     </stochasten>
   </berekening>
   <berekening naam="12_2_00100 Segment_12004_1D2">
+    <hrlocatie>YM_2_12-2_dk_00012</hrlocatie>
     <profielschematisatie>12_2_00100</profielschematisatie>
     <intredepunt>0.5</intredepunt>
     <uittredepunt>69</uittredepunt>
@@ -34,7 +36,7 @@
       </stochast>
     </stochasten>
   </berekening>
-  <map naam="Gevoelgheid">
+  <map naam="Gevoeligheid">
     <berekening naam="1D2 met ander toetspeil">
       <toetspeil>1.4</toetspeil>
       <profielschematisatie>12_2_00100</profielschematisatie>
