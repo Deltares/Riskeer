@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Sassluis">
     <hrlocatie>YM_2_13-6_dk_00284</hrlocatie>
-    <kunstwerk>Sassluis</kunstwerk>
+    <kunstwerk>17k6</kunstwerk>
     <orientatie>180</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
     <instroommodel>lagedrempel</instroommodel>
@@ -62,7 +62,7 @@
   <map naam="Gevoeligheid">
     <berekening naam="Kans op mislukken 1 in 100">
       <hrlocatie>YM_2_13-6_dk_00284</hrlocatie>
-      <kunstwerk>Sassluis</kunstwerk>
+      <kunstwerk>17k6</kunstwerk>
       <orientatie>180</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
       <instroommodel>lagedrempel</instroommodel>

@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Coupure Worp">
     <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
-    <kunstwerk>Coupure Worp</kunstwerk>
+    <kunstwerk>KWK_1</kunstwerk>
     <orientatie>45</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
     <stochasten>
@@ -41,7 +41,7 @@
   <map naam="Gevoeligheid">
     <berekening naam="Faalkans gegeven erosie bodem 1 in 1000">
       <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
-      <kunstwerk>Coupure Worp</kunstwerk>
+      <kunstwerk>KWK_1</kunstwerk>
       <orientatie>45</orientatie>
       <faalkansgegevenerosiebodem>0.001</faalkansgegevenerosiebodem>
       <stochasten>
