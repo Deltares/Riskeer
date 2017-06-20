@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Profiel 1">
     <hrlocatie>YM_2_12-2_dk_00012</hrlocatie>
-    <dijkprofiel>Profiel 1</dijkprofiel>
+    <dijkprofiel>01200</dijkprofiel>
     <orientatie>62</orientatie>
     <dijkhoogte>4.33</dijkhoogte>
     <hbnberekenen>niet</hbnberekenen>
@@ -22,7 +22,7 @@
   </berekening>
   <berekening naam="Profiel 2">
     <hrlocatie>YM_1_12-2_dk_00022</hrlocatie>
-    <dijkprofiel>Profiel 2</dijkprofiel>
+    <dijkprofiel>03100</dijkprofiel>
     <orientatie>62</orientatie>
     <dijkhoogte>4.18</dijkhoogte>
     <hbnberekenen>niet</hbnberekenen>
@@ -43,7 +43,7 @@
   <map naam="Profiel 3">
     <berekening naam="Profiel 3">
       <hrlocatie>YM_2_12-2_dk_00035</hrlocatie>
-      <dijkprofiel>Profiel 3</dijkprofiel>
+      <dijkprofiel>05000</dijkprofiel>
       <orientatie>59</orientatie>
       <dijkhoogte>4.28</dijkhoogte>
       <hbnberekenen>niet</hbnberekenen>
@@ -63,7 +63,7 @@
     </berekening>
     <berekening naam="Profiel 3 met HBN en overslag">
       <hrlocatie>YM_2_12-2_dk_00035</hrlocatie>
-      <dijkprofiel>Profiel 3</dijkprofiel>
+      <dijkprofiel>05000</dijkprofiel>
       <orientatie>59</orientatie>
       <dijkhoogte>4.28</dijkhoogte>
       <hbnberekenen>norm</hbnberekenen>

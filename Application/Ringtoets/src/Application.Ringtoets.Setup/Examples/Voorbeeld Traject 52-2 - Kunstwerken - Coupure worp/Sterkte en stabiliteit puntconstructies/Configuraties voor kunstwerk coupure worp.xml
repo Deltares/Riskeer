@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Coupure Worp">
     <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
-    <kunstwerk>Coupure Worp</kunstwerk>
+    <kunstwerk>KWK_1</kunstwerk>
     <orientatie>45</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
     <analysehoogte>7</analysehoogte>
@@ -104,7 +104,7 @@
   <map naam="Gevoeligheid">
     <berekening naam="Analysehoogte 8 meter">
       <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
-      <kunstwerk>Coupure Worp</kunstwerk>
+      <kunstwerk>KWK_1</kunstwerk>
       <orientatie>45</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
       <analysehoogte>8</analysehoogte>

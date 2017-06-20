@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Sassluis">
     <hrlocatie>YM_2_13-6_dk_00284</hrlocatie>
-    <kunstwerk>Sassluis</kunstwerk>
+    <kunstwerk>17k6</kunstwerk>
     <orientatie>180</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
     <analysehoogte>-3</analysehoogte>
@@ -104,7 +104,7 @@
   <map naam="Gevoeligheid">
     <berekening naam="Kwadratisch belastingmodel">
       <hrlocatie>YM_2_13-6_dk_00284</hrlocatie>
-      <kunstwerk>Sassluis</kunstwerk>
+      <kunstwerk>17k6</kunstwerk>
       <orientatie>180</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
       <analysehoogte>-3</analysehoogte>
