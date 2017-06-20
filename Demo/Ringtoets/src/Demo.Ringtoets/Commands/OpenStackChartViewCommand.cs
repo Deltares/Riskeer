@@ -65,22 +65,22 @@ namespace Demo.Ringtoets.Commands
             });
             data.AddRow("Row 2", new List<double>
             {
-                0.05,
-                0.14,
+                0.25,
+                0.20,
                 0.81
             });
             data.AddRow("Row 3", new List<double>
             {
-                0.33,
-                0.33,
-                0.34
+                0.25,
+                0.10,
+                0.01
             });
             data.AddRow("Row 4", new List<double>
             {
-                0.70,
-                0.15,
-                0.15
-            }, Color.Orchid);
+                0.25,
+                0.10,
+                0.03
+            }, Color.Gray);
 
             viewCommands.OpenView(data);
         }
