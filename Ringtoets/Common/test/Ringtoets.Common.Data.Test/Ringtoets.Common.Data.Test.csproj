@@ -73,6 +73,7 @@
     <Compile Include="FailureMechanism\AssessmentLayerOneStateTest.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerTwoAResultTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
+    <Compile Include="Hydraulics\DesignWaterLevelCalculationTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInputTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationTest.cs" />

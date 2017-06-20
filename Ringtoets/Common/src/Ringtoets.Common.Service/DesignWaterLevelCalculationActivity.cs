@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public class DesignWaterLevelCalculationActivity : HydraRingActivityBase
     {
-        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private readonly DesignWaterLevelCalculation designWaterLevelCalculation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly ICalculationMessageProvider messageProvider;
@@ -41,20 +41,20 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="designWaterLevelCalculation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> or 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/> or 
         /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public DesignWaterLevelCalculationActivity(DesignWaterLevelCalculation designWaterLevelCalculation,
                                                    string hydraulicBoundaryDatabaseFilePath,
                                                    double norm,
                                                    ICalculationMessageProvider messageProvider)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (designWaterLevelCalculation == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(designWaterLevelCalculation));
             }
 
             if (messageProvider == null)
@@ -62,14 +62,14 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            this.designWaterLevelCalculation = designWaterLevelCalculation;
             this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.norm = norm;
 
             calculationService = new DesignWaterLevelCalculationService();
 
-            Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocation.Name);
+            Description = messageProvider.GetActivityDescription(designWaterLevelCalculation.GetName());
         }
 
         protected override bool Validate()
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service
             }
 
             return DesignWaterLevelCalculationService.Validate(
-                hydraulicBoundaryLocation.Name,
+                designWaterLevelCalculation.GetName(),
                 hydraulicBoundaryDatabaseFilePath,
                 messageProvider);
         }
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Service
             if (State != ActivityState.Skipped)
             {
                 calculationService.Calculate(
-                    hydraulicBoundaryLocation,
+                    designWaterLevelCalculation,
                     hydraulicBoundaryDatabaseFilePath,
                     norm,
                     messageProvider);
@@ -105,16 +105,14 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            hydraulicBoundaryLocation.NotifyObservers();
+            designWaterLevelCalculation.GetObservableObject().NotifyObservers();
         }
 
         private bool AlreadyCalculated
         {
             get
             {
-                HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;
-                return calculation.HasOutput
-                       && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasIllustrationPoints;
+                return designWaterLevelCalculation.IsCalculated();
             }
         }
     }

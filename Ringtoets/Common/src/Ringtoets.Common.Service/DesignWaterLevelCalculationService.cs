@@ -73,11 +73,11 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs a calculation for the design water level.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location used in the calculation.</param>
+        /// <param name="designWaterLevelCalculation">The design water level calculation to use.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
@@ -92,17 +92,17 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>        
-        public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public void Calculate(IDesignWaterLevelCalculation designWaterLevelCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (designWaterLevelCalculation == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(designWaterLevelCalculation));
             }
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
+            string calculationName = messageProvider.GetCalculationName(designWaterLevelCalculation.GetName());
 
             CalculationServiceHelper.LogCalculationBegin(calculationName);
 
@@ -112,13 +112,13 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                AssessmentLevelCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath);
+                AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
                 calculator.Calculate(calculationInput);
 
-                if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
+                if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = CreateHydraulicBoundaryLocationOutput(
-                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
+                    designWaterLevelCalculation.SetOutput(CreateHydraulicBoundaryLocationOutput(
+                                                              messageProvider, designWaterLevelCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged));
                 }
             }
             catch (HydraRingCalculationException)
@@ -127,8 +127,8 @@ namespace Ringtoets.Common.Service
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(hydraulicBoundaryLocation.Name)
-                                  : messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
+                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(designWaterLevelCalculation.GetName())
+                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), lastErrorContent));
 
                     exceptionThrown = true;
                     throw;
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
+                    log.Error(messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
@@ -197,9 +197,9 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Creates the input for a wave height calculation.
+        /// Creates the input for a design water level calculation.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>
+        /// <param name="designWaterLevelCalculation">The <see cref="HydraulicBoundaryLocation"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
@@ -215,11 +215,11 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        private static AssessmentLevelCalculationInput CreateInput(IDesignWaterLevelCalculation designWaterLevelCalculation,
                                                                    double norm,
                                                                    string hydraulicBoundaryDatabaseFilePath)
         {
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, designWaterLevelCalculation.GetId(), norm);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath);
 

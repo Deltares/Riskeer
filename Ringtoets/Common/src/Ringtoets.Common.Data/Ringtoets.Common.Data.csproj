@@ -61,11 +61,13 @@
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
+    <Compile Include="Hydraulics\DesignWaterLevelCalculation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInput.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutput.cs" />
+    <Compile Include="Hydraulics\IDesignWaterLevelCalculation.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculator.cs" />

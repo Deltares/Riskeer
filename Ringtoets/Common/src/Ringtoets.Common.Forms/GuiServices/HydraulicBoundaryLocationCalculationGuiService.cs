@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.GuiServices
             }
 
             return RunActivities(hydraulicBoundaryDatabaseFilePath,
-                                 locations.Select(location => new DesignWaterLevelCalculationActivity(location,
+                                 locations.Select(location => new DesignWaterLevelCalculationActivity(new DesignWaterLevelCalculation(location),
                                                                                                       hydraulicBoundaryDatabaseFilePath,
                                                                                                       norm,
                                                                                                       messageProvider)).ToArray());

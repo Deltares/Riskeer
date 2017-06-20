@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName";
             const string activityDescription = "GetActivityDescription";
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
+            var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    1,
                                                                    calculationMessageProvider);
@@ -106,12 +106,12 @@ namespace Ringtoets.Common.Service.Test
         public void ParameteredConstructor_NullCalculationServiceMessageProvider_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
+            var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(string.Empty));
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            TestDelegate call = () => new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            TestDelegate call = () => new DesignWaterLevelCalculationActivity(calculation,
                                                                               validFilePath,
                                                                               1,
                                                                               null);
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        public void ParameteredConstructor_DesignWaterLevelCalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+            Assert.AreEqual("designWaterLevelCalculation", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -150,14 +150,14 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "testLocation";
             const string calculationName = "calculationName";
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0);
+            var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    inValidFilePath,
                                                                    1,
                                                                    calculationMessageProvider);
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Service.Test
             const string calculationName = "calculationName";
             const double norm = 1.0 / 30;
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0);
+            var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(locationName));
             var calculator = new TestDesignWaterLevelCalculator
             {
                 Converged = true
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    norm,
                                                                    calculationMessageProvider);
@@ -224,7 +224,7 @@ namespace Ringtoets.Common.Service.Test
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(calculation.GetId(), designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -255,8 +255,9 @@ namespace Ringtoets.Common.Service.Test
                     Output = new TestHydraulicBoundaryLocationOutput(3.0, CalculationConvergence.CalculatedConverged)
                 }
             };
+            var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
 
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    norm,
                                                                    calculationMessageProvider);
@@ -294,7 +295,9 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
+
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    norm,
                                                                    calculationMessageProvider);
@@ -351,8 +354,10 @@ namespace Ringtoets.Common.Service.Test
                 }
             };
 
+            var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
+
             string validFilePath = Path.Combine(testDataPath, validFile);
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    30,
                                                                    calculationMessageProvider);
@@ -402,9 +407,11 @@ namespace Ringtoets.Common.Service.Test
                 }
             };
 
+            var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
+
             string validFilePath = Path.Combine(testDataPath, validFile);
             const double norm = 1.0 / 300;
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    norm,
                                                                    calculationMessageProvider);
@@ -454,8 +461,10 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
+            var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
+
             const double norm = 1.0 / 30;
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new DesignWaterLevelCalculationActivity(calculation,
                                                                    validFilePath,
                                                                    norm,
                                                                    calculationMessageProvider);
@@ -480,6 +489,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
@@ -487,7 +497,7 @@ namespace Ringtoets.Common.Service.Test
             hydraulicBoundaryLocation.Attach(observer);
             mockRepository.ReplayAll();
 
-            var activity = new TestDesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
+            var activity = new TestDesignWaterLevelCalculationActivity(calculation,
                                                                        Path.Combine(testDataPath, validFile),
                                                                        1.0,
                                                                        calculationMessageProvider,
@@ -502,12 +512,12 @@ namespace Ringtoets.Common.Service.Test
 
         private class TestDesignWaterLevelCalculationActivity : DesignWaterLevelCalculationActivity
         {
-            public TestDesignWaterLevelCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            public TestDesignWaterLevelCalculationActivity(DesignWaterLevelCalculation designWaterLevelCalculation,
                                                            string hydraulicBoundaryDatabaseFilePath,
                                                            double norm,
                                                            ICalculationMessageProvider messageProvider,
                                                            ActivityState state)
-                : base(hydraulicBoundaryLocation,
+                : base(designWaterLevelCalculation,
                        hydraulicBoundaryDatabaseFilePath,
                        norm,
                        messageProvider)
