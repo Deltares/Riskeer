@@ -74,11 +74,11 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs a calculation for wave height.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location used in the calculation.</param>
+        /// <param name="waveHeightCalculation">The wave height calculation to use.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveHeightCalculation"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -92,18 +92,18 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public void Calculate(IWaveHeightCalculation waveHeightCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (waveHeightCalculation == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(waveHeightCalculation));
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
+            string calculationName = messageProvider.GetCalculationName(waveHeightCalculation.GetName());
 
             CalculationServiceHelper.LogCalculationBegin(calculationName);
 
@@ -113,13 +113,14 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                WaveHeightCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath);
+                WaveHeightCalculationInput calculationInput = CreateInput(waveHeightCalculation, norm, hydraulicBoundaryDatabaseFilePath);
                 calculator.Calculate(calculationInput);
 
-                if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
+                if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    hydraulicBoundaryLocation.WaveHeightCalculation.Output = CreateHydraulicBoundaryLocationOutput(
-                        messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged);
+                    waveHeightCalculation.SetOutput(
+                        CreateHydraulicBoundaryLocationOutput(
+                            messageProvider, waveHeightCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged));
                 }
             }
             catch (HydraRingCalculationException)
@@ -128,8 +129,8 @@ namespace Ringtoets.Common.Service
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(hydraulicBoundaryLocation.Name)
-                                  : messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
+                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(waveHeightCalculation.GetName())
+                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), lastErrorContent));
 
                     exceptionThrown = true;
                     throw;
@@ -141,7 +142,7 @@ namespace Ringtoets.Common.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
+                    log.Error(messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
@@ -200,7 +201,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for an wave height calculation.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>
+        /// <param name="waveHeightCalculation">The <see cref="IWaveHeightCalculation"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
@@ -216,11 +217,11 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        private static WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        private static WaveHeightCalculationInput CreateInput(IWaveHeightCalculation waveHeightCalculation,
                                                               double norm,
                                                               string hydraulicBoundaryDatabaseFilePath)
         {
-            var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+            var waveHeightCalculationInput = new WaveHeightCalculationInput(1, waveHeightCalculation.GetId(), norm);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
 

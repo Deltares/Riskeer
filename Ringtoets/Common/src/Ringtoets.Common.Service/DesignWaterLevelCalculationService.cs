@@ -117,8 +117,9 @@ namespace Ringtoets.Common.Service
 
                 if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    designWaterLevelCalculation.SetOutput(CreateHydraulicBoundaryLocationOutput(
-                                                              messageProvider, designWaterLevelCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged));
+                    designWaterLevelCalculation.SetOutput(
+                        CreateHydraulicBoundaryLocationOutput(
+                            messageProvider, designWaterLevelCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged));
                 }
             }
             catch (HydraRingCalculationException)
@@ -199,7 +200,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for a design water level calculation.
         /// </summary>
-        /// <param name="designWaterLevelCalculation">The <see cref="HydraulicBoundaryLocation"/>
+        /// <param name="designWaterLevelCalculation">The <see cref="IDesignWaterLevelCalculation"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic

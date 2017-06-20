@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public class WaveHeightCalculationActivity : HydraRingActivityBase
     {
-        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private readonly WaveHeightCalculation waveHeightCalculation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly ICalculationMessageProvider messageProvider;
@@ -41,20 +41,20 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="waveHeightCalculation">The <see cref="WaveHeightCalculation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveHeightCalculation"/>
         /// or <paramref name="messageProvider"/> is <c>null</c>.</exception>
-        public WaveHeightCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public WaveHeightCalculationActivity(WaveHeightCalculation waveHeightCalculation,
                                              string hydraulicBoundaryDatabaseFilePath,
                                              double norm,
                                              ICalculationMessageProvider messageProvider)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (waveHeightCalculation == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(waveHeightCalculation));
             }
 
             if (messageProvider == null)
@@ -62,12 +62,12 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            this.waveHeightCalculation = waveHeightCalculation;
             this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.norm = norm;
 
-            Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocation.Name);
+            Description = messageProvider.GetActivityDescription(waveHeightCalculation.GetName());
 
             calculationService = new WaveHeightCalculationService();
         }
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service
             }
 
             return WaveHeightCalculationService.Validate(
-                hydraulicBoundaryLocation.Name,
+                waveHeightCalculation.GetName(),
                 hydraulicBoundaryDatabaseFilePath,
                 messageProvider);
         }
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Service
             if (State != ActivityState.Skipped)
             {
                 calculationService.Calculate(
-                    hydraulicBoundaryLocation,
+                    waveHeightCalculation,
                     hydraulicBoundaryDatabaseFilePath,
                     norm,
                     messageProvider);
@@ -105,16 +105,14 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            hydraulicBoundaryLocation.NotifyObservers();
+            waveHeightCalculation.GetObservableObject().NotifyObservers();
         }
 
         private bool AlreadyCalculated
         {
             get
             {
-                HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.WaveHeightCalculation;
-                return calculation.HasOutput
-                       && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasIllustrationPoints;
+                return waveHeightCalculation.IsCalculated();
             }
         }
     }
