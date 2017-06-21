@@ -275,5 +275,33 @@ namespace Core.Components.Stack.Test.Data
             CollectionAssert.AreEqual(values, row.Values);
             Assert.IsNull(row.Color);
         }
+
+        [Test]
+        public void Clear_Always_ClearsAllColumnsAndRows()
+        {
+            // Setup
+            var data = new StackChartData();
+            data.AddColumn("Column 1");
+            data.AddRow("Row 1", new List<double>
+            {
+                1.0
+            });
+            
+            data.AddColumnWithValues("Column 2", new List<double>
+            {
+                2.0
+            });
+
+            // Precondition
+            Assert.AreEqual(2, data.Columns.Count());
+            Assert.AreEqual(1, data.Rows.Count());
+
+            // Call
+            data.Clear();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Columns);
+            CollectionAssert.IsEmpty(data.Rows);
+        }
     }
 }

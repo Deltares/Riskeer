@@ -138,5 +138,14 @@ namespace Core.Components.Stack.Data
 
             rows.Add(new RowChartData(name, values, color));
         }
+
+        /// <summary>
+        /// Clears the rows and columns of the <see cref="StackChartData"/>.
+        /// </summary>
+        public void Clear()
+        {
+            columns.Clear();
+            rows.Clear();
+        }
     }
 }
