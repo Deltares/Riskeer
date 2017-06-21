@@ -46,7 +46,7 @@ SELECT
 	[Y],
 	[X0],
 	[Order]
-	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT DP.rowid
                      FROM [SOURCEPROJECT].DikeProfileEntity
                      WHERE DP.DikeProfileEntityId > DikeProfileEntityId
                      AND DP.Name IS Name

@@ -78,7 +78,7 @@ SELECT
 	[IdenticalApertures],
 	[FailureProbabilityReparation],
 	[InflowModelType]
-	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT CS.rowid
                      FROM [SOURCEPROJECT].ClosingStructureEntity
                      WHERE CS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
                      AND CS.[Id] IS [Id]
@@ -139,7 +139,7 @@ SELECT
 	[Y],
 	[X0],
 	[Order]
-	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT FS.rowid
                      FROM [SOURCEPROJECT].ForeshoreProfileEntity
                      WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
                      AND FS.Name IS Name
@@ -218,7 +218,7 @@ SELECT
 	[StorageStructureAreaCoefficientOfVariation],
 	[AllowedLevelIncreaseStorageMean],
 	[AllowedLevelIncreaseStorageStandardDeviation]
-	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT HS.rowid
                      FROM [SOURCEPROJECT].HeightStructureEntity
                      WHERE HS.[HeightStructureEntityId] > [HeightStructureEntityId]
                      AND HS.[Id] IS [Id]
@@ -390,7 +390,7 @@ SELECT
 	[AreaFlowAperturesMean],
 	[AreaFlowAperturesStandardDeviation],
 	[InflowModelType]
-	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT count(*)
+	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT SPS.rowid
                      FROM [SOURCEPROJECT].StabilityPointStructureEntity
                      WHERE SPS.[StabilityPointStructureEntityId] > [StabilityPointStructureEntityId]
                      AND SPS.[Id] IS [Id]

@@ -21,9 +21,7 @@
 
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
-using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
