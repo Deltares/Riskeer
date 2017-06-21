@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
@@ -36,6 +36,8 @@ namespace Core.Components.OxyPlot.Forms
     {
         private readonly CategoryPlotView plotView;
         private StackChartData data;
+
+        private Observer stackChartDataObserver;
 
         /// <summary>
         /// Creates a new <see cref="StackChartControl"/>.
@@ -52,6 +54,8 @@ namespace Core.Components.OxyPlot.Forms
             };
 
             Controls.Add(plotView);
+
+            stackChartDataObserver = new Observer(HandleStackChartDataChange);
         }
 
         public StackChartData Data
@@ -64,16 +68,15 @@ namespace Core.Components.OxyPlot.Forms
             {
                 if (data != null)
                 {
-                    plotView.ClearLabels();
-                    plotView.Model.Series.Clear();
+                    ClearPlot();
                 }
 
                 data = value;
+                stackChartDataObserver.Observable = data;
 
                 if (data != null)
                 {
-                    AddLabels();
-                    DrawColumns();
+                    DrawPlot();
                 }
             }
         }
@@ -93,11 +96,30 @@ namespace Core.Components.OxyPlot.Forms
         protected override void Dispose(bool disposing)
         {
             plotView.Dispose();
+            stackChartDataObserver.Dispose();
 
             base.Dispose(disposing);
         }
 
-        private void AddLabels()
+        private void HandleStackChartDataChange()
+        {
+            ClearPlot();
+            DrawPlot();
+        }
+
+        private void DrawPlot()
+        {
+            DrawLabels();
+            DrawColumns();
+        }
+
+        private void ClearPlot()
+        {
+            plotView.ClearLabels();
+            plotView.Model.Series.Clear();
+        }
+
+        private void DrawLabels()
         {
             plotView.AddLabels(data.Columns);
         }

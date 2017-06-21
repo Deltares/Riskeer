@@ -103,6 +103,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = data;
 
+                // Precondition
                 CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
                 AssertSeriesAndColumns(plotView);
 
@@ -158,6 +159,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = data;
 
+                // Precondition
                 CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
                 AssertSeriesAndColumns(plotView);
 
@@ -171,6 +173,61 @@ namespace Core.Components.OxyPlot.Forms.Test
                 CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
 
                 CollectionAssert.IsEmpty(axis.Labels);
+            }
+        }
+
+        [Test]
+        public void GivenChartControlWithData_WhenDataNotified_ThenChartControlUpdated()
+        {
+            // Given
+            using (var chart = new StackChartControl())
+            {
+                var data = new StackChartData();
+                data.AddColumn("Column 1");
+                data.AddColumn("Column 2");
+                data.AddRow("Row 1", new List<double>
+                {
+                    0.4,
+                    0.2
+                });
+                data.AddRow("Row 2", new List<double>
+                {
+                    0.6,
+                    0.8
+                });
+
+                chart.Data = data;
+
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
+                AssertSeriesAndColumns(plotView);
+
+                // When
+                data.Clear();
+                data.AddColumn("New column 1");
+                data.AddColumn("New column 2");
+                data.AddRow("New row 1", new List<double>
+                {
+                    0.3,
+                    0.8
+                });
+                data.AddRow("New row 2", new List<double>
+                {
+                    0.8,
+                    0.2
+                });
+                data.NotifyObservers();
+
+                // Then
+                ElementCollection<Series> series = plotView.Model.Series;
+                Assert.AreEqual(2, series.Count);
+                Assert.AreEqual("New row 1", series[0].Title);
+                Assert.AreEqual("New row 2", series[1].Title);
+
+                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+
+                Assert.AreEqual(2, axis.Labels.Count);
+                Assert.AreEqual("New column 1", axis.Labels[0]);
+                Assert.AreEqual("New column 2", axis.Labels[1]);
             }
         }
 
