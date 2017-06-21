@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Components.OxyPlot.Converter.Stack;
 using Core.Components.Stack.Data;
 using OxyPlot.Series;
@@ -30,12 +29,8 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
     /// <summary>
     /// A <see cref="ColumnSeries"/> based on and updated according to the wrapped <see cref="StackChartData"/>.
     /// </summary>
-    public class RowChartDataSeries : ColumnSeries, IChartDataSeries
+    public class RowChartDataSeries : ColumnSeries
     {
-        private readonly RowChartData rowChartData;
-
-        private List<double> drawnValues;
-
         /// <summary>
         /// Creates a new instance of <see cref="RowChartDataSeries"/>.
         /// </summary>
@@ -48,23 +43,10 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
                 throw new ArgumentNullException(nameof(rowChartData));
             }
 
-            this.rowChartData = rowChartData;
-
             IsStacked = true;
             StrokeThickness = 1;
-
-            Update();
-        }
-
-        public void Update()
-        {
-            if (!ReferenceEquals(rowChartData.Values, drawnValues))
-            {
-                RowChartDataConverter.ConvertSeriesData(rowChartData, this);
-
-                drawnValues = rowChartData.Values;
-            }
-
+            
+            RowChartDataConverter.ConvertSeriesData(rowChartData, this);
             RowChartDataConverter.ConvertSeriesProperties(rowChartData, this);
         }
     }

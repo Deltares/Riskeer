@@ -60,7 +60,7 @@
     <Compile Include="DataSeries\Chart\ChartLineDataSeries.cs" />
     <Compile Include="DataSeries\Chart\ChartMultipleAreaDataSeries.cs" />
     <Compile Include="DataSeries\Chart\ChartMultipleLineDataSeries.cs" />
-    <Compile Include="DataSeries\IChartDataSeries.cs" />
+    <Compile Include="DataSeries\Chart\IChartDataSeries.cs" />
     <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
     <Compile Include="DataSeries\Stack\RowChartDataSeries.cs" />
     <Compile Include="DataSeries\Stack\RowChartDataSeriesFactory.cs" />

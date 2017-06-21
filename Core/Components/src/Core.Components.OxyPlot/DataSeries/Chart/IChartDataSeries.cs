@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Components.OxyPlot.DataSeries
+namespace Core.Components.OxyPlot.DataSeries.Chart
 {
     /// <summary>
     /// Interface for chart data series.

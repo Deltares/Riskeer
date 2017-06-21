@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Components.OxyPlot.DataSeries;
 using Core.Components.OxyPlot.DataSeries.Stack;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
@@ -63,7 +62,6 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
 
             // Assert
             Assert.IsInstanceOf<ColumnSeries>(series);
-            Assert.IsInstanceOf<IChartDataSeries>(series);
             Assert.IsTrue(series.IsStacked);
             Assert.AreEqual(1, series.StrokeThickness);
             Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), series.FillColor);
