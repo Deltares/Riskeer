@@ -343,8 +343,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             var irrelevantParameter = new StructuresParameterRow
             {
-                ParameterId = "I am irrelevant :(",
-                LineNumber = 10
+                ParameterId = "I am irrelevant :("
             };
 
             // Call
@@ -381,13 +380,11 @@ namespace Ringtoets.Common.IO.Test.Structures
             const string extraParameterName = "Extra Parameter";
             var extraParameter = new StructuresParameterRow
             {
-                ParameterId = extraParameterName,
-                LineNumber = 10
+                ParameterId = extraParameterName
             };
             var extraParameter2 = new StructuresParameterRow
             {
-                ParameterId = extraParameterName,
-                LineNumber = 11
+                ParameterId = extraParameterName
             };
 
             List<StructuresParameterRow> readParameterRows = expectedParameterRows.ToList();
@@ -1842,8 +1839,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
-                    NumericalValue = 123,
-                    LineNumber = 11
+                    NumericalValue = 123
                 },
                 new StructuresParameterRow
                 {
@@ -1858,8 +1854,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
-                    NumericalValue = 0.8,
-                    LineNumber = 14
+                    NumericalValue = 0.8
                 },
                 new StructuresParameterRow
                 {
