@@ -32,7 +32,7 @@ namespace Core.Components.Stack.Data
     /// </summary>
     public class StackChartData : Observable
     {
-        private readonly List<ColumnChartData> columns;
+        private readonly List<string> columns;
         private readonly List<RowChartData> rows;
 
         /// <summary>
@@ -40,14 +40,14 @@ namespace Core.Components.Stack.Data
         /// </summary>
         public StackChartData()
         {
-            columns = new List<ColumnChartData>();
+            columns = new List<string>();
             rows = new List<RowChartData>();
         }
 
         /// <summary>
         /// Gets the columns of the <see cref="StackChartData"/>.
         /// </summary>
-        public IEnumerable<ColumnChartData> Columns
+        public IEnumerable<string> Columns
         {
             get
             {
@@ -74,7 +74,11 @@ namespace Core.Components.Stack.Data
         /// is <c>null</c>.</exception>
         public void AddColumn(string name)
         {
-            columns.Add(new ColumnChartData(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            columns.Add(name);
         }
 
         /// <summary>

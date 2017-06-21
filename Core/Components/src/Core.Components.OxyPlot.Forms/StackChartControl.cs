@@ -99,7 +99,7 @@ namespace Core.Components.OxyPlot.Forms
 
         private void AddLabels()
         {
-            plotView.AddLabels(data.Columns.Select(column => column.Name));
+            plotView.AddLabels(data.Columns);
         }
 
         private void DrawColumns()

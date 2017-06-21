@@ -47,7 +47,6 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Data\ColumnChartData.cs" />
     <Compile Include="Data\RowChartData.cs" />
     <Compile Include="Data\StackChartData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

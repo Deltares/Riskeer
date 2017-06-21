@@ -71,8 +71,8 @@ namespace Core.Components.Stack.Test.Data
 
             // Assert
             Assert.AreEqual(1, data.Columns.Count());
-            ColumnChartData column = data.Columns.First();
-            Assert.AreEqual(columnName, column.Name);
+            string column = data.Columns.First();
+            Assert.AreEqual(columnName, column);
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace Core.Components.Stack.Test.Data
 
             // Assert
             Assert.AreEqual(2, data.Columns.Count());
-            Assert.AreEqual("Column 2", data.Columns.Last().Name);
+            Assert.AreEqual("Column 2", data.Columns.Last());
             Assert.AreEqual(1, data.Rows.Count());
             CollectionAssert.AreEqual(new[]
             {
