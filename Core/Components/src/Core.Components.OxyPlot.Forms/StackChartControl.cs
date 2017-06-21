@@ -37,7 +37,7 @@ namespace Core.Components.OxyPlot.Forms
         private readonly CategoryPlotView plotView;
         private StackChartData data;
 
-        private Observer stackChartDataObserver;
+        private readonly Observer stackChartDataObserver;
 
         /// <summary>
         /// Creates a new <see cref="StackChartControl"/>.
