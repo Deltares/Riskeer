@@ -1703,62 +1703,54 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
-                    NumericalValue = 180.0,
-                    LineNumber = 1
+                    NumericalValue = 180.0
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
                     NumericalValue = 5.9,
                     VarianceValue = 0.01,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 2
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword3,
                     NumericalValue = 18.5,
                     VarianceValue = 0.05,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 3
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword4,
                     NumericalValue = 0.1,
                     VarianceValue = 0.15,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 4
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword5,
                     NumericalValue = 4,
                     VarianceValue = 0.05,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 5
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword6,
-                    NumericalValue = 1,
-                    LineNumber = 6
+                    NumericalValue = 1
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword7,
                     NumericalValue = 500000,
                     VarianceValue = 0.1,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 7
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
                     NumericalValue = 6.5,
                     VarianceValue = 0.1,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 8
+                    VarianceType = VarianceType.StandardDeviation
                 }
             };
         }
@@ -1784,78 +1776,68 @@ namespace Ringtoets.Common.IO.Test.Structures
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
                     NumericalValue = 3,
                     VarianceValue = 1.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 1
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
                     NumericalValue = 1,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 2
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
-                    NumericalValue = 123,
-                    LineNumber = 3
+                    NumericalValue = 123
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 4
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
                     NumericalValue = 1,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 5
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
                     NumericalValue = 9,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 6
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
                     NumericalValue = 1,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 7
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
                     NumericalValue = 1,
                     VarianceValue = 2,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 8
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
                     NumericalValue = 2,
                     VarianceValue = 3,
-                    VarianceType = VarianceType.StandardDeviation,
-                    LineNumber = 9
+                    VarianceType = VarianceType.StandardDeviation
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
                     NumericalValue = 9,
                     VarianceValue = 3,
-                    VarianceType = VarianceType.CoefficientOfVariation,
-                    LineNumber = 10
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
@@ -1866,14 +1848,12 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
-                    NumericalValue = 0.6,
-                    LineNumber = 12
+                    NumericalValue = 0.6
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
-                    NumericalValue = 14,
-                    LineNumber = 13
+                    NumericalValue = 14
                 },
                 new StructuresParameterRow
                 {
@@ -1884,8 +1864,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
-                    AlphanumericValue = "verticalewand",
-                    LineNumber = 15
+                    AlphanumericValue = "verticalewand"
                 }
             };
         }

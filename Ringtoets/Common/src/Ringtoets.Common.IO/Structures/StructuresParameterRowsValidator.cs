@@ -257,13 +257,14 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Gets the relevant parameters for a height structure from a collection of <see cref="StructuresParameterRow"/>.
         /// </summary>
-        /// <param name="structureParameterRows"></param>
-        /// <returns>A collection of <see cref="StructuresParameterRow"/> which are relevant 
+        /// <param name="structureParameterRows">The collection of <see cref="StructuresParameterRow"/> to
+        /// retrieve the relevant parameters from.</param>
+        /// <returns>A collection of <see cref="StructuresParameterRow"/> that are relevant 
         /// for a height structure.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
-        /// contain duplicate elements.</exception>
+        /// contains duplicate elements.</exception>
         public static IEnumerable<StructuresParameterRow> GetRelevantHeightStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
         {
             return GetStructuresParameters(structureParameterRows, heightStructuresRules);
@@ -272,13 +273,14 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Gets the relevant parameters for a closing structure from a collection of <see cref="StructuresParameterRow"/>.
         /// </summary>
-        /// <param name="structureParameterRows"></param>
-        /// <returns>A collection of <see cref="StructuresParameterRow"/> which are relevant 
+        /// <param name="structureParameterRows">The collection of <see cref="StructuresParameterRow"/> to
+        /// retrieve the relevant parameters from.</param>
+        /// <returns>A collection of <see cref="StructuresParameterRow"/> that are relevant 
         /// for a closing structure.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
-        /// contain duplicate elements.</exception>
+        /// contains duplicate elements.</exception>
         public static IEnumerable<StructuresParameterRow> GetRelevantClosingStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
         {
             return GetStructuresParameters(structureParameterRows, closingStructuresRules);
@@ -287,13 +289,14 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Gets the relevant parameters for a stability point structure from a collection of <see cref="StructuresParameterRow"/>.
         /// </summary>
-        /// <param name="structureParameterRows"></param>
-        /// <returns>A collection of <see cref="StructuresParameterRow"/> which are relevant 
+        /// <param name="structureParameterRows">The collection of <see cref="StructuresParameterRow"/> to
+        /// retrieve the relevant parameters from.</param>
+        /// <returns>A collection of <see cref="StructuresParameterRow"/> that are relevant 
         /// for a stability point structure.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
-        /// contain duplicate elements.</exception>
+        /// contains duplicate elements.</exception>
         public static IEnumerable<StructuresParameterRow> GetRelevantStabilityPointStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
         {
             return GetStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
@@ -301,16 +304,16 @@ namespace Ringtoets.Common.IO.Structures
 
         /// <summary>
         /// Retrieves all the relevant structure parameters from the <paramref name="structureParameterRows"/>
-        /// based on given rules.
+        /// based on given <paramref name="rules"/>.
         /// </summary>
         /// <param name="structureParameterRows">The structure parameters which need to be filtered.</param>
-        /// <param name="rules">The rules which determines which parameters should be retrieved.</param>
+        /// <param name="rules">The rules that determine which parameters should be retrieved.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with <see cref="StructuresParameterRow"/>
         /// based on the <paramref name="rules"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
-        /// contain duplicate elements.</exception>
+        /// contains duplicate elements.</exception>
         private static IEnumerable<StructuresParameterRow> GetStructuresParameters(IList<StructuresParameterRow> structureParameterRows,
                                                                                    Dictionary<string, Func<StructuresParameterRow, List<string>>> rules)
         {
