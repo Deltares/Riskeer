@@ -27,6 +27,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 {
@@ -71,11 +72,19 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
     {
+        public bool CalculatedWithIllustrationPoints { get; private set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
+        public GeneralResult IllustrationPointsResult { get; }
         public bool? Converged { get; set; }
+
+        public void CalculateWithIllustrationPoints(AssessmentLevelCalculationInput input)
+        {
+            Calculate(input);
+            CalculatedWithIllustrationPoints = true;
+        }
     }
 
     public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator

@@ -113,7 +113,15 @@ namespace Ringtoets.Common.Service
             try
             {
                 AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
-                calculator.Calculate(calculationInput);
+
+                if (designWaterLevelCalculation.GetCalculateIllustrationPoints())
+                {
+                    calculator.CalculateWithIllustrationPoints(calculationInput);
+                }
+                else
+                {
+                    calculator.Calculate(calculationInput);
+                }
 
                 if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {

@@ -21,12 +21,13 @@
 
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Interface for a calculator which calculates the water level associated to the result of iterating towards a
-    /// probability of failure given a norm.
+    /// Interface for a calculator which calculates the water level associated to the result of 
+    /// iterating towards a probability of failure given a norm.
     /// </summary>
     public interface IDesignWaterLevelCalculator
     {
@@ -39,6 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Gets the reliability index
         /// </summary>
         double ReliabilityIndex { get; }
+
+        /// <summary>
+        /// Gets the result of parsing the illustration points in the Hydra-Ring database.
+        /// </summary>
+        GeneralResult IllustrationPointsResult { get; }
 
         /// <summary>
         /// Gets the value indicating whether the calculation converged.
@@ -62,6 +68,15 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         void Calculate(AssessmentLevelCalculationInput input);
+
+        /// <summary>
+        /// Performs the actual calculation by running the Hydra-Ring executable.
+        /// Afterwards, sets the <see cref="IllustrationPointsResult"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="AssessmentLevelCalculationInput"/> which contains all the necessary input
+        /// for the calculation.</param>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        void CalculateWithIllustrationPoints(AssessmentLevelCalculationInput input);
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
