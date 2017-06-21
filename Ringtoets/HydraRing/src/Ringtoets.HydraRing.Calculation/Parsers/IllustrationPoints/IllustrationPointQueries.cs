@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.Duration} " +
             "FROM DesignAlpha " +
             "JOIN Stochasts USING(StochastId) " +
-            "WHERE LevelTypeId = 3 " +
+            "WHERE LevelTypeId = 4 " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignAlpha) " +
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignAlpha);";
 
@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         public static readonly string GeneralBetaValues =
             $"SELECT {IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM DesignBeta " +
-            "WHERE LevelTypeId = 3 " +
+            "WHERE LevelTypeId = 4 " +
             "AND OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignAlpha) " +
             "AND PeriodId = (SELECT MIN(PeriodId) FROM DesignAlpha);";
 

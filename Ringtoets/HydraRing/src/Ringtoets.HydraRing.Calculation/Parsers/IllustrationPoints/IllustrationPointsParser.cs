@@ -70,40 +70,44 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     ParseResultsFromReader(reader);
                 }
             }
-            catch (SQLiteException e)
+            catch (Exception e) when (e is HydraRingDatabaseReaderException || e is SQLiteException)
             {
-                throw new HydraRingFileParserException(Resources.Parse_Cannot_read_result_in_output_file, e);
-            }
-            catch (HydraRingDatabaseReaderException e)
-            {
-                throw new HydraRingFileParserException("Er konden geen illustratiepunten worden uitgelezen.", e);
+                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Could_not_read_illustration_point_data, e);
             }
         }
 
         private void ParseResultsFromReader(HydraRingDatabaseReader reader)
         {
             ParseClosingSituations(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseWindDirections(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseGeneralAlphaValues(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseGeneralBetaValue(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseFaultTreeAlphaValues(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseFaultTreeBetaValues(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseSubMechanismAlphaValues(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseSubMechanismBetaValues(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseSubMechanismResults(reader);
-            reader.NextResult();
+            ProceedOrThrow(reader);
             ParseFaultTree(reader);
             if (Output.IllustrationPoints == null)
             {
                 SetSubMechanismAsRootIllustrationPoint();
+            }
+        }
+
+        private static void ProceedOrThrow(HydraRingDatabaseReader reader)
+        {
+            if (!reader.NextResult())
+            {
+                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Could_not_read_illustration_point_data);
             }
         }
 
@@ -127,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseFaultTreeAlphaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readFaultTreeAlphaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            Dictionary<string, object>[] readFaultTreeAlphaValues = GetIterator(reader).ToArray();
             foreach (Dictionary<string, object> readFaultTreeAlphaValue in readFaultTreeAlphaValues)
             {
                 int faultTreeId = Convert.ToInt32(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.FaultTreeId]);
@@ -154,7 +158,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseFaultTreeBetaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readFaultTreeBetaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            Dictionary<string, object>[] readFaultTreeBetaValues = GetIterator(reader).ToArray();
             foreach (Dictionary<string, object> readFaultTreeBetaValue in readFaultTreeBetaValues)
             {
                 int faultTreeId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.FaultTreeId]);
@@ -162,13 +166,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int closingSituationid = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
                 double beta = Convert.ToDouble(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.BetaValue]);
 
-                faultTreeBetaValues[new ThreeKeyIndex(windDirectionId, closingSituationid, faultTreeId)] = beta;
+                var threeKeyIndex = new ThreeKeyIndex(windDirectionId, closingSituationid, faultTreeId);
+                if (faultTreeBetaValues.ContainsKey(threeKeyIndex))
+                {
+                    throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
+                }
+                faultTreeBetaValues[threeKeyIndex] = beta;
             }
         }
 
         private void ParseSubMechanismAlphaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readSubMechanismAlphaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            Dictionary<string, object>[] readSubMechanismAlphaValues = GetIterator(reader).ToArray();
             foreach (Dictionary<string, object> readSubMechanismAlphaValue in readSubMechanismAlphaValues)
             {
                 int subMechanismId = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.SubMechanismId]);
@@ -197,7 +206,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseSubMechanismBetaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readSubMechanismBetaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            Dictionary<string, object>[] readSubMechanismBetaValues = GetIterator(reader).ToArray();
             foreach (Dictionary<string, object> readSubMechanismBetaValue in readSubMechanismBetaValues)
             {
                 int subMechanismId = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.SubMechanismId]);
@@ -205,13 +214,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int closingSituationid = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
                 double beta = Convert.ToDouble(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.BetaValue]);
 
-                subMechanismBetaValues[new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId)] = beta;
+                var threeKeyIndex = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
+                if (subMechanismBetaValues.ContainsKey(threeKeyIndex))
+                {
+                    throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
+                }
+                subMechanismBetaValues[threeKeyIndex] = beta;
             }
         }
 
         private void ParseSubMechanismResults(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readSubMechanismResults = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            Dictionary<string, object>[] readSubMechanismResults = GetIterator(reader).ToArray();
             foreach (Dictionary<string, object> readSubMechanismResult in readSubMechanismResults)
             {
                 int subMechanismId = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.SubMechanismId]);
@@ -239,7 +253,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             IEnumerable<Tuple<int, WindDirection, int, string>> windDirectionClosingSituations =
                 GetAllWindDirectionClosingSituationCombinations();
 
-            Dictionary<string, object>[] readFaultTrees = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            Dictionary<string, object>[] readFaultTrees = GetIterator(reader).ToArray();
             if (readFaultTrees.Length > 0)
             {
                 List<Tuple<int?, int, Type, CombinationType>> results = CreateResultTuples(readFaultTrees);
@@ -345,17 +359,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseGeneralBetaValue(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> betaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            IEnumerable<Dictionary<string, object>> betaValues = GetIterator(reader).ToArray();
             if (betaValues.Count() != 1)
             {
-                throw new HydraRingFileParserException("Ongeldig aantal beta-waarden gevonden in de uitvoer database.");
+                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
             }
             Output.Beta = Convert.ToDouble(betaValues.First()[IllustrationPointsDatabaseConstants.BetaValue]);
         }
 
         private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> alphaValues = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            IEnumerable<Dictionary<string, object>> alphaValues = GetIterator(reader).ToArray();
             Output.Stochasts = alphaValues.Select(a => new Stochast
             {
                 Name = Convert.ToString(a[IllustrationPointsDatabaseConstants.StochastName]),
@@ -366,7 +380,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseClosingSituations(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> readClosingSituations = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            IEnumerable<Dictionary<string, object>> readClosingSituations = GetIterator(reader).ToArray();
             closingSituations = readClosingSituations.ToDictionary(
                 r => Convert.ToInt32(r[IllustrationPointsDatabaseConstants.ClosingSituationId]),
                 r => Convert.ToString(r[IllustrationPointsDatabaseConstants.ClosingSituationName]));
@@ -374,7 +388,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseWindDirections(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> readWindDirections = GetIterator(reader).TakeWhile(r => r != null).ToArray();
+            IEnumerable<Dictionary<string, object>> readWindDirections = GetIterator(reader).ToArray();
             windDirections = new Dictionary<int, WindDirection>();
 
             foreach (Dictionary<string, object> readWindDirection in readWindDirections)

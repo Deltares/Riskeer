@@ -25,7 +25,6 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Readers
@@ -125,6 +124,72 @@ namespace Ringtoets.HydraRing.Calculation.Test.Readers
 
                 // Assert
                 Assert.IsNull(result);
+            }
+        }
+
+        [Test]
+        public void NextResult_EmptyDatabase_ReturnsFalse()
+        {
+            // Setup
+            string directory = Path.Combine(testDirectory, emptyDatabase);
+
+            using (var reader = new HydraRingDatabaseReader(directory, query, 1))
+            {
+                // Call
+                bool couldGetNextResult = reader.NextResult();
+
+                // Assert
+                Assert.IsFalse(couldGetNextResult);
+            }
+        }
+
+        [Test]
+        public void NextResult_SingleResult_ReturnsFalse()
+        {
+            // Setup
+            string directory = Path.Combine(testDirectory, validDatabase);
+
+            using (var reader = new HydraRingDatabaseReader(directory, query, 1))
+            {
+                // Call
+                bool couldGetNextResult = reader.NextResult();
+
+                // Assert
+                Assert.IsFalse(couldGetNextResult);
+            }
+        }
+
+        [Test]
+        public void NextResult_MultipleResult_ReturnsTrue()
+        {
+            // Setup
+            string directory = Path.Combine(testDirectory, validDatabase);
+
+            using (var reader = new HydraRingDatabaseReader(directory, query + query, 1))
+            {
+                // Call
+                bool couldGetNextResult = reader.NextResult();
+
+                // Assert
+                Assert.IsTrue(couldGetNextResult);
+            }
+        }
+
+        [Test]
+        public void NextResult_MultipleResultProceededToSecondResult_ReturnsFalse()
+        {
+            // Setup
+            string directory = Path.Combine(testDirectory, validDatabase);
+
+            using (var reader = new HydraRingDatabaseReader(directory, query + query, 1))
+            {
+                reader.NextResult();
+
+                // Call
+                bool couldGetNextResult = reader.NextResult();
+
+                // Assert
+                Assert.IsFalse(couldGetNextResult);
             }
         }
     }

@@ -129,6 +129,25 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er konden geen illustratiepunten worden uitgelezen..
+        /// </summary>
+        internal static string IllustrationPointsParser_Parse_Could_not_read_illustration_point_data {
+            get {
+                return ResourceManager.GetString("IllustrationPointsParser_Parse_Could_not_read_illustration_point_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meerdere waarden voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database..
+        /// </summary>
+        internal static string IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found {
+            get {
+                return ResourceManager.GetString("IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_fou" +
+                        "nd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file {

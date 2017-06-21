@@ -73,6 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er konden geen illustratiepunten worden uitgelezen.", exception.Message);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
@@ -80,7 +81,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         public void Parse_WithWorkingDirectoryWithInvalidOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, "InvalidFile");
+            string path = Path.Combine(testDirectory, "EmptySchema");
             var parser = new IllustrationPointsParser();
 
             // Call
@@ -88,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er konden geen illustratiepunten worden uitgelezen.", exception.Message);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
@@ -104,24 +105,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er konden geen illustratiepunten worden uitgelezen.", exception.Message);
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
         }
 
         [Test]
-        public void Parse_ValidDataForOtherSection_ThrowsHydraRingFileParserException()
+        [TestCase("DuplicateBetaSubMechanism")]
+        [TestCase("DuplicateBetaFaultTree")]
+        [TestCase("DuplicateBetaGeneralResult")]
+        public void Parse_MultipleBetaValues_ThrowsHydraRingFileParserException(string workingDirectory)
         {
             // Setup
-            string path = Path.Combine(testDirectory, "ValidStructuresStabilityOutputSection1");
+            string path = Path.Combine(testDirectory, workingDirectory);
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 2);
+            TestDelegate test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er kon geen resultaat gelezen worden uit de Hydra-Ring uitvoerdatabase.", exception.Message);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            Assert.AreEqual("Meerdere waarden voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database.", exception.Message);
         }
 
         [Test]
@@ -140,7 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.NotNull(generalResult.GoverningWind);
             Assert.AreEqual(30, generalResult.GoverningWind.Angle);
             Assert.AreEqual(" 30,0", generalResult.GoverningWind.Name);
-            Assert.AreEqual(1.19513, generalResult.Beta);
+            Assert.AreEqual(-0.122527, generalResult.Beta);
             Assert.AreEqual(46, generalResult.Stochasts.Count());
 
             Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;
@@ -191,7 +194,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.NotNull(generalResult.GoverningWind);
             Assert.AreEqual(112.5, generalResult.GoverningWind.Angle);
             Assert.AreEqual("OZO", generalResult.GoverningWind.Name);
-            Assert.AreEqual(4.45304, generalResult.Beta);
+            Assert.AreEqual(3.4037, generalResult.Beta);
             Assert.AreEqual(6, generalResult.Stochasts.Count());
             Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;
             Assert.AreEqual(16, illustrationPointNodes.Count);
@@ -219,6 +222,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
                 Tuple.Create("Considered water level", 1.24846),
                 Tuple.Create("Computed local water level", 1.24852)
             }, subMechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value)));
+        }
+
+        [Test]
+        public void Parse_ValidDataForOtherSection_SectionIdIgnoredOutputRead()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "ValidStructuresStabilityOutputSection1");
+            var parser = new IllustrationPointsParser();
+
+            // Call
+            parser.Parse(path, 2);
+
+            // Assert
+            GeneralResult generalResult = parser.Output;
+            Assert.NotNull(generalResult);
         }
 
         private static void GetAllNodes(IllustrationPointTreeNode tree, ICollection<FaultTreeIllustrationPoint> faultTrees, ICollection<SubMechanismIllustrationPoint> subMechanisms)
