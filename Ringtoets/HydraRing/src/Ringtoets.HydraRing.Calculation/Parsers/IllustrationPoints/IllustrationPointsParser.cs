@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> faultTreeBetaValues = new Dictionary<ThreeKeyIndex, double>();
 
-        private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
+        private readonly Dictionary<ThreeKeyIndex, IList<RealizedStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<RealizedStochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> subMechanismBetaValues = new Dictionary<ThreeKeyIndex, double>();
         private readonly Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>>();
 
@@ -177,18 +177,20 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 string name = Convert.ToString(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.StochastName]);
                 double duration = Convert.ToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Duration]);
                 double alpha = Convert.ToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.AlphaValue]);
+                double realization = Convert.ToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Realization]);
 
                 var key = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
                 if (!subMechanismStochasts.ContainsKey(key))
                 {
-                    subMechanismStochasts[key] = new List<Stochast>();
+                    subMechanismStochasts[key] = new List<RealizedStochast>();
                 }
 
-                subMechanismStochasts[key].Add(new Stochast
+                subMechanismStochasts[key].Add(new RealizedStochast
                 {
                     Name = name,
                     Duration = duration,
-                    Alpha = alpha
+                    Alpha = alpha,
+                    Realization = realization
                 });
             }
         }
@@ -300,9 +302,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 Beta = faultTreeBetaValues[dataKey],
                 Combine = combinationType
             };
-            if (subMechanismStochasts.ContainsKey(dataKey))
+            if (faultTreeStochasts.ContainsKey(dataKey))
             {
-                AddRange(illustrationPoint.Stochasts, subMechanismStochasts[dataKey]);
+                AddRange(illustrationPoint.Stochasts, faultTreeStochasts[dataKey]);
             }
 
             var node = new IllustrationPointTreeNode(illustrationPoint);

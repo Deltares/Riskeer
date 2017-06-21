@@ -19,26 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+
+namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 {
-    /// <summary>
-    /// Container of alpha value definitions read from a Hydra-Ring output database.
-    /// </summary>
-    public class Stochast
+    [TestFixture]
+    public class RealizedStochastTest
     {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
+        [Test]
+        public void Constructor_Always_RetrusnNewInstance()
+        {
+            // Call
+            var stochast = new RealizedStochast();
 
-        /// <summary>
-        /// Gets or sets the duration.
-        /// </summary>
-        public double Duration { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the alpha value.
-        /// </summary>
-        public double Alpha { get; set; } = double.NaN;
+            // Assert
+            Assert.IsInstanceOf<Stochast>(stochast);
+            Assert.IsNaN(stochast.Realization);
+        }
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsDatabaseConstants.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParser.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointTreeNode.cs" />
+    <Compile Include="Parsers\IllustrationPoints\RealizedStochast.cs" />
     <Compile Include="Parsers\IllustrationPoints\Stochast.cs" />
     <Compile Include="Parsers\IllustrationPoints\SubmechanismIllustrationPoint.cs" />
     <Compile Include="Parsers\IllustrationPoints\WindDirection.cs" />

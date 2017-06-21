@@ -22,23 +22,14 @@
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     /// <summary>
-    /// Container of alpha value definitions read from a Hydra-Ring output database.
+    /// Container of alpha value definitions read from a Hydra-Ring output database with
+    /// a realization of the described stochast.
     /// </summary>
-    public class Stochast
+    public class RealizedStochast : Stochast
     {
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the realization.
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the duration.
-        /// </summary>
-        public double Duration { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the alpha value.
-        /// </summary>
-        public double Alpha { get; set; } = double.NaN;
+        public double Realization { get; set; } = double.NaN;
     }
 }

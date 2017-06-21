@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Gets the stochasts that were realized.
         /// </summary>
-        public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();
+        public ICollection<RealizedStochast> Stochasts { get; } = new List<RealizedStochast>();
 
         /// <summary>
         /// Gets the beta values that were realized.
