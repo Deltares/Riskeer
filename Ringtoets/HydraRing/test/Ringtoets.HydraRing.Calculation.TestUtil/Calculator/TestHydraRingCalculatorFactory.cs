@@ -72,19 +72,11 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
     {
-        public bool CalculatedWithIllustrationPoints { get; private set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
-        public GeneralResult IllustrationPointsResult { get; }
         public bool? Converged { get; set; }
-
-        public void CalculateWithIllustrationPoints(AssessmentLevelCalculationInput input)
-        {
-            Calculate(input);
-            CalculatedWithIllustrationPoints = true;
-        }
     }
 
     public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator
@@ -124,7 +116,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public readonly List<T> ReceivedInputs = new List<T>();
         public event EventHandler CalculationFinishedHandler;
         public bool EndInFailure { get; set; }
-        public bool IsCanceled { get; set; }
+        public bool IsCanceled { get; private set; }
+
+        public bool CalculatedWithIllustrationPoints { get; private set; }
+        public GeneralResult IllustrationPointsResult { get; set; }
 
         public void Calculate(T input)
         {
@@ -135,6 +130,12 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             ReceivedInputs.Add(input);
 
             CalculationFinished(EventArgs.Empty);
+        }
+
+        public void CalculateWithIllustrationPoints(T input)
+        {
+            CalculatedWithIllustrationPoints = true;
+            Calculate(input);
         }
 
         public void Cancel()

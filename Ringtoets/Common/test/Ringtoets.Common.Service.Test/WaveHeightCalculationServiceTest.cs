@@ -146,7 +146,8 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidHydraulicBoundaryLocation_StartsCalculationWithRightParameters()
+        public void Calculate_ValidWaveHeightCalculation_StartsCalculationWithRightParameters(
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -165,6 +166,7 @@ namespace Ringtoets.Common.Service.Test
             calculation.Stub(c => c.GetName()).Return(locationName);
             calculation.Expect(c => c.GetId()).Return(id);
             calculation.Expect(c => c.SetOutput(null)).Constraints(new TypeOf(typeof(HydraulicBoundaryLocationOutput)));
+            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(withIllustrationPoints);
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
@@ -182,6 +184,8 @@ namespace Ringtoets.Common.Service.Test
                 AssessmentLevelCalculationInput expectedInput = CreateInput(id, norm);
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
+
+                Assert.AreEqual(withIllustrationPoints, calculator.CalculatedWithIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }
@@ -200,6 +204,7 @@ namespace Ringtoets.Common.Service.Test
             var calculation = mockRepository.Stub<IWaveHeightCalculation>();
             calculation.Stub(c => c.GetName()).Return("name");
             calculation.Expect(c => c.GetId()).Return(0);
+            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
 
             var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
@@ -247,6 +252,7 @@ namespace Ringtoets.Common.Service.Test
             var calculation = mockRepository.Stub<IWaveHeightCalculation>();
             calculation.Stub(c => c.GetName()).Return(locationName);
             calculation.Expect(c => c.GetId()).Return(0);
+            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
@@ -311,6 +317,7 @@ namespace Ringtoets.Common.Service.Test
             var calculation = mockRepository.Stub<IWaveHeightCalculation>();
             calculation.Stub(c => c.GetName()).Return(locationName);
             calculation.Expect(c => c.GetId()).Return(0);
+            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
@@ -376,6 +383,7 @@ namespace Ringtoets.Common.Service.Test
             var calculation = mockRepository.Stub<IWaveHeightCalculation>();
             calculation.Stub(c => c.GetName()).Return(locationName);
             calculation.Expect(c => c.GetId()).Return(0);
+            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);

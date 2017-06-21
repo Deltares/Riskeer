@@ -114,7 +114,15 @@ namespace Ringtoets.Common.Service
             try
             {
                 WaveHeightCalculationInput calculationInput = CreateInput(waveHeightCalculation, norm, hydraulicBoundaryDatabaseFilePath);
-                calculator.Calculate(calculationInput);
+
+                if (waveHeightCalculation.GetCalculateIllustrationPoints())
+                {
+                    calculator.CalculateWithIllustrationPoints(calculationInput);
+                }
+                else
+                {
+                    calculator.Calculate(calculationInput);
+                }
 
                 if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {

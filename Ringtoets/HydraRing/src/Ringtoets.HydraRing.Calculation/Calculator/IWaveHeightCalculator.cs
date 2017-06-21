@@ -21,6 +21,7 @@
 
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
@@ -39,6 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// The reliability index towards which was iterated.
         /// </summary>
         double ReliabilityIndex { get; }
+
+        /// <summary>
+        /// Gets the result of parsing the illustration points in the Hydra-Ring database.
+        /// </summary>
+        GeneralResult IllustrationPointsResult { get; }
 
         /// <summary>
         /// Gets the value indicating whether the calculation converged.
@@ -62,6 +68,15 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         void Calculate(WaveHeightCalculationInput input);
+
+        /// <summary>
+        /// Performs the actual calculation by running the Hydra-Ring executable.
+        /// Afterwards, sets the <see cref="IllustrationPointsResult"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveHeightCalculationInput"/> which contains all the necessary input
+        /// for the calculation.</param>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        void CalculateWithIllustrationPoints(WaveHeightCalculationInput input);
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.

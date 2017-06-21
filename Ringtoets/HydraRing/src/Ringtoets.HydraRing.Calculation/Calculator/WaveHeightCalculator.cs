@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
@@ -35,6 +36,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
+        private readonly IllustrationPointsParser illustrationPointsParser;
+        private bool includeIllustrationPoints;
 
         /// <summary>
         /// Create a new instance of <see cref="WaveHeightCalculator"/>.
@@ -46,15 +49,24 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
             convergenceParser = new ConvergenceParser();
+            illustrationPointsParser = new IllustrationPointsParser();
 
             WaveHeight = double.NaN;
             ReliabilityIndex = double.NaN;
         }
 
+        public GeneralResult IllustrationPointsResult { get; private set; }
+
         public double WaveHeight { get; private set; }
 
         public double ReliabilityIndex { get; private set; }
         public bool? Converged { get; private set; }
+
+        public void CalculateWithIllustrationPoints(WaveHeightCalculationInput input)
+        {
+            includeIllustrationPoints = true;
+            Calculate(input);
+        }
 
         public void Calculate(WaveHeightCalculationInput input)
         {
@@ -65,6 +77,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             yield return targetProbabilityParser;
             yield return convergenceParser;
+            if (includeIllustrationPoints)
+            {
+                yield return illustrationPointsParser;
+            }
         }
 
         protected override void SetOutputs()
@@ -75,6 +91,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
             Converged = convergenceParser.Output;
+
+            if (includeIllustrationPoints)
+            {
+                IllustrationPointsResult = illustrationPointsParser.Output;
+            }
         }
     }
 }
