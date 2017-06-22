@@ -50,13 +50,14 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         [TestCase(double.PositiveInfinity)]
         [TestCase(360.005)]
         [TestCase(-0.005)]
+        [SetCulture("nl-NL")]
         public void Constructor_InvalidWindDirection_ThrowsArgumentOutOfRangeException(double windDirectionAngle)
         {
             // Call
             TestDelegate call = () => new WindDirection("SSE", windDirectionAngle);
 
             // Assert
-            const string expectedErrorMessage = "De waarde voor de windrichting moet in het bereik van [0.00, 360.00] liggen.";
+            const string expectedErrorMessage = "De waarde voor de windrichting moet in het bereik van [0,00, 360,00] liggen.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedErrorMessage);
             Assert.AreEqual("angle", exception.ParamName);
         }
