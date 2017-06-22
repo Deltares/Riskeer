@@ -34,6 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// </summary>
     public class IllustrationPointsParser : IHydraRingFileParser
     {
+        /// <summary>
+        /// The result of parsing the illustration points in the Hydra-Ring database.
+        /// </summary>
+        public readonly GeneralResult Output = new GeneralResult();
+
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> faultTreeBetaValues = new Dictionary<ThreeKeyIndex, double>();
 
@@ -45,11 +50,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private IDictionary<int, string> closingSituations;
         private IDictionary<int, string> subMechanisms;
         private IDictionary<int, string> faultTrees;
-
-        /// <summary>
-        /// The result of parsing the illustration points in the Hydra-Ring database.
-        /// </summary>
-        public readonly GeneralResult Output = new GeneralResult();
 
         public void Parse(string workingDirectory, int sectionId)
         {
@@ -324,7 +324,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 Name = faultTrees[faultTreeId],
                 Beta = faultTreeBetaValues[dataKey],
-                Combine = combinationType
+                CombinationType = combinationType
             };
             if (faultTreeStochasts.ContainsKey(dataKey))
             {
@@ -360,7 +360,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             return new IllustrationPointTreeNode(illustrationPoint);
         }
 
-        private void AddRange<T>(ICollection<T> collection, IEnumerable<T> itemsToAdd)
+        private static void AddRange<T>(ICollection<T> collection, IEnumerable<T> itemsToAdd)
         {
             foreach (T item in itemsToAdd)
             {
@@ -370,39 +370,36 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseGeneralBetaValue(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> betaValues = GetIterator(reader).ToArray();
-            if (betaValues.Count() != 1)
+            Dictionary<string, object>[] betaValues = GetIterator(reader).ToArray();
+            if (betaValues.Length != 1)
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
             }
-            Output.Beta = Convert.ToDouble(betaValues.First()[IllustrationPointsDatabaseConstants.BetaValue]);
+            Output.Beta = Convert.ToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue]);
         }
 
         private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> alphaValues = GetIterator(reader).ToArray();
-            Output.Stochasts = alphaValues.Select(a => new Stochast
+            Output.Stochasts = GetIterator(reader).Select(a => new Stochast
             {
                 Name = Convert.ToString(a[IllustrationPointsDatabaseConstants.StochastName]),
                 Duration = Convert.ToDouble(a[IllustrationPointsDatabaseConstants.Duration]),
                 Alpha = Convert.ToDouble(a[IllustrationPointsDatabaseConstants.AlphaValue])
-            });
+            }).ToArray();
         }
 
         private void ParseClosingSituations(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> readClosingSituations = GetIterator(reader).ToArray();
-            closingSituations = readClosingSituations.ToDictionary(
+            closingSituations = GetIterator(reader).ToDictionary(
                 r => Convert.ToInt32(r[IllustrationPointsDatabaseConstants.ClosingSituationId]),
                 r => Convert.ToString(r[IllustrationPointsDatabaseConstants.ClosingSituationName]));
         }
 
         private void ParseWindDirections(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> readWindDirections = GetIterator(reader).ToArray();
             windDirections = new Dictionary<int, WindDirection>();
 
-            foreach (Dictionary<string, object> readWindDirection in readWindDirections)
+            foreach (Dictionary<string, object> readWindDirection in GetIterator(reader))
             {
                 int key = Convert.ToInt32(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 string name = Convert.ToString(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionName]);
@@ -425,16 +422,14 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseSubMechanisms(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> readSubMechanisms = GetIterator(reader).ToArray();
-            subMechanisms = readSubMechanisms.ToDictionary(
+            subMechanisms = GetIterator(reader).ToDictionary(
                 r => Convert.ToInt32(r[IllustrationPointsDatabaseConstants.SubMechanismId]),
                 r => Convert.ToString(r[IllustrationPointsDatabaseConstants.SubMechanismName]));
         }
 
         private void ParseFaultTrees(HydraRingDatabaseReader reader)
         {
-            IEnumerable<Dictionary<string, object>> readFaultTrees = GetIterator(reader).ToArray();
-            faultTrees = readFaultTrees.ToDictionary(
+            faultTrees = GetIterator(reader).ToDictionary(
                 r => Convert.ToInt32(r[IllustrationPointsDatabaseConstants.FaultTreeId]),
                 r => Convert.ToString(r[IllustrationPointsDatabaseConstants.FaultTreeName]));
         }

@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// <param name="exceptionMessage">The message to use in the exception when reading fails.</param>
         /// <param name="reader">The reader to read a row from.</param>
         /// <returns>A single row from the reader.</returns>
-        /// <exception cref="HydraRingFileParserException">Thrown when no row could be read from the reader
+        /// <exception cref="HydraRingFileParserException">Thrown when no row could be read from the
         /// <paramref name="reader"/>.</exception>
         private static Dictionary<string, object> ReadLineFromReader(string exceptionMessage, HydraRingDatabaseReader reader)
         {

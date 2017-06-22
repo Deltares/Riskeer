@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);
             Assert.IsEmpty(illustrationPoint.Stochasts);
             Assert.IsNaN(illustrationPoint.Beta);
-            Assert.AreEqual(CombinationType.Or, illustrationPoint.Combine);
+            Assert.AreEqual(CombinationType.Or, illustrationPoint.CombinationType);
         }
     }
 }

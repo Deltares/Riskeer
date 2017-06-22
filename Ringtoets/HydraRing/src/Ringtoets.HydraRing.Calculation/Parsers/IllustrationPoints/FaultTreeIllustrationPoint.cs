@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     /// <summary>
-    /// An illustration points which uses the results of two sub illustration points
+    /// An illustration point which uses the results of two sub illustration points
     /// to obtain a result.
     /// </summary>
     public class FaultTreeIllustrationPoint : IIllustrationPoint
@@ -45,9 +45,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         public double Beta { get; set; } = double.NaN;
         
         /// <summary>
-        /// The way in which the sub illustartion points are combined to
+        /// The way in which the sub illustration points are combined to
         /// obtain a result for the fault tree illustration point.
         /// </summary>
-        public CombinationType Combine { get; set; }
+        public CombinationType CombinationType { get; set; }
     }
 }

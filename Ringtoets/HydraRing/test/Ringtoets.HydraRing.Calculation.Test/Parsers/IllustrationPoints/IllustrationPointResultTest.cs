@@ -27,7 +27,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
     [TestFixture]
     public class IllustrationPointResultTest
     {
-
         [Test]
         public void Constructor_Always_ReturnsNewInstance()
         {
