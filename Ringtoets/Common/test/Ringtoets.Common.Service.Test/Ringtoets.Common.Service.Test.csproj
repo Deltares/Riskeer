@@ -66,6 +66,8 @@
     <Compile Include="HydraRingSettingsDatabaseHelperTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidatorTest.cs" />
     <Compile Include="IllustrationPoints\GeneralResultConverterTest.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointConverterTest.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointResultConverterTest.cs" />
     <Compile Include="IllustrationPoints\StochastConverterTest.cs" />
     <Compile Include="IllustrationPoints\WindDirectionConverterTest.cs" />
     <Compile Include="ParameterNameExtractorTest.cs" />
