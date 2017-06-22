@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
@@ -42,10 +43,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_StochastNull_ThrowsArgumentNullException()
+        public void Constructor_StochastsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var windDirection = new WindDirection("", 0);
+            var windDirection = new TestWindDirection();
 
             // Call
             TestDelegate call = () => new GeneralResult(0, windDirection, null);
@@ -61,7 +62,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             // Setup
             var random = new Random(12);
             double beta = random.NextDouble();
-            var windDirection = new WindDirection("", 0);
+            var windDirection = new TestWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
 
             // Call
