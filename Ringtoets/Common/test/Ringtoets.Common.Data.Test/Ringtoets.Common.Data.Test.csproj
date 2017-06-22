@@ -79,6 +79,11 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResultTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\RealizedStochastTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\StochastTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\WindDirectionTest.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculationTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculatorTest.cs" />
@@ -139,7 +144,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
