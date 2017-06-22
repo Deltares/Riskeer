@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
@@ -85,7 +87,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidInput_ExpectedProperties()
+        public void Constructor_ValidInputWithoutGeneralResult_ExpectedProperties()
         {
             // Setup
             var random = new Random(32);
@@ -110,6 +112,75 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.IsNull(output.GeneralResult);
+            Assert.IsFalse(output.HasIllustrationPoints);
+        }
+
+        [Test]
+        public void Constructor_ValidInputWithGeneralResult_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(32);
+            double result = random.NextDouble();
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
+
+            var windDirection = new WindDirection("SSE", random.NextDouble());
+            double beta = random.NextDouble();
+            var generalResult = new GeneralResult(beta,
+                                                  windDirection,
+                                                  Enumerable.Empty<Stochast>());
+
+            // Call
+            var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
+                                                             targetReliability,
+                                                             calculatedProbability,
+                                                             calculatedReliability,
+                                                             convergence,
+                                                             generalResult);
+
+            // Assert
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.AreSame(generalResult, output.GeneralResult);
+            Assert.IsTrue(output.HasIllustrationPoints);
+        }
+
+        [Test]
+        public void Constructor_ValidInputWithGeneralResultNull_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(32);
+            double result = random.NextDouble();
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
+
+            // Call
+            var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
+                                                             targetReliability,
+                                                             calculatedProbability,
+                                                             calculatedReliability,
+                                                             convergence,
+                                                             null);
+
+            // Assert
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.IsNull(output.GeneralResult);
             Assert.IsFalse(output.HasIllustrationPoints);
         }
     }
