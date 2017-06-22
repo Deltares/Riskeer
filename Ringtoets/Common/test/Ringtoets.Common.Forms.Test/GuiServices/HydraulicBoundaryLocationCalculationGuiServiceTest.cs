@@ -29,6 +29,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
@@ -42,11 +43,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
     {
         private MockRepository mockRepository;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
-        public override void Setup()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Constructor_NullMainWindow_ThrowsArgumentNullException()
@@ -260,7 +256,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath,
                                                                           new List<HydraulicBoundaryLocation>
                                                                           {
-                                                                              new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
+                                                                              new TestHydraulicBoundaryLocation(hydraulicLocationName)
                                                                           },
                                                                           1, calculationMessageProviderMock);
 
@@ -310,7 +306,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 bool successfulCalculation = guiService.CalculateDesignWaterLevels(validDatabasePath,
                                                                                    new List<HydraulicBoundaryLocation>
                                                                                    {
-                                                                                       new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
+                                                                                       new TestHydraulicBoundaryLocation(hydraulicLocationName)
                                                                                    },
                                                                                    1, calculationMessageProviderMock);
 
@@ -508,7 +504,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 Action call = () => guiService.CalculateWaveHeights(validDatabasePath,
                                                                     new List<HydraulicBoundaryLocation>
                                                                     {
-                                                                        new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
+                                                                        new TestHydraulicBoundaryLocation(hydraulicLocationName)
                                                                     },
                                                                     1, calculationMessageProviderMock);
 
@@ -558,7 +554,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 bool successfulCalculation = guiService.CalculateWaveHeights(validDatabasePath,
                                                                              new List<HydraulicBoundaryLocation>
                                                                              {
-                                                                                 new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
+                                                                                 new TestHydraulicBoundaryLocation(hydraulicLocationName)
                                                                              },
                                                                              1, calculationMessageProviderMock);
 
@@ -566,6 +562,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 Assert.IsTrue(successfulCalculation);
             }
             mockRepository.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
         }
     }
 }

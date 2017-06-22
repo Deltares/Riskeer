@@ -24,8 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
+using log4net;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.GuiServices
 {
@@ -34,6 +37,7 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
     /// </summary>
     public class DuneLocationCalculationGuiService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(DuneLocationCalculationGuiService));
         private readonly IWin32Window viewParent;
 
         /// <summary>
@@ -65,6 +69,14 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
+            }
+
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                log.ErrorFormat(RingtoetsCommonFormsResources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_,
+                                validationProblem);
+                return;
             }
 
             ActivityProgressDialogRunner.Run(
