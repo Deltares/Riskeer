@@ -33,19 +33,19 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// Creates an instance of <see cref="WindDirectionClosingScenarioIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
-        /// <param name="closingSituation">The closing situation.</param>
+        /// <param name="closingScenario">The closing situation.</param>
         /// <param name="illustrationPoint">The illustrationPoint.</param>
         public WindDirectionClosingScenarioIllustrationPoint(WindDirection windDirection,
-                                                             string closingSituation,
+                                                             string closingScenario,
                                                              IllustrationPoint illustrationPoint)
         {
             if (windDirection == null)
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
-            if (closingSituation == null)
+            if (closingScenario == null)
             {
-                throw new ArgumentNullException(nameof(closingSituation));
+                throw new ArgumentNullException(nameof(closingScenario));
             }
             if (illustrationPoint == null)
             {
@@ -53,14 +53,14 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             }
 
             WindDirection = windDirection;
-            ClosingSituation = closingSituation;
+            ClosingScenario = closingScenario;
             IllustrationPoint = illustrationPoint;
         }
 
         /// <summary>
         /// Gets the closing situation.
         /// </summary>
-        public string ClosingSituation { get; }
+        public string ClosingScenario { get; }
 
         /// <summary>
         /// Gets the wind direction.

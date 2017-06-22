@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("closingSituation", exception.ParamName);
+            Assert.AreEqual("closingScenario", exception.ParamName);
         }
 
         [Test]
@@ -79,16 +79,16 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
-            const string closingSituation = "closing situation";
+            const string closingScenario = "closing scenario";
             var windDirection = new TestWindDirection();
             var illustrationPoint = new TestIllustrationPoint();
 
             // Call
             var windDirectionClosingScenarioIllustrationPoint =
-                new WindDirectionClosingScenarioIllustrationPoint(windDirection, closingSituation, illustrationPoint);
+                new WindDirectionClosingScenarioIllustrationPoint(windDirection, closingScenario, illustrationPoint);
 
             // Assert
-            Assert.AreEqual(closingSituation, windDirectionClosingScenarioIllustrationPoint.ClosingSituation);
+            Assert.AreEqual(closingScenario, windDirectionClosingScenarioIllustrationPoint.ClosingScenario);
             Assert.AreSame(windDirection, windDirectionClosingScenarioIllustrationPoint.WindDirection);
             Assert.AreSame(illustrationPoint, windDirectionClosingScenarioIllustrationPoint.IllustrationPoint);
         }

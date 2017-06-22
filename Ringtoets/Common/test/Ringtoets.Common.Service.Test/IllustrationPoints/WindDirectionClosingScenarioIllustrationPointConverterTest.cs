@@ -1,0 +1,138 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Linq;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.IllustrationPoints;
+using HydraWindDirection = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.SubMechanismIllustrationPoint;
+using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirectionClosingSituation;
+using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IllustrationPointResult;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.RealizedStochast;
+
+namespace Ringtoets.Common.Service.Test.IllustrationPoints
+{
+    [TestFixture]
+    public class WindDirectionClosingScenarioIllustrationPointConverterTest
+    {
+        [Test]
+        public void CreateWindDirectionClosingScenarioIllustrationPoint_HydraWindDirectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                WindDirectionClosingScenarioIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                    null,
+                    new HydraSubMechanismIllustrationPoint());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("hydraWindDirectionClosingSituation", paramName);
+        }
+
+        [Test]
+        public void CreateWindDirectionClosingScenarioIllustrationPoint_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraWindDirection = new HydraWindDirection();
+
+            // Call
+            TestDelegate call = () =>
+                WindDirectionClosingScenarioIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                    new HydraWindDirectionClosingSituation(hydraWindDirection, string.Empty),
+                    null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("hydraSubMechanismIllustrationPoint", paramName);
+        }
+
+        [Test]
+        public void CreateWindDirectionClosingScenarioIllustrationPoint_ValidArguments_ExpectedProperties()
+        {
+            // Setup
+            const string closingScenario = "closing scenario";
+
+            var random = new Random(21);
+            var hydraWindDirection = new HydraWindDirection
+            {
+                Angle = random.GetFromRange(0.0, 360.0),
+                Name = "Name"
+            };
+            var windDirectionClosingSituation = new HydraWindDirectionClosingSituation(hydraWindDirection, closingScenario);
+
+            var hydraIllustrationPointResult = new HydraIllustrationPointResult
+            {
+                Description = "HydraIllustrationPointResult",
+                Value = random.NextDouble()
+            };
+            var hydraRealizedStochast = new HydraRealizedStochast
+            {
+                Alpha = random.NextDouble(),
+                Duration = random.NextDouble(),
+                Name = "HydraRealizedStochast",
+                Realization = random.NextDouble()
+            };
+            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint
+            {
+                Beta = random.NextDouble(),
+                Name = "name",
+                Results =
+                {
+                    hydraIllustrationPointResult
+                },
+                Stochasts =
+                {
+                    hydraRealizedStochast
+                }
+            };
+
+            // Call
+            WindDirectionClosingScenarioIllustrationPoint combination = 
+                WindDirectionClosingScenarioIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(windDirectionClosingSituation, subMechanismIllustrationPoint);
+
+            // Assert
+            WindDirection windDirection = combination.WindDirection;
+            Assert.AreEqual(hydraWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual(hydraWindDirection.Name, windDirection.Name);
+
+            Assert.AreEqual(closingScenario, combination.ClosingScenario);
+
+            IllustrationPoint illustrationPoint = combination.IllustrationPoint;
+            Assert.AreEqual(subMechanismIllustrationPoint.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(subMechanismIllustrationPoint.Name, illustrationPoint.Name);
+
+            IllustrationPointResult illustrationPointResult = illustrationPoint.IllustrationPointResults.Single();
+            Assert.AreEqual(hydraIllustrationPointResult.Description, illustrationPointResult.Description);
+            Assert.AreEqual(hydraIllustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
+
+            RealizedStochast stochast = illustrationPoint.Stochasts.Single();
+            Assert.AreEqual(hydraRealizedStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            int duration = Convert.ToInt32(hydraRealizedStochast.Duration);
+            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(hydraRealizedStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraRealizedStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
+        }
+    }
+}

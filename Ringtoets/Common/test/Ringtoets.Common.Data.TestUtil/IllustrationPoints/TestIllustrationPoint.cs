@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// <summary>
         /// Creates a <see cref="TestIllustrationPoint"/>.
         /// </summary>
-        public TestIllustrationPoint() 
+        public TestIllustrationPoint()
             : base("Illustration Point", Enumerable.Empty<RealizedStochast>(), Enumerable.Empty<IllustrationPointResult>(), 3.14) {}
     }
 }
