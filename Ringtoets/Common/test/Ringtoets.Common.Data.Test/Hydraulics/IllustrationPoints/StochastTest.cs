@@ -64,24 +64,5 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(5, stochast.Alpha.NumberOfDecimalPlaces);
         }
-
-        [Test]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(0.05)]
-        public void Constructor_ValidAlpha_ReturnExpectedValues(double alpha)
-        {
-            // Setup
-            var random = new Random(21);
-            int duration = random.Next();
-
-            // Call
-            var stochast = new Stochast("Stochast name", duration, alpha);
-
-            // Assert
-            Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(5, stochast.Alpha.NumberOfDecimalPlaces);
-        }
     }
 }

@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     public class RealizedStochast : Stochast
     {
         /// <summary>
-        /// Instantiates a <see cref="RealizedStochast"/>.
+        /// Creates a new instance of <see cref="RealizedStochast"/>.
         /// </summary>
         /// <param name="name">The name of the stochast.</param>
         /// <param name="duration">The duration.</param>

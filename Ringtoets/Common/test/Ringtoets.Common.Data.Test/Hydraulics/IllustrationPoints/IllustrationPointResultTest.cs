@@ -62,21 +62,5 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
                             illustrationPointResult.Value.GetAccuracy());
             Assert.AreEqual(5, illustrationPointResult.Value.NumberOfDecimalPlaces);
         }
-
-        [Test]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(0.05)]
-        public void Constructor_ValidArguments_ReturnExpectedValues(double value)
-        {
-            // Call
-            var illustrationPointResult = new IllustrationPointResult("illustration point", value);
-
-            // Assert
-            Assert.AreEqual(value, illustrationPointResult.Value,
-                            illustrationPointResult.Value.GetAccuracy());
-            Assert.AreEqual(5, illustrationPointResult.Value.NumberOfDecimalPlaces);
-        }
     }
 }

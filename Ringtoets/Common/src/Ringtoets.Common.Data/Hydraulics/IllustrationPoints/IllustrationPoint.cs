@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     public class IllustrationPoint
     {
         /// <summary>
-        /// Creates a <see cref="IllustrationPoint"/>.
+        /// Creates a new instance of <see cref="IllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point result</param>
         /// <param name="stochasts">The realized stochasts.</param>

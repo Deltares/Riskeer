@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
     public class WindDirectionTest
     {
         [Test]
-        public void Constructor_NameNull_ThrownsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -56,10 +56,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             TestDelegate call = () => new WindDirection("SSE", windDirectionAngle);
 
             // Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             const string expectedErrorMessage = "De waarde voor de windrichting moet in het bereik van [0.00, 360.00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedErrorMessage);
-            Assert.AreEqual(expectedErrorMessage, exception.Message);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedErrorMessage);
+            Assert.AreEqual("angle", exception.ParamName);
         }
 
         [Test]
@@ -67,31 +66,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         [TestCase(double.NaN)]
         [TestCase(50)]
         [TestCase(-0.004)]
-        public void Constructor_ValidWindDirection_ReturnsExpectedValues(double windDirectionAngle)
-        {
-            // Call
-            var windDirection = new WindDirection("SSE", windDirectionAngle);
-
-            // Assert
-            Assert.AreEqual(windDirectionAngle, windDirection.Angle, windDirection.Angle.GetAccuracy());
-            Assert.AreEqual(2, windDirection.Angle.NumberOfDecimalPlaces);
-        }
-
-        [Test]
-        public void Constructor_ValidValues_ReturnsExpectedValues()
+        public void Constructor_ValidValues_ReturnsExpectedValues(double angle)
         {
             // Setup
             const string windDirectionName = "SSE";
 
-            var random = new Random(21);
-            double value = random.NextDouble();
-
             // Call
-            var windDirection = new WindDirection(windDirectionName, value);
+            var windDirection = new WindDirection(windDirectionName, angle);
 
             // Assert
             Assert.AreEqual(windDirectionName, windDirection.Name);
-            Assert.AreEqual(value, windDirection.Angle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual(angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
             Assert.AreEqual(2, windDirection.Angle.NumberOfDecimalPlaces);
         }
     }

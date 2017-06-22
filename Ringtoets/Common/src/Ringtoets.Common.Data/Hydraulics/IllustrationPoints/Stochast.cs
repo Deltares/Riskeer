@@ -30,12 +30,12 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     public class Stochast
     {
         /// <summary>
-        /// Instantiates a <see cref="Stochast"/>.
+        /// Creates a new instance of <see cref="Stochast"/>.
         /// </summary>
         /// <param name="name">The name of the stochast.</param>
         /// <param name="duration">The duration.</param>
         /// <param name="alpha">The alpha value</param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public Stochast(string name, int duration, double alpha)
         {
             if (name == null)

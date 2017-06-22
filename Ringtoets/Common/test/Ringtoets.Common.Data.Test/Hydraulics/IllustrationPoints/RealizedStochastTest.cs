@@ -45,13 +45,13 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);
-            Assert.AreEqual(realization, stochast.Realization,
-                            stochast.Realization.GetAccuracy());
-            Assert.AreEqual(5, stochast.Realization.NumberOfDecimalPlaces);
-
             Assert.AreEqual(name, stochast.Name);
             Assert.AreEqual(duration, stochast.Duration);
             Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+
+            Assert.AreEqual(realization, stochast.Realization,
+                            stochast.Realization.GetAccuracy());
+            Assert.AreEqual(5, stochast.Realization.NumberOfDecimalPlaces);
         }
     }
 }

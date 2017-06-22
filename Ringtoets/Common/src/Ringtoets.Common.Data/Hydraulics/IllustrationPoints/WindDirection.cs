@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
                                                                        new RoundedDouble(windDirectionAngleNumberOfDecimals, 360));
 
         /// <summary>
-        /// Instantiates a <see cref="WindDirection"/>.
+        /// Creates a new instance of <see cref="WindDirection"/>.
         /// </summary>
         /// <param name="name">The name of the wind direction.</param>
         /// <param name="angle">The angle of the wind direction in degrees.</param>
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             {
                 string message = string.Format(Resources.WindDirection_WindDirectionAngle_Value_needs_to_be_in_Range_0_,
                                                windDirectionAngleValidityRange);
-                throw new ArgumentOutOfRangeException(null, message);
+                throw new ArgumentOutOfRangeException(nameof(angle), message);
             }
 
             Name = name;
