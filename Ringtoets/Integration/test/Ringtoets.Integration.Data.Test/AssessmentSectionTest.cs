@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -251,10 +252,9 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune)]
-        public void ChangeComposition_ToTargetValue_UpdateContributions(AssessmentSectionComposition composition)
+        [TestCaseSource(nameof(GetFailureMechanismRelevancy))]
+        public void ChangeComposition_ToTargetValue_UpdateContributionsAndFailureMechanismRelevancies(AssessmentSectionComposition composition,
+                                                                                                      bool[] relevancies)
         {
             // Setup
             AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike ?
@@ -270,6 +270,16 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             AssertExpectedContributions(composition, assessmentSection);
+            Assert.AreEqual(relevancies[0], assessmentSection.PipingFailureMechanism.IsRelevant);
+            Assert.AreEqual(relevancies[1], assessmentSection.GrassCoverErosionInwards.IsRelevant);
+            Assert.AreEqual(relevancies[2], assessmentSection.MacroStabilityInwards.IsRelevant);
+            Assert.AreEqual(relevancies[3], assessmentSection.StabilityStoneCover.IsRelevant);
+            Assert.AreEqual(relevancies[4], assessmentSection.WaveImpactAsphaltCover.IsRelevant);
+            Assert.AreEqual(relevancies[5], assessmentSection.GrassCoverErosionOutwards.IsRelevant);
+            Assert.AreEqual(relevancies[6], assessmentSection.HeightStructures.IsRelevant);
+            Assert.AreEqual(relevancies[7], assessmentSection.ClosingStructures.IsRelevant);
+            Assert.AreEqual(relevancies[8], assessmentSection.StabilityPointStructures.IsRelevant);
+            Assert.AreEqual(relevancies[9], assessmentSection.DuneErosion.IsRelevant);
         }
 
         [Test]
@@ -437,6 +447,51 @@ namespace Ringtoets.Integration.Data.Test
                     break;
             }
             return contributions;
+        }
+
+        private static IEnumerable<TestCaseData> GetFailureMechanismRelevancy()
+        {
+            yield return new TestCaseData(AssessmentSectionComposition.Dike, new[]
+            {
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false
+            });
+
+            yield return new TestCaseData(AssessmentSectionComposition.DikeAndDune, new[]
+            {
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            });
+
+            yield return new TestCaseData(AssessmentSectionComposition.Dune, new[]
+            {
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true
+            });
         }
     }
 }

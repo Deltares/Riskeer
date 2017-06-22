@@ -285,6 +285,22 @@ namespace Ringtoets.Integration.Data
                                                            typeof(AssessmentSectionComposition));
             }
             Composition = newComposition;
+            SetFailureMechanismRelevancy();
+        }
+
+        private void SetFailureMechanismRelevancy()
+        {
+            PipingFailureMechanism.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            GrassCoverErosionInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            MacroStabilityInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            StabilityStoneCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            WaveImpactAsphaltCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            GrassCoverErosionOutwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            HeightStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            ClosingStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
         }
 
         private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
