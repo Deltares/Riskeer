@@ -30,6 +30,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     public class FaultTreeIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets the combined stochasts of its children.
         /// </summary>
         public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();

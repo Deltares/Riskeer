@@ -29,6 +29,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     public class SubMechanismIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets the stochasts that were realized.
         /// </summary>
         public ICollection<RealizedStochast> Stochasts { get; } = new List<RealizedStochast>();

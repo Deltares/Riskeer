@@ -43,6 +43,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private IDictionary<int, WindDirection> windDirections;
         private IDictionary<int, string> closingSituations;
+        private IDictionary<int, string> subMechanisms;
+        private IDictionary<int, string> faultTrees;
 
         /// <summary>
         /// The result of parsing the illustration points in the Hydra-Ring database.
@@ -54,6 +56,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             string query = string.Concat(
                 IllustrationPointQueries.ClosingSituations,
                 IllustrationPointQueries.WindDirections,
+                IllustrationPointQueries.SubMechanisms,
+                IllustrationPointQueries.FaultTrees,
                 IllustrationPointQueries.GeneralAlphaValues,
                 IllustrationPointQueries.GeneralBetaValues,
                 IllustrationPointQueries.FaultTreeAlphaValues,
@@ -81,6 +85,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             ParseClosingSituations(reader);
             ProceedOrThrow(reader);
             ParseWindDirections(reader);
+            ProceedOrThrow(reader);
+            ParseSubMechanisms(reader);
+            ProceedOrThrow(reader);
+            ParseFaultTrees(reader);
             ProceedOrThrow(reader);
             ParseGeneralAlphaValues(reader);
             ProceedOrThrow(reader);
@@ -118,6 +126,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 var illustrationPoint = new SubMechanismIllustrationPoint
                 {
+                    Name = subMechanisms.First().Value,
                     Beta = subMechanismBetaValues.First().Value
                 };
                 AddRange(illustrationPoint.Results, subMechanismResults.First().Value);
@@ -313,6 +322,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, faultTreeId);
             var illustrationPoint = new FaultTreeIllustrationPoint
             {
+                Name = faultTrees[faultTreeId],
                 Beta = faultTreeBetaValues[dataKey],
                 Combine = combinationType
             };
@@ -336,6 +346,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismId);
             var illustrationPoint = new SubMechanismIllustrationPoint
             {
+                Name = subMechanisms[subMechanismId],
                 Beta = subMechanismBetaValues[dataKey]
             };
             if (subMechanismStochasts.ContainsKey(dataKey))
@@ -410,6 +421,22 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     Output.GoverningWind = windDirection;
                 }
             }
+        }
+
+        private void ParseSubMechanisms(HydraRingDatabaseReader reader)
+        {
+            IEnumerable<Dictionary<string, object>> readSubMechanisms = GetIterator(reader).ToArray();
+            subMechanisms = readSubMechanisms.ToDictionary(
+                r => Convert.ToInt32(r[IllustrationPointsDatabaseConstants.SubMechanismId]),
+                r => Convert.ToString(r[IllustrationPointsDatabaseConstants.SubMechanismName]));
+        }
+
+        private void ParseFaultTrees(HydraRingDatabaseReader reader)
+        {
+            IEnumerable<Dictionary<string, object>> readFaultTrees = GetIterator(reader).ToArray();
+            faultTrees = readFaultTrees.ToDictionary(
+                r => Convert.ToInt32(r[IllustrationPointsDatabaseConstants.FaultTreeId]),
+                r => Convert.ToString(r[IllustrationPointsDatabaseConstants.FaultTreeName]));
         }
 
         private static IEnumerable<Dictionary<string, object>> GetIterator(HydraRingDatabaseReader reader)

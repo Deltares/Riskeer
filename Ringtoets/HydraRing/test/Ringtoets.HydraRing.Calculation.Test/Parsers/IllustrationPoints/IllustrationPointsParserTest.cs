@@ -157,6 +157,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.AreEqual(11, faultTrees.Count);
             Assert.AreEqual(12, subMechanisms.Count);
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.First();
+            Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(-7.94268, subMechanismIllustrationPoint.Beta);
             Assert.AreEqual(new[]
             {
@@ -165,6 +166,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.IsEmpty(subMechanismIllustrationPoint.Results);
 
             FaultTreeIllustrationPoint faultTreeIllustrationPoint = faultTrees.First();
+            Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(2.23881, faultTreeIllustrationPoint.Beta);
             Assert.AreEqual(46, faultTreeIllustrationPoint.Stochasts.Count);
             Assert.AreEqual(new[]
@@ -207,6 +209,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.IsEmpty(faultTrees);
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.Single();
             Assert.AreEqual(4.50094, subMechanismIllustrationPoint.Beta);
+            Assert.AreEqual("Reference water level", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(new[]
             {
                 Tuple.Create("Windrichting", 0.0, 12.0, 0.0),

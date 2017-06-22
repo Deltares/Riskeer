@@ -29,7 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Selects all the closing situations.
         /// </summary>
-        public static readonly string ClosingSituations = 
+        public static readonly string ClosingSituations =
             $"SELECT {IllustrationPointsDatabaseConstants.ClosingSituationId}, " +
             "ClosingSituationName " +
             "FROM ClosingSituations;";
@@ -45,6 +45,24 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "FROM WindDirections " +
             "JOIN GoverningWind " +
             "WHERE OuterIterationId = (SELECT MAX(OuterIterationID) FROM GoverningWind);";
+
+        /// <summary>
+        /// Selects all the sub mechanisms.
+        /// </summary>
+        public static readonly string SubMechanisms =
+            "SELECT " +
+            $"{IllustrationPointsDatabaseConstants.SubMechanismId}, " +
+            $"{IllustrationPointsDatabaseConstants.SubMechanismName} " +
+            "FROM SubMechanisms;";
+
+        /// <summary>
+        /// Selects all the fault trees.
+        /// </summary>
+        public static readonly string FaultTrees =
+            "SELECT " +
+            $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
+            $"{IllustrationPointsDatabaseConstants.FaultTreeName} " +
+            "FROM FaultTrees;";
 
         /// <summary>
         /// Selects the alpha values for a general result.
@@ -72,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Selects the alpha values for each fault tree illustration point.
         /// </summary>
-        public static readonly string FaultTreeAlphaValues = 
+        public static readonly string FaultTreeAlphaValues =
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
@@ -90,7 +108,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Selects the beta values for each fault tree illustration point.
         /// </summary>
-        public static readonly string FaultTreeBetaValues = 
+        public static readonly string FaultTreeBetaValues =
             "SELECT " +
             $"{IllustrationPointsDatabaseConstants.FaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
