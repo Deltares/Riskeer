@@ -49,7 +49,11 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraGeneralResult.GoverningWind);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraGeneralResult);
 
-            return new GeneralResult(hydraGeneralResult.Beta, windDirection, stochasts);
+            // TODO WTI-1303: Write converter
+            IEnumerable<WindDirectionClosingScenarioIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
+                Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>();
+
+            return new GeneralResult(hydraGeneralResult.Beta, windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
         }
 
         private static IEnumerable<Stochast> GetStochasts(HydraGeneralResult hydraGeneralResult)

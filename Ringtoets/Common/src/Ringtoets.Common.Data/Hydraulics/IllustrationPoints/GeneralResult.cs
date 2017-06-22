@@ -35,9 +35,15 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="beta">The beta value that was realized.</param>
         /// <param name="governingWindirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindirection"/> 
-        /// or <paramref name="stochasts"/> is <c>null</c>.</exception>
-        public GeneralResult(double beta, WindDirection governingWindirection, IEnumerable<Stochast> stochasts)
+        /// <param name="windDirectionClosingSituationIllustrationPoints">A collections of all 
+        /// the combinations of wind directions, closing situations and illustration
+        /// points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindirection"/>,
+        /// <paramref name="stochasts"/> or <paramref name="windDirectionClosingSituationIllustrationPoints"/> is <c>null</c>.</exception>
+        public GeneralResult(double beta,
+                             WindDirection governingWindirection,
+                             IEnumerable<Stochast> stochasts,
+                             IEnumerable<WindDirectionClosingScenarioIllustrationPoint> windDirectionClosingSituationIllustrationPoints)
         {
             if (governingWindirection == null)
             {
@@ -47,25 +53,35 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
+            if (windDirectionClosingSituationIllustrationPoints == null)
+            {
+                throw new ArgumentNullException(nameof(windDirectionClosingSituationIllustrationPoints));
+            }
 
             Beta = beta;
             GoverningWindirection = governingWindirection;
             Stochasts = stochasts;
+            WindDirectionClosingIllustrationPoints = windDirectionClosingSituationIllustrationPoints;
         }
 
         /// <summary>
-        /// Gets or sets the general beta value.
+        /// Gets the general beta value.
         /// </summary>
         public double Beta { get; }
 
         /// <summary>
-        /// Gets or sets the governing wind direction.
+        /// Gets the governing wind direction.
         /// </summary>
         public WindDirection GoverningWindirection { get; }
 
         /// <summary>
-        /// Gets or sets the general alpha values.
+        /// Gets the general alpha values.
         /// </summary>
-        public IEnumerable<Stochast> Stochasts { get;  }
+        public IEnumerable<Stochast> Stochasts { get; }
+
+        /// <summary>
+        /// Gets 
+        /// </summary>
+        public IEnumerable<WindDirectionClosingScenarioIllustrationPoint> WindDirectionClosingIllustrationPoints { get; }
     }
 }

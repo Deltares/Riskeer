@@ -68,6 +68,7 @@
     <Compile Include="TestForeshoreProfileTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationTest.cs" />
+    <Compile Include="IllustrationPoints\TestIllustrationPointTest.cs" />
     <Compile Include="TestStructuresOutputTest.cs" />
     <Compile Include="TestStructureTest.cs" />
     <Compile Include="TestWindDirectionTest.cs" />

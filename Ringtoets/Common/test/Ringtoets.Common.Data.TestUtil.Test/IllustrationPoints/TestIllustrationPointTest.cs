@@ -23,22 +23,24 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.Test
+namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
-    public class TestWindDirectionTest
+    public class TestIllustrationPointTest
     {
         [Test]
-        public void DefaultConstructor_ReturnsExpectedProperties()
+        public void DefaultConstructor_Test()
         {
             // Call
-            var windDirection = new TestWindDirection();
+            var illustrationPoint = new TestIllustrationPoint();
 
             // Assert
-            Assert.IsInstanceOf<WindDirection>(windDirection);
+            Assert.IsInstanceOf<IllustrationPoint>(illustrationPoint);
 
-            Assert.AreEqual("SSE", windDirection.Name);
-            Assert.AreEqual(5.0, windDirection.Angle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual("Illustration Point", illustrationPoint.Name);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
         }
     }
 }

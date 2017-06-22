@@ -84,6 +84,7 @@
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\RealizedStochastTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\StochastTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\WindDirectionClosingScenarioIllustrationPointTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirectionTest.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculationTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />

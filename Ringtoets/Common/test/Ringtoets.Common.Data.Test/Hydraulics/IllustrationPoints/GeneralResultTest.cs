@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
@@ -35,7 +35,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResult(0, null, Enumerable.Empty<Stochast>());
+            TestDelegate call = () => new GeneralResult(0,
+                                                        null,
+                                                        Enumerable.Empty<Stochast>(),
+                                                        Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -49,11 +52,31 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var windDirection = new TestWindDirection();
 
             // Call
-            TestDelegate call = () => new GeneralResult(0, windDirection, null);
+            TestDelegate call = () => new GeneralResult(0,
+                                                        windDirection,
+                                                        null,
+                                                        Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("stochasts", paramName);
+        }
+
+        [Test]
+        public void Constructor_WindDirectionClosingScenarioIllustrationPointsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var windDirection = new TestWindDirection();
+
+            // Call
+            TestDelegate call = () => new GeneralResult(0,
+                                                        windDirection,
+                                                        Enumerable.Empty<Stochast>(),
+                                                        null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("windDirectionClosingScenarioIllustrationPoints", paramName);
         }
 
         [Test]
@@ -64,14 +87,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
             var windDirection = new TestWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
+            IEnumerable<WindDirectionClosingScenarioIllustrationPoint> combinations =
+                Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>();
 
             // Call
-            var generalResult = new GeneralResult(beta, windDirection, stochasts);
+            var generalResult = new GeneralResult(beta, windDirection, stochasts, combinations);
 
             // Assert
             Assert.AreEqual(beta, generalResult.Beta);
             Assert.AreSame(windDirection, generalResult.GoverningWindirection);
             Assert.AreSame(stochasts, generalResult.Stochasts);
+            Assert.AreSame(combinations, generalResult.WindDirectionClosingIllustrationPoints);
         }
     }
 }

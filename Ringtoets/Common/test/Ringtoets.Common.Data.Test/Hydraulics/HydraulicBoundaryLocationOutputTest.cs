@@ -132,7 +132,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             double beta = random.NextDouble();
             var generalResult = new GeneralResult(beta,
                                                   windDirection,
-                                                  Enumerable.Empty<Stochast>());
+                                                  Enumerable.Empty<Stochast>(),
+                                                  Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>());
 
             // Call
             var output = new HydraulicBoundaryLocationOutput(result, targetProbability,

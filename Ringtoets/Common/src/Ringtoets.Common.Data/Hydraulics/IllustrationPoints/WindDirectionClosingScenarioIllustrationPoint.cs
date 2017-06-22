@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -21,21 +21,23 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
 {
     /// <summary>
-    /// Combination of a wind direction and a closing situation.
+    /// Combination of <see cref="WindDirection"/>, closing situation and 
+    /// <see cref="IllustrationPoint"/>.
     /// </summary>
-    public class WindDirectionClosingSituation
+    public class WindDirectionClosingScenarioIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WindDirectionClosingSituation"/>.
+        /// Creates an instance of <see cref="WindDirectionClosingScenarioIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.
-        /// </exception>
-        public WindDirectionClosingSituation(WindDirection windDirection, string closingSituation)
+        /// <param name="illustrationPoint">The illustrationPoint.</param>
+        public WindDirectionClosingScenarioIllustrationPoint(WindDirection windDirection,
+                                                             string closingSituation,
+                                                             IllustrationPoint illustrationPoint)
         {
             if (windDirection == null)
             {
@@ -45,9 +47,14 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
+            if (illustrationPoint == null)
+            {
+                throw new ArgumentNullException(nameof(illustrationPoint));
+            }
 
             WindDirection = windDirection;
             ClosingSituation = closingSituation;
+            IllustrationPoint = illustrationPoint;
         }
 
         /// <summary>
@@ -60,31 +67,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// </summary>
         public WindDirection WindDirection { get; }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            return obj.GetType() == GetType() && Equals((WindDirectionClosingSituation) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (WindDirection.GetHashCode() * 397) ^ ClosingSituation.GetHashCode();
-            }
-        }
-
-        private bool Equals(WindDirectionClosingSituation other)
-        {
-            return Equals(WindDirection, other.WindDirection)
-                   && string.Equals(ClosingSituation, other.ClosingSituation);
-        }
+        /// <summary>
+        /// Gets the illustration point.
+        /// </summary>
+        public IllustrationPoint IllustrationPoint { get; }
     }
 }

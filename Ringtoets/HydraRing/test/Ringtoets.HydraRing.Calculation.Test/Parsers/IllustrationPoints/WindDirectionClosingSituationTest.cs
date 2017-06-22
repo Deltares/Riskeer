@@ -62,6 +62,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             // Assert
             Assert.NotNull(instance);
+            Assert.AreEqual(closingSituation, instance.ClosingSituation);
+            Assert.AreSame(windDirection, instance.WindDirection);
         }
 
         [Test]

@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// Simple wind direction which can be used for testing.
