@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
 using HydraStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.Stochast;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.RealizedStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -79,6 +80,58 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(duration, stochast.Duration);
             Assert.AreEqual(hydraStochast.Name, stochast.Name);
+        }
+
+        [Test]
+        public void CreateRealizedStochast_HydraRealizedStochastNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StochastConverter.CreateRealizedStochast(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("hydraRealizedStochast", paramName);
+        }
+
+        [Test]
+        public void CreateRealizedStochast_HydraRealizedStochastNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraStochast = new HydraRealizedStochast
+            {
+                Alpha = 0,
+                Duration = 0
+            };
+
+            // Call
+            TestDelegate call = () => StochastConverter.CreateStochast(hydraStochast);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void CreateRealizedStochast_ValidArguments_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(21);
+            int duration = random.Next();
+            var hydraStochast = new HydraRealizedStochast
+            {
+                Alpha = random.NextDouble(),
+                Duration = duration,
+                Name = "Name",
+                Realization = random.NextDouble()
+            };
+
+            // Call
+            RealizedStochast stochast = StochastConverter.CreateRealizedStochast(hydraStochast);
+
+            // Assert
+            Assert.AreEqual(hydraStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(hydraStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
     }
 }

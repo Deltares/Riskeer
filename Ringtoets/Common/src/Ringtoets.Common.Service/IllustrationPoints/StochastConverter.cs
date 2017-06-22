@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using HydraStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.Stochast;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.RealizedStochast;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -46,6 +47,27 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             }
             int stochastDuration = Convert.ToInt32(hydraStochast.Duration);
             return new Stochast(hydraStochast.Name, stochastDuration, hydraStochast.Alpha);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RealizedStochast"/> based on the information of <paramref name="hydraRealizedStochast"/>.
+        /// </summary>
+        /// <param name="hydraRealizedStochast">The <see cref="HydraRealizedStochast"/> to base the 
+        /// <see cref="RealizedStochast"/> to create on.</param>
+        /// <returns>The newly created <see cref="Stochast"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRealizedStochast"/> 
+        /// or <see cref="HydraStochast.Name"/> is <c>null</c>.</exception>
+        public static RealizedStochast CreateRealizedStochast(HydraRealizedStochast hydraRealizedStochast)
+        {
+            if (hydraRealizedStochast == null)
+            {
+                throw new ArgumentNullException(nameof(hydraRealizedStochast));
+            }
+            int stochastDuration = Convert.ToInt32(hydraRealizedStochast.Duration);
+            return new RealizedStochast(hydraRealizedStochast.Name,
+                                        stochastDuration,
+                                        hydraRealizedStochast.Alpha,
+                                        hydraRealizedStochast.Realization);
         }
     }
 }
