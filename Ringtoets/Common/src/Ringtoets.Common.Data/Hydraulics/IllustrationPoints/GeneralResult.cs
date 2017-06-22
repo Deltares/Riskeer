@@ -35,15 +35,15 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="beta">The beta value that was realized.</param>
         /// <param name="governingWindirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
-        /// <param name="windDirectionClosingSituationIllustrationPoints">A collections of all 
+        /// <param name="windDirectionClosingScenarioIllustrationPoints">A collections of all 
         /// the combinations of wind directions, closing situations and illustration
         /// points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindirection"/>,
-        /// <paramref name="stochasts"/> or <paramref name="windDirectionClosingSituationIllustrationPoints"/> is <c>null</c>.</exception>
+        /// <paramref name="stochasts"/> or <paramref name="windDirectionClosingScenarioIllustrationPoints"/> is <c>null</c>.</exception>
         public GeneralResult(double beta,
                              WindDirection governingWindirection,
                              IEnumerable<Stochast> stochasts,
-                             IEnumerable<WindDirectionClosingScenarioIllustrationPoint> windDirectionClosingSituationIllustrationPoints)
+                             IEnumerable<WindDirectionClosingScenarioIllustrationPoint> windDirectionClosingScenarioIllustrationPoints)
         {
             if (governingWindirection == null)
             {
@@ -53,15 +53,15 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
-            if (windDirectionClosingSituationIllustrationPoints == null)
+            if (windDirectionClosingScenarioIllustrationPoints == null)
             {
-                throw new ArgumentNullException(nameof(windDirectionClosingSituationIllustrationPoints));
+                throw new ArgumentNullException(nameof(windDirectionClosingScenarioIllustrationPoints));
             }
 
             Beta = beta;
             GoverningWindirection = governingWindirection;
             Stochasts = stochasts;
-            WindDirectionClosingIllustrationPoints = windDirectionClosingSituationIllustrationPoints;
+            WindDirectionClosingIllustrationPoints = windDirectionClosingScenarioIllustrationPoints;
         }
 
         /// <summary>
