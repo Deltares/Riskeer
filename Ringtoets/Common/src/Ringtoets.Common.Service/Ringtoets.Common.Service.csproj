@@ -48,6 +48,9 @@
     <Compile Include="HydraRingInputParser.cs" />
     <Compile Include="HydraRingSettingsDatabaseHelper.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidator.cs" />
+    <Compile Include="IllustrationPoints\GeneralResultConverter.cs" />
+    <Compile Include="IllustrationPoints\StochastConverter.cs" />
+    <Compile Include="IllustrationPoints\WindDirectionConverter.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="SynchronizeCalculationWithForeshoreProfileHelper.cs" />
     <Compile Include="ValidationRules\NumericInputRule.cs" />
@@ -117,6 +120,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
