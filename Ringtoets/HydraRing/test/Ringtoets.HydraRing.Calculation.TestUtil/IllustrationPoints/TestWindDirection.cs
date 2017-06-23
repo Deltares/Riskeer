@@ -19,26 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// A simple general result which can be used for testing.
+    /// A simple <see cref="WindDirection"/> class which can be used for testing.
     /// </summary>
-    public class TestGeneralResult : GeneralResult
+    public class TestWindDirection : WindDirection
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestGeneralResult"/>.
+        /// Creates an instance of <see cref="TestWindDirection"/>
         /// </summary>
-        public TestGeneralResult()
-        {
-            Beta = 0;
-            GoverningWind = new WindDirection("TestWindDirection", 123);
-            Stochasts = Enumerable.Empty<Stochast>();
-            IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
-        }
+        public TestWindDirection() : base("SSE", 123) {}
     }
 }

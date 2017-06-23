@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -31,6 +30,7 @@ using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.
 using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
+using HydraRingTestWindDirection = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void CreateWindDirectionClosingScenarioIllustrationPoint_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraWindDirection = new HydraWindDirection();
+            var hydraWindDirection =  new HydraRingTestWindDirection(); 
 
             // Call
             TestDelegate call = () =>
@@ -75,11 +75,9 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             const string closingScenario = "closing scenario";
 
             var random = new Random(21);
-            var hydraWindDirection = new HydraWindDirection
-            {
-                Angle = random.GetFromRange(0.0, 360.0),
-                Name = "Name"
-            };
+            double angle = random.NextDouble();
+            var hydraWindDirection = new HydraWindDirection("Name", angle);
+
             var windDirectionClosingSituation = new HydraWindDirectionClosingSituation(hydraWindDirection, closingScenario);
 
             var hydraIllustrationPointResult = new HydraIllustrationPointResult

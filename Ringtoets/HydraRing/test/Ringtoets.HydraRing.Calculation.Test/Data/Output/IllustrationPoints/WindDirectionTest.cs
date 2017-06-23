@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
@@ -28,21 +29,46 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
     public class WindDirectionTest
     {
         [Test]
-        public void Constructor_Always_ReturnsNewInstance()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+            double windDirectionAngle = random.NextDouble();
+
             // Call
-            var direction = new WindDirection();
+            TestDelegate call = () => new WindDirection(null, windDirectionAngle);
 
             // Assert
-            Assert.IsNull(direction.Name);
-            Assert.IsNaN(direction.Angle);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ReturnsExpectedValues()
+        {
+            // Setup
+            const string windDirectionName = "SSE";
+            
+            var random = new Random(21);
+            double windDirectionAngle = random.NextDouble();
+
+            // Call
+            var direction = new WindDirection(windDirectionName, windDirectionAngle);
+
+            // Assert
+            Assert.AreEqual(windDirectionName, direction.Name);
+            Assert.AreEqual(windDirectionAngle, direction.Angle);
         }
 
         [Test]
         public void Equals_WithNull_ReturnsFalse()
         {
             // Setup
-            var direction = new WindDirection();
+            const string windDirectionName = "SSE";
+
+            var random = new Random(21);
+            double windDirectionAngle = random.NextDouble();
+            var direction = new WindDirection(windDirectionName, windDirectionAngle);
 
             // Call
             bool result = direction.Equals(null);
@@ -55,7 +81,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Equals_DiffentType_ReturnsFalse()
         {
             // Setup
-            var direction = new WindDirection();
+            const string windDirectionName = "SSE";
+
+            var random = new Random(21);
+            double windDirectionAngle = random.NextDouble();
+            var direction = new WindDirection(windDirectionName, windDirectionAngle);
 
             // Call
             bool result = direction.Equals(new object());
@@ -86,16 +116,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             const string name = "general";
             const double angle = 3.4;
 
-            var generator = new WindDirection
-            {
-                Name = name,
-                Angle = angle
-            };
-            var otherGenerator = new WindDirection
-            {
-                Name = name,
-                Angle = angle
-            };
+            var generator = new WindDirection(name, angle);
+            var otherGenerator = new WindDirection(name, angle);
 
             // Call
             int result = generator.GetHashCode();
@@ -107,21 +129,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 
         private static TestCaseData[] Combinations()
         {
-            var windDirectionA = new WindDirection
-            {
-                Angle = 123.2,
-                Name = "a"
-            };
-            var windDirectionB = new WindDirection
-            {
-                Angle = 123.2,
-                Name = "a"
-            };
-            var windDirectionC = new WindDirection
-            {
-                Angle = 3.2,
-                Name = "a"
-            };
+            var windDirectionA = new WindDirection("a", 123.2);
+            var windDirectionB = new WindDirection("a", 123.2);
+            var windDirectionC = new WindDirection("a", 3.2);
+            var windDirectionD = new WindDirection("d", 123.2);
 
             return new[]
             {
@@ -137,9 +148,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
                 {
                     TestName = "Equals_WindDirectionBWindDirectionC_False"
                 },
-                new TestCaseData(windDirectionA, windDirectionC, false)
+                 new TestCaseData(windDirectionC, windDirectionD, false)
                 {
-                    TestName = "Equals_WindDirectionAWindDirectionC_False"
+                    TestName = "Equals_WindDirectionAWindDirectionD_False"
                 }
             };
         }

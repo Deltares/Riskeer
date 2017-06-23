@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
@@ -43,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithoutClosingSituation_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WindDirectionClosingSituation(new WindDirection(), null);
+            TestDelegate test = () => new WindDirectionClosingSituation(new TestWindDirection(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -55,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             string closingSituation = string.Empty;
-            var windDirection = new WindDirection();
+            var windDirection = new TestWindDirection();
 
             // Call
             var instance = new WindDirectionClosingSituation(windDirection, closingSituation);
@@ -70,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Equals_WithNull_ReturnsFalse()
         {
             // Setup
-            var instance = new WindDirectionClosingSituation(new WindDirection(), string.Empty);
+            var instance = new WindDirectionClosingSituation(new TestWindDirection(), string.Empty);
 
             // Call
             bool result = instance.Equals(null);
@@ -83,7 +84,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Equals_DiffentType_ReturnsFalse()
         {
             // Setup
-            var instance = new WindDirectionClosingSituation(new WindDirection(), string.Empty);
+            var instance = new WindDirectionClosingSituation(new TestWindDirection(), string.Empty);
 
             // Call
             bool result = instance.Equals(new object());
@@ -111,7 +112,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void GetHashCode_InstancesAreEqual_FiltersHashesEqual()
         {
             // Setup
-            var windDirection = new WindDirection();
+            const string windDirectionName = "SSE";
+
+            var random = new Random(21);
+            double windDirectionAngle = random.NextDouble();
+            var windDirection = new WindDirection(windDirectionName, windDirectionAngle);
+
             const string closingSituation = "general";
 
             var instance = new WindDirectionClosingSituation(windDirection, closingSituation);
@@ -127,26 +133,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 
         private static TestCaseData[] Combinations()
         {
-            var instanceA = new WindDirectionClosingSituation(new WindDirection
-            {
-                Angle = 123.2,
-                Name = "a"
-            }, "situationA");
-            var instanceB = new WindDirectionClosingSituation(new WindDirection
-            {
-                Angle = 123.2,
-                Name = "a"
-            }, "situationA");
-            var instanceC = new WindDirectionClosingSituation(new WindDirection
-            {
-                Angle = 3.2,
-                Name = "a"
-            }, "situationA");
-            var instanceD = new WindDirectionClosingSituation(new WindDirection
-            {
-                Angle = 123.2,
-                Name = "a"
-            }, "situationB");
+            var instanceA = new WindDirectionClosingSituation(new WindDirection("a", 123.2), "situationA");
+            var instanceB = new WindDirectionClosingSituation(new WindDirection("a", 123.2), "situationA");
+            var instanceC = new WindDirectionClosingSituation(new WindDirection("a", 3.2), "situationA");
+            var instanceD = new WindDirectionClosingSituation(new WindDirection("a", 123.2), "situationB");
 
             return new[]
             {

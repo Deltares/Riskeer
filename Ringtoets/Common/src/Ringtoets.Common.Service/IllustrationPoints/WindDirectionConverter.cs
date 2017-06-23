@@ -37,9 +37,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <see cref="WindDirection"/> to create on.</param>
         /// <returns>The newly created <see cref="WindDirection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraWindDirection"/> 
-        /// or <see cref="HydraWindDirection.Name"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <see cref="HydraWindDirection.Angle"/>
-        /// is not in the interval of [0, 360].</exception>
+        /// is <c>null</c>.</exception>
         public static WindDirection CreateWindDirection(HydraWindDirection hydraWindDirection)
         {
             if (hydraWindDirection == null)

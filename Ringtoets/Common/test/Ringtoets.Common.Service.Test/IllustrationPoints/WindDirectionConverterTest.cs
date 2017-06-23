@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -44,53 +43,12 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateWindDirection_HydraWindDirectionNameNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraWindDirection = new HydraWindDirection
-            {
-                Angle = 0
-            };
-
-            // Call
-            TestDelegate call = () => WindDirectionConverter.CreateWindDirection(hydraWindDirection);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
-        [TestCase(-1)]
-        [TestCase(361)]
-        [SetCulture("nl-NL")]
-        public void CreateWindDirection_InvalidAngle_ThrowsArgumentOutOfRangeException(double angle)
-        {
-            // Setup
-            var hydraWindDirection = new HydraWindDirection
-            {
-                Angle = angle,
-                Name = "Name"
-            };
-
-            // Call
-            TestDelegate call = () => WindDirectionConverter.CreateWindDirection(hydraWindDirection);
-
-            // Assert
-            const string expectedErrorMessage = "De waarde voor de windrichting moet in het bereik van [0,00, 360,00] liggen.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedErrorMessage);
-            Assert.AreEqual("angle", exception.ParamName);
-        }
-
-        [Test]
         public void CreateWindDirection_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
-            var hydraWindDirection = new HydraWindDirection
-            {
-                Angle = random.GetFromRange(0.0, 360.0),
-                Name = "Name"
-            };
+            double angle = random.NextDouble();
+            var hydraWindDirection = new HydraWindDirection("name", angle);
 
             // Call
             WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraWindDirection);

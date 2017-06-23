@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
 {
@@ -30,12 +29,6 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     /// </summary>
     public class WindDirection
     {
-        private const int windDirectionAngleNumberOfDecimals = 2;
-
-        private static readonly Range<RoundedDouble>
-            windDirectionAngleValidityRange = new Range<RoundedDouble>(new RoundedDouble(windDirectionAngleNumberOfDecimals),
-                                                                       new RoundedDouble(windDirectionAngleNumberOfDecimals, 360));
-
         /// <summary>
         /// Creates a new instance of <see cref="WindDirection"/>.
         /// </summary>
@@ -43,8 +36,6 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="angle">The angle of the wind direction in degrees.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="angle"/>
-        /// is not in the interval of [0, 360].</exception>
         public WindDirection(string name, double angle)
         {
             if (name == null)
@@ -52,17 +43,8 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
                 throw new ArgumentNullException(nameof(name));
             }
 
-            var windDirectionAngle = new RoundedDouble(2, angle);
-            if (!windDirectionAngle.Equals(double.NaN)
-                && !windDirectionAngleValidityRange.InRange(windDirectionAngle))
-            {
-                string message = string.Format(Resources.WindDirection_WindDirectionAngle_Value_needs_to_be_in_Range_0_,
-                                               windDirectionAngleValidityRange);
-                throw new ArgumentOutOfRangeException(nameof(angle), message);
-            }
-
             Name = name;
-            Angle = windDirectionAngle;
+            Angle = new RoundedDouble(2, angle);
         }
 
         /// <summary>

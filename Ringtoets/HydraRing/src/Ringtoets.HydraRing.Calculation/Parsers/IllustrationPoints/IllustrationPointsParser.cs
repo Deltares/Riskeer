@@ -397,11 +397,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 double angle = Convert.ToDouble(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionAngle]);
                 bool isGoverning = Convert.ToBoolean(readWindDirection[IllustrationPointsDatabaseConstants.IsGoverning]);
 
-                var windDirection = new WindDirection
-                {
-                    Name = name,
-                    Angle = angle
-                };
+                var windDirection = new WindDirection(name, angle);
                 windDirections[key] = windDirection;
 
                 if (isGoverning)

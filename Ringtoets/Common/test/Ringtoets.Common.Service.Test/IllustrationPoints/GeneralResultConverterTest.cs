@@ -52,34 +52,12 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResult_HydraGoverningWindNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraGeneralResult = new HydraGeneralResult
-            {
-                Beta = 0,
-                GoverningWind = new HydraWindDirection(),
-                Stochasts = new List<HydraWindStochast>()
-            };
-
-            // Call
-            TestDelegate call = () => GeneralResultConverter.CreateGeneralResult(hydraGeneralResult);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("name", paramName);
-        }
-
-        [Test]
         public void CreateGeneralResult_ValidArgumentsWithoutIllustrationPoints_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
-            var hydraGoverningWindDirection = new HydraWindDirection
-            {
-                Angle = random.GetFromRange(0.0, 360.0),
-                Name = "Name"
-            };
+            double angle = random.NextDouble();
+            var hydraGoverningWindDirection = new HydraWindDirection("Name", angle);
 
             var hydraGeneralResult = new HydraGeneralResult
             {
@@ -102,14 +80,11 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void CreateGeneralResult_GeneralResultWithSubmechanismIllustrationPointsOnly_ExpectedProperties()
         {
             // Setup
-            var random = new Random(21);
-
             const string closingSituation = "Closing situation";
-            var hydraWindDirection = new HydraWindDirection
-            {
-                Angle = random.NextDouble(),
-                Name = "SSE"
-            };
+
+            var random = new Random(21);
+            double windDirectionAngle = random.NextDouble();
+            var hydraWindDirection = new HydraWindDirection("SSE", windDirectionAngle);
             var hydraWindDirectionClosingSituation =
                 new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
 
@@ -120,11 +95,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             };
             var hydraIllustrationTreeNode = new IllustrationPointTreeNode(hydraIllustrationPoint);
 
-            var governingHydraWindDirection = new HydraWindDirection
-            {
-                Angle = random.GetFromRange(0.0, 360.0),
-                Name = "Name"
-            };
+            double governingWindDirectionAngle = random.NextDouble();
+            var governingHydraWindDirection = new HydraWindDirection("Name", governingWindDirectionAngle);
             var hydraGeneralResult = new HydraGeneralResult
             {
                 Beta = random.NextDouble(),
@@ -163,13 +135,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-
+            
             const string closingSituation = "Closing situation";
-            var hydraWindDirection = new HydraWindDirection
-            {
-                Angle = random.NextDouble(),
-                Name = "SSE"
-            };
+            double windDirectionAngle = random.NextDouble();
+            var hydraWindDirection = new HydraWindDirection("SSE", windDirectionAngle);
             var hydraWindDirectionClosingSituation =
                 new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
 
@@ -178,11 +147,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                                                                         random.NextEnumValue<CombinationType>());
             var hydraIllustrationTreeNode = new IllustrationPointTreeNode(hydraIllustrationPoint);
 
-            var governingHydraWindDirection = new HydraWindDirection
-            {
-                Angle = random.GetFromRange(0.0, 360.0),
-                Name = "Name"
-            };
+            double governingWindDirectionAngle = random.NextDouble();
+            var governingHydraWindDirection = new HydraWindDirection("Name", governingWindDirectionAngle);
             var hydraGeneralResult = new HydraGeneralResult
             {
                 Beta = random.NextDouble(),

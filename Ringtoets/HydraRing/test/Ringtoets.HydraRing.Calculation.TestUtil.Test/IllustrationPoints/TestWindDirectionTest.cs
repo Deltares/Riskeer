@@ -21,39 +21,23 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
-    public class TestGeneralResultTest
+    public class TestWindDirectionTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        public void DefaultConstructor_ReturnsExpectedProperties()
         {
             // Call
-            var generalResult = new TestGeneralResult();
+            var windDirection = new TestWindDirection();
 
             // Assert
-            Assert.IsInstanceOf<GeneralResult>(generalResult);
-            Assert.AreEqual(0, generalResult.Beta);
-
-            var expectedWindDirection = new WindDirection("TestWindDirection", 123);
-            AssertWindDirection(expectedWindDirection, generalResult.GoverningWind);
-            Assert.IsEmpty(generalResult.Stochasts);
-            Assert.IsEmpty(generalResult.IllustrationPoints);
-        }
-
-        private static void AssertWindDirection(WindDirection expected, WindDirection actual)
-        {
-            if (expected == null)
-            {
-                Assert.IsNull(actual);
-                return;
-            }
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Angle, actual.Angle);
+            Assert.IsInstanceOf<WindDirection>(windDirection);
+            Assert.AreEqual("SSE", windDirection.Name);
+            Assert.AreEqual(123, windDirection.Angle);
         }
     }
 }

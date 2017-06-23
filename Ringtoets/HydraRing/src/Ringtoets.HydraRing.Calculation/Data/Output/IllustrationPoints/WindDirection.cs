@@ -19,13 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// A wind direction for which illustration points are determined.
     /// </summary>
-    public sealed class WindDirection
+    public class WindDirection
     {
+        /// <summary>
+        /// Creates a <see cref="WindDirection"/>.
+        /// </summary>
+        /// <param name="name">The descriptive name.</param>
+        /// <param name="angle">The angle.</param>
+        public WindDirection(string name, double angle)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            Name = name;
+            Angle = angle;
+        }
+
         /// <summary>
         /// Gets or sets the descriptive name.
         /// </summary>
@@ -34,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets or sets the angle.
         /// </summary>
-        public double Angle { get; set; } = double.NaN;
+        public double Angle { get; set; }
 
         public override bool Equals(object obj)
         {
