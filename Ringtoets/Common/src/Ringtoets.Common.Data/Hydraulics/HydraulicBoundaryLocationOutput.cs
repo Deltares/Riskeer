@@ -34,29 +34,12 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationOutput"/>.
         /// </summary>
-        /// <param name="result">The calculation result.</param> 
-        /// <param name="targetProbability">The norm used during the calculation.</param>
-        /// <param name="targetReliability">The reliability index used during the calculation.</param>
-        /// <param name="calculatedProbability">the calculated probability.</param>
-        /// <param name="calculatedReliability">The calculated reliability.</param>
-        /// <param name="calculationConvergence">The convergence status of the calculation.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        public HydraulicBoundaryLocationOutput(double result, double targetProbability, double targetReliability,
-                                               double calculatedProbability, double calculatedReliability,
-                                               CalculationConvergence calculationConvergence)
-            : this(result, targetProbability, targetReliability, calculatedProbability, calculatedReliability, calculationConvergence, null) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationOutput"/>.
-        /// </summary>
         /// <param name="result">The calculation result.</param>
         /// <param name="targetProbability">The norm used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
         /// <param name="calculatedProbability">the calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
-        /// <param name="generalResult">The general illustration point result.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public HydraulicBoundaryLocationOutput(double result,
@@ -64,8 +47,7 @@ namespace Ringtoets.Common.Data.Hydraulics
                                                double targetReliability,
                                                double calculatedProbability,
                                                double calculatedReliability,
-                                               CalculationConvergence calculationConvergence,
-                                               GeneralResult generalResult)
+                                               CalculationConvergence calculationConvergence)
         {
             ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
             ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);
@@ -77,7 +59,6 @@ namespace Ringtoets.Common.Data.Hydraulics
             CalculatedProbability = calculatedProbability;
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
             CalculationConvergence = calculationConvergence;
-            GeneralResult = generalResult;
         }
 
         /// <summary>
@@ -118,7 +99,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the general illustration points result.
         /// </summary>
-        public GeneralResult GeneralResult { get; }
+        public GeneralResult GeneralResult { get; private set; }
 
         /// <summary>
         /// Gets if the output contains illustration points.
@@ -129,6 +110,21 @@ namespace Ringtoets.Common.Data.Hydraulics
             {
                 return GeneralResult != null;
             }
+        }
+
+        /// <summary>
+        /// Sets the general result of the illustration points.
+        /// </summary>
+        /// <param name="generalResult"></param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/> 
+        /// is <c>null</c>.</exception>
+        public void SetIllustrationPoints(GeneralResult generalResult)
+        {
+            if (generalResult == null)
+            {
+                throw new ArgumentNullException(nameof(generalResult));
+            }
+            GeneralResult = generalResult;
         }
     }
 }

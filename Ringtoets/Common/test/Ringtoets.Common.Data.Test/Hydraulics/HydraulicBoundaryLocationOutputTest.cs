@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -47,7 +46,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
+            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result,
+                                                                          targetProbability,
                                                                           targetReliability,
                                                                           calculatedProbability,
                                                                           calculatedReliability,
@@ -74,7 +74,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result, targetProbability,
+            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result,
+                                                                          targetProbability,
                                                                           targetReliability,
                                                                           calculatedProbability,
                                                                           calculatedReliability,
@@ -87,7 +88,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidInputWithoutGeneralResult_ExpectedProperties()
+        public void Constructor_ValidInput_ExpectedProperties()
         {
             // Setup
             var random = new Random(32);
@@ -99,7 +100,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
+            var output = new HydraulicBoundaryLocationOutput(result,
+                                                             targetProbability,
                                                              targetReliability,
                                                              calculatedProbability,
                                                              calculatedReliability,
@@ -117,72 +119,37 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidInputWithGeneralResult_ExpectedProperties()
+        public void SetIllustrationPoints_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(32);
             double result = random.NextDouble();
-            double targetProbability = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
-
-            var windDirection = new WindDirection("SSE", random.NextDouble());
-            double beta = random.NextDouble();
-            var generalResult = new GeneralResult(beta,
-                                                  windDirection,
-                                                  Enumerable.Empty<Stochast>(),
-                                                  Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>());
+            var output = new TestHydraulicBoundaryLocationOutput(result);
 
             // Call
-            var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
-                                                             targetReliability,
-                                                             calculatedProbability,
-                                                             calculatedReliability,
-                                                             convergence,
-                                                             generalResult);
+            TestDelegate call = () => output.SetIllustrationPoints(null);
 
             // Assert
-            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
-            Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.AreSame(generalResult, output.GeneralResult);
-            Assert.IsTrue(output.HasIllustrationPoints);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("generalResult", paramName);
         }
 
         [Test]
-        public void Constructor_ValidInputWithGeneralResultNull_ExpectedProperties()
+        public void SetIllustrationPoints_ValidGeneralResult_SetsExpectedProperties()
         {
             // Setup
             var random = new Random(32);
             double result = random.NextDouble();
-            double targetProbability = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
+            var output = new TestHydraulicBoundaryLocationOutput(result);
+
+            var generalResult = new TestGeneralResult();
 
             // Call
-            var output = new HydraulicBoundaryLocationOutput(result, targetProbability,
-                                                             targetReliability,
-                                                             calculatedProbability,
-                                                             calculatedReliability,
-                                                             convergence,
-                                                             null);
+            output.SetIllustrationPoints(generalResult);
 
             // Assert
-            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
-            Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsNull(output.GeneralResult);
-            Assert.IsFalse(output.HasIllustrationPoints);
+            Assert.AreSame(generalResult, output.GeneralResult);
+            Assert.IsTrue(output.HasIllustrationPoints);
         }
     }
 }
