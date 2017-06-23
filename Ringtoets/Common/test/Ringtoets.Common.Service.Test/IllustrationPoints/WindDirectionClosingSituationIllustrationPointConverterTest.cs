@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             TestDelegate call = () =>
                 WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
                     null,
-                    new HydraSubMechanismIllustrationPoint());
+                    new HydraSubMechanismIllustrationPoint("name", 123));
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -92,10 +92,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 Name = "HydraRealizedStochast",
                 Realization = random.NextDouble()
             };
-            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint
+
+            double beta = random.NextDouble();
+            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", beta)
             {
-                Beta = random.NextDouble(),
-                Name = "name",
                 Results =
                 {
                     hydraIllustrationPointResult

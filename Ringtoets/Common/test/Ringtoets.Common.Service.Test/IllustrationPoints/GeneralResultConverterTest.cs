@@ -88,11 +88,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraWindDirectionClosingSituation =
                 new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
 
-            var hydraIllustrationPoint = new HydraSubMechanismIllustrationPoint
-            {
-                Beta = random.NextDouble(),
-                Name = " IllustrationPoint"
-            };
+            double beta = random.NextDouble();
+            var hydraIllustrationPoint = new HydraSubMechanismIllustrationPoint("Illustration Point", beta);
             var hydraIllustrationTreeNode = new IllustrationPointTreeNode(hydraIllustrationPoint);
 
             double governingWindDirectionAngle = random.NextDouble();

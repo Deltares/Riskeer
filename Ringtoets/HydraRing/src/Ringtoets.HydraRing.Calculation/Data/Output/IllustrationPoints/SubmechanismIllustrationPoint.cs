@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
@@ -29,6 +30,27 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     public class SubMechanismIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="name">The name of the illustration point.</param>
+        /// <param name="beta">The beta value of the illustration point</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public SubMechanismIllustrationPoint(string name, double beta)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            Name = name;
+            Beta = beta;
+            Stochasts = new List<RealizedStochast>();
+            Results = new List<IllustrationPointResult>();
+        }
+
+
+        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
@@ -36,16 +58,16 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the stochasts that were realized.
         /// </summary>
-        public ICollection<RealizedStochast> Stochasts { get; } = new List<RealizedStochast>();
+        public ICollection<RealizedStochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the beta values that were realized.
         /// </summary>
-        public double Beta { get; set; } = double.NaN;
+        public double Beta { get; set; }
 
         /// <summary>
         /// Gets the output variables.
         /// </summary>
-        public ICollection<IllustrationPointResult> Results { get; } = new List<IllustrationPointResult>();
+        public ICollection<IllustrationPointResult> Results { get; }
     }
 }

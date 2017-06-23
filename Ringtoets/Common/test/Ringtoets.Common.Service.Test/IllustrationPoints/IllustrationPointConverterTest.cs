@@ -64,10 +64,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 Name = "HydraRealizedStochast",
                 Realization = random.NextDouble()
             };
-            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint
+
+            double beta = random.NextDouble();
+            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", beta)
             {
-                Beta = random.NextDouble(),
-                Name = "name",
                 Results =
                 {
                     hydraIllustrationPointResult

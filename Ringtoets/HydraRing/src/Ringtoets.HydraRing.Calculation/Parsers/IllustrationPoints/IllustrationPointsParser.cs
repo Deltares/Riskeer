@@ -125,11 +125,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             var rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
             foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in GetAllWindDirectionClosingSituationCombinations())
             {
-                var illustrationPoint = new SubMechanismIllustrationPoint
-                {
-                    Name = subMechanisms.First().Value,
-                    Beta = subMechanismBetaValues.First().Value
-                };
+                string submechanismIllustrationPointName = subMechanisms.First().Value;
+                double subMechanismIllustrationPointBeta = subMechanismBetaValues.First().Value;
+                var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+                                                                          subMechanismIllustrationPointBeta);
+
                 AddRange(illustrationPoint.Results, subMechanismResults.First().Value);
                 AddRange(illustrationPoint.Stochasts, subMechanismStochasts.First().Value);
 
@@ -335,11 +335,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private IllustrationPointTreeNode BuildSubMechanism(Tuple<int, WindDirection, int, string> windDirectionClosingSituation, int subMechanismId)
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismId);
-            var illustrationPoint = new SubMechanismIllustrationPoint
-            {
-                Name = subMechanisms[subMechanismId],
-                Beta = subMechanismBetaValues[dataKey]
-            };
+
+            string submechanismIllustrationPointName = subMechanisms[subMechanismId];
+            double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
+            var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+                                                                      subMechanismIllustrationPointBeta);
+
             if (subMechanismStochasts.ContainsKey(dataKey))
             {
                 AddRange(illustrationPoint.Stochasts, subMechanismStochasts[dataKey]);

@@ -42,17 +42,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// to base the <see cref="WindDirectionClosingSituationIllustrationPoint"/> on.</param>
         /// <param name="hydraSubMechanismIllustrationPoint">The <see cref="SubMechanismIllustrationPoint"/>
         /// to base the <see cref="WindDirectionClosingSituationIllustrationPoint"/> on.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Thrown when any of:
-        /// <list type="bullet">
-        /// <item><paramref name="hydraWindDirectionClosingSituation"/>,</item>
-        /// <item><paramref name="hydraSubMechanismIllustrationPoint"/>,</item>
-        /// <item><see cref="SubMechanismIllustrationPoint.Name"/>,</item>
-        /// <item><see cref="HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection.Name"/></item>
-        /// </list> are <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <see cref="HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection.Angle"/>
-        /// is not in the interval of [0, 360].</exception>
+        /// <returns>A <see cref="WindDirectionClosingSituationIllustrationPoint"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static WindDirectionClosingSituationIllustrationPoint CreateWindDirectionClosingScenarioIllustrationPoint(
             WindDirectionClosingSituation hydraWindDirectionClosingSituation,
             SubMechanismIllustrationPoint hydraSubMechanismIllustrationPoint)
