@@ -103,9 +103,23 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
 
-                affectedObjects.AddRange(GetFailureMechanismsWithRelevancyUpdated(assessmentSection, oldFailureMechanismRelevancies));
+                IFailureMechanism[] failureMechanismsWithRelevancyUpdated = GetFailureMechanismsWithRelevancyUpdated(assessmentSection, oldFailureMechanismRelevancies).ToArray();
+                affectedObjects.AddRange(failureMechanismsWithRelevancyUpdated);
+
+                CloseViewsForIrrelevantFailureMechanisms(failureMechanismsWithRelevancyUpdated);
             }
             return affectedObjects;
+        }
+
+        private void CloseViewsForIrrelevantFailureMechanisms(IFailureMechanism[] failureMechanisms)
+        {
+            foreach (IFailureMechanism failureMechanism in failureMechanisms)
+            {
+                if (!failureMechanism.IsRelevant)
+                {
+                    viewCommands.RemoveAllViewsForItem(failureMechanism);
+                }
+            }
         }
 
         private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithRelevancyUpdated(IAssessmentSection assessmentSection,

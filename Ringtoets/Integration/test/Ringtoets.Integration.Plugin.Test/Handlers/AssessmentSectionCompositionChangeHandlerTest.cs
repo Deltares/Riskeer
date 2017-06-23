@@ -569,6 +569,35 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dike, DikeDune)")]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, 9, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dike, Dune)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dike)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, 9, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dune)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, DikeDune)")]
+        public void ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(AssessmentSectionComposition oldComposition,
+                                                                                                AssessmentSectionComposition newComposition,
+                                                                                                int expectedNumberOfCalls)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
+                        .Repeat.Times(expectedNumberOfCalls);
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(oldComposition);
+
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+
+            // Call
+            handler.ChangeComposition(assessmentSection, newComposition);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private static IEnumerable<IObservable> GetExpectedAffectedObjects(AssessmentSection assessmentSection,
                                                                            AssessmentSectionComposition oldComposition,
                                                                            AssessmentSectionComposition newComposition)
