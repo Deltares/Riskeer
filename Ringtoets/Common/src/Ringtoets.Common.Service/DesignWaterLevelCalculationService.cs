@@ -28,12 +28,14 @@ using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.GeneralResult;
 
 namespace Ringtoets.Common.Service
 {
@@ -114,7 +116,8 @@ namespace Ringtoets.Common.Service
             {
                 AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
 
-                if (designWaterLevelCalculation.GetCalculateIllustrationPoints())
+                bool calculateIllustrationPoints = designWaterLevelCalculation.GetCalculateIllustrationPoints();
+                if (calculateIllustrationPoints)
                 {
                     calculator.CalculateWithIllustrationPoints(calculationInput);
                 }
@@ -123,12 +126,20 @@ namespace Ringtoets.Common.Service
                     calculator.Calculate(calculationInput);
                 }
 
-                if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
+                if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    designWaterLevelCalculation.SetOutput(
-                        CreateHydraulicBoundaryLocationOutput(
-                            messageProvider, designWaterLevelCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged));
+                    return;
                 }
+
+                HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
+                    messageProvider, designWaterLevelCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged);
+
+                if (calculateIllustrationPoints)
+                {
+                    SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
+                }
+
+                designWaterLevelCalculation.SetOutput(hydraulicBoundaryLocationOutput);
             }
             catch (HydraRingCalculationException)
             {
@@ -169,6 +180,15 @@ namespace Ringtoets.Common.Service
         {
             calculator?.Cancel();
             canceled = true;
+        }
+
+        private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
+                                                        HydraGeneralResult generalResult)
+        {
+            if (generalResult != null)
+            {
+                hydraulicBoundaryLocationOutput.SetIllustrationPoints(GeneralResultConverter.CreateGeneralResult(generalResult));
+            }
         }
 
         /// <summary>

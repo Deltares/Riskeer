@@ -55,6 +55,7 @@
     <Compile Include="Calculator\HydraRingCalculatorFactoryConfig.cs" />
     <Compile Include="Calculator\HydraRingCalculatorTestCaseProvider.cs" />
     <Compile Include="HydraRingDataEqualityHelper.cs" />
+    <Compile Include="IllustrationPoints\TestGeneralResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Calculator\TestHydraRingCalculatorFactory.cs" />
     <Compile Include="TestHydraRingVariable.cs" />
