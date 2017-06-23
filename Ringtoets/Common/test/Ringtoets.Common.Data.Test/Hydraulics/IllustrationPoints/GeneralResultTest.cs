@@ -35,8 +35,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResult(0,
-                                                        null,
+            TestDelegate call = () => new GeneralResult(null,
                                                         Enumerable.Empty<Stochast>(),
                                                         Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>());
 
@@ -52,8 +51,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var windDirection = new TestWindDirection();
 
             // Call
-            TestDelegate call = () => new GeneralResult(0,
-                                                        windDirection,
+            TestDelegate call = () => new GeneralResult(windDirection,
                                                         null,
                                                         Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>());
 
@@ -69,8 +67,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var windDirection = new TestWindDirection();
 
             // Call
-            TestDelegate call = () => new GeneralResult(0,
-                                                        windDirection,
+            TestDelegate call = () => new GeneralResult(windDirection,
                                                         Enumerable.Empty<Stochast>(),
                                                         null);
 
@@ -83,18 +80,15 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_ValidArguments_ExpectedProperties()
         {
             // Setup
-            var random = new Random(12);
-            double beta = random.NextDouble();
             var windDirection = new TestWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
             IEnumerable<WindDirectionClosingSituationIllustrationPoint> combinations =
                 Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>();
 
             // Call
-            var generalResult = new GeneralResult(beta, windDirection, stochasts, combinations);
+            var generalResult = new GeneralResult(windDirection, stochasts, combinations);
 
             // Assert
-            Assert.AreEqual(beta, generalResult.Beta);
             Assert.AreSame(windDirection, generalResult.GoverningWindDirection);
             Assert.AreSame(stochasts, generalResult.Stochasts);
             Assert.AreSame(combinations, generalResult.WindDirectionClosingSituationIllustrationPoints);

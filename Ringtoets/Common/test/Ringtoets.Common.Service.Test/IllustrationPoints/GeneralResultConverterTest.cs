@@ -93,7 +93,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             GeneralResult generalResult = GeneralResultConverter.CreateGeneralResult(hydraGeneralResult);
 
             // Assert
-            Assert.AreEqual(hydraGeneralResult.Beta, generalResult.Beta);
             AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.WindDirectionClosingSituationIllustrationPoints);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
@@ -143,8 +142,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             GeneralResult generalResult = GeneralResultConverter.CreateGeneralResult(hydraGeneralResult);
 
             // Assert
-            Assert.AreEqual(hydraGeneralResult.Beta, generalResult.Beta);
-
             WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
             AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
 
@@ -205,8 +202,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             GeneralResult generalResult = GeneralResultConverter.CreateGeneralResult(hydraGeneralResult);
 
             // Assert
-            Assert.AreEqual(hydraGeneralResult.Beta, generalResult.Beta);
-
             WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
             AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);

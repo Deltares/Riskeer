@@ -32,18 +32,13 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/>.
         /// </summary>
-        /// <param name="beta">The beta value that was realized.</param>
         /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
         /// <param name="windDirectionClosingSituationIllustrationPoints">A collections of all 
-        /// the combinations of wind directions, closing situations and illustration
-        /// points.</param>
+        /// the combinations of wind directions, closing situations and illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindDirection"/>,
         /// <paramref name="stochasts"/> or <paramref name="windDirectionClosingSituationIllustrationPoints"/> is <c>null</c>.</exception>
-        public GeneralResult(double beta,
-                             WindDirection governingWindDirection,
-                             IEnumerable<Stochast> stochasts,
-                             IEnumerable<WindDirectionClosingSituationIllustrationPoint> windDirectionClosingSituationIllustrationPoints)
+        public GeneralResult(WindDirection governingWindDirection, IEnumerable<Stochast> stochasts, IEnumerable<WindDirectionClosingSituationIllustrationPoint> windDirectionClosingSituationIllustrationPoints)
         {
             if (governingWindDirection == null)
             {
@@ -58,16 +53,10 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
                 throw new ArgumentNullException(nameof(windDirectionClosingSituationIllustrationPoints));
             }
 
-            Beta = beta;
             GoverningWindDirection = governingWindDirection;
             Stochasts = stochasts;
             WindDirectionClosingSituationIllustrationPoints = windDirectionClosingSituationIllustrationPoints;
         }
-
-        /// <summary>
-        /// Gets the general beta value.
-        /// </summary>
-        public double Beta { get; }
 
         /// <summary>
         /// Gets the governing wind direction.

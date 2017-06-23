@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             IEnumerable<WindDirectionClosingSituationIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
                 GetWindDirectionClosingSituationIllustrationPoint(hydraGeneralResult);
 
-            return new GeneralResult(hydraGeneralResult.Beta, windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
+            return new GeneralResult(windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
         }
 
         private static IEnumerable<Stochast> GetStochasts(HydraGeneralResult hydraGeneralResult)

@@ -33,8 +33,7 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// Creates a new instance of <see cref="TestGeneralResult"/>.
         /// </summary>
         public TestGeneralResult()
-            : base(0, 
-                  new TestWindDirection(), 
+            : base(new TestWindDirection(), 
                   Enumerable.Empty<Stochast>(), 
                   Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>()) {}
     }
