@@ -31,7 +31,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
     public static class IllustrationPointResultConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointResult"/> based on the information of <paramref name="hydraIllustrationPointResult"/>.
+        /// Creates a new instance of <see cref="IllustrationPointResult"/> based on the information 
+        /// of <paramref name="hydraIllustrationPointResult"/>.
         /// </summary>
         /// <param name="hydraIllustrationPointResult">The <see cref="HydraIllustrationPointResult"/> to base the 
         /// <see cref="IllustrationPointResult"/> to create on.</param>

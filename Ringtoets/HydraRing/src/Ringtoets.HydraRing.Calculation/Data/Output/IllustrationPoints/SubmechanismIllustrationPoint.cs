@@ -39,12 +39,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <see cref="IllustrationPointResult"/> that are associated with this 
         /// illustration point.</param>
         /// <param name="beta">The beta value of the illustration point</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
-        public SubMechanismIllustrationPoint(string name, 
-            IEnumerable<RealizedStochast> stochasts,
-            IEnumerable<IllustrationPointResult> illustrationPointResults, 
-            double beta) 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="stochasts"/>
+        /// , or <paramref name="illustrationPointResults"/> is <c>null</c>.</exception>
+        public SubMechanismIllustrationPoint(string name,
+                                             IEnumerable<RealizedStochast> stochasts,
+                                             IEnumerable<IllustrationPointResult> illustrationPointResults,
+                                             double beta)
         {
             if (name == null)
             {
@@ -65,11 +65,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             Results = illustrationPointResults;
         }
 
-
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets the name of the illustration point.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the stochasts that were realized.
@@ -79,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the beta values that were realized.
         /// </summary>
-        public double Beta { get; set; }
+        public double Beta { get; }
 
         /// <summary>
         /// Gets the output variables.

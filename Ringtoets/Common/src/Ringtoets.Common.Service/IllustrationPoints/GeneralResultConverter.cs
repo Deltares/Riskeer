@@ -33,16 +33,16 @@ using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDi
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// Converter for <see cref="HydraGeneralResult"/> related to creating a <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/>.
+    /// Converter for <see cref="HydraGeneralResult"/> related to creating a <see cref="GeneralResult"/>.
     /// </summary>
     public static class GeneralResultConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/> based on the information of <paramref name="hydraGeneralResult"/>.
+        /// Creates a new instance of <see cref="GeneralResult"/> based on the information of <paramref name="hydraGeneralResult"/>.
         /// </summary>
         /// <param name="hydraGeneralResult">The <see cref="HydraGeneralResult"/> to base the 
-        /// <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/> to create on.</param>
-        /// <returns>The newly created <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/>.</returns>
+        /// <see cref="GeneralResult"/> to create on.</param>
+        /// <returns>The newly created <see cref="GeneralResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraGeneralResult"/> is <c>null</c>.</exception>
         public static GeneralResult CreateGeneralResult(HydraGeneralResult hydraGeneralResult)
         {

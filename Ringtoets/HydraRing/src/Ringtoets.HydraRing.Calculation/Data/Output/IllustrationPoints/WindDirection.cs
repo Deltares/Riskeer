@@ -45,12 +45,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         }
 
         /// <summary>
-        /// Gets or sets the descriptive name.
+        /// Gets the descriptive name.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Gets or sets the angle.
+        /// Gets the angle.
         /// </summary>
         public double Angle { get; }
 
