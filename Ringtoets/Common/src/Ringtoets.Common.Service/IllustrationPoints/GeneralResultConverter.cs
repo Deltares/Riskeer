@@ -23,21 +23,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using GeneralResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.GeneralResult;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.GeneralResult;
+using IHydraRingIllustrationPoint = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IIllustrationPoint;
+using Stochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.Stochast;
+using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// Converter for <see cref="HydraGeneralResult"/> related to creating a <see cref="GeneralResult"/>.
+    /// Converter for <see cref="HydraGeneralResult"/> related to creating a <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/>.
     /// </summary>
     public static class GeneralResultConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/> based on the information of <paramref name="hydraGeneralResult"/>.
+        /// Creates a new instance of <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/> based on the information of <paramref name="hydraGeneralResult"/>.
         /// </summary>
         /// <param name="hydraGeneralResult">The <see cref="HydraGeneralResult"/> to base the 
-        /// <see cref="GeneralResult"/> to create on.</param>
-        /// <returns>The newly created <see cref="GeneralResult"/>.</returns>
+        /// <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/> to create on.</param>
+        /// <returns>The newly created <see cref="Data.Hydraulics.IllustrationPoints.GeneralResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraGeneralResult"/> is <c>null</c>.</exception>
         public static GeneralResult CreateGeneralResult(HydraGeneralResult hydraGeneralResult)
         {
@@ -48,10 +53,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
 
             WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraGeneralResult.GoverningWind);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraGeneralResult);
-
-            // TODO WTI-1303: Write converter
-            IEnumerable<WindDirectionClosingScenarioIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
-                Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>();
+            IEnumerable<WindDirectionClosingSituationIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
+                GetWindDirectionClosingSituationIllustrationPoint(hydraGeneralResult);
 
             return new GeneralResult(hydraGeneralResult.Beta, windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
         }
@@ -59,6 +62,26 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         private static IEnumerable<Stochast> GetStochasts(HydraGeneralResult hydraGeneralResult)
         {
             return hydraGeneralResult.Stochasts.Select(StochastConverter.CreateStochast);
+        }
+
+        private static IEnumerable<WindDirectionClosingSituationIllustrationPoint> GetWindDirectionClosingSituationIllustrationPoint(
+            HydraGeneralResult hydraGeneralResult)
+        {
+            var combinations = new List<WindDirectionClosingSituationIllustrationPoint>();
+            foreach (KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointTreeNode in hydraGeneralResult.IllustrationPoints)
+            {
+                IHydraRingIllustrationPoint hydraIllustrationPoint = illustrationPointTreeNode.Value.Data;
+                WindDirectionClosingSituation hydraWindDirectionClosingSituation = illustrationPointTreeNode.Key;
+
+                var subMechanismIllustrationPoint = hydraIllustrationPoint as SubMechanismIllustrationPoint;
+                if (subMechanismIllustrationPoint != null)
+                {
+                    combinations.Add(WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                                         hydraWindDirectionClosingSituation, subMechanismIllustrationPoint));
+                }
+            }
+
+            return combinations;
         }
     }
 }

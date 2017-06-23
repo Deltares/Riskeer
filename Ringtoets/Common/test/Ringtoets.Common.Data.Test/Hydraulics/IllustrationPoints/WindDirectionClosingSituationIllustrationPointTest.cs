@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class WindDirectionClosingScenarioIllustrationPointTest
+    public class WindDirectionClosingSituationIllustrationPointTest
     {
         [Test]
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                new WindDirectionClosingScenarioIllustrationPoint(null, "closing situation", illustrationPoint);
+                new WindDirectionClosingSituationIllustrationPoint(null, "closing situation", illustrationPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,11 +53,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                new WindDirectionClosingScenarioIllustrationPoint(windDirection, null, illustrationPoint);
+                new WindDirectionClosingSituationIllustrationPoint(windDirection, null, illustrationPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("closingScenario", exception.ParamName);
+            Assert.AreEqual("closingSituation", exception.ParamName);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                new WindDirectionClosingScenarioIllustrationPoint(windDirection, "closing situation", null);
+                new WindDirectionClosingSituationIllustrationPoint(windDirection, "closing situation", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,10 +85,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Call
             var windDirectionClosingScenarioIllustrationPoint =
-                new WindDirectionClosingScenarioIllustrationPoint(windDirection, closingScenario, illustrationPoint);
+                new WindDirectionClosingSituationIllustrationPoint(windDirection, closingScenario, illustrationPoint);
 
             // Assert
-            Assert.AreEqual(closingScenario, windDirectionClosingScenarioIllustrationPoint.ClosingScenario);
+            Assert.AreEqual(closingScenario, windDirectionClosingScenarioIllustrationPoint.ClosingSituation);
             Assert.AreSame(windDirection, windDirectionClosingScenarioIllustrationPoint.WindDirection);
             Assert.AreSame(illustrationPoint, windDirectionClosingScenarioIllustrationPoint.IllustrationPoint);
         }

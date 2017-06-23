@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -38,9 +37,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
             Assert.AreEqual(0, generalResult.Beta);
-            AssertWindDirection(new TestWindDirection(), generalResult.GoverningWindirection);
-            Assert.IsEmpty(generalResult.Stochasts);
-            Assert.IsEmpty(generalResult.WindDirectionClosingIllustrationPoints);
+            AssertWindDirection(new TestWindDirection(), generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+            CollectionAssert.IsEmpty(generalResult.WindDirectionClosingSituationIllustrationPoints);
         }
 
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)

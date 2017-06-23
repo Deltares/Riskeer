@@ -38,11 +38,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             TestDelegate call = () => new GeneralResult(0,
                                                         null,
                                                         Enumerable.Empty<Stochast>(),
-                                                        Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>());
+                                                        Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("governingWindirection", paramName);
+            Assert.AreEqual("governingWindDirection", paramName);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             TestDelegate call = () => new GeneralResult(0,
                                                         windDirection,
                                                         null,
-                                                        Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>());
+                                                        Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("windDirectionClosingScenarioIllustrationPoints", paramName);
+            Assert.AreEqual("windDirectionClosingSituationIllustrationPoints", paramName);
         }
 
         [Test]
@@ -87,17 +87,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
             var windDirection = new TestWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
-            IEnumerable<WindDirectionClosingScenarioIllustrationPoint> combinations =
-                Enumerable.Empty<WindDirectionClosingScenarioIllustrationPoint>();
+            IEnumerable<WindDirectionClosingSituationIllustrationPoint> combinations =
+                Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>();
 
             // Call
             var generalResult = new GeneralResult(beta, windDirection, stochasts, combinations);
 
             // Assert
             Assert.AreEqual(beta, generalResult.Beta);
-            Assert.AreSame(windDirection, generalResult.GoverningWindirection);
+            Assert.AreSame(windDirection, generalResult.GoverningWindDirection);
             Assert.AreSame(stochasts, generalResult.Stochasts);
-            Assert.AreSame(combinations, generalResult.WindDirectionClosingIllustrationPoints);
+            Assert.AreSame(combinations, generalResult.WindDirectionClosingSituationIllustrationPoints);
         }
     }
 }

@@ -33,35 +33,35 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// Creates a new instance of <see cref="GeneralResult"/>.
         /// </summary>
         /// <param name="beta">The beta value that was realized.</param>
-        /// <param name="governingWindirection">The governing wind direction.</param>
+        /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
-        /// <param name="windDirectionClosingScenarioIllustrationPoints">A collections of all 
+        /// <param name="windDirectionClosingSituationIllustrationPoints">A collections of all 
         /// the combinations of wind directions, closing situations and illustration
         /// points.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindirection"/>,
-        /// <paramref name="stochasts"/> or <paramref name="windDirectionClosingScenarioIllustrationPoints"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindDirection"/>,
+        /// <paramref name="stochasts"/> or <paramref name="windDirectionClosingSituationIllustrationPoints"/> is <c>null</c>.</exception>
         public GeneralResult(double beta,
-                             WindDirection governingWindirection,
+                             WindDirection governingWindDirection,
                              IEnumerable<Stochast> stochasts,
-                             IEnumerable<WindDirectionClosingScenarioIllustrationPoint> windDirectionClosingScenarioIllustrationPoints)
+                             IEnumerable<WindDirectionClosingSituationIllustrationPoint> windDirectionClosingSituationIllustrationPoints)
         {
-            if (governingWindirection == null)
+            if (governingWindDirection == null)
             {
-                throw new ArgumentNullException(nameof(governingWindirection));
+                throw new ArgumentNullException(nameof(governingWindDirection));
             }
             if (stochasts == null)
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
-            if (windDirectionClosingScenarioIllustrationPoints == null)
+            if (windDirectionClosingSituationIllustrationPoints == null)
             {
-                throw new ArgumentNullException(nameof(windDirectionClosingScenarioIllustrationPoints));
+                throw new ArgumentNullException(nameof(windDirectionClosingSituationIllustrationPoints));
             }
 
             Beta = beta;
-            GoverningWindirection = governingWindirection;
+            GoverningWindDirection = governingWindDirection;
             Stochasts = stochasts;
-            WindDirectionClosingIllustrationPoints = windDirectionClosingScenarioIllustrationPoints;
+            WindDirectionClosingSituationIllustrationPoints = windDirectionClosingSituationIllustrationPoints;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <summary>
         /// Gets the governing wind direction.
         /// </summary>
-        public WindDirection GoverningWindirection { get; }
+        public WindDirection GoverningWindDirection { get; }
 
         /// <summary>
         /// Gets the general alpha values.
@@ -80,8 +80,8 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         public IEnumerable<Stochast> Stochasts { get; }
 
         /// <summary>
-        /// Gets 
+        /// Gets all the combinations of wind directions, closing situation and illustration points.
         /// </summary>
-        public IEnumerable<WindDirectionClosingScenarioIllustrationPoint> WindDirectionClosingIllustrationPoints { get; }
+        public IEnumerable<WindDirectionClosingSituationIllustrationPoint> WindDirectionClosingSituationIllustrationPoints { get; }
     }
 }

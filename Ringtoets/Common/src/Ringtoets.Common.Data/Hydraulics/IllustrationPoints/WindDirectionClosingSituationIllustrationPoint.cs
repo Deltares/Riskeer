@@ -27,25 +27,25 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     /// Combination of <see cref="WindDirection"/>, closing situation and 
     /// <see cref="IllustrationPoint"/>.
     /// </summary>
-    public class WindDirectionClosingScenarioIllustrationPoint
+    public class WindDirectionClosingSituationIllustrationPoint
     {
         /// <summary>
-        /// Creates an instance of <see cref="WindDirectionClosingScenarioIllustrationPoint"/>.
+        /// Creates an instance of <see cref="WindDirectionClosingSituationIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
-        /// <param name="closingScenario">The closing situation.</param>
+        /// <param name="closingSituation">The closing situation.</param>
         /// <param name="illustrationPoint">The illustrationPoint.</param>
-        public WindDirectionClosingScenarioIllustrationPoint(WindDirection windDirection,
-                                                             string closingScenario,
-                                                             IllustrationPoint illustrationPoint)
+        public WindDirectionClosingSituationIllustrationPoint(WindDirection windDirection,
+                                                              string closingSituation,
+                                                              IllustrationPoint illustrationPoint)
         {
             if (windDirection == null)
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
-            if (closingScenario == null)
+            if (closingSituation == null)
             {
-                throw new ArgumentNullException(nameof(closingScenario));
+                throw new ArgumentNullException(nameof(closingSituation));
             }
             if (illustrationPoint == null)
             {
@@ -53,14 +53,14 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             }
 
             WindDirection = windDirection;
-            ClosingScenario = closingScenario;
+            ClosingSituation = closingSituation;
             IllustrationPoint = illustrationPoint;
         }
 
         /// <summary>
         /// Gets the closing situation.
         /// </summary>
-        public string ClosingScenario { get; }
+        public string ClosingSituation { get; }
 
         /// <summary>
         /// Gets the wind direction.

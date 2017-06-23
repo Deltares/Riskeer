@@ -35,14 +35,14 @@ using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.Illustrati
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
-    public class WindDirectionClosingScenarioIllustrationPointConverterTest
+    public class WindDirectionClosingSituationIllustrationPointConverterTest
     {
         [Test]
         public void CreateWindDirectionClosingScenarioIllustrationPoint_HydraWindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
-                WindDirectionClosingScenarioIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
                     null,
                     new HydraSubMechanismIllustrationPoint());
 
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                WindDirectionClosingScenarioIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
                     new HydraWindDirectionClosingSituation(hydraWindDirection, string.Empty),
                     null);
 
@@ -109,15 +109,15 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             };
 
             // Call
-            WindDirectionClosingScenarioIllustrationPoint combination = 
-                WindDirectionClosingScenarioIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(windDirectionClosingSituation, subMechanismIllustrationPoint);
+            WindDirectionClosingSituationIllustrationPoint combination = 
+                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(windDirectionClosingSituation, subMechanismIllustrationPoint);
 
             // Assert
             WindDirection windDirection = combination.WindDirection;
             Assert.AreEqual(hydraWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
             Assert.AreEqual(hydraWindDirection.Name, windDirection.Name);
 
-            Assert.AreEqual(closingScenario, combination.ClosingScenario);
+            Assert.AreEqual(closingScenario, combination.ClosingSituation);
 
             IllustrationPoint illustrationPoint = combination.IllustrationPoint;
             Assert.AreEqual(subMechanismIllustrationPoint.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());

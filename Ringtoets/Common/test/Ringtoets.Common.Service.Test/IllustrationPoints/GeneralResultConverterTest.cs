@@ -21,13 +21,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using GeneralResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.GeneralResult;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.GeneralResult;
 using HydraWindDirection = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection;
 using HydraWindStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.Stochast;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.SubMechanismIllustrationPoint;
+using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -65,19 +71,22 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResult_ValidArguments_ExpectedProperties()
+        public void CreateGeneralResult_ValidArgumentsWithoutIllustrationPoints_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
+            var hydraGoverningWindDirection = new HydraWindDirection
+            {
+                Angle = random.GetFromRange(0.0, 360.0),
+                Name = "Name"
+            };
+
             var hydraGeneralResult = new HydraGeneralResult
             {
                 Beta = random.NextDouble(),
-                GoverningWind = new HydraWindDirection
-                {
-                    Angle = random.GetFromRange(0.0, 360.0),
-                    Name = "Name"
-                },
-                Stochasts = new List<HydraWindStochast>()
+                GoverningWind = hydraGoverningWindDirection,
+                Stochasts = new List<HydraWindStochast>(),
+                IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>()
             };
 
             // Call
@@ -85,6 +94,129 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Assert
             Assert.AreEqual(hydraGeneralResult.Beta, generalResult.Beta);
+            AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.WindDirectionClosingSituationIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+        }
+
+        [Test]
+        public void CreateGeneralResult_GeneralResultWithSubmechanismIllustrationPointsOnly_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(21);
+
+            const string closingSituation = "Closing situation";
+            var hydraWindDirection = new HydraWindDirection
+            {
+                Angle = random.NextDouble(),
+                Name = "SSE"
+            };
+            var hydraWindDirectionClosingSituation =
+                new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
+
+            var hydraIllustrationPoint = new HydraSubMechanismIllustrationPoint
+            {
+                Beta = random.NextDouble(),
+                Name = " IllustrationPoint"
+            };
+            var hydraIllustrationTreeNode = new IllustrationPointTreeNode(hydraIllustrationPoint);
+
+            var governingHydraWindDirection = new HydraWindDirection
+            {
+                Angle = random.GetFromRange(0.0, 360.0),
+                Name = "Name"
+            };
+            var hydraGeneralResult = new HydraGeneralResult
+            {
+                Beta = random.NextDouble(),
+                GoverningWind = governingHydraWindDirection,
+                Stochasts = new List<HydraWindStochast>(),
+                IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
+                {
+                    {
+                        hydraWindDirectionClosingSituation, hydraIllustrationTreeNode
+                    }
+                }
+            };
+
+            // Call
+            GeneralResult generalResult = GeneralResultConverter.CreateGeneralResult(hydraGeneralResult);
+
+            // Assert
+            Assert.AreEqual(hydraGeneralResult.Beta, generalResult.Beta);
+
+            WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
+            AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
+
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+
+            WindDirectionClosingSituationIllustrationPoint combination = generalResult.WindDirectionClosingSituationIllustrationPoints.Single();
+            AssertWindDirection(hydraWindDirection, combination.WindDirection);
+            Assert.AreEqual(closingSituation, combination.ClosingSituation);
+
+            IllustrationPoint illustrationPoint = combination.IllustrationPoint;
+            Assert.AreEqual(hydraIllustrationPoint.Name, illustrationPoint.Name);
+            Assert.AreEqual(hydraIllustrationPoint.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+        }
+
+        [Test]
+        public void CreateGeneralResult_GeneralResultWithFaultTreeIllustrationPointsOnly_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(21);
+
+            const string closingSituation = "Closing situation";
+            var hydraWindDirection = new HydraWindDirection
+            {
+                Angle = random.NextDouble(),
+                Name = "SSE"
+            };
+            var hydraWindDirectionClosingSituation =
+                new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
+
+            var hydraIllustrationPoint = new FaultTreeIllustrationPoint()
+            {
+                Beta = random.NextDouble(),
+                Name = " IllustrationPoint"
+            };
+            var hydraIllustrationTreeNode = new IllustrationPointTreeNode(hydraIllustrationPoint);
+
+            var governingHydraWindDirection = new HydraWindDirection
+            {
+                Angle = random.GetFromRange(0.0, 360.0),
+                Name = "Name"
+            };
+            var hydraGeneralResult = new HydraGeneralResult
+            {
+                Beta = random.NextDouble(),
+                GoverningWind = governingHydraWindDirection,
+                Stochasts = new List<HydraWindStochast>(),
+                IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
+                {
+                    {
+                        hydraWindDirectionClosingSituation, hydraIllustrationTreeNode
+                    }
+                }
+            };
+
+            // Call
+            GeneralResult generalResult = GeneralResultConverter.CreateGeneralResult(hydraGeneralResult);
+
+            // Assert
+            Assert.AreEqual(hydraGeneralResult.Beta, generalResult.Beta);
+
+            WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
+            AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+            CollectionAssert.IsEmpty(generalResult.WindDirectionClosingSituationIllustrationPoints);   
+        }
+
+        private static void AssertWindDirection(HydraWindDirection hydraWindDirection, WindDirection windDirection)
+        {
+            Assert.AreEqual(hydraWindDirection.Name, windDirection.Name);
+            Assert.AreEqual(hydraWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
         }
     }
 }

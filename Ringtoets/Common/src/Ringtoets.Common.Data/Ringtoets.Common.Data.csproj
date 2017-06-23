@@ -74,7 +74,7 @@
     <Compile Include="Hydraulics\IllustrationPoints\WindDirection.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\RealizedStochast.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\Stochast.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\WindDirectionClosingScenarioIllustrationPoint.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\WindDirectionClosingSituationIllustrationPoint.cs" />
     <Compile Include="Hydraulics\IWaveHeightCalculation.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculation.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
