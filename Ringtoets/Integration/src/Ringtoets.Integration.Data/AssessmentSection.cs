@@ -299,6 +299,7 @@ namespace Ringtoets.Integration.Data
             HeightStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             ClosingStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
         }
 

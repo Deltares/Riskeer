@@ -279,7 +279,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(relevancies[6], assessmentSection.HeightStructures.IsRelevant);
             Assert.AreEqual(relevancies[7], assessmentSection.ClosingStructures.IsRelevant);
             Assert.AreEqual(relevancies[8], assessmentSection.StabilityPointStructures.IsRelevant);
-            Assert.AreEqual(relevancies[9], assessmentSection.DuneErosion.IsRelevant);
+            Assert.AreEqual(relevancies[9], assessmentSection.PipingStructure.IsRelevant);
+            Assert.AreEqual(relevancies[10], assessmentSection.DuneErosion.IsRelevant);
         }
 
         [Test]
@@ -462,6 +463,7 @@ namespace Ringtoets.Integration.Data.Test
                 true,
                 true,
                 true,
+                true,
                 false
             });
 
@@ -476,11 +478,13 @@ namespace Ringtoets.Integration.Data.Test
                 true,
                 true,
                 true,
+                true,
                 true
             });
 
             yield return new TestCaseData(AssessmentSectionComposition.Dune, new[]
             {
+                false,
                 false,
                 false,
                 false,
