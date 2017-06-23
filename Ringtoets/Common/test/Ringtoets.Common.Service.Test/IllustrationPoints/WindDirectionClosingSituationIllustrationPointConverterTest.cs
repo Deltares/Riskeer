@@ -40,11 +40,16 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         [Test]
         public void CreateWindDirectionClosingScenarioIllustrationPoint_HydraWindDirectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var hydraSubMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name",
+                                                                                            Enumerable.Empty<HydraRealizedStochast>(),
+                                                                                            Enumerable.Empty<HydraIllustrationPointResult>(),
+                                                                                            123);
+
             // Call
             TestDelegate call = () =>
                 WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
-                    null,
-                    new HydraSubMechanismIllustrationPoint("name", 123));
+                    null, hydraSubMechanismIllustrationPoint);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -55,7 +60,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void CreateWindDirectionClosingScenarioIllustrationPoint_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraWindDirection =  new HydraRingTestWindDirection(); 
+            var hydraWindDirection = new HydraRingTestWindDirection();
 
             // Call
             TestDelegate call = () =>
@@ -94,17 +99,13 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             };
 
             double beta = random.NextDouble();
-            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", beta)
+            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
             {
-                Results =
-                {
-                    hydraIllustrationPointResult
-                },
-                Stochasts =
-                {
-                    hydraRealizedStochast
-                }
-            };
+                hydraRealizedStochast
+            }, new[]
+            {
+                hydraIllustrationPointResult
+            }, beta);
 
             // Call
             WindDirectionClosingSituationIllustrationPoint combination =

@@ -33,20 +33,36 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point.</param>
+        /// <param name="stochasts">A collection of <see cref="RealizedStochast"/>
+        /// that are associated with this illustration point.</param>
+        /// <param name="illustrationPointResults">A collection of 
+        /// <see cref="IllustrationPointResult"/> that are associated with this 
+        /// illustration point.</param>
         /// <param name="beta">The beta value of the illustration point</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public SubMechanismIllustrationPoint(string name, double beta)
+        public SubMechanismIllustrationPoint(string name, 
+            IEnumerable<RealizedStochast> stochasts,
+            IEnumerable<IllustrationPointResult> illustrationPointResults, 
+            double beta) 
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+            if (stochasts == null)
+            {
+                throw new ArgumentNullException(nameof(stochasts));
+            }
+            if (illustrationPointResults == null)
+            {
+                throw new ArgumentNullException(nameof(illustrationPointResults));
+            }
 
             Name = name;
             Beta = beta;
-            Stochasts = new List<RealizedStochast>();
-            Results = new List<IllustrationPointResult>();
+            Stochasts = stochasts;
+            Results = illustrationPointResults;
         }
 
 
@@ -58,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the stochasts that were realized.
         /// </summary>
-        public ICollection<RealizedStochast> Stochasts { get; }
+        public IEnumerable<RealizedStochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the beta values that were realized.
@@ -68,6 +84,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the output variables.
         /// </summary>
-        public ICollection<IllustrationPointResult> Results { get; }
+        public IEnumerable<IllustrationPointResult> Results { get; }
     }
 }

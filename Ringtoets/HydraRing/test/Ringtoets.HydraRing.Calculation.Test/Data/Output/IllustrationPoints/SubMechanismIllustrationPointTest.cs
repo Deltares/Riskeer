@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
@@ -32,7 +34,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint(null, 123);
+            TestDelegate call = () => new SubMechanismIllustrationPoint(null,
+                                                                        Enumerable.Empty<RealizedStochast>(),
+                                                                        Enumerable.Empty<IllustrationPointResult>(),
+                                                                        123);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -40,7 +45,29 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_WithParameter_ReturnsNewInstance()
+        public void Constructor_StochastNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SubMechanismIllustrationPoint("Name", null, Enumerable.Empty<IllustrationPointResult>(), 123);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("stochasts", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_IllustrationPointResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SubMechanismIllustrationPoint("Name", Enumerable.Empty<RealizedStochast>(), null, 123);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("illustrationPointResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithParameters_ReturnsNewInstance()
         {
             // Setup
             const string name = "Name";
@@ -48,13 +75,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var random = new Random(21);
             double beta = random.NextDouble();
 
+            IEnumerable<RealizedStochast> stochasts = Enumerable.Empty<RealizedStochast>();
+            IEnumerable<IllustrationPointResult> illustrationPointResults = Enumerable.Empty<IllustrationPointResult>();
+
             // Call
-            var illustrationPoint = new SubMechanismIllustrationPoint(name, beta);
+            var illustrationPoint = new SubMechanismIllustrationPoint(name, stochasts, illustrationPointResults, beta);
 
             // Assert
             Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);
-            Assert.IsEmpty(illustrationPoint.Stochasts);
-            Assert.IsEmpty(illustrationPoint.Results);
+            Assert.AreSame(stochasts, illustrationPoint.Stochasts);
+            Assert.AreSame(illustrationPointResults, illustrationPoint.Results);
             Assert.AreEqual(beta, illustrationPoint.Beta);
         }
     }

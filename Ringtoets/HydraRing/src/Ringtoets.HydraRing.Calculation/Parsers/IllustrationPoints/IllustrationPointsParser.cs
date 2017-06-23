@@ -132,11 +132,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 string submechanismIllustrationPointName = subMechanisms.First().Value;
                 double subMechanismIllustrationPointBeta = subMechanismBetaValues.First().Value;
-                var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
-                                                                          subMechanismIllustrationPointBeta);
 
-                AddRange(illustrationPoint.Results, subMechanismResults.First().Value);
-                AddRange(illustrationPoint.Stochasts, subMechanismStochasts.First().Value);
+                var illustrationPointStochasts = new List<RealizedStochast>();
+                AddRange(illustrationPointStochasts, subMechanismStochasts.First().Value);
+
+                var illustrationPointResults = new List<IllustrationPointResult>();
+                AddRange(illustrationPointResults, subMechanismResults.First().Value);
+
+                var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+                                                                          illustrationPointStochasts,
+                                                                          illustrationPointResults,
+                                                                          subMechanismIllustrationPointBeta);
 
                 rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
                     new IllustrationPointTreeNode(illustrationPoint);
@@ -347,19 +353,25 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismId);
 
-            string submechanismIllustrationPointName = subMechanisms[subMechanismId];
-            double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
-            var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
-                                                                      subMechanismIllustrationPointBeta);
+            var illustrationPointStochasts = new List<RealizedStochast>();
+            var illustrationPointResults = new List<IllustrationPointResult>();
 
             if (subMechanismStochasts.ContainsKey(dataKey))
             {
-                AddRange(illustrationPoint.Stochasts, subMechanismStochasts[dataKey]);
+                AddRange(illustrationPointStochasts, subMechanismStochasts[dataKey]);
             }
             if (subMechanismResults.ContainsKey(dataKey))
             {
-                AddRange(illustrationPoint.Results, subMechanismResults[dataKey]);
+                AddRange(illustrationPointResults, subMechanismResults[dataKey]);
             }
+
+            string submechanismIllustrationPointName = subMechanisms[subMechanismId];
+            double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
+            var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+                                                                      illustrationPointStochasts,
+                                                                      illustrationPointResults,
+                                                                      subMechanismIllustrationPointBeta);
+
             return new IllustrationPointTreeNode(illustrationPoint);
         }
 

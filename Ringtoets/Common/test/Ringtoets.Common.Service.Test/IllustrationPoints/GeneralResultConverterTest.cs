@@ -31,8 +31,10 @@ using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using GeneralResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.GeneralResult;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
-using HydraWindStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
+using HydraStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
 using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
+using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
@@ -63,7 +65,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             {
                 Beta = random.NextDouble(),
                 GoverningWind = hydraGoverningWindDirection,
-                Stochasts = new List<HydraWindStochast>(),
+                Stochasts = new List<HydraStochast>(),
                 IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>()
             };
 
@@ -89,7 +91,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
 
             double beta = random.NextDouble();
-            var hydraIllustrationPoint = new HydraSubMechanismIllustrationPoint("Illustration Point", beta);
+            var hydraIllustrationPoint = new HydraSubMechanismIllustrationPoint("Illustration Point",
+                                                                                Enumerable.Empty<HydraRealizedStochast>(),
+                                                                                Enumerable.Empty<HydraIllustrationPointResult>(),
+                                                                                beta);
             var hydraIllustrationTreeNode = new IllustrationPointTreeNode(hydraIllustrationPoint);
 
             double governingWindDirectionAngle = random.NextDouble();
@@ -98,7 +103,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             {
                 Beta = random.NextDouble(),
                 GoverningWind = governingHydraWindDirection,
-                Stochasts = new List<HydraWindStochast>(),
+                Stochasts = new List<HydraStochast>(),
                 IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
                 {
                     {
@@ -132,7 +137,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            
+
             const string closingSituation = "Closing situation";
             double windDirectionAngle = random.NextDouble();
             var hydraWindDirection = new HydraWindDirection("SSE", windDirectionAngle);
@@ -150,7 +155,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             {
                 Beta = random.NextDouble(),
                 GoverningWind = governingHydraWindDirection,
-                Stochasts = new List<HydraWindStochast>(),
+                Stochasts = new List<HydraStochast>(),
                 IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
                 {
                     {

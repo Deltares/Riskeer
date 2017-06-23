@@ -66,17 +66,13 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             };
 
             double beta = random.NextDouble();
-            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", beta)
+            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", new[]
             {
-                Results =
-                {
-                    hydraIllustrationPointResult
-                },
-                Stochasts =
-                {
-                    hydraRealizedStochast
-                }
-            };
+                hydraRealizedStochast
+            }, new[]
+            {
+                hydraIllustrationPointResult
+            }, beta);
 
             // Call
             IllustrationPoint illustrationPoint = IllustrationPointConverter.CreateIllustrationPoint(subMechanismIllustrationPoint);
