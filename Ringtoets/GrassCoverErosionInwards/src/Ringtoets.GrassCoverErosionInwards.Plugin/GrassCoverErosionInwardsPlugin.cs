@@ -259,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutput>
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
@@ -753,7 +753,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             if (context.WrappedData.HasOutput)
             {
-                childNodes.Add(context.WrappedData.Output);
+                childNodes.Add(new GrassCoverErosionInwardsOutputContext(context.WrappedData.Output,
+                                                                         context.FailureMechanism,
+                                                                         context.AssessmentSection));
             }
             else
             {
