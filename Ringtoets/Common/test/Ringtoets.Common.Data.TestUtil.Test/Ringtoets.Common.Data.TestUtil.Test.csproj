@@ -73,7 +73,6 @@
     <Compile Include="IllustrationPoints\TestIllustrationPointTest.cs" />
     <Compile Include="TestStructuresOutputTest.cs" />
     <Compile Include="TestStructureTest.cs" />
-    <Compile Include="TestWindDirectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
