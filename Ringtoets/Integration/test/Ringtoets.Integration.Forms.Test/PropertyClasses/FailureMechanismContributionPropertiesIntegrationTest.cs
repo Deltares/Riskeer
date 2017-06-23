@@ -83,7 +83,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -290,7 +291,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -394,7 +396,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };

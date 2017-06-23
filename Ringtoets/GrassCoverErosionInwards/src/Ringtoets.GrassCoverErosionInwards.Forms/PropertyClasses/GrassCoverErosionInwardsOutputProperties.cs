@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             return propertyName.Contains(nameof(DikeHeight)) && data.DikeHeightOutput != null
                    || propertyName.Contains(nameof(OvertoppingRate)) && data.OvertoppingRateOutput != null
-                   || propertyName.Equals(nameof(WaveHeight)) && !double.IsNaN(data.WaveHeight);
+                   || propertyName.Equals(nameof(WaveHeight)) && !double.IsNaN(data.ResultOutput.WaveHeight);
         }
 
         #region GrassCoverErosionInwards result
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(data.ResultOutput.ProbabilityAssessmentOutput.RequiredProbability);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.RequiredReliability;
+                return data.ResultOutput.ProbabilityAssessmentOutput.RequiredReliability;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.Probability);
+                return ProbabilityFormattingHelper.Format(data.ResultOutput.ProbabilityAssessmentOutput.Probability);
             }
         }
 
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.Reliability;
+                return data.ResultOutput.ProbabilityAssessmentOutput.Reliability;
             }
         }
 
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.FactorOfSafety;
+                return data.ResultOutput.ProbabilityAssessmentOutput.FactorOfSafety;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WaveHeight;
+                return data.ResultOutput.WaveHeight;
             }
         }
 
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.IsOvertoppingDominant;
+                return data.ResultOutput.IsOvertoppingDominant;
             }
         }
 

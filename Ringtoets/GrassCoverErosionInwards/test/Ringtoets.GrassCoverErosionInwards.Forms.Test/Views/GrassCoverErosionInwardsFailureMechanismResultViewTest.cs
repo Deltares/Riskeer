@@ -344,9 +344,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
+                var resultOutput = new GrassCoverErosionInwardsResultOutput(1.0, false, probabilityAssessmentOutput);
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.0, false, probabilityAssessmentOutput,
+                    Output = new GrassCoverErosionInwardsOutput(resultOutput,
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -386,9 +387,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 const double probability = 0.56789;
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
+                var resultOutput = new GrassCoverErosionInwardsResultOutput(1.1, true, probabilityAssessmentOutput);
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true, probabilityAssessmentOutput,
+                    Output = new GrassCoverErosionInwardsOutput(resultOutput,
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -418,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource("AssessmentLayerOneStateIsSufficientVariousSectionResults")]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSectionResults))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
         {
@@ -454,17 +456,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 const double probability = 0.56789;
                 var successfulCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
+                var successfulResultOutput = new GrassCoverErosionInwardsResultOutput(1.1, true, successfulCalculationOutput);
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true, successfulCalculationOutput,
+                    Output = new GrassCoverErosionInwardsOutput(successfulResultOutput,
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
 
                 var failedCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
+                var failedResultOutput = new GrassCoverErosionInwardsResultOutput(1.1, true, failedCalculationOutput);
                 var failedCalculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true, failedCalculationOutput,
+                    Output = new GrassCoverErosionInwardsOutput(failedResultOutput,
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -519,8 +523,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true,
-                                                                new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
+                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                    1.1, true,
+                                                                    new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 }
@@ -530,8 +535,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(1.1, true,
-                                                                new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
+                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                    1.1, true,
+                                                                    new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 }

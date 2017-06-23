@@ -58,7 +58,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -571,7 +572,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -581,7 +583,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -620,7 +623,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var subCalculation = new GrassCoverErosionInwardsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -630,7 +634,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0),
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                                                                0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };

@@ -194,13 +194,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
 
                 calculation.Output = new GrassCoverErosionInwardsOutput(
-                    overtoppingCalculator.WaveHeight,
-                    overtoppingCalculator.IsOvertoppingDominant,
-                    ProbabilityAssessmentService.Calculate(
-                        assessmentSection.FailureMechanismContribution.Norm,
-                        failureMechanismContribution,
-                        generalInput.N,
-                        overtoppingCalculator.ExceedanceProbabilityBeta),
+                    new GrassCoverErosionInwardsResultOutput(overtoppingCalculator.WaveHeight,
+                                                             overtoppingCalculator.IsOvertoppingDominant,
+                                                             ProbabilityAssessmentService.Calculate(
+                                                                 assessmentSection.FailureMechanismContribution.Norm,
+                                                                 failureMechanismContribution,
+                                                                 generalInput.N,
+                                                                 overtoppingCalculator.ExceedanceProbabilityBeta)),
                     dikeHeightOutput,
                     overtoppingRateOutput);
             }

@@ -21,25 +21,34 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
+namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class TestGrassCoverErosionInwardsOutputTest
+    public class GrassCoverErosionOutwardsResultOutputTest
     {
         [Test]
-        public void DefaultConstructor_PropertiesSet()
+        public void ParameteredConstructor_DefaultValues()
         {
+            // Setup
+            const double waveHeight = 3.2934;
+            const double requiredProbability = 0.2;
+            const double requiredReliability = 0.3;
+            const double probability = 0.4;
+            const double reliability = 0.1;
+            const double factorOfSafety = 0.7;
+
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
             // Call
-            var output = new TestGrassCoverErosionInwardsOutput();
+            var output = new GrassCoverErosionInwardsResultOutput(waveHeight, true, probabilityAssessmentOutput);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsOutput>(output);
-            Assert.AreEqual(0.0, output.ResultOutput.WaveHeight.Value);
-            Assert.IsTrue(output.ResultOutput.IsOvertoppingDominant);
-            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(output.ResultOutput.ProbabilityAssessmentOutput);
-            Assert.IsInstanceOf<TestDikeHeightOutput>(output.DikeHeightOutput);
-            Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);
+            Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.IsTrue(output.IsOvertoppingDominant);
+
+            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
         }
     }
 }

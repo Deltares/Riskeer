@@ -27,46 +27,29 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// The result of a grass cover erosion inwards assessment.
+    /// The total result of a grass cover erosion inwards assessment.
     /// </summary>
     public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
         /// </summary>
-        /// <param name="waveHeight">The calculated wave height.</param>
-        /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
-        /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
+        /// <param name="resultOutput">The output of the assessment result.</param>
         /// <param name="dikeHeightOutput">The dike height output.</param>
         /// <param name="overtoppingRateOutput">The overtopping rate output.</param>
-        public GrassCoverErosionInwardsOutput(double waveHeight,
-                                              bool isOvertoppingDominant,
-                                              ProbabilityAssessmentOutput probabilityAssessmentOutput,
+        public GrassCoverErosionInwardsOutput(GrassCoverErosionInwardsResultOutput resultOutput,
                                               DikeHeightOutput dikeHeightOutput,
                                               OvertoppingRateOutput overtoppingRateOutput)
         {
-            IsOvertoppingDominant = isOvertoppingDominant;
-            WaveHeight = new RoundedDouble(2, waveHeight);
-            ProbabilityAssessmentOutput = probabilityAssessmentOutput;
+            ResultOutput = resultOutput;
             DikeHeightOutput = dikeHeightOutput;
             OvertoppingRateOutput = overtoppingRateOutput;
         }
 
         /// <summary>
-        /// The height of the wave that was calculated in the overtopping sub failure mechanism.
+        /// Gets the output of the assessment result.
         /// </summary>
-        public RoundedDouble WaveHeight { get; }
-
-        /// <summary>
-        /// Value indicating whether the overtopping sub failure mechanism was dominant over the overflow
-        /// sub failure mechanism.
-        /// </summary>
-        public bool IsOvertoppingDominant { get; }
-
-        /// <summary>
-        /// Gets the probabilistic assessment output.
-        /// </summary>
-        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
+        public GrassCoverErosionInwardsResultOutput ResultOutput { get; }
 
         /// <summary>
         /// Gets the dike height output.
