@@ -112,6 +112,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             }
         }
 
+        /// <summary>
+        /// Proceeds <paramref name="reader"/> to the next result in the data set. 
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown there was no other result in the data set.</exception>
         private static void ProceedOrThrow(HydraRingDatabaseReader reader)
         {
             if (!reader.NextResult())
@@ -147,8 +152,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int windDirectionId = Convert.ToInt32(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
                 string name = Convert.ToString(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.StochastName]);
-                double duration = Convert.ToDouble(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.Duration]);
-                double alpha = Convert.ToDouble(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.AlphaValue]);
+                double duration = ConvertToDouble(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.Duration],
+                                                  IllustrationPointsDatabaseConstants.Duration);
+                double alpha = ConvertToDouble(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.AlphaValue],
+                                               IllustrationPointsDatabaseConstants.AlphaValue);
 
                 var key = new ThreeKeyIndex(windDirectionId, closingSituationid, faultTreeId);
                 if (!faultTreeStochasts.ContainsKey(key))
@@ -172,8 +179,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int faultTreeId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.FaultTreeId]);
                 int windDirectionId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
-                double beta = Convert.ToDouble(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.BetaValue]);
-
+                double beta = ConvertToDouble(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.BetaValue],
+                                              IllustrationPointsDatabaseConstants.BetaValue);
                 var threeKeyIndex = new ThreeKeyIndex(windDirectionId, closingSituationid, faultTreeId);
                 if (faultTreeBetaValues.ContainsKey(threeKeyIndex))
                 {
@@ -191,9 +198,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int windDirectionId = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
                 string name = Convert.ToString(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.StochastName]);
-                double duration = Convert.ToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Duration]);
-                double alpha = Convert.ToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.AlphaValue]);
-                double realization = Convert.ToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Realization]);
+                double duration = ConvertToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Duration],
+                                                  IllustrationPointsDatabaseConstants.Duration);
+                double alpha = ConvertToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.AlphaValue],
+                                               IllustrationPointsDatabaseConstants.AlphaValue);
+                double realization = ConvertToDouble(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.Realization],
+                                                     IllustrationPointsDatabaseConstants.Realization);
 
                 var key = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
                 if (!subMechanismStochasts.ContainsKey(key))
@@ -237,7 +247,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int windDirectionId = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.ClosingSituationId]);
                 string description = Convert.ToString(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointResultDescription]);
-                double value = Convert.ToDouble(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointResultValue]);
+                double value = ConvertToDouble(readSubMechanismResult[IllustrationPointsDatabaseConstants.IllustrationPointResultValue],
+                                               IllustrationPointsDatabaseConstants.IllustrationPointResultValue);
 
                 var key = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
                 if (!subMechanismResults.ContainsKey(key))
@@ -367,7 +378,26 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
             }
-            Output.Beta = Convert.ToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue]);
+            Output.Beta = ConvertToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue],
+                                          IllustrationPointsDatabaseConstants.BetaValue);
+        }
+
+        /// <summary>
+        /// Converts <paramref name="doubleValue"/> to <see cref="double"/>.
+        /// </summary>
+        /// <param name="doubleValue"></param>
+        /// <param name="identifier">The identifier.</param>
+        /// <returns>The converted double.</returns>
+        /// <exception cref="HydraRingFileParserException">Throw when <paramref name="doubleValue"/> 
+        /// is <see cref="DBNull"/>.</exception>
+        /// <seealso cref="Convert.ToDouble(object)"/>
+        private static double ConvertToDouble(object doubleValue, string identifier)
+        {
+            if (doubleValue.Equals(DBNull.Value))
+            {
+                throw new HydraRingFileParserException(string.Format(Resources.IllustrationPointsParser_Parse_Column_0_is_Null, identifier));
+            }
+            return Convert.ToDouble(doubleValue);
         }
 
         private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
@@ -375,8 +405,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             Output.Stochasts = GetIterator(reader).Select(a => new Stochast
             {
                 Name = Convert.ToString(a[IllustrationPointsDatabaseConstants.StochastName]),
-                Duration = Convert.ToDouble(a[IllustrationPointsDatabaseConstants.Duration]),
-                Alpha = Convert.ToDouble(a[IllustrationPointsDatabaseConstants.AlphaValue])
+                Duration = ConvertToDouble(a[IllustrationPointsDatabaseConstants.Duration], IllustrationPointsDatabaseConstants.Duration),
+                Alpha = ConvertToDouble(a[IllustrationPointsDatabaseConstants.AlphaValue], IllustrationPointsDatabaseConstants.AlphaValue)
             }).ToArray();
         }
 
@@ -395,7 +425,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 int key = Convert.ToInt32(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 string name = Convert.ToString(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionName]);
-                double angle = Convert.ToDouble(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionAngle]);
+                double angle = ConvertToDouble(readWindDirection[IllustrationPointsDatabaseConstants.WindDirectionAngle],
+                                               IllustrationPointsDatabaseConstants.WindDirectionAngle);
                 bool isGoverning = Convert.ToBoolean(readWindDirection[IllustrationPointsDatabaseConstants.IsGoverning]);
 
                 var windDirection = new WindDirection(name, angle);

@@ -129,6 +129,15 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen waarde gevonden voor kolom &apos;{0}&apos; tijdens het uitlezen van de illustratiepunten in de uitvoer database..
+        /// </summary>
+        internal static string IllustrationPointsParser_Parse_Column_0_is_Null {
+            get {
+                return ResourceManager.GetString("IllustrationPointsParser_Parse_Column_0_is_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er konden geen illustratiepunten worden uitgelezen..
         /// </summary>
         internal static string IllustrationPointsParser_Parse_Could_not_read_illustration_point_data {
