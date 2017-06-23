@@ -447,7 +447,18 @@ namespace Application.Ringtoets.Migration.Test
                 var migrationLog = new StringBuilder();
                 migrationLog.AppendLine(@"Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.");
                 migrationLog.AppendLine(@"Gevolgen van de migratie:");
-                migrationLog.AppendLine(@"- Alle berekende resultaten zijn verwijderd.");
+                migrationLog.AppendLine($@"- Alle berekende resultaten zijn verwijderd.{Environment.NewLine}" +
+                                        $@"- De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID.{Environment.NewLine}" +
+                                        $@"- De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID.{Environment.NewLine}" +
+                                        $@"- Het ID van voorlandprofiel 'FP' is veranderd naar 'FP10'.{Environment.NewLine}" +
+                                        $@"- Het ID van voorlandprofiel 'FP' is veranderd naar 'FP11'.{Environment.NewLine}" +
+                                        $@"- Het ID van voorlandprofiel 'FP' is veranderd naar 'FP12'.{Environment.NewLine}" +
+                                        $@"- Het ID van voorlandprofiel 'FP' is veranderd naar 'FP7'.{Environment.NewLine}" +
+                                        $@"- Het ID van voorlandprofiel 'FP' is veranderd naar 'FP8'.{Environment.NewLine}" +
+                                        $@"- Het ID van voorlandprofiel 'FP' is veranderd naar 'FP9'.{Environment.NewLine}" +
+                                        $@"- Het ID van hoogte kunstwerk 'Id' is veranderd naar 'Id00003'.{Environment.NewLine}" +
+                                        $@"- Het ID van sluiten kunstwerk 'id' is veranderd naar 'id00002'.{Environment.NewLine}" +
+                                        $@"- Het ID van stabiliteit puntconstructies kunstwerk 'anId' is veranderd naar 'anId000000002'.");
 
                 var expectedLogMessagesAndLevel = new[]
                 {
