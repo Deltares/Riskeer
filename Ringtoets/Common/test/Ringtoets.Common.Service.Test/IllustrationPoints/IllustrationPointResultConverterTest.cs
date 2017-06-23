@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IllustrationPointResult;
+using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {

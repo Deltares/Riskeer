@@ -21,12 +21,13 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
-    /// Illustration point which contains the result of applying the sub mechanism.
+    /// An illustration point which uses the results of two sub illustration points
+    /// to obtain a result.
     /// </summary>
-    public class SubMechanismIllustrationPoint : IIllustrationPoint
+    public class FaultTreeIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
         /// Gets or sets the name.
@@ -34,19 +35,19 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the stochasts that were realized.
+        /// Gets the combined stochasts of its children.
         /// </summary>
-        public ICollection<RealizedStochast> Stochasts { get; } = new List<RealizedStochast>();
+        public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();
 
         /// <summary>
-        /// Gets the beta values that were realized.
+        /// Gets the combined beta values of its children.
         /// </summary>
         public double Beta { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets the output variables.
+        /// The way in which the sub illustration points are combined to
+        /// obtain a result for the fault tree illustration point.
         /// </summary>
-        public ICollection<IllustrationPointResult> Results { get; } = new List<IllustrationPointResult>();
-
+        public CombinationType CombinationType { get; set; }
     }
 }

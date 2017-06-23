@@ -25,9 +25,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
-using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IllustrationPointResult;
-using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.RealizedStochast;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
 using IllustrationPointResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.IllustrationPointResult;
 using RealizedStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.RealizedStochast;
 

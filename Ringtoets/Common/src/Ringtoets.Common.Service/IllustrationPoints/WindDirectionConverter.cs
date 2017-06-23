@@ -21,7 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using HydraWindDirection = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection;
+using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {

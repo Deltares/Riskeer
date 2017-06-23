@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {

@@ -21,7 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
@@ -48,10 +48,10 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <item><paramref name="hydraWindDirectionClosingSituation"/>,</item>
         /// <item><paramref name="hydraSubMechanismIllustrationPoint"/>,</item>
         /// <item><see cref="SubMechanismIllustrationPoint.Name"/>,</item>
-        /// <item><see cref="Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection.Name"/></item>
+        /// <item><see cref="HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection.Name"/></item>
         /// </list> are <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <see cref="Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection.Angle"/>
+        /// <see cref="HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection.Angle"/>
         /// is not in the interval of [0, 360].</exception>
         public static WindDirectionClosingSituationIllustrationPoint CreateWindDirectionClosingScenarioIllustrationPoint(
             WindDirectionClosingSituation hydraWindDirectionClosingSituation,

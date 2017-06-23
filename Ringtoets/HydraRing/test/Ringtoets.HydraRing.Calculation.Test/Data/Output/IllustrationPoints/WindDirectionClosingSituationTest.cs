@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     [TestFixture]
     public class WindDirectionClosingSituationTest
@@ -127,10 +127,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
         private static TestCaseData[] Combinations()
         {
-            var instanceA = new WindDirectionClosingSituation(new WindDirection { Angle = 123.2, Name = "a" }, "situationA");
-            var instanceB = new WindDirectionClosingSituation(new WindDirection { Angle = 123.2, Name = "a" }, "situationA");
-            var instanceC = new WindDirectionClosingSituation(new WindDirection { Angle = 3.2, Name = "a" }, "situationA");
-            var instanceD = new WindDirectionClosingSituation(new WindDirection { Angle = 123.2, Name = "a" }, "situationB");
+            var instanceA = new WindDirectionClosingSituation(new WindDirection
+            {
+                Angle = 123.2,
+                Name = "a"
+            }, "situationA");
+            var instanceB = new WindDirectionClosingSituation(new WindDirection
+            {
+                Angle = 123.2,
+                Name = "a"
+            }, "situationA");
+            var instanceC = new WindDirectionClosingSituation(new WindDirection
+            {
+                Angle = 3.2,
+                Name = "a"
+            }, "situationA");
+            var instanceD = new WindDirectionClosingSituation(new WindDirection
+            {
+                Angle = 123.2,
+                Name = "a"
+            }, "situationB");
 
             return new[]
             {

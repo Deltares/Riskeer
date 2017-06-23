@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using GeneralResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.GeneralResult;
-using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.GeneralResult;
-using IHydraRingIllustrationPoint = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IIllustrationPoint;
+using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
+using IHydraRingIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
 using Stochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.Stochast;
 using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 

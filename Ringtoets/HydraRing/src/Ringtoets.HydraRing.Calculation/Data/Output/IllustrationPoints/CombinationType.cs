@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// The ways two illustration points can be combined in a result.

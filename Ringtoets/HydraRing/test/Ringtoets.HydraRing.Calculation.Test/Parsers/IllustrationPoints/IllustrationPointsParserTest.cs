@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;

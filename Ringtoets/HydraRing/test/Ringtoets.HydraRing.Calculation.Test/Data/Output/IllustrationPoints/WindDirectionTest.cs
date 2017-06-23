@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     [TestFixture]
     public class WindDirectionTest
@@ -109,15 +109,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         {
             var windDirectionA = new WindDirection
             {
-                Angle = 123.2, Name = "a"
+                Angle = 123.2,
+                Name = "a"
             };
             var windDirectionB = new WindDirection
             {
-                Angle = 123.2, Name = "a"
+                Angle = 123.2,
+                Name = "a"
             };
             var windDirectionC = new WindDirection
             {
-                Angle = 3.2, Name = "a"
+                Angle = 3.2,
+                Name = "a"
             };
 
             return new[]

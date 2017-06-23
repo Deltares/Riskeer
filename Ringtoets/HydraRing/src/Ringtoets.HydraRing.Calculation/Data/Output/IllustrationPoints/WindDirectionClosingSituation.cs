@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// Combination of a wind direction and a closing situation.

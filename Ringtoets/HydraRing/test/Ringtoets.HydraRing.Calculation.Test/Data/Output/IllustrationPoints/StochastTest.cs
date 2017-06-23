@@ -19,10 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
-    /// <summary>
-    /// Placeholder interface for an illustration point.
-    /// </summary>
-    public interface IIllustrationPoint {}
+    [TestFixture]
+    public class StochastTest
+    {
+        [Test]
+        public void Constructor_Always_RetrusnNewInstance()
+        {
+            // Call
+            var stochast = new Stochast();
+
+            // Assert
+            Assert.IsNull(stochast.Name);
+            Assert.IsNaN(stochast.Duration);
+            Assert.IsNaN(stochast.Alpha);
+        }
+    }
 }

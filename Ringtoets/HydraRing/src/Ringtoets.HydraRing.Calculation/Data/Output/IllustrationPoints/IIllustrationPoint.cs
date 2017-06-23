@@ -19,21 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
-    /// An output variable for a sub mechanism illustration point.
+    /// Placeholder interface for an illustration point.
     /// </summary>
-    public class IllustrationPointResult
-    {
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        public double Value { get; set; } = double.NaN;
-    }
+    public interface IIllustrationPoint {}
 }

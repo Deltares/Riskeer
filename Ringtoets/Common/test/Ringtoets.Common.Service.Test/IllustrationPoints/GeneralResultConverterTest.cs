@@ -27,12 +27,12 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using GeneralResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.GeneralResult;
-using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.GeneralResult;
-using HydraWindDirection = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection;
-using HydraWindStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.Stochast;
-using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.SubMechanismIllustrationPoint;
+using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
+using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
+using HydraWindStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraWindDirectionClosingSituation =
                 new WindDirectionClosingSituation(hydraWindDirection, closingSituation);
 
-            var hydraIllustrationPoint = new FaultTreeIllustrationPoint()
+            var hydraIllustrationPoint = new FaultTreeIllustrationPoint
             {
                 Beta = random.NextDouble(),
                 Name = " IllustrationPoint"
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
             AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
-            CollectionAssert.IsEmpty(generalResult.WindDirectionClosingSituationIllustrationPoints);   
+            CollectionAssert.IsEmpty(generalResult.WindDirectionClosingSituationIllustrationPoints);
         }
 
         private static void AssertWindDirection(HydraWindDirection hydraWindDirection, WindDirection windDirection)

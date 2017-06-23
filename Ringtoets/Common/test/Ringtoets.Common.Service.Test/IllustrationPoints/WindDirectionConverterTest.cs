@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using HydraWindDirection = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection;
+using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {

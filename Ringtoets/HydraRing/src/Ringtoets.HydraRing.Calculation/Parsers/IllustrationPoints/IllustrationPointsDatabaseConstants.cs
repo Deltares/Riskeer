@@ -25,7 +25,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// Constants which are used for assigning values in database columns to values of
     /// data objects.
     /// </summary>
-    public static class IllustrationPointsDatabaseConstants
+    internal static class IllustrationPointsDatabaseConstants
     {
         public const string FaultTreeId = "FaultTreeId";
         public const string FaultTreeName = "FaultTreeName";

@@ -21,8 +21,8 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using HydraStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.Stochast;
-using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.RealizedStochast;
+using HydraStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {

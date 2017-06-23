@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// <summary>
     /// Collection of queries used for reading illustration points from the Hydra-Ring database.
     /// </summary>
-    public static class IllustrationPointQueries
+    internal static class IllustrationPointQueries
     {
         private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM DesignPointResults)";
         private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignPointResults)";

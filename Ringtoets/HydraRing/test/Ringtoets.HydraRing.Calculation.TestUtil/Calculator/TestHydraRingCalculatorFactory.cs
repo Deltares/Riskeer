@@ -26,8 +26,8 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 {

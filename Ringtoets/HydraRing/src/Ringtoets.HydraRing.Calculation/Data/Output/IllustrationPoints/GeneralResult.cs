@@ -19,47 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+using System.Collections.Generic;
+
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
-    /// A wind direction for which illustration points are determined.
+    /// The general illustration points result.
     /// </summary>
-    public sealed class WindDirection
+    public class GeneralResult
     {
         /// <summary>
-        /// Gets or sets the descriptive name.
+        /// Gets or sets the general beta value.
         /// </summary>
-        public string Name { get; set; }
+        public double Beta { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the angle.
+        /// Gets or sets the governing wind direction.
         /// </summary>
-        public double Angle { get; set; } = double.NaN;
+        public WindDirection GoverningWind { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            return obj.GetType() == GetType() && Equals((WindDirection) obj);
-        }
+        /// <summary>
+        /// Gets or sets the general alpha values.
+        /// </summary>
+        public IEnumerable<Stochast> Stochasts { get; set; }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((Name?.GetHashCode() ?? 0) * 397) ^ Angle.GetHashCode();
-            }
-        }
-
-        private bool Equals(WindDirection other)
-        {
-            return string.Equals(Name, other.Name) && Angle.Equals(other.Angle);
-        }
+        /// <summary>
+        /// Gets or sets the tree of illustration points for each 
+        /// wind direction and closing situation.
+        /// </summary>
+        public Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> IllustrationPoints { get; set; }
     }
 }

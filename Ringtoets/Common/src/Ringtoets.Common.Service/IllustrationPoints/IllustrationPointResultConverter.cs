@@ -21,7 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IllustrationPointResult;
+using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {

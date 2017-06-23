@@ -19,34 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
-    /// The general illustration points result.
+    /// Container of alpha value definitions read from a Hydra-Ring output database.
     /// </summary>
-    public class GeneralResult
+    public class Stochast
     {
         /// <summary>
-        /// Gets or sets the general beta value.
+        /// Gets or sets the name.
         /// </summary>
-        public double Beta { get; set; } = double.NaN;
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the governing wind direction.
+        /// Gets or sets the duration.
         /// </summary>
-        public WindDirection GoverningWind { get; set; }
+        public double Duration { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the general alpha values.
+        /// Gets or sets the alpha value.
         /// </summary>
-        public IEnumerable<Stochast> Stochasts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tree of illustration points for each 
-        /// wind direction and closing situation.
-        /// </summary>
-        public Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> IllustrationPoints { get; set; }
+        public double Alpha { get; set; } = double.NaN;
     }
 }

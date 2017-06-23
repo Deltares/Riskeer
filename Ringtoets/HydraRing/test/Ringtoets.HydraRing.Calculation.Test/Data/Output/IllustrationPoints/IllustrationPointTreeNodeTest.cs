@@ -22,9 +22,9 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     [TestFixture]
     public class IllustrationPointTreeNodeTest

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 

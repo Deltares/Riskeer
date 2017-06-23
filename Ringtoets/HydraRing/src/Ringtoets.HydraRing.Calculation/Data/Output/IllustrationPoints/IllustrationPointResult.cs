@@ -19,24 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
-
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
-    public class GeneralResultTest
+    /// <summary>
+    /// An output variable for a sub mechanism illustration point.
+    /// </summary>
+    public class IllustrationPointResult
     {
-        [Test]
-        public void Constructor_Always_ReturnsNewInstance()
-        {
-            // Call
-            var result = new GeneralResult();
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public string Description { get; set; }
 
-            // Assert
-            Assert.IsNull(result.GoverningWind);
-            Assert.IsNull(result.IllustrationPoints);
-            Assert.IsNull(result.Stochasts);
-            Assert.IsNaN(result.Beta);
-        }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        public double Value { get; set; } = double.NaN;
     }
 }

@@ -26,11 +26,11 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using HydraWindDirection = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirection;
-using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.SubMechanismIllustrationPoint;
-using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.WindDirectionClosingSituation;
-using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.IllustrationPointResult;
-using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints.RealizedStochast;
+using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
+using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
+using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
+using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             };
 
             // Call
-            WindDirectionClosingSituationIllustrationPoint combination = 
+            WindDirectionClosingSituationIllustrationPoint combination =
                 WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(windDirectionClosingSituation, subMechanismIllustrationPoint);
 
             // Assert

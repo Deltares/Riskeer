@@ -20,22 +20,24 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     [TestFixture]
-    public class RealizedStochastTest
+    public class FaultTreeIllustrationPointTest
     {
         [Test]
-        public void Constructor_Always_RetrusnNewInstance()
+        public void Constructor_WithParameter_ReturnsNewInstance()
         {
             // Call
-            var stochast = new RealizedStochast();
+            var illustrationPoint = new FaultTreeIllustrationPoint();
 
             // Assert
-            Assert.IsInstanceOf<Stochast>(stochast);
-            Assert.IsNaN(stochast.Realization);
+            Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);
+            Assert.IsEmpty(illustrationPoint.Stochasts);
+            Assert.IsNaN(illustrationPoint.Beta);
+            Assert.AreEqual(CombinationType.Or, illustrationPoint.CombinationType);
         }
     }
 }

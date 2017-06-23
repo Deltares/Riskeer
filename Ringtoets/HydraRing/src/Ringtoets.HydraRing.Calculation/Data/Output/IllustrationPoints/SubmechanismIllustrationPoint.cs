@@ -19,42 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
-    /// A node that is part of a tree, that has illustration point data attached to it.
-    /// Multiple nodes form the tree structure describing how the illustration points are 
-    /// related.
+    /// Illustration point which contains the result of applying the sub mechanism.
     /// </summary>
-    public class IllustrationPointTreeNode
+    public class SubMechanismIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
-        /// Creates a new node with associated data.
+        /// Gets or sets the name.
         /// </summary>
-        /// <param name="data">The data that is attached to this node.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
-        /// is <c>null</c>.</exception>
-        public IllustrationPointTreeNode(IIllustrationPoint data)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-            Data = data;
-            Children = new List<IllustrationPointTreeNode>(2);
-        }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets the data attached to this node.
+        /// Gets the stochasts that were realized.
         /// </summary>
-        public IIllustrationPoint Data { get; }
+        public ICollection<RealizedStochast> Stochasts { get; } = new List<RealizedStochast>();
 
         /// <summary>
-        /// Gets the child nodes of this node.
+        /// Gets the beta values that were realized.
         /// </summary>
-        public IList<IllustrationPointTreeNode> Children { get; }
+        public double Beta { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets the output variables.
+        /// </summary>
+        public ICollection<IllustrationPointResult> Results { get; } = new List<IllustrationPointResult>();
     }
 }

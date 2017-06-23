@@ -20,22 +20,23 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
-    [TestFixture]
-    public class IllustrationPointResultTest
+    public class GeneralResultTest
     {
         [Test]
         public void Constructor_Always_ReturnsNewInstance()
         {
             // Call
-            var result = new IllustrationPointResult();
+            var result = new GeneralResult();
 
             // Assert
-            Assert.IsNull(result.Description);
-            Assert.IsNaN(result.Value);
+            Assert.IsNull(result.GoverningWind);
+            Assert.IsNull(result.IllustrationPoints);
+            Assert.IsNull(result.Stochasts);
+            Assert.IsNaN(result.Beta);
         }
     }
 }

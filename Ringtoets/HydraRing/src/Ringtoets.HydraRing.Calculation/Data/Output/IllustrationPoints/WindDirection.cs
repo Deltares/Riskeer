@@ -19,35 +19,47 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
-    /// An illustration point which uses the results of two sub illustration points
-    /// to obtain a result.
+    /// A wind direction for which illustration points are determined.
     /// </summary>
-    public class FaultTreeIllustrationPoint : IIllustrationPoint
+    public sealed class WindDirection
     {
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the descriptive name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the combined stochasts of its children.
+        /// Gets or sets the angle.
         /// </summary>
-        public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();
+        public double Angle { get; set; } = double.NaN;
 
-        /// <summary>
-        /// Gets the combined beta values of its children.
-        /// </summary>
-        public double Beta { get; set; } = double.NaN;
-        
-        /// <summary>
-        /// The way in which the sub illustration points are combined to
-        /// obtain a result for the fault tree illustration point.
-        /// </summary>
-        public CombinationType CombinationType { get; set; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            return obj.GetType() == GetType() && Equals((WindDirection) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Name?.GetHashCode() ?? 0) * 397) ^ Angle.GetHashCode();
+            }
+        }
+
+        private bool Equals(WindDirection other)
+        {
+            return string.Equals(Name, other.Name) && Angle.Equals(other.Angle);
+        }
     }
 }
