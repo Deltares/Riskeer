@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
@@ -28,8 +30,23 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     public class RealizedStochast : Stochast
     {
         /// <summary>
-        /// Gets or sets the realization.
+        /// Creates an new instance of <see cref="RealizedStochast"/>.
         /// </summary>
-        public double Realization { get; set; } = double.NaN;
+        /// <param name="name">The name.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="alpha">The alpha.</param>
+        /// <param name="realization">The realization.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public RealizedStochast(string name, double duration, double alpha, double realization) 
+            : base(name, duration, alpha)
+        {
+            Realization = realization;
+        }
+
+        /// <summary>
+        /// Gets the realization.
+        /// </summary>
+        public double Realization { get; }
     }
 }

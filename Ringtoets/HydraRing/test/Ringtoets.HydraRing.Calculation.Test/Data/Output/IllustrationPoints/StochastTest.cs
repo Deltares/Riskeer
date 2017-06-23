@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
@@ -28,15 +29,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
     public class StochastTest
     {
         [Test]
-        public void Constructor_Always_RetrusnNewInstance()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            var stochast = new Stochast();
+            TestDelegate call = ()=> new Stochast(null, double.NaN, double.NaN);
 
             // Assert
-            Assert.IsNull(stochast.Name);
-            Assert.IsNaN(stochast.Duration);
-            Assert.IsNaN(stochast.Alpha);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithParameters_ReturnsNewInstance()
+        {
+            // Setup
+            const string name = "stochast name";
+
+            var random = new Random(21);
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
+
+            // Call
+            var stochast = new Stochast(name, duration, alpha);
+
+            // Assert
+            Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(alpha, stochast.Alpha);
         }
     }
 }

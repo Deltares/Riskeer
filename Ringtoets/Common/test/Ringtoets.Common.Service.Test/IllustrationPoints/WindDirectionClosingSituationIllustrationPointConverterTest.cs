@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraSubMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name",
                                                                                             Enumerable.Empty<HydraRealizedStochast>(),
                                                                                             Enumerable.Empty<HydraIllustrationPointResult>(),
-                                                                                            123);
+                                                                                            double.NaN);
 
             // Call
             TestDelegate call = () =>
@@ -87,13 +87,12 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             var hydraIllustrationPointResult = new HydraIllustrationPointResult("HydraIllustrationPointResult",
                                                                                 random.NextDouble());
-            var hydraRealizedStochast = new HydraRealizedStochast
-            {
-                Alpha = random.NextDouble(),
-                Duration = random.NextDouble(),
-                Name = "HydraRealizedStochast",
-                Realization = random.NextDouble()
-            };
+
+            const string name = "HydraRealizedStochast";
+            double alpha = random.NextDouble();
+            int duration = random.Next();
+            double realization = random.NextDouble();
+            var hydraRealizedStochast = new HydraRealizedStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
             var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
@@ -126,7 +125,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             RealizedStochast stochast = illustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraRealizedStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            int duration = Convert.ToInt32(hydraRealizedStochast.Duration);
             Assert.AreEqual(duration, stochast.Duration);
             Assert.AreEqual(hydraRealizedStochast.Name, stochast.Name);
             Assert.AreEqual(hydraRealizedStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
@@ -27,18 +29,37 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     public class Stochast
     {
         /// <summary>
-        /// Gets or sets the name.
+        /// Creates an instance of <see cref="Stochast"/>.
         /// </summary>
-        public string Name { get; set; }
+        /// <param name="name">The name.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="alpha">The alpha value.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public Stochast(string name, double duration, double alpha)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            Name = name;
+            Duration = duration;
+            Alpha = alpha;
+        }
 
         /// <summary>
-        /// Gets or sets the duration.
+        /// Gets the name.
         /// </summary>
-        public double Duration { get; set; } = double.NaN;
+        public string Name { get; }
 
         /// <summary>
-        /// Gets or sets the alpha value.
+        /// Gets the duration.
         /// </summary>
-        public double Alpha { get; set; } = double.NaN;
+        public double Duration { get; }
+
+        /// <summary>
+        /// Gets the alpha value.
+        /// </summary>
+        public double Alpha { get; }
     }
 }

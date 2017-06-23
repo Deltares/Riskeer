@@ -169,12 +169,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     faultTreeStochasts[key] = new List<Stochast>();
                 }
 
-                faultTreeStochasts[key].Add(new Stochast
-                {
-                    Name = name,
-                    Duration = duration,
-                    Alpha = alpha
-                });
+                faultTreeStochasts[key].Add(new Stochast(name, duration, alpha));
             }
         }
 
@@ -217,13 +212,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     subMechanismStochasts[key] = new List<RealizedStochast>();
                 }
 
-                subMechanismStochasts[key].Add(new RealizedStochast
-                {
-                    Name = name,
-                    Duration = duration,
-                    Alpha = alpha,
-                    Realization = realization
-                });
+                subMechanismStochasts[key].Add(new RealizedStochast(name, duration, alpha, realization));
             }
         }
 
@@ -410,11 +399,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
         {
-            Output.Stochasts = GetIterator(reader).Select(a => new Stochast
+            Output.Stochasts = GetIterator(reader).Select(a =>
             {
-                Name = Convert.ToString(a[IllustrationPointsDatabaseConstants.StochastName]),
-                Duration = ConvertToDouble(a[IllustrationPointsDatabaseConstants.Duration], IllustrationPointsDatabaseConstants.Duration),
-                Alpha = ConvertToDouble(a[IllustrationPointsDatabaseConstants.AlphaValue], IllustrationPointsDatabaseConstants.AlphaValue)
+                string name = Convert.ToString(a[IllustrationPointsDatabaseConstants.StochastName]);
+                double duration = ConvertToDouble(a[IllustrationPointsDatabaseConstants.Duration], IllustrationPointsDatabaseConstants.Duration);
+                double alpha = ConvertToDouble(a[IllustrationPointsDatabaseConstants.AlphaValue], IllustrationPointsDatabaseConstants.AlphaValue);
+                return new Stochast(name, duration, alpha);
             }).ToArray();
         }
 

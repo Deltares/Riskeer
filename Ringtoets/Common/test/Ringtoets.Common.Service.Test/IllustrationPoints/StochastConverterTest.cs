@@ -44,34 +44,15 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateStochast_HydraStochastNameNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraStochast = new HydraStochast
-            {
-                Alpha = 0,
-                Duration = 0
-            };
-
-            // Call
-            TestDelegate call = () => StochastConverter.CreateStochast(hydraStochast);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
         public void CreateStochast_ValidArguments_ExpectedProperties()
         {
             // Setup
+            const string name = "name";
+
             var random = new Random(21);
             int duration = random.Next();
-            var hydraStochast = new HydraStochast
-            {
-                Alpha = random.NextDouble(),
-                Duration = duration,
-                Name = "Name"
-            };
+            double alpha = random.NextDouble();
+            var hydraStochast = new HydraStochast(name, duration, alpha);
 
             // Call
             Stochast stochast = StochastConverter.CreateStochast(hydraStochast);
@@ -94,35 +75,17 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateRealizedStochast_HydraRealizedStochastNameNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraStochast = new HydraRealizedStochast
-            {
-                Alpha = 0,
-                Duration = 0
-            };
-
-            // Call
-            TestDelegate call = () => StochastConverter.CreateStochast(hydraStochast);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
         public void CreateRealizedStochast_ValidArguments_ExpectedProperties()
         {
             // Setup
+            const string name = "name";
+
             var random = new Random(21);
             int duration = random.Next();
-            var hydraStochast = new HydraRealizedStochast
-            {
-                Alpha = random.NextDouble(),
-                Duration = duration,
-                Name = "Name",
-                Realization = random.NextDouble()
-            };
+            double alpha = random.NextDouble();
+            double realization = random.NextDouble();
+
+            var hydraStochast = new HydraRealizedStochast(name, duration, alpha, realization);
 
             // Call
             RealizedStochast stochast = StochastConverter.CreateRealizedStochast(hydraStochast);

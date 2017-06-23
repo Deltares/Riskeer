@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <see cref="Stochast"/> to create on.</param>
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraStochast"/> 
-        /// or <see cref="HydraStochast.Name"/> is <c>null</c>.</exception>
+        /// is <c>null</c>.</exception>
         public static Stochast CreateStochast(HydraStochast hydraStochast)
         {
             if (hydraStochast == null)
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <see cref="RealizedStochast"/> to create on.</param>
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRealizedStochast"/> 
-        /// or <see cref="HydraStochast.Name"/> is <c>null</c>.</exception>
+        /// is <c>null</c>.</exception>
         public static RealizedStochast CreateRealizedStochast(HydraRealizedStochast hydraRealizedStochast)
         {
             if (hydraRealizedStochast == null)
