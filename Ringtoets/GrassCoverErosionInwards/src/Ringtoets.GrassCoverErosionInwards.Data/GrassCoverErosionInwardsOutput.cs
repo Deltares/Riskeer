@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -37,10 +36,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="resultOutput">The output of the assessment result.</param>
         /// <param name="dikeHeightOutput">The dike height output.</param>
         /// <param name="overtoppingRateOutput">The overtopping rate output.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="resultOutput"/>
+        /// is <c>null</c>.</exception>
         public GrassCoverErosionInwardsOutput(GrassCoverErosionInwardsResultOutput resultOutput,
                                               DikeHeightOutput dikeHeightOutput,
                                               OvertoppingRateOutput overtoppingRateOutput)
         {
+            if (resultOutput == null)
+            {
+                throw new ArgumentNullException(nameof(resultOutput));
+            }
             ResultOutput = resultOutput;
             DikeHeightOutput = dikeHeightOutput;
             OvertoppingRateOutput = overtoppingRateOutput;

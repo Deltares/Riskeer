@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -31,6 +32,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionInwardsOutputTest
     {
+        [Test]
+        public void Constructor_ResultOutputNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsOutput(
+                null,
+                new TestDikeHeightOutput(double.NaN),
+                new TestOvertoppingRateOutput(double.NaN));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("resultOutput", exception.ParamName);
+        }
+
         [Test]
         public void ParameteredConstructor_DefaultValues()
         {
