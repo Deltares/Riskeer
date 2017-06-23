@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -296,15 +297,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSection(originalComposition);
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
-
             var mocks = new MockRepository();
             var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
 
             var observer = mocks.StrictMock<IObserver>();
             failureMechanismContribution.Attach(observer);
             observer.Expect(o => o.UpdateObserver());
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
+
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
@@ -334,16 +336,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
             var assessmentSection = new AssessmentSection(originalComposition);
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-
-            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;            
 
             var mocks = new MockRepository();
             var normChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
 
             var observer = mocks.StrictMock<IObserver>();
             failureMechanismContribution.Attach(observer);
+
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
+
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
@@ -390,13 +394,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                  observable1,
                                  observable2
                              });
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             var properties = new FailureMechanismContributionProperties(
                 assessmentSection.FailureMechanismContribution,
                 assessmentSection,
                 normChangeHandler,
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Call
             properties.ReturnPeriod = returnPeriod;
@@ -417,6 +422,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const AssessmentSectionComposition assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
@@ -426,7 +432,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 contribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Call
             TestDelegate call = () => properties.ReturnPeriod = invalidReturnPeriod;

@@ -21,6 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -36,28 +38,19 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
     [TestFixture]
     public class FailureMechanismContributionPropertyInfoTest
     {
-        private RingtoetsPlugin plugin;
-        private PropertyInfo info;
-
-        [SetUp]
-        public void SetUp()
-        {
-            plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismContributionProperties));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
-            Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                PropertyInfo info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
+                Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);
+            }
         }
 
         [Test]
@@ -66,20 +59,37 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.ViewCommands).Return(viewCommands);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 200);
-            var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
+            using (var plugin = new RingtoetsPlugin())
+            {                
+                plugin.Gui = gui;
 
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
+                IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+                var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 200);
+                var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
 
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContributionProperties>(objectProperties);
-            Assert.AreSame(failureMechanismContribution, objectProperties.Data);
+                PropertyInfo info = GetInfo(plugin);
+
+                // Call
+                IObjectProperties objectProperties = info.CreateInstance(context);
+
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismContributionProperties>(objectProperties);
+                Assert.AreSame(failureMechanismContribution, objectProperties.Data);
+            }
 
             mocks.VerifyAll();
+        }
+
+        private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
+        {
+            return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismContributionProperties));
         }
     }
 }

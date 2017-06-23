@@ -297,7 +297,7 @@ namespace Ringtoets.Integration.Plugin
                     context.WrappedData,
                     context.Parent,
                     new FailureMechanismContributionNormChangeHandler(),
-                    new AssessmentSectionCompositionChangeHandler())
+                    new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();

@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -123,6 +124,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             var grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
             grassCoverErosionOutwardsObserver.Expect(o => o.UpdateObserver());
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -142,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
@@ -219,6 +222,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
             var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -232,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
@@ -319,6 +324,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
             var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>(); // No update observer expected.
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -336,7 +343,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
@@ -420,6 +427,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
             var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -436,7 +444,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
@@ -498,6 +506,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             var calculationObserver = mockRepository.StrictMock<IObserver>();
             var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
+
+            var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -510,7 +520,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
@@ -536,6 +546,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void ReturnPeriodProperty_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var viewCommands = mockRepository.Stub<IViewCommands>();
+            mockRepository.ReplayAll();
+
             const int newReturnPeriod = 200;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -554,7 +568,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(),
-                new AssessmentSectionCompositionChangeHandler());
+                new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
             int originalReturnPeriodValue = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
@@ -567,6 +581,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
             Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            mockRepository.VerifyAll();
         }
     }
 }

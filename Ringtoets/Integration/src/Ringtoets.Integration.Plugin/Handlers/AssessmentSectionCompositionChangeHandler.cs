@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -44,7 +45,24 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class AssessmentSectionCompositionChangeHandler : IAssessmentSectionCompositionChangeHandler
     {
+        private readonly IViewCommands viewCommands;
         private readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionCompositionChangeHandler));
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionCompositionChangeHandler"/>.
+        /// </summary>
+        /// <param name="viewCommands">The view commands used to close views for irrelevant
+        /// failure mechanisms.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionCompositionChangeHandler(IViewCommands viewCommands)
+        {
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException(nameof(viewCommands));
+            }
+            this.viewCommands = viewCommands;
+        }
 
         public bool ConfirmCompositionChange()
         {

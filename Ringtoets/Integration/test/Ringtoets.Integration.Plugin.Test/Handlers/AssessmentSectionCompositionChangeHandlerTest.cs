@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -36,6 +38,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
@@ -49,9 +52,40 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
     public class AssessmentSectionCompositionChangeHandlerTest : NUnitFormTest
     {
         [Test]
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new AssessmentSectionCompositionChangeHandler(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("viewCommands", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithViewCommands_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+
+            // Assert
+            Assert.IsInstanceOf<IAssessmentSectionCompositionChangeHandler>(handler);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ConfirmCompositionChange_Always_ShowMessageBox()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             var title = "";
             var message = "";
             DialogBoxHandler = (name, wnd) =>
@@ -63,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 tester.ClickOk();
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             handler.ConfirmCompositionChange();
@@ -75,49 +109,66 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                      + Environment.NewLine +
                                      "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ConfirmCompositionChange_MessageBoxOk_ReturnTrue()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
                 tester.ClickOk();
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             bool result = handler.ConfirmCompositionChange();
 
             // Assert
             Assert.IsTrue(result);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ConfirmCompositionChange_MessageBoxCancel_ReturnFalse()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
                 tester.ClickCancel();
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             bool result = handler.ConfirmCompositionChange();
 
             // Assert
             Assert.IsFalse(result);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ChangeComposition_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             TestDelegate call = () => handler.ChangeComposition(null, AssessmentSectionComposition.Dike);
@@ -125,12 +176,17 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ChangeComposition_ChangeToSameValue_DoNothing()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             AssessmentSectionComposition originalComposition = assessmentSection.Composition;
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
@@ -149,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                        || loc.WaveHeightCalculation.HasOutput)
                                                                          .ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, originalComposition);
@@ -162,6 +218,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.True(hblWithOutput.All(loc => loc.DesignWaterLevelCalculation.HasOutput || loc.WaveHeightCalculation.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -171,6 +228,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                         AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -200,7 +261,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                        .Where(calc => calc.HasOutput))
                                            .ToList();
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -227,6 +288,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 Assert.IsNull(duneLocation.Output);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -238,6 +300,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                         AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -257,7 +323,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                           })
                                                                                           .ToList();
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -282,6 +348,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 Assert.IsNull(duneLocation.Output);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -291,6 +358,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -315,7 +386,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                        .Where(calc => calc.HasOutput))
                                            .ToList();
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -337,6 +408,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 Assert.IsNull(duneLocation.Output);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -346,6 +418,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -360,7 +436,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                           })
                                                                                           .ToList();
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -382,6 +458,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 Assert.IsNull(duneLocation.Output);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -391,6 +468,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                          AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             IEnumerable<ICalculation> notAffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
@@ -405,7 +486,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                          .SelectMany(fm => fm.Calculations)
                          .Where(c => c.HasOutput)).ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -418,6 +499,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert 
             AssertCorrectOutputClearedWhenCompositionDune(notAffectedObjects, assessmentSection);
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -429,6 +511,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             List<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
@@ -441,7 +527,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 assessmentSection
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
@@ -451,6 +537,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
 
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -464,9 +551,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                           AssessmentSectionComposition newComposition)
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
             var assessmentSection = new AssessmentSection(oldComposition);
 
-            var handler = new AssessmentSectionCompositionChangeHandler();
+            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
@@ -475,6 +566,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> expectedAffectedObjects = GetExpectedAffectedObjects(assessmentSection, oldComposition, newComposition);
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            mocks.VerifyAll();
         }
 
         private static IEnumerable<IObservable> GetExpectedAffectedObjects(AssessmentSection assessmentSection,
