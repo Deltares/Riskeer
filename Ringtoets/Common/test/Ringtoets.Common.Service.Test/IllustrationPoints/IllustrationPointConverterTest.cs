@@ -52,11 +52,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var hydraIllustrationPointResult = new HydraIllustrationPointResult
-            {
-                Description = "HydraIllustrationPointResult",
-                Value = random.NextDouble()
-            };
+            var hydraIllustrationPointResult = new HydraIllustrationPointResult("HydraIllustrationPointResult",
+                                                                                random.NextDouble());
             var hydraRealizedStochast = new HydraRealizedStochast
             {
                 Alpha = random.NextDouble(),

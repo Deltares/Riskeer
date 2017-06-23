@@ -85,11 +85,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             var windDirectionClosingSituation = new HydraWindDirectionClosingSituation(hydraWindDirection, closingScenario);
 
-            var hydraIllustrationPointResult = new HydraIllustrationPointResult
-            {
-                Description = "HydraIllustrationPointResult",
-                Value = random.NextDouble()
-            };
+            var hydraIllustrationPointResult = new HydraIllustrationPointResult("HydraIllustrationPointResult",
+                                                                                random.NextDouble());
             var hydraRealizedStochast = new HydraRealizedStochast
             {
                 Alpha = random.NextDouble(),
@@ -109,7 +106,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             WindDirectionClosingSituationIllustrationPoint combination =
-                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(windDirectionClosingSituation, subMechanismIllustrationPoint);
+                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                    windDirectionClosingSituation, subMechanismIllustrationPoint);
 
             // Assert
             WindDirection windDirection = combination.WindDirection;

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
@@ -27,13 +29,31 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     public class IllustrationPointResult
     {
         /// <summary>
-        /// Gets or sets the description.
+        /// Creates a new instance of <see cref="IllustrationPointResult"/>.
         /// </summary>
-        public string Description { get; set; }
+        /// <param name="description">The description.</param>
+        /// <param name="value">The output of the sub mechanism illustration point.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/> 
+        /// is <c>null</c>.</exception>
+        public IllustrationPointResult(string description, double value)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            Description = description;
+            Value = value;
+        }
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets the description.
         /// </summary>
-        public double Value { get; set; } = double.NaN;
+        public string Description { get; }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        public double Value { get; }
     }
 }

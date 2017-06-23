@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
@@ -28,14 +29,29 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
     public class IllustrationPointResultTest
     {
         [Test]
-        public void Constructor_Always_ReturnsNewInstance()
+        public void Constructor_DescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            var result = new IllustrationPointResult();
+            TestDelegate call = () => new IllustrationPointResult(null, 0);
 
             // Assert
-            Assert.IsNull(result.Description);
-            Assert.IsNaN(result.Value);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("description", paramName);
+        }
+
+        [Test]
+        public void Constructor_Always_ReturnsNewInstance()
+        {
+            // Setup
+            const string description = "some description";
+            const double value = 123;
+
+            // Call
+            var result = new IllustrationPointResult(description, value);
+
+            // Assert
+            Assert.AreEqual(description, result.Description);
+            Assert.AreEqual(value, result.Value);
         }
     }
 }

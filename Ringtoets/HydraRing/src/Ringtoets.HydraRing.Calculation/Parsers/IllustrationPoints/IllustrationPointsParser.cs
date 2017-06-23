@@ -262,11 +262,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     subMechanismResults[key] = new List<IllustrationPointResult>();
                 }
 
-                subMechanismResults[key].Add(new IllustrationPointResult
-                {
-                    Description = description,
-                    Value = value
-                });
+                subMechanismResults[key].Add(new IllustrationPointResult(description, value));
             }
         }
 
