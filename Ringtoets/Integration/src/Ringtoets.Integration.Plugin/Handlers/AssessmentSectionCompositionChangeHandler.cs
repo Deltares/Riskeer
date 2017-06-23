@@ -62,6 +62,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             Dictionary<IFailureMechanism, double> oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution);
+            Dictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.IsRelevant);
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -70,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 affectedObjects.Add(assessmentSection);
 
-                IFailureMechanism[] failureMechanismsToClearOutputFor = GetFailureMechanismsToUpdate(assessmentSection, oldFailureMechanismContributions).ToArray();
+                IFailureMechanism[] failureMechanismsToClearOutputFor = GetFailureMechanismsToClearOutputFor(assessmentSection, oldFailureMechanismContributions).ToArray();
 
                 IObservable[] affectedCalculations =
                     RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
@@ -83,12 +84,22 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 }
 
                 affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
+
+                affectedObjects.AddRange(GetFailureMechanismsWithRelevancyUpdated(assessmentSection, oldFailureMechanismRelevancies));
             }
             return affectedObjects;
         }
 
-        private static IEnumerable<IFailureMechanism> GetFailureMechanismsToUpdate(IAssessmentSection assessmentSection,
-                                                                                   Dictionary<IFailureMechanism, double> oldFailureMechanismContributions)
+        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithRelevancyUpdated(IAssessmentSection assessmentSection,
+                                                                                               IDictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies)
+        {
+            return assessmentSection.GetFailureMechanisms()
+                                    .Where(failureMechanism => oldFailureMechanismRelevancies.ContainsKey(failureMechanism)
+                                                               && oldFailureMechanismRelevancies[failureMechanism] != failureMechanism.IsRelevant);
+        }
+
+        private static IEnumerable<IFailureMechanism> GetFailureMechanismsToClearOutputFor(IAssessmentSection assessmentSection,
+                                                                                           IDictionary<IFailureMechanism, double> oldFailureMechanismContributions)
         {
             var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())

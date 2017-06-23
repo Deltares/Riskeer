@@ -216,7 +216,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             AssertCorrectOutputClearedWhenCompositionDune(unaffectedObjects, assessmentSection);
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
@@ -269,7 +269,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
 
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
@@ -371,7 +371,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {
@@ -417,7 +417,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert 
             AssertCorrectOutputClearedWhenCompositionDune(notAffectedObjects, assessmentSection);
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
         }
 
         [Test]
@@ -450,7 +450,70 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
 
+            CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dike, DikeDune)")]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dike, Dune)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(DikeDune, Dike)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(DikeDune, Dune)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dune, Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dune, DikeDune)")]
+        public void ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(AssessmentSectionComposition oldComposition,
+                                                                                          AssessmentSectionComposition newComposition)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(oldComposition);
+
+            var handler = new AssessmentSectionCompositionChangeHandler();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+
+            // Assert
+            IEnumerable<IObservable> expectedAffectedObjects = GetExpectedAffectedObjects(assessmentSection, oldComposition, newComposition);
+
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        private static IEnumerable<IObservable> GetExpectedAffectedObjects(AssessmentSection assessmentSection,
+                                                                           AssessmentSectionComposition oldComposition,
+                                                                           AssessmentSectionComposition newComposition)
+        {
+            var expectedAffectedObjects = new List<IObservable>
+            {
+                assessmentSection
+            };
+
+            if (newComposition == AssessmentSectionComposition.Dike && oldComposition == AssessmentSectionComposition.Dune
+                || newComposition == AssessmentSectionComposition.Dune && oldComposition == AssessmentSectionComposition.Dike
+                || newComposition == AssessmentSectionComposition.DikeAndDune && oldComposition == AssessmentSectionComposition.Dune
+                || newComposition == AssessmentSectionComposition.Dune && oldComposition == AssessmentSectionComposition.DikeAndDune)
+            {
+                expectedAffectedObjects.AddRange(new IFailureMechanism[]
+                {
+                    assessmentSection.PipingFailureMechanism,
+                    assessmentSection.GrassCoverErosionInwards,
+                    assessmentSection.GrassCoverErosionOutwards,
+                    assessmentSection.ClosingStructures,
+                    assessmentSection.HeightStructures,
+                    assessmentSection.StabilityPointStructures,
+                    assessmentSection.StabilityStoneCover,
+                    assessmentSection.WaveImpactAsphaltCover,
+                    assessmentSection.MacroStabilityInwards
+                });
+            }
+
+            if (newComposition == AssessmentSectionComposition.Dike && oldComposition == AssessmentSectionComposition.DikeAndDune
+                || newComposition == AssessmentSectionComposition.DikeAndDune && oldComposition == AssessmentSectionComposition.Dike
+                || newComposition == AssessmentSectionComposition.Dike && oldComposition == AssessmentSectionComposition.Dune
+                || newComposition == AssessmentSectionComposition.Dune && oldComposition == AssessmentSectionComposition.Dike)
+            {
+                expectedAffectedObjects.Add(assessmentSection.DuneErosion);
+            }
+
+            return expectedAffectedObjects.ToArray();
         }
 
         /// <summary>
