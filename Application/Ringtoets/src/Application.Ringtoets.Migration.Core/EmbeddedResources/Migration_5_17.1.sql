@@ -370,6 +370,17 @@ SELECT	"5",
 
 DROP TABLE log_output_deleted;
 
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "5", 
+		"17.1",
+		"De naam van dijkprofiel '" || source.Name || "' is veranderd naar '" || dp.Id || "' en wordt ook gebruikt als ID."
+	FROM DikeProfileEntity as dp
+	JOIN [SOURCEPROJECT].DikeProfileEntity as source ON dp.rowid = source.rowid
+	WHERE source.Name IS NOT dp.Id;
+
 DETACH LOGDATABASE;
 
 DETACH SOURCEPROJECT;

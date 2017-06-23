@@ -261,8 +261,36 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(0, messages.Count);
+                Assert.AreEqual(7, messages.Count);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van voorlandprofiel '10' is veranderd naar '10004'."),
+                    messages[0]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van voorlandprofiel '100' is veranderd naar '10006'."),
+                    messages[1]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van hoogte kunstwerk '10' is veranderd naar '104'."),
+                    messages[2]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van sluiten kunstwerk '1' is veranderd naar '102'."),
+                    messages[3]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van sluiten kunstwerk '10' is veranderd naar '104'."),
+                    messages[4]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van stabiliteit puntconstructies kunstwerk '1' is veranderd naar '102'."),
+                    messages[5]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "Het ID van stabiliteit puntconstructies kunstwerk '10' is veranderd naar '104'."),
+                    messages[6]);
             }
+        }
+
+        private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
+        {
+            Assert.AreEqual(expected.ToVersion, actual.ToVersion);
+            Assert.AreEqual(expected.FromVersion, actual.FromVersion);
+            Assert.AreEqual(expected.Message, actual.Message);
         }
 
         private static void AssertVersions(MigratedDatabaseReader reader)

@@ -139,13 +139,13 @@ SELECT
 	[Y],
 	[X0],
 	[Order]
-	FROM (SELECT *, MaxLength - LENGTH(NAME) as SuffixPreLength, (SELECT FS.rowid
+	FROM (SELECT *, MaxLength - LENGTH(Id) as SuffixPreLength, (SELECT FS.rowid
                      FROM [SOURCEPROJECT].ForeshoreProfileEntity
                      WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
-                     AND FS.Name IS Name
+                     AND FS.Id IS Id
                      AND FS.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
 	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS
-	JOIN (SELECT MAX(LENGTH(Name)) as MaxLength FROM [SOURCEPROJECT].ForeshoreProfileEntity));
+	JOIN (SELECT MAX(LENGTH(Id)) as MaxLength FROM [SOURCEPROJECT].ForeshoreProfileEntity));
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
@@ -479,10 +479,6 @@ Write migration logging
 */
 ATTACH DATABASE '{1}' AS LOGDATABASE;
 
-CREATE TEMP TABLE log_output_deleted (
-	'NrDeleted' INTEGER NOT NULL
-);
-
 CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
 (
 	'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
@@ -491,7 +487,49 @@ CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 	'LogMessage' TEXT NOT NULL
 );
 
-DROP TABLE log_output_deleted;
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "17.1", 
+		"17.2",
+		"Het ID van voorlandprofiel '" || source.Id || "' is veranderd naar '" || fp.Id || "'."
+	FROM ForeshoreProfileEntity as fp
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity as source ON fp.rowid = source.rowid
+	WHERE source.Id IS NOT fp.Id;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "17.1", 
+		"17.2",
+		"Het ID van hoogte kunstwerk '" || source.Id || "' is veranderd naar '" || hs.Id || "'."
+	FROM HeightStructureEntity as hs
+	JOIN [SOURCEPROJECT].HeightStructureEntity as source ON hs.rowid = source.rowid
+	WHERE source.Id IS NOT hs.Id;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "17.1", 
+		"17.2",
+		"Het ID van sluiten kunstwerk '" || source.Id || "' is veranderd naar '" || cs.Id || "'."
+	FROM ClosingStructureEntity as cs
+	JOIN [SOURCEPROJECT].ClosingStructureEntity as source ON cs.rowid = source.rowid
+	WHERE source.Id IS NOT cs.Id;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "17.1", 
+		"17.2",
+		"Het ID van stabiliteit puntconstructies kunstwerk '" || source.Id || "' is veranderd naar '" || sps.Id || "'."
+	FROM StabilityPointStructureEntity as sps
+	JOIN [SOURCEPROJECT].StabilityPointStructureEntity as source ON sps.rowid = source.rowid
+	WHERE source.Id IS NOT sps.Id;
 
 DETACH LOGDATABASE;
 

@@ -260,9 +260,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(1, messages.Count);
-                var expectedMessage = new MigrationLogMessage("5", newVersion, "Alle berekende resultaten zijn verwijderd.");
-                AssertMigrationLogMessageEqual(expectedMessage, messages[0]);
+                Assert.AreEqual(3, messages.Count);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("5", newVersion, "Alle berekende resultaten zijn verwijderd."),
+                    messages[0]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("5", newVersion, "De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID."),
+                    messages[1]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("5", newVersion, "De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID."),
+                    messages[2]);
             }
         }
 
