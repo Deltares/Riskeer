@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
@@ -30,24 +31,44 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     public class FaultTreeIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
-        /// Gets or sets the name.
+        /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/>.
         /// </summary>
-        public string Name { get; set; }
+        /// <param name="name">The name of the fault tree illustration point</param>
+        /// <param name="beta">The combined beta values of its children.</param>
+        /// <param name="combinationType">The way in which the sub illustration points are combined.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public FaultTreeIllustrationPoint(string name, double beta, CombinationType combinationType)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            Beta = beta;
+            CombinationType = combinationType;
+            Name = name;
+            Stochasts = new List<Stochast>();
+        }
+
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        public string Name { get; }
 
         /// <summary>
         /// Gets the combined stochasts of its children.
         /// </summary>
-        public ICollection<Stochast> Stochasts { get; } = new List<Stochast>();
+        public ICollection<Stochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the combined beta values of its children.
         /// </summary>
-        public double Beta { get; set; } = double.NaN;
+        public double Beta { get; }
 
         /// <summary>
-        /// The way in which the sub illustration points are combined to
+        /// Gets the way in which the sub illustration points are combined to
         /// obtain a result for the fault tree illustration point.
         /// </summary>
-        public CombinationType CombinationType { get; set; }
+        public CombinationType CombinationType { get; }
     }
 }

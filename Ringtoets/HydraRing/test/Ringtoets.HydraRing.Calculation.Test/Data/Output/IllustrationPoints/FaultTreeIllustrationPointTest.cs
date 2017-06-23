@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
@@ -28,16 +30,39 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
     public class FaultTreeIllustrationPointTest
     {
         [Test]
-        public void Constructor_WithParameter_ReturnsNewInstance()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(123);
+            double beta = random.NextDouble();
+            var combinationType = random.NextEnumValue<CombinationType>();
+
             // Call
-            var illustrationPoint = new FaultTreeIllustrationPoint();
+            TestDelegate call = () => new FaultTreeIllustrationPoint(null, beta, combinationType);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("name", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithValidParameter_ReturnsNewInstance()
+        {
+            // Setup
+            var random = new Random(123);
+            const string name = "name";
+            double beta = random.NextDouble();
+            var combinationType = random.NextEnumValue<CombinationType>();
+
+            // Call
+            var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, combinationType);
 
             // Assert
             Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);
+            Assert.AreEqual(name, illustrationPoint.Name);
             Assert.IsEmpty(illustrationPoint.Stochasts);
-            Assert.IsNaN(illustrationPoint.Beta);
-            Assert.AreEqual(CombinationType.Or, illustrationPoint.CombinationType);
+            Assert.AreEqual(beta, illustrationPoint.Beta);
+            Assert.AreEqual(combinationType, illustrationPoint.CombinationType);
         }
     }
 }

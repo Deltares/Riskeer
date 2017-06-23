@@ -316,12 +316,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             ICollection<Tuple<int?, int, Type, CombinationType>> results)
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, faultTreeId);
-            var illustrationPoint = new FaultTreeIllustrationPoint
-            {
-                Name = faultTrees[faultTreeId],
-                Beta = faultTreeBetaValues[dataKey],
-                CombinationType = combinationType
-            };
+            var illustrationPoint = new FaultTreeIllustrationPoint(faultTrees[faultTreeId], faultTreeBetaValues[dataKey], combinationType);
             if (faultTreeStochasts.ContainsKey(dataKey))
             {
                 AddRange(illustrationPoint.Stochasts, faultTreeStochasts[dataKey]);
