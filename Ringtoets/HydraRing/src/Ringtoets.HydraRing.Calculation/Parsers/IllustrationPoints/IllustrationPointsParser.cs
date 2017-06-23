@@ -141,8 +141,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseFaultTreeAlphaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readFaultTreeAlphaValues = GetIterator(reader).ToArray();
-            foreach (Dictionary<string, object> readFaultTreeAlphaValue in readFaultTreeAlphaValues)
+            foreach (Dictionary<string, object> readFaultTreeAlphaValue in GetIterator(reader))
             {
                 int faultTreeId = Convert.ToInt32(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.FaultTreeId]);
                 int windDirectionId = Convert.ToInt32(readFaultTreeAlphaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
@@ -168,8 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseFaultTreeBetaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readFaultTreeBetaValues = GetIterator(reader).ToArray();
-            foreach (Dictionary<string, object> readFaultTreeBetaValue in readFaultTreeBetaValues)
+            foreach (Dictionary<string, object> readFaultTreeBetaValue in GetIterator(reader))
             {
                 int faultTreeId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.FaultTreeId]);
                 int windDirectionId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
@@ -187,8 +185,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseSubMechanismAlphaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readSubMechanismAlphaValues = GetIterator(reader).ToArray();
-            foreach (Dictionary<string, object> readSubMechanismAlphaValue in readSubMechanismAlphaValues)
+            foreach (Dictionary<string, object> readSubMechanismAlphaValue in GetIterator(reader))
             {
                 int subMechanismId = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.SubMechanismId]);
                 int windDirectionId = Convert.ToInt32(readSubMechanismAlphaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
@@ -216,8 +213,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseSubMechanismBetaValues(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readSubMechanismBetaValues = GetIterator(reader).ToArray();
-            foreach (Dictionary<string, object> readSubMechanismBetaValue in readSubMechanismBetaValues)
+            foreach (Dictionary<string, object> readSubMechanismBetaValue in GetIterator(reader))
             {
                 int subMechanismId = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.SubMechanismId]);
                 int windDirectionId = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
@@ -235,8 +231,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseSubMechanismResults(HydraRingDatabaseReader reader)
         {
-            Dictionary<string, object>[] readSubMechanismResults = GetIterator(reader).ToArray();
-            foreach (Dictionary<string, object> readSubMechanismResult in readSubMechanismResults)
+            foreach (Dictionary<string, object> readSubMechanismResult in GetIterator(reader))
             {
                 int subMechanismId = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.SubMechanismId]);
                 int windDirectionId = Convert.ToInt32(readSubMechanismResult[IllustrationPointsDatabaseConstants.WindDirectionId]);
