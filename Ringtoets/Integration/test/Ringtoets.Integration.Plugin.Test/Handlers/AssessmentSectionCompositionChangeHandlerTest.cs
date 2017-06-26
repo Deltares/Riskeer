@@ -583,7 +583,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.IsRelevant)))
                         .Repeat.Times(expectedNumberOfCalls);
             mocks.ReplayAll();
 
@@ -607,10 +607,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 assessmentSection
             };
 
-            if (newComposition == AssessmentSectionComposition.Dike && oldComposition == AssessmentSectionComposition.Dune
-                || newComposition == AssessmentSectionComposition.Dune && oldComposition == AssessmentSectionComposition.Dike
-                || newComposition == AssessmentSectionComposition.DikeAndDune && oldComposition == AssessmentSectionComposition.Dune
-                || newComposition == AssessmentSectionComposition.Dune && oldComposition == AssessmentSectionComposition.DikeAndDune)
+            if (newComposition == AssessmentSectionComposition.Dune || oldComposition == AssessmentSectionComposition.Dune)
             {
                 expectedAffectedObjects.AddRange(new IFailureMechanism[]
                 {
@@ -627,10 +624,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 });
             }
 
-            if (newComposition == AssessmentSectionComposition.Dike && oldComposition == AssessmentSectionComposition.DikeAndDune
-                || newComposition == AssessmentSectionComposition.DikeAndDune && oldComposition == AssessmentSectionComposition.Dike
-                || newComposition == AssessmentSectionComposition.Dike && oldComposition == AssessmentSectionComposition.Dune
-                || newComposition == AssessmentSectionComposition.Dune && oldComposition == AssessmentSectionComposition.Dike)
+            if (newComposition == AssessmentSectionComposition.Dike || oldComposition == AssessmentSectionComposition.Dike)
             {
                 expectedAffectedObjects.Add(assessmentSection.DuneErosion);
             }

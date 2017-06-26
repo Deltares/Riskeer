@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
+using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -79,8 +80,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Dictionary<IFailureMechanism, double> oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution);
-            Dictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.IsRelevant);
+            Dictionary<IFailureMechanism, double> oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution, new ReferenceEqualityComparer<IFailureMechanism>());
+            Dictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.IsRelevant, new ReferenceEqualityComparer<IFailureMechanism>());
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -103,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
 
-                IFailureMechanism[] failureMechanismsWithRelevancyUpdated = GetFailureMechanismsWithRelevancyUpdated(assessmentSection, oldFailureMechanismRelevancies).ToArray();
+                IFailureMechanism[] failureMechanismsWithRelevancyUpdated = GetFailureMechanismsWithRelevancyUpdated(oldFailureMechanismRelevancies).ToArray();
                 affectedObjects.AddRange(failureMechanismsWithRelevancyUpdated);
 
                 CloseViewsForIrrelevantFailureMechanisms(failureMechanismsWithRelevancyUpdated);
@@ -111,23 +112,17 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private void CloseViewsForIrrelevantFailureMechanisms(IFailureMechanism[] failureMechanisms)
+        private void CloseViewsForIrrelevantFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
         {
-            foreach (IFailureMechanism failureMechanism in failureMechanisms)
+            foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.IsRelevant))
             {
-                if (!failureMechanism.IsRelevant)
-                {
-                    viewCommands.RemoveAllViewsForItem(failureMechanism);
-                }
+                viewCommands.RemoveAllViewsForItem(failureMechanism);
             }
         }
 
-        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithRelevancyUpdated(IAssessmentSection assessmentSection,
-                                                                                               IDictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies)
+        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithRelevancyUpdated(IDictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies)
         {
-            return assessmentSection.GetFailureMechanisms()
-                                    .Where(failureMechanism => oldFailureMechanismRelevancies.ContainsKey(failureMechanism)
-                                                               && oldFailureMechanismRelevancies[failureMechanism] != failureMechanism.IsRelevant);
+            return oldFailureMechanismRelevancies.Where(fmr => fmr.Value != fmr.Key.IsRelevant).Select(fmr => fmr.Key);
         }
 
         private static IEnumerable<IFailureMechanism> GetFailureMechanismsToClearOutputFor(IAssessmentSection assessmentSection,
