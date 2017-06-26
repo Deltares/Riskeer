@@ -25,11 +25,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
-using IllustrationPointResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.IllustrationPointResult;
-using RealizedStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.RealizedStochast;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -62,7 +60,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraRealizedStochast = new HydraRealizedStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
-            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", new[]
+            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
             {
                 hydraRealizedStochast
             }, new[]

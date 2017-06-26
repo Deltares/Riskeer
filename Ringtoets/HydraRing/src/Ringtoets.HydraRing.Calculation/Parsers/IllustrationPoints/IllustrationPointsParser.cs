@@ -86,6 +86,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             }
         }
 
+        /// <summary>
+        /// Parses the illustration point database results.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Thrown when parsing the results from <paramref name="reader"/>.</exception>
         private void ParseResultsFromReader(HydraRingDatabaseReader reader)
         {
             ParseClosingSituations(reader);
@@ -159,6 +164,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             }
         }
 
+        /// <summary>
+        /// Parses <see cref="Stochast"/> objects from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.AlphaValue"/>
+        /// or <see cref="IllustrationPointsDatabaseConstants.Duration"/> is <see cref="DBNull"/>.</exception>
         private void ParseFaultTreeAlphaValues(HydraRingDatabaseReader reader)
         {
             foreach (Dictionary<string, object> readFaultTreeAlphaValue in GetIterator(reader))
@@ -182,6 +193,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             }
         }
 
+        /// <summary>
+        /// Parses fault tree beta values from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when:
+        /// <list type="bullet">
+        /// <item>The read <see cref="IllustrationPointsDatabaseConstants.BetaValue"/> is <see cref="DBNull"/>;</item>
+        /// <item>Multiple values for beta of illustration point found.</item>
+        /// </list>
+        /// </exception>
         private void ParseFaultTreeBetaValues(HydraRingDatabaseReader reader)
         {
             foreach (Dictionary<string, object> readFaultTreeBetaValue in GetIterator(reader))
@@ -189,17 +210,24 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int faultTreeId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.FaultTreeId]);
                 int windDirectionId = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
-                double beta = ConvertToDouble(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.BetaValue],
-                                              IllustrationPointsDatabaseConstants.BetaValue);
+                double faultTreeBeta = ConvertToDouble(readFaultTreeBetaValue[IllustrationPointsDatabaseConstants.BetaValue],
+                                                       IllustrationPointsDatabaseConstants.BetaValue);
                 var threeKeyIndex = new ThreeKeyIndex(windDirectionId, closingSituationid, faultTreeId);
                 if (faultTreeBetaValues.ContainsKey(threeKeyIndex))
                 {
                     throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
                 }
-                faultTreeBetaValues[threeKeyIndex] = beta;
+                faultTreeBetaValues[threeKeyIndex] = faultTreeBeta;
             }
         }
 
+        /// <summary>
+        /// Parses <see cref="RealizedStochast"/> objects from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.Duration"/>, 
+        /// <see cref="IllustrationPointsDatabaseConstants.AlphaValue"/>, or <see cref="IllustrationPointsDatabaseConstants.Realization"/>
+        /// is <see cref="DBNull"/>.</exception>
         private void ParseSubMechanismAlphaValues(HydraRingDatabaseReader reader)
         {
             foreach (Dictionary<string, object> readSubMechanismAlphaValue in GetIterator(reader))
@@ -225,6 +253,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             }
         }
 
+        /// <summary>
+        /// Parses sub-mechanism beta values from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when:
+        /// <list type="bullet">
+        /// <item>The read <see cref="IllustrationPointsDatabaseConstants.BetaValue"/> is <see cref="DBNull"/>;</item>
+        /// <item>Multiple values for beta of illustration point found.</item>
+        /// </list>
+        /// </exception>
         private void ParseSubMechanismBetaValues(HydraRingDatabaseReader reader)
         {
             foreach (Dictionary<string, object> readSubMechanismBetaValue in GetIterator(reader))
@@ -232,17 +270,24 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 int subMechanismId = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.SubMechanismId]);
                 int windDirectionId = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.WindDirectionId]);
                 int closingSituationid = Convert.ToInt32(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.ClosingSituationId]);
-                double beta = Convert.ToDouble(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.BetaValue]);
+                double subMechanismBeta = ConvertToDouble(readSubMechanismBetaValue[IllustrationPointsDatabaseConstants.BetaValue],
+                                                          IllustrationPointsDatabaseConstants.BetaValue);
 
                 var threeKeyIndex = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
                 if (subMechanismBetaValues.ContainsKey(threeKeyIndex))
                 {
                     throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
                 }
-                subMechanismBetaValues[threeKeyIndex] = beta;
+                subMechanismBetaValues[threeKeyIndex] = subMechanismBeta;
             }
         }
 
+        /// <summary>
+        /// Parses <see cref="IllustrationPointResult"/> objects from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.IllustrationPointResultValue"/> 
+        /// is <see cref="DBNull"/>.</exception>
         private void ParseSubMechanismResults(HydraRingDatabaseReader reader)
         {
             foreach (Dictionary<string, object> readSubMechanismResult in GetIterator(reader))
@@ -375,6 +420,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             }
         }
 
+        /// <summary>
+        /// Parses beta values from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when:
+        /// <list type="bullet">
+        /// <item>The read <see cref="IllustrationPointsDatabaseConstants.BetaValue"/> is <see cref="DBNull"/>;</item>
+        /// <item>Multiple values for beta of illustration point found.</item>
+        /// </list>
+        /// </exception>
         private void ParseGeneralBetaValue(HydraRingDatabaseReader reader)
         {
             Dictionary<string, object>[] betaValues = GetIterator(reader).ToArray();
@@ -389,7 +444,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <summary>
         /// Converts <paramref name="doubleValue"/> to <see cref="double"/>.
         /// </summary>
-        /// <param name="doubleValue"></param>
+        /// <param name="doubleValue">The object to convert.</param>
         /// <param name="identifier">The identifier.</param>
         /// <returns>The converted double.</returns>
         /// <exception cref="HydraRingFileParserException">Throw when <paramref name="doubleValue"/> 
@@ -404,6 +459,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             return Convert.ToDouble(doubleValue);
         }
 
+        /// <summary>
+        /// Parses <see cref="Stochast"/> objects from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.Duration"/> 
+        /// or <see cref="IllustrationPointsDatabaseConstants.AlphaValue"/> is <see cref="DBNull"/>.</exception>
         private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
         {
             stochasts = GetIterator(reader).Select(a =>
@@ -422,6 +483,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 r => Convert.ToString(r[IllustrationPointsDatabaseConstants.ClosingSituationName]));
         }
 
+        /// <summary>
+        /// Parses <see cref="WindDirection"/> objects from the <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">The database reader.</param>
+        /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.WindDirectionAngle"/> 
+        /// is <see cref="DBNull"/>.</exception>
         private void ParseWindDirections(HydraRingDatabaseReader reader)
         {
             windDirections = new Dictionary<int, WindDirection>();

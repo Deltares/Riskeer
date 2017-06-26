@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
         /// <param name="illustrationPoint">The illustrationPoint.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public WindDirectionClosingSituationIllustrationPoint(WindDirection windDirection,
                                                               string closingSituation,
                                                               IllustrationPoint illustrationPoint)
