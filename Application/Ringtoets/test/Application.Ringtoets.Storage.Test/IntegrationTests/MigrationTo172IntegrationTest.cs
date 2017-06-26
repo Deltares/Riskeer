@@ -261,55 +261,58 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(16, messages.Count);
+                Assert.AreEqual(17, messages.Count);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "Traject: 'assessmentSection'"),
+                    new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[0]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Hoogte kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSection'"),
                     messages[1]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van hoogte kunstwerk '10' is veranderd naar '104'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
                     messages[2]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[3]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van sluiten kunstwerk '1' is veranderd naar '102'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[4]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Golfklappen op asfaltbekleding'"),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
                     messages[5]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10004'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
                     messages[6]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Stabiliteit steenzetting'"),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10004'."),
                     messages[7]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10006'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
                     messages[8]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10006'."),
                     messages[9]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van stabiliteit puntconstructies kunstwerk '1' is veranderd naar '102'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[10]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "Traject: 'Demo traject'"),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
                     messages[11]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "* Traject: 'Demo traject'"),
                     messages[12]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van sluiten kunstwerk '10' is veranderd naar '104'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[13]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[14]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van stabiliteit puntconstructies kunstwerk '10' is veranderd naar '104'."),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[15]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
+                    messages[16]);
             }
         }
 

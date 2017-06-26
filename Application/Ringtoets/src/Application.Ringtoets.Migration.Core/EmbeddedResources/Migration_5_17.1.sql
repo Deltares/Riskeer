@@ -361,9 +361,15 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity(
 		[FromVersion], 
 		[ToVersion], 
 		[LogMessage])
+VALUES ("5", "17.1", "Gevolgen van de migratie van versie 5 naar versie 17.1:");
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
 SELECT	"5", 
 		"17.1", 
-		"Alle berekende resultaten zijn verwijderd."
+		"* Alle berekende resultaten zijn verwijderd."
 		FROM log_output_deleted 
 		WHERE [NrDeleted] > 0 
 		LIMIT 1;
@@ -432,14 +438,21 @@ WITH RECURSIVE
 SELECT 
     "5", 
 	"17.1",
-    CASE WHEN AssessmentSectionName IS NOT null THEN "Traject: '" || AssessmentSectionName || "'" ELSE
-    CASE WHEN FailureMechanismName IS NOT null THEN "* Toetsspoor: '" || FailureMechanismName || "'" ELSE
+    CASE WHEN AssessmentSectionName IS NOT null THEN "* Traject: '" || AssessmentSectionName || "'" ELSE
+    CASE WHEN FailureMechanismName IS NOT null THEN "  + Toetsspoor: '" || FailureMechanismName || "'" ELSE
     "    - " || msg END END
 FROM AssessmentSectionFailureMechanismMessages;
 
 DROP TABLE FailureMechanisms;
 DROP TABLE AssessmentSectionFailureMechanism;
 DROP TABLE Changes;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "5", "17.1", "* Geen aanpassingen."
+WHERE (SELECT COUNT(*) FROM [LOGDATABASE].MigrationLogEntity) IS 1;
 
 DETACH LOGDATABASE;
 

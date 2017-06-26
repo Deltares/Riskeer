@@ -151,7 +151,6 @@ Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Rin
   </data>
   <data name="RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report" xml:space="preserve">
     <value>Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.
-Gevolgen van de migratie:
 </value>
   </data>
   <data name="RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0" xml:space="preserve">

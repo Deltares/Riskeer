@@ -190,7 +190,7 @@ namespace Application.Ringtoets.Migration
                 var migrationLog = new StringBuilder(Resources.RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report);
                 foreach (MigrationLogMessage logMessage in migrationLogMessages)
                 {
-                    migrationLog.AppendLine(string.Concat("- ", logMessage.Message));
+                    migrationLog.AppendLine(logMessage.Message);
                 }
 
                 log.Info(migrationLog);

@@ -260,22 +260,25 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(5, messages.Count);
+                Assert.AreEqual(6, messages.Count);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "Alle berekende resultaten zijn verwijderd."),
+                    new MigrationLogMessage("5", newVersion, "Gevolgen van de migratie van versie 5 naar versie 17.1:"),
                     messages[0]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "Traject: 'assessmentSection'"),
+                    new MigrationLogMessage("5", newVersion, "* Alle berekende resultaten zijn verwijderd."),
                     messages[1]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "* Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    new MigrationLogMessage("5", newVersion, "* Traject: 'assessmentSection'"),
                     messages[2]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID."),
+                    new MigrationLogMessage("5", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
                     messages[3]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID."),
+                    new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID."),
                     messages[4]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID."),
+                    messages[5]);
             }
         }
 

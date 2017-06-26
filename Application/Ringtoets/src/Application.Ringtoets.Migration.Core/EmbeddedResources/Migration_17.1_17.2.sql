@@ -487,6 +487,12 @@ CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 	'LogMessage' TEXT NOT NULL
 );
 	
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+VALUES ("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:");
+
 CREATE TEMP TABLE FailureMechanisms ('FailureMechanismType' INTEGER NOT NULL, 'FailureMechanismName' VARCHAR(255) NOT NULL);
 INSERT INTO FailureMechanisms VALUES (1, 'Piping');
 INSERT INTO FailureMechanisms VALUES (2, 'Macrostabiliteit binnenwaarts');
@@ -526,7 +532,7 @@ INSERT INTO Changes
 
 INSERT INTO Changes
 	SELECT asfm.AssessmentSectionId, asfm.AssessmentSectionName, asfm.FailureMechanismId, asfm.FailureMechanismName,
-	"Het ID van hoogte kunstwerk '" || source.Id || "' is veranderd naar '" || hs.Id || "'."
+	"Het ID van kunstwerk '" || source.Id || "' is veranderd naar '" || hs.Id || "'."
 	FROM HeightStructureEntity as hs
 	JOIN [SOURCEPROJECT].HeightStructureEntity as source ON hs.rowid = source.rowid
     JOIN AssessmentSectionFailureMechanism as asfm ON asfm.FailureMechanismId = hs.FailureMechanismEntityId
@@ -534,7 +540,7 @@ INSERT INTO Changes
 
 INSERT INTO  Changes
 	SELECT asfm.AssessmentSectionId, asfm.AssessmentSectionName, asfm.FailureMechanismId, asfm.FailureMechanismName,
-	"Het ID van sluiten kunstwerk '" || source.Id || "' is veranderd naar '" || cs.Id || "'."
+	"Het ID van kunstwerk '" || source.Id || "' is veranderd naar '" || cs.Id || "'."
 	FROM ClosingStructureEntity as cs
 	JOIN [SOURCEPROJECT].ClosingStructureEntity as source ON cs.rowid = source.rowid
     JOIN AssessmentSectionFailureMechanism as asfm ON asfm.FailureMechanismId = cs.FailureMechanismEntityId
@@ -542,7 +548,7 @@ INSERT INTO  Changes
 
 INSERT INTO  Changes
 	SELECT asfm.AssessmentSectionId, asfm.AssessmentSectionName, asfm.FailureMechanismId, asfm.FailureMechanismName,
-	"Het ID van stabiliteit puntconstructies kunstwerk '" || source.Id || "' is veranderd naar '" || sps.Id || "'."
+	"Het ID van kunstwerk '" || source.Id || "' is veranderd naar '" || sps.Id || "'."
 	FROM StabilityPointStructureEntity as sps
 	JOIN [SOURCEPROJECT].StabilityPointStructureEntity as source ON sps.rowid = source.rowid
     JOIN AssessmentSectionFailureMechanism as asfm ON asfm.FailureMechanismId = sps.FailureMechanismEntityId
@@ -574,14 +580,21 @@ WITH RECURSIVE
 SELECT 
     "17.1",
 	"17.2",
-    CASE WHEN AssessmentSectionName IS NOT null THEN "Traject: '" || AssessmentSectionName || "'" ELSE
-    CASE WHEN FailureMechanismName IS NOT null THEN "* Toetsspoor: '" || FailureMechanismName || "'" ELSE
+    CASE WHEN AssessmentSectionName IS NOT null THEN "* Traject: '" || AssessmentSectionName || "'" ELSE
+    CASE WHEN FailureMechanismName IS NOT null THEN "  + Toetsspoor: '" || FailureMechanismName || "'" ELSE
     "    - " || msg END END
 FROM AssessmentSectionFailureMechanismMessages;
 
 DROP TABLE FailureMechanisms;
 DROP TABLE AssessmentSectionFailureMechanism;
 DROP TABLE Changes;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity(
+		[FromVersion], 
+		[ToVersion], 
+		[LogMessage])
+SELECT "17.1", "17.2", "* Geen aanpassingen."
+WHERE (SELECT COUNT(*) FROM [LOGDATABASE].MigrationLogEntity) IS 1;
 
 DETACH LOGDATABASE;
 

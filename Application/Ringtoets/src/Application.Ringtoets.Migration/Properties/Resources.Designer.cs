@@ -162,7 +162,6 @@ namespace Application.Ringtoets.Migration.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.
-        ///Gevolgen van de migratie:
         ///.
         /// </summary>
         internal static string RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report {
