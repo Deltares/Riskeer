@@ -33,20 +33,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
         /// </summary>
-        /// <param name="resultOutput">The output of the assessment result.</param>
+        /// <param name="overtoppingOutput">The overtopping output.</param>
         /// <param name="dikeHeightOutput">The dike height output.</param>
         /// <param name="overtoppingRateOutput">The overtopping rate output.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="resultOutput"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="overtoppingOutput"/>
         /// is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsOutput(GrassCoverErosionInwardsResultOutput resultOutput,
+        public GrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput,
                                               DikeHeightOutput dikeHeightOutput,
                                               OvertoppingRateOutput overtoppingRateOutput)
         {
-            if (resultOutput == null)
+            if (overtoppingOutput == null)
             {
-                throw new ArgumentNullException(nameof(resultOutput));
+                throw new ArgumentNullException(nameof(overtoppingOutput));
             }
-            ResultOutput = resultOutput;
+            OvertoppingOutput = overtoppingOutput;
             DikeHeightOutput = dikeHeightOutput;
             OvertoppingRateOutput = overtoppingRateOutput;
         }
@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the output of the assessment result.
         /// </summary>
-        public GrassCoverErosionInwardsResultOutput ResultOutput { get; }
+        public GrassCoverErosionInwardsOvertoppingOutput OvertoppingOutput { get; }
 
         /// <summary>
         /// Gets the dike height output.

@@ -25,19 +25,19 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// The result of a grass cover erosion inwards assessment.
+    /// This class contains the result of an overtopping calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsResultOutput
+    public class GrassCoverErosionInwardsOvertoppingOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsResultOutput"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsOvertoppingOutput"/>.
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
-        public GrassCoverErosionInwardsResultOutput(double waveHeight,
-                                                    bool isOvertoppingDominant,
-                                                    ProbabilityAssessmentOutput probabilityAssessmentOutput)
+        public GrassCoverErosionInwardsOvertoppingOutput(double waveHeight,
+                                                         bool isOvertoppingDominant,
+                                                         ProbabilityAssessmentOutput probabilityAssessmentOutput)
         {
             IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);

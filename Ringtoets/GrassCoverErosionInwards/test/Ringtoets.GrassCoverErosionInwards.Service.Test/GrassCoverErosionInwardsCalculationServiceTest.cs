@@ -547,15 +547,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             }
 
             // Assert
-            Assert.IsFalse(double.IsNaN(calculation.Output.ResultOutput.WaveHeight));
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = calculation.Output.ResultOutput.ProbabilityAssessmentOutput;
+            Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.WaveHeight));
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput;
             Assert.IsNotNull(probabilityAssessmentOutput);
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.FactorOfSafety));
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.Probability));
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.Reliability));
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredProbability));
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredReliability));
-            Assert.IsFalse(calculation.Output.ResultOutput.IsOvertoppingDominant);
+            Assert.IsFalse(calculation.Output.OvertoppingOutput.IsOvertoppingDominant);
 
             if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {

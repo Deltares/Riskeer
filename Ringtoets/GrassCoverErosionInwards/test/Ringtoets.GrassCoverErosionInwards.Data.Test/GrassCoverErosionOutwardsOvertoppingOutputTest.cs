@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsResultOutputTest
+    public class GrassCoverErosionOutwardsOvertoppingOutputTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
             // Call
-            var output = new GrassCoverErosionInwardsResultOutput(waveHeight, true, probabilityAssessmentOutput);
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
 
             // Assert
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);

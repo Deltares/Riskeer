@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                 0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0.0),
                                                             new TestOvertoppingRateOutput(0))
@@ -875,7 +875,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
-            var initialOutput = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+            var initialOutput = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                        0, true,
                                                                        new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN)),
                                                                    new TestDikeHeightOutput(double.NaN),

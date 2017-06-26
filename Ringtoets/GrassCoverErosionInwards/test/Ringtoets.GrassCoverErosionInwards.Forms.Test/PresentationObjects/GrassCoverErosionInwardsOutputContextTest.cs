@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var output = new GrassCoverErosionInwardsOutput(
-                new GrassCoverErosionInwardsResultOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+                new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                 null, null);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 

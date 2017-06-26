@@ -42,13 +42,13 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                IsOvertoppingDominant = Convert.ToByte(output.ResultOutput.IsOvertoppingDominant),
-                WaveHeight = output.ResultOutput.WaveHeight.ToNaNAsNull(),
-                RequiredProbability = output.ResultOutput.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
-                RequiredReliability = output.ResultOutput.ProbabilityAssessmentOutput.RequiredReliability.ToNaNAsNull(),
-                Probability = output.ResultOutput.ProbabilityAssessmentOutput.Probability.ToNaNAsNull(),
-                Reliability = output.ResultOutput.ProbabilityAssessmentOutput.Reliability.ToNaNAsNull(),
-                FactorOfSafety = output.ResultOutput.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull()
+                IsOvertoppingDominant = Convert.ToByte(output.OvertoppingOutput.IsOvertoppingDominant),
+                WaveHeight = output.OvertoppingOutput.WaveHeight.ToNaNAsNull(),
+                RequiredProbability = output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
+                RequiredReliability = output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability.ToNaNAsNull(),
+                Probability = output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability.ToNaNAsNull(),
+                Reliability = output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability.ToNaNAsNull(),
+                FactorOfSafety = output.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull()
             };
 
             AddEntityForDikeHeightOutput(entity, output.DikeHeightOutput);

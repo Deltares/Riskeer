@@ -42,16 +42,16 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <returns>A new <see cref="GrassCoverErosionInwardsOutput"/>.</returns>
         internal static GrassCoverErosionInwardsOutput Read(this GrassCoverErosionInwardsOutputEntity entity)
         {
-            return new GrassCoverErosionInwardsOutput(ReadResultOutput(entity),
+            return new GrassCoverErosionInwardsOutput(GetOvertoppingOutput(entity),
                                                       GetDikeHeightOutput(entity),
                                                       GetOvertoppingRateOutput(entity));
         }
 
-        private static GrassCoverErosionInwardsResultOutput ReadResultOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static GrassCoverErosionInwardsOvertoppingOutput GetOvertoppingOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
-            return new GrassCoverErosionInwardsResultOutput(entity.WaveHeight.ToNullAsNaN(),
-                                                            Convert.ToBoolean(entity.IsOvertoppingDominant),
-                                                            ReadProbabilityAssessmentOutput(entity));
+            return new GrassCoverErosionInwardsOvertoppingOutput(entity.WaveHeight.ToNullAsNaN(),
+                                                                 Convert.ToBoolean(entity.IsOvertoppingDominant),
+                                                                 ReadProbabilityAssessmentOutput(entity));
         }
 
         private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)

@@ -344,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
-                var resultOutput = new GrassCoverErosionInwardsResultOutput(1.0, false, probabilityAssessmentOutput);
+                var resultOutput = new GrassCoverErosionInwardsOvertoppingOutput(1.0, false, probabilityAssessmentOutput);
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(resultOutput,
@@ -387,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 const double probability = 0.56789;
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
-                var resultOutput = new GrassCoverErosionInwardsResultOutput(1.1, true, probabilityAssessmentOutput);
+                var resultOutput = new GrassCoverErosionInwardsOvertoppingOutput(1.1, true, probabilityAssessmentOutput);
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(resultOutput,
@@ -456,7 +456,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 const double probability = 0.56789;
                 var successfulCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
-                var successfulResultOutput = new GrassCoverErosionInwardsResultOutput(1.1, true, successfulCalculationOutput);
+                var successfulResultOutput = new GrassCoverErosionInwardsOvertoppingOutput(1.1, true, successfulCalculationOutput);
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(successfulResultOutput,
@@ -465,7 +465,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
 
                 var failedCalculationOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
-                var failedResultOutput = new GrassCoverErosionInwardsResultOutput(1.1, true, failedCalculationOutput);
+                var failedResultOutput = new GrassCoverErosionInwardsOvertoppingOutput(1.1, true, failedCalculationOutput);
                 var failedCalculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(failedResultOutput,
@@ -523,7 +523,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                     1.1, true,
                                                                     new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)),
                                                                 new TestDikeHeightOutput(0),
@@ -535,7 +535,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                     1.1, true,
                                                                     new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)),
                                                                 new TestDikeHeightOutput(0),

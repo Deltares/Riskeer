@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             if (status == CalculationScenarioStatus.Failed)
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
-                calculation.Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                calculation.Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                             1.1, false, probabilityAssessmentOutput),
                                                                         new TestDikeHeightOutput(0),
                                                                         new TestOvertoppingRateOutput(0));
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                 0.5, true, probabilityAssessmentOutput),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(calculation.Output.ResultOutput.ProbabilityAssessmentOutput.Probability, assessmentLayerTwoA);
+            Assert.AreEqual(calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability, assessmentLayerTwoA);
         }
 
         [Test]

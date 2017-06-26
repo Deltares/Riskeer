@@ -49,15 +49,15 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.WaveHeight, output.ResultOutput.WaveHeight.Value);
-            Assert.IsFalse(output.ResultOutput.IsOvertoppingDominant);
+            Assert.AreEqual(entity.WaveHeight, output.OvertoppingOutput.WaveHeight.Value);
+            Assert.IsFalse(output.OvertoppingOutput.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
             Assert.IsNull(output.OvertoppingRateOutput);
-            Assert.AreEqual(entity.FactorOfSafety, output.ResultOutput.ProbabilityAssessmentOutput.FactorOfSafety.Value);
-            Assert.AreEqual(entity.Probability, output.ResultOutput.ProbabilityAssessmentOutput.Probability);
-            Assert.AreEqual(entity.RequiredProbability, output.ResultOutput.ProbabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(entity.Reliability, output.ResultOutput.ProbabilityAssessmentOutput.Reliability.Value);
-            Assert.AreEqual(entity.RequiredReliability, output.ResultOutput.ProbabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.AreEqual(entity.FactorOfSafety, output.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.AreEqual(entity.Probability, output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
+            Assert.AreEqual(entity.RequiredProbability, output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(entity.Reliability, output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability.Value);
+            Assert.AreEqual(entity.RequiredReliability, output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability.Value);
         }
 
         [Test]
@@ -79,15 +79,15 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.IsNaN(output.ResultOutput.WaveHeight);
-            Assert.IsTrue(output.ResultOutput.IsOvertoppingDominant);
+            Assert.IsNaN(output.OvertoppingOutput.WaveHeight);
+            Assert.IsTrue(output.OvertoppingOutput.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
             Assert.IsNull(output.OvertoppingRateOutput);
-            Assert.IsNaN(output.ResultOutput.ProbabilityAssessmentOutput.FactorOfSafety);
-            Assert.IsNaN(output.ResultOutput.ProbabilityAssessmentOutput.Probability);
-            Assert.IsNaN(output.ResultOutput.ProbabilityAssessmentOutput.RequiredProbability);
-            Assert.IsNaN(output.ResultOutput.ProbabilityAssessmentOutput.Reliability);
-            Assert.IsNaN(output.ResultOutput.ProbabilityAssessmentOutput.RequiredReliability);
+            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety);
+            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
+            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability);
+            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability);
+            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability);
         }
 
         [Test]

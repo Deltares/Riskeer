@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
+            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                 0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new TestDikeHeightOutput(0.0),
                                                             new TestOvertoppingRateOutput(0));
@@ -128,8 +128,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
 
-            var resultOutput = children[0] as GrassCoverErosionInwardsResultOutput;
-            Assert.AreSame(context.WrappedData.ResultOutput, resultOutput);
+            var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
+            Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
         }
     }
 }

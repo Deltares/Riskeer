@@ -267,9 +267,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ChildNodeObjects = OutputContextChildNodeObjects
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsResultOutput>
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsOvertoppingOutput>
             {
-                Text = output => Resources.GrassCoverErosionInwardsOutput_DisplayName,
+                Text = output => Resources.GrassCoverErosionInwardsOvertoppingOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -908,7 +908,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                context.WrappedData.ResultOutput
+                context.WrappedData.OvertoppingOutput
             };
         }
 
