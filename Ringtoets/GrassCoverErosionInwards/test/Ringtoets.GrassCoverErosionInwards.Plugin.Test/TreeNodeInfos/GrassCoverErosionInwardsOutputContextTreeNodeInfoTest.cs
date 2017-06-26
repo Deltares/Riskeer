@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnCollectionWithOutputObject()
+        public void ChildNodeObjects_EverythingCalculated_ReturnCollectionWithOutputObject()
         {
             // Setup
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -127,10 +127,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(1, children.Length);
+            Assert.AreEqual(2, children.Length);
 
-            var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
+            var overtoppingOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
+            Assert.AreSame(context.WrappedData.OvertoppingOutput, overtoppingOutput);
+
+            var dikeHeightOutput = children[1] as DikeHeightOutput;
+            Assert.AreSame(context.WrappedData.DikeHeightOutput, dikeHeightOutput);
         }
 
         [Test]

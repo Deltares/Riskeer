@@ -91,15 +91,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HBN.
-        /// </summary>
-        public static string Categories_DikeHeight_Result {
-            get {
-                return ResourceManager.GetString("Categories_DikeHeight_Result", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overslagdebiet.
         /// </summary>
         public static string Categories_OvertoppingRate_Result {
@@ -177,6 +168,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeHeight_Description {
             get {
                 return ResourceManager.GetString("DikeHeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HBN.
+        /// </summary>
+        public static string DikeHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeHeight_DisplayName", resourceCulture);
             }
         }
         

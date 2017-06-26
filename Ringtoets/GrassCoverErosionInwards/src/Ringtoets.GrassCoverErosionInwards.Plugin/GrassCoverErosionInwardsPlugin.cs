@@ -280,8 +280,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<EmptyDikeHeightOutput>
             {
-                Text = output => GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon
+                Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText)
+            };
+
+            yield return new TreeNodeInfo<DikeHeightOutput>
+            {
+                Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
         }
 
@@ -919,7 +929,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 context.WrappedData.OvertoppingOutput
             };
 
-            if (context.WrappedData.DikeHeightOutput == null)
+            if (context.WrappedData.DikeHeightOutput != null)
+            {
+                childNodes.Add(context.WrappedData.DikeHeightOutput);
+            }
+            else
             {
                 childNodes.Add(new EmptyDikeHeightOutput());
             }

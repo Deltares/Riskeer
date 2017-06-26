@@ -216,7 +216,7 @@
   <data name="GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles" xml:space="preserve">
     <value>Selecteer dijkprofielen</value>
   </data>
-  <data name="Categories_DikeHeight_Result" xml:space="preserve">
+  <data name="DikeHeight_DisplayName" xml:space="preserve">
     <value>HBN</value>
   </data>
   <data name="DikeHeightOutput_Convergence_Description" xml:space="preserve">

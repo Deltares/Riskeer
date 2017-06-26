@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -73,6 +74,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
+        }
+
+        [Test]
+        public void ForeColor_Always_ReturnGrayText()
+        {
+            // Call
+            Color foreColor= info.ForeColor(null);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
         }
 
         [Test]
