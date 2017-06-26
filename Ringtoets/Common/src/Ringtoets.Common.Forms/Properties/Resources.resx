@@ -532,7 +532,7 @@
   <data name="WorldReferencePoint_ForeshoreProfile_Description" xml:space="preserve">
     <value>De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.</value>
   </data>
-  <data name="CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">
+  <data name="CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_" xml:space="preserve">
     <value>Berekeningen konden niet worden gestart. {0}</value>
   </data>
   <data name="ForeshoreProperties_Description" xml:space="preserve">

@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
                 return true;
             }
-            log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_,
+            log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
                             validationProblem);
             return false;
         }

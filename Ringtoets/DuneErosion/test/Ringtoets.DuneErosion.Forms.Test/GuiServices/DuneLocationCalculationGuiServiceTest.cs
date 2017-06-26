@@ -200,7 +200,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                     new List<DuneLocation>
                     {
                         new TestDuneLocation(hydraulicLocationName)
-                    }, validFilePath,
+                    },
+                    validFilePath,
                     1);
 
                 // Assert
