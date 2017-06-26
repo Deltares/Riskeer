@@ -89,6 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOvertoppingOutput, GrassCoverErosionInwardsOvertoppingOutputProperties>();
+            yield return new PropertyInfo<DikeHeightOutput, DikeHeightOutputProperties>();
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
