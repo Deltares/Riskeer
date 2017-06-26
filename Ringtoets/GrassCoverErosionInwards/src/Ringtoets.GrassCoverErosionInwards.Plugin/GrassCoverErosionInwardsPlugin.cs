@@ -294,6 +294,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<EmptyOvertoppingRateOutput>
+            {
+                Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText)
+            };
+
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
@@ -937,6 +945,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             else
             {
                 childNodes.Add(new EmptyDikeHeightOutput());
+            }
+
+            if (context.WrappedData.OvertoppingRateOutput == null)
+            {
+                childNodes.Add(new EmptyOvertoppingRateOutput());
             }
 
             return childNodes.ToArray();

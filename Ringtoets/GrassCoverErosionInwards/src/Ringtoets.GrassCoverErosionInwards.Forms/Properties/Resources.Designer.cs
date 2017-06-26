@@ -91,15 +91,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet.
-        /// </summary>
-        public static string Categories_OvertoppingRate_Result {
-            get {
-                return ResourceManager.GetString("Categories_OvertoppingRate_Result", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritiek overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalFlowRate_Description {
@@ -411,6 +402,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Orientation_DikeProfile_Description {
             get {
                 return ResourceManager.GetString("Orientation_DikeProfile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet.
+        /// </summary>
+        public static string OvertoppingRate_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingRate_DisplayName", resourceCulture);
             }
         }
         

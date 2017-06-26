@@ -137,7 +137,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HBNNotCalculated_ReturnCollectionWithOutputObjects()
+        public void ChildNodeObjects_DikeHeightAndOvertoppingRateNotCalculated_ReturnCollectionWithEmptyOutputObjects()
         {
             // Setup
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
                                                                 0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             null,
-                                                            new TestOvertoppingRateOutput(0));
+                                                            null);
 
             var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
@@ -154,12 +154,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(3, children.Length);
 
             var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
             Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
 
             Assert.IsInstanceOf<EmptyDikeHeightOutput>(children[1]);
+            Assert.IsInstanceOf<EmptyOvertoppingRateOutput>(children[2]);
         }
     }
 }
