@@ -78,6 +78,7 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsOvertoppingOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\OvertoppingRateOutputPropertiesTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataFactoryTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataPointsFactoryTest.cs" />
