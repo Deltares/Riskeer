@@ -19,24 +19,87 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     public class GeneralResultTest
     {
         [Test]
-        public void Constructor_Always_ReturnsNewInstance()
+        public void Constructor_GoverningWindNull_ThrowsArgumentNullException()
         {
             // Call
-            var result = new GeneralResult();
+            TestDelegate call = () => new GeneralResult(0,
+                                                        null,
+                                                        Enumerable.Empty<Stochast>(),
+                                                        new Dictionary<
+                                                            WindDirectionClosingSituation,
+                                                            IllustrationPointTreeNode>());
 
             // Assert
-            Assert.IsNull(result.GoverningWind);
-            Assert.IsNull(result.IllustrationPoints);
-            Assert.IsNull(result.Stochasts);
-            Assert.IsNaN(result.Beta);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("governingWindDirection", paramName);
+        }
+
+        [Test]
+        public void Constructor_StochastsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var governingWind = new TestWindDirection();
+
+            // Call
+            TestDelegate call = () => new GeneralResult(0,
+                                                        governingWind,
+                                                        null,
+                                                        new Dictionary<
+                                                            WindDirectionClosingSituation,
+                                                            IllustrationPointTreeNode>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("stochasts", paramName);
+        }
+
+        [Test]
+        public void Constructor_IllustrationPointsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var governingWind = new TestWindDirection();
+
+            // Call
+            TestDelegate call = () => new GeneralResult(0,
+                                                        governingWind,
+                                                        Enumerable.Empty<Stochast>(),
+                                                        null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("illustrationPoints", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidArguments_ReturnsNewInstance()
+        {
+            // Setup
+            var random = new Random(123);
+            double beta = random.NextDouble();
+            var governingWind = new TestWindDirection();
+            IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
+            var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
+
+            // Call
+            var result = new GeneralResult(beta, governingWind, stochasts, illustrationPoints);
+
+            // Assert
+            Assert.AreEqual(beta, result.Beta);
+            Assert.AreSame(governingWind, result.GoverningWindDirection);
+            Assert.AreSame(stochasts, result.Stochasts);
+            Assert.AreSame(illustrationPoints, result.IllustrationPoints);
         }
     }
 }

@@ -23,12 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using GeneralResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.GeneralResult;
+using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
+using HydraIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 using IHydraRingIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
-using Stochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.Stochast;
-using WindDirection = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -51,7 +50,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraGeneralResult));
             }
 
-            WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraGeneralResult.GoverningWind);
+            WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraGeneralResult.GoverningWindDirection);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraGeneralResult);
             IEnumerable<WindDirectionClosingSituationIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
                 GetWindDirectionClosingSituationIllustrationPoint(hydraGeneralResult);
@@ -68,12 +67,12 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             HydraGeneralResult hydraGeneralResult)
         {
             var combinations = new List<WindDirectionClosingSituationIllustrationPoint>();
-            foreach (KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointTreeNode in hydraGeneralResult.IllustrationPoints)
+            foreach (KeyValuePair<HydraWindDirectionClosingSituation, HydraIllustrationPointTreeNode> illustrationPointTreeNode in hydraGeneralResult.IllustrationPoints)
             {
                 IHydraRingIllustrationPoint hydraIllustrationPoint = illustrationPointTreeNode.Value.Data;
-                WindDirectionClosingSituation hydraWindDirectionClosingSituation = illustrationPointTreeNode.Key;
+                HydraWindDirectionClosingSituation hydraWindDirectionClosingSituation = illustrationPointTreeNode.Key;
 
-                var subMechanismIllustrationPoint = hydraIllustrationPoint as SubMechanismIllustrationPoint;
+                var subMechanismIllustrationPoint = hydraIllustrationPoint as HydraSubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
                     combinations.Add(WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(

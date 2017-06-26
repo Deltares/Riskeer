@@ -34,11 +34,9 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
         /// Creates a new instance of <see cref="TestGeneralResult"/>.
         /// </summary>
         public TestGeneralResult()
-        {
-            Beta = 0;
-            GoverningWind = new WindDirection("TestWindDirection", 123);
-            Stochasts = Enumerable.Empty<Stochast>();
-            IllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
-        }
+            : base(0,
+                   new TestWindDirection(),
+                   Enumerable.Empty<Stochast>(),
+                   new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>()) {}
     }
 }

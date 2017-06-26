@@ -163,9 +163,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             // Assert
             GeneralResult generalResult = parser.Output;
             Assert.NotNull(generalResult);
-            Assert.NotNull(generalResult.GoverningWind);
-            Assert.AreEqual(30, generalResult.GoverningWind.Angle);
-            Assert.AreEqual(" 30,0", generalResult.GoverningWind.Name);
+            Assert.NotNull(generalResult.GoverningWindDirection);
+            Assert.AreEqual(30, generalResult.GoverningWindDirection.Angle);
+            Assert.AreEqual(" 30,0", generalResult.GoverningWindDirection.Name);
             Assert.AreEqual(-0.122527, generalResult.Beta);
             Assert.AreEqual(46, generalResult.Stochasts.Count());
 
@@ -216,9 +216,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             // Assert
             GeneralResult generalResult = parser.Output;
             Assert.NotNull(generalResult);
-            Assert.NotNull(generalResult.GoverningWind);
-            Assert.AreEqual(112.5, generalResult.GoverningWind.Angle);
-            Assert.AreEqual("OZO", generalResult.GoverningWind.Name);
+            Assert.NotNull(generalResult.GoverningWindDirection);
+            Assert.AreEqual(112.5, generalResult.GoverningWindDirection.Angle);
+            Assert.AreEqual("OZO", generalResult.GoverningWindDirection.Name);
             Assert.AreEqual(3.4037, generalResult.Beta);
             Assert.AreEqual(6, generalResult.Stochasts.Count());
             Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;

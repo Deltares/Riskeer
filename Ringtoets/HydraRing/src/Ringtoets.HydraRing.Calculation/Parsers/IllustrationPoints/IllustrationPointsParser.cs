@@ -35,11 +35,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// </summary>
     public class IllustrationPointsParser : IHydraRingFileParser
     {
-        /// <summary>
-        /// The result of parsing the illustration points in the Hydra-Ring database.
-        /// </summary>
-        public readonly GeneralResult Output = new GeneralResult();
-
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> faultTreeBetaValues = new Dictionary<ThreeKeyIndex, double>();
 
@@ -47,10 +42,20 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private readonly Dictionary<ThreeKeyIndex, double> subMechanismBetaValues = new Dictionary<ThreeKeyIndex, double>();
         private readonly Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>>();
 
+        private double beta = double.NaN;
+        private WindDirection governingWindDirection;
+        private IEnumerable<Stochast> stochasts;
+        private Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> rootIllustrationPoints;
+
         private IDictionary<int, WindDirection> windDirections;
         private IDictionary<int, string> closingSituations;
         private IDictionary<int, string> subMechanisms;
         private IDictionary<int, string> faultTrees;
+
+        /// <summary>
+        /// The result of parsing the illustration points in the Hydra-Ring database.
+        /// </summary>
+        public GeneralResult Output { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {
@@ -106,9 +111,14 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             ParseSubMechanismResults(reader);
             ProceedOrThrow(reader);
             ParseFaultTree(reader);
-            if (Output.IllustrationPoints == null)
+            if (rootIllustrationPoints == null)
             {
                 SetSubMechanismAsRootIllustrationPoint();
+            }
+
+            if (governingWindDirection != null && stochasts != null && rootIllustrationPoints != null)
+            {
+                Output = new GeneralResult(beta, governingWindDirection, stochasts, rootIllustrationPoints);
             }
         }
 
@@ -127,7 +137,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void SetSubMechanismAsRootIllustrationPoint()
         {
-            var rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
+            rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
             foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in GetAllWindDirectionClosingSituationCombinations())
             {
                 string submechanismIllustrationPointName = subMechanisms.First().Value;
@@ -147,7 +157,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
                     new IllustrationPointTreeNode(illustrationPoint);
             }
-            Output.IllustrationPoints = rootIllustrationPoints;
         }
 
         private void ParseFaultTreeAlphaValues(HydraRingDatabaseReader reader)
@@ -265,7 +274,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 List<Tuple<int?, int, Type, CombinationType>> results = CreateResultTuples(readFaultTrees);
 
-                var rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
+                rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
                 foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in windDirectionClosingSituations)
                 {
                     Tuple<int?, int, Type, CombinationType> root = results.Single(r => !r.Item1.HasValue);
@@ -273,8 +282,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
                         BuildFaultTree(windDirectionClosingSituation, root.Item2, root.Item4, results);
                 }
-
-                Output.IllustrationPoints = rootIllustrationPoints;
             }
         }
 
@@ -375,8 +382,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
             }
-            Output.Beta = ConvertToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue],
-                                          IllustrationPointsDatabaseConstants.BetaValue);
+            beta = ConvertToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue],
+                                   IllustrationPointsDatabaseConstants.BetaValue);
         }
 
         /// <summary>
@@ -399,7 +406,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
         private void ParseGeneralAlphaValues(HydraRingDatabaseReader reader)
         {
-            Output.Stochasts = GetIterator(reader).Select(a =>
+            stochasts = GetIterator(reader).Select(a =>
             {
                 string name = Convert.ToString(a[IllustrationPointsDatabaseConstants.StochastName]);
                 double duration = ConvertToDouble(a[IllustrationPointsDatabaseConstants.Duration], IllustrationPointsDatabaseConstants.Duration);
@@ -432,7 +439,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
                 if (isGoverning)
                 {
-                    Output.GoverningWind = windDirection;
+                    governingWindDirection = windDirection;
                 }
             }
         }

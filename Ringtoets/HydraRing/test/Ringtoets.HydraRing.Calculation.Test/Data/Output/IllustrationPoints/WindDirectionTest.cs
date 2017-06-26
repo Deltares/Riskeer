@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             const string windDirectionName = "SSE";
-            
+
             var random = new Random(21);
             double windDirectionAngle = random.NextDouble();
 
@@ -148,7 +148,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
                 {
                     TestName = "Equals_WindDirectionBWindDirectionC_False"
                 },
-                 new TestCaseData(windDirectionC, windDirectionD, false)
+                new TestCaseData(windDirectionC, windDirectionD, false)
                 {
                     TestName = "Equals_WindDirectionAWindDirectionD_False"
                 }

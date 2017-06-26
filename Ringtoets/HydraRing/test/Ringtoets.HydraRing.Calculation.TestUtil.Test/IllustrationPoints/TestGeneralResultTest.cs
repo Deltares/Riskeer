@@ -21,7 +21,6 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
@@ -39,8 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             Assert.IsInstanceOf<GeneralResult>(generalResult);
             Assert.AreEqual(0, generalResult.Beta);
 
-            var expectedWindDirection = new WindDirection("TestWindDirection", 123);
-            AssertWindDirection(expectedWindDirection, generalResult.GoverningWind);
+            var expectedWindDirection = new TestWindDirection();
+            AssertWindDirection(expectedWindDirection, generalResult.GoverningWindDirection);
             Assert.IsEmpty(generalResult.Stochasts);
             Assert.IsEmpty(generalResult.IllustrationPoints);
         }
