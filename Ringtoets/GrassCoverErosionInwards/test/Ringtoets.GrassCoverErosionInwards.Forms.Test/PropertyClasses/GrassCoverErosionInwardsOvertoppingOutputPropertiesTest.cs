@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewValue_ReturnCorrectPropertyValues()
         {
             // Setup
             var random = new Random();
