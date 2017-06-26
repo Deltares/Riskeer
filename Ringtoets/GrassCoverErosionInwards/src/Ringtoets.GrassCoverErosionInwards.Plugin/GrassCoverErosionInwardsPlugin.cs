@@ -90,6 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOvertoppingOutput, GrassCoverErosionInwardsOvertoppingOutputProperties>();
             yield return new PropertyInfo<DikeHeightOutput, DikeHeightOutputProperties>();
+            yield return new PropertyInfo<OvertoppingRateOutput, OvertoppingRateOutputProperties>();
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()

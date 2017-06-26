@@ -72,6 +72,7 @@
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsOvertoppingOutputPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\OvertoppingRateOutputPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeHeightOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyDikeHeightOutputTreeNodeInfoTest.cs" />

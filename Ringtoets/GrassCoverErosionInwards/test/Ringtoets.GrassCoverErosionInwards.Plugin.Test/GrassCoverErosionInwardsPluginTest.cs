@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(7, propertyInfos.Length);
+                Assert.AreEqual(8, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -93,6 +93,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                     propertyInfos,
                     typeof(DikeHeightOutput),
                     typeof(DikeHeightOutputProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(OvertoppingRateOutput),
+                    typeof(OvertoppingRateOutputProperties));
             }
         }
 
