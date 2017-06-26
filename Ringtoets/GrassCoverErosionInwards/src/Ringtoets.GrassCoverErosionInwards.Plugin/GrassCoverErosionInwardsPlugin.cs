@@ -270,8 +270,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ChildNodeObjects = OutputContextChildNodeObjects
+                Image = output => Resources.OutputIcon,
+                ChildNodeObjects = OutputContextChildNodeObjects,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOvertoppingOutput>
@@ -310,6 +313,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyProbabilityAssessmentOutput>
+            {
+                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => Resources.OutputIcon,
+                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()

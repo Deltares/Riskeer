@@ -27,17 +27,13 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputContextTreeNodeInfoTest
+    public class EmptyProbabilityAssessmentOutputTest
     {
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
@@ -48,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput));
         }
 
         [TearDown]
@@ -66,12 +62,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -112,60 +108,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_EverythingCalculated_ReturnCollectionWithOutputObject()
+        public void ForeColor_Always_ReturnGrayText()
         {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
-                                                            new TestDikeHeightOutput(0.0),
-                                                            new TestOvertoppingRateOutput(0));
-
-            var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
             // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
+            Color foreColor = info.ForeColor(null);
 
             // Assert
-            Assert.AreEqual(3, children.Length);
-
-            var overtoppingOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingOutput, overtoppingOutput);
-
-            var dikeHeightOutput = children[1] as DikeHeightOutput;
-            Assert.AreSame(context.WrappedData.DikeHeightOutput, dikeHeightOutput);
-
-            var overtoppingRateOutput = children[2] as OvertoppingRateOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingRateOutput, overtoppingRateOutput);
-        }
-
-        [Test]
-        public void ChildNodeObjects_DikeHeightAndOvertoppingRateNotCalculated_ReturnCollectionWithEmptyOutputObjects()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
-                                                            null,
-                                                            null);
-
-            var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
-            // Assert
-            Assert.AreEqual(3, children.Length);
-
-            var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
-
-            Assert.IsInstanceOf<EmptyDikeHeightOutput>(children[1]);
-            Assert.IsInstanceOf<EmptyOvertoppingRateOutput>(children[2]);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
         }
 
         [Test]

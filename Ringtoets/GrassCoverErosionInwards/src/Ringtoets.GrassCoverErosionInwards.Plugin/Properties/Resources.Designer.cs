@@ -182,5 +182,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
                         "with_DikeProfile_data_output_will_be_cleared_confirm", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OutputIcon {
+            get {
+                object obj = ResourceManager.GetObject("OutputIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
