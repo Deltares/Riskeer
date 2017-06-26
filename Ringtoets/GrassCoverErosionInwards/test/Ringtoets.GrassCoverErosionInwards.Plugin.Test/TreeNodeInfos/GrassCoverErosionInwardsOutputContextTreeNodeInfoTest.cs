@@ -127,13 +127,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(3, children.Length);
 
             var overtoppingOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
             Assert.AreSame(context.WrappedData.OvertoppingOutput, overtoppingOutput);
 
             var dikeHeightOutput = children[1] as DikeHeightOutput;
             Assert.AreSame(context.WrappedData.DikeHeightOutput, dikeHeightOutput);
+
+            var overtoppingRateOutput = children[2] as OvertoppingRateOutput;
+            Assert.AreSame(context.WrappedData.OvertoppingRateOutput, overtoppingRateOutput);
         }
 
         [Test]

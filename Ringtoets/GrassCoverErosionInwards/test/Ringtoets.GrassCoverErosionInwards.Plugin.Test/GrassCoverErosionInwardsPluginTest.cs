@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(12, treeNodeInfos.Length);
+                Assert.AreEqual(13, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeProfilesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext)));
@@ -119,6 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyDikeHeightOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeHeightOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyOvertoppingRateOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(OvertoppingRateOutput)));
             }
         }
 

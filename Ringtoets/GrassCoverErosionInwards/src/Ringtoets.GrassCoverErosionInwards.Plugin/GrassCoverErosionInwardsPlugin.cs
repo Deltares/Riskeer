@@ -302,6 +302,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ForeColor = output => Color.FromKnownColor(KnownColor.GrayText)
             };
 
+            yield return new TreeNodeInfo<OvertoppingRateOutput>
+            {
+                Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
@@ -933,26 +942,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static object[] OutputContextChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
         {
-            var childNodes = new List<object>
+            return new[]
             {
-                context.WrappedData.OvertoppingOutput
+                context.WrappedData.OvertoppingOutput,
+                context.WrappedData.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
+                context.WrappedData.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
             };
-
-            if (context.WrappedData.DikeHeightOutput != null)
-            {
-                childNodes.Add(context.WrappedData.DikeHeightOutput);
-            }
-            else
-            {
-                childNodes.Add(new EmptyDikeHeightOutput());
-            }
-
-            if (context.WrappedData.OvertoppingRateOutput == null)
-            {
-                childNodes.Add(new EmptyOvertoppingRateOutput());
-            }
-
-            return childNodes.ToArray();
         }
 
         #endregion
