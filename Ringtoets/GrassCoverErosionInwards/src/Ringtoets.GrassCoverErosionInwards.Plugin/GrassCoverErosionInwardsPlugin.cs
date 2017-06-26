@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -262,6 +263,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ChildNodeObjects = OutputContextChildNodeObjects
+            };
+
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsResultOutput>
+            {
+                Text = output => Resources.GrassCoverErosionInwardsOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -890,6 +898,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 affectedObject.NotifyObservers();
             }
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwardsOutputContext TreeNodeInfo
+
+        private static object[] OutputContextChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
+        {
+            return new object[]
+            {
+                context.WrappedData.ResultOutput
+            };
         }
 
         #endregion

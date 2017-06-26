@@ -148,4 +148,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles" xml:space="preserve">
     <value>&amp;Bijwerken dijkprofielen...</value>
   </data>
+  <data name="GrassCoverErosionInwardsOutput_DisplayName" xml:space="preserve">
+    <value>Sterkte berekening</value>
+  </data>
 </root>

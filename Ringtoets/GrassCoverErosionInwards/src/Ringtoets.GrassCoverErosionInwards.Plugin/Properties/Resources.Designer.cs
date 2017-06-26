@@ -82,6 +82,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sterkte berekening.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren..
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {

@@ -22,54 +22,52 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputContextTreeNodeInfoTest
+    public class GrassCoverErosionInwardsResultOutputTreeNodeInfoTest
     {
-        private MockRepository mocksRepository;
+        private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocksRepository = new MockRepository();
+            mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsResultOutput));
         }
 
         [TearDown]
         public void TearDown()
         {
             plugin.Dispose();
-            mocksRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocksRepository.ReplayAll();
+            mocks.ReplayAll();
 
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
-            Assert.IsNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -87,20 +85,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsFromResource()
         {
             // Setup
-            mocksRepository.ReplayAll();
+            mocks.ReplayAll();
 
             // Call
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Resultaat", text);
+            Assert.AreEqual("Sterkte berekening", text);
         }
 
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
             // Setup
-            mocksRepository.ReplayAll();
+            mocks.ReplayAll();
 
             // Call
             Image image = info.Image(null);
@@ -110,26 +108,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnCollectionWithOutputObject()
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            // Setup
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            using (mocks.Ordered())
+            {
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            }
 
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsResultOutput(
-                                                                0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
-                                                            new TestDikeHeightOutput(0.0),
-                                                            new TestOvertoppingRateOutput(0));
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
+                mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+                plugin.Gui = gui;
 
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControl);
+            }
             // Assert
-            Assert.AreEqual(1, children.Length);
-
-            var resultOutput = children[0] as GrassCoverErosionInwardsResultOutput;
-            Assert.AreSame(context.WrappedData.ResultOutput, resultOutput);
+            // Assert expectancies called in TearDown()
         }
     }
 }
