@@ -112,6 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void ChildNodeObjects_Always_ReturnCollectionWithOutputObject()
         {
+            // Setup
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
@@ -130,6 +131,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
             Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
+        }
+
+        [Test]
+        public void ChildNodeObjects_HBNNotCalculated_ReturnCollectionWithOutputObjects()
+        {
+            // Setup
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
+                                                                0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+                                                            null,
+                                                            new TestOvertoppingRateOutput(0));
+
+            var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, children.Length);
+
+            var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
+            Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
+
+            Assert.IsInstanceOf<EmptyDikeHeightOutput>(children[1]);
         }
     }
 }

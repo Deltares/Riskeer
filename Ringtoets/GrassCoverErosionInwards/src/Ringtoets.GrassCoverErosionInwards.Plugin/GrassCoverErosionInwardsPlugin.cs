@@ -59,6 +59,7 @@ using Ringtoets.GrassCoverErosionInwards.Utils;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
@@ -275,6 +276,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyDikeHeightOutput>
+            {
+                Text = output => GrassCoverErosionInwardsFormsResources.Categories_DikeHeight_Result,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon
             };
         }
 
@@ -907,10 +914,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static object[] OutputContextChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
         {
-            return new object[]
+            var childNodes = new List<object>
             {
                 context.WrappedData.OvertoppingOutput
             };
+
+            if (context.WrappedData.DikeHeightOutput == null)
+            {
+                childNodes.Add(new EmptyDikeHeightOutput());
+            }
+
+            return childNodes.ToArray();
         }
 
         #endregion
