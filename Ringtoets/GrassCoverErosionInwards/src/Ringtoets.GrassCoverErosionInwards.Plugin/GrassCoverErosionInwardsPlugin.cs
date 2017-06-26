@@ -83,7 +83,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsOutputContext, GrassCoverErosionInwardsOutputProperties>
+            {
+                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<DikeProfilesContext, DikeProfileCollectionProperties>
             {
                 CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)

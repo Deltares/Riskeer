@@ -53,16 +53,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var data = new TestGrassCoverErosionInwardsOutput();
+
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties();
+            var properties = new GrassCoverErosionInwardsOutputProperties(data);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(data, properties.Data);
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_DataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("data", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithDataSet_ReturnCorrectPropertyValues()
         {
             // Setup
             var random = new Random();
@@ -108,10 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
-            {
-                Data = output
-            };
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
@@ -179,10 +190,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                             overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
-            {
-                Data = output
-            };
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -223,10 +231,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                             overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
-            {
-                Data = output
-            };
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -259,10 +264,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new GrassCoverErosionInwardsOutput(resultOutput, null, null);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties
-            {
-                Data = output
-            };
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             int propertiesCount = double.IsNaN(waveHeight) ? 6 : 7;
