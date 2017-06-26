@@ -349,7 +349,7 @@ INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPoin
 INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO log_output_deleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
-CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
+CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
 (
 	'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
 	'FromVersion' VARCHAR(20) NOT NULL, 
@@ -370,16 +370,76 @@ SELECT	"5",
 
 DROP TABLE log_output_deleted;
 
+CREATE TEMP TABLE FailureMechanisms ('FailureMechanismType' INTEGER NOT NULL, 'FailureMechanismName' VARCHAR(255) NOT NULL);
+INSERT INTO FailureMechanisms VALUES (1, 'Piping');
+INSERT INTO FailureMechanisms VALUES (2, 'Macrostabiliteit binnenwaarts');
+INSERT INTO FailureMechanisms VALUES (3, 'Golfklappen op asfaltbekleding');
+INSERT INTO FailureMechanisms VALUES (4, 'Grasbekleding erosie buitentalud');
+INSERT INTO FailureMechanisms VALUES (5, 'Grasbekleding afschuiven buitentalud');
+INSERT INTO FailureMechanisms VALUES (6, 'Grasbekleding erosie kruin en binnentalud');
+INSERT INTO FailureMechanisms VALUES (7, 'Stabiliteit steenzetting');
+INSERT INTO FailureMechanisms VALUES (8, 'Duinafslag');
+INSERT INTO FailureMechanisms VALUES (9, 'Hoogte kunstwerk');
+INSERT INTO FailureMechanisms VALUES (10, 'Betrouwbaarheid sluiting kunstwerk');
+INSERT INTO FailureMechanisms VALUES (11, 'Piping bij kunstwerk');
+INSERT INTO FailureMechanisms VALUES (12, 'Sterkte en stabiliteit puntconstructies');
+INSERT INTO FailureMechanisms VALUES (13, 'Macrostabiliteit buitenwaarts');
+INSERT INTO FailureMechanisms VALUES (14, 'Microstabiliteit');
+INSERT INTO FailureMechanisms VALUES (15, 'Wateroverdruk bij asfaltbekleding');
+INSERT INTO FailureMechanisms VALUES (16, 'Grasbekleding afschuiven binnentalud');
+INSERT INTO FailureMechanisms VALUES (17, 'Sterkte en stabiliteit langsconstructies');
+INSERT INTO FailureMechanisms VALUES (18, 'Technische innovaties');
+
+CREATE TEMP TABLE AssessmentSectionFailureMechanism (AssessmentSectionId, AssessmentSectionName, FailureMechanismId, FailureMechanismName);
+INSERT INTO AssessmentSectionFailureMechanism
+    SELECT AssessmentSectionEntityId, Name, FailureMechanismEntityId, FailureMechanismName
+    FROM AssessmentSectionEntity
+    JOIN FailureMechanismEntity USING(AssessmentSectionEntityId)
+    JOIN FailureMechanisms USING(FailureMechanismType);
+
+CREATE TEMP TABLE Changes (AssessmentSectionId, AssessmentSectionName, FailureMechanismId, FailureMechanismName, msg);
+INSERT INTO Changes
+    SELECT asfm.AssessmentSectionId, asfm.AssessmentSectionName, asfm.FailureMechanismId, asfm.FailureMechanismName, 
+    "De naam van dijkprofiel '" || source.Name || "' is veranderd naar '" || dp.Id || "' en wordt ook gebruikt als ID."
+    FROM DikeProfileEntity as dp
+    JOIN [SOURCEPROJECT].DikeProfileEntity as source ON dp.rowid = source.rowid
+    JOIN AssessmentSectionFailureMechanism as asfm ON asfm.FailureMechanismId = dp.FailureMechanismEntityId
+    WHERE source.Name IS NOT dp.Id;
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity(
 		[FromVersion], 
 		[ToVersion], 
 		[LogMessage])
-SELECT "5", 
-		"17.1",
-		"De naam van dijkprofiel '" || source.Name || "' is veranderd naar '" || dp.Id || "' en wordt ook gebruikt als ID."
-	FROM DikeProfileEntity as dp
-	JOIN [SOURCEPROJECT].DikeProfileEntity as source ON dp.rowid = source.rowid
-	WHERE source.Name IS NOT dp.Id;
+WITH RECURSIVE
+  FailureMechanismMessages(FailureMechanismId, FailureMechanismName, AssessmentSectionId, AssessmentSectionName, msg, level) AS (
+    SELECT DISTINCT FailureMechanismId, FailureMechanismName, AssessmentSectionId, AssessmentSectionName, null, 1
+    FROM Changes
+    UNION
+    SELECT FailureMechanismId, null, AssessmentSectionId, AssessmentSectionName, msg, 2
+    FROM Changes
+    WHERE Changes.FailureMechanismId is FailureMechanismId
+    ORDER BY 1, 3),
+    
+  AssessmentSectionFailureMechanismMessages(AssessmentSectionId, AssessmentSectionName, FailureMechanismId, FailureMechanismName, msg, level) AS (
+    SELECT DISTINCT AssessmentSectionId, AssessmentSectionName, null, null, null, 0
+    FROM FailureMechanismMessages
+    WHERE AssessmentSectionId IS NOT null
+    UNION
+    SELECT AssessmentSectionId, null, fmm.FailureMechanismId, fmm.FailureMechanismName, msg, fmm.level
+    FROM FailureMechanismMessages as fmm
+    WHERE fmm.AssessmentSectionId is AssessmentSectionId
+    ORDER BY 1, 3, 6)
+SELECT 
+    "5", 
+	"17.1",
+    CASE WHEN AssessmentSectionName IS NOT null THEN "Traject: '" || AssessmentSectionName || "'" ELSE
+    CASE WHEN FailureMechanismName IS NOT null THEN "* Toetsspoor: '" || FailureMechanismName || "'" ELSE
+    "    - " || msg END END
+FROM AssessmentSectionFailureMechanismMessages;
+
+DROP TABLE FailureMechanisms;
+DROP TABLE AssessmentSectionFailureMechanism;
+DROP TABLE Changes;
 
 DETACH LOGDATABASE;
 

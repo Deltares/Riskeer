@@ -260,16 +260,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(3, messages.Count);
+                Assert.AreEqual(5, messages.Count);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("5", newVersion, "Alle berekende resultaten zijn verwijderd."),
                     messages[0]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID."),
+                    new MigrationLogMessage("5", newVersion, "Traject: 'assessmentSection'"),
                     messages[1]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID."),
+                    new MigrationLogMessage("5", newVersion, "* Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
                     messages[2]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID."),
+                    messages[3]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("5", newVersion, "    - De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID."),
+                    messages[4]);
             }
         }
 
