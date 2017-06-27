@@ -141,9 +141,6 @@
   <data name="DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
     <value>Toetspeil berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>
-  <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
-  </data>
   <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
     <value>Toetspeil berekenen voor locatie '{0}'</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
     <value>Golfhoogte berekening voor locatie '{0}' is niet geconvergeerd.</value>
-  </data>
-  <data name="WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
     <value>Golfhoogte berekenen voor locatie '{0}'</value>
