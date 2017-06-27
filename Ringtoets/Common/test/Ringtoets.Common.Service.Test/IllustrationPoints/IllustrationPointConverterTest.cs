@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             RealizedStochast stochast = illustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraRealizedStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRealizedStochast.Name, stochast.Name);
             Assert.AreEqual(hydraRealizedStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
