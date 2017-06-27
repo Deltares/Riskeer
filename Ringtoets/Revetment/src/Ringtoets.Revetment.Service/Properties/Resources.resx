@@ -133,10 +133,10 @@
     <value>het toetspeil</value>
   </data>
   <data name="WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended" xml:space="preserve">
-    <value>Berekening '{0}' voor waterstand '{1}' beëindigd.</value>
+    <value>Berekening '{0}' voor waterstand '{1}' is beëindigd.</value>
   </data>
   <data name="WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started" xml:space="preserve">
-    <value>Berekening '{0}' voor waterstand '{1}' gestart.</value>
+    <value>Berekening '{0}' voor waterstand '{1}' is gestart.</value>
   </data>
   <data name="WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
     <value>Waterstand '{0}' berekenen.</value>

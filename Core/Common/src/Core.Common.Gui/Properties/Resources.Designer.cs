@@ -898,7 +898,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer wat u wilt exporteren.
+        ///   Looks up a localized string similar to Kies wat u wilt exporteren.
         /// </summary>
         public static string GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter {
             get {
@@ -1575,7 +1575,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een type..
+        ///   Looks up a localized string similar to Kies een type..
         /// </summary>
         public static string SelectItemDialog_buttonOk_Click_Please_select_an_item {
             get {

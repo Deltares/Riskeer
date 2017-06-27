@@ -555,20 +555,20 @@ namespace Ringtoets.Revetment.Service.Test
 
                     var waterLevelMiddleRevetment = new RoundedDouble(2, 3.50);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' is gestart.", msgs[0]);
                     Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' beëindigd.", msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' is beëindigd.", msgs[3]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' gestart.", msgs[4]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' is gestart.", msgs[4]);
                     Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'. {detailedReport}", msgs[5]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[6]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' beëindigd.", msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' is beëindigd.", msgs[7]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' gestart.", msgs[8]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' is gestart.", msgs[8]);
                     Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'. {detailedReport}", msgs[9]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[10]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' beëindigd.", msgs[11]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' is beëindigd.", msgs[11]);
 
                     Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor alle waterstanden.", msgs[12]);
                 });
@@ -633,18 +633,18 @@ namespace Ringtoets.Revetment.Service.Test
 
                     var waterLevelMiddle = new RoundedDouble(2, 3.50);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' is gestart.", msgs[0]);
                     Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundary}'. {detailedReport}", msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' beëindigd.", msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' is beëindigd.", msgs[3]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' gestart.", msgs[4]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' is gestart.", msgs[4]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' beëindigd.", msgs[6]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' is beëindigd.", msgs[6]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' gestart.", msgs[7]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' is gestart.", msgs[7]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[8]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' beëindigd.", msgs[9]);
+                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' is beëindigd.", msgs[9]);
                 });
 
                 WaveConditionsOutput[] waveConditionsOutputs = service.Outputs.ToArray();

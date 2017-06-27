@@ -1037,14 +1037,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
-                        Assert.AreEqual("Validatie van 'A' gestart.", messages[0]);
+                        Assert.AreEqual("Validatie van 'A' is gestart.", messages[0]);
 
                         if (!validCalculation)
                         {
                             Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
-                        Assert.AreEqual("Validatie van 'A' beëindigd.", messages.Last());
+                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messages.Last());
                     });
                 }
             }
@@ -1269,8 +1269,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(27, messages.Length);
-                        Assert.AreEqual("Berekening van 'A' gestart.", messages[2]);
-                        Assert.AreEqual("Berekening van 'A' beëindigd.", messages[25]);
+                        Assert.AreEqual("Berekening van 'A' is gestart.", messages[2]);
+                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messages[25]);
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[26]);
                     });
                     Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());

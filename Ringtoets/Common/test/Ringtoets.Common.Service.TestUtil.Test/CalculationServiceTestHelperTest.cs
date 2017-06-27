@@ -34,15 +34,15 @@ namespace Ringtoets.Common.Service.TestUtil.Test
         {
             // Call
             TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, $"Validatie van '{calculationName}' gestart.");
+                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, $"Validatie van '{calculationName}' is gestart.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("alidatie van '' gestart.")]
-        [TestCase("Validatie an '' gestart.")]
+        [TestCase("alidatie van '' is gestart.")]
+        [TestCase("Validatie an '' is gestart.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertValidationStartMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
@@ -63,15 +63,15 @@ namespace Ringtoets.Common.Service.TestUtil.Test
         {
             // Call
             TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, $"Validatie van '{calculationName}' beëindigd.");
+                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, $"Validatie van '{calculationName}' is beëindigd.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("alidatie van '' beëindigd.")]
-        [TestCase("Validatie an '' beëindigd.")]
+        [TestCase("alidatie van '' is beëindigd.")]
+        [TestCase("Validatie an '' is beëindigd.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertValidationEndMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
@@ -91,15 +91,15 @@ namespace Ringtoets.Common.Service.TestUtil.Test
         {
             // Call
             TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, $"Berekening van '{calculationName}' gestart.");
+                CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, $"Berekening van '{calculationName}' is gestart.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("erekening van '' gestart.")]
-        [TestCase("Berekening an '' gestart.")]
+        [TestCase("erekening van '' is gestart.")]
+        [TestCase("Berekening an '' is gestart.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertCalculationStartMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
@@ -119,15 +119,15 @@ namespace Ringtoets.Common.Service.TestUtil.Test
         {
             // Call
             TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, $"Berekening van '{calculationName}' beëindigd.");
+                CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, $"Berekening van '{calculationName}' is beëindigd.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("erekening van '' beëindigd.")]
-        [TestCase("Berekening an '' beëindigd.")]
+        [TestCase("erekening van '' is beëindigd.")]
+        [TestCase("Berekening an '' is beëindigd.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertCalculationEndMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)

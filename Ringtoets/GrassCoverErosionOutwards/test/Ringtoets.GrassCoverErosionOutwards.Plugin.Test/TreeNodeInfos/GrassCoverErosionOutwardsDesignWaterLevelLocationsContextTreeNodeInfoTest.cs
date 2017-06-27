@@ -473,13 +473,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(7, msgs.Length);
-                            Assert.AreEqual($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' gestart.", msgs[0]);
-                            Assert.AreEqual($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' beëindigd.", msgs[1]);
-                            Assert.AreEqual($"Berekening van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' gestart.", msgs[2]);
+                            Assert.AreEqual($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' is gestart.", msgs[0]);
+                            Assert.AreEqual($"Validatie van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' is beëindigd.", msgs[1]);
+                            Assert.AreEqual($"Berekening van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' is gestart.", msgs[2]);
                             Assert.AreEqual($"Waterstand bij doorsnede-eis berekening voor locatie '{hydraulicBoundaryLocation.Name}' is niet geconvergeerd.", msgs[3]);
                             StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie",
                                                     msgs[4]);
-                            Assert.AreEqual($"Berekening van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' beëindigd.", msgs[5]);
+                            Assert.AreEqual($"Berekening van 'Waterstand bij doorsnede-eis voor locatie '{hydraulicBoundaryLocation.Name}'' is beëindigd.", msgs[5]);
                             StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{hydraulicBoundaryLocation.Name}' is gelukt.", msgs[6]);
                         });
                         Assert.AreEqual(0, hydraulicBoundaryLocation.DesignWaterLevel,

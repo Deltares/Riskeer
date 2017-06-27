@@ -252,9 +252,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' gestart.", msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' is gestart.", msgs[3]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' beëindigd.", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' is beëindigd.", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
                 });
 

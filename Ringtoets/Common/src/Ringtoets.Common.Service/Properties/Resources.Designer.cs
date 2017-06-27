@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; beëindigd..
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; is beëindigd..
         /// </summary>
         public static string Calculation_Subject_0_ended {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; gestart..
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; is gestart..
         /// </summary>
         public static string Calculation_Subject_0_started {
             get {
@@ -300,7 +300,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd..
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; is beëindigd..
         /// </summary>
         public static string Validation_Subject_0_ended {
             get {
@@ -309,7 +309,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; gestart..
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; is gestart..
         /// </summary>
         public static string Validation_Subject_0_started {
             get {

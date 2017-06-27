@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Service.TestUtil
         /// <param name="actualMessage">The actual message.</param>
         public static void AssertValidationStartMessage(string calculationName, string actualMessage)
         {
-            Assert.AreEqual($"Validatie van '{calculationName}' gestart.", actualMessage);
+            Assert.AreEqual($"Validatie van '{calculationName}' is gestart.", actualMessage);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Service.TestUtil
         /// <param name="actualMessage">The actual message.</param>
         public static void AssertValidationEndMessage(string calculationName, string actualMessage)
         {
-            Assert.AreEqual($"Validatie van '{calculationName}' beëindigd.", actualMessage);
+            Assert.AreEqual($"Validatie van '{calculationName}' is beëindigd.", actualMessage);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service.TestUtil
         /// <param name="actualMessage">The actual message.</param>
         public static void AssertCalculationStartMessage(string calculationName, string actualMessage)
         {
-            Assert.AreEqual($"Berekening van '{calculationName}' gestart.", actualMessage);
+            Assert.AreEqual($"Berekening van '{calculationName}' is gestart.", actualMessage);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Service.TestUtil
         /// <param name="actualMessage">The actual message.</param>
         public static void AssertCalculationEndMessage(string calculationName, string actualMessage)
         {
-            Assert.AreEqual($"Berekening van '{calculationName}' beëindigd.", actualMessage);
+            Assert.AreEqual($"Berekening van '{calculationName}' is beëindigd.", actualMessage);
         }
     }
 }

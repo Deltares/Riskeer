@@ -542,14 +542,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     {
                         IEnumerator<string> msgs = messages.GetEnumerator();
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual("Validatie van 'Nieuwe berekening' gestart.", msgs.Current);
+                        Assert.AreEqual("Validatie van 'Nieuwe berekening' is gestart.", msgs.Current);
                         for (var i = 0; i < expectedValidationMessageCount; i++)
                         {
                             Assert.IsTrue(msgs.MoveNext());
                             StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
                         }
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual("Validatie van 'Nieuwe berekening' beëindigd.", msgs.Current);
+                        Assert.AreEqual("Validatie van 'Nieuwe berekening' is beëindigd.", msgs.Current);
                     });
                     Assert.IsNull(calculation.Output);
                     Assert.IsNull(calculation.SemiProbabilisticOutput);
@@ -650,14 +650,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     {
                         IEnumerator<string> msgs = messages.GetEnumerator();
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual("Validatie van 'Nieuwe berekening' gestart.", msgs.Current);
+                        Assert.AreEqual("Validatie van 'Nieuwe berekening' is gestart.", msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual("Validatie van 'Nieuwe berekening' beëindigd.", msgs.Current);
+                        Assert.AreEqual("Validatie van 'Nieuwe berekening' is beëindigd.", msgs.Current);
 
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' gestart.", msgs.Current);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is gestart.", msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", msgs.Current);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is beëindigd.", msgs.Current);
                     });
                     Assert.IsNotNull(calculation.Output);
                     Assert.IsNotNull(calculation.SemiProbabilisticOutput);

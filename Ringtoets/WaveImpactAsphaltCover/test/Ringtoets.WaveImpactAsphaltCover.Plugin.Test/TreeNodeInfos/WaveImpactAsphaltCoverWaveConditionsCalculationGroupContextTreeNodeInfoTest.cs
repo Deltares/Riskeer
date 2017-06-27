@@ -879,10 +879,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
-                        Assert.AreEqual("Validatie van 'A' gestart.", messages[0]);
-                        Assert.AreEqual("Validatie van 'A' beëindigd.", messages[1]);
-                        Assert.AreEqual("Validatie van 'B' gestart.", messages[2]);
-                        Assert.AreEqual("Validatie van 'B' beëindigd.", messages[3]);
+                        Assert.AreEqual("Validatie van 'A' is gestart.", messages[0]);
+                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messages[1]);
+                        Assert.AreEqual("Validatie van 'B' is gestart.", messages[2]);
+                        Assert.AreEqual("Validatie van 'B' is beëindigd.", messages[3]);
                     });
                 }
             }
@@ -952,10 +952,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(28, messages.Length);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' gestart.", messages[2]);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", messages[12]);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' gestart.", messages[15]);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' beëindigd.", messages[25]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is gestart.", messages[2]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is beëindigd.", messages[12]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is gestart.", messages[15]);
+                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is beëindigd.", messages[25]);
                         Assert.AreEqual("Golfcondities berekenen voor 'Nieuwe berekening' is gelukt.", messages[26]);
                         Assert.AreEqual("Golfcondities berekenen voor 'Nieuwe berekening' is gelukt.", messages[27]);
                     });

@@ -279,7 +279,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{levelCrestStructureNotClosing}' moet groter zijn dan of gelijk zijn aan 0.", msgs[16]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischarge}' moet een positief getal zijn.", msgs[17]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischarge}' moet groter zijn dan of gelijk zijn aan 0.", msgs[18]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[19]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[19]);
             });
             Assert.IsFalse(isValid);
 
@@ -342,7 +342,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{thresholdHeightOpenWeir}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischarge}' moet een positief getal zijn.", msgs[18]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischarge}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[20]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[20]);
             });
             Assert.IsFalse(isValid);
 
@@ -403,7 +403,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{allowedLevelIncreaseStorage}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischarge}' moet een positief getal zijn.", msgs[16]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischarge}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[18]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[18]);
             });
             Assert.IsFalse(isValid);
 

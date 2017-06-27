@@ -797,16 +797,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                         // Assert
                         Assert.AreEqual(12, messageList.Count);
-                        Assert.AreEqual("Validatie van 'A' gestart.", messageList[0]);
-                        Assert.AreEqual("Validatie van 'A' beëindigd.", messageList[1]);
-                        Assert.AreEqual("Berekening van 'A' gestart.", messageList[2]);
+                        Assert.AreEqual("Validatie van 'A' is gestart.", messageList[0]);
+                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messageList[1]);
+                        Assert.AreEqual("Berekening van 'A' is gestart.", messageList[2]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[3]);
-                        Assert.AreEqual("Berekening van 'A' beëindigd.", messageList[4]);
-                        Assert.AreEqual("Validatie van 'B' gestart.", messageList[5]);
-                        Assert.AreEqual("Validatie van 'B' beëindigd.", messageList[6]);
-                        Assert.AreEqual("Berekening van 'B' gestart.", messageList[7]);
+                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messageList[4]);
+                        Assert.AreEqual("Validatie van 'B' is gestart.", messageList[5]);
+                        Assert.AreEqual("Validatie van 'B' is beëindigd.", messageList[6]);
+                        Assert.AreEqual("Berekening van 'B' is gestart.", messageList[7]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[8]);
-                        Assert.AreEqual("Berekening van 'B' beëindigd.", messageList[9]);
+                        Assert.AreEqual("Berekening van 'B' is beëindigd.", messageList[9]);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[10]);
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[11]);
                     });
@@ -867,10 +867,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         string[] messageList = messages.ToArray();
 
                         Assert.AreEqual(4, messageList.Length);
-                        Assert.AreEqual("Validatie van 'A' gestart.", messageList[0]);
-                        Assert.AreEqual("Validatie van 'A' beëindigd.", messageList[1]);
-                        Assert.AreEqual("Validatie van 'B' gestart.", messageList[2]);
-                        Assert.AreEqual("Validatie van 'B' beëindigd.", messageList[3]);
+                        Assert.AreEqual("Validatie van 'A' is gestart.", messageList[0]);
+                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messageList[1]);
+                        Assert.AreEqual("Validatie van 'B' is gestart.", messageList[2]);
+                        Assert.AreEqual("Validatie van 'B' is beëindigd.", messageList[3]);
                     });
                 }
             }

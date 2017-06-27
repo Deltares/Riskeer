@@ -98,11 +98,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' gestart.", msgs.First());
+                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' is gestart.", msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
-                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' beëindigd.", msgs.Last());
+                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' is beëindigd.", msgs.Last());
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidMacroStabilityInwardsCalculation.Output);

@@ -263,7 +263,7 @@
     <value>Logbestand kan niet worden geopend.</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Please_select_an_item" xml:space="preserve">
-    <value>Selecteer een type.</value>
+    <value>Kies een type</value>
   </data>
   <data name="MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log" xml:space="preserve">
     <value>Controleer logbestand voor meer informatie ("Bestand"-&gt;"Help"-&gt;"Log tonen").</value>
@@ -554,7 +554,7 @@
     <value>Start</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter" xml:space="preserve">
-    <value>Selecteer wat u wilt exporteren</value>
+    <value>Kies wat u wilt exporteren</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer" xml:space="preserve">
     <value>Kies wat u wilt importeren</value>

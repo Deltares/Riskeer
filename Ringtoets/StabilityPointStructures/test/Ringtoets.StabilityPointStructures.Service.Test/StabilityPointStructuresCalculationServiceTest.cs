@@ -368,7 +368,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[42]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[42]);
             });
         }
 
@@ -453,7 +453,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[42]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[42]);
             });
         }
 
@@ -538,7 +538,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[42]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[42]);
             });
         }
 
@@ -623,7 +623,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stabilityQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stabilityQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
-                Assert.AreEqual($"Validatie van '{name}' beëindigd.", msgs[42]);
+                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[42]);
             });
         }
 

@@ -98,13 +98,13 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
-                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' gestart.", msgs.First());
+                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' is gestart.", msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[4]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[5]);
-                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' beëindigd.", msgs.Last());
+                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' is beëindigd.", msgs.Last());
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidPipingCalculation.Output);
