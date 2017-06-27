@@ -45,8 +45,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(hydraStochast));
             }
-            int stochastDuration = Convert.ToInt32(hydraStochast.Duration);
-            return new Stochast(hydraStochast.Name, stochastDuration, hydraStochast.Alpha);
+            return new Stochast(hydraStochast.Name, hydraStochast.Duration, hydraStochast.Alpha);
         }
 
         /// <summary>
@@ -63,9 +62,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(hydraRealizedStochast));
             }
-            int stochastDuration = Convert.ToInt32(hydraRealizedStochast.Duration);
             return new RealizedStochast(hydraRealizedStochast.Name,
-                                        stochastDuration,
+                                        hydraRealizedStochast.Duration,
                                         hydraRealizedStochast.Alpha,
                                         hydraRealizedStochast.Realization);
         }

@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            int duration = random.Next();
+            double duration = random.NextDouble();
             double alpha = random.NextDouble();
 
             // Call
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             const string name = "Stochast name";
 
             var random = new Random(21);
-            int duration = random.Next();
+            double duration = random.NextDouble();
             double alpha = random.NextDouble();
 
             // Call
@@ -60,7 +60,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Assert
             Assert.AreEqual(name, stochast.Name);
-            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(1, stochast.Duration.NumberOfDecimalPlaces);
             Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(5, stochast.Alpha.NumberOfDecimalPlaces);
         }

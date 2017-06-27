@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             const string name = "Stochast name";
 
             var random = new Random(21);
-            int duration = random.Next();
+            double duration = random.NextDouble();
             double alpha = random.NextDouble();
             double realization = random.NextDouble();
 
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);
             Assert.AreEqual(name, stochast.Name);
-            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
 
             Assert.AreEqual(realization, stochast.Realization,

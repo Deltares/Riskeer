@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="realization">The realization of the stochast.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public RealizedStochast(string name, int duration, double alpha, double realization)
+        public RealizedStochast(string name, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {
             Realization = new RoundedDouble(5, realization);

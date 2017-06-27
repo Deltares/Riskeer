@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="duration">The duration.</param>
         /// <param name="alpha">The alpha value</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public Stochast(string name, int duration, double alpha)
+        public Stochast(string name, double duration, double alpha)
         {
             if (name == null)
             {
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             }
 
             Name = name;
-            Duration = duration;
+            Duration = new RoundedDouble(1, duration);
             Alpha = new RoundedDouble(5, alpha);
         }
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <summary>
         /// Gets the duration of the stochast.
         /// </summary>
-        public int Duration { get; }
+        public RoundedDouble Duration { get; }
 
         /// <summary>
         /// Gets the alpha value of the stochast.

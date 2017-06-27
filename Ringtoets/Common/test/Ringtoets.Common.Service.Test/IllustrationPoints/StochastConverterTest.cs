@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             const string name = "name";
 
             var random = new Random(21);
-            int duration = random.Next();
+            double duration = random.NextDouble();
             double alpha = random.NextDouble();
             var hydraStochast = new HydraStochast(name, duration, alpha);
 
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Assert
             Assert.AreEqual(hydraStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraStochast.Name, stochast.Name);
         }
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             const string name = "name";
 
             var random = new Random(21);
-            int duration = random.Next();
+            double duration = random.Next();
             double alpha = random.NextDouble();
             double realization = random.NextDouble();
 
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Assert
             Assert.AreEqual(hydraStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(duration, stochast.Duration);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraStochast.Name, stochast.Name);
             Assert.AreEqual(hydraStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
