@@ -490,8 +490,8 @@ SELECT DISTINCT
 	[AssessmentSectionName], 
 	NULL, 
 	NULL,
-	 NULL, 
-	 0
+	NULL, 
+	0
 	FROM FailureMechanismMessages
 	WHERE [AssessmentSectionId] IS NOT NULL
 	UNION
