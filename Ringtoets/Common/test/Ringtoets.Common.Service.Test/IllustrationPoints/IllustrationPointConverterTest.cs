@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             const string name = "HydraRealizedStochast";
             double alpha = random.NextDouble();
-            int duration = random.Next();
+            double duration = random.NextDouble();
             double realization = random.NextDouble();
             var hydraRealizedStochast = new HydraRealizedStochast(name, duration, alpha, realization);
 
