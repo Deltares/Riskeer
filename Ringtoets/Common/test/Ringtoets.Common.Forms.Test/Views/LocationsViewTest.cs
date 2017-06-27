@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
@@ -59,6 +60,23 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
+
+                Assert.AreEqual(1, view.Controls.Count);
+
+                var verticalSplitContainer = view.Controls[0] as SplitContainer;
+                Assert.IsNotNull(verticalSplitContainer);
+                Control.ControlCollection verticalSplitContainerPanel1Controls = verticalSplitContainer.Panel1.Controls;
+                Assert.AreEqual(2, verticalSplitContainerPanel1Controls.Count);
+                Assert.IsInstanceOf<DataGridViewControl>(verticalSplitContainerPanel1Controls[0]);
+                Assert.IsInstanceOf<GroupBox>(verticalSplitContainerPanel1Controls[1]);
+
+                Control.ControlCollection verticalSplitContainerPanel2Controls = verticalSplitContainer.Panel2.Controls;
+                Assert.AreEqual(1, verticalSplitContainerPanel2Controls.Count);
+                var horizontalSplitContainer = verticalSplitContainerPanel2Controls[0] as SplitContainer;
+                Assert.IsNotNull(horizontalSplitContainer);
+
+                CollectionAssert.IsEmpty(horizontalSplitContainer.Panel1.Controls);
+                CollectionAssert.IsEmpty(horizontalSplitContainer.Panel2.Controls);
             }
         }
 
