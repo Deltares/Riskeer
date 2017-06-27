@@ -40,6 +40,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="EmptyDikeHeightOutput.cs" />
+    <Compile Include="EmptyGrassCoverErosionInwardsOutput.cs" />
     <Compile Include="EmptyOvertoppingRateOutput.cs" />
     <Compile Include="GrassCoverErosionInwardsOvertoppingOutput.cs" />
     <Compile Include="OvertoppingRateOutput.cs" />

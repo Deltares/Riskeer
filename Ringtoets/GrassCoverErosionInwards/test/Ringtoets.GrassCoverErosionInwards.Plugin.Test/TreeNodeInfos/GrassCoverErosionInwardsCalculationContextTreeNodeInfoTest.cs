@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
 
-            var emptyOutput = children[2] as EmptyProbabilityAssessmentOutput;
+            var emptyOutput = children[2] as EmptyGrassCoverErosionInwardsOutput;
             Assert.IsNotNull(emptyOutput);
         }
 

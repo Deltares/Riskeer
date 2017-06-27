@@ -321,7 +321,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<EmptyProbabilityAssessmentOutput>
+            yield return new TreeNodeInfo<EmptyGrassCoverErosionInwardsOutput>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => Resources.OutputIcon,
@@ -821,7 +821,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
             else
             {
-                childNodes.Add(new EmptyProbabilityAssessmentOutput());
+                childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
             }
 
             return childNodes.ToArray();
