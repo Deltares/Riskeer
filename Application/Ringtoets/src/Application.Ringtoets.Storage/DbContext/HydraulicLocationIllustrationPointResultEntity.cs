@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class HydraulicLocationIllustrationPointResultEntity
+    public partial class HydraulicLocationIllustrationPointResultEntity
     {
         public long HydraulicLocationIllustrationPointResultEntityId { get; set; }
         public long HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }

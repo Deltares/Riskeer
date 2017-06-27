@@ -90,6 +90,7 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensionsTest.cs">
       <SubType>Code</SubType>
     </Compile>
