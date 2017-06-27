@@ -33,31 +33,29 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class GrassCoverErosionOutwardsHydraulicLocationEntity
+    public class HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GrassCoverErosionOutwardsHydraulicLocationEntity()
+        public HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity()
         {
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>();
-            GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
+            HydraulicLocationIllustrationPointResultEntities = new HashSet<HydraulicLocationIllustrationPointResultEntity>();
+            HydraulicLocationRealizedStochastEntities = new HashSet<HydraulicLocationRealizedStochastEntity>();
         }
 
-        public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public long LocationId { get; set; }
+        public long HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
+        public long HydraulicLocationGeneralResultEntityId { get; set; }
         public string Name { get; set; }
-        public double? LocationX { get; set; }
-        public double? LocationY { get; set; }
-        public byte ShouldWaveHeightIllustrationPointsBeCalculated { get; set; }
-        public byte ShouldWaterLevelIllustrationPointsBeCalculated { get; set; }
-        public int Order { get; set; }
+        public string ClosingSituation { get; set; }
+        public string WindDirectionName { get; set; }
+        public double WindDirectionAngle { get; set; }
+        public double Beta { get; set; }
 
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationOutputEntity> GrassCoverErosionOutwardsHydraulicLocationOutputEntities { get; set; }
+        public virtual HydraulicLocationGeneralResultEntity HydraulicLocationGeneralResultEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
+        public virtual ICollection<HydraulicLocationIllustrationPointResultEntity> HydraulicLocationIllustrationPointResultEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationRealizedStochastEntity> HydraulicLocationRealizedStochastEntities { get; set; }
     }
 }

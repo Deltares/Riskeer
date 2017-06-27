@@ -165,7 +165,27 @@ SELECT
 	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
-INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
+INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity(
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	[FailureMechanismEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	[ShouldWaveHeightIllustrationPointsBeCalculated],
+	[ShouldWaterLevelIllustrationPointsBeCalculated],
+	[Order]) 
+SELECT 
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	[FailureMechanismEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	0,
+	0,
+	[Order]
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
@@ -244,7 +264,27 @@ SELECT
 	GROUP BY FailureMechanismEntityID;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
-INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
+INSERT INTO HydraulicLocationEntity (
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	[ShouldWaveHeightIllustrationPointsBeCalculated],
+	[ShouldWaterLevelIllustrationPointsBeCalculated],
+	[Order])
+SELECT 
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	0,
+	0,
+	[Order] 
+	FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO MacroStabilityInwardsSectionResultEntity (
 	[MacroStabilityInwardsSectionResultEntityId],

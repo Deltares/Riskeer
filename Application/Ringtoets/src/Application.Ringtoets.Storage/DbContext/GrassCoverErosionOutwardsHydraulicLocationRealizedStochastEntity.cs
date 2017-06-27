@@ -28,33 +28,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class HydraulicLocationOutputEntity
+    public class GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicLocationOutputEntity()
-        {
-            HydraulicLocationGeneralResultEntities = new HashSet<HydraulicLocationGeneralResultEntity>();
-        }
+        public long GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntityId { get; set; }
+        public long GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
+        public string Name { get; set; }
+        public double Duration { get; set; }
+        public double Alpha { get; set; }
+        public double Realization { get; set; }
 
-        public long HydraulicLocationEntityOutputId { get; set; }
-        public long HydraulicLocationEntityId { get; set; }
-
-        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationGeneralResultEntity> HydraulicLocationGeneralResultEntities { get; set; }
-
-        public byte HydraulicLocationOutputType { get; set; }
-        public double? Result { get; set; }
-        public double? TargetProbability { get; set; }
-        public double? TargetReliability { get; set; }
-        public double? CalculatedProbability { get; set; }
-        public double? CalculatedReliability { get; set; }
-        public byte CalculationConvergence { get; set; }
+        public virtual GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity { get; set; }
     }
 }

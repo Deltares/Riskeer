@@ -33,31 +33,29 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class GrassCoverErosionOutwardsHydraulicLocationEntity
+    public class GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GrassCoverErosionOutwardsHydraulicLocationEntity()
+        public GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity()
         {
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>();
-            GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
+            GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity>();
+            GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity>();
         }
 
-        public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public long LocationId { get; set; }
+        public long GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
+        public long GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntityId { get; set; }
         public string Name { get; set; }
-        public double? LocationX { get; set; }
-        public double? LocationY { get; set; }
-        public byte ShouldWaveHeightIllustrationPointsBeCalculated { get; set; }
-        public byte ShouldWaterLevelIllustrationPointsBeCalculated { get; set; }
-        public int Order { get; set; }
+        public string ClosingSituation { get; set; }
+        public string WindDirectionName { get; set; }
+        public double WindDirectionAngle { get; set; }
+        public double Beta { get; set; }
 
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationOutputEntity> GrassCoverErosionOutwardsHydraulicLocationOutputEntities { get; set; }
+        public virtual GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
+        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity> GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity> GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntities { get; set; }
     }
 }
