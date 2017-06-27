@@ -66,7 +66,7 @@ namespace Core.Components.Stack.Test.Data
             const string columnName = "Column 1";
             var data = new StackChartData();
 
-            // Call            
+            // Call
             data.AddColumn(columnName);
 
             // Assert
@@ -76,109 +76,22 @@ namespace Core.Components.Stack.Test.Data
         }
 
         [Test]
-        public void AddColumnWithValues_NameNull_ThrowsArgumentNullException()
+        public void AddColumn_RowsAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var data = new StackChartData();
             data.AddColumn("Column 1");
-            data.AddRow("Row 1", new List<double>
+            data.AddRow("Row 1", new[]
             {
-                4.5
+                1.1
             });
 
             // Call
-            TestDelegate test = () => data.AddColumnWithValues(null, new List<double>
-            {
-                1
-            });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("name", exception.ParamName);
-        }
-
-        [Test]
-        public void AddColumnWithValues_ValuesNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var data = new StackChartData();
-            data.AddColumn("Column 1");
-            data.AddRow("Row 1", new List<double>
-            {
-                4.5
-            });
-
-            // Call
-            TestDelegate test = () => data.AddColumnWithValues("test", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("values", exception.ParamName);
-        }
-
-        [Test]
-        public void AddColumnWithValues_NumberOfRowsDifferentThanValueItems_ThrowsArgumentException()
-        {
-            // Setup
-            var data = new StackChartData();
-            data.AddColumn("Column 1");
-            data.AddRow("Row 1", new List<double>
-            {
-                4.5
-            });
-
-            // Call
-            TestDelegate test = () => data.AddColumnWithValues("test", new List<double>
-            {
-                2.1,
-                3.4
-            });
-
-            // Assert
-            const string message = "The number of value items must be the same as the number of rows.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
-        }
-
-        [Test]
-        public void AddColumnWithValues_NoRowsAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var data = new StackChartData();
-
-            // Call
-            TestDelegate test = () => data.AddColumnWithValues("test", new List<double>());
+            TestDelegate test = () => data.AddColumn("Column 2");
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(test);
-            Assert.AreEqual("Rows should be added before this method is called.", exception.Message);
-        }
-
-        [Test]
-        public void AddColumnWithValues_ValidData_AddColumnAndValuesExistingRows()
-        {
-            // Setup
-            var data = new StackChartData();
-            data.AddColumn("Column 1");
-            data.AddRow("Row 1", new List<double>
-            {
-                1.0
-            });
-
-            // Call
-            data.AddColumnWithValues("Column 2", new List<double>
-            {
-                2.0
-            });
-
-            // Assert
-            Assert.AreEqual(2, data.Columns.Count());
-            Assert.AreEqual("Column 2", data.Columns.Last());
-            Assert.AreEqual(1, data.Rows.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                1.0,
-                2.0
-            }, data.Rows.First().Values);
+            Assert.AreEqual("Cannot add columns when rows already present.", exception.Message);
         }
 
         [Test]
@@ -186,9 +99,10 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             var data = new StackChartData();
+            data.AddColumn("column 1");
 
             // Call
-            TestDelegate test = () => data.AddRow(null, new List<double>(), Color.White);
+            TestDelegate test = () => data.AddRow(null, new [] {1.0}, Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -215,6 +129,8 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             var data = new StackChartData();
+            data.AddColumn("column 1");
+            data.AddColumn("column 2");
 
             // Call
             TestDelegate test = () => data.AddRow("test", new List<double>
@@ -277,18 +193,32 @@ namespace Core.Components.Stack.Test.Data
         }
 
         [Test]
+        public void AddRow_NoColumnsAdded_ThrowInvalidOperationException()
+        {
+            // Setup
+            var data = new StackChartData();
+            // Call
+            TestDelegate test = () => data.AddRow("Row", new[]
+            {
+                1.1,
+                2.2
+            });
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(test);
+            Assert.AreEqual("Cannot add rows before columns are added.", exception.Message);
+        }
+
+        [Test]
         public void Clear_Always_ClearsAllColumnsAndRows()
         {
             // Setup
             var data = new StackChartData();
             data.AddColumn("Column 1");
+            data.AddColumn("Column 2");
             data.AddRow("Row 1", new List<double>
             {
-                1.0
-            });
-            
-            data.AddColumnWithValues("Column 2", new List<double>
-            {
+                1.0,
                 2.0
             });
 

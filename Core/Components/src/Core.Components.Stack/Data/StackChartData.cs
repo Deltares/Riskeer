@@ -72,50 +72,20 @@ namespace Core.Components.Stack.Data
         /// <param name="name">The name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="Rows"/>
+        /// are already present.</exception>
         public void AddColumn(string name)
         {
+            if (rows.Any())
+            {
+                throw new InvalidOperationException("Cannot add columns when rows already present.");
+            }
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
             columns.Add(name);
-        }
-
-        /// <summary>
-        /// Adds a columns to <see cref="StackChartData"/> with
-        /// values to add to the rows that are already present.
-        /// </summary>
-        /// <param name="name">The name of the column.</param>
-        /// <param name="values">The values to add to the rows for this column.</param>
-        /// <exception cref="InvalidOperationException">Thrown when no <see cref="Rows"/>
-        /// are present.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the amount of
-        /// <paramref name="values"/> is not equal to the amount of <see cref="Rows"/>.</exception>
-        public void AddColumnWithValues(string name, List<double> values)
-        {
-            if (!Rows.Any())
-            {
-                throw new InvalidOperationException("Rows should be added before this method is called.");
-            }
-
-            if (values == null)
-            {
-                throw new ArgumentNullException(nameof(values));
-            }
-
-            if (values.Count != rows.Count)
-            {
-                throw new ArgumentException("The number of value items must be the same as the number of rows.");
-            }
-
-            AddColumn(name);
-
-            for (var i = 0; i < values.Count; i++)
-            {
-                rows[i].Values.Add(values[i]);
-            }
         }
 
         /// <summary>
@@ -126,16 +96,23 @@ namespace Core.Components.Stack.Data
         /// <param name="color">The color of the row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> 
         /// or <paramref name="values"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when there are no 
+        /// <see cref="Columns"/> added yet.</exception>
         /// <exception cref="ArgumentException">Thrown when the amount of 
         /// <paramref name="values"/> is not equal to the amount of <see cref="Columns"/>.</exception>
-        public void AddRow(string name, List<double> values, Color? color = null)
+        public void AddRow(string name, IEnumerable<double> values, Color? color = null)
         {
             if (values == null)
             {
                 throw new ArgumentNullException(nameof(values));
             }
 
-            if (values.Count != columns.Count)
+            if (!Columns.Any())
+            {
+                throw new InvalidOperationException("Cannot add rows before columns are added.");
+            }
+
+            if (values.Count() != columns.Count)
             {
                 throw new ArgumentException("The number of value items must be the same as the number of columns.");
             }

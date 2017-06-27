@@ -39,7 +39,7 @@ namespace Core.Components.Stack.Data
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="name"/> or <paramref name="values"/>
         /// is <c>null</c>.</exception>
-        public RowChartData(string name, List<double> values, Color? color)
+        public RowChartData(string name, IEnumerable<double> values, Color? color)
         {
             if (name == null)
             {
@@ -67,6 +67,6 @@ namespace Core.Components.Stack.Data
         /// <summary>
         /// Gets the values of the row.
         /// </summary>
-        public List<double> Values { get; }
+        public IEnumerable<double> Values { get; }
     }
 }
