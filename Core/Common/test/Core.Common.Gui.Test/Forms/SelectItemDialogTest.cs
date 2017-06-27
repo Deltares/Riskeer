@@ -133,7 +133,7 @@ namespace Core.Common.Gui.Test.Forms
                 // Assert
                 Assert.IsNull(dialog.SelectedItemTag);
                 Assert.IsNull(dialog.SelectedItemTypeName);
-                Assert.AreEqual("Selecteer een type.", messageText);
+                Assert.AreEqual("Kies een type", messageText);
                 Assert.AreEqual(DialogResult.None, dialog.DialogResult);
             }
 

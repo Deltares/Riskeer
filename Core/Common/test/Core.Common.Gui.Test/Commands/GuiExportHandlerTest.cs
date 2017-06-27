@@ -277,7 +277,7 @@ namespace Core.Common.Gui.Test.Commands
             exportHandler.ExportFrom(1234);
 
             // Assert
-            Assert.AreEqual("Selecteer wat u wilt exporteren", dialogText);
+            Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
             Assert.AreEqual(2, listViewItems.Count);
             Assert.AreEqual("", listViewItems[0].Name);
@@ -335,7 +335,7 @@ namespace Core.Common.Gui.Test.Commands
             exportHandler.ExportFrom(1234);
 
             // Assert
-            Assert.AreEqual("Selecteer wat u wilt exporteren", dialogText);
+            Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
             Assert.AreEqual(2, listViewItems.Count);
             Assert.AreEqual("Name 1", listViewItems[0].Name);
