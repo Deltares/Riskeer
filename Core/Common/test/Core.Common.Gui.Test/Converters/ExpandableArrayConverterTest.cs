@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Converters
@@ -117,12 +118,14 @@ namespace Core.Common.Gui.Test.Converters
             for (var i = 0; i < elementCount; i++)
             {
                 Assert.AreEqual(array.GetType(), propertyDescriptors[i].ComponentType);
-                Assert.AreEqual(string.Format("[{0}]", i + 1), propertyDescriptors[i].Name);
-                Assert.AreEqual(string.Format("[{0}]", i + 1), propertyDescriptors[i].DisplayName);
+                Assert.AreEqual($"[{i + 1}]", propertyDescriptors[i].Name);
+                Assert.AreEqual($"[{i + 1}]", propertyDescriptors[i].DisplayName);
                 Assert.AreEqual(typeof(int), propertyDescriptors[i].PropertyType);
                 CollectionAssert.IsEmpty(propertyDescriptors[i].Attributes);
 
-                Assert.AreEqual(array[i], propertyDescriptors[i].GetValue(array));
+                var value = propertyDescriptors[i].GetValue(array) as DynamicPropertyBag;
+                Assert.NotNull(value);
+                Assert.AreEqual(array[i], value.WrappedObject);
             }
         }
 

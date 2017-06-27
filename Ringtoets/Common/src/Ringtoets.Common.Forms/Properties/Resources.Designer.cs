@@ -599,6 +599,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten.
+        /// </summary>
+        public static string Categories_IllustrationPoints {
+            get {
+                return ResourceManager.GetString("Categories_IllustrationPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {
@@ -1422,6 +1431,78 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende invloedscoëfficiënten voor alle beschouwde stochasten..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_AlphaValues_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_AlphaValues_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alfa&apos;s.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_AlphaValues_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_AlphaValues_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tijdsduren waarop de stochasten betrekking hebben..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Durations_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Durations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tijdsduren.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Durations_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Durations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_GoverningWindDirection_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_GoverningWindDirection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maatgevende windrichting.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De lijst van illustratiepunten voor de berekening..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_IllustrationPoints_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_IllustrationPoints_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_IllustrationPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_IllustrationPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {
@@ -1553,6 +1634,132 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Id_DisplayName {
             get {
                 return ResourceManager.GetString("Id_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_ClosingSituation_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_ClosingSituation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_ClosingSituation_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_ClosingSituation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Durations_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Durations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Durations_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Durations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Probability_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Probability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Probability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Probability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Reliability_index_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Reliability_index_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Reliability_index_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Reliability_index_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Stochasts_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Stochasts_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Stochasts_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Stochasts_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Values_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Values_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_Values_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_Values_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_WindDirection_Description {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_WindDirection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IllustrationPoint_WindDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_WindDirection_DisplayName", resourceCulture);
             }
         }
         

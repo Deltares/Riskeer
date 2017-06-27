@@ -674,7 +674,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_PropertyWithoutTypeConverterAttribute_ThrowsAssertionException()
+        public void AssertTypeConverter_PropertyWithoutTypeConverterAttribute_ThrowsAssertionException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithoutTypeConverter));
@@ -684,7 +684,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_PropertyWithDifferentTypeConverterAttribute_ThrowsAssertionException()
+        public void AssertTypeConverter_PropertyWithDifferentTypeConverterAttribute_ThrowsAssertionException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithTypeConverter));
@@ -694,7 +694,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_PropertyWithMatchingTypeConverterAttribute_DoesNotThrowException()
+        public void AssertTypeConverter_PropertyWithMatchingTypeConverterAttribute_DoesNotThrowException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, DoubleConverter>(nameof(TestClass.PropertyWithTypeConverter));
@@ -704,7 +704,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void HasTypeConverter_TypeConverterAttributeInherited_ReturnTrue()
+        public void AssertTypeConverter_TypeConverterAttributeInherited_ReturnTrue()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<DerivedTestClass, DoubleConverter>(nameof(DerivedTestClass.PropertyWithTypeConverter));

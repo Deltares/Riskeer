@@ -19,11 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -35,10 +42,77 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocationContext>
     {
+        private readonly Dictionary<string, int> propertyIndexLookup;
+
+        protected HydraulicBoundaryLocationProperties(ConstructionProperties propertyIndexes)
+        {
+            propertyIndexLookup = new Dictionary<string, int>
+            {
+                {
+                    nameof(Id), propertyIndexes.IdIndex
+                },
+                {
+                    nameof(Name), propertyIndexes.NameIndex
+                },
+                {
+                    nameof(Location), propertyIndexes.LocationIndex
+                },
+                {
+                    nameof(GoverningWindDirection), propertyIndexes.GoverningWindDirectionIndex
+                },
+                {
+                    nameof(AlphaValues), propertyIndexes.StochastsIndex
+                },
+                {
+                    nameof(Durations), propertyIndexes.DurationsIndex
+                },
+                {
+                    nameof(IllustrationPoints), propertyIndexes.IllustrationPointsIndex
+                }
+            };
+        }
+
+        public class ConstructionProperties
+        {
+            public int IdIndex { get; set; } = 1;
+            public int NameIndex { get; set; } = 2;
+            public int LocationIndex { get; set; } = 3;
+            public int GoverningWindDirectionIndex { get; set; } = 4;
+            public int StochastsIndex { get; set; } = 5;
+            public int DurationsIndex { get; set; } = 6;
+            public int IllustrationPointsIndex { get; set; } = 7;
+        }
+
+        [DynamicPropertyOrderEvaluationMethod]
+        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
+        {
+            int propertyIndex;
+
+            propertyIndexLookup.TryGetValue(propertyName, out propertyIndex);
+
+            return propertyIndex;
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            bool hasGeneralIllustrationPointsResult = GetGeneralIllustrationPointsResult() != null;
+            if (propertyName == nameof(GoverningWindDirection)
+                || propertyName == nameof(AlphaValues)
+                || propertyName == nameof(Durations)
+                || propertyName == nameof(IllustrationPoints))
+            {
+                return hasGeneralIllustrationPointsResult;
+            }
+
+            return true;
+        }
+
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_Description))]
-        public virtual long Id
+        public long Id
         {
             get
             {
@@ -46,10 +120,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_Description))]
-        public virtual string Name
+        public string Name
         {
             get
             {
@@ -57,10 +132,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
-        public virtual Point2D Location
+        public Point2D Location
         {
             get
             {
@@ -68,9 +144,71 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
+        public string GoverningWindDirection
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().GoverningWindDirection.Name;
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        public KeyValueExpandableArrayElement[] AlphaValues
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().Stochasts.Select(s => new KeyValueExpandableArrayElement(s.Name, s.Alpha)).ToArray();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        public KeyValueExpandableArrayElement[] Durations
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().Stochasts.Select(s => new KeyValueExpandableArrayElement(s.Name, s.Duration)).ToArray();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public IEnumerable<WindDirectionClosingSituationIllustrationPoint> IllustrationPoints
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().WindDirectionClosingSituationIllustrationPoints;
+            }
+        }
+
+        /// <summary>
+        /// Gets the general illustration points result.
+        /// </summary>
+        /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
+        /// otherwise.</returns>
+        protected abstract GeneralResult GetGeneralIllustrationPointsResult();
+
         public override string ToString()
         {
-            return string.Format("{0} {1}", Name, Location);
+            return $"{Name} {Location}";
         }
     }
 }

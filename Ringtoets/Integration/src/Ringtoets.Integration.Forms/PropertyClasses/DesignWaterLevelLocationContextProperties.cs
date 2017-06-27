@@ -26,6 +26,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -37,32 +38,17 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class DesignWaterLevelLocationContextProperties : HydraulicBoundaryLocationProperties
     {
-        [PropertyOrder(1)]
-        public override long Id
-        {
-            get
+        public DesignWaterLevelLocationContextProperties()
+            : base(new ConstructionProperties
             {
-                return base.Id;
-            }
-        }
-
-        [PropertyOrder(2)]
-        public override string Name
-        {
-            get
-            {
-                return base.Name;
-            }
-        }
-
-        [PropertyOrder(3)]
-        public override Point2D Location
-        {
-            get
-            {
-                return base.Location;
-            }
-        }
+                IdIndex = 1,
+                NameIndex = 2,
+                LocationIndex = 3,
+                GoverningWindDirectionIndex = 10,
+                StochastsIndex = 11,
+                DurationsIndex = 12,
+                IllustrationPointsIndex = 13
+            }) {}
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
@@ -143,6 +129,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence).DisplayName;
             }
+        }
+
+        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        {
+            if (data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput
+                && data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.HasIllustrationPoints)
+            {
+                return data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.GeneralResult;
+            }
+            return null;
         }
     }
 }

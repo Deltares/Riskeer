@@ -121,6 +121,7 @@
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
     <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
     <Compile Include="Converters\ColorTypeConverter.cs" />
+    <Compile Include="Converters\KeyValueExpandableArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="DialogBasedInquiryHelper.cs" />
     <Compile Include="ExceptionDialog.cs">

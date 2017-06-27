@@ -23,15 +23,10 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Gui.Properties;
-using Core.Common.Gui.PropertyBag;
 
 namespace Core.Common.Gui.Converters
 {
-    /// <summary>
-    /// <see cref="ArrayConverter"/> with modified conversion to string and shows an array
-    /// starting with index 1 instead of 0.
-    /// </summary>
-    public class ExpandableArrayConverter : ArrayConverter
+    public class KeyValueExpandableArrayConverter : ExpandableArrayConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
@@ -52,70 +47,76 @@ namespace Core.Common.Gui.Converters
             var array = value as Array;
             if (array != null)
             {
+                Type type = array.GetType();
+                Type elementType = type.GetElementType();
+
+                if (!typeof(KeyValueExpandableArrayElement).IsAssignableFrom(elementType))
+                {
+                    throw new ArgumentException($"Require elements in the array of type {typeof(KeyValueExpandableArrayElement).Name}.");
+                }
+
                 int length = array.GetLength(0);
                 properties = new PropertyDescriptor[length];
 
-                Type type = array.GetType();
-                Type elementType = type.GetElementType();
                 for (var index = 0; index < length; ++index)
                 {
-                    properties[index] = CreateElementPropertyDescriptor(type, elementType, index);
+                    var keyValueExpandableArrayElement = array.GetValue(index) as KeyValueExpandableArrayElement;
+
+                    if (keyValueExpandableArrayElement == null)
+                    {
+                        throw new ArgumentException($"Require elements in the array to be not null.");
+                    }
+                    properties[index] = new ArrayPropertyDescriptor(keyValueExpandableArrayElement, type, elementType);
                 }
             }
             return new PropertyDescriptorCollection(properties);
         }
 
         /// <summary>
-        /// Creates a new instance of type <see cref="PropertyDescriptor"/>.
-        /// </summary>
-        /// <param name="type">Type of the array.</param>
-        /// <param name="elementType">Type of the elements in <paramref name="type"/>.</param>
-        /// <param name="index">Index of the element corresponding with this property descriptor.</param>
-        /// <returns>New instance of <see cref="PropertyDescriptor"/>.</returns>
-        /// <seealso cref="ArrayPropertyDescriptor"/>
-        protected virtual PropertyDescriptor CreateElementPropertyDescriptor(Type type, Type elementType, int index)
-        {
-            return new ArrayPropertyDescriptor(type, elementType, index);
-        }
-
-        #region Nested Type: ArrayPropertyDescriptor
-
-        /// <summary>
         /// Array element property descriptor used by <see cref="ExpandableArrayConverter"/>.
-        /// Properties are named based on their index + 1.
+        /// Properties are named based the first item in the provided tuple and the value is
+        /// based on the second item.
         /// </summary>
         protected class ArrayPropertyDescriptor : SimplePropertyDescriptor
         {
-            private readonly int index;
+            private readonly object value;
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ArrayPropertyDescriptor"/> class.
-            /// </summary>
-            /// <param name="arrayType">Type of the array.</param>
-            /// <param name="elementType">Type of the elements in <paramref name="arrayType"/>.</param>
-            /// <param name="elementIndex">Index of the element corresponding with this property descriptor.</param>
-            public ArrayPropertyDescriptor(Type arrayType, Type elementType, int elementIndex)
-                : base(arrayType, "[" + (elementIndex + 1) + "]", elementType, null)
+            public ArrayPropertyDescriptor(KeyValueExpandableArrayElement element, Type componentType, Type propertyType)
+                : base(componentType, Convert.ToString(element.Name), propertyType)
             {
-                index = elementIndex;
+                value = element.Value;
+            }
+
+            public override bool IsReadOnly
+            {
+                get
+                {
+                    return true;
+                }
             }
 
             public override object GetValue(object component)
             {
-                var array = (Array) component;
-                return new DynamicPropertyBag(array.GetValue(index));
+                return value;
             }
 
             public override void SetValue(object component, object value)
             {
-                var array = (Array) component;
-                array.SetValue(value, index);
-                // This class is based on the System.ComponentModel.ArrayConverter.ArrayPropertyDescriptor,
-                // and there the SetValue also called OnValueChanged. Copying that behavior here as well.
-                OnValueChanged(array, EventArgs.Empty);
+                throw new NotImplementedException();
             }
         }
+    }
 
-        #endregion
+    public class KeyValueExpandableArrayElement
+    {
+        public KeyValueExpandableArrayElement(string name, object value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public string Name { get; }
+
+        public object Value { get;}
     }
 }

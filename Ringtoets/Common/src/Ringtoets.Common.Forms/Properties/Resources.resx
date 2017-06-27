@@ -996,4 +996,73 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName" xml:space="preserve">
     <value>Illustratiepunten inlezen</value>
   </data>
+  <data name="Categories_IllustrationPoints" xml:space="preserve">
+    <value>Illustratiepunten</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Durations_Description" xml:space="preserve">
+    <value>Tijdsduren waarop de stochasten betrekking hebben.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Durations_DisplayName" xml:space="preserve">
+    <value>Tijdsduren</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_GoverningWindDirection_Description" xml:space="preserve">
+    <value>De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName" xml:space="preserve">
+    <value>Maatgevende windrichting</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_IllustrationPoints_Description" xml:space="preserve">
+    <value>De lijst van illustratiepunten voor de berekening.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_IllustrationPoints_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_AlphaValues_Description" xml:space="preserve">
+    <value>Berekende invloedscoëfficiënten voor alle beschouwde stochasten.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_AlphaValues_DisplayName" xml:space="preserve">
+    <value>Alfa's</value>
+  </data>
+  <data name="IllustrationPoint_ClosingSituation_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_ClosingSituation_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Durations_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Durations_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Probability_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Probability_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Reliability_index_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Reliability_index_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Stochasts_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Stochasts_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Values_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_Values_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_WindDirection_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPoint_WindDirection_DisplayName" xml:space="preserve">
+    <value />
+  </data>
 </root>
