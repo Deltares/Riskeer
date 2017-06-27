@@ -446,7 +446,7 @@ namespace Application.Ringtoets.Migration.Test
                                          $"(versie {currentDatabaseVersion}).";
                 var migrationLog = new StringBuilder();
                 migrationLog.AppendLine(@"Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.");
-                migrationLog.AppendLine(@"Gevolgen van de migratie van versie 5 naar versie 17.1:");
+                migrationLog.AppendLine(@"Gevolgen van de migratie van versie 16.4 naar versie 17.1:");
                 migrationLog.AppendLine($@"* Alle berekende resultaten zijn verwijderd.{Environment.NewLine}" +
                                         $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
                                         $@"  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'{Environment.NewLine}" +

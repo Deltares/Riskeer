@@ -262,7 +262,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(6, messages.Count);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("5", newVersion, "Gevolgen van de migratie van versie 5 naar versie 17.1:"),
+                    new MigrationLogMessage("5", newVersion, "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
                     messages[0]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("5", newVersion, "* Alle berekende resultaten zijn verwijderd."),
