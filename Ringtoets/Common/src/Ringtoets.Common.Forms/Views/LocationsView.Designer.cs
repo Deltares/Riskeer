@@ -43,8 +43,12 @@ namespace Ringtoets.Common.Forms.Views
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
             this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.ButtonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -55,12 +59,13 @@ namespace Ringtoets.Common.Forms.Views
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(533, 85);
-            this.dataGridViewControl.TabIndex = 2;
+            this.dataGridViewControl.Size = new System.Drawing.Size(274, 482);
+            this.dataGridViewControl.TabIndex = 0;
             // 
             // CalculateForSelectedButton
             // 
             this.CalculateForSelectedButton.Enabled = false;
+            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(this.CalculateForSelectedButton, 2);
             this.CalculateForSelectedButton.Location = new System.Drawing.Point(227, 29);
             this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
             this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
@@ -92,10 +97,10 @@ namespace Ringtoets.Common.Forms.Views
             this.ButtonGroupBox.Controls.Add(this.DeselectAllButton);
             this.ButtonGroupBox.Controls.Add(this.SelectAllButton);
             this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 85);
+            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 482);
             this.ButtonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
             this.ButtonGroupBox.Name = "ButtonGroupBox";
-            this.ButtonGroupBox.Size = new System.Drawing.Size(533, 61);
+            this.ButtonGroupBox.Size = new System.Drawing.Size(445, 61);
             this.ButtonGroupBox.TabIndex = 3;
             this.ButtonGroupBox.TabStop = false;
             // 
@@ -104,7 +109,20 @@ namespace Ringtoets.Common.Forms.Views
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
             this.CalculateForSelectedButtonErrorProvider.Icon = Properties.Resources.warning;
-            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
+            // 
+            // splitContainer
+            // 
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.dataGridViewControl);
+            this.splitContainer.Panel1.Controls.Add(this.ButtonGroupBox);
+            this.splitContainer.Size = new System.Drawing.Size(822, 543);
+            this.splitContainer.SplitterDistance = 445;
+            this.splitContainer.TabIndex = 1;
             // 
             // LocationsView
             // 
@@ -112,14 +130,15 @@ namespace Ringtoets.Common.Forms.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
-            this.Controls.Add(this.dataGridViewControl);
-            this.Controls.Add(this.ButtonGroupBox);
+            this.Controls.Add(this.splitContainer);
             this.Name = "LocationsView";
-            this.Size = new System.Drawing.Size(533, 146);
+            this.Size = new System.Drawing.Size(822, 543);
             this.ButtonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();
+            this.splitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -130,5 +149,6 @@ namespace Ringtoets.Common.Forms.Views
         private System.Windows.Forms.Button SelectAllButton;
         protected System.Windows.Forms.GroupBox ButtonGroupBox;
         private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
+        private System.Windows.Forms.SplitContainer splitContainer;
     }
 }
