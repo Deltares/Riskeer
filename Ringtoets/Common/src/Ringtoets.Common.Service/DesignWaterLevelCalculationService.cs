@@ -141,14 +141,15 @@ namespace Ringtoets.Common.Service
 
                 designWaterLevelCalculation.SetOutput(hydraulicBoundaryLocationOutput);
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
-                    log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(designWaterLevelCalculation.GetName())
-                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), lastErrorContent));
+                    log.Error(!string.IsNullOrEmpty(lastErrorContent)
+                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), lastErrorContent)
+                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), e.Message),
+                              e);
 
                     exceptionThrown = true;
                     throw;

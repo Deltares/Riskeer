@@ -121,9 +121,15 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 ExecuteGenericParsers(hydraRingInitializationService, sectionId);
                 ExecuteCustomParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
             }
+            catch (HydraRingFileParserException e)
+            {
+                throw new HydraRingCalculationException(e.Message, e.InnerException);
+            }
             catch (Exception e) when (IsSupportedCalculatedException(e))
             {
-                throw new HydraRingCalculationException(Resources.HydraRingCalculatorBase_Calculate_Critical_error_during_calculation, e);
+                throw new HydraRingCalculationException(string.Format(Resources.HydraRingCalculatorBase_Calculate_Critical_error_during_calculation_Exception_0,
+                                                                      e.Message),
+                                                        e.InnerException);
             }
         }
 
@@ -134,8 +140,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                    || e is UnauthorizedAccessException
                    || e is ArgumentException
                    || e is NotSupportedException
-                   || e is Win32Exception
-                   || e is HydraRingFileParserException;
+                   || e is Win32Exception;
         }
 
         /// <summary>

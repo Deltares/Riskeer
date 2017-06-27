@@ -21,6 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Security;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -61,10 +64,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
-        public void Calculate_WithCustomParserThrowingException_HydraRingCalculationExceptionThrown()
+        public void Calculate_WithCustomParserThrowingHydraRingFileParserException_HydraRingCalculationExceptionThrown()
         {
             // Setup
-            var parser = new TestParser(true);
+            var parseException = new HydraRingFileParserException("message", new Exception());
+            var parser = new TestParser(parseException);
             var calculator = new TestHydraRingCalculator("", parser);
 
             // Call
@@ -72,9 +76,36 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
             // Assert
             var exception = Assert.Throws<HydraRingCalculationException>(test);
-            const string expectedMessage = "Er is een kritieke fout opgetreden bij het uitvoeren van de berekening.";
+            Assert.AreEqual(parseException.Message, exception.Message);
+            Assert.AreSame(parseException.InnerException, exception.InnerException);
+        }
+
+        [Test]
+        [TestCase(typeof(SecurityException))]
+        [TestCase(typeof(IOException))]
+        [TestCase(typeof(UnauthorizedAccessException))]
+        [TestCase(typeof(ArgumentException))]
+        [TestCase(typeof(NotSupportedException))]
+        [TestCase(typeof(Win32Exception))]
+        public void Calculate_WithCustomParserThrowingSupportedCalculatedException_HydraRingCalculationExceptionThrown(Type exceptionType)
+        {
+            // Setup
+            var supportedException = (Exception) Activator.CreateInstance(exceptionType,
+                                                                          "Exception message",
+                                                                          new Exception("InnerException"));
+            var parser = new TestParser(supportedException);
+            var calculator = new TestHydraRingCalculator("", parser);
+
+            // Call
+            TestDelegate test = () => calculator.PublicCalculate();
+
+            // Assert
+            var exception = Assert.Throws<HydraRingCalculationException>(test);
+            string expectedMessage = "Het besturingssysteem geeft de volgende melding:"
+                                     + Environment.NewLine
+                                     + $"{supportedException.Message}";
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<HydraRingFileParserException>(exception.InnerException);
+            Assert.AreSame(supportedException.InnerException, exception.InnerException);
         }
     }
 
@@ -145,20 +176,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
     internal class TestParser : IHydraRingFileParser
     {
-        private readonly bool throwParseException;
+        private readonly Exception exception;
 
-        public TestParser(bool throwParseException = false)
+        public TestParser(Exception exception = null)
         {
-            this.throwParseException = throwParseException;
+            this.exception = exception;
         }
 
         public bool Parsed { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            if (throwParseException)
+            if (exception != null)
             {
-                throw new HydraRingFileParserException();
+                throw exception;
             }
             Parsed = true;
         }

@@ -44,11 +44,6 @@ namespace Ringtoets.Integration.Service.MessageProviders
             return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1, locationName, failureMessage);
         }
 
-        public string GetCalculationFailedUnexplainedMessage(string locationName)
-        {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report, locationName);
-        }
-
         public string GetCalculatedNotConvergedMessage(string locationName)
         {
             return string.Format(Resources.WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged, locationName);

@@ -426,7 +426,8 @@ namespace Ringtoets.Common.Service.Test
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(calculationFailedUnexplainedMessage);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName, calculator.HydraRingCalculationException.Message))
+                                      .Return(calculationFailedUnexplainedMessage);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

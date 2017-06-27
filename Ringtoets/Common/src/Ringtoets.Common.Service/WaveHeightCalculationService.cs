@@ -142,14 +142,15 @@ namespace Ringtoets.Common.Service
 
                 waveHeightCalculation.SetOutput(hydraulicBoundaryLocationOutput);
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
-                    log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(waveHeightCalculation.GetName())
-                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), lastErrorContent));
+                    log.Error(!string.IsNullOrEmpty(lastErrorContent)
+                                  ? messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), lastErrorContent)
+                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), e.Message), 
+                                  e);
 
                     exceptionThrown = true;
                     throw;

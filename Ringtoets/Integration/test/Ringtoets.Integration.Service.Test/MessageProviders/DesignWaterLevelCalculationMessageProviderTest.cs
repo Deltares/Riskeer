@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var provider = new DesignWaterLevelCalculationMessageProvider();
 
             // Assert
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string calculationName = provider.GetCalculationName(name);
 
             // Assert
-            string expectedName = string.Format("Toetspeil berekenen voor locatie '{0}'", name);
+            string expectedName = $"Toetspeil berekenen voor locatie '{name}'";
             Assert.AreEqual(expectedName, calculationName);
         }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string activityDescription = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedName = string.Format("Toetspeil berekenen voor locatie '{0}'", name);
+            string expectedName = $"Toetspeil berekenen voor locatie '{name}'";
             Assert.AreEqual(expectedName, activityDescription);
         }
 
@@ -87,7 +87,8 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}'. Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
+            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}'. " +
+                                     $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -104,24 +105,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = string.Format("Toetspeil berekening voor locatie '{0}' is niet geconvergeerd.", name);
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("value")]
-        public void GetCalculationFailedUnexplainedMessage_VariousParameters_ReturnsExpectedValue(string name)
-        {
-            // Setup
-            var provider = new DesignWaterLevelCalculationMessageProvider();
-
-            // Call
-            string message = provider.GetCalculationFailedUnexplainedMessage(name);
-
-            // Assert
-            string expectedMessage = string.Format("Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Er is geen foutrapport beschikbaar.", name);
+            string expectedMessage = $"Toetspeil berekening voor locatie '{name}' is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

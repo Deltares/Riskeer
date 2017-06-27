@@ -108,23 +108,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             string expectedMessage = $"Golfhoogte bij doorsnede-eis berekening voor locatie '{name}' is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("value")]
-        public void GetCalculationFailedUnexplainedMessage_ValidNames_ExpectedValues(string name)
-        {
-            // Setup
-            var provider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
-
-            // Call
-            string message = provider.GetCalculationFailedUnexplainedMessage(name);
-
-            // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{name}'. " +
-                                     "Er is geen foutrapport beschikbaar.";
-            Assert.AreEqual(expectedMessage, message);
-        }
     }
 }

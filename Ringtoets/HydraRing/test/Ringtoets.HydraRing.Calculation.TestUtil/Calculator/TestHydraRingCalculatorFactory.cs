@@ -120,12 +120,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
         public bool CalculatedWithIllustrationPoints { get; private set; }
         public GeneralResult IllustrationPointsResult { get; set; }
+        public readonly HydraRingCalculationException HydraRingCalculationException = new HydraRingCalculationException();
 
         public void Calculate(T input)
         {
             if (EndInFailure)
             {
-                throw new HydraRingCalculationException();
+                throw HydraRingCalculationException;
             }
             ReceivedInputs.Add(input);
 

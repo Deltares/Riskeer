@@ -322,7 +322,6 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(detailedReport);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(null)).IgnoreArguments().Return(detailedReport);
             mockRepository.ReplayAll();
 
             var output = new TestHydraulicBoundaryLocationOutput(double.NaN, CalculationConvergence.CalculatedConverged);
@@ -439,8 +438,10 @@ namespace Ringtoets.Common.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedUnexplainedMessage(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName,
+                                                                                     string.IsNullOrEmpty(lastErrorFileContent)
+                                                                                         ? calculator.HydraRingCalculationException.Message
+                                                                                         : lastErrorFileContent)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
