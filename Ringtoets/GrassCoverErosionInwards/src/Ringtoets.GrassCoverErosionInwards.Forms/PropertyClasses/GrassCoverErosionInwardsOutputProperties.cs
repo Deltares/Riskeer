@@ -40,21 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<GrassCoverErosionInwardsOutput>
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputProperties"/>.
-        /// </summary>
-        /// <param name="data">The data to show properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsOutputProperties(GrassCoverErosionInwardsOutput data)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-            Data = data;
-        }
-
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {

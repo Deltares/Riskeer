@@ -23,17 +23,14 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputContextPropertyInfoTest
+    public class GrassCoverErosionInwardsOutputPropertyInfoTest
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
@@ -55,28 +52,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsOutput), info.DataType);
             Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithDataFromContext()
+        public void CreateInstance_Always_NewPropertiesWithData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var output = new TestGrassCoverErosionInwardsOutput();
-            var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(output);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
-            mocks.VerifyAll();
         }
     }
 }

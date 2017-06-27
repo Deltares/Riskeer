@@ -44,7 +44,6 @@
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsOutputContext.cs" />
     <Compile Include="PropertyClasses\DikeHeightOutputProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileCollectionProperties.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsMapDataFeatureFactory.cs" />

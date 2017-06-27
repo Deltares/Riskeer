@@ -83,10 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsOutputContext, GrassCoverErosionInwardsOutputProperties>
-            {
-                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData)
-            };
+            yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
             yield return new PropertyInfo<DikeProfilesContext, DikeProfileCollectionProperties>
             {
                 CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)
@@ -267,11 +264,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutput>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => Resources.OutputIcon,
-                ChildNodeObjects = OutputContextChildNodeObjects,
+                ChildNodeObjects = OutputChildNodeObjects,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -820,9 +817,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             if (context.WrappedData.HasOutput)
             {
-                childNodes.Add(new GrassCoverErosionInwardsOutputContext(context.WrappedData.Output,
-                                                                         context.FailureMechanism,
-                                                                         context.AssessmentSection));
+                childNodes.Add(context.WrappedData.Output);
             }
             else
             {
@@ -963,13 +958,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsOutputContext TreeNodeInfo
 
-        private static object[] OutputContextChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
+        private static object[] OutputChildNodeObjects(GrassCoverErosionInwardsOutput node)
         {
             return new[]
             {
-                context.WrappedData.OvertoppingOutput,
-                context.WrappedData.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
-                context.WrappedData.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
+                node.OvertoppingOutput,
+                node.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
+                node.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
             };
         }
 
