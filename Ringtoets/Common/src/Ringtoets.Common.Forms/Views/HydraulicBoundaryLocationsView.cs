@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.Views
     /// order to get a consistent look and feel.
     /// </summary>
     public abstract partial class HydraulicBoundaryLocationsView
-        : CalculatableView<HydraulicBoundaryLocation>
+        : LocationsView<HydraulicBoundaryLocation>
     {
         private IEnumerable<HydraulicBoundaryLocation> locations;
 

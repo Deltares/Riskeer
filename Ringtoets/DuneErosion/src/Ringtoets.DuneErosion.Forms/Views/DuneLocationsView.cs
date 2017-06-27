@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -36,7 +35,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// View for the <see cref="DuneLocation"/>.
     /// </summary>
-    public partial class DuneLocationsView : CalculatableView<DuneLocation>
+    public partial class DuneLocationsView : DuneLocationsViewBase
     {
         private readonly Observer duneLocationsObserver;
         private readonly Observer assessmentSectionObserver;

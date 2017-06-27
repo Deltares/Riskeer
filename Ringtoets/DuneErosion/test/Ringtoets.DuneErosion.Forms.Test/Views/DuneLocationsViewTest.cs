@@ -36,7 +36,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
@@ -81,7 +80,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<CalculatableView<DuneLocation>>(view);
+                Assert.IsInstanceOf<DuneLocationsViewBase>(view);
                 Assert.IsNull(view.Data);
             }
         }

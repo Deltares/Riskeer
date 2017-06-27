@@ -127,11 +127,11 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
-    <Compile Include="Views\CalculatableView.cs">
+    <Compile Include="Views\LocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\CalculatableView.Designer.cs">
-      <DependentUpon>CalculatableView.cs</DependentUpon>
+    <Compile Include="Views\LocationsView.Designer.cs">
+      <DependentUpon>LocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
@@ -185,8 +185,8 @@
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\CalculatableView.resx">
-      <DependentUpon>CalculatableView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\LocationsView.resx">
+      <DependentUpon>LocationsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismView.resx">
       <DependentUpon>FailureMechanismView.cs</DependentUpon>

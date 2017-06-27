@@ -77,6 +77,12 @@
     <Compile Include="Views\DuneLocationsView.Designer.cs">
       <DependentUpon>DuneLocationsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\DuneLocationsViewBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DuneLocationsViewBase.Designer.cs">
+      <DependentUpon>DuneLocationsViewBase.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DuneErosionFailureMechanismView.resx">
       <DependentUpon>DuneErosionFailureMechanismView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DuneLocationsViewBase.resx">
+      <DependentUpon>DuneLocationsViewBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

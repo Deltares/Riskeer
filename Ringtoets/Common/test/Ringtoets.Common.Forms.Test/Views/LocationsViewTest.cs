@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CalculatableViewTest
+    public class LocationsViewTest
     {
         private const int calculateColumnIndex = 0;
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new TestCalculatableView())
+            using (var view = new TestLocationsView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            TestCalculatableView view = ShowTestCalculatableView();
+            TestLocationsView view = ShowTestCalculatableView();
 
             // Assert
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void OnLoad_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            TestCalculatableView view = ShowTestCalculatableView();
+            TestLocationsView view = ShowTestCalculatableView();
 
             // Assert
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Selection_Always_ReturnsCreatedSelectionObject()
         {
             // Setup
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void SelectAllButton_SelectAllButtonClicked_AllCalculatableItemsSelected()
         {
             // Setup
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DeselectAllButton_AllCalculatableItemsSelectedDeselectAllButtonClicked_AllCalculatableItemsNotSelected()
         {
             // Setup
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             var button = new ButtonTester("DeselectAllButton", testForm);
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabledAndErrorMessageProvided()
         {
             // Given & When
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
         {
             // Given
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
             // When
@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedObjects()
         {
             // Setup
-            TestCalculatableView view = ShowFullyConfiguredTestCalculatableView();
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
@@ -230,18 +230,18 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
         }
 
-        private TestCalculatableView ShowTestCalculatableView()
+        private TestLocationsView ShowTestCalculatableView()
         {
-            var view = new TestCalculatableView();
+            var view = new TestLocationsView();
 
             testForm.Controls.Add(view);
             testForm.Show();
             return view;
         }
 
-        private TestCalculatableView ShowFullyConfiguredTestCalculatableView()
+        private TestLocationsView ShowFullyConfiguredTestCalculatableView()
         {
-            TestCalculatableView view = ShowTestCalculatableView();
+            TestLocationsView view = ShowTestCalculatableView();
             view.Data = new[]
             {
                 new TestCalculatableObject(),
@@ -263,11 +263,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             public bool IsChecked { get; }
         }
 
-        private class TestCalculatableView : CalculatableView<TestCalculatableObject>
+        private class TestLocationsView : LocationsView<TestCalculatableObject>
         {
             private IEnumerable<TestCalculatableObject> data;
 
-            public TestCalculatableView()
+            public TestLocationsView()
             {
                 ObjectsToCalculate = new List<TestCalculatableObject>();
             }

@@ -26,23 +26,23 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Ringtoets.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// Base view for selecting calculatable objects and starting calculation for said objects.
+    /// Base view for selecting calculatable locations and starting calculation for said objects.
     /// </summary>
-    /// <typeparam name="T">The type of the calculatable object.</typeparam>
-    public abstract partial class CalculatableView<T> : UserControl, ISelectionProvider where T : class
+    public abstract partial class DuneLocationsViewBase : UserControl, ISelectionProvider
     {
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculatableView{T}"/>.
+        /// Creates a new instance of <see cref="DuneLocationsViewBase"/>.
         /// </summary>
-        protected CalculatableView()
+        protected DuneLocationsViewBase()
         {
             InitializeComponent();
             LocalizeControls();
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableRow<T>.ShouldCalculate),
+            dataGridViewControl.AddCheckBoxColumn(nameof(DuneLocationRow.ShouldCalculate),
                                                   Resources.CalculatableView_Calculate);
         }
 
@@ -115,17 +115,17 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets all the row items from the <see cref="DataGridView"/>.
         /// </summary>
-        protected IEnumerable<CalculatableRow<T>> GetCalculatableRows()
+        protected IEnumerable<DuneLocationRow> GetCalculatableRows()
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
-                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem);
+                                      .Select(row => (DuneLocationRow) row.DataBoundItem);
         }
 
         /// <summary>
         /// Gets all the selected calculatable objects.
         /// </summary>
-        protected IEnumerable<T> GetSelectedCalculatableObjects()
+        protected IEnumerable<DuneLocation> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);

@@ -21,7 +21,7 @@
 
 namespace Ringtoets.Common.Forms.Views
 {
-    partial class CalculatableView<T>
+    partial class LocationsView<T>
     {
         /// <summary> 
         /// Required designer variable.
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.Forms.Views
             this.CalculateForSelectedButtonErrorProvider.Icon = Properties.Resources.warning;
             this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             // 
-            // CalculatableView
+            // LocationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.ButtonGroupBox);
-            this.Name = "CalculatableView";
+            this.Name = "LocationsView";
             this.Size = new System.Drawing.Size(533, 146);
             this.ButtonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();

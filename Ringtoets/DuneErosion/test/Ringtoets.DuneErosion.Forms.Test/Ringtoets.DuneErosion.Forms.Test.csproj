@@ -72,6 +72,7 @@
     <Compile Include="Views\DuneErosionSectionResultRowTest.cs" />
     <Compile Include="Views\DuneLocationRowTest.cs" />
     <Compile Include="Views\DuneLocationsViewTest.cs" />
+    <Compile Include="Views\DuneLocationsViewBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
