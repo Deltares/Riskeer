@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
-            Assert.AreEqual("Openen van bestaand project", activity.Description);
+            Assert.AreEqual("Openen van project", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 
@@ -602,8 +602,8 @@ namespace Core.Common.Gui.Test
             // Assert
             var expectedProgressMessages = new[]
             {
-                "Stap 1 van 3 | Migratie project",
-                "Stap 2 van 3 | Inlezen project"
+                "Stap 1 van 3 | Migreren van project",
+                "Stap 2 van 3 | Inlezen van project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
             mocks.VerifyAll();
@@ -643,7 +643,7 @@ namespace Core.Common.Gui.Test
             // Assert
             var expectedProgressMessages = new[]
             {
-                "Stap 1 van 2 | Inlezen project"
+                "Stap 1 van 2 | Inlezen van project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
             mocks.VerifyAll();
@@ -687,7 +687,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            const string expectedMessage = "Openen van bestaand project is gelukt.";
+            const string expectedMessage = "Openen van project is gelukt.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Finished, activity.State);
@@ -736,7 +736,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van bestaand project is mislukt.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is mislukt.",
                                                                            LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
@@ -790,7 +790,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van bestaand project is mislukt.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is mislukt.",
                                                                            LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
@@ -840,7 +840,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Finish();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van bestaand project is geannuleerd.",
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is geannuleerd.",
                                                                            LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
@@ -902,7 +902,7 @@ namespace Core.Common.Gui.Test
             // Assert
             var expectedProgressMessages = new[]
             {
-                "Stap 3 van 3 | Ingeladen project initialiseren"
+                "Stap 3 van 3 | Initialiseren van geopend project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
 
@@ -952,7 +952,7 @@ namespace Core.Common.Gui.Test
             // Assert
             var expectedProgressMessages = new[]
             {
-                "Stap 2 van 2 | Ingeladen project initialiseren"
+                "Stap 2 van 2 | Initialiseren van geopend project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
 
@@ -1008,7 +1008,7 @@ namespace Core.Common.Gui.Test
             // Assert
             var expectedProgressMessages = new[]
             {
-                "Stap 3 van 3 | Leeg project initialiseren"
+                "Stap 3 van 3 | Initialiseren van leeg project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
 
@@ -1057,7 +1057,7 @@ namespace Core.Common.Gui.Test
             // Assert
             var expectedProgressMessages = new[]
             {
-                "Stap 2 van 2 | Leeg project initialiseren"
+                "Stap 2 van 2 | Initialiseren van leeg project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
 

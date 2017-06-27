@@ -82,8 +82,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Nieuw Ringtoetsproject aanmaken...", LogLevelConstant.Info),
-                Tuple.Create("Nieuw Ringtoetsproject succesvol aangemaakt.", LogLevelConstant.Info)
+                Tuple.Create("Nieuw project aanmaken is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Nieuw project aanmaken is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
 
@@ -248,8 +248,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -298,8 +298,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Openen van bestaand Ringtoetsproject geannuleerd.", LogLevelConstant.Info)
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is geannuleerd.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
@@ -352,8 +352,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Openen van bestaand Ringtoetsproject geannuleerd.", LogLevelConstant.Info)
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is geannuleerd.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
@@ -404,9 +404,9 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Het is niet gelukt om het Ringtoetsproject te laden.", LogLevelConstant.Error)
+                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -458,9 +458,9 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Het is niet gelukt om het Ringtoetsproject te laden.", LogLevelConstant.Error)
+                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -520,9 +520,9 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Openen van bestaand project is mislukt.", LogLevelConstant.Error)
+                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -572,9 +572,9 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create(goodErrorMessageText, LogLevelConstant.Error),
-                Tuple.Create("Openen van bestaand project is mislukt.", LogLevelConstant.Error)
+                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsFalse(result);
@@ -626,8 +626,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Openen van bestaand project is mislukt.", LogLevelConstant.Error)
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
@@ -678,8 +678,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -737,8 +737,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             var expectedMessages = new[]
             {
-                Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
+                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
@@ -825,7 +825,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => returnedPath = storageCommandHandler.GetExistingProjectFilePath();
 
             // Assert
-            const string expectedMessage = "Openen van bestaand Ringtoetsproject geannuleerd.";
+            const string expectedMessage = "Openen van project is geannuleerd.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             Assert.IsNull(returnedPath);
@@ -888,7 +888,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwnerStub.Stub(po => po.ProjectFilePath).Return("");
 
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                    $"Sla wijzigingen in het project op: {projectName}?")).
                           Return(OptionalStepResult.Cancel);
             mocks.ReplayAll();
@@ -935,7 +935,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwnerStub.Stub(po => po.ProjectFilePath).Return("");
 
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                    $"Sla wijzigingen in het project op: {projectName}?"))
                          .Return(OptionalStepResult.SkipOptionalStep);
             mocks.ReplayAll();
@@ -986,7 +986,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
 
                 var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-                inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+                inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                        $"Sla wijzigingen in het project op: {projectName}?"))
                              .Return(OptionalStepResult.PerformOptionalStep);
                 mocks.ReplayAll();
@@ -1045,7 +1045,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwnerStub.Expect(po => po.SetProject(project, someValidFilePath));
 
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project aan het sluiten...",
+            inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                    $"Sla wijzigingen in het project op: {projectName}?"))
                          .Return(OptionalStepResult.PerformOptionalStep);
             inquiryHelper.Expect(h => h.GetTargetFileLocation(fileFilter, projectName))

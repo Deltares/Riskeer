@@ -221,8 +221,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Then
                 var expectedMessages = new[]
                 {
-                    Tuple.Create("Openen van bestaand Ringtoetsproject...", LogLevelConstant.Info),
-                    Tuple.Create("Openen van bestaand project is gelukt.", LogLevelConstant.Info)
+                    Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
+                    Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(action, expectedMessages, 3);
                 Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);

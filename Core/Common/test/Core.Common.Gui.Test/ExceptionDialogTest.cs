@@ -252,8 +252,8 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [TestCase(true, "Project opgeslagen", "Het Ringtoetsproject is succesvol opgeslagen.")]
-        [TestCase(false, "Project niet opgeslagen", "Het Ringtoetsproject is niet opgeslagen.")]
+        [TestCase(true, "Project is opgeslagen", "Opslaan van project is gelukt.")]
+        [TestCase(false, "Project is niet opgeslagen", "Opslaan van project is mislukt.")]
         public void GivenExceptionDialog_WhenSaveProjectClicked_ThenSaveProjectAsCalledAndMessageBoxShown(bool saveSuccessful, string expectedDialogTitle, string expectedDialogMessage)
         {
             // Setup
@@ -327,8 +327,8 @@ namespace Core.Common.Gui.Test
                 buttonTester.Click();
 
                 // Assert
-                Assert.AreEqual("Project niet opgeslagen", messageBoxTitle);
-                Assert.AreEqual("Het Ringtoetsproject is niet opgeslagen.", messageBoxText);
+                Assert.AreEqual("Project is niet opgeslagen", messageBoxTitle);
+                Assert.AreEqual("Opslaan van project is mislukt.", messageBoxText);
             }
 
             mocks.VerifyAll();

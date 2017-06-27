@@ -78,7 +78,7 @@ namespace Core.Common.Gui
             projectFactory = requiredOpenProjectProperties.ProjectFactory;
             storage = requiredOpenProjectProperties.ProjectStorage;
 
-            Description = Resources.OpenProjectActivity_Open_existing_project;
+            Description = Resources.OpenProjectActivity_Open_project;
         }
 
         protected override void OnRun()

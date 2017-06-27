@@ -154,8 +154,8 @@
   <data name="GuiCore_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.</value>
   </data>
-  <data name="Creating_new_project" xml:space="preserve">
-    <value>Nieuw Ringtoetsproject aanmaken...</value>
+  <data name="Creating_new_project_started" xml:space="preserve">
+    <value>Nieuw project aanmaken is gestart.</value>
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Berichten</value>
@@ -175,8 +175,8 @@
   <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled" xml:space="preserve">
-    <value>Openen van bestaand Ringtoetsproject geannuleerd.</value>
+  <data name="StorageCommandHandler_OpenExistingProject_Opening_project_canceled" xml:space="preserve">
+    <value>Openen van project is geannuleerd.</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
@@ -211,8 +211,8 @@
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Berichten</value>
   </data>
-  <data name="Created_new_project_successful" xml:space="preserve">
-    <value>Nieuw Ringtoetsproject succesvol aangemaakt.</value>
+  <data name="Creating_new_project_successful" xml:space="preserve">
+    <value>Nieuw project aanmaken is gelukt.</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
     <value>Beeld</value>
@@ -271,8 +271,8 @@
   <data name="Ribbon_Properties" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
-  <data name="StorageCommandHandler_OpenExistingProject_Opening_existing_project" xml:space="preserve">
-    <value>Openen van bestaand Ringtoetsproject...</value>
+  <data name="StorageCommandHandler_OpenExistingProject_Opening_project_started" xml:space="preserve">
+    <value>Openen van project is gestart.</value>
   </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -499,11 +499,11 @@
   <data name="DynamicPropertyOrderEvaluationMethod_must_have_string_argument_on_Class_0_" xml:space="preserve">
     <value>Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.</value>
   </data>
-  <data name="StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed" xml:space="preserve">
-    <value>Het is niet gelukt om het Ringtoetsproject te laden.</value>
+  <data name="StorageCommandHandler_OpeningExistingProject_Opening_project_failed" xml:space="preserve">
+    <value>Openen van project is mislukt.</value>
   </data>
   <data name="StorageCommandHandler_SaveProject_Saving_project_canceled" xml:space="preserve">
-    <value>Opslaan van het Ringtoetsproject geannuleerd.</value>
+    <value>Opslaan van project is geannuleerd.</value>
   </data>
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler" xml:space="preserve">
     <value>Kan geen 'IImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IImportCommandHandler'.</value>
@@ -533,10 +533,10 @@
     <value>Sla wijzigingen in het project op: {0}?</value>
   </data>
   <data name="StorageCommandHandler_ClosingProject_Title" xml:space="preserve">
-    <value>Project aan het sluiten...</value>
+    <value>Project afsluiten</value>
   </data>
   <data name="StorageCommandHandler_NewProject_Creating_new_project_canceled" xml:space="preserve">
-    <value>Aanmaken van een nieuw Ringtoetsproject geannuleerd.</value>
+    <value>Nieuw project aanmaken is geannuleerd.</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
     <value>Algemeen filter</value>
@@ -592,20 +592,20 @@
   <data name="GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled" xml:space="preserve">
     <value>Importeren van gegevens is door de gebruiker geannuleerd.</value>
   </data>
-  <data name="OpenProjectActivity_Open_existing_project" xml:space="preserve">
-    <value>Openen van bestaand project</value>
+  <data name="OpenProjectActivity_Open_project" xml:space="preserve">
+    <value>Openen van project</value>
   </data>
   <data name="OpenProjectActivity_ProgressTextStepName_MigrateProject" xml:space="preserve">
-    <value>Migratie project</value>
+    <value>Migreren van project</value>
   </data>
   <data name="OpenProjectActivity_ProgressTextStepName_ReadProject" xml:space="preserve">
-    <value>Inlezen project</value>
+    <value>Inlezen van project</value>
   </data>
   <data name="OpenProjectActivity_ProgressTextStepName_InitializeProject" xml:space="preserve">
-    <value>Ingeladen project initialiseren</value>
+    <value>Initialiseren van geopend project</value>
   </data>
   <data name="OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject" xml:space="preserve">
-    <value>Leeg project initialiseren</value>
+    <value>Initialiseren van leeg project</value>
   </data>
   <data name="Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_" xml:space="preserve">
     <value>Stap {0} van {1} | {2}</value>
@@ -617,10 +617,10 @@
     <value>Opslaan van project</value>
   </data>
   <data name="SaveProjectActivity_ProgressTextStepName_InitializeSavedProject" xml:space="preserve">
-    <value>Opgeslagen project initialiseren</value>
+    <value>Initialiseren van opgeslagen project</value>
   </data>
   <data name="SaveProjectActivity_ProgressTextStepName_StagingProject" xml:space="preserve">
-    <value>Voorbereiding opslaan</value>
+    <value>Voorbereidingen opslaan</value>
   </data>
   <data name="SaveProjectActivity_ProgressTextStepName_SavingProject" xml:space="preserve">
     <value>Project opslaan</value>
@@ -635,16 +635,16 @@
     <value>..\Resources\bug-exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed" xml:space="preserve">
-    <value>Het Ringtoetsproject is niet opgeslagen.</value>
+    <value>Opslaan van project is mislukt.</value>
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption" xml:space="preserve">
-    <value>Project niet opgeslagen</value>
+    <value>Project is niet opgeslagen</value>
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project" xml:space="preserve">
-    <value>Het Ringtoetsproject is succesvol opgeslagen.</value>
+    <value>Opslaan van project is gelukt.</value>
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project_caption" xml:space="preserve">
-    <value>Project opgeslagen</value>
+    <value>Project is opgeslagen</value>
   </data>
   <data name="GuiImportHandler_RunImportActivity_Importing_0_" xml:space="preserve">
     <value>Importeren van '{0}'</value>

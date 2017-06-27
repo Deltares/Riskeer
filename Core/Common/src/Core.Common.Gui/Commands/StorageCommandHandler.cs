@@ -107,9 +107,9 @@ namespace Core.Common.Gui.Commands
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
                 return;
             }
-            log.Info(Resources.Creating_new_project);
+            log.Info(Resources.Creating_new_project_started);
             projectOwner.SetProject(projectFactory.CreateNewProject(), null);
-            log.Info(Resources.Created_new_project_successful);
+            log.Info(Resources.Creating_new_project_successful);
         }
 
         public string GetExistingProjectFilePath()
@@ -126,13 +126,13 @@ namespace Core.Common.Gui.Commands
                 }
             }
 
-            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled);
+            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_project_canceled);
             return null;
         }
 
         public bool OpenExistingProject(string filePath)
         {
-            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
+            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_project_started);
 
             try
             {
@@ -141,7 +141,7 @@ namespace Core.Common.Gui.Commands
             catch (Exception e) when (e is ArgumentException || e is CriticalFileReadException || e is StorageValidationException)
             {
                 log.Error(e.Message, e);
-                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
+                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_project_failed);
                 projectOwner.SetProject(projectFactory.CreateNewProject(), null);
                 return false;
             }
@@ -198,7 +198,7 @@ namespace Core.Common.Gui.Commands
             OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties;
             if (PrepareProjectMigration(filePath, out migrationProperties) == MigrationRequired.Aborted)
             {
-                log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled);
+                log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_project_canceled);
                 return false;
             }
 

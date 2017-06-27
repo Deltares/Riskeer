@@ -322,20 +322,20 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw Ringtoetsproject succesvol aangemaakt..
+        ///   Looks up a localized string similar to Nieuw project aanmaken is gestart..
         /// </summary>
-        public static string Created_new_project_successful {
+        public static string Creating_new_project_started {
             get {
-                return ResourceManager.GetString("Created_new_project_successful", resourceCulture);
+                return ResourceManager.GetString("Creating_new_project_started", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw Ringtoetsproject aanmaken....
+        ///   Looks up a localized string similar to Nieuw project aanmaken is gelukt..
         /// </summary>
-        public static string Creating_new_project {
+        public static string Creating_new_project_successful {
             get {
-                return ResourceManager.GetString("Creating_new_project", resourceCulture);
+                return ResourceManager.GetString("Creating_new_project_successful", resourceCulture);
             }
         }
         
@@ -581,7 +581,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het Ringtoetsproject is niet opgeslagen..
+        ///   Looks up a localized string similar to Opslaan van project is mislukt..
         /// </summary>
         public static string ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed {
             get {
@@ -590,7 +590,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project niet opgeslagen.
+        ///   Looks up a localized string similar to Project is niet opgeslagen.
         /// </summary>
         public static string ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption {
             get {
@@ -599,7 +599,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het Ringtoetsproject is succesvol opgeslagen..
+        ///   Looks up a localized string similar to Opslaan van project is gelukt..
         /// </summary>
         public static string ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project {
             get {
@@ -608,7 +608,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project opgeslagen.
+        ///   Looks up a localized string similar to Project is opgeslagen.
         /// </summary>
         public static string ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project_caption {
             get {
@@ -1198,16 +1198,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand project.
+        ///   Looks up a localized string similar to Openen van project.
         /// </summary>
-        public static string OpenProjectActivity_Open_existing_project {
+        public static string OpenProjectActivity_Open_project {
             get {
-                return ResourceManager.GetString("OpenProjectActivity_Open_existing_project", resourceCulture);
+                return ResourceManager.GetString("OpenProjectActivity_Open_project", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leeg project initialiseren.
+        ///   Looks up a localized string similar to Initialiseren van leeg project.
         /// </summary>
         public static string OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject {
             get {
@@ -1216,7 +1216,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingeladen project initialiseren.
+        ///   Looks up a localized string similar to Initialiseren van geopend project.
         /// </summary>
         public static string OpenProjectActivity_ProgressTextStepName_InitializeProject {
             get {
@@ -1225,7 +1225,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Migratie project.
+        ///   Looks up a localized string similar to Migreren van project.
         /// </summary>
         public static string OpenProjectActivity_ProgressTextStepName_MigrateProject {
             get {
@@ -1234,7 +1234,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen project.
+        ///   Looks up a localized string similar to Inlezen van project.
         /// </summary>
         public static string OpenProjectActivity_ProgressTextStepName_ReadProject {
             get {
@@ -1521,7 +1521,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opgeslagen project initialiseren.
+        ///   Looks up a localized string similar to Initialiseren van opgeslagen project.
         /// </summary>
         public static string SaveProjectActivity_ProgressTextStepName_InitializeSavedProject {
             get {
@@ -1539,7 +1539,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorbereiding opslaan.
+        ///   Looks up a localized string similar to Voorbereidingen opslaan.
         /// </summary>
         public static string SaveProjectActivity_ProgressTextStepName_StagingProject {
             get {
@@ -1648,7 +1648,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project aan het sluiten....
+        ///   Looks up a localized string similar to Project afsluiten.
         /// </summary>
         public static string StorageCommandHandler_ClosingProject_Title {
             get {
@@ -1657,7 +1657,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aanmaken van een nieuw Ringtoetsproject geannuleerd..
+        ///   Looks up a localized string similar to Nieuw project aanmaken is geannuleerd..
         /// </summary>
         public static string StorageCommandHandler_NewProject_Creating_new_project_canceled {
             get {
@@ -1666,29 +1666,29 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject....
+        ///   Looks up a localized string similar to Openen van project is geannuleerd..
         /// </summary>
-        public static string StorageCommandHandler_OpenExistingProject_Opening_existing_project {
+        public static string StorageCommandHandler_OpenExistingProject_Opening_project_canceled {
             get {
-                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_existing_project", resourceCulture);
+                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_project_canceled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject geannuleerd..
+        ///   Looks up a localized string similar to Openen van project is gestart..
         /// </summary>
-        public static string StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled {
+        public static string StorageCommandHandler_OpenExistingProject_Opening_project_started {
             get {
-                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_existing_project_canceled", resourceCulture);
+                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_project_started", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoetsproject te laden..
+        ///   Looks up a localized string similar to Openen van project is mislukt..
         /// </summary>
-        public static string StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed {
+        public static string StorageCommandHandler_OpeningExistingProject_Opening_project_failed {
             get {
-                return ResourceManager.GetString("StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed", resourceCulture);
+                return ResourceManager.GetString("StorageCommandHandler_OpeningExistingProject_Opening_project_failed", resourceCulture);
             }
         }
         
@@ -1702,7 +1702,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opslaan van het Ringtoetsproject geannuleerd..
+        ///   Looks up a localized string similar to Opslaan van project is geannuleerd..
         /// </summary>
         public static string StorageCommandHandler_SaveProject_Saving_project_canceled {
             get {

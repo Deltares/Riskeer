@@ -263,7 +263,7 @@ namespace Core.Common.Gui.Test
             int totalSteps = saveExistingProject ? 2 : 3;
             var expectedProgressMessages = new[]
             {
-                $"Stap 1 van {totalSteps} | Voorbereiding opslaan",
+                $"Stap 1 van {totalSteps} | Voorbereidingen opslaan",
                 $"Stap 2 van {totalSteps} | Project opslaan"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
@@ -416,7 +416,7 @@ namespace Core.Common.Gui.Test
             int totalSteps = hasStagedProject ? 2 : 3;
             var expectedProgressMessages = new[]
             {
-                $"Stap {totalSteps} van {totalSteps} | Opgeslagen project initialiseren"
+                $"Stap {totalSteps} van {totalSteps} | Initialiseren van opgeslagen project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
             mocks.VerifyAll();
