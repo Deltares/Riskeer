@@ -49,6 +49,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string name = "data";
             Color color = Color.Blue;
             var values = new List<double>
             {
@@ -58,10 +59,11 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
             };
 
             // Call
-            var series = new RowChartDataSeries(new RowChartData("data", values, color));
+            var series = new RowChartDataSeries(new RowChartData(name, values, color));
 
             // Assert
             Assert.IsInstanceOf<ColumnSeries>(series);
+            Assert.AreEqual(name, series.Title);
             Assert.IsTrue(series.IsStacked);
             Assert.AreEqual(1, series.StrokeThickness);
             Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), series.FillColor);

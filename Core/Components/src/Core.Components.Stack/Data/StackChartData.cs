@@ -114,7 +114,7 @@ namespace Core.Components.Stack.Data
 
             if (values.Count() != columns.Count)
             {
-                throw new ArgumentException("The number of value items must be the same as the number of columns.");
+                throw new ArgumentException("The number of value items must be the same as the number of columns.", nameof(values));
             }
 
             rows.Add(new RowChartData(name, values, color));

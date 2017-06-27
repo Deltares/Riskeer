@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
@@ -43,28 +42,30 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("data", exception.ParamName);
         }
 
         [Test]
         public void ConvertSeriesData_SeriesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var rowData = new RowChartData("data", new List<double>(), null);
+            var rowData = new RowChartData("data", new double[0], null);
 
             // Call
             TestDelegate test = () => RowChartDataConverter.ConvertSeriesData(rowData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("series", exception.ParamName);
         }
 
         [Test]
         public void ConvertSeriesData_DataWithValues_ColumnItemsAddedToSeries()
         {
             // Setup
-            var values = new List<double>
+            var values = new[]
             {
                 0.2,
                 0.7,
@@ -89,21 +90,23 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("data", exception.ParamName);
         }
 
         [Test]
         public void ConvertSeriesProperties_SeriesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var rowData = new RowChartData("data", new List<double>(), null);
+            var rowData = new RowChartData("data", new double[0], null);
 
             // Call
             TestDelegate test = () => RowChartDataConverter.ConvertSeriesProperties(rowData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("series", exception.ParamName);
         }
 
         [Test]
@@ -117,7 +120,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
                                ? (Color?) Color.Red
                                : null;
 
-            var rowData = new RowChartData(name, new List<double>(), color);
+            var rowData = new RowChartData(name, new double[0], color);
             var series = new ColumnSeries();
 
             // Call

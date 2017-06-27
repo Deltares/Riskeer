@@ -104,7 +104,6 @@ namespace Demo.Ringtoets.Test.Ribbons
             mocks.VerifyAll();
         }
 
-
         [Test]
         [Apartment(ApartmentState.STA)]
         public void OpenStackChartViewButton_OnClick_ExecutesOpenStackChartViewCommand()

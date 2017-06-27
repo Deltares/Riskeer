@@ -140,7 +140,8 @@ namespace Core.Components.Stack.Test.Data
 
             // Assert
             const string message = "The number of value items must be the same as the number of columns.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            Assert.AreEqual("values", exception.ParamName);
         }
 
         [Test]

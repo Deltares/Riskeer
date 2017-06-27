@@ -34,7 +34,7 @@ namespace Core.Components.Stack.Test.Data
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RowChartData(null, new List<double>(), Color.White);
+            TestDelegate test = () => new RowChartData(null, new double[0], Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -47,7 +47,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             Assert.IsNull(chart.Data);
 
-            CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
+            CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
             Assert.AreEqual(Color.White, plotView.BackColor);
             Assert.IsTrue(plotView.Model.IsLegendVisible);
         }
@@ -76,8 +76,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.Data = data;
 
                 // Then
-                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
-                AssertSeriesAndColumns(plotView);
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
+                AssertColumns(data.Columns.ToList(), plotView);
+                AssertSeries(data.Rows.Select(r => r.Name).ToList(), plotView);
             }
         }
 
@@ -104,8 +105,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.Data = data;
 
                 // Precondition
-                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
-                AssertSeriesAndColumns(plotView);
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
+                AssertColumns(data.Columns.ToList(), plotView);
+                AssertSeries(data.Rows.Select(r => r.Name).ToList(), plotView);
 
                 // When
                 var newData = new StackChartData();
@@ -129,11 +131,14 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual("Row 3", series[0].Title);
                 Assert.AreEqual("Row 4", series[1].Title);
 
-                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().Single();
 
                 Assert.AreEqual(2, axis.Labels.Count);
                 Assert.AreEqual("Column 3", axis.Labels[0]);
                 Assert.AreEqual("Column 4", axis.Labels[1]);
+
+                AssertColumns(newData.Columns.ToList(), plotView);
+                AssertSeries(newData.Rows.Select(r => r.Name).ToList(), plotView);
             }
         }
 
@@ -160,8 +165,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.Data = data;
 
                 // Precondition
-                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
-                AssertSeriesAndColumns(plotView);
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
+                AssertColumns(data.Columns.ToList(), plotView);
+                AssertSeries(data.Rows.Select(r => r.Name).ToList(), plotView);
 
                 // When
                 chart.Data = null;
@@ -170,7 +176,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 ElementCollection<Series> series = plotView.Model.Series;
                 CollectionAssert.IsEmpty(series);
 
-                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().Single();
 
                 CollectionAssert.IsEmpty(axis.Labels);
             }
@@ -198,8 +204,9 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chart.Data = data;
 
-                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().First();
-                AssertSeriesAndColumns(plotView);
+                CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
+                AssertColumns(data.Columns.ToList(), plotView);
+                AssertSeries(data.Rows.Select(r => r.Name).ToList(), plotView);
 
                 // When
                 data.Clear();
@@ -223,7 +230,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual("New row 1", series[0].Title);
                 Assert.AreEqual("New row 2", series[1].Title);
 
-                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+                CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().Single();
 
                 Assert.AreEqual(2, axis.Labels.Count);
                 Assert.AreEqual("New column 1", axis.Labels[0]);
@@ -233,15 +240,16 @@ namespace Core.Components.OxyPlot.Forms.Test
 
         [Test]
         [TestCase("Title")]
-        [TestCase("Test")]
-        [TestCase("Label")]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
         public void SetChartTitle_Always_SetsNewTitleToModelAndViewInvalidated(string newTitle)
         {
             // Setup
             using (var form = new Form())
             {
                 var chart = new StackChartControl();
-                CategoryPlotView view = chart.Controls.OfType<CategoryPlotView>().First();
+                CategoryPlotView view = chart.Controls.OfType<CategoryPlotView>().Single();
                 form.Controls.Add(chart);
 
                 form.Show();
@@ -258,18 +266,26 @@ namespace Core.Components.OxyPlot.Forms.Test
             }
         }
 
-        private static void AssertSeriesAndColumns(CategoryPlotView plotView)
+        private static void AssertSeries(IList<string> expectedSeriesTitles, CategoryPlotView plotView)
         {
             ElementCollection<Series> series = plotView.Model.Series;
-            Assert.AreEqual(2, series.Count);
-            Assert.AreEqual("Row 1", series[0].Title);
-            Assert.AreEqual("Row 2", series[1].Title);
+            Assert.AreEqual(expectedSeriesTitles.Count(), series.Count);
 
+            for (var i = 0; i < expectedSeriesTitles.Count; i++)
+            {
+                Assert.AreEqual(expectedSeriesTitles[i], series[i].Title);
+            }
+        }
+
+        private static void AssertColumns(IList<string> expectedColumnTitles, CategoryPlotView plotView)
+        {
             CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+            Assert.AreEqual(expectedColumnTitles.Count, axis.Labels.Count);
 
-            Assert.AreEqual(2, axis.Labels.Count);
-            Assert.AreEqual("Column 1", axis.Labels[0]);
-            Assert.AreEqual("Column 2", axis.Labels[1]);
+            for (var i = 0; i < expectedColumnTitles.Count; i++)
+            {
+                Assert.AreEqual(expectedColumnTitles[i], axis.Labels[i]);
+            }
         }
     }
 }

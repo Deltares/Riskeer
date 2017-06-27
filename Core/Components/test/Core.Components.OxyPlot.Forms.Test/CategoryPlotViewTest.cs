@@ -51,8 +51,16 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(1, categoryAxis.MinorStep);
             Assert.AreEqual(45, categoryAxis.Angle);
 
-            Assert.IsInstanceOf<LinearAxis>(axes[1]);
-            
+            Assert.AreEqual(-0.5, categoryAxis.AbsoluteMinimum);
+            Assert.IsFalse(categoryAxis.IsPanEnabled);
+            Assert.IsFalse(categoryAxis.IsZoomEnabled);
+
+            LinearAxis linearAxis = axes.OfType<LinearAxis>().First();
+
+            Assert.AreEqual(0, linearAxis.MinimumPadding);
+            Assert.IsFalse(linearAxis.IsPanEnabled);
+            Assert.IsFalse(linearAxis.IsZoomEnabled);
+
             Assert.AreEqual(0, plotModel.LegendBorderThickness);
             Assert.AreEqual(LegendOrientation.Horizontal, plotModel.LegendOrientation);
             Assert.AreEqual(LegendPlacement.Outside, plotModel.LegendPlacement);
@@ -61,8 +69,9 @@ namespace Core.Components.OxyPlot.Forms.Test
 
         [Test]
         [TestCase("Title")]
-        [TestCase("Test")]
-        [TestCase("Label")]
+        [TestCase("")]
+        [TestCase(null)]
+        [TestCase("  ")]
         public void ModelTitle_Always_SetsNewTitleToModelAndInvalidatesView(string newTitle)
         {
             // Setup
