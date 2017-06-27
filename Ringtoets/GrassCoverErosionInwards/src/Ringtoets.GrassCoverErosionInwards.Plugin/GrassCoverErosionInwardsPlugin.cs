@@ -290,7 +290,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText)
+                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<DikeHeightOutput>
@@ -306,7 +309,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText)
+                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<OvertoppingRateOutput>
@@ -320,9 +326,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<EmptyProbabilityAssessmentOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => Resources.OutputIcon,
-                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
+                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = output => Resources.OutputIcon,
+                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()

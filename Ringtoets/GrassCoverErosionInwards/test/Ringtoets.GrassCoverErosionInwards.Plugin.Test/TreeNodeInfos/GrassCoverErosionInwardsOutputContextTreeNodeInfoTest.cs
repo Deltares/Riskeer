@@ -118,10 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
-                                                            new TestDikeHeightOutput(0.0),
-                                                            new TestOvertoppingRateOutput(0));
+            var output = new TestGrassCoverErosionInwardsOutput();
 
             var context = new GrassCoverErosionInwardsOutputContext(output, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
@@ -130,15 +127,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
+            GrassCoverErosionInwardsOutput wrappedOutput = context.WrappedData;
 
             var overtoppingOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingOutput, overtoppingOutput);
+            Assert.AreSame(wrappedOutput.OvertoppingOutput, overtoppingOutput);
 
             var dikeHeightOutput = children[1] as DikeHeightOutput;
-            Assert.AreSame(context.WrappedData.DikeHeightOutput, dikeHeightOutput);
+            Assert.AreSame(wrappedOutput.DikeHeightOutput, dikeHeightOutput);
 
             var overtoppingRateOutput = children[2] as OvertoppingRateOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingRateOutput, overtoppingRateOutput);
+            Assert.AreSame(wrappedOutput.OvertoppingRateOutput, overtoppingRateOutput);
         }
 
         [Test]
@@ -148,8 +146,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                0, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+            var overtoppingOutput = new TestGrassCoverErosionInwardsOvertoppingOutput(0);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput,
                                                             null,
                                                             null);
 
@@ -162,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(3, children.Length);
 
             var resultOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
-            Assert.AreSame(context.WrappedData.OvertoppingOutput, resultOutput);
+            Assert.AreSame(overtoppingOutput, resultOutput);
 
             Assert.IsInstanceOf<EmptyDikeHeightOutput>(children[1]);
             Assert.IsInstanceOf<EmptyOvertoppingRateOutput>(children[2]);

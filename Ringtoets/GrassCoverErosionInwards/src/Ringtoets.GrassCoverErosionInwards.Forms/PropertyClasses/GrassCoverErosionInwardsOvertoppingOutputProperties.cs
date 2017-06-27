@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return !double.IsNaN(data.WaveHeight);
+            return data.HasWaveHeight;
         }
     }
 }

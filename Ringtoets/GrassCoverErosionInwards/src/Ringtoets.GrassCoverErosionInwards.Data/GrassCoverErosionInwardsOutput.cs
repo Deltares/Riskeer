@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// The total result of a grass cover erosion inwards assessment.
+    /// The overall result of a grass cover erosion inwards assessment.
     /// </summary>
     public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the output of the assessment result.
+        /// Gets the overtopping output.
         /// </summary>
         public GrassCoverErosionInwardsOvertoppingOutput OvertoppingOutput { get; }
 

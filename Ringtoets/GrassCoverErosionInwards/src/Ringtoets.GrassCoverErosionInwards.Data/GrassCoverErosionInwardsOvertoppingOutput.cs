@@ -45,12 +45,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// The height of the wave that was calculated in the overtopping sub failure mechanism.
+        /// Gets the height of the wave that was calculated in the overtopping sub failure mechanism.
         /// </summary>
         public RoundedDouble WaveHeight { get; }
 
         /// <summary>
-        /// Value indicating whether the overtopping sub failure mechanism was dominant over the overflow
+        /// Gets the value indicating whether the overtopping sub failure mechanism was dominant over the overflow
         /// sub failure mechanism.
         /// </summary>
         public bool IsOvertoppingDominant { get; }
@@ -59,5 +59,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the probabilistic assessment output.
         /// </summary>
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
+
+        public bool HasWaveHeight
+        {
+            get
+            {
+                return !double.IsNaN(WaveHeight);
+            }
+        }
     }
 }

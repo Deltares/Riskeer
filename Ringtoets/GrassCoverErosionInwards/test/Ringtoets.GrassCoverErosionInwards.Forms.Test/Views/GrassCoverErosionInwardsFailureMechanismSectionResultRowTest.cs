@@ -81,9 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var calculation = new GrassCoverErosionInwardsCalculation();
             if (status == CalculationScenarioStatus.Failed)
             {
-                var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
-                calculation.Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                            1.1, false, probabilityAssessmentOutput),
+                calculation.Output = new GrassCoverErosionInwardsOutput(new TestGrassCoverErosionInwardsOvertoppingOutput(double.NaN),
                                                                         new TestDikeHeightOutput(0),
                                                                         new TestOvertoppingRateOutput(0));
             }
@@ -107,11 +105,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
+            const double probability = 0.95;
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                0.5, true, probabilityAssessmentOutput),
+                Output = new GrassCoverErosionInwardsOutput(new TestGrassCoverErosionInwardsOvertoppingOutput(probability),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -128,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability, assessmentLayerTwoA);
+            Assert.AreEqual(probability, assessmentLayerTwoA);
         }
 
         [Test]

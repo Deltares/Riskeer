@@ -68,11 +68,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
 
             var output = new OvertoppingRateOutput(overtoppingRate,
-                                                                  overtoppingRateTargetProbability,
-                                                                  overtoppingRateTargetReliability,
-                                                                  overtoppingRateCalculatedProbability,
-                                                                  overtoppingRateCalculatedReliability,
-                                                                  overtoppingRateConvergence);
+                                                   overtoppingRateTargetProbability,
+                                                   overtoppingRateTargetReliability,
+                                                   overtoppingRateCalculatedProbability,
+                                                   overtoppingRateCalculatedReliability,
+                                                   overtoppingRateConvergence);
 
             // Call
             var properties = new OvertoppingRateOutputProperties
@@ -116,45 +116,45 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(6, dynamicProperties.Count);
 
-            const string overtoppingRateCategory = "Overslagdebiet";
+            const string category = "Overslagdebiet";
             PropertyDescriptor overtoppingRateProperty = dynamicProperties[overtoppingRatePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateProperty,
-                                                                            overtoppingRateCategory,
+                                                                            category,
                                                                             "Overslagdebiet [l/m/s]",
                                                                             "Het berekende overslagdebiet.",
                                                                             true);
 
-            PropertyDescriptor overtoppingRateTargetProbability = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateTargetProbability,
-                                                                            overtoppingRateCategory,
+            PropertyDescriptor targetProbability = dynamicProperties[targetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbability,
+                                                                            category,
                                                                             "Doelkans [1/jaar]",
                                                                             "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
-            PropertyDescriptor overtoppingRateTargetReliability = dynamicProperties[targetReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateTargetReliability,
-                                                                            overtoppingRateCategory,
+            PropertyDescriptor targetReliability = dynamicProperties[targetReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliability,
+                                                                            category,
                                                                             "Betrouwbaarheidsindex doelkans [-]",
                                                                             "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
-            PropertyDescriptor overtoppingRateCalculatedProbability = dynamicProperties[calculatedProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateCalculatedProbability,
-                                                                            overtoppingRateCategory,
+            PropertyDescriptor calculatedProbability = dynamicProperties[calculatedProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbability,
+                                                                            category,
                                                                             "Berekende kans [1/jaar]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
-            PropertyDescriptor overtoppingRateCalculatedReliability = dynamicProperties[calculatedReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateCalculatedReliability,
-                                                                            overtoppingRateCategory,
+            PropertyDescriptor calculatedReliability = dynamicProperties[calculatedReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliability,
+                                                                            category,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
-            PropertyDescriptor overtoppingRateCalculationConvergence = dynamicProperties[convergencePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(overtoppingRateCalculationConvergence,
-                                                                            overtoppingRateCategory,
+            PropertyDescriptor calculationConvergence = dynamicProperties[convergencePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculationConvergence,
+                                                                            category,
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de overslagdebiet berekening?",
                                                                             true);

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsOvertoppingOutputTest
+    public class GrassCoverErosionInwardsOvertoppingOutputTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -39,7 +39,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             const double reliability = 0.1;
             const double factorOfSafety = 0.7;
 
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
+                                                                              requiredReliability,
+                                                                              probability,
+                                                                              reliability,
+                                                                              factorOfSafety);
+
             // Call
             var output = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
 
@@ -49,6 +54,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(output.IsOvertoppingDominant);
 
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
+            Assert.IsTrue(output.HasWaveHeight);
+        }
+
+        [Test]
+        public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
+        {
+            // Setupn
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+
+            // Call
+            bool hasWaveHeight = output.HasWaveHeight;
+
+            // Assert
+            Assert.IsFalse(hasWaveHeight);
         }
     }
 }

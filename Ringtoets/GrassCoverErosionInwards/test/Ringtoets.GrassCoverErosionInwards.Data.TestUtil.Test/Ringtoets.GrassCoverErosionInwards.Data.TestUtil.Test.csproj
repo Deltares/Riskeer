@@ -51,6 +51,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestGrassCoverErosionInwardsOvertoppingOutputTest.cs" />
     <Compile Include="TestOvertoppingRateOutputTest.cs" />
     <Compile Include="TestDikeHeightOutputTest.cs" />
     <Compile Include="TestGrassCoverErosionInwardsFailureMechanismTest.cs" />

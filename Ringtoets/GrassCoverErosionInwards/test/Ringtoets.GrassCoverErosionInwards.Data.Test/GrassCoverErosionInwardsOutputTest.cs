@@ -60,21 +60,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             const double overtoppingRate = 0.9;
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            var resultOutput = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
+            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
             var dikeHeightOutput = new TestDikeHeightOutput(dikeHeight);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(overtoppingRate);
 
             // Call
-            var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsInstanceOf<Observable>(output);
-
-            Assert.AreEqual(2, output.OvertoppingOutput.WaveHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(waveHeight, output.OvertoppingOutput.WaveHeight, output.OvertoppingOutput.WaveHeight.GetAccuracy());
-            Assert.IsTrue(output.OvertoppingOutput.IsOvertoppingDominant);
-
+            
+            Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
             Assert.AreSame(probabilityAssessmentOutput, output.OvertoppingOutput.ProbabilityAssessmentOutput);
             Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);
             Assert.AreSame(overtoppingRateOutput, output.OvertoppingRateOutput);

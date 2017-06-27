@@ -19,29 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
+namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
-    [TestFixture]
-    public class TestGrassCoverErosionInwardsOutputTest
+    /// <summary>
+    /// Simple implementation of a <see cref="GrassCoverErosionInwardsOvertoppingOutput"/>, which can be
+    /// used in tests where actual output values are not important.
+    /// </summary>
+    public class TestGrassCoverErosionInwardsOvertoppingOutput : GrassCoverErosionInwardsOvertoppingOutput
     {
-        [Test]
-        public void DefaultConstructor_PropertiesSet()
-        {
-            // Call
-            var output = new TestGrassCoverErosionInwardsOutput();
-
-            // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsOutput>(output);
-            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
-
-            Assert.AreEqual(1.0, overtoppingOutput.WaveHeight.Value);
-            Assert.IsTrue(overtoppingOutput.IsOvertoppingDominant);
-            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(overtoppingOutput.ProbabilityAssessmentOutput);
-            Assert.IsInstanceOf<TestDikeHeightOutput>(output.DikeHeightOutput);
-            Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="TestGrassCoverErosionInwardsOvertoppingOutput"/>.
+        /// </summary>
+        /// <param name="probability">The probability to set to the output.</param>
+        public TestGrassCoverErosionInwardsOvertoppingOutput(double probability) 
+            : base(1, true, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0)) {}
     }
 }

@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var random = new Random();
             double waveHeight = random.NextDouble();
-            bool isOvertoppingDominant = Convert.ToBoolean(random.Next(0, 2));
+            bool isOvertoppingDominant = random.NextBoolean();
             double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
             double probability = random.NextDouble();
@@ -114,12 +114,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            int propertiesCount = double.IsNaN(waveHeight) ? 6 : 7;
+            int propertiesCount = output.HasWaveHeight ? 7 : 6;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(propertiesCount, dynamicProperties.Count);
-
-            bool waveHeightCalculated = !double.IsNaN(waveHeight);
+            Assert.AreEqual(propertiesCount, dynamicProperties.Count);            
 
             const string resultCategory = "Resultaat";
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
@@ -157,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
-            if (waveHeightCalculated)
+            if (output.HasWaveHeight)
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
@@ -167,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int realDominantIndex = waveHeightCalculated
+            int realDominantIndex = output.HasWaveHeight
                                         ? isDominantIndex
                                         : isDominantIndex - 1;
 

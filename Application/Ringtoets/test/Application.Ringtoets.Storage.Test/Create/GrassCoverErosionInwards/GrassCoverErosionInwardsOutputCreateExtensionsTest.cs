@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble());
-            var resultOutput = new GrassCoverErosionInwardsOvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput);
+            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput);
 
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
@@ -55,14 +55,14 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var overtoppingRateOutput = new OvertoppingRateOutput(random.NextDouble(), random.NextDouble(),
                                                                   random.NextDouble(), random.NextDouble(),
                                                                   random.NextDouble(), overtoppingRateConvergence);
-            var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
 
             // Assert
-            Assert.AreEqual(output.OvertoppingOutput.WaveHeight.Value, entity.WaveHeight);
-            Assert.AreEqual(Convert.ToByte(output.OvertoppingOutput.IsOvertoppingDominant), entity.IsOvertoppingDominant);
+            Assert.AreEqual(overtoppingOutput.WaveHeight.Value, entity.WaveHeight);
+            Assert.AreEqual(Convert.ToByte(overtoppingOutput.IsOvertoppingDominant), entity.IsOvertoppingDominant);
 
             Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, entity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.Probability, entity.Probability);
@@ -92,17 +92,17 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var resultOutput = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, true, probabilityAssessmentOutput);
+            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, true, probabilityAssessmentOutput);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNull(entity.WaveHeight);
-            Assert.AreEqual(Convert.ToByte(output.OvertoppingOutput.IsOvertoppingDominant), entity.IsOvertoppingDominant);
+            Assert.AreEqual(Convert.ToByte(overtoppingOutput.IsOvertoppingDominant), entity.IsOvertoppingDominant);
             Assert.IsNull(entity.FactorOfSafety);
             Assert.IsNull(entity.Probability);
             Assert.IsNull(entity.Reliability);

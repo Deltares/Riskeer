@@ -21,27 +21,34 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestGrassCoverErosionInwardsOutputTest
+    public class TestGrassCoverErosionInwardsOvertoppingOutputTest
     {
         [Test]
-        public void DefaultConstructor_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            const double probability = 0.3;
+
             // Call
-            var output = new TestGrassCoverErosionInwardsOutput();
+            var output = new TestGrassCoverErosionInwardsOvertoppingOutput(probability);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsOutput>(output);
-            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
+            Assert.IsInstanceOf<GrassCoverErosionInwardsOvertoppingOutput>(output);
 
-            Assert.AreEqual(1.0, overtoppingOutput.WaveHeight.Value);
-            Assert.IsTrue(overtoppingOutput.IsOvertoppingDominant);
-            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(overtoppingOutput.ProbabilityAssessmentOutput);
-            Assert.IsInstanceOf<TestDikeHeightOutput>(output.DikeHeightOutput);
-            Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);
+            Assert.AreEqual(1.0, output.WaveHeight.Value);
+            Assert.IsTrue(output.IsOvertoppingDominant);
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = output.ProbabilityAssessmentOutput;
+            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
+            Assert.AreEqual(probability, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
         }
     }
 }

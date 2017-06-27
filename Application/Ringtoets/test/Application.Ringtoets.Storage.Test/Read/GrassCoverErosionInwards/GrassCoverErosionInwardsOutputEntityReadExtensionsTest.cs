@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
@@ -49,15 +50,18 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.WaveHeight, output.OvertoppingOutput.WaveHeight.Value);
-            Assert.IsFalse(output.OvertoppingOutput.IsOvertoppingDominant);
+            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
+
+            Assert.AreEqual(entity.WaveHeight, overtoppingOutput.WaveHeight.Value);
+            Assert.IsFalse(overtoppingOutput.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
-            Assert.IsNull(output.OvertoppingRateOutput);
-            Assert.AreEqual(entity.FactorOfSafety, output.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety.Value);
-            Assert.AreEqual(entity.Probability, output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
-            Assert.AreEqual(entity.RequiredProbability, output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(entity.Reliability, output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability.Value);
-            Assert.AreEqual(entity.RequiredReliability, output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.IsNull(output.OvertoppingRateOutput);            
+            Assert.AreEqual(entity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.AreEqual(entity.Probability, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(entity.RequiredProbability, probabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(entity.Reliability, probabilityAssessmentOutput.Reliability.Value);
+            Assert.AreEqual(entity.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.Value);
         }
 
         [Test]
@@ -79,15 +83,18 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.IsNaN(output.OvertoppingOutput.WaveHeight);
-            Assert.IsTrue(output.OvertoppingOutput.IsOvertoppingDominant);
+            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
+
+            Assert.IsNaN(overtoppingOutput.WaveHeight);
+            Assert.IsTrue(overtoppingOutput.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
             Assert.IsNull(output.OvertoppingRateOutput);
-            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety);
-            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
-            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability);
-            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability);
-            Assert.IsNaN(output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability);
+            Assert.IsNaN(probabilityAssessmentOutput.FactorOfSafety);
+            Assert.IsNaN(probabilityAssessmentOutput.Probability);
+            Assert.IsNaN(probabilityAssessmentOutput.RequiredProbability);
+            Assert.IsNaN(probabilityAssessmentOutput.Reliability);
+            Assert.IsNaN(probabilityAssessmentOutput.RequiredReliability);
         }
 
         [Test]

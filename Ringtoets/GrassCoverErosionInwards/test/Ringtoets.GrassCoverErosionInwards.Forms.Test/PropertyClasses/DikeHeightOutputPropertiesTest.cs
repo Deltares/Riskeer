@@ -68,11 +68,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
 
             var output = new DikeHeightOutput(dikeHeight,
-                                                        dikeHeightTargetProbability,
-                                                        dikeHeightTargetReliability,
-                                                        dikeHeightCalculatedProbability,
-                                                        dikeHeightCalculatedReliability,
-                                                        dikeHeightConvergence);
+                                              dikeHeightTargetProbability,
+                                              dikeHeightTargetReliability,
+                                              dikeHeightCalculatedProbability,
+                                              dikeHeightCalculatedReliability,
+                                              dikeHeightConvergence);
             // Call
             var properties = new DikeHeightOutputProperties
             {
@@ -123,36 +123,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Het berekende Hydraulisch Belasting Niveau (HBN).",
                                                                             true);
 
-            PropertyDescriptor dikeHeightTargetProbability = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightTargetProbability,
+            PropertyDescriptor targetProbability = dynamicProperties[targetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbability,
                                                                             category,
                                                                             "Doelkans [1/jaar]",
                                                                             "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
-            PropertyDescriptor dikeHeightTargetReliability = dynamicProperties[targetReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightTargetReliability,
+            PropertyDescriptor targetReliability = dynamicProperties[targetReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliability,
                                                                             category,
                                                                             "Betrouwbaarheidsindex doelkans [-]",
                                                                             "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
-            PropertyDescriptor dikeHeightCalculatedProbability = dynamicProperties[calculatedProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightCalculatedProbability,
+            PropertyDescriptor calculatedProbability = dynamicProperties[calculatedProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbability,
                                                                             category,
                                                                             "Berekende kans [1/jaar]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
-            PropertyDescriptor dikeHeightCalculatedReliability = dynamicProperties[calculatedReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightCalculatedReliability,
+            PropertyDescriptor calculatedReliability = dynamicProperties[calculatedReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliability,
                                                                             category,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
-            PropertyDescriptor dikeHeightCalculationConvergence = dynamicProperties[convergencePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightCalculationConvergence,
+            PropertyDescriptor calculationConvergence = dynamicProperties[convergencePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculationConvergence,
                                                                             category,
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de HBN berekening?",
