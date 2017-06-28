@@ -59,21 +59,36 @@ namespace Application.Ringtoets.Storage.Read
                                                                           entity.LocationX.ToNullAsNaN(),
                                                                           entity.LocationY.ToNullAsNaN());
 
-            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
-            if (designWaterLevelOutputEntity != null)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
-            }
+            SetDesignWaterLevelCalculation(entity, hydraulicBoundaryLocation);
+            SetWaveHeightCalculation(entity, hydraulicBoundaryLocation);
+
+            collector.Read(entity, hydraulicBoundaryLocation);
+
+            return hydraulicBoundaryLocation;
+        }
+
+        private static void SetWaveHeightCalculation(HydraulicLocationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
+                Convert.ToBoolean(entity.ShouldWaveHeightIllustrationPointsBeCalculated);
 
             IHydraulicLocationOutputEntity waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
             if (waveHeightOutputEntity != null)
             {
                 hydraulicBoundaryLocation.WaveHeightCalculation.Output = waveHeightOutputEntity.Read();
             }
+        }
 
-            collector.Read(entity, hydraulicBoundaryLocation);
+        private static void SetDesignWaterLevelCalculation(HydraulicLocationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
+                Convert.ToBoolean(entity.ShouldWaterLevelIllustrationPointsBeCalculated);
 
-            return hydraulicBoundaryLocation;
+            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            if (designWaterLevelOutputEntity != null)
+            {
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
+            }
         }
 
         private static IHydraulicLocationOutputEntity GetHydraulicLocationOutputEntity(

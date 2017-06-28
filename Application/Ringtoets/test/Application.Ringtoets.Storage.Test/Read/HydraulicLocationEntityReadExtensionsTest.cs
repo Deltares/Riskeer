@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -70,12 +71,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string testName = "testName";
             double x = random.NextDouble();
             double y = random.NextDouble();
+            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
+            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
             var entity = new HydraulicLocationEntity
             {
                 LocationId = testId,
                 Name = testName,
                 LocationX = x,
-                LocationY = y
+                LocationY = y,
+                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated)
             };
 
             var collector = new ReadConversionCollector();
@@ -89,6 +94,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
+
+            AssertHydraulicBoundaryLocationCalculation(shouldDesignWaterLevelIllustrationPointsBeCalculated, location.DesignWaterLevelCalculation);
+            AssertHydraulicBoundaryLocationCalculation(shouldWaveHeightIllustrationPointsBeCalculated, location.WaveHeightCalculation);
+
             Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
             Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
 
@@ -162,6 +171,12 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreSame(location1, location2);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculation(bool shouldDesignWaterLevelIllustrationPointsBeCalculated,
+                                                                       HydraulicBoundaryLocationCalculation calculation)
+        {
+            Assert.AreEqual(shouldDesignWaterLevelIllustrationPointsBeCalculated, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)

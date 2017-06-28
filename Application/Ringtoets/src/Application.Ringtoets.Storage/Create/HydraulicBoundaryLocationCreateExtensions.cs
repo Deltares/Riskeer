@@ -56,6 +56,8 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
+                ShouldWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation),
+                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation),
                 Order = order
             };
 
@@ -64,6 +66,11 @@ namespace Application.Ringtoets.Storage.Create
 
             registry.Register(entity, location);
             return entity;
+        }
+
+        private static byte GetShouldIllustrationPointsBeCalculated(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
 
         private static void CreateHydraulicLocationOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output,
@@ -104,6 +111,8 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
+                ShouldWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation),
+                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation),
                 Order = order
             };
 

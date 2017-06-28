@@ -57,7 +57,27 @@ namespace Application.Ringtoets.Storage.Test.Create
             double coordinateY = random.NextDouble();
             int id = random.Next(0, 150);
             int order = random.Next();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
+
+            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
+            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY)
+            {
+                DesignWaterLevelCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldDesignWaterLevelIllustrationPointsBeCalculated
+                    }
+                },
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldWaveHeightIllustrationPointsBeCalculated
+                    }
+                }
+            };
             var registry = new PersistenceRegistry();
 
             // Call
@@ -65,12 +85,15 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
+            Assert.AreEqual(id, entity.LocationId);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
-            Assert.AreEqual(id, entity.LocationId);
-            Assert.IsEmpty(entity.HydraulicLocationOutputEntities);
+            Assert.AreEqual(Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated), entity.ShouldWaterLevelIllustrationPointsBeCalculated);
+            Assert.AreEqual(Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated), entity.ShouldWaveHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
+
+            Assert.IsEmpty(entity.HydraulicLocationOutputEntities);
         }
 
         [Test]
@@ -171,7 +194,27 @@ namespace Application.Ringtoets.Storage.Test.Create
             double coordinateY = random.NextDouble();
             int id = random.Next(0, 150);
             int order = random.Next();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
+            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
+            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY)
+            {
+                DesignWaterLevelCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldDesignWaterLevelIllustrationPointsBeCalculated
+                    }
+                },
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldWaveHeightIllustrationPointsBeCalculated
+                    }
+                }
+            };
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -180,11 +223,12 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
+            Assert.AreEqual(id, entity.LocationId);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
-            Assert.AreEqual(id, entity.LocationId);
-            Assert.IsEmpty(entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities);
+            Assert.AreEqual(Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated), entity.ShouldWaterLevelIllustrationPointsBeCalculated);
+            Assert.AreEqual(Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated), entity.ShouldWaveHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
         }
 
