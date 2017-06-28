@@ -1638,7 +1638,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Het sluitscenario waarvoor dit illustratiepunt is berekend..
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_Description {
             get {
@@ -1647,7 +1647,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Sluitscenario.
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_DisplayName {
             get {
@@ -1656,79 +1656,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Durations_Description {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Durations_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Durations_DisplayName {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Durations_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Probability_Description {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Probability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Probability_DisplayName {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Probability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Reliability_index_Description {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Reliability_index_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Reliability_index_DisplayName {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Reliability_index_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Stochasts_Description {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Stochasts_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string IllustrationPoint_Stochasts_DisplayName {
-            get {
-                return ResourceManager.GetString("IllustrationPoint_Stochasts_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Realisaties van de stochasten in het illustratiepunt..
         /// </summary>
         public static string IllustrationPoint_Values_Description {
             get {
@@ -1737,7 +1665,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Waarden in het illustratiepunt.
         /// </summary>
         public static string IllustrationPoint_Values_DisplayName {
             get {
@@ -1746,7 +1674,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to De windrichting waarvoor dit illlustratiepunt is berekend..
         /// </summary>
         public static string IllustrationPoint_WindDirection_Description {
             get {
@@ -1755,7 +1683,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Windrichting.
         /// </summary>
         public static string IllustrationPoint_WindDirection_DisplayName {
             get {

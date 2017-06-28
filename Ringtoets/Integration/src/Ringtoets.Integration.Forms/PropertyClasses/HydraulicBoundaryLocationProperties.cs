@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
@@ -193,11 +191,17 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        public IEnumerable<WindDirectionClosingSituationIllustrationPoint> IllustrationPoints
+        public IEnumerable<WindDirectionClosingSituationIllustrationPointProperties> IllustrationPoints
         {
             get
             {
-                return GetGeneralIllustrationPointsResult().WindDirectionClosingSituationIllustrationPoints;
+                return GetGeneralIllustrationPointsResult()
+                    .WindDirectionClosingSituationIllustrationPoints
+                    .Select(p => new WindDirectionClosingSituationIllustrationPointProperties
+                    {
+                        Data = p
+                    })
+                    .ToArray();
             }
         }
 

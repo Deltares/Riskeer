@@ -26,6 +26,10 @@ using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Converters
 {
+    /// <summary>
+    /// Defines a converter for arrays with elements. Properties generated for the array elements uses one
+    /// of the element's properties as a name and one of the element's properties as a value.
+    /// </summary>
     public class KeyValueExpandableArrayConverter : ArrayConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

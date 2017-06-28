@@ -1024,45 +1024,21 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Alfa's</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_Description" xml:space="preserve">
-    <value />
+    <value>Het sluitscenario waarvoor dit illustratiepunt is berekend.</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_DisplayName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Durations_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Durations_DisplayName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Probability_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Probability_DisplayName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Reliability_index_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Reliability_index_DisplayName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Stochasts_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IllustrationPoint_Stochasts_DisplayName" xml:space="preserve">
-    <value />
+    <value>Sluitscenario</value>
   </data>
   <data name="IllustrationPoint_Values_Description" xml:space="preserve">
-    <value />
+    <value>Realisaties van de stochasten in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Values_DisplayName" xml:space="preserve">
-    <value />
+    <value>Waarden in het illustratiepunt</value>
   </data>
   <data name="IllustrationPoint_WindDirection_Description" xml:space="preserve">
-    <value />
+    <value>De windrichting waarvoor dit illlustratiepunt is berekend.</value>
   </data>
   <data name="IllustrationPoint_WindDirection_DisplayName" xml:space="preserve">
-    <value />
+    <value>Windrichting</value>
   </data>
 </root>

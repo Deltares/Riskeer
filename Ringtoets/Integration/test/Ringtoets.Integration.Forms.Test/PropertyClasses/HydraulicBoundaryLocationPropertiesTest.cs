@@ -155,14 +155,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             true);
 
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.AlphaValues));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[4],
+            PropertyDescriptor alphaValuesProperty = dynamicProperties[4];
+            Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategory,
                                                                             "Alfa's",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.Durations));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[5],
+            PropertyDescriptor durationsProperty = dynamicProperties[5];
+            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategory,
                                                                             "Tijdsduren",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
