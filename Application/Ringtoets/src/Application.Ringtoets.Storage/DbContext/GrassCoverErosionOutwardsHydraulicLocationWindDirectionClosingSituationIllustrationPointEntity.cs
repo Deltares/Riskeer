@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
         public long GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntityId { get; set; }
-        public string Name { get; set; }
+        public string IllustrationPointName { get; set; }
         public string ClosingSituation { get; set; }
         public string WindDirectionName { get; set; }
         public double WindDirectionAngle { get; set; }
