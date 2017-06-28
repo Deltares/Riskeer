@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
@@ -42,6 +41,7 @@ namespace Demo.Ringtoets.Commands
         {
             this.viewCommands = viewCommands;
         }
+
         public bool Checked
         {
             get
@@ -57,25 +57,25 @@ namespace Demo.Ringtoets.Commands
             data.AddColumn("Column 2");
             data.AddColumn("Column 3");
 
-            data.AddRow("Row 1", new List<double>
+            data.AddRow("Row 1", new[]
             {
                 0.25,
                 0.60,
                 0.15
             });
-            data.AddRow("Row 2", new List<double>
+            data.AddRow("Row 2", new[]
             {
                 0.25,
                 0.20,
                 0.81
             });
-            data.AddRow("Row 3", new List<double>
+            data.AddRow("Row 3", new[]
             {
                 0.25,
                 0.10,
                 0.01
             });
-            data.AddRow("Row 4", new List<double>
+            data.AddRow("Row 4", new[]
             {
                 0.25,
                 0.10,

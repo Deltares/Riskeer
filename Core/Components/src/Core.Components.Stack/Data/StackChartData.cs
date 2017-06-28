@@ -100,7 +100,7 @@ namespace Core.Components.Stack.Data
         /// <see cref="Columns"/> added yet.</exception>
         /// <exception cref="ArgumentException">Thrown when the amount of 
         /// <paramref name="values"/> is not equal to the amount of <see cref="Columns"/>.</exception>
-        public void AddRow(string name, IEnumerable<double> values, Color? color = null)
+        public void AddRow(string name, double[] values, Color? color = null)
         {
             if (values == null)
             {
@@ -112,9 +112,9 @@ namespace Core.Components.Stack.Data
                 throw new InvalidOperationException("Cannot add rows before columns are added.");
             }
 
-            if (values.Count() != columns.Count)
+            if (values.Length != columns.Count)
             {
-                throw new ArgumentException("The number of value items must be the same as the number of columns.", nameof(values));
+                throw new ArgumentException(@"The number of value items must be the same as the number of columns.", nameof(values));
             }
 
             rows.Add(new RowChartData(name, values, color));

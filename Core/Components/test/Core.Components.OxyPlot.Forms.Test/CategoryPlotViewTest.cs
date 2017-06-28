@@ -56,7 +56,6 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsFalse(categoryAxis.IsZoomEnabled);
 
             LinearAxis linearAxis = axes.OfType<LinearAxis>().First();
-
             Assert.AreEqual(0, linearAxis.MinimumPadding);
             Assert.IsFalse(linearAxis.IsPanEnabled);
             Assert.IsFalse(linearAxis.IsZoomEnabled);

@@ -44,7 +44,7 @@ namespace Core.Components.OxyPlot.Converter.Stack
         }
 
         /// <summary>
-        /// Converts all general properties of <see cref="RowChartData"/> .
+        /// Converts all general properties of <see cref="RowChartData"/>
         /// from <paramref name="data"/> to <paramref name="series"/>.
         /// </summary>
         /// <param name="data">The row chart data to convert the general properties from.</param>

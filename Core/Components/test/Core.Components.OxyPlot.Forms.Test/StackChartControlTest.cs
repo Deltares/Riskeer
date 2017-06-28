@@ -61,12 +61,12 @@ namespace Core.Components.OxyPlot.Forms.Test
                 var data = new StackChartData();
                 data.AddColumn("Column 1");
                 data.AddColumn("Column 2");
-                data.AddRow("Row 1", new List<double>
+                data.AddRow("Row 1", new[]
                 {
                     0.4,
                     0.2
                 });
-                data.AddRow("Row 2", new List<double>
+                data.AddRow("Row 2", new[]
                 {
                     0.6,
                     0.8
@@ -91,12 +91,12 @@ namespace Core.Components.OxyPlot.Forms.Test
                 var data = new StackChartData();
                 data.AddColumn("Column 1");
                 data.AddColumn("Column 2");
-                data.AddRow("Row 1", new List<double>
+                data.AddRow("Row 1", new[]
                 {
                     0.4,
                     0.2
                 });
-                data.AddRow("Row 2", new List<double>
+                data.AddRow("Row 2", new[]
                 {
                     0.6,
                     0.8
@@ -113,12 +113,12 @@ namespace Core.Components.OxyPlot.Forms.Test
                 var newData = new StackChartData();
                 newData.AddColumn("Column 3");
                 newData.AddColumn("Column 4");
-                newData.AddRow("Row 3", new List<double>
+                newData.AddRow("Row 3", new[]
                 {
                     0.5,
                     0.7
                 });
-                newData.AddRow("Row 4", new List<double>
+                newData.AddRow("Row 4", new[]
                 {
                     0.5,
                     0.3
@@ -151,12 +151,12 @@ namespace Core.Components.OxyPlot.Forms.Test
                 var data = new StackChartData();
                 data.AddColumn("Column 1");
                 data.AddColumn("Column 2");
-                data.AddRow("Row 1", new List<double>
+                data.AddRow("Row 1", new[]
                 {
                     0.4,
                     0.2
                 });
-                data.AddRow("Row 2", new List<double>
+                data.AddRow("Row 2", new[]
                 {
                     0.6,
                     0.8
@@ -191,12 +191,12 @@ namespace Core.Components.OxyPlot.Forms.Test
                 var data = new StackChartData();
                 data.AddColumn("Column 1");
                 data.AddColumn("Column 2");
-                data.AddRow("Row 1", new List<double>
+                data.AddRow("Row 1", new[]
                 {
                     0.4,
                     0.2
                 });
-                data.AddRow("Row 2", new List<double>
+                data.AddRow("Row 2", new[]
                 {
                     0.6,
                     0.8
@@ -212,12 +212,12 @@ namespace Core.Components.OxyPlot.Forms.Test
                 data.Clear();
                 data.AddColumn("New column 1");
                 data.AddColumn("New column 2");
-                data.AddRow("New row 1", new List<double>
+                data.AddRow("New row 1", new[]
                 {
                     0.3,
                     0.8
                 });
-                data.AddRow("New row 2", new List<double>
+                data.AddRow("New row 2", new[]
                 {
                     0.8,
                     0.2
@@ -269,7 +269,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         private static void AssertSeries(IList<string> expectedSeriesTitles, CategoryPlotView plotView)
         {
             ElementCollection<Series> series = plotView.Model.Series;
-            Assert.AreEqual(expectedSeriesTitles.Count(), series.Count);
+            Assert.AreEqual(expectedSeriesTitles.Count, series.Count);
 
             for (var i = 0; i < expectedSeriesTitles.Count; i++)
             {

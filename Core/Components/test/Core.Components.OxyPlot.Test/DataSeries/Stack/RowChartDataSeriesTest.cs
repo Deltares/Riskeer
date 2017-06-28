@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Components.OxyPlot.DataSeries.Stack;
@@ -51,7 +50,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
             // Setup
             const string name = "data";
             Color color = Color.Blue;
-            var values = new List<double>
+            var values = new[]
             {
                 0.3,
                 0.5,

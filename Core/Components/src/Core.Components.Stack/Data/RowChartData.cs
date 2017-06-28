@@ -30,6 +30,8 @@ namespace Core.Components.Stack.Data
     /// </summary>
     public class RowChartData
     {
+        private readonly double[] values;
+
         /// <summary>
         /// Creates a new instance of <see cref="RowChartData"/>.
         /// </summary>
@@ -39,7 +41,7 @@ namespace Core.Components.Stack.Data
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="name"/> or <paramref name="values"/>
         /// is <c>null</c>.</exception>
-        public RowChartData(string name, IEnumerable<double> values, Color? color)
+        public RowChartData(string name, double[] values, Color? color)
         {
             if (name == null)
             {
@@ -50,7 +52,7 @@ namespace Core.Components.Stack.Data
                 throw new ArgumentNullException(nameof(values));
             }
             Name = name;
-            Values = values;
+            this.values = values;
             Color = color;
         }
 
@@ -67,6 +69,12 @@ namespace Core.Components.Stack.Data
         /// <summary>
         /// Gets the values of the row.
         /// </summary>
-        public IEnumerable<double> Values { get; }
+        public IEnumerable<double> Values
+        {
+            get
+            {
+                return values;
+            }
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
             data.AddColumn("Column 1");
             data.AddColumn("Column 2");
 
-            data.AddRow("Row 1", new List<double>
+            data.AddRow("Row 1", new[]
             {
                 0.1,
                 0.9
@@ -68,7 +68,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
 
             // Call
             IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(data);
-            
+
             // Assert
             Assert.AreEqual(data.Rows.Count(), series.Count());
         }

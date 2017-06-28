@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
@@ -58,7 +57,7 @@ namespace Core.Components.Stack.Test.Data
             // Setup
             const string name = "Row 1";
             Color color = Color.Blue;
-            var values = new List<double>
+            var values = new[]
             {
                 1.2,
                 2.3

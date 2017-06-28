@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -102,7 +101,10 @@ namespace Core.Components.Stack.Test.Data
             data.AddColumn("column 1");
 
             // Call
-            TestDelegate test = () => data.AddRow(null, new [] {1.0}, Color.White);
+            TestDelegate test = () => data.AddRow(null, new[]
+            {
+                1.0
+            }, Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -111,7 +113,7 @@ namespace Core.Components.Stack.Test.Data
 
         [Test]
         public void AddRow_ValuesNull_ThrowsArgumentNullException()
-        { 
+        {
             // Setup
             var data = new StackChartData();
             data.AddColumn("Column 1");
@@ -133,7 +135,7 @@ namespace Core.Components.Stack.Test.Data
             data.AddColumn("column 2");
 
             // Call
-            TestDelegate test = () => data.AddRow("test", new List<double>
+            TestDelegate test = () => data.AddRow("test", new[]
             {
                 2.1
             });
@@ -149,7 +151,7 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             const string name = "Row 1";
-            var values = new List<double>
+            var values = new[]
             {
                 1.2
             };
@@ -174,7 +176,7 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             const string name = "Row 1";
-            var values = new List<double>
+            var values = new[]
             {
                 1.2
             };
@@ -217,7 +219,7 @@ namespace Core.Components.Stack.Test.Data
             var data = new StackChartData();
             data.AddColumn("Column 1");
             data.AddColumn("Column 2");
-            data.AddRow("Row 1", new List<double>
+            data.AddRow("Row 1", new[]
             {
                 1.0,
                 2.0
