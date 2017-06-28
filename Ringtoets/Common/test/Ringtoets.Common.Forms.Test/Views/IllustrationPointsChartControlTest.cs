@@ -20,34 +20,23 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
-using Core.Components.Stack.Data;
+using NUnit.Framework;
+using Ringtoets.Common.Forms.Views;
 
-namespace Demo.Ringtoets.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
-    /// <summary>
-    /// This class represents a simple view with a stack chart, to which data can be added.
-    /// </summary>
-    public partial class StackChartDataView : UserControl, IView
+    [TestFixture]
+    public class IllustrationPointsChartControlTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="StackChartDataView"/>.
-        /// </summary>
-        public StackChartDataView()
+        [Test]
+        public void Constructor_ExpectedValues()
         {
-            InitializeComponent();
-        }
+            // Call
+            var chartControl = new IllustrationPointsChartControl();
 
-        public object Data
-        {
-            get
-            {
-                return stackChartControl.Data;
-            }
-            set
-            {
-                stackChartControl.Data = value as StackChartData;
-            }
+            // Assert
+            Assert.IsInstanceOf<UserControl>(chartControl);
+            Assert.IsNull(chartControl.Data);
         }
     }
 }

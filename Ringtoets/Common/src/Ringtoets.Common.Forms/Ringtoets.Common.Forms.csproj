@@ -38,8 +38,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -127,6 +129,12 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\IllustrationPointsChartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\IllustrationPointsChartControl.Designer.cs">
+      <DependentUpon>IllustrationPointsChartControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -185,6 +193,9 @@
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\IllustrationPointsChartControl.resx">
+      <DependentUpon>IllustrationPointsChartControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LocationsView.resx">
       <DependentUpon>LocationsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -238,7 +249,7 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
       <Name>Core.Components.Chart</Name>
       <Private>False</Private>
     </ProjectReference>
@@ -255,6 +266,21 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
+      <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
+      <Name>Core.Components.OxyPlot.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
+      <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>
+      <Name>Core.Components.Stack.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj">
+      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
+      <Name>Core.Components.Stack</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">

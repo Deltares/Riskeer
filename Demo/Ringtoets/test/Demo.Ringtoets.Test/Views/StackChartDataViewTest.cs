@@ -41,9 +41,8 @@ namespace Demo.Ringtoets.Test.Views
                 object chartObject = chartView.Controls[0];
                 Assert.IsInstanceOf<StackChartControl>(chartObject);
 
-                var chart = (StackChartControl)chartObject;
+                var chart = (StackChartControl) chartObject;
                 Assert.AreEqual(DockStyle.Fill, chart.Dock);
-                Assert.NotNull(chartView.Chart);
             }
         }
 

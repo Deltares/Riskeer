@@ -45,6 +45,7 @@ namespace Ringtoets.Common.Forms.Views
             this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.verticalSplitContainer = new System.Windows.Forms.SplitContainer();
             this.horizontalSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.illustrationPointsChartControl1 = new Ringtoets.Common.Forms.Views.IllustrationPointsChartControl();
             this.ButtonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.verticalSplitContainer)).BeginInit();
@@ -52,6 +53,7 @@ namespace Ringtoets.Common.Forms.Views
             this.verticalSplitContainer.Panel2.SuspendLayout();
             this.verticalSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.horizontalSplitContainer)).BeginInit();
+            this.horizontalSplitContainer.Panel1.SuspendLayout();
             this.horizontalSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,9 +141,21 @@ namespace Ringtoets.Common.Forms.Views
             this.horizontalSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.horizontalSplitContainer.Name = "horizontalSplitContainer";
             this.horizontalSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // horizontalSplitContainer.Panel1
+            // 
+            this.horizontalSplitContainer.Panel1.Controls.Add(this.illustrationPointsChartControl1);
             this.horizontalSplitContainer.Size = new System.Drawing.Size(373, 543);
             this.horizontalSplitContainer.SplitterDistance = 261;
             this.horizontalSplitContainer.TabIndex = 0;
+            // 
+            // illustrationPointsChartControl1
+            // 
+            this.illustrationPointsChartControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illustrationPointsChartControl1.Location = new System.Drawing.Point(0, 0);
+            this.illustrationPointsChartControl1.Name = "illustrationPointsChartControl1";
+            this.illustrationPointsChartControl1.Size = new System.Drawing.Size(371, 259);
+            this.illustrationPointsChartControl1.TabIndex = 0;
             // 
             // LocationsView
             // 
@@ -158,6 +172,7 @@ namespace Ringtoets.Common.Forms.Views
             this.verticalSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.verticalSplitContainer)).EndInit();
             this.verticalSplitContainer.ResumeLayout(false);
+            this.horizontalSplitContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.horizontalSplitContainer)).EndInit();
             this.horizontalSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -174,5 +189,6 @@ namespace Ringtoets.Common.Forms.Views
         private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
         private System.Windows.Forms.SplitContainer verticalSplitContainer;
         private System.Windows.Forms.SplitContainer horizontalSplitContainer;
+        private IllustrationPointsChartControl illustrationPointsChartControl1;
     }
 }

@@ -75,7 +75,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var horizontalSplitContainer = verticalSplitContainerPanel2Controls[0] as SplitContainer;
                 Assert.IsNotNull(horizontalSplitContainer);
 
-                CollectionAssert.IsEmpty(horizontalSplitContainer.Panel1.Controls);
+                Control.ControlCollection horizontalSplitContainerPanel1Controls = horizontalSplitContainer.Panel1.Controls;
+                Assert.AreEqual(1, horizontalSplitContainerPanel1Controls.Count);
+                Assert.IsInstanceOf<IllustrationPointsChartControl>(horizontalSplitContainerPanel1Controls[0]);
+
                 CollectionAssert.IsEmpty(horizontalSplitContainer.Panel2.Controls);
             }
         }
