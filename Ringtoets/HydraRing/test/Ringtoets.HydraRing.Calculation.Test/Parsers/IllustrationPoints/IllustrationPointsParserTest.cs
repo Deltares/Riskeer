@@ -227,26 +227,26 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             ICollection<FaultTreeIllustrationPoint> faultTrees = new List<FaultTreeIllustrationPoint>();
             ICollection<SubMechanismIllustrationPoint> subMechanisms = new List<SubMechanismIllustrationPoint>();
-            GetAllNodes(illustrationPointNodes.Values.First(), faultTrees, subMechanisms);
+            GetAllNodes(illustrationPointNodes.Values.ElementAt(4), faultTrees, subMechanisms);
 
             Assert.IsEmpty(faultTrees);
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.Single();
-            Assert.AreEqual(4.50094, subMechanismIllustrationPoint.Beta);
+            Assert.AreEqual(5.30273, subMechanismIllustrationPoint.Beta);
             Assert.AreEqual("Reference water level", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(new[]
             {
                 Tuple.Create("Windrichting", 0.0, 12.0, 0.0),
-                Tuple.Create("Waterstand IJsselmeer", -0.938446, 96.0, 0.905149),
-                Tuple.Create("Windsnelheid Schiphol 16 richtingen", 0.0031547, 12.0, 5.19222),
-                Tuple.Create("Onzekerheid waterstand IJsselmeer", -0.269114, 96.0, 0.200791),
-                Tuple.Create("Onzekerheid windsnelheid Schiphol 16 richtingen", 0.000277653, 12.0, 0.999941),
-                Tuple.Create("Modelonzekerheid lokale waterstand", -0.216534, 4383.0, 0.146191)
+                Tuple.Create("Waterstand IJsselmeer", -0.575813, 96.0, 0.464036),
+                Tuple.Create("Windsnelheid Schiphol 16 richtingen", -0.749296, 12.0, 19.289),
+                Tuple.Create("Onzekerheid waterstand IJsselmeer", -0.0695709, 96.0, 0.0146771),
+                Tuple.Create("Onzekerheid windsnelheid Schiphol 16 richtingen", -0.121567, 12.0, 1.0303),
+                Tuple.Create("Modelonzekerheid lokale waterstand", -0.295595, 4383.0, 0.235119)
             }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
             Assert.AreEqual(new[]
             {
-                Tuple.Create("Z", -5.48391e-05),
+                Tuple.Create("Z", -0.00136652),
                 Tuple.Create("Considered water level", 1.24846),
-                Tuple.Create("Computed local water level", 1.24852)
+                Tuple.Create("Computed local water level", 1.24983)
             }, subMechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value)));
         }
 

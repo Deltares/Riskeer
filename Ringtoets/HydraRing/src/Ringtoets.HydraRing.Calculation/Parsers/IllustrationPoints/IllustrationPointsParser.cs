@@ -145,14 +145,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
             foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in GetAllWindDirectionClosingSituationCombinations())
             {
-                string submechanismIllustrationPointName = subMechanisms.First().Value;
-                double subMechanismIllustrationPointBeta = subMechanismBetaValues.First().Value;
+                KeyValuePair<int, string> subMechanismIdName = subMechanisms.First();
+                string submechanismIllustrationPointName = subMechanismIdName.Value;
+
+                var key = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismIdName.Key);
+
+                double subMechanismIllustrationPointBeta = subMechanismBetaValues[key];
 
                 var illustrationPointStochasts = new List<RealizedStochast>();
-                AddRange(illustrationPointStochasts, subMechanismStochasts.First().Value);
+                AddRange(illustrationPointStochasts, subMechanismStochasts[key]);
 
                 var illustrationPointResults = new List<IllustrationPointResult>();
-                AddRange(illustrationPointResults, subMechanismResults.First().Value);
+                AddRange(illustrationPointResults, subMechanismResults[key]);
 
                 var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
                                                                           illustrationPointStochasts,
