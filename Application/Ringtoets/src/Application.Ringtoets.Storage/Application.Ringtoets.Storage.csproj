@@ -232,7 +232,13 @@
     </Compile>
     <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\IIllustrationPointResultEntity.cs" />
+    <Compile Include="DbContext\IRealizedStochastEntity.cs" />
+    <Compile Include="DbContext\IStochastEntity.cs" />
     <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity.cs" />
+    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity.cs" />
+    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationStochastEntity.cs" />
+    <Compile Include="DbContext\PartialHydraulicLocationRealizedStochastEntity.cs" />
+    <Compile Include="DbContext\PartialHydraulicLocationStochastEntity.cs" />
     <Compile Include="DbContext\PartialIllustrationPointResultEntity.cs" />
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>

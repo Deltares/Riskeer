@@ -19,34 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
-
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Application.Ringtoets.Storage.DbContext
 {
     /// <summary>
-    /// Container of alpha value definitions which contain a realization.
+    /// Interface for an alpha value definitions.
     /// </summary>
-    public class RealizedStochast : Stochast
+    public interface IStochastEntity
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RealizedStochast"/>.
+        /// Gets or sets the name of the stochast.
         /// </summary>
-        /// <param name="name">The name of the stochast.</param>
-        /// <param name="duration">The duration.</param>
-        /// <param name="alpha">The alpha value of the stochast.</param>
-        /// <param name="realization">The realization of the stochast.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
-        public RealizedStochast(string name, double duration, double alpha, double realization)
-            : base(name, duration, alpha)
-        {
-            Realization = new RoundedDouble(5, realization);
-        }
+        string Name { get; set; }
 
         /// <summary>
-        /// Gets the realization of the stochast.
+        /// Gets or sets the duration of the stochast.
         /// </summary>
-        public RoundedDouble Realization { get; }
+        double Duration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the alpha value of the stochast.
+        /// </summary>
+        double Alpha { get; set; }
     }
 }

@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity
+    public partial class GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity
     {
         public long GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntityId { get; set; }
         public long GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
