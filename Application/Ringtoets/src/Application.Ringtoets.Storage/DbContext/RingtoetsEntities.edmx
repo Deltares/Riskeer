@@ -406,6 +406,7 @@
           <Property Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" Type="integer" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Value" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
           <Key>
@@ -431,6 +432,7 @@
           <Property Name="Duration" Type="real" Nullable="false" />
           <Property Name="Alpha" Type="real" Nullable="false" />
           <Property Name="Realization" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationStochastEntity">
           <Key>
@@ -441,6 +443,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Duration" Type="real" Nullable="false" />
           <Property Name="Alpha" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
           <Key>
@@ -453,6 +456,7 @@
           <Property Name="WindDirectionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="WindDirectionAngle" Type="real" Nullable="false" />
           <Property Name="Beta" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -647,6 +651,7 @@
           <Property Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" Type="integer" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Value" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationOutputEntity">
           <Key>
@@ -672,6 +677,7 @@
           <Property Name="Duration" Type="real" Nullable="false" />
           <Property Name="Alpha" Type="real" Nullable="false" />
           <Property Name="Realization" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationStochastEntity">
           <Key>
@@ -682,6 +688,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Duration" Type="real" Nullable="false" />
           <Property Name="Alpha" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
           <Key>
@@ -694,6 +701,7 @@
           <Property Name="WindDirectionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="WindDirectionAngle" Type="real" Nullable="false" />
           <Property Name="Beta" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
@@ -3951,6 +3959,7 @@
           <Property Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" Type="Int64" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
@@ -3979,6 +3988,7 @@
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Alpha" Type="Double" Nullable="false" />
           <Property Name="Realization" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationStochastEntity">
@@ -3990,6 +4000,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Alpha" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationStochastEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationStochastEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
@@ -4003,6 +4014,7 @@
           <Property Name="WindDirectionName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="WindDirectionAngle" Type="Double" Nullable="false" />
           <Property Name="Beta" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity" />
@@ -4232,6 +4244,7 @@
           <Property Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" Type="Int64" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationIllustrationPointResultEntity_0_0" FromRole="HydraulicLocationIllustrationPointResultEntity" ToRole="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationOutputEntity">
@@ -4260,6 +4273,7 @@
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Alpha" Type="Double" Nullable="false" />
           <Property Name="Realization" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationRealizedStochastEntity_0_0" FromRole="HydraulicLocationRealizedStochastEntity" ToRole="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationStochastEntity">
@@ -4271,6 +4285,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Alpha" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationGeneralResultEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationStochastEntity_0_0" FromRole="HydraulicLocationStochastEntity" ToRole="HydraulicLocationGeneralResultEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
@@ -4284,6 +4299,7 @@
           <Property Name="WindDirectionName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="WindDirectionAngle" Type="Double" Nullable="false" />
           <Property Name="Beta" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationGeneralResultEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity_0_0" FromRole="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" ToRole="HydraulicLocationGeneralResultEntity" />
           <NavigationProperty Name="HydraulicLocationIllustrationPointResultEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationIllustrationPointResultEntity_0_0" FromRole="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" ToRole="HydraulicLocationIllustrationPointResultEntity" />
           <NavigationProperty Name="HydraulicLocationRealizedStochastEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationRealizedStochastEntity_0_0" FromRole="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity" ToRole="HydraulicLocationRealizedStochastEntity" />
@@ -6520,6 +6536,7 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" />
@@ -6545,6 +6562,7 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Realization" ColumnName="Realization" />
                 <ScalarProperty Name="Alpha" ColumnName="Alpha" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
@@ -6557,6 +6575,7 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationStochastEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationStochastEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationStochastEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Alpha" ColumnName="Alpha" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -6568,6 +6587,7 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Beta" ColumnName="Beta" />
                 <ScalarProperty Name="WindDirectionAngle" ColumnName="WindDirectionAngle" />
                 <ScalarProperty Name="WindDirectionName" ColumnName="WindDirectionName" />
@@ -6778,6 +6798,7 @@
           <EntitySetMapping Name="HydraulicLocationIllustrationPointResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationIllustrationPointResultEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationIllustrationPointResultEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" ColumnName="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId" />
@@ -6803,6 +6824,7 @@
           <EntitySetMapping Name="HydraulicLocationRealizedStochastEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationRealizedStochastEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationRealizedStochastEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Realization" ColumnName="Realization" />
                 <ScalarProperty Name="Alpha" ColumnName="Alpha" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
@@ -6815,6 +6837,7 @@
           <EntitySetMapping Name="HydraulicLocationStochastEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationStochastEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationStochastEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Alpha" ColumnName="Alpha" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -6826,6 +6849,7 @@
           <EntitySetMapping Name="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Beta" ColumnName="Beta" />
                 <ScalarProperty Name="WindDirectionAngle" ColumnName="WindDirectionAngle" />
                 <ScalarProperty Name="WindDirectionName" ColumnName="WindDirectionName" />

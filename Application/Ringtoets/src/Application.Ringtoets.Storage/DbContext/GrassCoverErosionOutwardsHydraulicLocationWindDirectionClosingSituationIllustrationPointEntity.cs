@@ -49,6 +49,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string WindDirectionName { get; set; }
         public double WindDirectionAngle { get; set; }
         public double Beta { get; set; }
+        public int Order { get; set; }
 
         public virtual GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity { get; set; }
 

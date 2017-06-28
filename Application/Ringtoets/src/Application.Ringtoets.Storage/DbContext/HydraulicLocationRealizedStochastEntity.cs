@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double Duration { get; set; }
         public double Alpha { get; set; }
         public double Realization { get; set; }
+        public int Order { get; set; }
 
         public virtual HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity { get; set; }
     }

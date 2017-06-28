@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
         public string Description { get; set; }
         public double Value { get; set; }
+        public int Order { get; set; }
 
         public virtual GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity { get; set; }
     }
