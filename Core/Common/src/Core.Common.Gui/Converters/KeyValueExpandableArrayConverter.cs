@@ -26,7 +26,7 @@ using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Converters
 {
-    public class KeyValueExpandableArrayConverter : ExpandableArrayConverter
+    public class KeyValueExpandableArrayConverter : ArrayConverter
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
@@ -43,6 +43,14 @@ namespace Core.Common.Gui.Converters
 
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
+            var keyValueAttribute = context?.PropertyDescriptor?.Attributes?[typeof(KeyValueElementAttribute)] as KeyValueElementAttribute;
+
+            if (keyValueAttribute == null)
+            {
+                throw new ArgumentException($"The {typeof(KeyValueExpandableArrayConverter).Name} can only be used on properties that have the " +
+                                            $"{typeof(KeyValueElementAttribute).Name} defined.");
+            }
+
             PropertyDescriptor[] properties = null;
             var array = value as Array;
             if (array != null)
@@ -50,23 +58,13 @@ namespace Core.Common.Gui.Converters
                 Type type = array.GetType();
                 Type elementType = type.GetElementType();
 
-                if (!typeof(KeyValueExpandableArrayElement).IsAssignableFrom(elementType))
-                {
-                    throw new ArgumentException($"Require elements in the array of type {typeof(KeyValueExpandableArrayElement).Name}.");
-                }
-
                 int length = array.GetLength(0);
                 properties = new PropertyDescriptor[length];
 
                 for (var index = 0; index < length; ++index)
                 {
-                    var keyValueExpandableArrayElement = array.GetValue(index) as KeyValueExpandableArrayElement;
-
-                    if (keyValueExpandableArrayElement == null)
-                    {
-                        throw new ArgumentException($"Require elements in the array to be not null.");
-                    }
-                    properties[index] = new ArrayPropertyDescriptor(keyValueExpandableArrayElement, type, elementType);
+                    object source = array.GetValue(index);
+                    properties[index] = new ArrayPropertyDescriptor(elementType, keyValueAttribute.GetName(source), keyValueAttribute.GetValue(source));
                 }
             }
             return new PropertyDescriptorCollection(properties);
@@ -77,14 +75,14 @@ namespace Core.Common.Gui.Converters
         /// Properties are named based the first item in the provided tuple and the value is
         /// based on the second item.
         /// </summary>
-        protected class ArrayPropertyDescriptor : SimplePropertyDescriptor
+        private class ArrayPropertyDescriptor : SimplePropertyDescriptor
         {
             private readonly object value;
 
-            public ArrayPropertyDescriptor(KeyValueExpandableArrayElement element, Type componentType, Type propertyType)
-                : base(componentType, Convert.ToString(element.Name), propertyType)
+            public ArrayPropertyDescriptor(Type elementType, string name, object value)
+                : base(elementType, name, value.GetType())
             {
-                value = element.Value;
+                this.value = value;
             }
 
             public override bool IsReadOnly
@@ -102,21 +100,8 @@ namespace Core.Common.Gui.Converters
 
             public override void SetValue(object component, object value)
             {
-                throw new NotImplementedException();
+                throw new NotSupportedException();
             }
         }
-    }
-
-    public class KeyValueExpandableArrayElement
-    {
-        public KeyValueExpandableArrayElement(string name, object value)
-        {
-            Name = name;
-            Value = value;
-        }
-
-        public string Name { get; }
-
-        public object Value { get;}
     }
 }

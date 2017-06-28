@@ -1,0 +1,90 @@
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Reflection;
+
+namespace Core.Common.Gui.Converters
+{
+    /// <summary>
+    /// Attribute when using the <see cref="KeyValueExpandableArrayConverter"/> to define what is
+    /// shown as name and value for eache element.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class KeyValueElementAttribute : Attribute
+    {
+        private readonly string namePropertyName;
+        private readonly string valuePropertyName;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="KeyValueElementAttribute"/>.
+        /// </summary>
+        /// <param name="namePropertyName">The name of the property to show as name.</param>
+        /// <param name="valuePropertyName">The name of the property to show as value.</param>
+        public KeyValueElementAttribute(string namePropertyName, string valuePropertyName)
+        {
+            this.namePropertyName = namePropertyName;
+            this.valuePropertyName = valuePropertyName;
+            if (valuePropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(valuePropertyName));
+            }
+            if (namePropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(namePropertyName));
+            }
+        }
+
+        /// <summary>
+        /// Gets the property value from the <paramref name="source"/> that is used
+        /// as name.
+        /// </summary>
+        /// <param name="source">The source to obtain the property value of.</param>
+        /// <returns>The value used as name of the property.</returns>
+        public string GetName(object source)
+        {
+            PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
+            if (namePropertyInfo == null)
+            {
+                throw new ArgumentException($"Key property '{namePropertyName}' was not found on type {source.GetType().Name}.");
+            }
+
+            return Convert.ToString(namePropertyInfo.GetValue(source, new object[0]));
+        }
+
+        /// <summary>
+        /// Gets the property value from the <paramref name="source"/> that is used
+        /// as value.
+        /// </summary>
+        /// <param name="source">The source to obtain the property value of.</param>
+        /// <returns>The value used as value of the property.</returns>
+        public string GetValue(object source)
+        {
+            PropertyInfo valuePropertyInfo = source.GetType().GetProperty(valuePropertyName);
+            if (valuePropertyInfo == null)
+            {
+                throw new ArgumentException($"Key property '{valuePropertyName}' was not found on type {source.GetType().Name}.");
+            }
+
+            return Convert.ToString(valuePropertyInfo.GetValue(source, new object[0]));
+        }
+    }
+}

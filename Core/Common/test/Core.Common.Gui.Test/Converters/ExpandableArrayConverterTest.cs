@@ -54,7 +54,7 @@ namespace Core.Common.Gui.Test.Converters
             object text = converter.ConvertTo(sourceArray, typeof(string));
 
             // Assert
-            Assert.AreEqual(string.Format("Aantal ({0})", arrayCount), text);
+            Assert.AreEqual($"Aantal ({arrayCount})", text);
         }
 
         [Test]

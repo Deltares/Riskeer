@@ -163,11 +163,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        public KeyValueExpandableArrayElement[] AlphaValues
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
+        public Stochast[] AlphaValues
         {
             get
             {
-                return GetGeneralIllustrationPointsResult().Stochasts.Select(s => new KeyValueExpandableArrayElement(s.Name, s.Alpha)).ToArray();
+                return GetGeneralIllustrationPointsResult().Stochasts.ToArray();
             }
         }
 
@@ -177,11 +178,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        public KeyValueExpandableArrayElement[] Durations
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
+        public Stochast[] Durations
         {
             get
             {
-                return GetGeneralIllustrationPointsResult().Stochasts.Select(s => new KeyValueExpandableArrayElement(s.Name, s.Duration)).ToArray();
+                return GetGeneralIllustrationPointsResult().Stochasts.ToArray();
             }
         }
 
