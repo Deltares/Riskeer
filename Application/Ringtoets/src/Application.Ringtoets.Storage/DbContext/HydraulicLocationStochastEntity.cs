@@ -34,11 +34,11 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long HydraulicLocationStochastEntityId { get; set; }
         public long HydraulicLocationGeneralResultEntityId { get; set; }
-        public string Name { get; set; }
-        public double Duration { get; set; }
-        public double Alpha { get; set; }
         public int Order { get; set; }
 
         public virtual HydraulicLocationGeneralResultEntity HydraulicLocationGeneralResultEntity { get; set; }
+        public string Name { get; set; }
+        public double Duration { get; set; }
+        public double Alpha { get; set; }
     }
 }

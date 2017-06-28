@@ -34,10 +34,10 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntityId { get; set; }
         public long GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
-        public string Description { get; set; }
-        public double Value { get; set; }
         public int Order { get; set; }
 
         public virtual GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity { get; set; }
+        public string Description { get; set; }
+        public double Value { get; set; }
     }
 }
