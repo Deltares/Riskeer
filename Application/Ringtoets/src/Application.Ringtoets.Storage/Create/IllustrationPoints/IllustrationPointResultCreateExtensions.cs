@@ -19,13 +19,75 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="IllustrationPointResult"/> related to creating a <see cref="IIllustrationPointResultEntity"/>.
+    /// Extension methods for <see cref="IllustrationPointResult"/> related to creating an instance 
+    /// of <see cref="IIllustrationPointResultEntity"/>.
     /// </summary>
-    internal static class IllustrationPointResultCreateExtensions {}
+    internal static class IllustrationPointResultCreateExtensions
+    {
+        /// <summary>
+        /// Creates a <see cref="HydraulicLocationIllustrationPointResultEntity"/> based on the 
+        /// information of the <paramref name="illustrationPointResult"/>.
+        /// </summary>
+        /// <param name="illustrationPointResult">The illustration point result to create a database 
+        /// entity for.</param>
+        /// <param name="order">The index at which <paramref name="illustrationPointResult"/> 
+        /// resides within its parent.</param>
+        /// <returns>A new <see cref="HydraulicLocationIllustrationPointResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointResult"/> 
+        /// is <c>null</c>.</exception>
+        public static HydraulicLocationIllustrationPointResultEntity CreateHydraulicLocationIllustrationPointResultEntity(
+            this IllustrationPointResult illustrationPointResult, int order)
+        {
+            if (illustrationPointResult == null)
+            {
+                throw new ArgumentNullException(nameof(illustrationPointResult));
+            }
+
+            var entity = new HydraulicLocationIllustrationPointResultEntity
+            {
+                Description = illustrationPointResult.Description.DeepClone(),
+                Value = illustrationPointResult.Value,
+                Order = order
+            };
+
+            return entity;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity"/> based on the 
+        /// information of the <paramref name="illustrationPointResult"/>.
+        /// </summary>
+        /// <param name="illustrationPointResult">The illustration point result to create a database 
+        /// entity for.</param>
+        /// <param name="order">The index at which <paramref name="illustrationPointResult"/> 
+        /// resides within its parent.</param>
+        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointResult"/> 
+        /// is <c>null</c>.</exception>
+        public static GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity CreateGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity(
+            this IllustrationPointResult illustrationPointResult, int order)
+        {
+            if (illustrationPointResult == null)
+            {
+                throw new ArgumentNullException(nameof(illustrationPointResult));
+            }
+
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity
+            {
+                Description = illustrationPointResult.Description.DeepClone(),
+                Value = illustrationPointResult.Value,
+                Order = order
+            };
+
+            return entity;
+        }
+    }
 }

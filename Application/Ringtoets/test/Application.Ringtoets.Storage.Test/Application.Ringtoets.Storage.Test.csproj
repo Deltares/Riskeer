@@ -122,6 +122,7 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IStructureCalculationEntityReadExtensionsTest.cs" />
