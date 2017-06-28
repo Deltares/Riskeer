@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -35,6 +36,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
@@ -99,20 +101,67 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
         {
             // Call
-            using (GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView())
-            {
-                var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
-                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
-                selectedLocationRow.Cells[0].Value = true;
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
 
-                // Assert
-                var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
-                var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+            selectedLocationRow.Cells[0].Value = true;
 
-                Assert.NotNull(selection);
-                Assert.NotNull(dataBoundItem);
-                Assert.AreSame(dataBoundItem.CalculatableObject, selection.HydraulicBoundaryLocation);
-            }
+            // Assert
+            var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
+            var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
+
+            Assert.NotNull(selection);
+            Assert.NotNull(dataBoundItem);
+            Assert.AreSame(dataBoundItem.CalculatableObject, selection.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void Selection_LocationWithoutOutput_ChartControlDataSetToNull()
+        {
+            // Setup
+            ShowFullyConfiguredDesignWaterLevelLocationsView();
+            var chartControl = (IllustrationPointsChartControl) testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+
+            // Call
+            dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
+
+            // Assert
+            Assert.IsNull(chartControl.Data);
+        }
+
+        [Test]
+        public void Selection_LocationWithoutGeneralResult_ChartControlDataSetToNull()
+        {
+            // Setup
+            ShowFullyConfiguredDesignWaterLevelLocationsView();
+            var chartControl = (IllustrationPointsChartControl) testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+
+            // Call
+            dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
+
+            // Assert
+            Assert.IsNull(chartControl.Data);
+        }
+
+        [Test]
+        public void Selection_LocationWithGeneralResult_GeneralResultSetOnChartData()
+        {
+            // Setup
+            ShowFullyConfiguredDesignWaterLevelLocationsView();
+            var chartControl = (IllustrationPointsChartControl) testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+
+            // Call
+            dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
+
+            // Assert
+            Assert.IsNotNull(chartControl.Data);
         }
 
         [Test]
@@ -191,7 +240,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Assert
             var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(4, rows.Count);
+            Assert.AreEqual(5, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -228,6 +277,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+
+            cells = rows[4].Cells;
+            Assert.AreEqual(6, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+            Assert.AreEqual("5", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("5", cells[locationIdColumnIndex].FormattedValue);
+            Assert.AreEqual(new Point2D(5, 5).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -242,7 +300,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             object dataGridViewSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
-            Assert.AreEqual(4, rows.Count);
+            Assert.AreEqual(5, rows.Count);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
@@ -286,11 +344,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Precondition
             var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(4, rows.Count);
+            Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[3].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
 
@@ -302,11 +361,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(refreshed);
-            Assert.AreEqual(4, rows.Count);
+            Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[3].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[4].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -438,6 +498,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
         {
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
+
+            var output = new TestHydraulicBoundaryLocationOutput(1.01);
+            output.SetIllustrationPoints(new TestGeneralResult());
             view.Data = new ObservableList<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
@@ -463,6 +526,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                         {
                             ShouldIllustrationPointsBeCalculated = true
                         }
+                    }
+                },
+                new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
+                {
+                    DesignWaterLevelCalculation =
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        },
+                        Output = output
                     }
                 }
             };

@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -180,6 +181,8 @@ namespace Ringtoets.Common.Forms.Views
         private void OnSelectionChanged()
         {
             SelectionChanged?.Invoke(this, new EventArgs());
+
+            illustrationPointsChartControl.Data = GetGeneralIllustrationPointsResult();
         }
 
         #region Event handling
@@ -201,6 +204,13 @@ namespace Ringtoets.Common.Forms.Views
 
             OnSelectionChanged();
         }
+
+        /// <summary>
+        /// Gets the general illustration points result.
+        /// </summary>
+        /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
+        /// otherwise.</returns>
+        protected abstract GeneralResult GetGeneralIllustrationPointsResult();
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {

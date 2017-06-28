@@ -27,6 +27,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -326,6 +327,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                     .Where(r => r.ShouldCalculate)
                     .Cast<TestCalculatableRow>()
                     .Select(row => row.CalculatableObject);
+            }
+
+            protected override GeneralResult GetGeneralIllustrationPointsResult()
+            {
+                return null;
             }
         }
     }

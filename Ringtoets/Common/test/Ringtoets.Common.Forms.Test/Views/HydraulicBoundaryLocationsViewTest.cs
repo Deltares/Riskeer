@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -268,6 +269,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
 
             protected override object CreateSelectedItemFromCurrentRow()
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override GeneralResult GetGeneralIllustrationPointsResult()
             {
                 throw new NotImplementedException();
             }

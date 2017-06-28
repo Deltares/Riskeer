@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
@@ -113,6 +114,22 @@ namespace Ringtoets.Integration.Forms.Views
             hydraulicBoundaryDatabaseObserver.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        {
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
+            if (currentRow == null)
+            {
+                return null;
+            }
+
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
+
+            return location.DesignWaterLevelCalculation.HasOutput
+                   && location.DesignWaterLevelCalculation.Output.HasIllustrationPoints
+                       ? location.DesignWaterLevelCalculation.Output.GeneralResult
+                       : null;
         }
 
         private void UpdateHydraulicBoundaryDatabase()

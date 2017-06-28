@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -158,6 +159,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
 
             return base.ValidateCalculatableObjects();
+        }
+
+        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        {
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
+            if (currentRow == null)
+            {
+                return null;
+            }
+
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
+
+            return location.WaveHeightCalculation.HasOutput
+                   && location.WaveHeightCalculation.Output.HasIllustrationPoints
+                       ? location.WaveHeightCalculation.Output.GeneralResult
+                       : null;
         }
 
         private void UpdateHydraulicBoundaryLocations()

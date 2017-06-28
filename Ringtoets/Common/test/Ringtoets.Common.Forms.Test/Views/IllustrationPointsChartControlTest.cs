@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Components.Stack.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
 
@@ -37,6 +38,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<UserControl>(chartControl);
             Assert.IsNull(chartControl.Data);
+            Assert.AreEqual(1, chartControl.Controls.Count);
+            Assert.IsInstanceOf<IStackChartControl>(chartControl.Controls[0]);
         }
     }
 }
