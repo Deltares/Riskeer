@@ -136,6 +136,12 @@
     <Compile Include="Views\IllustrationPointsChartControl.Designer.cs">
       <DependentUpon>IllustrationPointsChartControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IllustrationPointsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\IllustrationPointsControl.Designer.cs">
+      <DependentUpon>IllustrationPointsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\IllustrationPointsChartControl.resx">
       <DependentUpon>IllustrationPointsChartControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\IllustrationPointsControl.resx">
+      <DependentUpon>IllustrationPointsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LocationsView.resx">
       <DependentUpon>LocationsView.cs</DependentUpon>

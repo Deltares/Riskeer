@@ -64,23 +64,16 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 Assert.AreEqual(1, view.Controls.Count);
 
-                var verticalSplitContainer = view.Controls[0] as SplitContainer;
-                Assert.IsNotNull(verticalSplitContainer);
-                Control.ControlCollection verticalSplitContainerPanel1Controls = verticalSplitContainer.Panel1.Controls;
+                var splitContainer = view.Controls[0] as SplitContainer;
+                Assert.IsNotNull(splitContainer);
+                Control.ControlCollection verticalSplitContainerPanel1Controls = splitContainer.Panel1.Controls;
                 Assert.AreEqual(2, verticalSplitContainerPanel1Controls.Count);
                 Assert.IsInstanceOf<DataGridViewControl>(verticalSplitContainerPanel1Controls[0]);
                 Assert.IsInstanceOf<GroupBox>(verticalSplitContainerPanel1Controls[1]);
 
-                Control.ControlCollection verticalSplitContainerPanel2Controls = verticalSplitContainer.Panel2.Controls;
+                Control.ControlCollection verticalSplitContainerPanel2Controls = splitContainer.Panel2.Controls;
                 Assert.AreEqual(1, verticalSplitContainerPanel2Controls.Count);
-                var horizontalSplitContainer = verticalSplitContainerPanel2Controls[0] as SplitContainer;
-                Assert.IsNotNull(horizontalSplitContainer);
-
-                Control.ControlCollection horizontalSplitContainerPanel1Controls = horizontalSplitContainer.Panel1.Controls;
-                Assert.AreEqual(1, horizontalSplitContainerPanel1Controls.Count);
-                Assert.IsInstanceOf<IllustrationPointsChartControl>(horizontalSplitContainerPanel1Controls[0]);
-
-                CollectionAssert.IsEmpty(horizontalSplitContainer.Panel2.Controls);
+                Assert.IsInstanceOf<IllustrationPointsControl>(verticalSplitContainerPanel2Controls[0]);
             }
         }
 

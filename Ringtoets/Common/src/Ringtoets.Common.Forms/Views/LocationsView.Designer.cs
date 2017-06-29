@@ -45,18 +45,14 @@ namespace Ringtoets.Common.Forms.Views
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
             this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.verticalSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.horizontalSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.illustrationPointsChartControl = new Ringtoets.Common.Forms.Views.IllustrationPointsChartControl();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.illustrationPointsControl = new Ringtoets.Common.Forms.Views.IllustrationPointsControl();
             this.ButtonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.verticalSplitContainer)).BeginInit();
-            this.verticalSplitContainer.Panel1.SuspendLayout();
-            this.verticalSplitContainer.Panel2.SuspendLayout();
-            this.verticalSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.horizontalSplitContainer)).BeginInit();
-            this.horizontalSplitContainer.Panel1.SuspendLayout();
-            this.horizontalSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -118,50 +114,34 @@ namespace Ringtoets.Common.Forms.Views
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
             this.CalculateForSelectedButtonErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
             // 
-            // verticalSplitContainer
+            // splitContainer
             // 
-            this.verticalSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.verticalSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.verticalSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.verticalSplitContainer.Name = "verticalSplitContainer";
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Name = "splitContainer";
             // 
-            // verticalSplitContainer.Panel1
+            // splitContainer.Panel1
             // 
-            this.verticalSplitContainer.Panel1.AutoScroll = true;
-            this.verticalSplitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(440, 0);
-            this.verticalSplitContainer.Panel1.Controls.Add(this.dataGridViewControl);
-            this.verticalSplitContainer.Panel1.Controls.Add(this.ButtonGroupBox);
+            this.splitContainer.Panel1.AutoScroll = true;
+            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(440, 0);
+            this.splitContainer.Panel1.Controls.Add(this.dataGridViewControl);
+            this.splitContainer.Panel1.Controls.Add(this.ButtonGroupBox);
             // 
-            // verticalSplitContainer.Panel2
+            // splitContainer.Panel2
             // 
-            this.verticalSplitContainer.Panel2.Controls.Add(this.horizontalSplitContainer);
-            this.verticalSplitContainer.Size = new System.Drawing.Size(822, 543);
-            this.verticalSplitContainer.SplitterDistance = 445;
-            this.verticalSplitContainer.TabIndex = 1;
+            this.splitContainer.Panel2.Controls.Add(this.illustrationPointsControl);
+            this.splitContainer.Size = new System.Drawing.Size(822, 543);
+            this.splitContainer.SplitterDistance = 445;
+            this.splitContainer.TabIndex = 1;
             // 
-            // horizontalSplitContainer
+            // illustrationPointsControl
             // 
-            this.horizontalSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.horizontalSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.horizontalSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.horizontalSplitContainer.Name = "horizontalSplitContainer";
-            this.horizontalSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // horizontalSplitContainer.Panel1
-            // 
-            this.horizontalSplitContainer.Panel1.Controls.Add(this.illustrationPointsChartControl);
-            this.horizontalSplitContainer.Size = new System.Drawing.Size(373, 543);
-            this.horizontalSplitContainer.SplitterDistance = 261;
-            this.horizontalSplitContainer.TabIndex = 0;
-            // 
-            // illustrationPointsChartControl
-            // 
-            this.illustrationPointsChartControl.Data = null;
-            this.illustrationPointsChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.illustrationPointsChartControl.Location = new System.Drawing.Point(0, 0);
-            this.illustrationPointsChartControl.Name = "illustrationPointsChartControl";
-            this.illustrationPointsChartControl.Size = new System.Drawing.Size(371, 259);
-            this.illustrationPointsChartControl.TabIndex = 0;
+            this.illustrationPointsControl.Data = null;
+            this.illustrationPointsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illustrationPointsControl.Location = new System.Drawing.Point(0, 0);
+            this.illustrationPointsControl.Name = "illustrationPointsControl";
+            this.illustrationPointsControl.Size = new System.Drawing.Size(371, 541);
+            this.illustrationPointsControl.TabIndex = 0;
             // 
             // LocationsView
             // 
@@ -169,18 +149,15 @@ namespace Ringtoets.Common.Forms.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
-            this.Controls.Add(this.verticalSplitContainer);
+            this.Controls.Add(this.splitContainer);
             this.Name = "LocationsView";
             this.Size = new System.Drawing.Size(822, 543);
             this.ButtonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();
-            this.verticalSplitContainer.Panel1.ResumeLayout(false);
-            this.verticalSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.verticalSplitContainer)).EndInit();
-            this.verticalSplitContainer.ResumeLayout(false);
-            this.horizontalSplitContainer.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.horizontalSplitContainer)).EndInit();
-            this.horizontalSplitContainer.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -193,8 +170,7 @@ namespace Ringtoets.Common.Forms.Views
         private System.Windows.Forms.Button SelectAllButton;
         protected System.Windows.Forms.GroupBox ButtonGroupBox;
         private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
-        private System.Windows.Forms.SplitContainer verticalSplitContainer;
-        private System.Windows.Forms.SplitContainer horizontalSplitContainer;
-        private IllustrationPointsChartControl illustrationPointsChartControl;
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private IllustrationPointsControl illustrationPointsControl;
     }
 }

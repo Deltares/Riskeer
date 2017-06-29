@@ -118,6 +118,7 @@
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
     <Compile Include="Views\CalculatableRowTest.cs" />
     <Compile Include="Views\IllustrationPointsChartControlTest.cs" />
+    <Compile Include="Views\IllustrationPointsControlTest.cs" />
     <Compile Include="Views\LocationsViewTest.cs" />
     <Compile Include="Views\FailureMechanismViewTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />

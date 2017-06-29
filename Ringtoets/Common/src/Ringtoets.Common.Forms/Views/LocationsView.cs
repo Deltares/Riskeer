@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             SelectionChanged?.Invoke(this, new EventArgs());
 
-            illustrationPointsChartControl.Data = GetGeneralIllustrationPointsResult();
+            illustrationPointsControl.Data = GetGeneralIllustrationPointsResult();
         }
 
         #region Event handling
