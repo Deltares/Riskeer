@@ -26,6 +26,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
@@ -39,32 +40,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
     {
-        [PropertyOrder(1)]
-        public override long Id
-        {
-            get
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationContextProperties"/>.
+        /// </summary>
+        public GrassCoverErosionOutwardsWaveHeightLocationContextProperties()
+            : base(new ConstructionProperties
             {
-                return base.Id;
-            }
-        }
-
-        [PropertyOrder(2)]
-        public override string Name
-        {
-            get
-            {
-                return base.Name;
-            }
-        }
-
-        [PropertyOrder(3)]
-        public override Point2D Location
-        {
-            get
-            {
-                return base.Location;
-            }
-        }
+                IdIndex = 1,
+                NameIndex = 2,
+                LocationIndex = 3,
+                GoverningWindDirectionIndex = 10,
+                StochastsIndex = 11,
+                DurationsIndex = 12,
+                IllustrationPointsIndex = 13
+            }) { }
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -145,6 +134,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.WaveHeightCalculationConvergence).DisplayName;
             }
+        }
+
+        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        {
+            if (data.HydraulicBoundaryLocation.WaveHeightCalculation.HasOutput
+                && data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.HasIllustrationPoints)
+            {
+                return data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.GeneralResult;
+            }
+            return null;
         }
     }
 }

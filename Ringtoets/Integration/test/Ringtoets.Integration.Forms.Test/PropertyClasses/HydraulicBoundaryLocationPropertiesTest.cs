@@ -210,13 +210,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
-            Assert.AreEqual(dynamicProperties[0].Name, nameof(HydraulicBoundaryLocationProperties.IllustrationPoints));
-            Assert.AreEqual(dynamicProperties[1].Name, nameof(HydraulicBoundaryLocationProperties.Id));
-            Assert.AreEqual(dynamicProperties[2].Name, nameof(HydraulicBoundaryLocationProperties.Name));
-            Assert.AreEqual(dynamicProperties[3].Name, nameof(HydraulicBoundaryLocationProperties.Location));
-            Assert.AreEqual(dynamicProperties[4].Name, nameof(HydraulicBoundaryLocationProperties.GoverningWindDirection));
-            Assert.AreEqual(dynamicProperties[5].Name, nameof(HydraulicBoundaryLocationProperties.AlphaValues));
-            Assert.AreEqual(dynamicProperties[6].Name, nameof(HydraulicBoundaryLocationProperties.Durations));
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints), dynamicProperties[0].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Id), dynamicProperties[1].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Name), dynamicProperties[2].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Location), dynamicProperties[3].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.GoverningWindDirection), dynamicProperties[4].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.AlphaValues), dynamicProperties[5].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Durations), dynamicProperties[6].Name);
         }
 
         [Test]
@@ -240,9 +240,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            Assert.AreEqual(dynamicProperties[0].Name, nameof(HydraulicBoundaryLocationProperties.Id));
-            Assert.AreEqual(dynamicProperties[1].Name, nameof(HydraulicBoundaryLocationProperties.Name));
-            Assert.AreEqual(dynamicProperties[2].Name, nameof(HydraulicBoundaryLocationProperties.Location));
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Id), dynamicProperties[0].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Name), dynamicProperties[1].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Location), dynamicProperties[2].Name);
         }
 
         private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties

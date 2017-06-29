@@ -19,21 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
 using System.ComponentModel;
-using Core.Common.Base.Geometry;
+using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Integration.Forms.PropertyClasses;
-using System;
-using System.Linq;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class WindDirectionClosingSituationIllustrationPointPropertiesTest

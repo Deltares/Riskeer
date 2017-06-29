@@ -38,6 +38,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class WaveHeightLocationContextProperties : HydraulicBoundaryLocationProperties
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveHeightLocationContextProperties"/>.
+        /// </summary>
         public WaveHeightLocationContextProperties()
             : base(new ConstructionProperties
             {

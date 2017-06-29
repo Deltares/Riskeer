@@ -102,6 +102,7 @@
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactory.cs" />
+    <Compile Include="PropertyClasses\WindDirectionClosingSituationIllustrationPointProperties.cs" />
     <Compile Include="ScenarioSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

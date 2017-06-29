@@ -19,11 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -36,6 +42,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties :
         ObjectProperties<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>
     {
+        private readonly Dictionary<string, int> propertyIndexLookup;
+
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties(ConstructionProperties propertyIndexes)
+        {
+            propertyIndexLookup = new Dictionary<string, int>
+            {
+                {
+                    nameof(Id), propertyIndexes.IdIndex
+                },
+                {
+                    nameof(Name), propertyIndexes.NameIndex
+                },
+                {
+                    nameof(Location), propertyIndexes.LocationIndex
+                },
+                {
+                    nameof(GoverningWindDirection), propertyIndexes.GoverningWindDirectionIndex
+                },
+                {
+                    nameof(AlphaValues), propertyIndexes.StochastsIndex
+                },
+                {
+                    nameof(Durations), propertyIndexes.DurationsIndex
+                },
+                {
+                    nameof(IllustrationPoints), propertyIndexes.IllustrationPointsIndex
+                }
+            };
+        }
+
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_Description))]
@@ -47,6 +84,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_Description))]
@@ -58,6 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
@@ -69,9 +108,115 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
+        public string GoverningWindDirection
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().GoverningWindDirection.Name;
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
+        public Stochast[] AlphaValues
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().Stochasts.ToArray();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
+        public Stochast[] Durations
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult().Stochasts.ToArray();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public IEnumerable<WindDirectionClosingSituationIllustrationPointProperties> IllustrationPoints
+        {
+            get
+            {
+                return GetGeneralIllustrationPointsResult()
+                    .WindDirectionClosingSituationIllustrationPoints
+                    .Select(p => new WindDirectionClosingSituationIllustrationPointProperties
+                    {
+                        Data = p
+                    })
+                    .ToArray();
+            }
+        }
+
+        [DynamicPropertyOrderEvaluationMethod]
+        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
+        {
+            int propertyIndex;
+
+            propertyIndexLookup.TryGetValue(propertyName, out propertyIndex);
+
+            return propertyIndex;
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            bool hasGeneralIllustrationPointsResult = GetGeneralIllustrationPointsResult() != null;
+            if (propertyName == nameof(GoverningWindDirection)
+                || propertyName == nameof(AlphaValues)
+                || propertyName == nameof(Durations)
+                || propertyName == nameof(IllustrationPoints))
+            {
+                return hasGeneralIllustrationPointsResult;
+            }
+
+            return true;
+        }
+
         public override string ToString()
         {
-            return string.Format("{0} {1}", Name, Location);
+            return $"{Name} {Location}";
+        }
+
+        /// <summary>
+        /// Gets the general illustration points result.
+        /// </summary>
+        /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
+        /// otherwise.</returns>
+        protected abstract GeneralResult GetGeneralIllustrationPointsResult();
+
+        public class ConstructionProperties
+        {
+            public int IdIndex { get; set; } = 1;
+            public int NameIndex { get; set; } = 2;
+            public int LocationIndex { get; set; } = 3;
+            public int GoverningWindDirectionIndex { get; set; } = 4;
+            public int StochastsIndex { get; set; } = 5;
+            public int DurationsIndex { get; set; } = 6;
+            public int IllustrationPointsIndex { get; set; } = 7;
         }
     }
 }
