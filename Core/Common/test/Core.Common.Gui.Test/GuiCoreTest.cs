@@ -1231,7 +1231,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithoutSelection_WhenSelectionProviderAdded_ThenSelectionSynced()
+        public void GivenGuiWithoutSelection_WhenSelectionProviderAddedAndFocussed_ThenSelectionSynced()
         {
             // Given
             var mocks = new MockRepository();
@@ -1251,6 +1251,7 @@ namespace Core.Common.Gui.Test
 
                 // When
                 gui.ViewHost.AddDocumentView(selectionProvider);
+                gui.ViewHost.SetFocusToView(selectionProvider);
 
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
@@ -1260,7 +1261,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenSelectionProviderAdded_ThenSelectionSynced()
+        public void GivenGuiWithRandomSelection_WhenSelectionProviderAddedAndFocussed_ThenSelectionSynced()
         {
             // Given
             var mocks = new MockRepository();
@@ -1279,6 +1280,7 @@ namespace Core.Common.Gui.Test
 
                 // When
                 gui.ViewHost.AddDocumentView(selectionProvider);
+                gui.ViewHost.SetFocusToView(selectionProvider);
 
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
@@ -1316,7 +1318,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenSelectionChangedOnAddedSelectionProvider_ThenSelectionSynced()
+        public void GivenGuiWithRandomSelection_WhenSelectionChangedOnAddedAndFocussedSelectionProvider_ThenSelectionSynced()
         {
             // Given
             var mocks = new MockRepository();
@@ -1331,6 +1333,7 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
+                gui.ViewHost.SetFocusToView(selectionProvider);
 
                 gui.Selection = new object();
 
@@ -1481,6 +1484,7 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
+                gui.ViewHost.SetFocusToView(selectionProvider);
 
                 // Precondition
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);

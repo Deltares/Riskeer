@@ -64,7 +64,7 @@ namespace Core.Common.Gui
         private static string instanceCreationStackTrace;
 
         private readonly Observer projectObserver;
-        private readonly IList<ISelectionProvider> selectionProviders = new List<ISelectionProvider>();
+        private ISelectionProvider currentSelectionProvider;
 
         private bool isExiting;
         private bool runFinished;
@@ -253,16 +253,15 @@ namespace Core.Common.Gui
                 if (ViewHost != null)
                 {
                     ViewHost.Dispose();
-                    ViewHost.ViewOpened -= OnViewOpened;
                     ViewHost.ViewClosed -= OnViewClosed;
                     ViewHost.ViewClosed -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveViewChanged -= OnActiveViewChanged;
                 }
 
-                foreach (ISelectionProvider selectionProvider in selectionProviders)
+                if (currentSelectionProvider != null)
                 {
-                    selectionProvider.SelectionChanged -= OnSelectionChanged;
+                    currentSelectionProvider.SelectionChanged -= OnSelectionChanged;
                 }
 
                 // Dispose managed resources. TODO: double check if we need to dispose managed resources?
@@ -470,7 +469,6 @@ namespace Core.Common.Gui
             InitializeMainWindow();
 
             ViewHost = mainWindow.ViewHost;
-            ViewHost.ViewOpened += OnViewOpened;
             ViewHost.ViewClosed += OnViewClosed;
             ViewHost.ViewClosed += OnActiveDocumentViewChanged;
             ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
@@ -488,34 +486,13 @@ namespace Core.Common.Gui
             UpdateTitle();
         }
 
-        private void OnViewOpened(object sender, ViewChangeEventArgs e)
-        {
-            var selectionProvider = e.View as ISelectionProvider;
-            if (selectionProvider != null)
-            {
-                selectionProviders.Add(selectionProvider);
-                selectionProvider.SelectionChanged += OnSelectionChanged;
-
-                Selection = selectionProvider.Selection;
-            }
-        }
-
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
         {
-            var selectionProvider = e.View as ISelectionProvider;
-            if (selectionProvider != null)
+            if (ReferenceEquals(currentSelectionProvider, e.View))
             {
-                selectionProviders.Remove(selectionProvider);
-                selectionProvider.SelectionChanged -= OnSelectionChanged;
+                currentSelectionProvider.SelectionChanged -= OnSelectionChanged;
+                currentSelectionProvider = null;
 
-                ClearPossibleOutdatedSelection();
-            }
-        }
-
-        private void ClearPossibleOutdatedSelection()
-        {
-            if (Selection != null && !selectionProviders.Select(sp => sp.Selection).Any(s => Selection.Equals(s)))
-            {
                 Selection = null;
             }
         }
@@ -530,20 +507,55 @@ namespace Core.Common.Gui
 
         private void OnActiveViewChanged(object sender, ViewChangeEventArgs e)
         {
-            var selectionProvider = e.View as ISelectionProvider;
-            if (selectionProvider != null)
+            if (HandleActivatingCurrentSelectionProvidingDocumentView(e.View))
             {
-                Selection = selectionProvider.Selection;
+                return;
+            }
+
+            var selectionProvider = e.View as ISelectionProvider;
+            if (selectionProvider == null)
+            {
+                HandleDeactivatingCurrentSelectionProvidingDocumentView();
+
+                return;
+            }
+
+            if (currentSelectionProvider != null)
+            {
+                currentSelectionProvider.SelectionChanged -= OnSelectionChanged;
+            }
+
+            currentSelectionProvider = selectionProvider;
+            currentSelectionProvider.SelectionChanged += OnSelectionChanged;
+
+            Selection = currentSelectionProvider.Selection;
+        }
+
+        private bool HandleActivatingCurrentSelectionProvidingDocumentView(IView activeView)
+        {
+            var handled = false;
+
+            if (ReferenceEquals(currentSelectionProvider, activeView) && ViewHost.DocumentViews.Contains(activeView))
+            {
+                currentSelectionProvider.SelectionChanged += OnSelectionChanged;
+
+                handled = true;
+            }
+
+            return handled;
+        }
+
+        private void HandleDeactivatingCurrentSelectionProvidingDocumentView()
+        {
+            if (currentSelectionProvider != null && ViewHost.DocumentViews.Contains(currentSelectionProvider))
+            {
+                currentSelectionProvider.SelectionChanged -= OnSelectionChanged;
             }
         }
 
         private void OnSelectionChanged(object sender, EventArgs eventArgs)
         {
-            var selectionProvider = sender as ISelectionProvider;
-            if (selectionProvider != null)
-            {
-                Selection = selectionProvider.Selection;
-            }
+            Selection = currentSelectionProvider.Selection;
         }
 
         private void InitializePlugins()

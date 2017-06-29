@@ -95,6 +95,8 @@ namespace Core.Plugins.Map.Test
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewOpened += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewOpened -= null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ViewClosed += null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ViewClosed -= null).IgnoreArguments();
                 viewHost.Expect(vm => vm.Remove(Arg<MapLegendView>.Is.NotNull));
 
                 mocks.ReplayAll();

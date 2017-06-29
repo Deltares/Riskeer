@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -37,9 +38,10 @@ namespace Core.Plugins.Chart
     /// </summary>
     public class ChartPlugin : PluginBase
     {
+        private bool activated;
+        private IChartView currentChartView;
         private ChartingRibbon chartingRibbon;
         private ChartLegendController chartLegendController;
-        private bool activated;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -55,6 +57,8 @@ namespace Core.Plugins.Chart
             chartingRibbon = CreateRibbon(chartLegendController);
 
             chartLegendController.ToggleView();
+            Gui.ViewHost.ViewOpened += OnViewOpened;
+            Gui.ViewHost.ViewClosed += OnViewClosed;
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
         }
@@ -73,6 +77,8 @@ namespace Core.Plugins.Chart
         {
             if (activated)
             {
+                Gui.ViewHost.ViewOpened -= OnViewOpened;
+                Gui.ViewHost.ViewClosed -= OnViewClosed;
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
 
@@ -106,18 +112,33 @@ namespace Core.Plugins.Chart
             };
         }
 
+        private void OnViewClosed(object sender, ViewChangeEventArgs e)
+        {
+            if (ReferenceEquals(currentChartView, e.View))
+            {
+                UpdateComponentsForView(null);
+            }
+        }
+
+        private void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            UpdateComponentsForView(e.View as IChartView);
+        }
+
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             UpdateComponentsForActiveDocumentView();
         }
 
-        /// <summary>
-        /// Updates the components which the <see cref="ChartPlugin"/> knows about so that it reflects
-        /// the currently active view.
-        /// </summary>
         private void UpdateComponentsForActiveDocumentView()
         {
-            var chartView = Gui.ViewHost.ActiveDocumentView as IChartView;
+            UpdateComponentsForView(Gui.ViewHost.ActiveDocumentView as IChartView);
+        }
+
+        private void UpdateComponentsForView(IChartView chartView)
+        {
+            currentChartView = chartView;
+
             IChartControl chartControl = chartView?.Chart;
 
             chartLegendController.Update(chartControl);

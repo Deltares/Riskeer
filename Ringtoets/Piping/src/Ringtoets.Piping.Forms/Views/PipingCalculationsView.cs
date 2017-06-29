@@ -63,8 +63,6 @@ namespace Ringtoets.Piping.Forms.Views
         private CalculationGroup calculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
 
-        private bool updatingDataSource;
-
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -311,11 +309,7 @@ namespace Ringtoets.Piping.Forms.Views
             // Skip changes coming from the view itself
             if (dataGridViewControl.IsCurrentCellInEditMode)
             {
-                updatingDataSource = true;
-
                 UpdateStochasticSoilProfileColumn();
-                updatingDataSource = false;
-
                 dataGridViewControl.AutoResizeColumns();
 
                 return;
@@ -334,8 +328,6 @@ namespace Ringtoets.Piping.Forms.Views
                 .OfType<PipingCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            updatingDataSource = true;
-
             PrefillComboBoxListItemsAtColumnLevel();
 
             List<PipingCalculationRow> dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc, new ObservablePropertyChangeHandler(pc, pc.InputParameters))).ToList();
@@ -345,8 +337,6 @@ namespace Ringtoets.Piping.Forms.Views
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
             UpdateSelectableHydraulicBoundaryLocationsColumn();
-
-            updatingDataSource = false;
         }
 
         private static IEnumerable<DataGridViewComboBoxItemWrapper<StochasticSoilModel>> GetPrefillStochasticSoilModelsDataSource(IEnumerable<StochasticSoilModel> stochasticSoilModels)
@@ -588,16 +578,12 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DataGridViewOnCurrentCellChanged(object sender, EventArgs e)
         {
-            if (!updatingDataSource)
-            {
-                OnSelectionChanged();
-            }
+            OnSelectionChanged();
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
-            OnSelectionChanged();
         }
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)

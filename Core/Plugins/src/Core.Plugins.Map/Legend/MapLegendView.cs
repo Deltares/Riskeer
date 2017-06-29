@@ -40,7 +40,6 @@ namespace Core.Plugins.Map.Legend
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
-        private bool settingData;
         private IMapControl mapControl;
 
         public event EventHandler<EventArgs> SelectionChanged;
@@ -92,11 +91,7 @@ namespace Core.Plugins.Map.Legend
             }
             set
             {
-                settingData = true;
-
                 treeViewControl.Data = (MapData) value;
-
-                settingData = false;
             }
         }
 
@@ -110,10 +105,7 @@ namespace Core.Plugins.Map.Legend
 
         private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
         {
-            if (SelectionChanged != null && !settingData)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
 
         private void RegisterTreeNodeInfos()

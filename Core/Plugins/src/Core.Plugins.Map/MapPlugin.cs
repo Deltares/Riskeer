@@ -41,9 +41,10 @@ namespace Core.Plugins.Map
     /// </summary>
     public class MapPlugin : PluginBase
     {
+        private bool activated;
+        private IMapView currentMapView;
         private MapRibbon mapRibbon;
         private MapLegendController mapLegendController;
-        private bool activated;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -59,8 +60,9 @@ namespace Core.Plugins.Map
             mapRibbon = CreateMapRibbon();
 
             mapLegendController.ToggleView();
-            Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             Gui.ViewHost.ViewOpened += OnViewOpened;
+            Gui.ViewHost.ViewClosed += OnViewClosed;
+            Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
         }
 
@@ -91,8 +93,9 @@ namespace Core.Plugins.Map
         {
             if (activated)
             {
-                Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                 Gui.ViewHost.ViewOpened -= OnViewOpened;
+                Gui.ViewHost.ViewClosed -= OnViewClosed;
+                Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
             mapLegendController?.Dispose();
 
@@ -120,24 +123,36 @@ namespace Core.Plugins.Map
             };
         }
 
+        private void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            var view = e.View as IMapView;
+            view?.Map.ZoomToAllVisibleLayers();
+
+            UpdateComponentsForView(view);
+        }
+
+        private void OnViewClosed(object sender, ViewChangeEventArgs e)
+        {
+            if (ReferenceEquals(currentMapView, e.View))
+            {
+                UpdateComponentsForView(null);
+            }
+        }
+
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             UpdateComponentsForActiveDocumentView();
         }
 
-        private static void OnViewOpened(object sender, ViewChangeEventArgs e)
-        {
-            var view = e.View as IMapView;
-            view?.Map.ZoomToAllVisibleLayers();
-        }
-
-        /// <summary>
-        /// Updates the components which the <see cref="MapPlugin"/> knows about so that
-        /// it reflects the currently active view.
-        /// </summary>
         private void UpdateComponentsForActiveDocumentView()
         {
-            var mapView = Gui.ViewHost.ActiveDocumentView as IMapView;
+            UpdateComponentsForView(Gui.ViewHost.ActiveDocumentView as IMapView);
+        }
+
+        private void UpdateComponentsForView(IMapView mapView)
+        {
+            currentMapView = mapView;
+
             IMapControl mapControl = mapView?.Map;
             mapLegendController.Update(mapControl);
             mapRibbon.Map = mapControl;

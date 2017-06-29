@@ -240,7 +240,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenChartLegendView_WhenSettingData_SelectionChangedNotFired()
+        public void GivenChartLegendView_WhenSettingData_SelectionChangedFired()
         {
             // Given
             var mocks = new MockRepository();
@@ -262,7 +262,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 view.Data = new ChartDataCollection("collection");
 
                 // Then
-                Assert.AreEqual(0, selectionChangedCount);
+                Assert.AreEqual(1, selectionChangedCount);
             }
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();

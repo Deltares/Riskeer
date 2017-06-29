@@ -117,7 +117,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             // If the view was already added, just focus it
             if (documentViews.Contains(view) || toolViews.Contains(view))
             {
-                SetFocusToView(view);
+                PerformWithoutChangingActiveContent(() => { SetFocusToView(view); });
+
                 return;
             }
 
@@ -133,9 +134,12 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             documentViews.Add(view);
             hostControls.Add(hostControl);
-            AddLayoutDocument(layoutDocument);
 
-            SetFocusToView(view);
+            PerformWithoutChangingActiveContent(() =>
+            {
+                AddLayoutDocument(layoutDocument);
+                SetFocusToView(view);
+            });
 
             layoutDocument.Closing += OnLayoutDocumentClosing;
             layoutDocument.Closed += OnLayoutDocumentClosed;
@@ -154,7 +158,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             // If the view was already added, just focus it
             if (documentViews.Contains(view) || toolViews.Contains(view))
             {
-                SetFocusToView(view);
+                PerformWithoutChangingActiveContent(() => { SetFocusToView(view); });
+
                 return;
             }
 
@@ -168,12 +173,15 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Title = view.Text
             };
 
-            AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
+            PerformWithoutChangingActiveContent(() =>
+            {
+                AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
 
-            toolViews.Add(view);
-            hostControls.Add(hostControl);
+                toolViews.Add(view);
+                hostControls.Add(hostControl);
 
-            SetFocusToView(view);
+                SetFocusToView(view);
+            });
 
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
             layoutAnchorable.Closing += OnLayoutAnchorableClosing;
@@ -389,6 +397,17 @@ namespace Core.Common.Gui.Forms.ViewHost
             view.Dispose();
 
             OnViewClosedEvent(view);
+        }
+
+        private void PerformWithoutChangingActiveContent(Action actionToPerform)
+        {
+            DockingManager.ActiveContentChanged -= OnActiveContentChanged;
+            object currentActiveContent = DockingManager.ActiveContent;
+
+            actionToPerform();
+
+            DockingManager.ActiveContent = currentActiveContent;
+            DockingManager.ActiveContentChanged += OnActiveContentChanged;
         }
 
         /// <summary>

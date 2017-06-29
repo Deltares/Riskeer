@@ -75,18 +75,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             avalonDockViewHost.AddToolView(testView3, ToolViewLocation.Left);
             avalonDockViewHost.AddToolView(testView4, ToolViewLocation.Left);
 
-            // Precondition
-            Assert.AreSame(testView2, avalonDockViewHost.ActiveDocumentView);
-            Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView4));
-
-            CollectionAssert.AreEqual(
-                new[]
-                {
-                    testView1,
-                    testView2
-                },
-                avalonDockViewHost.DocumentViews);
-
             CollectionAssert.AreEqual(
                 new[]
                 {
@@ -95,15 +83,10 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 },
                 avalonDockViewHost.ToolViews);
 
-            avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-            avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-
             // Call
             avalonDockViewHost.Dispose();
 
             // Assert
-            Assert.AreEqual(1, activeDocumentViewChangingCounter);
-            Assert.AreEqual(1, activeDocumentViewChangedCounter);
             CollectionAssert.IsEmpty(avalonDockViewHost.DocumentViews);
             CollectionAssert.IsEmpty(avalonDockViewHost.ToolViews);
             Assert.IsNull(avalonDockViewHost.ActiveDocumentView);
@@ -136,6 +119,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 avalonDockViewHost.AddDocumentView(testView);
+                avalonDockViewHost.SetFocusToView(testView);
 
                 // When
                 avalonDockViewHost.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
@@ -214,49 +198,15 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 CollectionAssert.AreEqual(viewList, avalonDockViewHost.DocumentViews);
                 Assert.IsTrue(viewList.All(v => IsDocumentViewPresent(avalonDockViewHost, v)));
                 Assert.AreEqual(numberOfViewsToAdd, viewOpenedCounter);
+                Assert.IsNull(avalonDockViewHost.ActiveDocumentView);
             }
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(5)]
-        public void AddDocumentView_MultipleTestViews_LastAddedViewSetAsActiveDocumentViewAndActiveDocumentEventsFired(int numberOfViewsToAdd)
-        {
-            // Setup
-            var viewList = new List<IView>();
-            var activeDocumentViewChangingCounter = 0;
-            var activeDocumentViewChangedCounter = 0;
-
-            using (var avalonDockViewHost = new AvalonDockViewHost())
-            {
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-
-                for (var i = 0; i < numberOfViewsToAdd; i++)
-                {
-                    var testView = new TestView();
-
-                    viewList.Add(testView);
-
-                    // Call
-                    avalonDockViewHost.AddDocumentView(testView);
-                }
-
-                // Assert
-                Assert.AreEqual(numberOfViewsToAdd, activeDocumentViewChangingCounter);
-                Assert.AreEqual(numberOfViewsToAdd, activeDocumentViewChangedCounter);
-                Assert.AreSame(viewList.Last(), avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, viewList.Last()));
-            }
-        }
-
-        [Test]
-        public void AddDocumentView_ActiveDocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFiredAndNoActiveDocumentEventsFired()
+        public void AddDocumentView_DocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFired()
         {
             // Setup
             var testView = new TestView();
-            var activeDocumentViewChangingCounter = 0;
-            var activeDocumentViewChangedCounter = 0;
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
@@ -265,81 +215,21 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 var viewOpenedCounter = 0;
                 avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
-                // Precondition
-                Assert.AreSame(testView, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView));
                 CollectionAssert.AreEqual(
                     new[]
                     {
                         testView
                     },
                     avalonDockViewHost.DocumentViews);
-
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
 
                 // Call
                 avalonDockViewHost.AddDocumentView(testView);
 
                 // Assert
-                Assert.AreEqual(0, activeDocumentViewChangingCounter);
-                Assert.AreEqual(0, activeDocumentViewChangedCounter);
-                Assert.AreSame(testView, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView));
                 CollectionAssert.AreEqual(
                     new[]
                     {
                         testView
-                    },
-                    avalonDockViewHost.DocumentViews);
-                Assert.AreEqual(0, viewOpenedCounter);
-            }
-        }
-
-        [Test]
-        public void AddDocumentView_NonActiveDocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFiredViewSetAsActiveDocumentViewAndActiveDocumentEventsFired()
-        {
-            // Setup
-            var testView1 = new TestView();
-            var testView2 = new TestView();
-            var activeDocumentViewChangingCounter = 0;
-            var activeDocumentViewChangedCounter = 0;
-
-            using (var avalonDockViewHost = new AvalonDockViewHost())
-            {
-                avalonDockViewHost.AddDocumentView(testView1);
-                avalonDockViewHost.AddDocumentView(testView2);
-
-                var viewOpenedCounter = 0;
-                avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
-
-                // Precondition
-                Assert.AreNotSame(testView1, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsFalse(IsFocussedView(avalonDockViewHost, testView1));
-                CollectionAssert.AreEqual(
-                    new[]
-                    {
-                        testView1,
-                        testView2
-                    },
-                    avalonDockViewHost.DocumentViews);
-
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-
-                // Call
-                avalonDockViewHost.AddDocumentView(testView1);
-
-                // Assert
-                Assert.AreEqual(1, activeDocumentViewChangingCounter);
-                Assert.AreEqual(1, activeDocumentViewChangedCounter);
-                Assert.AreSame(testView1, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView1));
-                CollectionAssert.AreEqual(
-                    new[]
-                    {
-                        testView1,
-                        testView2
                     },
                     avalonDockViewHost.DocumentViews);
                 Assert.AreEqual(0, viewOpenedCounter);
@@ -421,10 +311,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             {
                 avalonDockViewHost.AddDocumentView(testView1);
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Left);
-
-                // Precondition
-                Assert.AreSame(testView1, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsFalse(IsFocussedView(avalonDockViewHost, testView1));
+                avalonDockViewHost.SetFocusToView(testView1);
 
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
@@ -532,10 +419,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 avalonDockViewHost.AddDocumentView(testView);
-
-                // Precondition
-                Assert.AreSame(testView, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView));
+                avalonDockViewHost.SetFocusToView(testView);
 
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
@@ -564,10 +448,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             {
                 avalonDockViewHost.AddDocumentView(testView1);
                 avalonDockViewHost.AddDocumentView(testView2);
-
-                // Precondition
-                Assert.AreSame(testView2, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView2));
+                avalonDockViewHost.SetFocusToView(testView2);
 
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
@@ -687,7 +568,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 TestDelegate test = () => avalonDockViewHost.AddToolView(testView, (ToolViewLocation) invalidLocation);
 
                 // Assert
-                string expectedMessage = string.Format("The value of argument 'toolViewLocation' ({0}) is invalid for Enum type 'ToolViewLocation'.", invalidLocation);
+                string expectedMessage = $"The value of argument 'toolViewLocation' ({invalidLocation}) is invalid for Enum type 'ToolViewLocation'.";
                 string parameter = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(
                     test,
                     expectedMessage).ParamName;
@@ -696,33 +577,23 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void AddToolView_ActiveDocumentViewNotNull_ActiveDocumentViewNotAffectedAndNoActiveDocumentEventsFired()
+        public void AddToolView_DocumentViewFocussed_FocussedDocumentViewNotAffected()
         {
             // Setup
             var testToolView = new TestView();
             var testDocumentView = new TestView();
-            var activeDocumentViewChangingCounter = 0;
-            var activeDocumentViewChangedCounter = 0;
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 avalonDockViewHost.AddDocumentView(testDocumentView);
-
-                // Precondition
-                Assert.AreSame(testDocumentView, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testDocumentView));
-
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
+                avalonDockViewHost.SetFocusToView(testDocumentView);
 
                 // Call
                 avalonDockViewHost.AddToolView(testToolView, ToolViewLocation.Left);
 
                 // Assert
-                Assert.AreEqual(0, activeDocumentViewChangingCounter);
-                Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreSame(testDocumentView, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testToolView));
+                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testDocumentView));
             }
         }
 
@@ -741,16 +612,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 var viewOpenedCounter = 0;
                 avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
-                // Precondition
-                CollectionAssert.AreEqual(
-                    new[]
-                    {
-                        testView1,
-                        testView2
-                    },
-                    avalonDockViewHost.ToolViews);
-                Assert.IsFalse(IsFocussedView(avalonDockViewHost, testView1));
-
                 // Call
                 avalonDockViewHost.AddToolView(testView1, ToolViewLocation.Right);
 
@@ -762,7 +623,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                         testView2
                     },
                     avalonDockViewHost.ToolViews);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView1));
                 Assert.AreEqual(0, viewOpenedCounter);
             }
         }
@@ -849,10 +709,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
                 avalonDockViewHost.SetFocusToView(testView3);
 
-                // Precondition
-                Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView3));
-
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
 
@@ -879,8 +735,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView1, ToolViewLocation.Left);
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Right);
 
-                // Precondition
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView2));
+                avalonDockViewHost.SetFocusToView(testView2);
 
                 // Call
                 avalonDockViewHost.SetFocusToView(testView1);
@@ -957,25 +812,21 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
         private static bool IsFocussedView(AvalonDockViewHost avalonDockViewHost, IView view)
         {
-            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "DockingManager");
-
-            return ((WindowsFormsHost) dockingManager.ActiveContent).Child == view;
+            return ((WindowsFormsHost) avalonDockViewHost.DockingManager.ActiveContent).Child == view;
         }
 
         private static bool IsAnyViewFocussed(AvalonDockViewHost avalonDockViewHost)
         {
-            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "DockingManager");
-
-            return dockingManager.ActiveContent != null;
+            return avalonDockViewHost.DockingManager.ActiveContent != null;
         }
 
         private static bool IsImageSet(AvalonDockViewHost avalonDockViewHost, IView view)
         {
-            var dockingManager = TypeUtils.GetField<DockingManager>(avalonDockViewHost, "DockingManager");
-
-            return dockingManager.Layout.Descendents()
-                                 .OfType<LayoutContent>()
-                                 .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
+            return avalonDockViewHost.DockingManager
+                                     .Layout
+                                     .Descendents()
+                                     .OfType<LayoutContent>()
+                                     .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
         }
 
         #endregion

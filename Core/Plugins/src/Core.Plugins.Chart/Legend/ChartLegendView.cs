@@ -38,11 +38,10 @@ namespace Core.Plugins.Chart.Legend
     /// <summary>
     /// This class defines a view which shows the data that have been added to a <see cref="IChartControl"/>.
     /// </summary>
-    public sealed partial class ChartLegendView : UserControl, IView, ISelectionProvider
+    public sealed partial class ChartLegendView : UserControl, ISelectionProvider
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private IChartControl chartControl;
-        private bool settingData;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -103,11 +102,7 @@ namespace Core.Plugins.Chart.Legend
             }
             set
             {
-                settingData = true;
-
                 treeViewControl.Data = (ChartData) value;
-
-                settingData = false;
             }
         }
 
@@ -232,15 +227,12 @@ namespace Core.Plugins.Chart.Legend
 
         private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
         {
-            if (SelectionChanged != null && !settingData)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
 
         #region ChartDataContext
 
-        private Image GetImage(ChartDataContext context)
+        private static Image GetImage(ChartDataContext context)
         {
             if (context.WrappedData is ChartPointData)
             {
@@ -260,7 +252,7 @@ namespace Core.Plugins.Chart.Legend
             return GuiResources.folder;
         }
 
-        private object[] ChartDataContextGetChildNodeObjects(ChartDataContext chartDataContext)
+        private static object[] ChartDataContextGetChildNodeObjects(ChartDataContext chartDataContext)
         {
             var collection = chartDataContext.WrappedData as ChartDataCollection;
             return collection != null ? GetChildNodeObjects(collection) : new object[0];
@@ -280,7 +272,7 @@ namespace Core.Plugins.Chart.Legend
             return draggedDataContext.ParentChartData.Equals(targetDataContext.WrappedData);
         }
 
-        private void ChartDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void ChartDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
             var chartContext = (ChartDataContext) droppedData;
             var sourceContext = oldParentData as ChartDataContext;

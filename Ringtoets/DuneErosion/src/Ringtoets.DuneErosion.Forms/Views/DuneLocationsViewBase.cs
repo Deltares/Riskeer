@@ -194,11 +194,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
         {
-            if (updatingDataSource)
-            {
-                return;
-            }
-
             OnSelectionChanged();
         }
 

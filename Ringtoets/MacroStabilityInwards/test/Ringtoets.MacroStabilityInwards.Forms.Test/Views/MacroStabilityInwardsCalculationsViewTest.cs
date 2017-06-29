@@ -397,7 +397,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, dataGridView.Rows.Count);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(1, selectionChangedCount);
+                Assert.AreEqual(2, selectionChangedCount);
             }
             mocks.VerifyAll();
         }

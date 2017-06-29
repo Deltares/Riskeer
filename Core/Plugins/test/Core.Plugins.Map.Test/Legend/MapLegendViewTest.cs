@@ -298,7 +298,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenMapLegendView_WhenSettingData_SelectionChangedNotFired()
+        public void GivenMapLegendView_WhenSettingData_SelectionChangedFired()
         {
             // Given
             using (var view = new MapLegendView(contextMenuBuilderProvider))
@@ -313,7 +313,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.Data = new MapDataCollection("collection");
 
                 // Then
-                Assert.AreEqual(0, selectionChangedCount);
+                Assert.AreEqual(1, selectionChangedCount);
             }
             WindowsFormsTestHelper.CloseAll();
         }
