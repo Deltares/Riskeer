@@ -69,6 +69,7 @@
     <Compile Include="ChangeHandlers\PropertyChangeHelperTest.cs" />
     <Compile Include="ChangeHandlers\CalculationChangeHandlerTest.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactoryTest.cs" />
+    <Compile Include="Factories\RingtoetsStackChartDataFactoryTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />

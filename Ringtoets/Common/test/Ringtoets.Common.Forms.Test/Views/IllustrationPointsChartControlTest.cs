@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new[]
                 {
                     new WindDirectionClosingSituationIllustrationPoint(
-                        new TestWindDirection(), "General",
+                        new TestWindDirection(), "Regular",
                         new IllustrationPoint("Punt 1",
                                               new[]
                                               {
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
-                        new TestWindDirection(), "General",
+                        new TestWindDirection(), "Regular",
                         new IllustrationPoint("Punt 2",
                                               new[]
                                               {
@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
-                        new TestWindDirection(), "General",
+                        new TestWindDirection(), "Regular",
                         new IllustrationPoint("Punt 3",
                                               new[]
                                               {
