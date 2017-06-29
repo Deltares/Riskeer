@@ -106,11 +106,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_ChartControlDataSetToNull()
+        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToNull()
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var chartControl = (IllustrationPointsChartControl)testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var control = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
             var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
 
@@ -118,15 +118,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
 
             // Assert
-            Assert.IsNull(chartControl.Data);
+            Assert.IsNull(control.Data);
         }
 
         [Test]
-        public void Selection_LocationWithoutGeneralResult_ChartControlDataSetToNull()
+        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToNull()
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var chartControl = (IllustrationPointsChartControl)testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var control = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
             var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
 
@@ -134,15 +134,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
 
             // Assert
-            Assert.IsNull(chartControl.Data);
+            Assert.IsNull(control.Data);
         }
 
         [Test]
-        public void Selection_LocationWithGeneralResult_GeneralResultSetOnChartData()
+        public void Selection_LocationWithGeneralResult_GeneralResultSetOnIllustrationPointsControlData()
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var chartControl = (IllustrationPointsChartControl)testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var control = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
             var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
 
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
 
             // Assert
-            Assert.IsNotNull(chartControl.Data);
+            Assert.IsNotNull(control.Data);
         }
 
         [Test]
@@ -372,6 +372,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void WaveHeightlLocationsView_HydraulicBoundaryDatabaseNotifyObservers_UpdateIllustrationPointsControlData()
+        {
+            // Setup
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            var illustrationPointsControl = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+
+            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+
+            dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
+
+            // Precondition
+            Assert.IsNull(illustrationPointsControl.Data);
+
+            var output = new TestHydraulicBoundaryLocationOutput(1);
+            var result = new TestGeneralResult();
+            output.SetIllustrationPoints(result);
+
+            // Call
+            view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].WaveHeightCalculation.Output = output;
+            view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+
+            // Assert
+            Assert.AreSame(result, illustrationPointsControl.Data);
         }
 
         private WaveHeightLocationsView ShowWaveHeightLocationsView()

@@ -117,11 +117,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_ChartControlDataSetToNull()
+        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToNull()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var chartControl = (IllustrationPointsChartControl) testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
             var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
@@ -129,15 +129,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
 
             // Assert
-            Assert.IsNull(chartControl.Data);
+            Assert.IsNull(control.Data);
         }
 
         [Test]
-        public void Selection_LocationWithoutGeneralResult_ChartControlDataSetToNull()
+        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToNull()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var chartControl = (IllustrationPointsChartControl) testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
             var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
@@ -145,15 +145,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
 
             // Assert
-            Assert.IsNull(chartControl.Data);
+            Assert.IsNull(control.Data);
         }
 
         [Test]
-        public void Selection_LocationWithGeneralResult_GeneralResultSetOnChartData()
+        public void Selection_LocationWithGeneralResult_GeneralResultSetOnIllustrationPointsControlData()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var chartControl = (IllustrationPointsChartControl) testForm.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
             var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
 
             // Assert
-            Assert.IsNotNull(chartControl.Data);
+            Assert.IsNotNull(control.Data);
         }
 
         [Test]
@@ -483,6 +483,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
+        }
+
+        [Test]
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseNotifyObservers_UpdateIllustrationPointsControlData()
+        {
+            // Setup
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            var illustrationPointsControl = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+
+            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+
+            dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
+
+            // Precondition
+            Assert.IsNull(illustrationPointsControl.Data);
+
+            var output = new TestHydraulicBoundaryLocationOutput(1);
+            var result = new TestGeneralResult();
+            output.SetIllustrationPoints(result);
+
+            // Call
+            var locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
+            locations[3].DesignWaterLevelCalculation.Output = output;
+            locations.NotifyObservers();
+
+            // Assert
+            Assert.AreSame(result, illustrationPointsControl.Data);
         }
 
         private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView()

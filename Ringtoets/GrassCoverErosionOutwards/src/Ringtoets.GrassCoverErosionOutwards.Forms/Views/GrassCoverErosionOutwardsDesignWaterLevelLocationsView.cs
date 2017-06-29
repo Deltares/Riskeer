@@ -178,7 +178,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             else
             {
-                dataGridViewControl.RefreshDataGridView();
+                HandleHydraulicBoundaryDatabaseUpdate();
             }
         }
 

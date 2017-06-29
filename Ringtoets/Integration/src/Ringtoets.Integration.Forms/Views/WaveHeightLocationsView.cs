@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
 
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryDatabase);
-            hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
+            hydraulicBoundaryDatabaseObserver = new Observer(HandleHydraulicBoundaryDatabaseUpdate);
         }
 
         public override IAssessmentSection AssessmentSection
