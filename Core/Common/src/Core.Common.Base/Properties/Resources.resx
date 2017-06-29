@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_Run_ActivityDescription_0_has_started" xml:space="preserve">
+    <value>{0} is gestart.</value>
+  </data>
   <data name="Activity_Finish_ActivityDescription_0_has_been_canceled" xml:space="preserve">
     <value>{0} is geannuleerd.</value>
   </data>

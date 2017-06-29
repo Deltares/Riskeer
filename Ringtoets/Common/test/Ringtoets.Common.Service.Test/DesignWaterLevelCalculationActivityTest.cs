@@ -149,11 +149,12 @@ namespace Ringtoets.Common.Service.Test
             string inValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "testLocation";
             const string calculationName = "calculationName";
+            const string activityDescription = "activityDescription";
 
             var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             calculationMessageProvider.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
@@ -169,10 +170,11 @@ namespace Ringtoets.Common.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                Assert.AreEqual(4, msgs.Length);
+                Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             mockRepository.VerifyAll();
@@ -185,6 +187,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "punt_flw_";
             const string calculationName = "calculationName";
+            const string activityDescription = "activityDescription";
             const double norm = 1.0 / 30;
 
             var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(locationName));
@@ -196,7 +199,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
@@ -214,12 +217,13 @@ namespace Ringtoets.Common.Service.Test
                 TestHelper.AssertLogMessages(call, m =>
                 {
                     string[] messages = m.ToArray();
-                    Assert.AreEqual(5, messages.Length);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, messages[0]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, messages[1]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, messages[2]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[4]);
+                    Assert.AreEqual(6, messages.Length);
+                    Assert.AreEqual($"{activityDescription} is gestart.", messages[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, messages[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, messages[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, messages[3]);
+                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[5]);
                 });
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
@@ -263,10 +267,9 @@ namespace Ringtoets.Common.Service.Test
                                                                    calculationMessageProvider);
 
             // Call
-            Action call = () => activity.Run();
+            activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
             Assert.AreEqual(ActivityState.Skipped, activity.State);
             mockRepository.VerifyAll();
         }
@@ -367,7 +370,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, detailedReport, 6);
+                TestHelper.AssertLogMessageIsGenerated(call, detailedReport, 7);
                 Assert.AreSame(output, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }
@@ -423,8 +426,8 @@ namespace Ringtoets.Common.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(calculationNotConvergedMessage, msgs[3]);
+                    Assert.AreEqual(7, msgs.Length);
+                    StringAssert.StartsWith(calculationNotConvergedMessage, msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }

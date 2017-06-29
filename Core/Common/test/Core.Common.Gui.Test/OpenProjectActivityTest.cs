@@ -260,7 +260,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectDoesNotThrow_ActivityExecutedWithoutLogMessages()
+        public void Run_StoreProjectLoadProjectDoesNotThrow_ActivityExecutedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -290,7 +290,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
 
@@ -298,7 +298,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectReturnsNull_ActivityFailedWithoutLogMessages()
+        public void Run_StoreProjectLoadProjectReturnsNull_ActivityFailedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -326,7 +326,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
@@ -334,7 +334,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectThrowsStorageException_ActivityFailedWithLogMessage()
+        public void Run_StoreProjectLoadProjectThrowsStorageException_ActivityFailedWithAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -365,7 +365,11 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, message, 1);
+            TestHelper.AssertLogMessagesAreGenerated(call, new[]
+            {
+                "Openen van project is gestart.",
+                message
+            }, 2);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
@@ -373,7 +377,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectThrowsArgumentException_ActivityFailedWithoutLogMessages()
+        public void Run_StoreProjectLoadProjectThrowsArgumentException_ActivityFailedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -401,7 +405,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
@@ -409,7 +413,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_SuccessfulMigrateAndLoadProject_ActivityExecutedWithoutLogMessages()
+        public void Run_SuccessfulMigrateAndLoadProject_ActivityExecutedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -450,7 +454,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
 
@@ -458,7 +462,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_FailedToMigrate_ActivityFailedWithoutLogMessages()
+        public void Run_FailedToMigrate_ActivityFailedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -500,7 +504,7 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
@@ -508,7 +512,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Run_MigrateThrowsArgumentException_ActivityFailedWithLogMessage()
+        public void Run_MigrateThrowsArgumentException_ActivityFailedWithAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -551,7 +555,11 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, exceptionMessage, 1);
+            TestHelper.AssertLogMessagesAreGenerated(call, new[]
+            {
+                "Openen van project is gestart.",
+                exceptionMessage
+            }, 2);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
 

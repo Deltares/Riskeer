@@ -1268,10 +1268,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(27, messages.Length);
-                        Assert.AreEqual("Berekening van 'A' is gestart.", messages[2]);
-                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messages[25]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[26]);
+                        Assert.AreEqual(28, messages.Length);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
+                        Assert.AreEqual("Berekening van 'A' is gestart.", messages[3]);
+                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messages[26]);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[27]);
                     });
                     Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());

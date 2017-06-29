@@ -138,10 +138,11 @@ namespace Core.Common.Gui.Test.Commands
                 // Assert
                 var expectedMessages = new[]
                 {
+                    Tuple.Create("Opslaan van bestaand project is gestart.", LogLevelConstant.Info),
                     Tuple.Create(exceptionMessage, LogLevelConstant.Error),
                     Tuple.Create("Opslaan van bestaand project is mislukt.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
                 Assert.IsFalse(result);
             }
             mocks.VerifyAll();
@@ -190,9 +191,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => result = storageCommandHandler.SaveProject();
 
                 // Assert
-                const string expectedMessage = "Opslaan van bestaand project is gelukt.";
-                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create("Opslaan van bestaand project is gelukt.", LogLevelConstant.Info));
                 Assert.IsTrue(result);
             }
             mocks.VerifyAll();
@@ -258,7 +257,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateCancelled_LogCancellationAndLeaveCurrentProjectUnaffectedAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateCancelled_LeaveCurrentProjectUnaffectedAndReturnsFalse()
         {
             // Setup
             const string fileName = "newProject";
@@ -292,23 +291,15 @@ namespace Core.Common.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            bool result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
-            {
-                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                Tuple.Create("Openen van project is geannuleerd.", LogLevelConstant.Info)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
-
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenExistingProject_DetermineMigrationLocationButCancelled_LogCancellationAndLeaveCurrentProjectUnaffectedAndReturnsFalse()
+        public void OpenExistingProject_DetermineMigrationLocationButCancelled_LeaveCurrentProjectUnaffectedAndReturnsFalse()
         {
             // Setup
             const string fileName = "newProject";
@@ -346,18 +337,10 @@ namespace Core.Common.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            bool result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
-            {
-                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                Tuple.Create("Openen van project is geannuleerd.", LogLevelConstant.Info)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
             Assert.IsFalse(result);
-
             mocks.VerifyAll();
         }
 
@@ -402,15 +385,8 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
-            {
-                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(result);
-
             mocks.VerifyAll();
         }
 
@@ -456,15 +432,8 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
-            {
-                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(result);
-
             mocks.VerifyAll();
         }
 
@@ -518,15 +487,8 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
-            {
-                Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                Tuple.Create(errorMessage, LogLevelConstant.Error),
-                Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(errorMessage, LogLevelConstant.Error), 3);
             Assert.IsFalse(result);
-
             mocks.VerifyAll();
         }
 
@@ -819,15 +781,10 @@ namespace Core.Common.Gui.Test.Commands
                 helper.ClickCancel();
             };
 
-            string returnedPath = string.Empty;
-
             // Call
-            Action call = () => returnedPath = storageCommandHandler.GetExistingProjectFilePath();
+            string returnedPath = storageCommandHandler.GetExistingProjectFilePath();
 
             // Assert
-            const string expectedMessage = "Openen van project is geannuleerd.";
-            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             Assert.IsNull(returnedPath);
         }
 

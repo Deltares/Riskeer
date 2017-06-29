@@ -126,14 +126,11 @@ namespace Core.Common.Gui.Commands
                 }
             }
 
-            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_project_canceled);
             return null;
         }
 
         public bool OpenExistingProject(string filePath)
         {
-            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_project_started);
-
             try
             {
                 return OpenExistingProjectCore(filePath);
@@ -141,7 +138,6 @@ namespace Core.Common.Gui.Commands
             catch (Exception e) when (e is ArgumentException || e is CriticalFileReadException || e is StorageValidationException)
             {
                 log.Error(e.Message, e);
-                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_project_failed);
                 projectOwner.SetProject(projectFactory.CreateNewProject(), null);
                 return false;
             }
@@ -198,7 +194,6 @@ namespace Core.Common.Gui.Commands
             OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties;
             if (PrepareProjectMigration(filePath, out migrationProperties) == MigrationRequired.Aborted)
             {
-                log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_project_canceled);
                 return false;
             }
 
@@ -311,12 +306,7 @@ namespace Core.Common.Gui.Commands
         /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
         private string OpenProjectSaveFileDialog(string projectName)
         {
-            string filePath = inquiryHelper.GetTargetFileLocation(projectPersistor.FileFilter, projectName);
-            if (filePath == null)
-            {
-                log.Info(Resources.StorageCommandHandler_SaveProject_Saving_project_canceled);
-            }
-            return filePath;
+            return inquiryHelper.GetTargetFileLocation(projectPersistor.FileFilter, projectName);
         }
     }
 }

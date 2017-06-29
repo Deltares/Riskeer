@@ -963,15 +963,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
-        /// </summary>
-        public static string GuiImportHandler_RunImportActivity_Start_importing_data {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_RunImportActivity_Start_importing_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fout.
         /// </summary>
         public static string GuiUpdateHandler_GetSupportedUpdaterForTargetType_Error {
@@ -1006,15 +997,6 @@ namespace Core.Common.Gui.Properties {
         public static string GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater {
             get {
                 return ResourceManager.GetString("GuiUpdateHandler_GetSupportedUpdaterUsingDialog_Select_updater", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begonnen met het bijwerken van gegevens..
-        /// </summary>
-        public static string GuiUpdateHandler_RunUpdateActivity_Start_updating_data {
-            get {
-                return ResourceManager.GetString("GuiUpdateHandler_RunUpdateActivity_Start_updating_data", resourceCulture);
             }
         }
         
@@ -1575,7 +1557,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kies een type..
+        ///   Looks up a localized string similar to Kies een type.
         /// </summary>
         public static string SelectItemDialog_buttonOk_Click_Please_select_an_item {
             get {
@@ -1666,47 +1648,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van project is geannuleerd..
-        /// </summary>
-        public static string StorageCommandHandler_OpenExistingProject_Opening_project_canceled {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_project_canceled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van project is gestart..
-        /// </summary>
-        public static string StorageCommandHandler_OpenExistingProject_Opening_project_started {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_OpenExistingProject_Opening_project_started", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van project is mislukt..
-        /// </summary>
-        public static string StorageCommandHandler_OpeningExistingProject_Opening_project_failed {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_OpeningExistingProject_Opening_project_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sla wijzigingen in het project op: {0}?.
         /// </summary>
         public static string StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0 {
             get {
                 return ResourceManager.GetString("StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan van project is geannuleerd..
-        /// </summary>
-        public static string StorageCommandHandler_SaveProject_Saving_project_canceled {
-            get {
-                return ResourceManager.GetString("StorageCommandHandler_SaveProject_Saving_project_canceled", resourceCulture);
             }
         }
         

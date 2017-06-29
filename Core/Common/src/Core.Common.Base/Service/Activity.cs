@@ -90,6 +90,8 @@ namespace Core.Common.Base.Service
         {
             State = ActivityState.None;
 
+            log.InfoFormat(Resources.Activity_Run_ActivityDescription_0_has_started, Description);
+
             ChangeState(OnRun, ActivityState.Executed);
         }
 

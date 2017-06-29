@@ -297,6 +297,7 @@ namespace Core.Common.Gui.Test.Commands
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
+            const string dataDescription = "Random data";
             var isCreateFileImporterCalled = false;
             var isVerifyUpdatedCalled = false;
 
@@ -311,6 +312,7 @@ namespace Core.Common.Gui.Test.Commands
                 {
                     new ImportInfo<object>
                     {
+                        Name = dataDescription,
                         CreateFileImporter = (o, s) =>
                         {
                             Assert.AreSame(o, targetObject);
@@ -332,7 +334,11 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => importHandler.ImportOn(targetObject);
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Begonnen met het importeren van gegevens.");
+                TestHelper.AssertLogMessagesAreGenerated(call, new []
+                {
+                    $"Importeren van '{dataDescription}' is gestart.",
+                    $"Importeren van '{dataDescription}' is mislukt."
+                });
             }
 
             // Assert

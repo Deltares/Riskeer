@@ -1373,7 +1373,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(14, messages.Length);
+                        Assert.AreEqual(15, messages.Length);
                     });
 
                     Assert.AreEqual(3, calculation.Output.Items.Count());

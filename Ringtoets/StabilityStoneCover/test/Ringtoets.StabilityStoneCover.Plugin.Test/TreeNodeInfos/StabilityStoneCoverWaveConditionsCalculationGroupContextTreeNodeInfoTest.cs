@@ -882,7 +882,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            calculationA.Name = "A";
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            calculationB.Name = "B";
             calculationA.Attach(observerA);
             calculationB.Attach(observerB);
             group.Children.Add(calculationA);
@@ -924,13 +926,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         string[] messages = m.ToArray();
-                        Assert.AreEqual(54, messages.Length);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is gestart.", messages[2]);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is beëindigd.", messages[25]);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is gestart.", messages[28]);
-                        Assert.AreEqual("Berekening van 'Nieuwe berekening' is beëindigd.", messages[51]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'Nieuwe berekening' is gelukt.", messages[52]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'Nieuwe berekening' is gelukt.", messages[53]);
+                        Assert.AreEqual(56, messages.Length);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
+                        Assert.AreEqual("Berekening van 'A' is gestart.", messages[3]);
+                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messages[26]);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gestart.", messages[27]);
+                        Assert.AreEqual("Berekening van 'B' is gestart.", messages[30]);
+                        Assert.AreEqual("Berekening van 'B' is beëindigd.", messages[53]);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[54]);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gelukt.", messages[55]);
                     });
                     Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());

@@ -159,8 +159,6 @@ namespace Core.Common.Gui.Commands
 
         private void RunUpdateActivity(IFileImporter importer, string updateName)
         {
-            log.Info(Resources.GuiUpdateHandler_RunUpdateActivity_Start_updating_data);
-
             var activity = new FileImportActivity(importer,
                                                   !string.IsNullOrEmpty(updateName)
                                                       ? string.Format(Resources.GuiUpdateHandler_RunUpdateActivity_Updating_0_, updateName)

@@ -97,14 +97,15 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(7, msgs.Length);
-                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' is gestart.", msgs.First());
-                StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
+                Assert.AreEqual(8, msgs.Length);
+                Assert.AreEqual($"Uitvoeren van berekening '{invalidPipingCalculation.Name}' is gestart.", msgs[0]);
+                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' is gestart.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[4]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[5]);
-                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' is beëindigd.", msgs.Last());
+                StringAssert.StartsWith("Validatie mislukt: ", msgs[6]);
+                Assert.AreEqual($"Validatie van '{invalidPipingCalculation.Name}' is beëindigd.", msgs[7]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidPipingCalculation.Output);
@@ -130,11 +131,12 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(validPipingCalculation.Name, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(validPipingCalculation.Name, msgs[1]);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(validPipingCalculation.Name, msgs[2]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(validPipingCalculation.Name, msgs[3]);
+                Assert.AreEqual(5, msgs.Length);
+                Assert.AreEqual($"Uitvoeren van berekening '{validPipingCalculation.Name}' is gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(validPipingCalculation.Name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(validPipingCalculation.Name, msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(validPipingCalculation.Name, msgs[3]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(validPipingCalculation.Name, msgs[4]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validPipingCalculation.Output);

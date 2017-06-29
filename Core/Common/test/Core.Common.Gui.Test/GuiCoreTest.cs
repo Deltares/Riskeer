@@ -555,7 +555,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_LogErrorAndLoadDefaultProjectInstead()
+        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_LoadDefaultProjectInstead()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -585,16 +585,9 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
-                Action call = () => gui.Run(testFile);
+                gui.Run(testFile);
 
                 // Assert
-                var expectedMessages = new[]
-                {
-                    Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                    Tuple.Create("Openen van project is geannuleerd.", LogLevelConstant.Info)
-                };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
-
                 Assert.IsNull(gui.ProjectFilePath);
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
@@ -639,13 +632,7 @@ namespace Core.Common.Gui.Test
                 Action call = () => gui.Run(testFile);
 
                 // Assert
-                var expectedMessages = new[]
-                {
-                    Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
-                    Tuple.Create(expectedErrorMessage, LogLevelConstant.Error),
-                    Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
-                };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedErrorMessage, LogLevelConstant.Error));
 
                 Assert.IsNull(gui.ProjectFilePath);
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";

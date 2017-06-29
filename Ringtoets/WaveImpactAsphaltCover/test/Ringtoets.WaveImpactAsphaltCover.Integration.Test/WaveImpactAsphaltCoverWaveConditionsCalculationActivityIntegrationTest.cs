@@ -101,10 +101,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(3, msgs.Length);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
-                    Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
+                    Assert.AreEqual(4, msgs.Length);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
+                    Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[3]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -248,14 +249,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     string[] msgs = messages.ToArray();
                     RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
 
-                    Assert.AreEqual(7, msgs.Length);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' is gestart.", msgs[3]);
-                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' is beëindigd.", msgs[5]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[6]);
+                    Assert.AreEqual(8, msgs.Length);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[3]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' is gestart.", msgs[4]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    Assert.AreEqual($"Berekening '{calculation.Name}' voor waterstand '{firstWaterLevel}' is beëindigd.", msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[7]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);

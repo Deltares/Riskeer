@@ -916,13 +916,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(action, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(6, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[2]);
-                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[3]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[5]);
+                        Assert.AreEqual(7, msgs.Length);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[3]);
+                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[5]);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
                     Assert.AreNotSame(initialOutput, calculation.Output);

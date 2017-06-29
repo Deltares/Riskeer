@@ -264,14 +264,15 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(7, msgs.Length);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[2]);
-                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[3]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[5]);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
+                    Assert.AreEqual(8, msgs.Length);
+                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
+                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
             }
             mockRepository.VerifyAll();
@@ -512,14 +513,15 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(7, msgs.Length);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[2]);
-                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[3]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[5]);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[6]);
+                    Assert.AreEqual(8, msgs.Length);
+                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
+                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
             }
             mockRepository.VerifyAll();

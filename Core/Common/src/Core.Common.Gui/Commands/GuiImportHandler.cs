@@ -148,8 +148,6 @@ namespace Core.Common.Gui.Commands
 
         private void RunImportActivity(IFileImporter importer, string importName)
         {
-            log.Info(Resources.GuiImportHandler_RunImportActivity_Start_importing_data);
-
             var activity = new FileImportActivity(importer,
                                                   !string.IsNullOrEmpty(importName)
                                                       ? string.Format(Resources.GuiImportHandler_RunImportActivity_Importing_0_, importName)

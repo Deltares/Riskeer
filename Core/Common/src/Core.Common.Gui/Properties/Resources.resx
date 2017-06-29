@@ -175,9 +175,6 @@
   <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StorageCommandHandler_OpenExistingProject_Opening_project_canceled" xml:space="preserve">
-    <value>Openen van project is geannuleerd.</value>
-  </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
   </data>
@@ -247,12 +244,6 @@
   <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiImportHandler_RunImportActivity_Start_importing_data" xml:space="preserve">
-    <value>Begonnen met het importeren van gegevens.</value>
-  </data>
-  <data name="GuiUpdateHandler_RunUpdateActivity_Start_updating_data" xml:space="preserve">
-    <value>Begonnen met het bijwerken van gegevens.</value>
-  </data>
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
@@ -270,9 +261,6 @@
   </data>
   <data name="Ribbon_Properties" xml:space="preserve">
     <value>Eigenschappen</value>
-  </data>
-  <data name="StorageCommandHandler_OpenExistingProject_Opening_project_started" xml:space="preserve">
-    <value>Openen van project is gestart.</value>
   </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -498,12 +486,6 @@
   </data>
   <data name="DynamicPropertyOrderEvaluationMethod_must_have_string_argument_on_Class_0_" xml:space="preserve">
     <value>Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.</value>
-  </data>
-  <data name="StorageCommandHandler_OpeningExistingProject_Opening_project_failed" xml:space="preserve">
-    <value>Openen van project is mislukt.</value>
-  </data>
-  <data name="StorageCommandHandler_SaveProject_Saving_project_canceled" xml:space="preserve">
-    <value>Opslaan van project is geannuleerd.</value>
   </data>
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler" xml:space="preserve">
     <value>Kan geen 'IImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IImportCommandHandler'.</value>

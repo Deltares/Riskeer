@@ -312,14 +312,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertLogMessages(call, messages =>
                         {
                             string[] msgs = messages.ToArray();
-                            Assert.AreEqual(7, msgs.Length);
-                            Assert.AreEqual($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' is gestart.", msgs[0]);
-                            Assert.AreEqual($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' is beëindigd.", msgs[1]);
-                            Assert.AreEqual($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' is gestart.", msgs[2]);
-                            Assert.AreEqual($"Toetspeil berekening voor locatie '{location.Name}' is niet geconvergeerd.", msgs[3]);
-                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                            Assert.AreEqual($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' is beëindigd.", msgs[5]);
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[6]);
+                            Assert.AreEqual(8, msgs.Length);
+                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gestart.", msgs[0]);
+                            Assert.AreEqual($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' is gestart.", msgs[1]);
+                            Assert.AreEqual($"Validatie van 'Toetspeil berekenen voor locatie '{location.Name}'' is beëindigd.", msgs[2]);
+                            Assert.AreEqual($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' is gestart.", msgs[3]);
+                            Assert.AreEqual($"Toetspeil berekening voor locatie '{location.Name}' is niet geconvergeerd.", msgs[4]);
+                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                            Assert.AreEqual($"Berekening van 'Toetspeil berekenen voor locatie '{location.Name}'' is beëindigd.", msgs[6]);
+                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[7]);
                         });
                         Assert.AreEqual(0, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculationConvergence);

@@ -118,6 +118,15 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is gestart..
+        /// </summary>
+        public static string Activity_Run_ActivityDescription_0_has_started {
+            get {
+                return ResourceManager.GetString("Activity_Run_ActivityDescription_0_has_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bevestigen.
         /// </summary>
         public static string Confirm {

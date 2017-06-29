@@ -135,7 +135,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Run_UnstagedProject_StageAndSaveProjectWithoutLogMessages(bool saveExistingProject)
+        public void Run_UnstagedProject_StageAndSaveProjectWithoutAdditionalLogMessages(bool saveExistingProject)
         {
             // Setup
             const string filePath = "A";
@@ -158,7 +158,8 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            string prefix = saveExistingProject ? "bestaand " : "";
+            TestHelper.AssertLogMessageIsGenerated(call, $"Opslaan van {prefix}project is gestart.", 1);
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mocks.VerifyAll();
         }
@@ -166,7 +167,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Run_AlreadyStagedProject_SaveProjectWithoutLogMessages(bool saveExistingProject)
+        public void Run_AlreadyStagedProject_SaveProjectWithoutAdditionalLogMessages(bool saveExistingProject)
         {
             // Setup
             const string filePath = "A";
@@ -185,14 +186,15 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            string prefix = saveExistingProject ? "bestaand " : "";
+            TestHelper.AssertLogMessageIsGenerated(call, $"Opslaan van {prefix}project is gestart.", 1);
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mocks.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
-        public void Run_SaveProjectAsThrowsException_FailedWithLogMessage(
+        public void Run_SaveProjectAsThrowsException_FailedWithAdditionalLogMessages(
             [Values(true, false)] bool saveExistingProject,
             [Values(SaveProjectAsExceptionType.StorageException,
                 SaveProjectAsExceptionType.CouldNotConnectException,
@@ -220,7 +222,13 @@ namespace Core.Common.Gui.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
+            string exitingPrefix = saveExistingProject ? "bestaand " : "";
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
+                                                              new[]
+                                                              {
+                                                                  Tuple.Create($"Opslaan van {exitingPrefix}project is gestart.", LogLevelConstant.Info),
+                                                                  Tuple.Create(message, LogLevelConstant.Error)
+                                                              }, 2);
             Assert.AreEqual(ActivityState.Failed, activity.State);
             mocks.VerifyAll();
         }
@@ -425,7 +433,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenActivityStagingProject_WhenCancelling_ThenProjectNotSavedWithLogMessage(bool saveExistingProject)
+        public void GivenActivityStagingProject_WhenCancelling_ThenProjectNotSavedWithAdditionalLogMessages(bool saveExistingProject)
         {
             // Given
             const string filePath = "A";
@@ -455,10 +463,14 @@ namespace Core.Common.Gui.Test
 
             // Then
             string prefix = saveExistingProject ? "bestaand " : "";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call,
-                                                            Tuple.Create($"Opslaan van {prefix}project is geannuleerd.",
-                                                                         LogLevelConstant.Warn),
-                                                            1);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
+                                                              new[]
+                                                              {
+                                                                  Tuple.Create($"Opslaan van {prefix}project is gestart.",
+                                                                               LogLevelConstant.Info),
+                                                                  Tuple.Create($"Opslaan van {prefix}project is geannuleerd.",
+                                                                               LogLevelConstant.Warn)
+                                                              }, 2);
 
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             mocks.VerifyAll();
@@ -467,7 +479,7 @@ namespace Core.Common.Gui.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenActivitySavingStagedProject_WhenCancelling_ThenProjectSavedWithLogMessage(bool saveExistingProject)
+        public void GivenActivitySavingStagedProject_WhenCancelling_ThenProjectSavedWithAdditionalLogMessage(bool saveExistingProject)
         {
             // Given
             const string filePath = "A";
@@ -506,10 +518,14 @@ namespace Core.Common.Gui.Test
 
             // Then
             string prefix = saveExistingProject ? "bestaand " : "";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call,
-                                                            Tuple.Create($"Opslaan van {prefix}project is gelukt.",
-                                                                         LogLevelConstant.Info),
-                                                            1);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
+                                                              new[]
+                                                              {
+                                                                  Tuple.Create($"Opslaan van {prefix}project is gestart.",
+                                                                               LogLevelConstant.Info),
+                                                                  Tuple.Create($"Opslaan van {prefix}project is gelukt.",
+                                                                               LogLevelConstant.Info)
+                                                              }, 2);
 
             Assert.AreEqual(ActivityState.Finished, activity.State);
             mocks.VerifyAll();
