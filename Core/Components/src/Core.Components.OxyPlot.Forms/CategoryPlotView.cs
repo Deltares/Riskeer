@@ -44,7 +44,7 @@ namespace Core.Components.OxyPlot.Forms
             categoryAxis = new CategoryAxis
             {
                 MinorStep = 1,
-                Angle = 45,
+                Angle = 90,
                 AbsoluteMinimum = -0.5,
                 IsPanEnabled = false,
                 IsZoomEnabled = false

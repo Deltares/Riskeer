@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.TestUtil;
+using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -40,6 +45,93 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsNull(chartControl.Data);
             Assert.AreEqual(1, chartControl.Controls.Count);
             Assert.IsInstanceOf<IStackChartControl>(chartControl.Controls[0]);
+        }
+
+        [Test]
+        public void GivenStackChartControlWithoutData_WhenDataNotNull_ThenStackChartControlUpdated()
+        {
+            // Setup
+            var chartControl = new IllustrationPointsChartControl();
+
+            // Call
+            chartControl.Data = GetGerenalResult();
+
+            // Assert
+            IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
+            string[] columns = chart.Data.Columns.ToArray();
+            RowChartData[] rows = chart.Data.Rows.ToArray();
+
+            Assert.AreEqual(3, columns.Length);
+            Assert.AreEqual(3, rows.Length);
+
+            Assert.AreEqual("SSE", columns[0]);
+            Assert.AreEqual("SSE", columns[1]);
+            Assert.AreEqual("SSE", columns[2]);
+
+            Assert.AreEqual("Stochast 1", rows[0].Name);
+            CollectionAssert.AreEqual(new[]
+            {
+                0.81,
+                0.19,
+                0.19
+            }, rows[0].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.AreEqual("Stochast 2", rows[1].Name);
+            CollectionAssert.AreEqual(new[]
+            {
+                0.19,
+                0.81,
+                0.81
+            }, rows[1].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.AreEqual("Overig", rows[2].Name);
+            CollectionAssert.AreEqual(new[]
+            {
+                0.0002,
+                0.0008,
+                0.0018
+            }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
+        }
+
+        private static GeneralResult GetGerenalResult()
+        {
+            return new GeneralResult(
+                new TestWindDirection(),
+                Enumerable.Empty<Stochast>(),
+                new[]
+                {
+                    new WindDirectionClosingSituationIllustrationPoint(
+                        new TestWindDirection(), "General",
+                        new IllustrationPoint("Punt 1",
+                                              new[]
+                                              {
+                                                  new RealizedStochast("Stochast 1", 1, -0.9, 3),
+                                                  new RealizedStochast("Stochast 2", 1, -0.43589, 3),
+                                                  new RealizedStochast("Stochast 3", 1, -0.01, 3),
+                                                  new RealizedStochast("Stochast 4", 1, -0.01, 3)
+                                              },
+                                              Enumerable.Empty<IllustrationPointResult>(), 1)),
+                    new WindDirectionClosingSituationIllustrationPoint(
+                        new TestWindDirection(), "General",
+                        new IllustrationPoint("Punt 2",
+                                              new[]
+                                              {
+                                                  new RealizedStochast("Stochast 1", 1, -0.43589, 3),
+                                                  new RealizedStochast("Stochast 2", 1, -0.9, 3),
+                                                  new RealizedStochast("Stochast 3", 1, -0.02, 3),
+                                                  new RealizedStochast("Stochast 4", 1, -0.02, 3)
+                                              },
+                                              Enumerable.Empty<IllustrationPointResult>(), 1)),
+                    new WindDirectionClosingSituationIllustrationPoint(
+                        new TestWindDirection(), "General",
+                        new IllustrationPoint("Punt 3",
+                                              new[]
+                                              {
+                                                  new RealizedStochast("Stochast 1", 1, -0.43589, 3),
+                                                  new RealizedStochast("Stochast 2", 1, -0.9, 3),
+                                                  new RealizedStochast("Stochast 3", 1, -0.03, 3),
+                                                  new RealizedStochast("Stochast 4", 1, -0.03, 3)
+                                              },
+                                              Enumerable.Empty<IllustrationPointResult>(), 1))
+                });
         }
     }
 }

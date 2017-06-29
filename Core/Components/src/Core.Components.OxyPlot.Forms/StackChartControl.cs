@@ -77,6 +77,7 @@ namespace Core.Components.OxyPlot.Forms
                 if (data != null)
                 {
                     DrawPlot();
+                    plotView.InvalidatePlot(true);
                 }
             }
         }

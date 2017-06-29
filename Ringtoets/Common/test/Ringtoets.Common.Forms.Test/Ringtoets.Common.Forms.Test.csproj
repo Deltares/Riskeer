@@ -182,6 +182,10 @@
       <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>
       <Name>Core.Components.Stack.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj">
+      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
+      <Name>Core.Components.Stack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
       <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
       <Name>Core.Components.BruTile.TestUtil</Name>

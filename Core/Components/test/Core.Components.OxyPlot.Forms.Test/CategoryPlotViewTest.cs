@@ -49,7 +49,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             CategoryAxis categoryAxis = axes.OfType<CategoryAxis>().First();
             Assert.AreEqual(1, categoryAxis.MinorStep);
-            Assert.AreEqual(45, categoryAxis.Angle);
+            Assert.AreEqual(90, categoryAxis.Angle);
 
             Assert.AreEqual(-0.5, categoryAxis.AbsoluteMinimum);
             Assert.IsFalse(categoryAxis.IsPanEnabled);

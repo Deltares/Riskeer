@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
+
 namespace Ringtoets.Common.Forms.Views
 {
     partial class LocationsView<T>
@@ -65,7 +67,7 @@ namespace Ringtoets.Common.Forms.Views
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(445, 482);
+            this.dataGridViewControl.Size = new System.Drawing.Size(443, 480);
             this.dataGridViewControl.TabIndex = 0;
             // 
             // CalculateForSelectedButton
@@ -103,7 +105,7 @@ namespace Ringtoets.Common.Forms.Views
             this.ButtonGroupBox.Controls.Add(this.DeselectAllButton);
             this.ButtonGroupBox.Controls.Add(this.SelectAllButton);
             this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 482);
+            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 480);
             this.ButtonGroupBox.MinimumSize = new System.Drawing.Size(445, 61);
             this.ButtonGroupBox.Name = "ButtonGroupBox";
             this.ButtonGroupBox.Size = new System.Drawing.Size(445, 61);
@@ -118,12 +120,15 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // verticalSplitContainer
             // 
+            this.verticalSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.verticalSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.verticalSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.verticalSplitContainer.Name = "verticalSplitContainer";
             // 
             // verticalSplitContainer.Panel1
             // 
+            this.verticalSplitContainer.Panel1.AutoScroll = true;
+            this.verticalSplitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(440, 0);
             this.verticalSplitContainer.Panel1.Controls.Add(this.dataGridViewControl);
             this.verticalSplitContainer.Panel1.Controls.Add(this.ButtonGroupBox);
             // 
@@ -151,6 +156,7 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // illustrationPointsChartControl
             // 
+            this.illustrationPointsChartControl.Data = null;
             this.illustrationPointsChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.illustrationPointsChartControl.Location = new System.Drawing.Point(0, 0);
             this.illustrationPointsChartControl.Name = "illustrationPointsChartControl";
