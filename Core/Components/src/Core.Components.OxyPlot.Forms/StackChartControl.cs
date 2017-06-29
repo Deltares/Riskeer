@@ -77,7 +77,6 @@ namespace Core.Components.OxyPlot.Forms
                 if (data != null)
                 {
                     DrawPlot();
-                    plotView.InvalidatePlot(true);
                 }
             }
         }
@@ -112,6 +111,8 @@ namespace Core.Components.OxyPlot.Forms
         {
             DrawLabels();
             DrawColumns();
+
+            plotView.InvalidatePlot(true);
         }
 
         private void ClearPlot()

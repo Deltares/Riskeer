@@ -103,7 +103,9 @@ namespace Core.Components.OxyPlot.Forms
 
             categoryAxis.Labels.AddRange(labels);
 
-            categoryAxis.AbsoluteMaximum = categoryAxis.Labels.Count - 0.5;
+            categoryAxis.AbsoluteMaximum = categoryAxis.Labels.Count > 0
+                                               ? categoryAxis.Labels.Count - 0.5
+                                               : 0;
         }
 
         /// <summary>

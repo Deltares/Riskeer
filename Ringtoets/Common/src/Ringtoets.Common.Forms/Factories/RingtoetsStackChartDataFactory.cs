@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Forms.Factories
             if (remainingStochasts.Any())
             {
                 stackChartData.AddRow(Resources.RingtoetsStackChartDataFactory_RemainingRow_DisplayName,
-                                      CreateRemainingRow(remainingStochasts),
+                                      GetValuesForRemainingRow(remainingStochasts),
                                       Color.Gray);
             }
         }
@@ -166,7 +166,7 @@ namespace Ringtoets.Common.Forms.Factories
             return stochast.Value.Any(v => v < minAlphaSquared);
         }
 
-        private static double[] CreateRemainingRow(IDictionary<string, List<double>> stochasts)
+        private static double[] GetValuesForRemainingRow(IDictionary<string, List<double>> stochasts)
         {
             var values = new double[stochasts.First().Value.Count];
             var index = 0;

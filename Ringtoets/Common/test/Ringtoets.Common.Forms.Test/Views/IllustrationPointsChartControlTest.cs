@@ -51,13 +51,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void GivenStackChartControlWithoutData_WhenDataNotNull_ThenStackChartControlUpdated()
         {
-            // Setup
+            // Given
             var chartControl = new IllustrationPointsChartControl();
 
-            // Call
+            // When
             chartControl.Data = GetGerenalResult();
 
-            // Assert
+            // Then
             IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
             string[] columns = chart.Data.Columns.ToArray();
             RowChartData[] rows = chart.Data.Rows.ToArray();
@@ -93,6 +93,24 @@ namespace Ringtoets.Common.Forms.Test.Views
                 0.0018
             }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
             Assert.AreEqual(Color.Gray, rows[2].Color);
+        }
+
+        [Test]
+        public void GivenStackChartCotnrolWithData_WhenDataSetToNull_ThenStackChartControlUpdated()
+        {
+            // Given
+            var chartControl = new IllustrationPointsChartControl
+            {
+                Data = GetGerenalResult()
+            };
+
+            // When
+            chartControl.Data = null;
+
+            // Then
+            IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
+            CollectionAssert.IsEmpty(chart.Data.Columns);
+            CollectionAssert.IsEmpty(chart.Data.Rows);
         }
 
         private static GeneralResult GetGerenalResult()

@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Views
     {
         private GeneralResult data;
 
-        private StackChartData chartData;
+        private readonly StackChartData chartData;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsChartControl"/>.
@@ -64,6 +64,11 @@ namespace Ringtoets.Common.Forms.Views
                 if (data != null)
                 {
                     SetChartData();
+                }
+                else
+                {
+                    chartData.Clear();
+                    chartData.NotifyObservers();
                 }
             }
         }
