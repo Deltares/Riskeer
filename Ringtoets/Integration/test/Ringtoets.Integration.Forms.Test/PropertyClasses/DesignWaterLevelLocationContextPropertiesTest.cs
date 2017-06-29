@@ -20,13 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -99,7 +103,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(bool withIllustrationPoints)
         {
             // Setup
             var random = new Random();
@@ -115,16 +121,32 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             double designWaterLevel = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
+            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
+                                                                                      targetProbability,
+                                                                                      targetReliability,
+                                                                                      calculatedProbability,
+                                                                                      calculatedReliability,
+                                                                                      convergence);
+
+            var illustrationPoints = new[]
+            {
+                new WindDirectionClosingSituationIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestIllustrationPoint()),
+            };
+            var stochasts = new[]
+            {
+                new Stochast("a", 2, 3)
+            };
+            var governingWindDirection = "EAST";
+
+            if (withIllustrationPoints)
+            {
+                hydraulicBoundaryLocationOutput.SetIllustrationPoints(new GeneralResult(new WindDirection(governingWindDirection, 2), stochasts, illustrationPoints));
+            }
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
                 DesignWaterLevelCalculation =
                 {
-                    Output = new HydraulicBoundaryLocationOutput(designWaterLevel,
-                                                                 targetProbability,
-                                                                 targetReliability,
-                                                                 calculatedProbability,
-                                                                 calculatedReliability,
-                                                                 convergence)
+                    Output = hydraulicBoundaryLocationOutput
                 }
             };
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -155,6 +177,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);
+
+            if (withIllustrationPoints)
+            {
+                CollectionAssert.AreEqual(stochasts, properties.AlphaValues);
+                CollectionAssert.AreEqual(stochasts, properties.Durations);
+                CollectionAssert.AreEqual(illustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));
+                Assert.AreEqual(governingWindDirection, properties.GoverningWindDirection);
+            }
         }
 
         [Test]

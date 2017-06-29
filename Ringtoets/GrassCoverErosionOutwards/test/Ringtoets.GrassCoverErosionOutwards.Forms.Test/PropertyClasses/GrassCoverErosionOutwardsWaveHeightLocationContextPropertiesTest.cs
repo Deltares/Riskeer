@@ -21,13 +21,16 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -96,7 +99,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_FullyConfiguredLocation_ReturnsExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetProperties_FullyConfiguredLocation_ReturnsExpectedValues(bool withIllustrationPoints)
         {
             // Setup
             var random = new Random();
@@ -112,16 +117,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             double waveHeight = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
+            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(waveHeight,
+                                                                                      targetProbability,
+                                                                                      targetReliability,
+                                                                                      calculatedProbability,
+                                                                                      calculatedReliability,
+                                                                                      convergence);
+
+            var illustrationPoints = new[]
+            {
+                new WindDirectionClosingSituationIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestIllustrationPoint()),
+            };
+            var stochasts = new[]
+            {
+                new Stochast("a", 2, 3)
+            };
+            var governingWindDirection = "EAST";
+
+            if (withIllustrationPoints)
+            {
+                hydraulicBoundaryLocationOutput.SetIllustrationPoints(new GeneralResult(new WindDirection(governingWindDirection, 2), stochasts, illustrationPoints));
+            }
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
                 WaveHeightCalculation =
                 {
-                    Output = new HydraulicBoundaryLocationOutput(waveHeight,
-                                                                 targetProbability,
-                                                                 targetReliability,
-                                                                 calculatedProbability,
-                                                                 calculatedReliability,
-                                                                 convergence)
+                    Output = hydraulicBoundaryLocationOutput
                 }
             };
             var locations = new ObservableList<HydraulicBoundaryLocation>
@@ -150,6 +171,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);
+
+            if (withIllustrationPoints)
+            {
+                CollectionAssert.AreEqual(stochasts, properties.AlphaValues);
+                CollectionAssert.AreEqual(stochasts, properties.Durations);
+                CollectionAssert.AreEqual(illustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));
+                Assert.AreEqual(governingWindDirection, properties.GoverningWindDirection);
+            }
         }
 
         [Test]
