@@ -1041,4 +1041,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="IllustrationPoint_WindDirection_DisplayName" xml:space="preserve">
     <value>Windrichting</value>
   </data>
+  <data name="RingtoetsStackChartDataFactory_RemainingRow_DisplayName" xml:space="preserve">
+    <value>Overig</value>
+  </data>
 </root>

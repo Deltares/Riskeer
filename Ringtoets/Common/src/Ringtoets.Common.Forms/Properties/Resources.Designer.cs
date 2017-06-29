@@ -2068,6 +2068,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overig.
+        /// </summary>
+        public static string RingtoetsStackChartDataFactory_RemainingRow_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsStackChartDataFactory_RemainingRow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -.
         /// </summary>
         public static string RoundedRouble_No_result_dash {

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
@@ -75,6 +76,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 0.19,
                 0.19
             }, rows[0].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.IsNull(rows[0].Color);
             Assert.AreEqual("Stochast 2", rows[1].Name);
             CollectionAssert.AreEqual(new[]
             {
@@ -82,6 +84,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 0.81,
                 0.81
             }, rows[1].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.IsNull(rows[1].Color);
             Assert.AreEqual("Overig", rows[2].Name);
             CollectionAssert.AreEqual(new[]
             {
@@ -89,6 +92,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 0.0008,
                 0.0018
             }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.AreEqual(Color.Gray, rows[2].Color);
         }
 
         private static GeneralResult GetGerenalResult()

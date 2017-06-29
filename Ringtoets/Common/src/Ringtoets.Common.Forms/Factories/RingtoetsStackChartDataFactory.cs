@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Components.Stack.Data;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -32,6 +34,8 @@ namespace Ringtoets.Common.Forms.Factories
     /// </summary>
     public static class RingtoetsStackChartDataFactory
     {
+        private const double minAlphaSquared = 0.01;
+
         /// <summary>
         /// Creates a new <see cref="StackChartData"/>.
         /// </summary>
@@ -77,6 +81,108 @@ namespace Ringtoets.Common.Forms.Factories
 
                 stackChartData.AddColumn(columnName);
             }
+        }
+
+        /// <summary>
+        /// Creates the rows for the given <paramref name="stackChartData"/>.
+        /// </summary>
+        /// <param name="generalResult">The data to create the rows from.</param>
+        /// <param name="stackChartData">The stack chart data to create the rows for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void CreateRows(GeneralResult generalResult, StackChartData stackChartData)
+        {
+            if (generalResult == null)
+            {
+                throw new ArgumentNullException(nameof(generalResult));
+            }
+            if (stackChartData == null)
+            {
+                throw new ArgumentNullException(nameof(stackChartData));
+            }
+
+            var stochastValues = new List<Tuple<string, double>>();
+
+            foreach (WindDirectionClosingSituationIllustrationPoint illustrationPoint in generalResult.WindDirectionClosingSituationIllustrationPoints)
+            {
+                stochastValues.AddRange(illustrationPoint.IllustrationPoint.Stochasts
+                                                         .Select(illustrationPointStochast =>
+                                                                     new Tuple<string, double>(illustrationPointStochast.Name,
+                                                                                               Math.Pow(illustrationPointStochast.Alpha, 2))));
+            }
+
+            IDictionary<string, List<double>> stochasts = CreateStochastsLookup(stochastValues);
+
+            CreateRowsForStochasts(stackChartData, stochasts);
+        }
+
+        private static IDictionary<string, List<double>> CreateStochastsLookup(List<Tuple<string, double>> stochastValues)
+        {
+            IDictionary<string, List<double>> lookup = new Dictionary<string, List<double>>();
+
+            foreach (Tuple<string, double> stochastValue in stochastValues)
+            {
+                if (!lookup.ContainsKey(stochastValue.Item1))
+                {
+                    lookup.Add(stochastValue.Item1, new List<double>());
+                }
+
+                lookup[stochastValue.Item1].Add(stochastValue.Item2);
+            }
+            return lookup;
+        }
+
+        private static void CreateRowsForStochasts(StackChartData stackChartData, IDictionary<string, List<double>> stochasts)
+        {
+            IDictionary<string, List<double>> significantStochasts = new Dictionary<string, List<double>>();
+            IDictionary<string, List<double>> remainingStochasts = new Dictionary<string, List<double>>();
+
+            foreach (KeyValuePair<string, List<double>> stochast in stochasts)
+            {
+                if (!StochastIsSignificant(stochast))
+                {
+                    significantStochasts.Add(stochast);
+                }
+                else
+                {
+                    remainingStochasts.Add(stochast);
+                }
+            }
+
+            foreach (KeyValuePair<string, List<double>> significantStochast in significantStochasts)
+            {
+                stackChartData.AddRow(significantStochast.Key, significantStochast.Value.ToArray());
+            }
+
+            if (remainingStochasts.Any())
+            {
+                stackChartData.AddRow(Resources.RingtoetsStackChartDataFactory_RemainingRow_DisplayName,
+                                      CreateRemainingRow(remainingStochasts),
+                                      Color.Gray);
+            }
+        }
+
+        private static bool StochastIsSignificant(KeyValuePair<string, List<double>> stochast)
+        {
+            return stochast.Value.Any(v => v < minAlphaSquared);
+        }
+
+        private static double[] CreateRemainingRow(IDictionary<string, List<double>> stochasts)
+        {
+            var values = new double[stochasts.First().Value.Count];
+            var index = 0;
+
+            foreach (KeyValuePair<string, List<double>> stochast in stochasts)
+            {
+                foreach (double value in stochast.Value)
+                {
+                    values[index] += value;
+                    index++;
+                }
+
+                index = 0;
+            }
+
+            return values;
         }
     }
 }
