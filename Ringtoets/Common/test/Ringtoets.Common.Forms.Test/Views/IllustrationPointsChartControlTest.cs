@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStackChartCotnrolWithData_WhenDataSetToNull_ThenStackChartControlUpdated()
+        public void GivenStackChartControlWithData_WhenDataSetToNull_ThenStackChartControlUpdated()
         {
             // Given
             var chartControl = new IllustrationPointsChartControl
@@ -111,6 +111,57 @@ namespace Ringtoets.Common.Forms.Test.Views
             IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
             CollectionAssert.IsEmpty(chart.Data.Columns);
             CollectionAssert.IsEmpty(chart.Data.Rows);
+        }
+
+        [Test]
+        public void GivenStackChartControlWithData_WhenDataSetToOther_ThenStackChartControlUpdated()
+        {
+            // Given
+            var chartControl = new IllustrationPointsChartControl
+            {
+                Data = GetGerenalResult()
+            };
+
+            // Precondition
+            IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
+
+            Assert.AreEqual(3, chart.Data.Columns.Count());
+            Assert.AreEqual(3, chart.Data.Rows.Count());
+
+            // When
+            chartControl.Data = new GeneralResult(
+                new TestWindDirection(),
+                Enumerable.Empty<Stochast>(),
+                new[]
+                {
+                    new WindDirectionClosingSituationIllustrationPoint(
+                        new TestWindDirection(), "Regular",
+                        new IllustrationPoint("Punt 1",
+                                              new[]
+                                              {
+                                                  new RealizedStochast("Stochast 3", 1, -0.9, 3),
+                                                  new RealizedStochast("Stochast 4", 1, -0.43589, 3)
+                                              },
+                                              Enumerable.Empty<IllustrationPointResult>(), 1)),
+                    new WindDirectionClosingSituationIllustrationPoint(
+                        new TestWindDirection(), "Regular",
+                        new IllustrationPoint("Punt 2",
+                                              new[]
+                                              {
+                                                  new RealizedStochast("Stochast 3", 1, -0.43589, 3),
+                                                  new RealizedStochast("Stochast 4", 1, -0.9, 3)
+                                              },
+                                              Enumerable.Empty<IllustrationPointResult>(), 1))
+                });
+
+            // Then
+            Assert.AreEqual(2, chart.Data.Columns.Count());
+
+            RowChartData[] rows = chart.Data.Rows.ToArray();
+            Assert.AreEqual(2, rows.Length);            
+
+            Assert.AreEqual("Stochast 3", rows[0].Name);
+            Assert.AreEqual("Stochast 4", rows[1].Name);
         }
 
         private static GeneralResult GetGerenalResult()

@@ -46,6 +46,7 @@ namespace Ringtoets.Common.Forms.Views
             InitializeComponent();
 
             chartData = RingtoetsStackChartDataFactory.Create();
+            stackChartControl.Data = chartData;
         }
 
         /// <summary>
@@ -59,17 +60,19 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
+                if (data != null)
+                {
+                    chartData.Clear();
+                }
+
                 data = value;
 
                 if (data != null)
                 {
                     SetChartData();
                 }
-                else
-                {
-                    chartData.Clear();
-                    chartData.NotifyObservers();
-                }
+
+                chartData.NotifyObservers();
             }
         }
 
@@ -77,8 +80,6 @@ namespace Ringtoets.Common.Forms.Views
         {
             RingtoetsStackChartDataFactory.CreateColumns(data, chartData);
             RingtoetsStackChartDataFactory.CreateRows(data, chartData);
-
-            stackChartControl.Data = chartData;
         }
     }
 }
