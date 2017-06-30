@@ -33,13 +33,6 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public class ChartMultipleLineData : ChartData
     {
-        private static readonly ChartLineStyle defaultChartLineStyle = new ChartLineStyle
-        {
-            Color = Color.Black,
-            Width = 2,
-            DashStyle = ChartLineDashStyle.Solid
-        };
-
         private IEnumerable<Point2D[]> lines;
 
         /// <summary>
@@ -48,7 +41,7 @@ namespace Core.Components.Chart.Data
         /// <param name="name">The name of the <see cref="ChartMultipleLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartMultipleLineData(string name) : this(name, defaultChartLineStyle) {}
+        public ChartMultipleLineData(string name) : this(name, CreateDefaultChartLineStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartMultipleLineData"/>.
@@ -110,5 +103,15 @@ namespace Core.Components.Chart.Data
         /// Gets the style of the <see cref="ChartMultipleLineData"/>.
         /// </summary>
         public ChartLineStyle Style { get; }
+
+        private static ChartLineStyle CreateDefaultChartLineStyle()
+        {
+            return new ChartLineStyle
+            {
+                Color = Color.Black,
+                Width = 2,
+                DashStyle = ChartLineDashStyle.Solid
+            };
+        }
     }
 }

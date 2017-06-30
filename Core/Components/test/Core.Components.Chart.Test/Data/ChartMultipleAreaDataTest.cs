@@ -48,6 +48,19 @@ namespace Core.Components.Chart.Test.Data
         }
 
         [Test]
+        public void Constructor_Always_CreatesNewInstanceOfDefaultStyle()
+        {
+            // Setup
+            var dataA = new ChartMultipleAreaData("test data");
+
+            // Call
+            var dataB = new ChartMultipleAreaData("test data");
+
+            // Assert
+            Assert.AreNotSame(dataA.Style, dataB.Style);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("        ")]

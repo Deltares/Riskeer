@@ -52,6 +52,19 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
+        public void Constructor_Always_CreatesNewInstanceOfDefaultStyle()
+        {
+            // Setup
+            var dataA = new MapLineData("test data");
+
+            // Call
+            var dataB = new MapLineData("test data");
+
+            // Assert
+            Assert.AreNotSame(dataA.Style, dataB.Style);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("        ")]

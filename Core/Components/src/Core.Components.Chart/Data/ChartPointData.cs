@@ -30,22 +30,13 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public class ChartPointData : PointBasedChartData
     {
-        private static readonly ChartPointStyle defaultChartPointStyle = new ChartPointStyle
-        {
-            Color = Color.Black,
-            StrokeColor = Color.Black,
-            Size = 2,
-            StrokeThickness = 1,
-            Symbol = ChartPointSymbol.Square
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="ChartPointData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartPointData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartPointData(string name) : this(name, defaultChartPointStyle) {}
+        public ChartPointData(string name) : this(name, CreateDefaultChartPointStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartPointData"/>.
@@ -69,5 +60,17 @@ namespace Core.Components.Chart.Data
         /// Gets the style of the points.
         /// </summary>
         public ChartPointStyle Style { get; }
+
+        private static ChartPointStyle CreateDefaultChartPointStyle()
+        {
+            return new ChartPointStyle
+            {
+                Color = Color.Black,
+                StrokeColor = Color.Black,
+                Size = 2,
+                StrokeThickness = 1,
+                Symbol = ChartPointSymbol.Square
+            };
+        }
     }
 }

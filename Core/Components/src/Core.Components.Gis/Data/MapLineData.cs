@@ -33,19 +33,13 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapLineData : FeatureBasedMapData
     {
-        private static readonly LineStyle defaultLineStyle = new LineStyle {
-            Color = Color.Black,
-            Width = 2,
-            DashStyle = LineDashStyle.Solid
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapLineData(string name) : this(name, defaultLineStyle) {}
+        public MapLineData(string name) : this(name, CreateDefaultLineStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/>.
@@ -86,6 +80,16 @@ namespace Core.Components.Gis.Data
             {
                 throw new ArgumentException("MapLineData only accepts MapFeature instances whose MapGeometries contain a single point-collection.");
             }
+        }
+
+        private static LineStyle CreateDefaultLineStyle()
+        {
+            return new LineStyle
+            {
+                Color = Color.Black,
+                Width = 2,
+                DashStyle = LineDashStyle.Solid
+            };
         }
 
         private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> lineFeatures)

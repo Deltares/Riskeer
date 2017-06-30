@@ -33,20 +33,13 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapPolygonData : FeatureBasedMapData
     {
-        private static readonly PolygonStyle defaultPolygonStyle = new PolygonStyle
-        {
-            FillColor = Color.DarkGray,
-            StrokeColor = Color.Black,
-            StrokeThickness = 2
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPolygonData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapPolygonData(string name) : this(name, defaultPolygonStyle) {}
+        public MapPolygonData(string name) : this(name, CreateDefaultPolygonStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonData"/>.
@@ -87,6 +80,16 @@ namespace Core.Components.Gis.Data
             {
                 throw new ArgumentException("MapPolygonData only accepts MapFeature instances whose MapGeometries contain at least one single point-collection.");
             }
+        }
+
+        private static PolygonStyle CreateDefaultPolygonStyle()
+        {
+            return new PolygonStyle
+            {
+                FillColor = Color.DarkGray,
+                StrokeColor = Color.Black,
+                StrokeThickness = 2
+            };
         }
 
         private static bool HasFeatureWithEmptyPointCollections(IEnumerable<MapFeature> lineFeatures)

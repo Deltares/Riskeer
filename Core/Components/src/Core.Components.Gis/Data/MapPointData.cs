@@ -33,22 +33,13 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapPointData : FeatureBasedMapData
     {
-        private static readonly PointStyle defaultPointStyle = new PointStyle
-        {
-            Color = Color.Black,
-            Size = 2,
-            Symbol = PointSymbol.Square,
-            StrokeColor = Color.Black,
-            StrokeThickness = 1
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="MapPointData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapPointData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapPointData(string name) : this(name, defaultPointStyle) {}
+        public MapPointData(string name) : this(name, CreateDefaultPointStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPointData"/>.
@@ -90,6 +81,18 @@ namespace Core.Components.Gis.Data
             {
                 throw new ArgumentException("MapPointData only accepts MapFeature instances whose MapGeometries contain a single point-collection.");
             }
+        }
+
+        private static PointStyle CreateDefaultPointStyle()
+        {
+            return new PointStyle
+            {
+                Color = Color.Black,
+                Size = 2,
+                Symbol = PointSymbol.Square,
+                StrokeColor = Color.Black,
+                StrokeThickness = 1
+            };
         }
 
         private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> pointFeatures)

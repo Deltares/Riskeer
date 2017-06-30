@@ -30,20 +30,13 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public class ChartAreaData : PointBasedChartData
     {
-        private static readonly ChartAreaStyle defaultChartAreaStyle = new ChartAreaStyle
-        {
-            FillColor = Color.Gray,
-            StrokeColor = Color.Black,
-            StrokeThickness = 2
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="ChartAreaData"/> with default styling.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartAreaData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartAreaData(string name) : this(name, defaultChartAreaStyle) {}
+        public ChartAreaData(string name) : this(name, CreateDefaultChartAreaStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartAreaData"/>.
@@ -67,5 +60,15 @@ namespace Core.Components.Chart.Data
         /// Gets the style of the chart area.
         /// </summary>
         public ChartAreaStyle Style { get; }
+
+        private static ChartAreaStyle CreateDefaultChartAreaStyle()
+        {
+            return new ChartAreaStyle
+            {
+                FillColor = Color.Gray,
+                StrokeColor = Color.Black,
+                StrokeThickness = 2
+            };
+        }
     }
 }

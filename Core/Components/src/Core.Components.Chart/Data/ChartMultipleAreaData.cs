@@ -33,13 +33,6 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public class ChartMultipleAreaData : ChartData
     {
-        private static readonly ChartAreaStyle defaultChartAreaStyle = new ChartAreaStyle
-        {
-            FillColor = Color.Gray,
-            StrokeColor = Color.Black,
-            StrokeThickness = 2
-        };
-
         private IEnumerable<Point2D[]> areas;
 
         /// <summary>
@@ -48,7 +41,7 @@ namespace Core.Components.Chart.Data
         /// <param name="name">The name of the <see cref="ChartMultipleAreaData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartMultipleAreaData(string name) : this(name, defaultChartAreaStyle) {}
+        public ChartMultipleAreaData(string name) : this(name, CreateDefaultChartAreaStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartMultipleAreaData"/>.
@@ -108,5 +101,15 @@ namespace Core.Components.Chart.Data
         /// Gets the style of the <see cref="ChartMultipleAreaData"/>.
         /// </summary>
         public ChartAreaStyle Style { get; }
+
+        private static ChartAreaStyle CreateDefaultChartAreaStyle()
+        {
+            return new ChartAreaStyle
+            {
+                FillColor = Color.Gray,
+                StrokeColor = Color.Black,
+                StrokeThickness = 2
+            };
+        }
     }
 }
