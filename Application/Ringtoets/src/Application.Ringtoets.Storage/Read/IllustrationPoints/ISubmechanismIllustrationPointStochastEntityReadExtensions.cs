@@ -26,28 +26,28 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="IRealizedStochastEntity"/> related to creating a <see cref="RealizedStochast"/>.
+    /// Extension methods for <see cref="IRealizedStochastEntity"/> related to creating a <see cref="SubmechanismIllustrationPointStochast"/>.
     /// </summary>
-    internal static class IRealizedStochastEntityReadExtensions
+    internal static class ISubmechanismIllustrationPointStochastEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IRealizedStochastEntity"/> and use the information to construct a <see cref="RealizedStochast"/>.
+        /// Reads the <see cref="IRealizedStochastEntity"/> and use the information to construct a <see cref="SubmechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="entity">The <see cref="IRealizedStochastEntity"/> to create 
-        /// <see cref="RealizedStochast"/> for.</param>
-        /// <returns>A new <see cref="RealizedStochast"/>.</returns>
+        /// <see cref="SubmechanismIllustrationPointStochast"/> for.</param>
+        /// <returns>A new <see cref="SubmechanismIllustrationPointStochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public static RealizedStochast Read(this IRealizedStochastEntity entity)
+        public static SubmechanismIllustrationPointStochast Read(this IRealizedStochastEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new RealizedStochast(entity.Name,
-                                        entity.Duration,
-                                        entity.Alpha,
-                                        entity.Realization);
+            return new SubmechanismIllustrationPointStochast(entity.Name,
+                                                             entity.Duration,
+                                                             entity.Alpha,
+                                                             entity.Realization);
         }
     }
 }

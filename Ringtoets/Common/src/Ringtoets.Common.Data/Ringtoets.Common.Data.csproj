@@ -72,7 +72,7 @@
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPoint.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResult.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirection.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\RealizedStochast.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointStochast.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\Stochast.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirectionClosingSituationIllustrationPoint.cs" />
     <Compile Include="Hydraulics\IWaveHeightCalculation.cs" />

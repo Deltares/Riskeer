@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void CreateRealizedStochast_HydraRealizedStochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochastConverter.CreateRealizedStochast(null);
+            TestDelegate call = () => StochastConverter.CreateSubmechanismIllustrationStochast(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraStochast = new HydraRealizedStochast(name, duration, alpha, realization);
 
             // Call
-            RealizedStochast stochast = StochastConverter.CreateRealizedStochast(hydraStochast);
+            SubmechanismIllustrationPointStochast stochast = StochastConverter.CreateSubmechanismIllustrationStochast(hydraStochast);
 
             // Assert
             Assert.AreEqual(hydraStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());

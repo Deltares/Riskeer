@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using IllustrationPointResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.IllustrationPointResult;
-using RealizedStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.RealizedStochast;
+using SubmechanismIllustrationPointStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubmechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -49,8 +49,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
             }
 
-            IEnumerable<RealizedStochast> stochasts = subMechanismIllustrationPoint
-                .Stochasts.Select(StochastConverter.CreateRealizedStochast);
+            IEnumerable<SubmechanismIllustrationPointStochast> stochasts = subMechanismIllustrationPoint
+                .Stochasts.Select(StochastConverter.CreateSubmechanismIllustrationStochast);
             IEnumerable<IllustrationPointResult> illustrationPointResults = subMechanismIllustrationPoint
                 .Results.Select(IllustrationPointResultConverter.CreateIllustrationPointResult);
 

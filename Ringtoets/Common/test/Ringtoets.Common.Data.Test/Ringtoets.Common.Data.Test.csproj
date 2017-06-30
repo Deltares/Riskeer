@@ -82,7 +82,7 @@
     <Compile Include="Hydraulics\IllustrationPoints\GeneralResultTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResultTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointTest.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\RealizedStochastTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointStochastTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\StochastTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirectionClosingSituationIllustrationPointTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirectionTest.cs" />

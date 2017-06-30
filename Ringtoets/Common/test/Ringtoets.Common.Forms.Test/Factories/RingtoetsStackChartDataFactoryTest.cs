@@ -166,11 +166,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
                         new IllustrationPoint("Punt 1",
                                               new[]
                                               {
-                                                  new RealizedStochast("Stochast 1", 1, -0.9, 3),
-                                                  new RealizedStochast("Stochast 2", 1, -0.43589, 3),
-                                                  new RealizedStochast("Stochast 3", 1, -0.01, 3),
-                                                  new RealizedStochast("Stochast 4", 1, -0.01, 3),
-                                                  new RealizedStochast("Stochast 5", 1, -0.099, 3)
+                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.9, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.43589, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.01, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.01, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 5", 1, -0.099, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
@@ -178,11 +178,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
                         new IllustrationPoint("Punt 2",
                                               new[]
                                               {
-                                                  new RealizedStochast("Stochast 1", 1, -0.43589, 3),
-                                                  new RealizedStochast("Stochast 2", 1, -0.9, 3),
-                                                  new RealizedStochast("Stochast 3", 1, -0.02, 3),
-                                                  new RealizedStochast("Stochast 4", 1, -0.02, 3),
-                                                  new RealizedStochast("Stochast 5", 1, -0.9, 3)
+                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.9, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.02, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.02, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 5", 1, -0.9, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
@@ -190,11 +190,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
                         new IllustrationPoint("Punt 3",
                                               new[]
                                               {
-                                                  new RealizedStochast("Stochast 1", 1, -0.43589, 3),
-                                                  new RealizedStochast("Stochast 2", 1, -0.9, 3),
-                                                  new RealizedStochast("Stochast 3", 1, -0.03, 3),
-                                                  new RealizedStochast("Stochast 4", 1, -0.03, 3),
-                                                  new RealizedStochast("Stochast 5", 1, -0.099, 3)
+                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.9, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.03, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.03, 3),
+                                                  new SubmechanismIllustrationPointStochast("Stochast 5", 1, -0.099, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1))
                });

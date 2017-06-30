@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {
     [TestFixture]
-    public class IRealizedStochastEntityReadExtensionsTest
+    public class ISubmechanismIllustrationPointStochastEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             mockRepository.ReplayAll();
 
             // Call
-            RealizedStochast illustrationPointResult = entity.Read();
+            SubmechanismIllustrationPointStochast illustrationPointResult = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.Name, illustrationPointResult.Name);

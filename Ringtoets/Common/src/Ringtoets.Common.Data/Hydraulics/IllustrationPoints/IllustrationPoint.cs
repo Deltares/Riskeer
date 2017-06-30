@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// Creates a new instance of <see cref="IllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point result</param>
-        /// <param name="stochasts">The realized stochasts.</param>
+        /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
         /// <param name="illustrationPointResults">The output variables.</param>
         /// <param name="beta">The beta value that was realized.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of: 
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// </list>
         /// is <c>null</c>.</exception>
         public IllustrationPoint(string name,
-                                 IEnumerable<RealizedStochast> stochasts,
+                                 IEnumerable<SubmechanismIllustrationPointStochast> stochasts,
                                  IEnumerable<IllustrationPointResult> illustrationPointResults,
                                  double beta)
         {
@@ -80,9 +80,9 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         public RoundedDouble Beta { get; }
 
         /// <summary>
-        /// Gets the stochasts that were realized.
+        /// Gets the stochasts that belong to this submechanism illustration point.
         /// </summary>
-        public IEnumerable<RealizedStochast> Stochasts { get; }
+        public IEnumerable<SubmechanismIllustrationPointStochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the output variables.

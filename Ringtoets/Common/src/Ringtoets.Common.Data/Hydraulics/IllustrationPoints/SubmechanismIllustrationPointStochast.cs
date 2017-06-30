@@ -27,10 +27,10 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     /// <summary>
     /// Container of alpha value definitions which contain a realization.
     /// </summary>
-    public class RealizedStochast : Stochast
+    public class SubmechanismIllustrationPointStochast : Stochast
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RealizedStochast"/>.
+        /// Creates a new instance of <see cref="SubmechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="name">The name of the stochast.</param>
         /// <param name="duration">The duration.</param>
@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <param name="realization">The realization of the stochast.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public RealizedStochast(string name, double duration, double alpha, double realization)
+        public SubmechanismIllustrationPointStochast(string name, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {
             Realization = new RoundedDouble(5, realization);

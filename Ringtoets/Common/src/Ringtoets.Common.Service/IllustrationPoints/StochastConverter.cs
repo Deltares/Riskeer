@@ -49,23 +49,23 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="RealizedStochast"/> based on the information of <paramref name="hydraRealizedStochast"/>.
+        /// Creates a new instance of <see cref="SubmechanismIllustrationPointStochast"/> based on the information of <paramref name="hydraRealizedStochast"/>.
         /// </summary>
         /// <param name="hydraRealizedStochast">The <see cref="HydraRealizedStochast"/> to base the 
-        /// <see cref="RealizedStochast"/> to create on.</param>
+        /// <see cref="SubmechanismIllustrationPointStochast"/> to create on.</param>
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRealizedStochast"/> 
         /// is <c>null</c>.</exception>
-        public static RealizedStochast CreateRealizedStochast(HydraRealizedStochast hydraRealizedStochast)
+        public static SubmechanismIllustrationPointStochast CreateSubmechanismIllustrationStochast(HydraRealizedStochast hydraRealizedStochast)
         {
             if (hydraRealizedStochast == null)
             {
                 throw new ArgumentNullException(nameof(hydraRealizedStochast));
             }
-            return new RealizedStochast(hydraRealizedStochast.Name,
-                                        hydraRealizedStochast.Duration,
-                                        hydraRealizedStochast.Alpha,
-                                        hydraRealizedStochast.Realization);
+            return new SubmechanismIllustrationPointStochast(hydraRealizedStochast.Name,
+                                                             hydraRealizedStochast.Duration,
+                                                             hydraRealizedStochast.Alpha,
+                                                             hydraRealizedStochast.Realization);
         }
     }
 }

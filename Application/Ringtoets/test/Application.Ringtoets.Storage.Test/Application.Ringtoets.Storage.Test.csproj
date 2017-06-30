@@ -91,7 +91,7 @@
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\RealizedStochastCreateExtensionsTest.cs" />
+    <Compile Include="Create\IllustrationPoints\SubmechanismIllustrationPointStochastCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensionsTest.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensionsTest.cs">
       <SubType>Code</SubType>
@@ -125,7 +125,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\IRealizedStochastEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\ISubmechanismIllustrationPointStochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\IStochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />

@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class RealizedStochastTest
+    public class SubmechanismIllustrationPointStochastTest
     {
         [Test]
         public void Constructor_ValidArguments_ReturnExpectedValues()
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double realization = random.NextDouble();
 
             // Call
-            var stochast = new RealizedStochast(name, duration, alpha, realization);
+            var stochast = new SubmechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);

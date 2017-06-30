@@ -27,34 +27,34 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="RealizedStochast"/> related to creating an instance of 
+    /// Extension methods for <see cref="SubmechanismIllustrationPointStochast"/> related to creating an instance of 
     /// <see cref="HydraulicLocationRealizedStochastEntity"/>.
     /// </summary>
-    internal static class RealizedStochastCreateExtensions
+    internal static class SubmechanismIllustrationPointStochastCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HydraulicLocationRealizedStochastEntity"/> based on the information 
-        /// of the <paramref name="realizedStochast"/>.
+        /// of the <paramref name="submechanismIllustrationPointStochast"/>.
         /// </summary>
-        /// <param name="realizedStochast">The stochast to create a database entity for.</param>
-        /// <param name="order">The index at which <paramref name="realizedStochast"/> resides within its parent.</param>
+        /// <param name="submechanismIllustrationPointStochast">The stochast to create a database entity for.</param>
+        /// <param name="order">The index at which <paramref name="submechanismIllustrationPointStochast"/> resides within its parent.</param>
         /// <returns>A new <see cref="HydraulicLocationRealizedStochastEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="realizedStochast"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="submechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
         public static HydraulicLocationRealizedStochastEntity CreateHydraulicLocationRealizedStochastEntity(
-            this RealizedStochast realizedStochast, int order)
+            this SubmechanismIllustrationPointStochast submechanismIllustrationPointStochast, int order)
         {
-            if (realizedStochast == null)
+            if (submechanismIllustrationPointStochast == null)
             {
-                throw new ArgumentNullException(nameof(realizedStochast));
+                throw new ArgumentNullException(nameof(submechanismIllustrationPointStochast));
             }
 
             var entity = new HydraulicLocationRealizedStochastEntity
             {
-                Name = realizedStochast.Name.DeepClone(),
-                Alpha = realizedStochast.Alpha,
-                Duration = realizedStochast.Duration,
-                Realization = realizedStochast.Realization,
+                Name = submechanismIllustrationPointStochast.Name.DeepClone(),
+                Alpha = submechanismIllustrationPointStochast.Alpha,
+                Duration = submechanismIllustrationPointStochast.Duration,
+                Realization = submechanismIllustrationPointStochast.Realization,
                 Order = order
             };
 
@@ -63,27 +63,27 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity"/> based 
-        /// on the information of the <paramref name="realizedStochast"/>.
+        /// on the information of the <paramref name="submechanismIllustrationPointStochast"/>.
         /// </summary>
-        /// <param name="realizedStochast">The stochast to create a database entity for.</param>
-        /// <param name="order">The index at which <paramref name="realizedStochast"/> resides within its parent.</param>
+        /// <param name="submechanismIllustrationPointStochast">The stochast to create a database entity for.</param>
+        /// <param name="order">The index at which <paramref name="submechanismIllustrationPointStochast"/> resides within its parent.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="realizedStochast"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="submechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
         public static GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity CreateGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity(
-            this RealizedStochast realizedStochast, int order)
+            this SubmechanismIllustrationPointStochast submechanismIllustrationPointStochast, int order)
         {
-            if (realizedStochast == null)
+            if (submechanismIllustrationPointStochast == null)
             {
-                throw new ArgumentNullException(nameof(realizedStochast));
+                throw new ArgumentNullException(nameof(submechanismIllustrationPointStochast));
             }
 
             var entity = new GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity
             {
-                Name = realizedStochast.Name.DeepClone(),
-                Alpha = realizedStochast.Alpha,
-                Duration = realizedStochast.Duration,
-                Realization = realizedStochast.Realization,
+                Name = submechanismIllustrationPointStochast.Name.DeepClone(),
+                Alpha = submechanismIllustrationPointStochast.Alpha,
+                Duration = submechanismIllustrationPointStochast.Duration,
+                Realization = submechanismIllustrationPointStochast.Realization,
                 Order = order
             };
 

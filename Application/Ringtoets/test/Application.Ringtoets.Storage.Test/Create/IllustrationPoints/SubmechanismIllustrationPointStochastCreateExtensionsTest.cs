@@ -30,13 +30,13 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 {
     [TestFixture]
-    public class RealizedStochastCreateExtensionsTest
+    public class SubmechanismIllustrationPointStochastCreateExtensionsTest
     {
         [Test]
         public void CreateHydraulicLocationRealizedStochastEntity_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((RealizedStochast) null).CreateHydraulicLocationRealizedStochastEntity(0);
+            TestDelegate call = () => ((SubmechanismIllustrationPointStochast) null).CreateHydraulicLocationRealizedStochastEntity(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,10 +48,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         {
             // Setup
             var random = new Random(123);
-            var stochast = new RealizedStochast("Some description",
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble());
+            var stochast = new SubmechanismIllustrationPointStochast("Some description",
+                                                                     random.NextDouble(),
+                                                                     random.NextDouble(),
+                                                                     random.NextDouble());
             int order = random.Next();
 
             // Call
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         public void CreateGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((RealizedStochast) null).CreateGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity(0);
+            TestDelegate call = () => ((SubmechanismIllustrationPointStochast) null).CreateGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -82,10 +82,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         {
             // Setup
             var random = new Random(123);
-            var stochast = new RealizedStochast("Some description",
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble());
+            var stochast = new SubmechanismIllustrationPointStochast("Some description",
+                                                                     random.NextDouble(),
+                                                                     random.NextDouble(),
+                                                                     random.NextDouble());
             int order = random.Next();
 
             // Call
