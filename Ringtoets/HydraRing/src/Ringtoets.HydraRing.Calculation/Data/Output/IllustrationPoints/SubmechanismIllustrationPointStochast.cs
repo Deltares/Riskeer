@@ -27,10 +27,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     /// Container of alpha value definitions read from a Hydra-Ring output database with
     /// a realization of the described stochast.
     /// </summary>
-    public class RealizedStochast : Stochast
+    public class SubmechanismIllustrationPointStochast : Stochast
     {
         /// <summary>
-        /// Creates an new instance of <see cref="RealizedStochast"/>.
+        /// Creates an new instance of <see cref="SubmechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="duration">The duration.</param>
@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <param name="realization">The realization.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public RealizedStochast(string name, double duration, double alpha, double realization) 
+        public SubmechanismIllustrationPointStochast(string name, double duration, double alpha, double realization)
             : base(name, duration, alpha)
         {
             Realization = realization;

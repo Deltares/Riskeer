@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using HydraStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
-using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
+using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -49,23 +49,23 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SubmechanismIllustrationPointStochast"/> based on the information of <paramref name="hydraRealizedStochast"/>.
+        /// Creates a new instance of <see cref="SubmechanismIllustrationPointStochast"/> based on the information of <paramref name="hydraSubmechanismIllustrationPointStochast"/>.
         /// </summary>
-        /// <param name="hydraRealizedStochast">The <see cref="HydraRealizedStochast"/> to base the 
+        /// <param name="hydraSubmechanismIllustrationPointStochast">The <see cref="HydraSubmechanismIllustrationPointStochast"/> to base the 
         /// <see cref="SubmechanismIllustrationPointStochast"/> to create on.</param>
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRealizedStochast"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraSubmechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
-        public static SubmechanismIllustrationPointStochast CreateSubmechanismIllustrationStochast(HydraRealizedStochast hydraRealizedStochast)
+        public static SubmechanismIllustrationPointStochast CreateSubmechanismIllustrationStochast(HydraSubmechanismIllustrationPointStochast hydraSubmechanismIllustrationPointStochast)
         {
-            if (hydraRealizedStochast == null)
+            if (hydraSubmechanismIllustrationPointStochast == null)
             {
-                throw new ArgumentNullException(nameof(hydraRealizedStochast));
+                throw new ArgumentNullException(nameof(hydraSubmechanismIllustrationPointStochast));
             }
-            return new SubmechanismIllustrationPointStochast(hydraRealizedStochast.Name,
-                                                             hydraRealizedStochast.Duration,
-                                                             hydraRealizedStochast.Alpha,
-                                                             hydraRealizedStochast.Realization);
+            return new SubmechanismIllustrationPointStochast(hydraSubmechanismIllustrationPointStochast.Name,
+                                                             hydraSubmechanismIllustrationPointStochast.Duration,
+                                                             hydraSubmechanismIllustrationPointStochast.Alpha,
+                                                             hydraSubmechanismIllustrationPointStochast.Realization);
         }
     }
 }

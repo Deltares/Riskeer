@@ -29,8 +29,8 @@ using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.Illustrat
 using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
-using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
 using HydraRingTestWindDirection = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
+using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             // Setup
             var hydraSubMechanismIllustrationPoint =
                 new HydraSubMechanismIllustrationPoint("name",
-                                                       Enumerable.Empty<HydraRealizedStochast>(),
+                                                       Enumerable.Empty<HydraSubmechanismIllustrationPointStochast>(),
                                                        Enumerable.Empty<HydraIllustrationPointResult>(),
                                                        double.NaN);
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             double alpha = random.NextDouble();
             double duration = random.NextDouble();
             double realization = random.NextDouble();
-            var hydraRealizedStochast = new HydraRealizedStochast(name, duration, alpha, realization);
+            var hydraRealizedStochast = new HydraSubmechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
             var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraIllustrationPointResult.Description, illustrationPointResult.Description);
             Assert.AreEqual(hydraIllustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
 
-            SubmechanismIllustrationPointStochast stochast = illustrationPoint.Stochasts.Single();
+            Data.Hydraulics.IllustrationPoints.SubmechanismIllustrationPointStochast stochast = illustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraRealizedStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(hydraRealizedStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRealizedStochast.Name, stochast.Name);

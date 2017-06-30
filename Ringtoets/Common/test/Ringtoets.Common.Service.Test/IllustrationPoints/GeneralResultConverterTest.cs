@@ -30,13 +30,13 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 using HydraStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
-using HydraRealizedStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.RealizedStochast;
 using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
+using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             double beta = random.NextDouble();
             var hydraIllustrationPoint =
                 new HydraSubMechanismIllustrationPoint("Illustration Point",
-                                                       Enumerable.Empty<HydraRealizedStochast>(),
+                                                       Enumerable.Empty<HydraSubmechanismIllustrationPointStochast>(),
                                                        Enumerable.Empty<HydraIllustrationPointResult>(),
                                                        beta);
             var hydraIllustrationTreeNode = new HydraIllustrationPointTreeNode(hydraIllustrationPoint);

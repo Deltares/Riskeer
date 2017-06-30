@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> faultTreeBetaValues = new Dictionary<ThreeKeyIndex, double>();
 
-        private readonly Dictionary<ThreeKeyIndex, IList<RealizedStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<RealizedStochast>>();
+        private readonly Dictionary<ThreeKeyIndex, IList<SubmechanismIllustrationPointStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<SubmechanismIllustrationPointStochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> subMechanismBetaValues = new Dictionary<ThreeKeyIndex, double>();
         private readonly Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>>();
 
@@ -152,7 +152,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
                 double subMechanismIllustrationPointBeta = subMechanismBetaValues[key];
 
-                var illustrationPointStochasts = new List<RealizedStochast>();
+                var illustrationPointStochasts = new List<SubmechanismIllustrationPointStochast>();
                 AddRange(illustrationPointStochasts, subMechanismStochasts[key]);
 
                 var illustrationPointResults = new List<IllustrationPointResult>();
@@ -226,7 +226,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         }
 
         /// <summary>
-        /// Parses <see cref="RealizedStochast"/> objects from the <paramref name="reader"/>.
+        /// Parses <see cref="SubmechanismIllustrationPointStochast"/> objects from the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The database reader.</param>
         /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.Duration"/>, 
@@ -250,10 +250,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 var key = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
                 if (!subMechanismStochasts.ContainsKey(key))
                 {
-                    subMechanismStochasts[key] = new List<RealizedStochast>();
+                    subMechanismStochasts[key] = new List<SubmechanismIllustrationPointStochast>();
                 }
 
-                subMechanismStochasts[key].Add(new RealizedStochast(name, duration, alpha, realization));
+                subMechanismStochasts[key].Add(new SubmechanismIllustrationPointStochast(name, duration, alpha, realization));
             }
         }
 
@@ -394,7 +394,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismId);
 
-            var illustrationPointStochasts = new List<RealizedStochast>();
+            var illustrationPointStochasts = new List<SubmechanismIllustrationPointStochast>();
             var illustrationPointResults = new List<IllustrationPointResult>();
 
             if (subMechanismStochasts.ContainsKey(dataKey))

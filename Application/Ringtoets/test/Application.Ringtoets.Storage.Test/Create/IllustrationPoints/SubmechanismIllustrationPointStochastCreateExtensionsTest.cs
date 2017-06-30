@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("realizedStochast", paramName);
+            Assert.AreEqual("submechanismIllustrationPointStochast", paramName);
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("realizedStochast", paramName);
+            Assert.AreEqual("submechanismIllustrationPointStochast", paramName);
         }
 
         [Test]
