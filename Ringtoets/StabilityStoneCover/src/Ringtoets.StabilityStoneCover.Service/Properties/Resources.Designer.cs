@@ -92,42 +92,42 @@ namespace Ringtoets.StabilityStoneCover.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor blokken beëindigd..
+        ///   Looks up a localized string similar to Berekening voor blokken is beëindigd..
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_finished {
+        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_b" +
-                        "locks_finished", resourceCulture);
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blo" +
+                        "cks_finished", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor blokken gestart..
+        ///   Looks up a localized string similar to Berekening voor blokken is gestart..
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started {
+        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_b" +
-                        "locks_started", resourceCulture);
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blo" +
+                        "cks_started", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor zuilen beëindigd..
+        ///   Looks up a localized string similar to Berekening voor zuilen is beëindigd..
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished {
+        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_c" +
-                        "olumns_finished", resourceCulture);
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_col" +
+                        "umns_finished", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor zuilen gestart..
+        ///   Looks up a localized string similar to Berekening voor zuilen is gestart..
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_started {
+        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_c" +
-                        "olumns_started", resourceCulture);
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_col" +
+                        "umns_started", resourceCulture);
             }
         }
     }

@@ -104,10 +104,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                string calculationName = calculation.Name;
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -135,10 +134,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                string calculationName = calculation.Name;
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -175,9 +173,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -210,9 +208,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -253,9 +251,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -299,9 +297,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -347,9 +345,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -396,9 +394,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -442,9 +440,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(expectedValidationMessage, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -486,9 +484,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -525,8 +523,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -656,11 +654,11 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie" +
                                             "" +
                                             "", msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -713,9 +711,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -899,10 +897,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is mislukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -967,10 +965,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    Assert.AreEqual($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De berekening voor hoogte kunstwerk '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1037,10 +1035,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor hoogte kunstwerk '{calculation.Name}' is mislukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);

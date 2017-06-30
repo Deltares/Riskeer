@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
@@ -1037,14 +1038,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
-                        Assert.AreEqual("Validatie van 'A' is gestart.", messages[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
 
                         if (!validCalculation)
                         {
                             Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
-                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messages.Last());
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages.Last());
+
                     });
                 }
             }
@@ -1270,8 +1272,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(28, messages.Length);
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
-                        Assert.AreEqual("Berekening van 'A' is gestart.", messages[3]);
-                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messages[26]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[27]);
                     });
                     Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());

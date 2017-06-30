@@ -70,7 +70,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                string calculationName = $"Hydraulische belasting berekenen voor locatie '{duneLocation.Name}'";
                 TestHelper.AssertLogMessages(call,
                                              messages =>
                                              {
@@ -78,12 +77,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                  Assert.AreEqual(7, msgs.Length);
 
                                                  Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}' is gestart.", msgs[0]);
-                                                 CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
-                                                 CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                                                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                                                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                                                  Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[4]);
                                                  StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                                              });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

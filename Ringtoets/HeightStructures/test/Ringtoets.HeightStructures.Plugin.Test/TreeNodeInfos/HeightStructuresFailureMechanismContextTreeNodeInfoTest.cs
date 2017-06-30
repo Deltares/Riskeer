@@ -42,6 +42,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -798,17 +799,17 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         // Assert
                         Assert.AreEqual(14, messageList.Count);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", messageList[0]);
-                        Assert.AreEqual("Validatie van 'A' is gestart.", messageList[1]);
-                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messageList[2]);
-                        Assert.AreEqual("Berekening van 'A' is gestart.", messageList[3]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[4]);
-                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messageList[5]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[5]);
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", messageList[6]);
-                        Assert.AreEqual("Validatie van 'B' is gestart.", messageList[7]);
-                        Assert.AreEqual("Validatie van 'B' is beëindigd.", messageList[8]);
-                        Assert.AreEqual("Berekening van 'B' is gestart.", messageList[9]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[7]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[8]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[9]);
                         StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[10]);
-                        Assert.AreEqual("Berekening van 'B' is beëindigd.", messageList[11]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[11]);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[12]);
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[13]);
                     });
@@ -869,10 +870,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         string[] messageList = messages.ToArray();
 
                         Assert.AreEqual(4, messageList.Length);
-                        Assert.AreEqual("Validatie van 'A' is gestart.", messageList[0]);
-                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messageList[1]);
-                        Assert.AreEqual("Validatie van 'B' is gestart.", messageList[2]);
-                        Assert.AreEqual("Validatie van 'B' is beëindigd.", messageList[3]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[3]);
                     });
                 }
             }

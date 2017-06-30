@@ -56,7 +56,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             return ValidateWaveConditionsInput(
                 calculation.InputParameters,
-                calculation.Name,
                 hydraulicBoundaryDatabaseFilePath,
                 Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
         }
@@ -110,9 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            string calculationName = calculation.Name;
-
-            CalculationServiceHelper.LogCalculationBegin(calculationName);
+            CalculationServiceHelper.LogCalculationBegin();
 
             RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
             RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
@@ -127,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath);
 
                 if (!Canceled)
                 {
@@ -136,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEnd(calculationName);
+                CalculationServiceHelper.LogCalculationEnd();
             }
         }
     }

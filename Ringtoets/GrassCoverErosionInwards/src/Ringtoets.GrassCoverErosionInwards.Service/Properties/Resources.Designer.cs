@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2 {
@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is mislukt. Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report {
             get {

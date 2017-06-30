@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_no_error_report" xml:space="preserve">
-    <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
+    <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is mislukt. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Calculation_of_type_0_performed_in_temporary_directory_1" xml:space="preserve">
     <value>De {0} berekening is uitgevoerd op de tijdelijke locatie '{1}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
@@ -127,7 +127,7 @@
     <value>Uitvoeren {0} berekening</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculate_Error_in_calculation_of_type_0_for_calculation_with_name_1_click_details_for_last_error_report_2" xml:space="preserve">
-    <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
+    <value>De {0} berekening voor grasbekleding erosie kruin en binnentalud '{1}' is mislukt. Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged" xml:space="preserve">

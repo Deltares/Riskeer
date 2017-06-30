@@ -55,7 +55,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null,
-                                                                                                                 "test",
                                                                                                                  dbFilePath,
                                                                                                                  string.Empty);
 
@@ -68,8 +67,6 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup 
-            const string name = "test";
-
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var input = new WaveConditionsInput
@@ -79,7 +76,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                 name,
                                                                                                                  dbFilePath,
                                                                                                                  null);
 
@@ -92,20 +88,19 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_NoHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
-            const string name = "test";
             var isValid = false;
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), name, string.Empty, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), string.Empty, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -115,21 +110,20 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabaseFileLocation_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
-            const string name = "test";
             var isValid = false;
             string dbFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), name, dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{dbFilePath}': het bestand bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -139,21 +133,20 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
             // Setup 
-            const string name = "test";
             var isValid = false;
             string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), name, dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -162,24 +155,23 @@ namespace Ringtoets.Revetment.Service.Test
         [Test]
         public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
         {
-            // Setup 
-            const string name = "test";
+            // Setup
             var isValid = false;
 
             var input = new WaveConditionsInput();
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input, name, dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input, dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -188,8 +180,7 @@ namespace Ringtoets.Revetment.Service.Test
         [Test]
         public void Validate_NoHydraulicBoundaryLocationDesignWaterLevel_ReturnsFalseAndLogsValidationError()
         {
-            // Setup 
-            const string name = "test";
+            // Setup
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -202,7 +193,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
                                                                                                                      dbFilePath,
                                                                                                                      designWaterLevelName);
 
@@ -213,9 +203,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith(expectedMessage, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -229,7 +219,6 @@ namespace Ringtoets.Revetment.Service.Test
                                                                               double designWaterLevel)
         {
             // Setup
-            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -247,7 +236,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
                                                                                                                      dbFilePath,
                                                                                                                      "DesignWaterLevelName");
 
@@ -256,9 +244,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -271,7 +259,6 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ForeshoreProfileUseBreakWaterAndHasInvalidBreakWaterHeight_ReturnsFalseAndLogsValidationMessages(double breakWaterHeight)
         {
             // Setup
-            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -282,7 +269,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
                                                                                                                      dbFilePath,
                                                                                                                      "DesignWaterLevelName");
 
@@ -291,9 +277,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -306,7 +292,6 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ForeshoreProfileDoesNotUseBreakWaterAndHasInvalidBreakwaterHeight_ReturnsTrueAndLogsValidationStartAndEnd(double breakWaterHeight)
         {
             // Setup
-            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -317,7 +302,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
                                                                                                                      dbFilePath,
                                                                                                                      "DesignWaterLevelName");
 
@@ -326,8 +310,8 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
 
             Assert.IsTrue(isValid);
@@ -340,7 +324,6 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_ValidInputValidateForeshoreProfile_ReturnsTrueAndLogsValidationStartAndEnd(CalculationType calculationType)
         {
             // Setup 
-            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -365,7 +348,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
                                                                                                                      dbFilePath,
                                                                                                                      "DesignWaterLevelName");
 
@@ -374,8 +356,8 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
 
             Assert.IsTrue(isValid);
@@ -385,7 +367,6 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_StructureNormalOrientationInvalid_ReturnsFalse()
         {
             // Setup
-            const string name = "test";
             var isValid = false;
 
             string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -395,7 +376,6 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     name,
                                                                                                                      dbFilePath,
                                                                                                                      "DesignWaterLevelName");
 
@@ -404,9 +384,9 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -422,10 +402,9 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-            const string calculationName = "test";
 
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, calculationName);
+            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -457,7 +436,6 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-            const string calculationName = "test";
 
             var calculator = new TestWaveConditionsCosineCalculator();
             int nrOfCalculators = input.WaterLevels.Count();
@@ -473,7 +451,7 @@ namespace Ringtoets.Revetment.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath);
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -527,8 +505,6 @@ namespace Ringtoets.Revetment.Service.Test
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
 
-            const string calculationName = "test";
-
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             HydraRingCalculationException exception = null;
 
@@ -539,7 +515,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     try
                     {
-                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
+                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -555,25 +531,25 @@ namespace Ringtoets.Revetment.Service.Test
 
                     var waterLevelMiddleRevetment = new RoundedDouble(2, 3.50);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' is gestart.", msgs[0]);
-                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[1]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelUpperBoundaryRevetment}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening is mislukt voor waterstand '{waterLevelUpperBoundaryRevetment}'. {detailedReport}", msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundaryRevetment}' is beëindigd.", msgs[3]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelUpperBoundaryRevetment}' is beëindigd.", msgs[3]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' is gestart.", msgs[4]);
-                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelMiddleRevetment}'. {detailedReport}", msgs[5]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelMiddleRevetment}' is gestart.", msgs[4]);
+                    Assert.AreEqual($"Berekening is mislukt voor waterstand '{waterLevelMiddleRevetment}'. {detailedReport}", msgs[5]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[6]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddleRevetment}' is beëindigd.", msgs[7]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelMiddleRevetment}' is beëindigd.", msgs[7]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' is gestart.", msgs[8]);
-                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'. {detailedReport}", msgs[9]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelLowerBoundaryRevetment}' is gestart.", msgs[8]);
+                    Assert.AreEqual($"Berekening is mislukt voor waterstand '{waterLevelLowerBoundaryRevetment}'. {detailedReport}", msgs[9]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[10]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundaryRevetment}' is beëindigd.", msgs[11]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelLowerBoundaryRevetment}' is beëindigd.", msgs[11]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor alle waterstanden.", msgs[12]);
+                    Assert.AreEqual("Berekening is mislukt voor alle waterstanden.", msgs[12]);
                 });
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
-                Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor alle waterstanden.", exception.Message);
+                Assert.AreEqual("Berekening is mislukt voor alle waterstanden.", exception.Message);
             }
             mockRepository.VerifyAll();
         }
@@ -614,8 +590,6 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = waterLevelLowerBoundary
             };
 
-            const string calculationName = "test";
-
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -623,7 +597,7 @@ namespace Ringtoets.Revetment.Service.Test
                 var service = new WaveConditionsCalculationService();
 
                 // Call
-                Action call = () => service.PublicCalculate(a, b, c, norm, input, hcldFilePath, calculationName);
+                Action call = () => service.PublicCalculate(a, b, c, norm, input, hcldFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -633,18 +607,18 @@ namespace Ringtoets.Revetment.Service.Test
 
                     var waterLevelMiddle = new RoundedDouble(2, 3.50);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' is gestart.", msgs[0]);
-                    Assert.AreEqual($"Berekening '{calculationName}' is mislukt voor waterstand '{waterLevelUpperBoundary}'. {detailedReport}", msgs[1]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelUpperBoundary}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Berekening is mislukt voor waterstand '{waterLevelUpperBoundary}'. {detailedReport}", msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelUpperBoundary}' is beëindigd.", msgs[3]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelUpperBoundary}' is beëindigd.", msgs[3]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' is gestart.", msgs[4]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelMiddle}' is gestart.", msgs[4]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelMiddle}' is beëindigd.", msgs[6]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelMiddle}' is beëindigd.", msgs[6]);
 
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' is gestart.", msgs[7]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelLowerBoundary}' is gestart.", msgs[7]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[8]);
-                    Assert.AreEqual($"Berekening '{calculationName}' voor waterstand '{waterLevelLowerBoundary}' is beëindigd.", msgs[9]);
+                    Assert.AreEqual($"Berekening voor waterstand '{waterLevelLowerBoundary}' is beëindigd.", msgs[9]);
                 });
 
                 WaveConditionsOutput[] waveConditionsOutputs = service.Outputs.ToArray();
@@ -674,8 +648,6 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
 
-            const string name = "test";
-
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
@@ -690,7 +662,7 @@ namespace Ringtoets.Revetment.Service.Test
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.PublicCalculate(a, b, c, norm, input, hcldFilePath, name);
+                service.PublicCalculate(a, b, c, norm, input, hcldFilePath);
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -739,14 +711,14 @@ namespace Ringtoets.Revetment.Service.Test
     {
         public IEnumerable<WaveConditionsOutput> Outputs;
 
-        public bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput, string calculationName, string dbFilePath, string valueName)
+        public bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput, string dbFilePath, string valueName)
         {
-            return ValidateWaveConditionsInput(waveConditionsInput, calculationName, dbFilePath, valueName);
+            return ValidateWaveConditionsInput(waveConditionsInput, dbFilePath, valueName);
         }
 
-        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath, string name)
+        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath)
         {
-            Outputs = CalculateWaveConditions(name, input, a, b, c, norm, dbFilePath);
+            Outputs = CalculateWaveConditions(input, a, b, c, norm, dbFilePath);
         }
     }
 }

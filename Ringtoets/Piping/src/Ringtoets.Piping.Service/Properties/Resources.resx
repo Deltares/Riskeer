@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error_in_piping_calculation_0" xml:space="preserve">
-    <value>Piping berekening niet gelukt: {0}</value>
+    <value>Piping berekening mislukt: {0}</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
     <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>

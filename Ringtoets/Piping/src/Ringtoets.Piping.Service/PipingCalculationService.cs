@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            CalculationServiceHelper.LogValidationBegin(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin();
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
             string[] inputValidationResults = ValidateInput(calculation.InputParameters).ToArray();
@@ -63,14 +63,14 @@ namespace Ringtoets.Piping.Service
             if (inputValidationResults.Length > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults);
-                CalculationServiceHelper.LogValidationEnd(calculation.Name);
+                CalculationServiceHelper.LogValidationEnd();
                 return false;
             }
 
             List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
-            CalculationServiceHelper.LogValidationEnd(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd();
 
             return validationResults.Count == 0;
         }
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            CalculationServiceHelper.LogCalculationBegin(calculation.Name);
+            CalculationServiceHelper.LogCalculationBegin();
 
             try
             {
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEnd(calculation.Name);
+                CalculationServiceHelper.LogCalculationEnd();
             }
         }
 

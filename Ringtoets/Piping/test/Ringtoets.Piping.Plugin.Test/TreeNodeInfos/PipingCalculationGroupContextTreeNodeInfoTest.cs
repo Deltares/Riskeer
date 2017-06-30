@@ -999,10 +999,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(validCalculation.Name, msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(validCalculation.Name, msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(invalidCalculation.Name, msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(invalidCalculation.Name, msgs[8]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
                     });
                 }
             }

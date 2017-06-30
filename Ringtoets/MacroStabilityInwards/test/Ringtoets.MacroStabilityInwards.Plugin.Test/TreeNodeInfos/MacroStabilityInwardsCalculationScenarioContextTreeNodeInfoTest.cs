@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -544,14 +545,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         Assert.IsTrue(msgs.MoveNext());
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' is gestart.", msgs.Current);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
                         for (var i = 0; i < expectedValidationMessageCount; i++)
                         {
                             Assert.IsTrue(msgs.MoveNext());
                             StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
                         }
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' is beëindigd.", msgs.Current);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs.Current);
                     });
@@ -656,13 +657,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         Assert.IsTrue(msgs.MoveNext());
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' is gestart.", msgs.Current);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Validatie van '{calculation.Name}' is beëindigd.", msgs.Current);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Berekening van '{calculation.Name}' is gestart.", msgs.Current);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Berekening van '{calculation.Name}' is beëindigd.", msgs.Current);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
                     });

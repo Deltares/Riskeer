@@ -60,7 +60,6 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             return ValidateWaveConditionsInput(
                 calculation.InputParameters,
-                calculation.Name,
                 hydraulicBoundaryDatabaseFilePath,
                 RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
@@ -108,9 +107,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                 throw new ArgumentNullException(nameof(generalWaveConditionsInput));
             }
 
-            string calculationName = calculation.Name;
-
-            CalculationServiceHelper.LogCalculationBegin(calculationName);
+            CalculationServiceHelper.LogCalculationBegin();
 
             RoundedDouble aBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A;
             RoundedDouble bBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B;
@@ -125,16 +122,16 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             try
             {
-                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started, calculationName);
-                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, hlcdFilePath);
-                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_finished, calculationName);
+                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started);
+                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, hlcdFilePath);
+                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished);
 
                 IEnumerable<WaveConditionsOutput> columnsOutputs = null;
                 if (!Canceled)
                 {
-                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_started, calculationName);
-                    columnsOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aColumns, bColumns, cColumns, norm, hlcdFilePath);
-                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished, calculationName);
+                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started);
+                    columnsOutputs = CalculateWaveConditions(calculation.InputParameters, aColumns, bColumns, cColumns, norm, hlcdFilePath);
+                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished);
                 }
 
                 if (!Canceled)
@@ -144,7 +141,7 @@ namespace Ringtoets.StabilityStoneCover.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEnd(calculationName);
+                CalculationServiceHelper.LogCalculationEnd();
             }
         }
     }

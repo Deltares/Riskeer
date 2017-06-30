@@ -127,23 +127,21 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                  // Assert
                                                  Assert.AreEqual(16, messageList.Count);
 
-                                                 const string calculationNameA = "Hydraulische belasting berekenen voor locatie 'A'";
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gestart.", messageList[0]);
-                                                 CalculationServiceTestHelper.AssertValidationStartMessage(calculationNameA, messageList[1]);
-                                                 CalculationServiceTestHelper.AssertValidationEndMessage(calculationNameA, messageList[2]);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculationNameA, messageList[3]);
+                                                 CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
+                                                 CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
+                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie 'A' is niet geconvergeerd.", messageList[4]);
                                                  StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculationNameA, messageList[6]);
+                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
 
-                                                 const string calculationNameB = "Hydraulische belasting berekenen voor locatie 'B'";
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gestart.", messageList[7]);
-                                                 CalculationServiceTestHelper.AssertValidationStartMessage(calculationNameB, messageList[8]);
-                                                 CalculationServiceTestHelper.AssertValidationEndMessage(calculationNameB, messageList[9]);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(calculationNameB, messageList[10]);
+                                                 CalculationServiceTestHelper.AssertValidationStartMessage(messageList[8]);
+                                                 CalculationServiceTestHelper.AssertValidationEndMessage(messageList[9]);
+                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[10]);
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie 'B' is niet geconvergeerd.", messageList[11]);
                                                  StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[12]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(calculationNameB, messageList[13]);
+                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[13]);
 
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gelukt.", messageList[14]);
                                                  Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gelukt.", messageList[15]);
@@ -214,12 +212,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                     string calculationName = $"Hydraulische belasting berekenen voor locatie '{hydraulicLocationName}'";
                     Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{hydraulicLocationName}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{hydraulicLocationName}' is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
             }

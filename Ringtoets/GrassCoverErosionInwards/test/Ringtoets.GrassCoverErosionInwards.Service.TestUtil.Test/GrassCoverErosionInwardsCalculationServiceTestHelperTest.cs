@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                     description,
                     name,
                     error,
-                    $"De {description} berekening voor grasbekleding erosie kruin en binnentalud '{name}' is niet gelukt. " +
+                    $"De {description} berekening voor grasbekleding erosie kruin en binnentalud '{name}' is mislukt. " +
                     $"Bekijk het foutrapport door op details te klikken.\r\n{error}");
 
             // Assert
@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                     description,
                     name,
                     null,
-                    $"De {description} berekening voor grasbekleding erosie kruin en binnentalud '{name}' is niet gelukt. " +
+                    $"De {description} berekening voor grasbekleding erosie kruin en binnentalud '{name}' is mislukt. " +
                     "Er is geen foutrapport beschikbaar.");
 
             // Assert
@@ -115,8 +115,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         }
 
         [Test]
-        [TestCase("De  berekening voor grasbekleding erosie kruin en binnentalud '' is niet gelukt. Bekijk het foutrapport door op details te klikken.\n")]
-        [TestCase("De  berekening voor grasbekleding erosie kruin en binnentalud '' is niet gelukt. ekijk het foutrapport door op details te klikken.\r\n")]
+        [TestCase("De  berekening voor grasbekleding erosie kruin en binnentalud '' is mislukt. Bekijk het foutrapport door op details te klikken.\n")]
+        [TestCase("De  berekening voor grasbekleding erosie kruin en binnentalud '' is mislukt. ekijk het foutrapport door op details te klikken.\r\n")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertCalculationFailedMessage_WithoutErrorWithNotEqualMessage_ThrowsAssertionException(string message)

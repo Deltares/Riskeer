@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -1072,14 +1073,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
                         Assert.AreEqual(expectedMessageCount, messages.Length);
-                        Assert.AreEqual("Validatie van 'A' is gestart.", messages[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
 
                         if (!validCalculation)
                         {
                             Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
-                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messages.Last());
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages.Last());
                     });
                 }
             }

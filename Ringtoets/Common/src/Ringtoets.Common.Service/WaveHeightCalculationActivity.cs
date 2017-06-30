@@ -80,10 +80,7 @@ namespace Ringtoets.Common.Service
                 return true;
             }
 
-            return WaveHeightCalculationService.Validate(
-                waveHeightCalculation.GetName(),
-                hydraulicBoundaryDatabaseFilePath,
-                messageProvider);
+            return WaveHeightCalculationService.Validate(hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void PerformCalculation()

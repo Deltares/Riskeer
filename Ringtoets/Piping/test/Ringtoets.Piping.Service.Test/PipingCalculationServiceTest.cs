@@ -76,8 +76,8 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
         }
 
@@ -117,13 +117,13 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[4]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[5]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
             });
             Assert.IsFalse(isValid);
         }
@@ -147,10 +147,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.IsFalse(isValid);
         }
@@ -177,10 +177,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'toetspeil' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.IsFalse(isValid);
         }
@@ -203,9 +203,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'intredepunt' moet een concreet getal zijn.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -228,9 +228,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -255,9 +255,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -291,11 +291,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
-
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 string expected = $"Validatie mislukt: De sloot in de hoogtegeometrie {surfaceLineName} is niet correct. Niet alle 4 punten zijn gedefinieerd of de volgorde is incorrect.";
                 Assert.AreEqual(expected, msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -319,9 +318,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -368,9 +367,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Hoogtegeometrie ligt (deels) boven de ondergrondschematisatie.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -405,12 +404,13 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(6, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[1]);
                 Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 Assert.AreEqual("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[3]);
                 Assert.AreEqual("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[4]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
+
             });
             Assert.IsFalse(isValid);
         }
@@ -449,10 +449,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[1]);
                 Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.IsTrue(isValid);
         }
@@ -496,10 +496,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[1]);
                 Assert.AreEqual("Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.IsTrue(isValid);
         }
@@ -560,9 +560,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(averagingSoilLayerPropertiesMessage, msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsTrue(isValid);
         }
@@ -621,9 +621,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan de definitie voor het 70%-fraktiel van de korreldiameter van de watervoerende laag niet (volledig) afleiden.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -673,9 +673,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"Rekenwaarde voor d70 ({new RoundedDouble(6, diameter70Value)} m) ligt buiten het geldigheidsbereik van dit model. Geldige waarden liggen tussen 0.000063 m en 0.0005 m.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsTrue(isValid);
         }
@@ -734,9 +734,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -799,9 +799,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.", msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -848,11 +848,11 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(
                     "Validatie mislukt: Het verzadigd volumetrisch gewicht van de deklaag moet groter zijn dan het volumetrisch gewicht van water.",
                     msgs[1]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
             Assert.IsFalse(isValid);
@@ -906,12 +906,12 @@ namespace Ringtoets.Piping.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual(averagingSoilLayerPropertiesMessage, msgs[1]);
                 Assert.AreEqual(
                     "Validatie mislukt: Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.",
                     msgs[2]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
         }
 
@@ -963,11 +963,10 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual($"Validatie van '{name}' is gestart.", msgs.First());
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
-
-                CalculationServiceTestHelper.AssertCalculationStartMessage(name, msgs[2]);
-                Assert.AreEqual($"Berekening van '{name}' is beëindigd.", msgs.Last());
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
             });
         }
 

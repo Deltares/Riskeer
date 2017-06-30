@@ -92,33 +92,33 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; is mislukt voor alle waterstanden..
+        ///   Looks up a localized string similar to Berekening is mislukt voor alle waterstanden..
         /// </summary>
-        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_all_waterlevels {
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_for_all_waterlevels {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_cal" +
-                        "culation_0_for_all_waterlevels", resourceCulture);
+                        "culation_for_all_waterlevels", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; is mislukt voor waterstand &apos;{1}&apos;. Bekijk het foutrapport door op details te klikken.
-        ///{2}.
+        ///   Looks up a localized string similar to Berekening is mislukt voor waterstand &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_report_2 {
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_for_waterlevel_0_click_details_for_last_error_report_1 {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_cal" +
-                        "culation_0_for_waterlevel_1_click_details_for_last_error_report_2", resourceCulture);
+                        "culation_for_waterlevel_0_click_details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; is mislukt voor waterstand &apos;{1}&apos;. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Berekening is mislukt voor waterstand &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_no_error_report {
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_for_waterlevel_0_no_error_report {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_cal" +
-                        "culation_0_for_waterlevel_1_no_error_report", resourceCulture);
+                        "culation_for_waterlevel_0_no_error_report", resourceCulture);
             }
         }
         
@@ -132,20 +132,20 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; beëindigd..
+        ///   Looks up a localized string similar to Berekening voor waterstand &apos;{0}&apos; is beëindigd..
         /// </summary>
-        public static string WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended {
+        public static string WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_ended {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_ended", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; gestart..
+        ///   Looks up a localized string similar to Berekening voor waterstand &apos;{0}&apos; is gestart..
         /// </summary>
-        public static string WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started {
+        public static string WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_started {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Calculation_for_waterlevel_0_started", resourceCulture);
             }
         }
         

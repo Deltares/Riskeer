@@ -53,22 +53,19 @@ namespace Ringtoets.DuneErosion.Service
         /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="duneLocationName">The name of the dune location.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary 
         /// database file which to validate.</param>
         /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
-        public static bool Validate(string duneLocationName, string hydraulicBoundaryDatabaseFilePath)
+        public static bool Validate(string hydraulicBoundaryDatabaseFilePath)
         {
-            string calculationName = GetCalculationName(duneLocationName);
-
-            CalculationServiceHelper.LogValidationBegin(calculationName);
+            CalculationServiceHelper.LogValidationBegin();
 
             string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
 
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                                                         validationProblems);
 
-            CalculationServiceHelper.LogValidationEnd(calculationName);
+            CalculationServiceHelper.LogValidationEnd();
 
             return !validationProblems.Any();
         }
@@ -112,9 +109,8 @@ namespace Ringtoets.DuneErosion.Service
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             string duneLocationName = duneLocation.Name;
-            string calculationName = GetCalculationName(duneLocationName);
 
-            CalculationServiceHelper.LogCalculationBegin(calculationName);
+            CalculationServiceHelper.LogCalculationBegin();
 
             calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory);
 
@@ -159,7 +155,7 @@ namespace Ringtoets.DuneErosion.Service
 
                 log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
                                calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEnd(calculationName);
+                CalculationServiceHelper.LogCalculationEnd();
 
                 if (hasErrorOccurred)
                 {
@@ -175,11 +171,6 @@ namespace Ringtoets.DuneErosion.Service
         {
             calculator?.Cancel();
             canceled = true;
-        }
-
-        private static string GetCalculationName(string duneLocationName)
-        {
-            return string.Format(Resources.CalculationName_of_DuneLocation_0, duneLocationName);
         }
 
         /// <summary>

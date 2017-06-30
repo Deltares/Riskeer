@@ -82,15 +82,6 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belasting berekenen voor locatie &apos;{0}&apos;.
-        /// </summary>
-        internal static string CalculationName_of_DuneLocation_0 {
-            get {
-                return ResourceManager.GetString("CalculationName_of_DuneLocation_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
         internal static string DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_ {
@@ -111,7 +102,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1 {
@@ -122,7 +113,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is mislukt. Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_no_error_report {
             get {

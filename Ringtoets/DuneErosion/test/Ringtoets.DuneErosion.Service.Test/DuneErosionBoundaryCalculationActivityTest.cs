@@ -106,11 +106,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
 
-                string calculationName = GetCalculationName(duneLocation.Name);
                 Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[3]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -147,13 +146,12 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    string calculationName = GetCalculationName(duneLocation.Name);
                     Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' is gestart.", messages[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, messages[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, messages[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, messages[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
                 });
 
                 DunesBoundaryConditionsCalculationInput calculationInput = calculator.ReceivedInputs.Single();
@@ -265,7 +263,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                string calculationfailedMessage = $"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet gelukt. {detailedReport}";
+                string calculationfailedMessage = $"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is mislukt. {detailedReport}";
                 TestHelper.AssertLogMessageIsGenerated(call, calculationfailedMessage, 7);
             }
             mockRepository.VerifyAll();
@@ -302,14 +300,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
 
-                    string calculationName = GetCalculationName(duneLocation.Name);
                     Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
 
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocation.Output.CalculationConvergence);
@@ -381,11 +378,6 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             mockRepository.VerifyAll();
-        }
-
-        private static string GetCalculationName(string duneLocationName)
-        {
-            return $"Hydraulische belasting berekenen voor locatie '{duneLocationName}'";
         }
 
         private class DuneErosionBoundaryCalculationActivityWithState : DuneErosionBoundaryCalculationActivity

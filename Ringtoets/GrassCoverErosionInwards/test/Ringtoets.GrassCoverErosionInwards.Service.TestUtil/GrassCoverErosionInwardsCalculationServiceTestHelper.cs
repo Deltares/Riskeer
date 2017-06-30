@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
 
         public static void AssertCalculationFailedMessage(string calculationDescription, string calculationName, string detailedReport, string actual)
         {
-            Assert.AreEqual($"De {calculationDescription} berekening voor grasbekleding erosie kruin en binnentalud '{calculationName}' is niet gelukt. " +
+            Assert.AreEqual($"De {calculationDescription} berekening voor grasbekleding erosie kruin en binnentalud '{calculationName}' is mislukt. " +
                             (detailedReport != null
                                  ? $"Bekijk het foutrapport door op details te klikken.\r\n{detailedReport}"
                                  : "Er is geen foutrapport beschikbaar."),

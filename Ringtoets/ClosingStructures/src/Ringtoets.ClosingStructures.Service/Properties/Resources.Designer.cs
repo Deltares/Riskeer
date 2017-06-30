@@ -92,7 +92,7 @@ namespace Ringtoets.ClosingStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
         internal static string ClosingStructuresCalculationService_Calculate_Error_in_ClosingStructuresCalculation_0_click_details_for_last_error_report_1 {
@@ -103,7 +103,7 @@ namespace Ringtoets.ClosingStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is mislukt. Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string ClosingStructuresCalculationService_Calculate_Error_in_ClosingStructuresCalculation_0_no_error_report {
             get {

@@ -31,41 +31,37 @@ namespace Ringtoets.Common.Service.TestUtil
         /// <summary>
         /// Asserts that the given message equals the message stating the start of validation.
         /// </summary>
-        /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="actualMessage">The actual message.</param>
-        public static void AssertValidationStartMessage(string calculationName, string actualMessage)
+        public static void AssertValidationStartMessage(string actualMessage)
         {
-            Assert.AreEqual($"Validatie van '{calculationName}' is gestart.", actualMessage);
+            Assert.AreEqual("Validatie is gestart.", actualMessage);
         }
 
         /// <summary>
         /// Asserts that the given message equals the message stating the end of validation.
         /// </summary>
-        /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="actualMessage">The actual message.</param>
-        public static void AssertValidationEndMessage(string calculationName, string actualMessage)
+        public static void AssertValidationEndMessage(string actualMessage)
         {
-            Assert.AreEqual($"Validatie van '{calculationName}' is beëindigd.", actualMessage);
+            Assert.AreEqual("Validatie is beëindigd.", actualMessage);
         }
 
         /// <summary>
         /// Asserts that the given message equals the message stating the start of calculation.
         /// </summary>
-        /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="actualMessage">The actual message.</param>
-        public static void AssertCalculationStartMessage(string calculationName, string actualMessage)
+        public static void AssertCalculationStartMessage(string actualMessage)
         {
-            Assert.AreEqual($"Berekening van '{calculationName}' is gestart.", actualMessage);
+            Assert.AreEqual("Berekening is gestart.", actualMessage);
         }
 
         /// <summary>
         /// Asserts that the given message equals the message stating the end of calculation.
         /// </summary>
-        /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="actualMessage">The actual message.</param>
-        public static void AssertCalculationEndMessage(string calculationName, string actualMessage)
+        public static void AssertCalculationEndMessage(string actualMessage)
         {
-            Assert.AreEqual($"Berekening van '{calculationName}' is beëindigd.", actualMessage);
+            Assert.AreEqual("Berekening is beëindigd.", actualMessage);
         }
     }
 }

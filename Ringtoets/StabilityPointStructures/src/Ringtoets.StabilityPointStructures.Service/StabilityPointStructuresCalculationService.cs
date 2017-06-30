@@ -73,10 +73,10 @@ namespace Ringtoets.StabilityPointStructures.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            CalculationServiceHelper.LogValidationBegin(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin();
             string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
-            CalculationServiceHelper.LogValidationEnd(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd();
 
             return !messages.Any();
         }
@@ -135,7 +135,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresStabilityPointCalculator(hlcdDirectory);
 
-            CalculationServiceHelper.LogCalculationBegin(calculationName);
+            CalculationServiceHelper.LogCalculationBegin();
 
             var exceptionThrown = false;
             try
@@ -181,7 +181,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 }
 
                 log.InfoFormat(Resources.StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEnd(calculationName);
+                CalculationServiceHelper.LogCalculationEnd();
 
                 if (errorOccurred)
                 {

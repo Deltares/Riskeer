@@ -159,9 +159,9 @@ namespace Ringtoets.Common.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[3]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -204,11 +204,11 @@ namespace Ringtoets.Common.Service.Test
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
                     Assert.AreEqual($"{activityDescription} is gestart.", messages[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, messages[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, messages[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, messages[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, messages[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
                 });
                 WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
 
@@ -277,7 +277,6 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -378,7 +377,6 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
             calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
             mockRepository.ReplayAll();
 

@@ -79,9 +79,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -123,9 +123,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -167,9 +167,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -209,9 +209,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen dijkprofiel geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -247,9 +247,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -294,9 +294,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -344,9 +344,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'dijkhoogte' moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -384,8 +384,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -425,8 +425,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
             Assert.IsTrue(isValid);
 
@@ -655,7 +655,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                     GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                     overtoppingCalculator.OutputDirectory,
@@ -669,7 +669,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                     dikeHeightCalculator.OutputDirectory,
                     msgs[3]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
@@ -738,7 +738,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                     GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                     overtoppingCalculator.OutputDirectory,
@@ -752,7 +752,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                     overtoppingRateCalculator.OutputDirectory,
                     msgs[3]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
@@ -987,7 +987,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
@@ -997,7 +997,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(exceptionThrown);
@@ -1059,7 +1059,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
@@ -1069,7 +1069,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1132,7 +1132,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFailedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
@@ -1142,7 +1142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);
                 Assert.IsNull(calculation.Output);
@@ -1211,7 +1211,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
@@ -1225,7 +1225,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -1292,7 +1292,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
@@ -1306,7 +1306,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -1373,8 +1373,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
@@ -1388,7 +1388,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                     Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
@@ -1459,7 +1459,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
@@ -1473,7 +1473,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -1541,7 +1541,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
@@ -1555,7 +1555,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(exceptionThrown);
@@ -1622,7 +1622,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
@@ -1636,7 +1636,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                     Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);

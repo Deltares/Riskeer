@@ -59,15 +59,15 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, validFilePath, messageProvider);
+            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
             Assert.IsTrue(valid);
             mockRepository.VerifyAll();
@@ -87,16 +87,16 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, notValidFilePath, messageProvider);
+            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
             mockRepository.VerifyAll();
@@ -116,16 +116,16 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, validFilePath, messageProvider);
+            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
             mockRepository.VerifyAll();
@@ -387,10 +387,10 @@ namespace Ringtoets.Common.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
             }
@@ -453,10 +453,10 @@ namespace Ringtoets.Common.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     StringAssert.StartsWith(calculationFailedUnexplainedMessage, msgs[1]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
             }
@@ -521,10 +521,10 @@ namespace Ringtoets.Common.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);

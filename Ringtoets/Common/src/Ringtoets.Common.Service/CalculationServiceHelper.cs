@@ -76,37 +76,33 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Logs the begin of a validation action.
         /// </summary>
-        /// <param name="name">The name of the object being validated.</param>
-        public static void LogValidationBegin(string name)
+        public static void LogValidationBegin()
         {
-            log.Info(string.Format(Resources.Validation_Subject_0_started, name));
+            log.Info(Resources.Validation_started);
         }
 
         /// <summary>
         /// Logs the end of a validation action.
         /// </summary>
-        /// <param name="name">The name of the object being validated.</param>
-        public static void LogValidationEnd(string name)
+        public static void LogValidationEnd()
         {
-            log.Info(string.Format(Resources.Validation_Subject_0_ended, name));
+            log.Info(Resources.Validation_ended);
         }
 
         /// <summary>
         /// Logs the begin of a calculation action.
         /// </summary>
-        /// <param name="name">The name of the calculation being started.</param>
-        public static void LogCalculationBegin(string name)
+        public static void LogCalculationBegin()
         {
-            log.Info(string.Format(Resources.Calculation_Subject_0_started, name));
+            log.Info(Resources.Calculation_started);
         }
 
         /// <summary>
         /// Logs the end of a calculation action.
         /// </summary>
-        /// <param name="name">The name of the calculation that has ended.</param>
-        public static void LogCalculationEnd(string name)
+        public static void LogCalculationEnd()
         {
-            log.Info(string.Format(Resources.Calculation_Subject_0_ended, name));
+            log.Info(Resources.Calculation_ended);
         }
 
         /// <summary>

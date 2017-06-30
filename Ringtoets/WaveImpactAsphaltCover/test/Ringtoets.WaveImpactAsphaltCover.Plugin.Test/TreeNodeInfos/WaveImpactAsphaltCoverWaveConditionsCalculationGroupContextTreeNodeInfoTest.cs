@@ -42,6 +42,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
@@ -879,10 +880,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
-                        Assert.AreEqual("Validatie van 'A' is gestart.", messages[0]);
-                        Assert.AreEqual("Validatie van 'A' is beëindigd.", messages[1]);
-                        Assert.AreEqual("Validatie van 'B' is gestart.", messages[2]);
-                        Assert.AreEqual("Validatie van 'B' is beëindigd.", messages[3]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[3]);
                     });
                 }
             }
@@ -955,11 +956,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                         string[] messages = m.ToArray();
                         Assert.AreEqual(30, messages.Length);
                         Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
-                        Assert.AreEqual("Berekening van 'A' is gestart.", messages[3]);
-                        Assert.AreEqual("Berekening van 'A' is beëindigd.", messages[13]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[13]);
                         Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[14]);
-                        Assert.AreEqual("Berekening van 'B' is gestart.", messages[17]);
-                        Assert.AreEqual("Berekening van 'B' is beëindigd.", messages[27]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[17]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[27]);
                         Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[28]);
                         Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[29]);
                     });

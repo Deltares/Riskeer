@@ -1020,11 +1020,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(7, msgs.Length);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[3]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                         StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[5]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
@@ -1082,8 +1082,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                     });
                 }
             }

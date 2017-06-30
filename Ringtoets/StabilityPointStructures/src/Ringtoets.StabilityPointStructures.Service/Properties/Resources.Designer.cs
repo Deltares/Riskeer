@@ -82,7 +82,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
         internal static string StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStructuresCalculation_0_click_details_for_last_error_report_1 {
@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is mislukt. Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStructuresCalculation_0_no_error_report {
             get {

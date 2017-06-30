@@ -99,11 +99,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(6, msgs.Length);
                 Assert.AreEqual($"Uitvoeren van berekening '{invalidMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[0]);
-                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
                 StringAssert.StartsWith("Validatie mislukt: ", msgs[4]);
-                Assert.AreEqual($"Validatie van '{invalidMacroStabilityInwardsCalculation.Name}' is beëindigd.", msgs[5]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidMacroStabilityInwardsCalculation.Output);
@@ -131,10 +131,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 Assert.AreEqual($"Uitvoeren van berekening '{validMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(validMacroStabilityInwardsCalculation.Name, msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(validMacroStabilityInwardsCalculation.Name, msgs[2]);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(validMacroStabilityInwardsCalculation.Name, msgs[3]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(validMacroStabilityInwardsCalculation.Name, msgs[4]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validMacroStabilityInwardsCalculation.Output);

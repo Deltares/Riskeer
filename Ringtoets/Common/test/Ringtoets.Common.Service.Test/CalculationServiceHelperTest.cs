@@ -109,72 +109,60 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         public void LogValidationBegin_Always_LogsValidationBegin()
         {
-            // Setup
-            const string name = "Test name";
-
             // Call
-            Action call = () => CalculationServiceHelper.LogValidationBegin(name);
+            Action call = CalculationServiceHelper.LogValidationBegin;
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
             });
         }
 
         [Test]
         public void LogValidationEnd_Always_LogsValidationEnd()
         {
-            // Setup
-            const string name = "Test name";
-
             // Call
-            Action call = () => CalculationServiceHelper.LogValidationEnd(name);
+            Action call = CalculationServiceHelper.LogValidationEnd;
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[0]);
             });
         }
 
         [Test]
         public void LogCalculationBegin_Always_LogsCalculationBegin()
         {
-            // Setup
-            const string name = "Test name";
-
             // Call
-            Action call = () => CalculationServiceHelper.LogCalculationBegin(name);
+            Action call = CalculationServiceHelper.LogCalculationBegin;
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
             });
         }
 
         [Test]
         public void LogCalculationEnd_Always_LogsCalculationEnd()
         {
-            // Setup
-            const string name = "Test name";
-
             // Call
-            Action call = () => CalculationServiceHelper.LogCalculationEnd(name);
+            Action call = CalculationServiceHelper.LogCalculationEnd;
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(1, msgs.Length);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[0]);
             });
         }
 

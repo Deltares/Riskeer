@@ -238,7 +238,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
@@ -266,12 +265,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
                     StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
             }
@@ -289,7 +288,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(string.Empty).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
@@ -487,7 +485,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
@@ -515,12 +512,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, msgs[6]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
             }
@@ -538,7 +535,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             calculationMessageProviderMock.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(string.Empty).Repeat.AtLeastOnce();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 

@@ -69,12 +69,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <returns><c>True</c> if <paramref name="calculation"/> has no validation errors; <c>False</c> otherwise.</returns>
         public static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            CalculationServiceHelper.LogValidationBegin(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin();
 
             string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
-            CalculationServiceHelper.LogValidationEnd(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd();
 
             return !messages.Any();
         }
@@ -158,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             int numberOfCalculators = CreateCalculators(calculation, Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath));
 
-            CalculationServiceHelper.LogCalculationBegin(calculation.Name);
+            CalculationServiceHelper.LogCalculationBegin();
 
             try
             {
@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEnd(calculation.Name);
+                CalculationServiceHelper.LogCalculationEnd();
 
                 overtoppingCalculator = null;
                 dikeHeightCalculator = null;

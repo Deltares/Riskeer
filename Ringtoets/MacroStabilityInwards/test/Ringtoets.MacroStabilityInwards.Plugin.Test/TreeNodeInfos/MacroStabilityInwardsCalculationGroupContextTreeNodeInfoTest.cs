@@ -821,10 +821,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(7, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(validCalculation.Name, msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(validCalculation.Name, msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(invalidCalculation.Name, msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(invalidCalculation.Name, msgs[6]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
                     });
                 }
             }

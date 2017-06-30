@@ -56,7 +56,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             return ValidateWaveConditionsInput(
                 calculation.InputParameters,
-                calculation.Name,
                 hydraulicBoundaryDatabaseFilePath,
                 Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
@@ -104,9 +103,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                 throw new ArgumentNullException(nameof(generalWaveConditionsInput));
             }
 
-            string calculationName = calculation.Name;
-
-            CalculationServiceHelper.LogCalculationBegin(calculationName);
+            CalculationServiceHelper.LogCalculationBegin();
 
             RoundedDouble a = generalWaveConditionsInput.A;
             RoundedDouble b = generalWaveConditionsInput.B;
@@ -117,7 +114,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, hlcdFilePath);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters, a, b, c, norm, hlcdFilePath);
 
                 if (!Canceled)
                 {
@@ -126,7 +123,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEnd(calculationName);
+                CalculationServiceHelper.LogCalculationEnd();
             }
         }
     }

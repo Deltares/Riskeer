@@ -81,9 +81,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[3]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -131,11 +131,11 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }

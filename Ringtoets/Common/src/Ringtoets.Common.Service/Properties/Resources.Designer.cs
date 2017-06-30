@@ -82,20 +82,20 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; is beëindigd..
+        ///   Looks up a localized string similar to Berekening is beëindigd..
         /// </summary>
-        public static string Calculation_Subject_0_ended {
+        public static string Calculation_ended {
             get {
-                return ResourceManager.GetString("Calculation_Subject_0_ended", resourceCulture);
+                return ResourceManager.GetString("Calculation_ended", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; is gestart..
+        ///   Looks up a localized string similar to Berekening is gestart..
         /// </summary>
-        public static string Calculation_Subject_0_started {
+        public static string Calculation_started {
             get {
-                return ResourceManager.GetString("Calculation_Subject_0_started", resourceCulture);
+                return ResourceManager.GetString("Calculation_started", resourceCulture);
             }
         }
         
@@ -291,6 +291,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validatie is beëindigd..
+        /// </summary>
+        public static string Validation_ended {
+            get {
+                return ResourceManager.GetString("Validation_ended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;hoogte&apos; van de dam moet een concreet getal zijn..
         /// </summary>
         public static string Validation_Invalid_BreakWaterHeight_value {
@@ -300,20 +309,11 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; is beëindigd..
+        ///   Looks up a localized string similar to Validatie is gestart..
         /// </summary>
-        public static string Validation_Subject_0_ended {
+        public static string Validation_started {
             get {
-                return ResourceManager.GetString("Validation_Subject_0_ended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; is gestart..
-        /// </summary>
-        public static string Validation_Subject_0_started {
-            get {
-                return ResourceManager.GetString("Validation_Subject_0_started", resourceCulture);
+                return ResourceManager.GetString("Validation_started", resourceCulture);
             }
         }
         

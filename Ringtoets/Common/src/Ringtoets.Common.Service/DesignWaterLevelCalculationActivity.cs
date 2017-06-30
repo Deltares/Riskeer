@@ -80,10 +80,7 @@ namespace Ringtoets.Common.Service
                 return true;
             }
 
-            return DesignWaterLevelCalculationService.Validate(
-                designWaterLevelCalculation.GetName(),
-                hydraulicBoundaryDatabaseFilePath,
-                messageProvider);
+            return DesignWaterLevelCalculationService.Validate(hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void PerformCalculation()

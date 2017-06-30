@@ -102,10 +102,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                string name = calculation.Name;
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -135,10 +134,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                string name = calculation.Name;
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -177,9 +175,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -218,9 +216,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -260,7 +258,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(20, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDuration}' moet een positief getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDuration}' moet groter zijn dan of gelijk zijn aan 0.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{modelFactorSuperCriticalFlow}' moet een concreet getal zijn.", msgs[3]);
@@ -279,7 +277,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{levelCrestStructureNotClosing}' moet groter zijn dan of gelijk zijn aan 0.", msgs[16]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischarge}' moet een positief getal zijn.", msgs[17]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischarge}' moet groter zijn dan of gelijk zijn aan 0.", msgs[18]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[19]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[19]);
             });
             Assert.IsFalse(isValid);
 
@@ -322,7 +320,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(21, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDuration}' moet een positief getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDuration}' moet groter zijn dan of gelijk zijn aan 0.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevel}' moet een concreet getal zijn.", msgs[3]);
@@ -342,7 +340,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{thresholdHeightOpenWeir}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischarge}' moet een positief getal zijn.", msgs[18]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischarge}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[20]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[20]);
             });
             Assert.IsFalse(isValid);
 
@@ -385,7 +383,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(19, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{stormDuration}' moet een positief getal zijn.", msgs[1]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{stormDuration}' moet groter zijn dan of gelijk zijn aan 0.", msgs[2]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{insideWaterLevel}' moet een concreet getal zijn.", msgs[3]);
@@ -403,7 +401,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual($"Validatie mislukt: De standaardafwijking voor '{allowedLevelIncreaseStorage}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
                 Assert.AreEqual($"Validatie mislukt: De verwachtingswaarde voor '{criticalOvertoppingDischarge}' moet een positief getal zijn.", msgs[16]);
                 Assert.AreEqual($"Validatie mislukt: De variatiecoëfficiënt voor '{criticalOvertoppingDischarge}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
-                Assert.AreEqual($"Validatie van '{name}' is beëindigd.", msgs[18]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[18]);
             });
             Assert.IsFalse(isValid);
 
@@ -482,9 +480,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(name, msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(name, msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
 
@@ -882,9 +880,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -995,10 +993,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is mislukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1062,10 +1060,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    Assert.AreEqual($"De berekening voor kunstwerk sluiten '{calculation.Name}' is niet gelukt. Er is geen foutrapport beschikbaar.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"De berekening voor kunstwerk sluiten '{calculation.Name}' is mislukt. Er is geen foutrapport beschikbaar.", msgs[1]);
                     StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
@@ -1132,10 +1130,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[0]);
-                    StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    StringAssert.StartsWith($"De berekening voor kunstwerk sluiten '{calculation.Name}' is mislukt. Bekijk het foutrapport door op details te klikken.", msgs[1]);
                     StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);

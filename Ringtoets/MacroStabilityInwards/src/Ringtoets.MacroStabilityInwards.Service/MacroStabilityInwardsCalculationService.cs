@@ -52,21 +52,21 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            CalculationServiceHelper.LogValidationBegin(calculation.Name);
+            CalculationServiceHelper.LogValidationBegin();
 
             string[] inputValidationResults = ValidateInput(calculation.InputParameters).ToArray();
 
             if (inputValidationResults.Length > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults);
-                CalculationServiceHelper.LogValidationEnd(calculation.Name);
+                CalculationServiceHelper.LogValidationEnd();
                 return false;
             }
 
             List<string> validationResults = new MacroStabilityInwardsCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsSubCalculatorFactory.Instance).Validate();
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
-            CalculationServiceHelper.LogValidationEnd(calculation.Name);
+            CalculationServiceHelper.LogValidationEnd();
 
             return validationResults.Count == 0;
         }
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            CalculationServiceHelper.LogCalculationBegin(calculation.Name);
+            CalculationServiceHelper.LogCalculationBegin();
 
             try
             {
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
             finally
             {
-                CalculationServiceHelper.LogCalculationEnd(calculation.Name);
+                CalculationServiceHelper.LogCalculationEnd();
             }
         }
 

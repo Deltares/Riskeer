@@ -42,7 +42,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -66,21 +65,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -918,11 +902,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(7, msgs.Length);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(calculation.Name, msgs[3]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                         StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(calculation.Name, msgs[5]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
@@ -984,8 +968,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(action, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        CalculationServiceTestHelper.AssertValidationStartMessage(calculation.Name, msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(calculation.Name, msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                     });
                 }
             }
@@ -1114,6 +1098,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static void ChangeDikeProfile(DikeProfile dikeProfile)

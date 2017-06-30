@@ -27,114 +27,96 @@ namespace Ringtoets.Common.Service.TestUtil.Test
     public class CalculationServiceTestHelperTest
     {
         [Test]
-        [TestCase("aab")]
-        [TestCase("")]
-        [TestCase(null)]
-        public void AssertValidationStartMessage_MessagesEqual_DoesNotThrow(string calculationName)
+        public void AssertValidationStartMessage_MessagesEqual_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertValidationStartMessage(calculationName, $"Validatie van '{calculationName}' is gestart.");
+            TestDelegate test = () => CalculationServiceTestHelper.AssertValidationStartMessage("Validatie is gestart.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("alidatie van '' is gestart.")]
-        [TestCase("Validatie an '' is gestart.")]
+        [TestCase("alidatie is gestart.")]
+        [TestCase("Validatie gestart.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertValidationStartMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertValidationStartMessage(string.Empty, incorrectMessage);
+            TestDelegate test = () => CalculationServiceTestHelper.AssertValidationStartMessage(incorrectMessage);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        [TestCase("aab")]
-        [TestCase("")]
-        [TestCase(null)]
-        public void AssertValidationEndMessage_MessagesEqual_DoesNotThrow(string calculationName)
+        public void AssertValidationEndMessage_MessagesEqual_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertValidationEndMessage(calculationName, $"Validatie van '{calculationName}' is beëindigd.");
+            TestDelegate test = () => CalculationServiceTestHelper.AssertValidationEndMessage("Validatie is beëindigd.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("alidatie van '' is beëindigd.")]
-        [TestCase("Validatie an '' is beëindigd.")]
+        [TestCase("alidatie is beëindigd.")]
+        [TestCase("Validatie beëindigd.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertValidationEndMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertValidationEndMessage(string.Empty, incorrectMessage);
+            TestDelegate test = () => CalculationServiceTestHelper.AssertValidationEndMessage(incorrectMessage);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
+
         [Test]
-        [TestCase("aab")]
-        [TestCase("")]
-        [TestCase(null)]
-        public void AssertCalculationStartMessage_MessagesEqual_DoesNotThrow(string calculationName)
+        public void AssertCalculationStartMessage_MessagesEqual_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertCalculationStartMessage(calculationName, $"Berekening van '{calculationName}' is gestart.");
+            TestDelegate test = () => CalculationServiceTestHelper.AssertCalculationStartMessage("Berekening is gestart.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("erekening van '' is gestart.")]
-        [TestCase("Berekening an '' is gestart.")]
+        [TestCase("erekening is gestart.")]
+        [TestCase("Berekening gestart.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertCalculationStartMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertCalculationStartMessage(string.Empty, incorrectMessage);
+            TestDelegate test = () => CalculationServiceTestHelper.AssertCalculationStartMessage(incorrectMessage);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
+
         [Test]
-        [TestCase("aab")]
-        [TestCase("")]
-        [TestCase(null)]
-        public void AssertCalculationEndMessage_MessagesEqual_DoesNotThrow(string calculationName)
+        public void AssertCalculationEndMessage_MessagesEqual_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertCalculationEndMessage(calculationName, $"Berekening van '{calculationName}' is beëindigd.");
+            TestDelegate test = () => CalculationServiceTestHelper.AssertCalculationEndMessage("Berekening is beëindigd.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("erekening van '' is beëindigd.")]
-        [TestCase("Berekening an '' is beëindigd.")]
+        [TestCase("erekening is beëindigd.")]
+        [TestCase("Berekening beëindigd.")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertCalculationEndMessage_MessagesNotEqual_ThrowsAssertionException(string incorrectMessage)
         {
             // Call
-            TestDelegate test = () => 
-                CalculationServiceTestHelper.AssertCalculationEndMessage(string.Empty, incorrectMessage);
+            TestDelegate test = () => CalculationServiceTestHelper.AssertCalculationEndMessage(incorrectMessage);
 
             // Assert
             Assert.Throws<AssertionException>(test);
