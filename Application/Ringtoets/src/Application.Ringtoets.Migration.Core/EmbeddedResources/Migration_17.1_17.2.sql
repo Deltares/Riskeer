@@ -186,7 +186,29 @@ SELECT
 	0,
 	[Order]
 	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
-INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
+INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity(
+	[GrassCoverErosionOutwardsHydraulicLocationOutputEntityId],
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	[GeneralResultSubmechanismIllustrationPointEntityId],
+	[HydraulicLocationOutputType],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence])
+SELECT
+	[GrassCoverErosionOutwardsHydraulicLocationOutputEntityId],
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	NULL,
+	[HydraulicLocationOutputType],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
@@ -285,7 +307,29 @@ SELECT
 	0,
 	[Order] 
 	FROM [SOURCEPROJECT].HydraulicLocationEntity;
-INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO HydraulicLocationOutputEntity(
+	[HydraulicLocationEntityOutputId],
+	[HydraulicLocationEntityId],
+	[GeneralResultSubmechanismIllustrationPointEntityId],
+	[HydraulicLocationOutputType],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence])
+SELECT 
+	[HydraulicLocationEntityOutputId],
+	[HydraulicLocationEntityId],
+	NULL,
+	[HydraulicLocationOutputType],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+	FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO MacroStabilityInwardsSectionResultEntity (
 	[MacroStabilityInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],

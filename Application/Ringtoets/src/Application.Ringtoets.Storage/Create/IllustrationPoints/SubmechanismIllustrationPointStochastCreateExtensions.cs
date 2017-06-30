@@ -28,20 +28,20 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 {
     /// <summary>
     /// Extension methods for <see cref="SubmechanismIllustrationPointStochast"/> related to creating an instance of 
-    /// <see cref="HydraulicLocationRealizedStochastEntity"/>.
+    /// <see cref="SubmechanismIllustrationPointStochastEntity"/>.
     /// </summary>
     internal static class SubmechanismIllustrationPointStochastCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="HydraulicLocationRealizedStochastEntity"/> based on the information 
+        /// Creates a <see cref="SubmechanismIllustrationPointStochastEntity"/> based on the information 
         /// of the <paramref name="submechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="submechanismIllustrationPointStochast">The stochast to create a database entity for.</param>
         /// <param name="order">The index at which <paramref name="submechanismIllustrationPointStochast"/> resides within its parent.</param>
-        /// <returns>A new <see cref="HydraulicLocationRealizedStochastEntity"/>.</returns>
+        /// <returns>A new <see cref="SubmechanismIllustrationPointStochastEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="submechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
-        public static HydraulicLocationRealizedStochastEntity CreateHydraulicLocationRealizedStochastEntity(
+        public static SubmechanismIllustrationPointStochastEntity CreateHydraulicLocationRealizedStochastEntity(
             this SubmechanismIllustrationPointStochast submechanismIllustrationPointStochast, int order)
         {
             if (submechanismIllustrationPointStochast == null)
@@ -49,36 +49,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 throw new ArgumentNullException(nameof(submechanismIllustrationPointStochast));
             }
 
-            var entity = new HydraulicLocationRealizedStochastEntity
-            {
-                Name = submechanismIllustrationPointStochast.Name.DeepClone(),
-                Alpha = submechanismIllustrationPointStochast.Alpha,
-                Duration = submechanismIllustrationPointStochast.Duration,
-                Realization = submechanismIllustrationPointStochast.Realization,
-                Order = order
-            };
-
-            return entity;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity"/> based 
-        /// on the information of the <paramref name="submechanismIllustrationPointStochast"/>.
-        /// </summary>
-        /// <param name="submechanismIllustrationPointStochast">The stochast to create a database entity for.</param>
-        /// <param name="order">The index at which <paramref name="submechanismIllustrationPointStochast"/> resides within its parent.</param>
-        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="submechanismIllustrationPointStochast"/> 
-        /// is <c>null</c>.</exception>
-        public static GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity CreateGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity(
-            this SubmechanismIllustrationPointStochast submechanismIllustrationPointStochast, int order)
-        {
-            if (submechanismIllustrationPointStochast == null)
-            {
-                throw new ArgumentNullException(nameof(submechanismIllustrationPointStochast));
-            }
-
-            var entity = new GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity
+            var entity = new SubmechanismIllustrationPointStochastEntity
             {
                 Name = submechanismIllustrationPointStochast.Name.DeepClone(),
                 Alpha = submechanismIllustrationPointStochast.Alpha,

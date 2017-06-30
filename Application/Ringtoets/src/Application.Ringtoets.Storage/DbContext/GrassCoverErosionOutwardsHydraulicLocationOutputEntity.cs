@@ -28,27 +28,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class GrassCoverErosionOutwardsHydraulicLocationOutputEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GrassCoverErosionOutwardsHydraulicLocationOutputEntity()
-        {
-            GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity>();
-        }
-
         public long GrassCoverErosionOutwardsHydraulicLocationOutputEntityId { get; set; }
         public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
+        public long? GeneralResultSubmechanismIllustrationPointEntityId { get; set; }
 
+        public virtual GeneralResultSubmechanismIllustrationPointEntity GeneralResultSubmechanismIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity> GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntities { get; set; }
-
         public byte HydraulicLocationOutputType { get; set; }
         public double? Result { get; set; }
         public double? TargetProbability { get; set; }

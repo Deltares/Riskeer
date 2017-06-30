@@ -27,20 +27,20 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="Stochast"/> related to creating an instance of <see cref="HydraulicLocationStochastEntity"/>.
+    /// Extension methods for <see cref="Stochast"/> related to creating an instance of <see cref="StochastEntity"/>.
     /// </summary>
     internal static class StochastCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="HydraulicLocationStochastEntity"/> based on the information 
+        /// Creates a <see cref="StochastEntity"/> based on the information 
         /// of the <paramref name="stochast"/>.
         /// </summary>
         /// <param name="stochast">The stochast to create a database entity for.</param>
         /// <param name="order">The index at which <paramref name="stochast"/> resides within its parent.</param>
-        /// <returns>A new <see cref="HydraulicLocationStochastEntity"/>.</returns>
+        /// <returns>A new <see cref="StochastEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochast"/> 
         /// is <c>null</c>.</exception>
-        public static HydraulicLocationStochastEntity CreateHydraulicLocationStochastEntity(
+        public static StochastEntity CreateStochastEntity(
             this Stochast stochast, int order)
         {
             if (stochast == null)
@@ -48,35 +48,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 throw new ArgumentNullException(nameof(stochast));
             }
 
-            var entity = new HydraulicLocationStochastEntity
-            {
-                Name = stochast.Name.DeepClone(),
-                Alpha = stochast.Alpha,
-                Duration = stochast.Duration,
-                Order = order
-            };
-
-            return entity;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationStochastEntity"/> based 
-        /// on the information of the <paramref name="stochast"/>.
-        /// </summary>
-        /// <param name="stochast">The stochast to create a database entity for.</param>
-        /// <param name="order">The index at which <paramref name="stochast"/> resides within its parent.</param>
-        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationStochastEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochast"/> 
-        /// is <c>null</c>.</exception>
-        public static GrassCoverErosionOutwardsHydraulicLocationStochastEntity CreateGrassCoverErosionOutwardsHydraulicLocationStochastEntity(
-            this Stochast stochast, int order)
-        {
-            if (stochast == null)
-            {
-                throw new ArgumentNullException(nameof(stochast));
-            }
-
-            var entity = new GrassCoverErosionOutwardsHydraulicLocationStochastEntity
+            var entity = new StochastEntity()
             {
                 Name = stochast.Name.DeepClone(),
                 Alpha = stochast.Alpha,

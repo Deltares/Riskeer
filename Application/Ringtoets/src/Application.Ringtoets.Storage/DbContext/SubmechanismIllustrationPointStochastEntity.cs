@@ -30,14 +30,16 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class HydraulicLocationIllustrationPointResultEntity
+    public class SubmechanismIllustrationPointStochastEntity
     {
-        public long HydraulicLocationIllustrationPointResultEntityId { get; set; }
-        public long HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
+        public long SubmechanismIllustrationPointStochastEntityId { get; set; }
+        public long SubmechanismIllustrationPointEntityId { get; set; }
+        public string Name { get; set; }
+        public double Duration { get; set; }
+        public double Alpha { get; set; }
+        public double Realization { get; set; }
         public int Order { get; set; }
 
-        public virtual HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity { get; set; }
-        public string Description { get; set; }
-        public double Value { get; set; }
+        public virtual SubmechanismIllustrationPointEntity SubmechanismIllustrationPointEntity { get; set; }
     }
 }

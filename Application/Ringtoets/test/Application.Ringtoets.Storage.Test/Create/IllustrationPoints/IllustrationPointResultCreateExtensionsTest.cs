@@ -33,10 +33,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class IllustrationPointResultCreateExtensionsTest
     {
         [Test]
-        public void CreateHydraulicLocationIllustrationPointResultEntity_IllustrationPointResultNull_ThrowsArgumentNullException()
+        public void CreateIllustrationPointResultEntity_IllustrationPointResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IllustrationPointResult) null).CreateHydraulicLocationIllustrationPointResultEntity(0);
+            TestDelegate call = () => ((IllustrationPointResult) null).CreateIllustrationPointResultEntity(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateHydraulicLocationIllustrationPointResultEntity_ValidIllustrationPointResult_ReturnEntity()
+        public void CreateIllustrationPointResultEntity_ValidIllustrationPointResult_ReturnEntity()
         {
             // Setup
             var random = new Random(123);
@@ -53,42 +53,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             int order = random.Next();
 
             // Call
-            HydraulicLocationIllustrationPointResultEntity entity =
-                illustrationPointResult.CreateHydraulicLocationIllustrationPointResultEntity(order);
+            IllustrationPointResultEntity entity =
+                illustrationPointResult.CreateIllustrationPointResultEntity(order);
 
             // Assert
-            Assert.IsInstanceOf<IIllustrationPointResultEntity>(entity);
-            TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, entity.Description);
-            Assert.AreEqual(illustrationPointResult.Value, entity.Value, illustrationPointResult.Value.GetAccuracy());
-            Assert.AreEqual(order, entity.Order);
-        }
-
-        [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity_IllustrationPointResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => ((IllustrationPointResult) null).CreateGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity(0);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("illustrationPointResult", paramName);
-        }
-
-        [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity_ValidIllustrationPointResult_ReturnEntity()
-        {
-            // Setup
-            var random = new Random(123);
-            var illustrationPointResult = new IllustrationPointResult("Some description",
-                                                                      random.NextDouble());
-            int order = random.Next();
-
-            // Call
-            GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity entity =
-                illustrationPointResult.CreateGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity(order);
-
-            // Assert
-            Assert.IsInstanceOf<IIllustrationPointResultEntity>(entity);
             TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, entity.Description);
             Assert.AreEqual(illustrationPointResult.Value, entity.Value, illustrationPointResult.Value.GetAccuracy());
             Assert.AreEqual(order, entity.Order);

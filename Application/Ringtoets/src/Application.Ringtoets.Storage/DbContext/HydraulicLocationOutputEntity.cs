@@ -28,27 +28,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class HydraulicLocationOutputEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicLocationOutputEntity()
-        {
-            HydraulicLocationGeneralResultEntities = new HashSet<HydraulicLocationGeneralResultEntity>();
-        }
-
         public long HydraulicLocationEntityOutputId { get; set; }
         public long HydraulicLocationEntityId { get; set; }
+        public long? GeneralResultSubmechanismIllustrationPointEntityId { get; set; }
 
+        public virtual GeneralResultSubmechanismIllustrationPointEntity GeneralResultSubmechanismIllustrationPointEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationGeneralResultEntity> HydraulicLocationGeneralResultEntities { get; set; }
-
         public byte HydraulicLocationOutputType { get; set; }
         public double? Result { get; set; }
         public double? TargetProbability { get; set; }

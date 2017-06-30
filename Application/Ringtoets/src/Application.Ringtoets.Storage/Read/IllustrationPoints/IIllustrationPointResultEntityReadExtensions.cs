@@ -26,20 +26,20 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="IIllustrationPointResultEntity"/> related to creating an 
+    /// Extension methods for <see cref="IllustrationPointResultEntity"/> related to creating an 
     /// <see cref="IllustrationPointResult"/>.
     /// </summary>
-    internal static class IIllustrationPointResultEntityReadExtensions
+    internal static class IllustrationPointResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IIllustrationPointResultEntity"/> and use the information to 
+        /// Reads the <see cref="IllustrationPointResultEntity"/> and use the information to 
         /// construct an <see cref="IllustrationPointResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="IIllustrationPointResultEntity"/> to create 
+        /// <param name="entity">The <see cref="IllustrationPointResultEntity"/> to create 
         /// <see cref="IllustrationPointResult"/> for.</param>
         /// <returns>A new <see cref="IllustrationPointResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public static IllustrationPointResult Read(this IIllustrationPointResultEntity entity)
+        public static IllustrationPointResult Read(this IllustrationPointResultEntity entity)
         {
             if (entity == null)
             {

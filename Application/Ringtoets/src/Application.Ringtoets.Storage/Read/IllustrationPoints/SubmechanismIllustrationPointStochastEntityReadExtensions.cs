@@ -26,18 +26,20 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="IRealizedStochastEntity"/> related to creating a <see cref="SubmechanismIllustrationPointStochast"/>.
+    /// Extension methods for <see cref="SubmechanismIllustrationPointStochastEntity"/> 
+    /// related to creating a <see cref="SubmechanismIllustrationPointStochast"/>.
     /// </summary>
-    internal static class ISubmechanismIllustrationPointStochastEntityReadExtensions
+    internal static class SubmechanismIllustrationPointStochastEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IRealizedStochastEntity"/> and use the information to construct a <see cref="SubmechanismIllustrationPointStochast"/>.
+        /// Reads the <see cref="SubmechanismIllustrationPointStochastEntity"/> 
+        /// and use the information to construct a <see cref="SubmechanismIllustrationPointStochast"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="IRealizedStochastEntity"/> to create 
+        /// <param name="entity">The <see cref="SubmechanismIllustrationPointStochastEntity"/> to create 
         /// <see cref="SubmechanismIllustrationPointStochast"/> for.</param>
         /// <returns>A new <see cref="SubmechanismIllustrationPointStochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public static SubmechanismIllustrationPointStochast Read(this IRealizedStochastEntity entity)
+        public static SubmechanismIllustrationPointStochast Read(this SubmechanismIllustrationPointStochastEntity entity)
         {
             if (entity == null)
             {

@@ -19,23 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Interface for an illustration point result entity that represents an <see cref="IllustrationPointResult"/>.
+    /// Extension methods for <see cref="StochastEntity"/> related to creating a <see cref="Stochast"/>.
     /// </summary>
-    public interface IIllustrationPointResultEntity
+    internal static class StochastEntityReadExtensions
     {
         /// <summary>
-        /// Gets or sets the description of the illustration point result.
+        /// Reads the <see cref="StochastEntity"/> and use the information to construct a <see cref="Stochast"/>.
         /// </summary>
-        string Description { get; set; }
+        /// <param name="entity">The <see cref="StochastEntity"/> to create <see cref="Stochast"/> for.</param>
+        /// <returns>A new <see cref="Stochast"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        public static Stochast Read(this StochastEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
 
-        /// <summary>
-        /// Gets or sets the value of the illustration point result.
-        /// </summary>
-        double Value { get; set; }
+            return new Stochast(entity.Name,
+                                entity.Duration,
+                                entity.Alpha);
+        }
     }
 }

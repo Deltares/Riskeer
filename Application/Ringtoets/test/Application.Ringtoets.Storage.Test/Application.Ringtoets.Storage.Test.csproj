@@ -124,9 +124,9 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\ISubmechanismIllustrationPointStochastEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\IStochastEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\IllustrationPointResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\SubmechanismIllustrationPointStochastEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IStructureCalculationEntityReadExtensionsTest.cs" />

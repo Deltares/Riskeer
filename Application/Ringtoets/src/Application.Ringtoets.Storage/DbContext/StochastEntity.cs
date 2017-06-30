@@ -28,17 +28,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class HydraulicLocationStochastEntity
+    public class StochastEntity
     {
-        public long HydraulicLocationStochastEntityId { get; set; }
-        public long HydraulicLocationGeneralResultEntityId { get; set; }
-        public int Order { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StochastEntity()
+        {
+            GeneralResultSubmechanismIllustrationPointEntities = new HashSet<GeneralResultSubmechanismIllustrationPointEntity>();
+        }
 
-        public virtual HydraulicLocationGeneralResultEntity HydraulicLocationGeneralResultEntity { get; set; }
+        public long StochastEntityId { get; set; }
         public string Name { get; set; }
         public double Duration { get; set; }
         public double Alpha { get; set; }
+        public int Order { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GeneralResultSubmechanismIllustrationPointEntity> GeneralResultSubmechanismIllustrationPointEntities { get; set; }
     }
 }

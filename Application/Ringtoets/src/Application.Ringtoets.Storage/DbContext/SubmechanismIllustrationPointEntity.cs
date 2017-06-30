@@ -28,17 +28,33 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverErosionOutwardsHydraulicLocationStochastEntity
+    public class SubmechanismIllustrationPointEntity
     {
-        public long GrassCoverErosionOutwardsHydraulicLocationStochastEntityId { get; set; }
-        public long GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntityId { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SubmechanismIllustrationPointEntity()
+        {
+            IllustrationPointResultEntities = new HashSet<IllustrationPointResultEntity>();
+            SubmechanismIllustrationPointStochastEntities = new HashSet<SubmechanismIllustrationPointStochastEntity>();
+            TopLevelSubmechanismIllustrationPointEntities = new HashSet<TopLevelSubmechanismIllustrationPointEntity>();
+        }
+
+        public long SubmechanismIllustrationPointEntityId { get; set; }
+        public string Name { get; set; }
+        public double Beta { get; set; }
         public int Order { get; set; }
 
-        public virtual GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity { get; set; }
-        public string Name { get; set; }
-        public double Duration { get; set; }
-        public double Alpha { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IllustrationPointResultEntity> IllustrationPointResultEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmechanismIllustrationPointStochastEntity> SubmechanismIllustrationPointStochastEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TopLevelSubmechanismIllustrationPointEntity> TopLevelSubmechanismIllustrationPointEntities { get; set; }
     }
 }

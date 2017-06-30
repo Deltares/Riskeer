@@ -21,22 +21,21 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {
     [TestFixture]
-    public class IStochastEntityReadExtensionsTest
+    public class SubmechanismIllustrationPointStochastEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IStochastEntity) null).Read();
+            TestDelegate call = () => ((SubmechanismIllustrationPointStochastEntity) null).Read();
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,25 +43,26 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntity_ReturnStochast()
+        public void Read_ValidEntity_ReturnRealizedStochast()
         {
             // Setup
             var random = new Random(123);
-            var mockRepository = new MockRepository();
-            var entity = mockRepository.Stub<IStochastEntity>();
-            entity.Name = "Description";
-            entity.Alpha = random.NextDouble();
-            entity.Duration = random.NextDouble();
-            mockRepository.ReplayAll();
+            var entity = new SubmechanismIllustrationPointStochastEntity
+            {
+                Name = "Description",
+                Alpha = random.NextDouble(),
+                Duration = random.NextDouble(),
+                Realization = random.NextDouble()
+            };
 
             // Call
-            Stochast illustrationPointResult = entity.Read();
+            SubmechanismIllustrationPointStochast illustrationPointResult = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.Name, illustrationPointResult.Name);
             Assert.AreEqual(entity.Alpha, illustrationPointResult.Alpha, illustrationPointResult.Alpha.GetAccuracy());
             Assert.AreEqual(entity.Duration, illustrationPointResult.Duration, illustrationPointResult.Duration.GetAccuracy());
-            mockRepository.VerifyAll();
+            Assert.AreEqual(entity.Realization, illustrationPointResult.Realization, illustrationPointResult.Realization.GetAccuracy());
         }
     }
 }

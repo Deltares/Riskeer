@@ -138,6 +138,9 @@
     <Compile Include="DbContext\ForeshoreProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\GeneralResultSubmechanismIllustrationPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -162,22 +165,7 @@
     <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationGeneralResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationStochastEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsHydraulicLocationWindDirectionClosingSituationIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsSectionResultEntity.cs">
@@ -213,29 +201,14 @@
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\HydraulicLocationGeneralResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationIllustrationPointResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
-    <Compile Include="DbContext\HydraulicLocationRealizedStochastEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationStochastEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
-    <Compile Include="DbContext\IIllustrationPointResultEntity.cs" />
-    <Compile Include="DbContext\IRealizedStochastEntity.cs" />
-    <Compile Include="DbContext\IStochastEntity.cs" />
+    <Compile Include="DbContext\IllustrationPointResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -245,12 +218,6 @@
     <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationIllustrationPointResultEntity.cs" />
-    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationRealizedStochastEntity.cs" />
-    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationStochastEntity.cs" />
-    <Compile Include="DbContext\PartialHydraulicLocationRealizedStochastEntity.cs" />
-    <Compile Include="DbContext\PartialHydraulicLocationStochastEntity.cs" />
-    <Compile Include="DbContext\PartialIllustrationPointResultEntity.cs" />
     <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
     <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
     <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
@@ -315,6 +282,9 @@
     <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\StochastEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\StochasticSoilModelEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -324,10 +294,19 @@
     <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\SubmechanismIllustrationPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\SubmechanismIllustrationPointStochastEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\SurfaceLineEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\TopLevelSubmechanismIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\VersionEntity.cs">
@@ -370,8 +349,8 @@
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\ISubmechanismIllustrationPointStochastEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\IStochastEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\SubmechanismIllustrationPointStochastEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IStructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />

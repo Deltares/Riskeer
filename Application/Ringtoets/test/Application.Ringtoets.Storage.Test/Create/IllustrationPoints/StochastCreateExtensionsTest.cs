@@ -33,10 +33,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class StochastCreateExtensionsTest
     {
         [Test]
-        public void CreateHydraulicLocationStochastEntity_StochastNull_ThrowsArgumentNullException()
+        public void CreateStochastEntity_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((Stochast) null).CreateHydraulicLocationStochastEntity(0);
+            TestDelegate call = () => ((Stochast) null).CreateStochastEntity(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateHydraulicLocationStochastEntity_ValidStochast_ReturnEntity()
+        public void CreateStochastEntity_ValidStochast_ReturnEntity()
         {
             // Setup
             var random = new Random(123);
@@ -54,43 +54,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             int order = random.Next();
 
             // Call
-            HydraulicLocationStochastEntity entity = stochast.CreateHydraulicLocationStochastEntity(order);
+            StochastEntity entity = stochast.CreateStochastEntity(order);
 
             // Assert
-            Assert.IsInstanceOf<IStochastEntity>(entity);
-            TestHelper.AssertAreEqualButNotSame(stochast.Name, entity.Name);
-            Assert.AreEqual(stochast.Alpha, entity.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(stochast.Duration, entity.Duration, stochast.Duration.GetAccuracy());
-            Assert.AreEqual(order, entity.Order);
-        }
-
-        [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationStochastEntity_StochastNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => ((Stochast) null).CreateGrassCoverErosionOutwardsHydraulicLocationStochastEntity(0);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("stochast", paramName);
-        }
-
-        [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationStochastEntity_ValidStochast_ReturnEntity()
-        {
-            // Setup
-            var random = new Random(123);
-            var stochast = new Stochast("Some description",
-                                        random.NextDouble(),
-                                        random.NextDouble());
-            int order = random.Next();
-
-            // Call
-            GrassCoverErosionOutwardsHydraulicLocationStochastEntity entity =
-                stochast.CreateGrassCoverErosionOutwardsHydraulicLocationStochastEntity(order);
-
-            // Assert
-            Assert.IsInstanceOf<IStochastEntity>(entity);
             TestHelper.AssertAreEqualButNotSame(stochast.Name, entity.Name);
             Assert.AreEqual(stochast.Alpha, entity.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(stochast.Duration, entity.Duration, stochast.Duration.GetAccuracy());

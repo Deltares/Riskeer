@@ -33,30 +33,31 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity
+    public class GeneralResultSubmechanismIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicLocationWindDirectionClosingSituationIllustrationPointEntity()
+        public GeneralResultSubmechanismIllustrationPointEntity()
         {
-            HydraulicLocationIllustrationPointResultEntities = new HashSet<HydraulicLocationIllustrationPointResultEntity>();
-            HydraulicLocationRealizedStochastEntities = new HashSet<HydraulicLocationRealizedStochastEntity>();
+            GrassCoverErosionOutwardsHydraulicLocationOutputEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>();
+            HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
+            TopLevelSubmechanismIllustrationPointEntities = new HashSet<TopLevelSubmechanismIllustrationPointEntity>();
+            StochastEntities = new HashSet<StochastEntity>();
         }
 
-        public long HydraulicLocationWindDirectionClosingSituationIllustrationPointEntityId { get; set; }
-        public long HydraulicLocationGeneralResultEntityId { get; set; }
-        public string IllustrationPointName { get; set; }
-        public string ClosingSituation { get; set; }
-        public string WindDirectionName { get; set; }
-        public double WindDirectionAngle { get; set; }
-        public double Beta { get; set; }
-        public int Order { get; set; }
-
-        public virtual HydraulicLocationGeneralResultEntity HydraulicLocationGeneralResultEntity { get; set; }
+        public long GeneralResultSubmechanismIllustrationPointEntityId { get; set; }
+        public string GoverningWindDirectionName { get; set; }
+        public double GoverningWindDirectionAngle { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationIllustrationPointResultEntity> HydraulicLocationIllustrationPointResultEntities { get; set; }
+        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationOutputEntity> GrassCoverErosionOutwardsHydraulicLocationOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationRealizedStochastEntity> HydraulicLocationRealizedStochastEntities { get; set; }
+        public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TopLevelSubmechanismIllustrationPointEntity> TopLevelSubmechanismIllustrationPointEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StochastEntity> StochastEntities { get; set; }
     }
 }
