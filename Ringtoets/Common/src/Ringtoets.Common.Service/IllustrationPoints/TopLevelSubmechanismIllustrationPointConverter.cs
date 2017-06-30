@@ -31,22 +31,22 @@ namespace Ringtoets.Common.Service.IllustrationPoints
     /// <summary>
     /// Converter for <see cref="WindDirectionClosingSituation"/> and 
     /// <see cref="HydraSubmechanismIllustrationPoint"/> related to creating a 
-    /// <see cref="WindDirectionClosingSituationIllustrationPoint"/>.
+    /// <see cref="TopLevelSubmechanismIllustrationPoint"/>.
     /// </summary>
-    public static class WindDirectionClosingSituationIllustrationPointConverter
+    public static class TopLevelSubmechanismIllustrationPointConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WindDirectionClosingSituationIllustrationPoint"/>
+        /// Creates a new instance of <see cref="TopLevelSubmechanismIllustrationPoint"/>
         /// based on the information of <paramref name="hydraWindDirectionClosingSituation"/>
         /// and <paramref name="hydraSubmechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="hydraWindDirectionClosingSituation">The <see cref="WindDirectionClosingSituation"/>
-        /// to base the <see cref="WindDirectionClosingSituationIllustrationPoint"/> on.</param>
+        /// to base the <see cref="TopLevelSubmechanismIllustrationPoint"/> on.</param>
         /// <param name="hydraSubmechanismIllustrationPoint">The <see cref="HydraSubmechanismIllustrationPoint"/>
-        /// to base the <see cref="WindDirectionClosingSituationIllustrationPoint"/> on.</param>
-        /// <returns>A <see cref="WindDirectionClosingSituationIllustrationPoint"/>.</returns>
+        /// to base the <see cref="TopLevelSubmechanismIllustrationPoint"/> on.</param>
+        /// <returns>A <see cref="TopLevelSubmechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static WindDirectionClosingSituationIllustrationPoint CreateWindDirectionClosingScenarioIllustrationPoint(
+        public static TopLevelSubmechanismIllustrationPoint CreateWindDirectionClosingScenarioIllustrationPoint(
             WindDirectionClosingSituation hydraWindDirectionClosingSituation,
             HydraSubmechanismIllustrationPoint hydraSubmechanismIllustrationPoint)
         {
@@ -63,9 +63,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             SubmechanismIllustrationPoint submechanismIllustrationPoint =
                 SubmechanismIllustrationPointConverter.CreateSubmechanismIllustrationPoint(hydraSubmechanismIllustrationPoint);
 
-            return new WindDirectionClosingSituationIllustrationPoint(windDirection,
-                                                                      hydraWindDirectionClosingSituation.ClosingSituation,
-                                                                      submechanismIllustrationPoint);
+            return new TopLevelSubmechanismIllustrationPoint(windDirection,
+                                                             hydraWindDirectionClosingSituation.ClosingSituation,
+                                                             submechanismIllustrationPoint);
         }
     }
 }

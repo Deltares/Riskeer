@@ -52,7 +52,7 @@
     <Compile Include="IllustrationPoints\SubmechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverter.cs" />
     <Compile Include="IllustrationPoints\StochastConverter.cs" />
-    <Compile Include="IllustrationPoints\WindDirectionClosingSituationIllustrationPointConverter.cs" />
+    <Compile Include="IllustrationPoints\TopLevelSubmechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\WindDirectionConverter.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="SynchronizeCalculationWithForeshoreProfileHelper.cs" />

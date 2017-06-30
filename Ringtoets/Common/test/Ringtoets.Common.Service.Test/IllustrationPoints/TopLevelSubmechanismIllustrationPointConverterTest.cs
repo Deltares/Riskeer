@@ -35,7 +35,7 @@ using HydraSubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
-    public class WindDirectionClosingSituationIllustrationPointConverterTest
+    public class TopLevelSubmechanismIllustrationPointConverterTest
     {
         [Test]
         public void CreateWindDirectionClosingScenarioIllustrationPoint_HydraWindDirectionNull_ThrowsArgumentNullException()
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                TopLevelSubmechanismIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
                     null, hydraSubMechanismIllustrationPoint);
 
             // Assert
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                TopLevelSubmechanismIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
                     new HydraWindDirectionClosingSituation(hydraWindDirection, string.Empty),
                     null);
 
@@ -106,8 +106,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             }, beta);
 
             // Call
-            WindDirectionClosingSituationIllustrationPoint combination =
-                WindDirectionClosingSituationIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+            TopLevelSubmechanismIllustrationPoint combination =
+                TopLevelSubmechanismIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
                     windDirectionClosingSituation, subMechanismIllustrationPoint);
 
             // Assert

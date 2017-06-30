@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
-                    new WindDirectionClosingSituationIllustrationPoint(
+                    new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 1",
                                               new[]
@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                   new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.43589, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
-                    new WindDirectionClosingSituationIllustrationPoint(
+                    new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 2",
                                               new[]
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
-                    new WindDirectionClosingSituationIllustrationPoint(
+                    new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 1",
                                               new[]
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                   new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.01, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
-                    new WindDirectionClosingSituationIllustrationPoint(
+                    new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 2",
                                               new[]
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                   new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.02, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
-                    new WindDirectionClosingSituationIllustrationPoint(
+                    new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 3",
                                               new[]

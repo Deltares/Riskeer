@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(stackChartData));
             }
 
-            Tuple<string, string>[] labels = generalResult.WindDirectionClosingSituationIllustrationPoints
+            Tuple<string, string>[] labels = generalResult.TopLevelSubmechanismIllustrationPoints
                                                           .Select(illustrationPoint =>
                                                                       new Tuple<string, string>(illustrationPoint.WindDirection.Name,
                                                                                                 illustrationPoint.ClosingSituation))
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Factories
 
             var stochastValues = new List<Tuple<string, double>>();
 
-            foreach (WindDirectionClosingSituationIllustrationPoint illustrationPoint in generalResult.WindDirectionClosingSituationIllustrationPoints)
+            foreach (TopLevelSubmechanismIllustrationPoint illustrationPoint in generalResult.TopLevelSubmechanismIllustrationPoints)
             {
                 stochastValues.AddRange(illustrationPoint.SubmechanismIllustrationPoint.Stochasts
                                                          .Select(illustrationPointStochast =>

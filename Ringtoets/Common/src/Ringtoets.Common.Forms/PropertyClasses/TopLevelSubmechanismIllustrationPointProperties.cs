@@ -34,10 +34,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="WindDirectionClosingSituationIllustrationPoint"/> for properties panel.
+    /// ViewModel of <see cref="TopLevelSubmechanismIllustrationPoint"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class WindDirectionClosingSituationIllustrationPointProperties : ObjectProperties<WindDirectionClosingSituationIllustrationPoint>
+    public class TopLevelSubmechanismIllustrationPointProperties : ObjectProperties<TopLevelSubmechanismIllustrationPoint>
     {
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]

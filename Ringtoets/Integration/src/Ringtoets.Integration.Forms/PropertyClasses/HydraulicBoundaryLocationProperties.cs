@@ -192,13 +192,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        public IEnumerable<WindDirectionClosingSituationIllustrationPointProperties> IllustrationPoints
+        public IEnumerable<TopLevelSubmechanismIllustrationPointProperties> IllustrationPoints
         {
             get
             {
                 return GetGeneralIllustrationPointsResult()
-                    .WindDirectionClosingSituationIllustrationPoints
-                    .Select(p => new WindDirectionClosingSituationIllustrationPointProperties
+                    .TopLevelSubmechanismIllustrationPoints
+                    .Select(p => new TopLevelSubmechanismIllustrationPointProperties
                     {
                         Data = p
                     })

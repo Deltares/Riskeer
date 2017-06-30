@@ -35,6 +35,6 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         public TestGeneralResult()
             : base(new TestWindDirection(), 
                   Enumerable.Empty<Stochast>(), 
-                  Enumerable.Empty<WindDirectionClosingSituationIllustrationPoint>()) {}
+                  Enumerable.Empty<TopLevelSubmechanismIllustrationPoint>()) {}
     }
 }

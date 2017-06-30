@@ -24,21 +24,21 @@ using System;
 namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
 {
     /// <summary>
-    /// Combination of <see cref="WindDirection"/>, closing situation and 
+    /// Represents the top level combination of <see cref="WindDirection"/>, closing situation and 
     /// <see cref="SubmechanismIllustrationPoint"/>.
     /// </summary>
-    public class WindDirectionClosingSituationIllustrationPoint
+    public class TopLevelSubmechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates an instance of <see cref="WindDirectionClosingSituationIllustrationPoint"/>.
+        /// Creates an instance of <see cref="TopLevelSubmechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
         /// <param name="submechanismIllustrationPoint">The illustrationPoint.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public WindDirectionClosingSituationIllustrationPoint(WindDirection windDirection,
-                                                              string closingSituation,
-                                                              SubmechanismIllustrationPoint submechanismIllustrationPoint)
+        public TopLevelSubmechanismIllustrationPoint(WindDirection windDirection,
+                                                     string closingSituation,
+                                                     SubmechanismIllustrationPoint submechanismIllustrationPoint)
         {
             if (windDirection == null)
             {
