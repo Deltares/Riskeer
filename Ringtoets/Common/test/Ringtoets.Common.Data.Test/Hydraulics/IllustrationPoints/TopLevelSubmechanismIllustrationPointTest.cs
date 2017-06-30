@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class WindDirectionClosingSituationIllustrationPointTest
+    public class TopLevelSubmechanismIllustrationPointTest
     {
         [Test]
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
