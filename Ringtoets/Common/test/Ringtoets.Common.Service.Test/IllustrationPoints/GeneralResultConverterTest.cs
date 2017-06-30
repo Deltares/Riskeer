@@ -30,13 +30,13 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 using HydraStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
-using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
+using HydrasubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             double beta = random.NextDouble();
             var hydraIllustrationPoint =
-                new HydraSubMechanismIllustrationPoint("Illustration Point",
+                new HydrasubmechanismIllustrationPoint("Illustration Point",
                                                        Enumerable.Empty<HydraSubmechanismIllustrationPointStochast>(),
                                                        Enumerable.Empty<HydraIllustrationPointResult>(),
                                                        beta);
@@ -125,11 +125,11 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             AssertWindDirection(hydraWindDirection, combination.WindDirection);
             Assert.AreEqual(closingSituation, combination.ClosingSituation);
 
-            IllustrationPoint illustrationPoint = combination.IllustrationPoint;
-            Assert.AreEqual(hydraIllustrationPoint.Name, illustrationPoint.Name);
-            Assert.AreEqual(hydraIllustrationPoint.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
-            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
-            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            SubmechanismIllustrationPoint submechanismIllustrationPoint = combination.SubmechanismIllustrationPoint;
+            Assert.AreEqual(hydraIllustrationPoint.Name, submechanismIllustrationPoint.Name);
+            Assert.AreEqual(hydraIllustrationPoint.Beta, submechanismIllustrationPoint.Beta, submechanismIllustrationPoint.Beta.GetAccuracy());
+            CollectionAssert.IsEmpty(submechanismIllustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(submechanismIllustrationPoint.IllustrationPointResults);
         }
 
         [Test]

@@ -19,20 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
+namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 {
-    /// <summary>
-    /// A simple illustration point which can be used for testing.
-    /// </summary>
-    public class TestIllustrationPoint : IllustrationPoint
+    [TestFixture]
+    public class TestSubmechanismIllustrationPointTest
     {
-        /// <summary>
-        /// Creates a <see cref="TestIllustrationPoint"/>.
-        /// </summary>
-        public TestIllustrationPoint()
-            : base("Illustration Point", Enumerable.Empty<SubmechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>(), 3.14) {}
+        [Test]
+        public void DefaultConstructor_Test()
+        {
+            // Call
+            var illustrationPoint = new TestSubmechanismIllustrationPoint();
+
+            // Assert
+            Assert.IsInstanceOf<SubmechanismIllustrationPoint>(illustrationPoint);
+
+            Assert.AreEqual("Illustration Point", illustrationPoint.Name);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+        }
     }
 }

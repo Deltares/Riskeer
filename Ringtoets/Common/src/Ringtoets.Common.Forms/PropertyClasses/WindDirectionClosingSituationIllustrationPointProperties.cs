@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return StatisticsConverter.ReliabilityToProbability(data.IllustrationPoint.Beta);
+                return StatisticsConverter.ReliabilityToProbability(data.SubmechanismIllustrationPoint.Beta);
 
             }
         }
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.IllustrationPoint.Beta;
+                return data.SubmechanismIllustrationPoint.Beta;
             }
         }
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.IllustrationPoint.Stochasts.ToArray();
+                return data.SubmechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.IllustrationPoint.Stochasts.ToArray();
+                return data.SubmechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -121,13 +121,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.IllustrationPoint.IllustrationPointResults.ToArray();
+                return data.SubmechanismIllustrationPoint.IllustrationPointResults.ToArray();
             }
         }
 
         public override string ToString()
         {
-            return $"{data.IllustrationPoint.Name}";
+            return $"{data.SubmechanismIllustrationPoint.Name}";
         }
     }
 }

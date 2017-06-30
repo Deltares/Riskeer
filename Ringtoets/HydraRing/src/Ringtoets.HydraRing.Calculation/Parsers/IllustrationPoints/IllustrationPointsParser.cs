@@ -158,7 +158,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 var illustrationPointResults = new List<IllustrationPointResult>();
                 AddRange(illustrationPointResults, subMechanismResults[key]);
 
-                var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+                var illustrationPoint = new SubmechanismIllustrationPoint(submechanismIllustrationPointName,
                                                                           illustrationPointStochasts,
                                                                           illustrationPointResults,
                                                                           subMechanismIllustrationPointBeta);
@@ -349,7 +349,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 results.Add(Tuple.Create(
                                 parentId,
                                 id,
-                                type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubMechanismIllustrationPoint),
+                                type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubmechanismIllustrationPoint),
                                 combine == "and" ? CombinationType.And : CombinationType.Or));
             }
             return results;
@@ -408,7 +408,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
             string submechanismIllustrationPointName = subMechanisms[subMechanismId];
             double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
-            var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+            var illustrationPoint = new SubmechanismIllustrationPoint(submechanismIllustrationPointName,
                                                                       illustrationPointStochasts,
                                                                       illustrationPointResults,
                                                                       subMechanismIllustrationPointBeta);

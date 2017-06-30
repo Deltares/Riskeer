@@ -58,7 +58,7 @@
     <Compile Include="CalculationType.cs" />
     <Compile Include="CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase.cs" />
     <Compile Include="ForeshoreProfilePermutationHelper.cs" />
-    <Compile Include="IllustrationPoints\TestIllustrationPoint.cs" />
+    <Compile Include="IllustrationPoints\TestSubmechanismIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResult.cs" />
     <Compile Include="LimitedPrecisionHelper.cs" />
     <Compile Include="DistributionAssert.cs" />

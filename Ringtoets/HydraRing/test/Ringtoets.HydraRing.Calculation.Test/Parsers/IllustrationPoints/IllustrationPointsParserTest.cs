@@ -174,22 +174,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             CollectionAssert.AllItemsAreInstancesOfType(illustrationPointNodes.Values.Select(ip => ip.Data), typeof(FaultTreeIllustrationPoint));
 
             ICollection<FaultTreeIllustrationPoint> faultTrees = new List<FaultTreeIllustrationPoint>();
-            ICollection<SubMechanismIllustrationPoint> subMechanisms = new List<SubMechanismIllustrationPoint>();
+            ICollection<SubmechanismIllustrationPoint> subMechanisms = new List<SubmechanismIllustrationPoint>();
             GetAllNodes(illustrationPointNodes.Values.First(), faultTrees, subMechanisms);
 
             Assert.AreEqual(11, faultTrees.Count);
             Assert.AreEqual(12, subMechanisms.Count);
-            SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.First();
-            Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
-            Assert.AreEqual(-7.94268, subMechanismIllustrationPoint.Beta);
+            SubmechanismIllustrationPoint submechanismIllustrationPoint = subMechanisms.First();
+            Assert.AreEqual("Structure 2017 Z12", submechanismIllustrationPoint.Name);
+            Assert.AreEqual(-7.94268, submechanismIllustrationPoint.Beta);
             Assert.AreEqual(new[]
             {
                 Tuple.Create("Faalkans kunstwerk gegeven erosie bodem", -1.0, 4383.0, -7.94268)
-            }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
-            Assert.IsEmpty(subMechanismIllustrationPoint.Results);
+            }, submechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
+            Assert.IsEmpty(submechanismIllustrationPoint.Results);
 
             FaultTreeIllustrationPoint faultTreeIllustrationPoint = faultTrees.First();
-            Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
+            Assert.AreEqual("Structure 2017 Z12", submechanismIllustrationPoint.Name);
             Assert.AreEqual(2.23881, faultTreeIllustrationPoint.Beta);
             Assert.AreEqual(46, faultTreeIllustrationPoint.Stochasts.Count);
             Assert.AreEqual(new[]
@@ -223,16 +223,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.AreEqual(6, generalResult.Stochasts.Count());
             Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;
             Assert.AreEqual(16, illustrationPointNodes.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(illustrationPointNodes.Values.Select(ip => ip.Data), typeof(SubMechanismIllustrationPoint));
+            CollectionAssert.AllItemsAreInstancesOfType(illustrationPointNodes.Values.Select(ip => ip.Data), typeof(SubmechanismIllustrationPoint));
 
             ICollection<FaultTreeIllustrationPoint> faultTrees = new List<FaultTreeIllustrationPoint>();
-            ICollection<SubMechanismIllustrationPoint> subMechanisms = new List<SubMechanismIllustrationPoint>();
+            ICollection<SubmechanismIllustrationPoint> subMechanisms = new List<SubmechanismIllustrationPoint>();
             GetAllNodes(illustrationPointNodes.Values.ElementAt(4), faultTrees, subMechanisms);
 
             Assert.IsEmpty(faultTrees);
-            SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.Single();
-            Assert.AreEqual(5.30273, subMechanismIllustrationPoint.Beta);
-            Assert.AreEqual("Reference water level", subMechanismIllustrationPoint.Name);
+            SubmechanismIllustrationPoint submechanismIllustrationPoint = subMechanisms.Single();
+            Assert.AreEqual(5.30273, submechanismIllustrationPoint.Beta);
+            Assert.AreEqual("Reference water level", submechanismIllustrationPoint.Name);
             Assert.AreEqual(new[]
             {
                 Tuple.Create("Windrichting", 0.0, 12.0, 0.0),
@@ -241,13 +241,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
                 Tuple.Create("Onzekerheid waterstand IJsselmeer", -0.0695709, 96.0, 0.0146771),
                 Tuple.Create("Onzekerheid windsnelheid Schiphol 16 richtingen", -0.121567, 12.0, 1.0303),
                 Tuple.Create("Modelonzekerheid lokale waterstand", -0.295595, 4383.0, 0.235119)
-            }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
+            }, submechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
             Assert.AreEqual(new[]
             {
                 Tuple.Create("Z", -0.00136652),
                 Tuple.Create("Considered water level", 1.24846),
                 Tuple.Create("Computed local water level", 1.24983)
-            }, subMechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value)));
+            }, submechanismIllustrationPoint.Results.Select(s => Tuple.Create(s.Description, s.Value)));
         }
 
         [Test]
@@ -265,9 +265,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.NotNull(generalResult);
         }
 
-        private static void GetAllNodes(IllustrationPointTreeNode tree, ICollection<FaultTreeIllustrationPoint> faultTrees, ICollection<SubMechanismIllustrationPoint> subMechanisms)
+        private static void GetAllNodes(IllustrationPointTreeNode tree, ICollection<FaultTreeIllustrationPoint> faultTrees, ICollection<SubmechanismIllustrationPoint> subMechanisms)
         {
-            var subMechanism = tree.Data as SubMechanismIllustrationPoint;
+            var subMechanism = tree.Data as SubmechanismIllustrationPoint;
             var faultTree = tree.Data as FaultTreeIllustrationPoint;
             if (subMechanism != null)
             {

@@ -26,23 +26,22 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
-using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
-    public class IllustrationPointConverterTest
+    public class SubmechanismIllustrationPointConverterTest
     {
         [Test]
         public void CreateCreateIllustrationPoint_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointConverter.CreateIllustrationPoint(null);
+            TestDelegate call = () => SubmechanismIllustrationPointConverter.CreateSubmechanismIllustrationPoint(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("subMechanismIllustrationPoint", paramName);
+            Assert.AreEqual("submechanismIllustrationPoint", paramName);
         }
 
         [Test]
@@ -61,7 +60,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 new HydraSubmechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
-            var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
+            var subMechanismIllustrationPoint = new HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint("name", new[]
             {
                 hydraSubmechanismIllustrationPointStochast
             }, new[]
@@ -70,17 +69,18 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             }, beta);
 
             // Call
-            IllustrationPoint illustrationPoint = IllustrationPointConverter.CreateIllustrationPoint(subMechanismIllustrationPoint);
+            SubmechanismIllustrationPoint submechanismIllustrationPoint =
+                SubmechanismIllustrationPointConverter.CreateSubmechanismIllustrationPoint(subMechanismIllustrationPoint);
 
             // Assert
-            Assert.AreEqual(subMechanismIllustrationPoint.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
-            Assert.AreEqual(subMechanismIllustrationPoint.Name, illustrationPoint.Name);
+            Assert.AreEqual(subMechanismIllustrationPoint.Beta, submechanismIllustrationPoint.Beta, submechanismIllustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(subMechanismIllustrationPoint.Name, submechanismIllustrationPoint.Name);
 
-            IllustrationPointResult illustrationPointResult = illustrationPoint.IllustrationPointResults.Single();
+            IllustrationPointResult illustrationPointResult = submechanismIllustrationPoint.IllustrationPointResults.Single();
             Assert.AreEqual(hydraIllustrationPointResult.Description, illustrationPointResult.Description);
             Assert.AreEqual(hydraIllustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
 
-            SubmechanismIllustrationPointStochast stochast = illustrationPoint.Stochasts.Single();
+            SubmechanismIllustrationPointStochast stochast = submechanismIllustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Name, stochast.Name);

@@ -33,11 +33,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var illustrationPoint = new TestIllustrationPoint();
+            var submechanismIllustrationPoint = new TestSubmechanismIllustrationPoint();
 
             // Call
             TestDelegate call = () =>
-                new WindDirectionClosingSituationIllustrationPoint(null, "closing situation", illustrationPoint);
+                new WindDirectionClosingSituationIllustrationPoint(null, "closing situation", submechanismIllustrationPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,11 +49,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         {
             // Setup
             var windDirection = new TestWindDirection();
-            var illustrationPoint = new TestIllustrationPoint();
+            var submechanismIllustrationPoint = new TestSubmechanismIllustrationPoint();
 
             // Call
             TestDelegate call = () =>
-                new WindDirectionClosingSituationIllustrationPoint(windDirection, null, illustrationPoint);
+                new WindDirectionClosingSituationIllustrationPoint(windDirection, null, submechanismIllustrationPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_IllustationPointNull_ThrowsArgumentNullException()
+        public void Constructor_SubmechanismIllustationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             var windDirection = new TestWindDirection();
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("illustrationPoint", exception.ParamName);
+            Assert.AreEqual("submechanismIllustrationPoint", exception.ParamName);
         }
 
         [Test]
@@ -81,16 +81,16 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             // Setup
             const string closingScenario = "closing scenario";
             var windDirection = new TestWindDirection();
-            var illustrationPoint = new TestIllustrationPoint();
+            var submechanismIllustrationPoint = new TestSubmechanismIllustrationPoint();
 
             // Call
             var windDirectionClosingScenarioIllustrationPoint =
-                new WindDirectionClosingSituationIllustrationPoint(windDirection, closingScenario, illustrationPoint);
+                new WindDirectionClosingSituationIllustrationPoint(windDirection, closingScenario, submechanismIllustrationPoint);
 
             // Assert
             Assert.AreEqual(closingScenario, windDirectionClosingScenarioIllustrationPoint.ClosingSituation);
             Assert.AreSame(windDirection, windDirectionClosingScenarioIllustrationPoint.WindDirection);
-            Assert.AreSame(illustrationPoint, windDirectionClosingScenarioIllustrationPoint.IllustrationPoint);
+            Assert.AreSame(submechanismIllustrationPoint, windDirectionClosingScenarioIllustrationPoint.SubmechanismIllustrationPoint);
         }
     }
 }

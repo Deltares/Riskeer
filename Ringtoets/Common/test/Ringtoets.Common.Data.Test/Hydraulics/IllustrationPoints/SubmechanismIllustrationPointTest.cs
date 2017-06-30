@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class IllustrationPointTest
+    public class SubmechanismIllustrationPointTest
     {
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
@@ -39,10 +39,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new IllustrationPoint(null,
-                                                            Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
-                                                            Enumerable.Empty<IllustrationPointResult>(),
-                                                            beta);
+            TestDelegate call = () => new SubmechanismIllustrationPoint(null,
+                                                                        Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+                                                                        Enumerable.Empty<IllustrationPointResult>(),
+                                                                        beta);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,10 +57,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new IllustrationPoint("Illustration Point",
-                                                            null,
-                                                            Enumerable.Empty<IllustrationPointResult>(),
-                                                            beta);
+            TestDelegate call = () => new SubmechanismIllustrationPoint("Illustration Point",
+                                                                        null,
+                                                                        Enumerable.Empty<IllustrationPointResult>(),
+                                                                        beta);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,10 +75,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new IllustrationPoint("Illustration Point",
-                                                            Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
-                                                            null,
-                                                            beta);
+            TestDelegate call = () => new SubmechanismIllustrationPoint("Illustration Point",
+                                                                        Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+                                                                        null,
+                                                                        beta);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,10 +97,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var illustrationPointResults = new List<IllustrationPointResult>();
 
             // Call
-            var illustrationPoint = new IllustrationPoint(name,
-                                                          stochasts,
-                                                          illustrationPointResults,
-                                                          beta);
+            var illustrationPoint = new SubmechanismIllustrationPoint(name,
+                                                                      stochasts,
+                                                                      illustrationPointResults,
+                                                                      beta);
 
             // Assert
             Assert.AreEqual(name, illustrationPoint.Name);

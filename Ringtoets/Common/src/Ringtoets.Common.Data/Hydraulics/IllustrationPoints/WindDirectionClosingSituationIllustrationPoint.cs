@@ -25,7 +25,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
 {
     /// <summary>
     /// Combination of <see cref="WindDirection"/>, closing situation and 
-    /// <see cref="IllustrationPoint"/>.
+    /// <see cref="SubmechanismIllustrationPoint"/>.
     /// </summary>
     public class WindDirectionClosingSituationIllustrationPoint
     {
@@ -34,11 +34,11 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
-        /// <param name="illustrationPoint">The illustrationPoint.</param>
+        /// <param name="submechanismIllustrationPoint">The illustrationPoint.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public WindDirectionClosingSituationIllustrationPoint(WindDirection windDirection,
                                                               string closingSituation,
-                                                              IllustrationPoint illustrationPoint)
+                                                              SubmechanismIllustrationPoint submechanismIllustrationPoint)
         {
             if (windDirection == null)
             {
@@ -48,14 +48,14 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
-            if (illustrationPoint == null)
+            if (submechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(illustrationPoint));
+                throw new ArgumentNullException(nameof(submechanismIllustrationPoint));
             }
 
             WindDirection = windDirection;
             ClosingSituation = closingSituation;
-            IllustrationPoint = illustrationPoint;
+            SubmechanismIllustrationPoint = submechanismIllustrationPoint;
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         public WindDirection WindDirection { get; }
 
         /// <summary>
-        /// Gets the illustration point.
+        /// Gets the submechanism illustration point.
         /// </summary>
-        public IllustrationPoint IllustrationPoint { get; }
+        public SubmechanismIllustrationPoint SubmechanismIllustrationPoint { get; }
     }
 }

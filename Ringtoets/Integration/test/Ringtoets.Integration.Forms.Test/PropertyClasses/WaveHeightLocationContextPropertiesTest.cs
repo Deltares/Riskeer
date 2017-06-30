@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var illustrationPoints = new[]
             {
-                new WindDirectionClosingSituationIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestIllustrationPoint()),
+                new WindDirectionClosingSituationIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubmechanismIllustrationPoint()),
             };
             var stochasts = new[]
             {

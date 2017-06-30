@@ -27,10 +27,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     /// <summary>
     /// Illustration point which contains the result of applying the sub mechanism.
     /// </summary>
-    public class SubMechanismIllustrationPoint : IIllustrationPoint
+    public class SubmechanismIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SubmechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point.</param>
         /// <param name="stochasts">A collection of <see cref="SubmechanismIllustrationPointStochast"/>
@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <param name="beta">The beta value of the illustration point</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="stochasts"/>
         /// , or <paramref name="illustrationPointResults"/> is <c>null</c>.</exception>
-        public SubMechanismIllustrationPoint(string name,
+        public SubmechanismIllustrationPoint(string name,
                                              IEnumerable<SubmechanismIllustrationPointStochast> stochasts,
                                              IEnumerable<IllustrationPointResult> illustrationPointResults,
                                              double beta)

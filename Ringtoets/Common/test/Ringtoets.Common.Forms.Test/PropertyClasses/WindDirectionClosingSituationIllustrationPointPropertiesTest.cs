@@ -35,7 +35,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class WindDirectionClosingSituationIllustrationPointPropertiesTest
     {
-
         [Test]
         public void Constructor_DefaultArgumentValues_DoesNotThrowException()
         {
@@ -52,8 +51,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_WithName_ReturnsCombinationOfWindDirectionAndClosingSituation(string name)
         {
             // Setup
-            var illustrationPoint = new IllustrationPoint(name, Enumerable.Empty<SubmechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>(), 3);
-            var context = new WindDirectionClosingSituationIllustrationPoint(new TestWindDirection(), "direction", illustrationPoint);
+            var submechanismIllustrationPoint = new SubmechanismIllustrationPoint(name,
+                                                                                  Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+                                                                                  Enumerable.Empty<IllustrationPointResult>(),
+                                                                                  3);
+            var context = new WindDirectionClosingSituationIllustrationPoint(new TestWindDirection(), "direction", submechanismIllustrationPoint);
 
             // Call
             var hydraulicBoundaryLocationProperties = new WindDirectionClosingSituationIllustrationPointProperties
@@ -64,7 +66,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(name, hydraulicBoundaryLocationProperties.ToString());
         }
-
 
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
@@ -80,13 +81,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 new IllustrationPointResult("some description", random.NextDouble())
             };
-            var illustrationPoint = new IllustrationPoint("name", stochasts, illustrationPointResults, beta);
+            var submechanismIllustrationPoint = new SubmechanismIllustrationPoint("name", stochasts, illustrationPointResults, beta);
 
             const string closingSituation = "closingSituation";
             const string windDirectionName = "windDirection";
             var windDirection = new WindDirection(windDirectionName, 123);
 
-            var context = new WindDirectionClosingSituationIllustrationPoint(windDirection, closingSituation, illustrationPoint);
+            var context = new WindDirectionClosingSituationIllustrationPoint(windDirection, closingSituation, submechanismIllustrationPoint);
 
             // Call
             var properties = new WindDirectionClosingSituationIllustrationPointProperties
@@ -97,9 +98,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(windDirectionName, properties.WindDirection);
             Assert.AreEqual(closingSituation, properties.ClosingSituation);
-            CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.AlphaValues);
-            CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.Durations);
-            CollectionAssert.AreEqual(illustrationPoint.IllustrationPointResults, properties.IllustrationPointResults);
+            CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.AlphaValues);
+            CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.Durations);
+            CollectionAssert.AreEqual(submechanismIllustrationPoint.IllustrationPointResults, properties.IllustrationPointResults);
 
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);

@@ -79,13 +79,13 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 {
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new TestIllustrationPoint()),
+                        new TestSubmechanismIllustrationPoint()),
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new TestIllustrationPoint()),
+                        new TestSubmechanismIllustrationPoint()),
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new TestIllustrationPoint())
+                        new TestSubmechanismIllustrationPoint())
                 });
 
             // Call
@@ -110,13 +110,13 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 {
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new TestIllustrationPoint()),
+                        new TestSubmechanismIllustrationPoint()),
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Closed",
-                        new TestIllustrationPoint()),
+                        new TestSubmechanismIllustrationPoint()),
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Open",
-                        new TestIllustrationPoint())
+                        new TestSubmechanismIllustrationPoint())
                 });
 
             // Call
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                {
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new IllustrationPoint("Punt 1",
+                        new SubmechanismIllustrationPoint("Punt 1",
                                               new[]
                                               {
                                                   new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.9, 3),
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new IllustrationPoint("Punt 2",
+                        new SubmechanismIllustrationPoint("Punt 2",
                                               new[]
                                               {
                                                   new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new IllustrationPoint("Punt 3",
+                        new SubmechanismIllustrationPoint("Punt 3",
                                               new[]
                                               {
                                                   new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),

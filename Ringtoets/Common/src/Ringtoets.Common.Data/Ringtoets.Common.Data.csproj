@@ -69,7 +69,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutput.cs" />
     <Compile Include="Hydraulics\IDesignWaterLevelCalculation.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\GeneralResult.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\IllustrationPoint.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPoint.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResult.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirection.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointStochast.cs" />

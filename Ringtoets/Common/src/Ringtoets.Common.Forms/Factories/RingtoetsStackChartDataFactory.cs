@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Forms.Factories
 
             foreach (WindDirectionClosingSituationIllustrationPoint illustrationPoint in generalResult.WindDirectionClosingSituationIllustrationPoints)
             {
-                stochastValues.AddRange(illustrationPoint.IllustrationPoint.Stochasts
+                stochastValues.AddRange(illustrationPoint.SubmechanismIllustrationPoint.Stochasts
                                                          .Select(illustrationPointStochast =>
                                                                      new Tuple<string, double>(illustrationPointStochast.Name,
                                                                                                Math.Pow(illustrationPointStochast.Alpha, 2))));

@@ -81,7 +81,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\GeneralResultTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResultTest.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointStochastTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\StochastTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirectionClosingSituationIllustrationPointTest.cs" />
