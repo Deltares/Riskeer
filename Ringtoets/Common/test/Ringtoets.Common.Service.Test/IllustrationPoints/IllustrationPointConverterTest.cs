@@ -53,16 +53,17 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraIllustrationPointResult = new HydraIllustrationPointResult("HydraIllustrationPointResult",
                                                                                 random.NextDouble());
 
-            const string name = "HydraRealizedStochast";
+            const string name = "hydraSubmechanismIllustrationPointStochast";
             double alpha = random.NextDouble();
             double duration = random.NextDouble();
             double realization = random.NextDouble();
-            var hydraRealizedStochast = new HydraSubmechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var hydraSubmechanismIllustrationPointStochast =
+                new HydraSubmechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
             var subMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
             {
-                hydraRealizedStochast
+                hydraSubmechanismIllustrationPointStochast
             }, new[]
             {
                 hydraIllustrationPointResult
@@ -79,11 +80,11 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraIllustrationPointResult.Description, illustrationPointResult.Description);
             Assert.AreEqual(hydraIllustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
 
-            Data.Hydraulics.IllustrationPoints.SubmechanismIllustrationPointStochast stochast = illustrationPoint.Stochasts.Single();
-            Assert.AreEqual(hydraRealizedStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            SubmechanismIllustrationPointStochast stochast = illustrationPoint.Stochasts.Single();
+            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
-            Assert.AreEqual(hydraRealizedStochast.Name, stochast.Name);
-            Assert.AreEqual(hydraRealizedStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
+            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
     }
 }

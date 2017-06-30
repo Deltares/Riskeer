@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateRealizedStochast_HydraRealizedStochastNull_ThrowsArgumentNullException()
+        public void CreateSubmechanismIllustrationStochast_HydraSubmechanismIllustrationPointStochastNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StochastConverter.CreateSubmechanismIllustrationStochast(null);
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateRealizedStochast_ValidArguments_ExpectedProperties()
+        public void CreateSubmechanismIllustrationStochast_ValidArguments_ExpectedProperties()
         {
             // Setup
             const string name = "name";
