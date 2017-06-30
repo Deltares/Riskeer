@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             RingtoetsStackChartDataFactory.CreateColumns(generalResult, stackChartData);
 
             // Assert
-            var columns = stackChartData.Columns.ToArray();
+            string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
             Assert.AreEqual("SSE", columns[0]);
             Assert.AreEqual("SSE", columns[1]);
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             RingtoetsStackChartDataFactory.CreateColumns(generalResult, stackChartData);
 
             // Assert
-            var columns = stackChartData.Columns.ToArray();
+            string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
             Assert.AreEqual("SSE (Regular)", columns[0]);
             Assert.AreEqual("SSE (Closed)", columns[1]);
@@ -169,7 +169,8 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                                   new RealizedStochast("Stochast 1", 1, -0.9, 3),
                                                   new RealizedStochast("Stochast 2", 1, -0.43589, 3),
                                                   new RealizedStochast("Stochast 3", 1, -0.01, 3),
-                                                  new RealizedStochast("Stochast 4", 1, -0.01, 3)
+                                                  new RealizedStochast("Stochast 4", 1, -0.01, 3),
+                                                  new RealizedStochast("Stochast 5", 1, -0.099, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
@@ -180,7 +181,8 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                                   new RealizedStochast("Stochast 1", 1, -0.43589, 3),
                                                   new RealizedStochast("Stochast 2", 1, -0.9, 3),
                                                   new RealizedStochast("Stochast 3", 1, -0.02, 3),
-                                                  new RealizedStochast("Stochast 4", 1, -0.02, 3)
+                                                  new RealizedStochast("Stochast 4", 1, -0.02, 3),
+                                                  new RealizedStochast("Stochast 5", 1, -0.9, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new WindDirectionClosingSituationIllustrationPoint(
@@ -191,7 +193,8 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                                   new RealizedStochast("Stochast 1", 1, -0.43589, 3),
                                                   new RealizedStochast("Stochast 2", 1, -0.9, 3),
                                                   new RealizedStochast("Stochast 3", 1, -0.03, 3),
-                                                  new RealizedStochast("Stochast 4", 1, -0.03, 3)
+                                                  new RealizedStochast("Stochast 4", 1, -0.03, 3),
+                                                  new RealizedStochast("Stochast 5", 1, -0.099, 3)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1))
                });
@@ -204,7 +207,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             RowChartData[] rows = stackChartData.Rows.ToArray();
 
-            Assert.AreEqual(3, rows.Length);
+            Assert.AreEqual(4, rows.Length);
 
             Assert.AreEqual("Stochast 1", rows[0].Name);
             CollectionAssert.AreEqual(new[]
@@ -222,14 +225,22 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 0.81
             }, rows[1].Values, new DoubleWithToleranceComparer(1e-6));
             Assert.IsNull(rows[1].Color);
-            Assert.AreEqual("Overig", rows[2].Name);
+            Assert.AreEqual("Stochast 5", rows[2].Name);
+            CollectionAssert.AreEqual(new[]
+            {
+                0.009801,
+                0.81,
+                0.009801
+            }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.IsNull(rows[2].Color);
+            Assert.AreEqual("Overig", rows[3].Name);
             CollectionAssert.AreEqual(new[]
             {
                 0.0002,
                 0.0008,
                 0.0018
-            }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
-            Assert.AreEqual(Color.Gray, rows[2].Color);
+            }, rows[3].Values, new DoubleWithToleranceComparer(1e-6));
+            Assert.AreEqual(Color.Gray, rows[3].Color);
         }
     }
 }

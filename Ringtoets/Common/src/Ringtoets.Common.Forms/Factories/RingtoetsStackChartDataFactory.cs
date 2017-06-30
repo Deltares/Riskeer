@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Forms.Factories
 
             foreach (KeyValuePair<string, List<double>> stochast in stochasts)
             {
-                if (!StochastIsSignificant(stochast))
+                if (StochastIsSignificant(stochast))
                 {
                     significantStochasts.Add(stochast);
                 }
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.Factories
 
         private static bool StochastIsSignificant(KeyValuePair<string, List<double>> stochast)
         {
-            return stochast.Value.Any(v => v < minAlphaSquared);
+            return stochast.Value.Any(v => v > minAlphaSquared);
         }
 
         private static double[] GetValuesForRemainingRow(IDictionary<string, List<double>> stochasts)
