@@ -50,6 +50,12 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
+                if (data != null && data.Equals(value)
+                    || data == null && value == null)
+                {
+                    return;
+                }
+
                 data = value;
                 illustrationPointsChartControl.Data = data;
             }
