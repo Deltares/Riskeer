@@ -842,29 +842,29 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren is mislukt..
+        ///   Looks up a localized string similar to Exporteren van &apos;{0}&apos; is mislukt..
         /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Export_failed {
+        public static string GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_failed", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren naar &apos;{0}&apos; is afgerond..
+        ///   Looks up a localized string similar to Exporteren van &apos;{0}&apos; is gelukt..
         /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_ {
+        public static string GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren gestart..
+        ///   Looks up a localized string similar to Exporteren van &apos;{0}&apos; is gestart..
         /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Start_exporting {
+        public static string GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_ {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Start_exporting", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_", resourceCulture);
             }
         }
         

@@ -301,14 +301,14 @@
   <data name="ExpandableArrayConverter_ConvertTo_Count_0_" xml:space="preserve">
     <value>Aantal ({0})</value>
   </data>
-  <data name="GuiExportHandler_ExportItemUsingDialog_Export_failed" xml:space="preserve">
-    <value>Exporteren is mislukt.</value>
+  <data name="GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed" xml:space="preserve">
+    <value>Exporteren van '{0}' is mislukt.</value>
   </data>
-  <data name="GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_" xml:space="preserve">
-    <value>Exporteren naar '{0}' is afgerond.</value>
+  <data name="GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful" xml:space="preserve">
+    <value>Exporteren van '{0}' is gelukt.</value>
   </data>
-  <data name="GuiExportHandler_ExportItemUsingDialog_Start_exporting" xml:space="preserve">
-    <value>Exporteren gestart.</value>
+  <data name="GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_" xml:space="preserve">
+    <value>Exporteren van '{0}' is gestart.</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available" xml:space="preserve">
     <value>Ringtoets kan de huidige selectie niet exporteren.</value>

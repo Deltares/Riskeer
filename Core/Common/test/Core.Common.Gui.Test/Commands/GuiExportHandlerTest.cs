@@ -172,10 +172,12 @@ namespace Core.Common.Gui.Test.Commands
                 messageBox.SaveFile(targetExportFileName);
             };
 
+            const string exportInfoName = "Random data";
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
                 new ExportInfo<int>
                 {
+                    Name = exportInfoName,
                     FileFilterGenerator = new FileFilterGenerator(),
                     CreateFileExporter = (data, filePath) =>
                     {
@@ -190,11 +192,10 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(expectedData);
 
             // Assert
-            string finalMessage = $"Exporteren naar '{targetExportFileName}' is afgerond.";
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
-                "Exporteren gestart.",
-                finalMessage
+                $"Exporteren van '{exportInfoName}' is gestart.",
+                $"Exporteren van '{exportInfoName}' is gelukt."
             });
             mockRepository.VerifyAll();
         }
@@ -219,10 +220,12 @@ namespace Core.Common.Gui.Test.Commands
                 messageBox.SaveFile(targetExportFileName);
             };
 
+            const string exportInfoName = "Random data";
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
                 new ExportInfo<int>
                 {
+                    Name = exportInfoName,
                     FileFilterGenerator = new FileFilterGenerator(),
                     CreateFileExporter = (data, filePath) => exporterMock
                 }
@@ -234,8 +237,8 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
-                "Exporteren gestart.",
-                "Exporteren is mislukt."
+                $"Exporteren van '{exportInfoName}' is gestart.",
+                $"Exporteren van '{exportInfoName}' is mislukt."
             });
             mockRepository.VerifyAll();
         }

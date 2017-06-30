@@ -131,20 +131,21 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
-                    log.Info(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting);
+                    log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_,
+                                   exportInfo.Name);
 
                     string exportFilePath = saveFileDialog.FileName;
                     IFileExporter exporter = exportInfo.CreateFileExporter(source, exportFilePath);
 
                     if (exporter.Export())
                     {
-                        string message = string.Format(Resources.GuiExportHandler_ExportItemUsingDialog_Finished_exporting_to_filepath_0_,
-                                                       exportFilePath);
-                        log.Info(message);
+                        log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful,
+                                       exportInfo.Name);
                     }
                     else
                     {
-                        log.Error(Resources.GuiExportHandler_ExportItemUsingDialog_Export_failed);
+                        log.ErrorFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed,
+                                        exportInfo.Name);
                     }
                 }
             }
