@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
     internal static class StochastEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="StochastEntity"/> and use the information to construct a <see cref="Stochast"/>.
+        /// Reads the <see cref="StochastEntity"/> and uses the information to construct a <see cref="Stochast"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StochastEntity"/> to create <see cref="Stochast"/> for.</param>
         /// <returns>A new <see cref="Stochast"/>.</returns>
