@@ -77,6 +77,86 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
+        [Test]
+        public void GivenEmpty164Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
+        {
+            // Given
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                               "Empty valid [Release 16.4].rtd");
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetScratchPadPath(
+                nameof(GivenEmpty164Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
+            string logFilePath = TestHelper.GetScratchPadPath(
+                string.Concat(nameof(GivenEmpty164Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(logFilePath))
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                // When
+                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                using (var reader = new MigrationLogDatabaseReader(logFilePath))
+                {
+                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+                    Assert.AreEqual(4, messages.Count);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
+                        messages[0]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("5", "17.1", "* Geen aanpassingen."),
+                        messages[1]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
+                        messages[2]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
+                        messages[3]);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
+        {
+            // Given
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                               "Empty valid [Release 17.1].rtd");
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetScratchPadPath(
+                nameof(GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
+            string logFilePath = TestHelper.GetScratchPadPath(
+                string.Concat(nameof(GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(logFilePath))
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                // When
+                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                using (var reader = new MigrationLogDatabaseReader(logFilePath))
+                {
+                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+                    Assert.AreEqual(2, messages.Count);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
+                        messages[0]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
+                        messages[1]);
+                }
+            }
+        }
+
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
             var tables = new[]

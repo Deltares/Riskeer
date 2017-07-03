@@ -533,6 +533,7 @@ SELECT "5",
 	"* Geen aanpassingen."
 	WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
+		WHERE [FromVersion] = "5"
 	) IS 1;
 
 DETACH LOGDATABASE;

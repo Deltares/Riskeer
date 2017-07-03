@@ -768,6 +768,7 @@ SELECT "17.1",
 	"* Geen aanpassingen."
 	WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
+		WHERE [FromVersion] = "17.1"
 	) IS 1;
 
 DETACH LOGDATABASE;
