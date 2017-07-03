@@ -26,7 +26,7 @@ namespace Core.Common.Gui.Converters
 {
     /// <summary>
     /// Attribute when using the <see cref="KeyValueExpandableArrayConverter"/> to define what is
-    /// shown as name and value for eache element.
+    /// shown as name and value for each element.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class KeyValueElementAttribute : Attribute
@@ -39,6 +39,7 @@ namespace Core.Common.Gui.Converters
         /// </summary>
         /// <param name="namePropertyName">The name of the property to show as name.</param>
         /// <param name="valuePropertyName">The name of the property to show as value.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public KeyValueElementAttribute(string namePropertyName, string valuePropertyName)
         {
             this.namePropertyName = namePropertyName;
@@ -59,12 +60,15 @@ namespace Core.Common.Gui.Converters
         /// </summary>
         /// <param name="source">The source to obtain the property value of.</param>
         /// <returns>The value used as name of the property.</returns>
+        /// <exception cref="ArgumentException">Thrown when the property used for the name of
+        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
+        /// </exception>
         public string GetName(object source)
         {
             PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
             if (namePropertyInfo == null)
             {
-                throw new ArgumentException($"Key property '{namePropertyName}' was not found on type {source.GetType().Name}.");
+                throw new ArgumentException($"Name property '{namePropertyName}' was not found on type {source.GetType().Name}.");
             }
 
             return Convert.ToString(namePropertyInfo.GetValue(source, new object[0]));
@@ -76,12 +80,15 @@ namespace Core.Common.Gui.Converters
         /// </summary>
         /// <param name="source">The source to obtain the property value of.</param>
         /// <returns>The value used as value of the property.</returns>
+        /// <exception cref="ArgumentException">Thrown when the property used for the value of
+        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
+        /// </exception>
         public string GetValue(object source)
         {
             PropertyInfo valuePropertyInfo = source.GetType().GetProperty(valuePropertyName);
             if (valuePropertyInfo == null)
             {
-                throw new ArgumentException($"Key property '{valuePropertyName}' was not found on type {source.GetType().Name}.");
+                throw new ArgumentException($"Value property '{valuePropertyName}' was not found on type {source.GetType().Name}.");
             }
 
             return Convert.ToString(valuePropertyInfo.GetValue(source, new object[0]));

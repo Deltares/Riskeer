@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Gui.Converters;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Converters
@@ -31,11 +32,8 @@ namespace Core.Common.Gui.Test.Converters
         [Test]
         public void Constructor_WithoutValuePropertyName_ThrowsArgumentNullException()
         {
-            // Setup
-            const string namePropertyName = "name";
-
             // Call
-            TestDelegate test = () => new KeyValueElementAttribute(namePropertyName, null);
+            TestDelegate test = () => new KeyValueElementAttribute("name", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,11 +43,8 @@ namespace Core.Common.Gui.Test.Converters
         [Test]
         public void Constructor_WithoutNamePropertyName_ThrowsArgumentNullException()
         {
-            // Setup
-            const string valuePropertyName = "value";
-
             // Call
-            TestDelegate test = () => new KeyValueElementAttribute(null, valuePropertyName);
+            TestDelegate test = () => new KeyValueElementAttribute(null, "value");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -59,12 +54,8 @@ namespace Core.Common.Gui.Test.Converters
         [Test]
         public void Constructor_WithParameters_CreatesNewInstance()
         {
-            // Setup
-            const string valuePropertyName = "value";
-            const string namePropertyName = "name";
-
             // Call
-            var attribute = new KeyValueElementAttribute(namePropertyName, valuePropertyName);
+            var attribute = new KeyValueElementAttribute("name", "value");
 
             // Assert
             Assert.IsInstanceOf<Attribute>(attribute);
@@ -116,7 +107,8 @@ namespace Core.Common.Gui.Test.Converters
             TestDelegate test = () => attribute.GetName(new TestObject());
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            const string expectedMessage = "Name property 'IDoNotExist' was not found on type TestObject.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -165,7 +157,8 @@ namespace Core.Common.Gui.Test.Converters
             TestDelegate test = () => attribute.GetValue(new TestObject());
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            const string expectedMessage = "Value property 'IDoNotExist' was not found on type TestObject.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         private class TestObject

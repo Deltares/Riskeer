@@ -76,13 +76,19 @@ namespace Core.Common.Gui.Converters
 
         /// <summary>
         /// Array element property descriptor used by <see cref="ExpandableArrayConverter"/>.
-        /// Properties are named based the first item in the provided tuple and the value is
+        /// Properties are named based on the first item in the provided tuple and the value is
         /// based on the second item.
         /// </summary>
         private class ArrayPropertyDescriptor : SimplePropertyDescriptor
         {
             private readonly object value;
 
+            /// <summary>
+            /// Creates a new instance of <see cref="ArrayPropertyDescriptor"/>.
+            /// </summary>
+            /// <param name="elementType">The type of elements of the array.</param>
+            /// <param name="name">The name of the property.</param>
+            /// <param name="value">The value of the property.</param>
             public ArrayPropertyDescriptor(Type elementType, string name, object value)
                 : base(elementType, name, value.GetType())
             {

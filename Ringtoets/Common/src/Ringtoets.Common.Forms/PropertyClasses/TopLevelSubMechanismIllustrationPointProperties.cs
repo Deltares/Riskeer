@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{data.SubMechanismIllustrationPoint.Name}";
+            return data.SubMechanismIllustrationPoint.Name;
         }
     }
 }
