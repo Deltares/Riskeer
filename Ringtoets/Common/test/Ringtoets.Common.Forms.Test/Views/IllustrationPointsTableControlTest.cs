@@ -71,10 +71,22 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
             Assert.AreEqual(4, dataGridView.ColumnCount);
-            Assert.AreEqual("Windrichting", dataGridView.Columns[windDirectionColumnIndex].HeaderText);
-            Assert.AreEqual("Sluitscenario", dataGridView.Columns[closingScenarioColumnIndex].HeaderText);
-            Assert.AreEqual("Berekende kans", dataGridView.Columns[calculatedProbabilityColumnIndex].HeaderText);
-            Assert.AreEqual("Berekende beta", dataGridView.Columns[calculatedReliabilityColumnIndex].HeaderText);
+            DataGridViewColumn windDirectionColumn = dataGridView.Columns[windDirectionColumnIndex];
+            Assert.AreEqual("Windrichting", windDirectionColumn.HeaderText);
+            Assert.IsTrue(windDirectionColumn.ReadOnly);
+
+            DataGridViewColumn closingSituationColumn = dataGridView.Columns[closingScenarioColumnIndex];
+            Assert.AreEqual("Sluitscenario", closingSituationColumn.HeaderText);
+            Assert.IsTrue(closingSituationColumn.ReadOnly);
+            Assert.IsFalse(closingSituationColumn.Visible);
+
+            DataGridViewColumn calculatedProbabilityColumn = dataGridView.Columns[calculatedProbabilityColumnIndex];
+            Assert.AreEqual("Berekende kans", calculatedProbabilityColumn.HeaderText);
+            Assert.IsTrue(calculatedProbabilityColumn.ReadOnly);
+
+            DataGridViewColumn calculatedReliabilityColumn = dataGridView.Columns[calculatedReliabilityColumnIndex];
+            Assert.AreEqual("Berekende beta", calculatedReliabilityColumn.HeaderText);
+            Assert.IsTrue(calculatedReliabilityColumn.ReadOnly);
         }
 
         private IllustrationPointsTableControl ShowControl()

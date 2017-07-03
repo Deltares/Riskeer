@@ -1174,6 +1174,7 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void RestoreCell_WithoutSpecificReadOnlyState_SetsCellStyleToEnabledWithColumnReadOnlyState(bool columnReadOnlyState)
@@ -1209,6 +1210,7 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void RestoreCell_WithSpecificReadOnlyState_SetsCellStyleToEnabledWithSpecificReadOnlyState(bool specificReadOnlyState)
@@ -1241,6 +1243,34 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(specificReadOnlyState, dataGridViewCell.ReadOnly);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetColumnVisibility_Always_SetColumnToGivenVisibility(bool isVisible)
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                DataGridViewColumn dataGridViewColumn = control.GetColumnFromIndex(0);
+
+                dataGridViewColumn.Visible = !isVisible; // Set visible state of the column to the opposite
+
+                // Precondition
+                Assert.AreEqual(!isVisible, dataGridViewColumn.Visible);
+
+                // Call
+                control.SetColumnVisibility(0, isVisible);
+
+                // Assert
+                Assert.AreEqual(isVisible, dataGridViewColumn.Visible);
             }
         }
 

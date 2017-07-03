@@ -397,6 +397,16 @@ namespace Core.Common.Controls.DataGrid
             SetCellStyle(cell, CellStyle.Disabled);
         }
 
+        /// <summary>
+        /// Sets the visibility of the column at the given index.
+        /// </summary>
+        /// <param name="columnIndex">The index of the column.</param>
+        /// <param name="isVisible">The visibility of the column.</param>
+        public void SetColumnVisibility(int columnIndex, bool isVisible)
+        {
+            GetColumnFromIndex(columnIndex).Visible = isVisible;
+        }
+
         private static void SetCellStyle(DataGridViewCell cell, CellStyle style)
         {
             cell.Style.BackColor = style.BackgroundColor;

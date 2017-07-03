@@ -31,6 +31,8 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsTableControl : UserControl
     {
+        private const int closingSituationColumnIndex = 1;
+
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsTableControl"/>.
         /// </summary>
@@ -53,13 +55,19 @@ namespace Ringtoets.Common.Forms.Views
         private void InitializeDataGridView()
         {
             illustrationPointsDataGridViewControl.AddTextBoxColumn("WindDirection",
-                                                                   Resources.IllustrationPoint_WindDirection_DisplayName);
+                                                                   Resources.IllustrationPoint_WindDirection_DisplayName,
+                                                                   true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn("ClosingScenario",
-                                                                   Resources.IllustrationPoint_ClosingSituation_DisplayName);
+                                                                   Resources.IllustrationPoint_ClosingSituation_DisplayName,
+                                                                   true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn("CalculatedProbability",
-                                                                   Resources.IllustrationPoint_CalculatedProbability_DisplayName);
+                                                                   Resources.IllustrationPoint_CalculatedProbability_DisplayName,
+                                                                   true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn("CalculatedReliability",
-                                                                   Resources.IllustrationPoint_CalculatedReliability_DisplayName);
+                                                                   Resources.IllustrationPoint_CalculatedReliability_DisplayName,
+                                                                   true);
+
+            illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, false);
         }
     }
 }
