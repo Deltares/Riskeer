@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
-
 namespace Ringtoets.Common.Forms.Views
 {
     partial class LocationsView<T>
@@ -69,7 +67,6 @@ namespace Ringtoets.Common.Forms.Views
             // CalculateForSelectedButton
             // 
             this.CalculateForSelectedButton.Enabled = false;
-            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(this.CalculateForSelectedButton, 2);
             this.CalculateForSelectedButton.Location = new System.Drawing.Point(227, 29);
             this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
             this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
@@ -110,6 +107,7 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // CalculateForSelectedButtonErrorProvider
             // 
+            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(this.CalculateForSelectedButton, 2);
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
             this.CalculateForSelectedButtonErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;

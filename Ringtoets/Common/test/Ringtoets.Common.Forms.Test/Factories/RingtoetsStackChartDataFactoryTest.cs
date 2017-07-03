@@ -72,19 +72,20 @@ namespace Ringtoets.Common.Forms.Test.Factories
         {
             // Setup
             var stackChartData = new StackChartData();
+            var windDirection = new TestWindDirection();
             var generalResult = new GeneralResult(
-                new TestWindDirection(),
+                windDirection,
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
                     new TopLevelSubmechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        windDirection, "Regular",
                         new TestSubmechanismIllustrationPoint()),
                     new TopLevelSubmechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        windDirection, "Regular",
                         new TestSubmechanismIllustrationPoint()),
                     new TopLevelSubmechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        windDirection, "Regular",
                         new TestSubmechanismIllustrationPoint())
                 });
 
@@ -94,28 +95,34 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
-            Assert.AreEqual("SSE", columns[0]);
-            Assert.AreEqual("SSE", columns[1]);
-            Assert.AreEqual("SSE", columns[2]);
+            Assert.AreEqual(windDirection.Name, columns[0]);
+            Assert.AreEqual(windDirection.Name, columns[1]);
+            Assert.AreEqual(windDirection.Name, columns[2]);
         }
 
         [Test]
         public void CreateColumns_DifferentClosingSituations_ColumnsAddedToStackChartData()
         {
+            const string closingSituationRegular = "Regular";
+            const string closingSituationClosed = "Closed";
+            const string closingSituationOpen = "Open";
+
+            var windDirection = new TestWindDirection();
+
             var stackChartData = new StackChartData();
             var generalResult = new GeneralResult(
-                new TestWindDirection(),
+                windDirection,
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
                     new TopLevelSubmechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        windDirection, closingSituationRegular,
                         new TestSubmechanismIllustrationPoint()),
                     new TopLevelSubmechanismIllustrationPoint(
-                        new TestWindDirection(), "Closed",
+                        windDirection, closingSituationClosed,
                         new TestSubmechanismIllustrationPoint()),
                     new TopLevelSubmechanismIllustrationPoint(
-                        new TestWindDirection(), "Open",
+                        windDirection, closingSituationOpen,
                         new TestSubmechanismIllustrationPoint())
                 });
 
@@ -125,9 +132,9 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
-            Assert.AreEqual("SSE (Regular)", columns[0]);
-            Assert.AreEqual("SSE (Closed)", columns[1]);
-            Assert.AreEqual("SSE (Open)", columns[2]);
+            Assert.AreEqual($"{windDirection.Name} ({closingSituationRegular})", columns[0]);
+            Assert.AreEqual($"{windDirection.Name} ({closingSituationClosed})", columns[1]);
+            Assert.AreEqual($"{windDirection.Name} ({closingSituationOpen})", columns[2]);
         }
 
         [Test]
@@ -166,11 +173,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
                         new SubmechanismIllustrationPoint("Punt 1",
                                               new[]
                                               {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.01, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.01, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 5", 1, -0.099, 3)
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new TopLevelSubmechanismIllustrationPoint(
@@ -178,11 +185,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
                         new SubmechanismIllustrationPoint("Punt 2",
                                               new[]
                                               {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.02, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.02, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 5", 1, -0.9, 3)
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.9)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new TopLevelSubmechanismIllustrationPoint(
@@ -190,11 +197,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
                         new SubmechanismIllustrationPoint("Punt 3",
                                               new[]
                                               {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.03, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.03, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 5", 1, -0.099, 3)
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03),
+                                                  new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
                                               },
                                               Enumerable.Empty<IllustrationPointResult>(), 1))
                });

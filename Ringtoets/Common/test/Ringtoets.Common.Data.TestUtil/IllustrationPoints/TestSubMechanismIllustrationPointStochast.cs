@@ -19,47 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// Control to show illustration points.
+    /// A simple sub mechanism illustration point stochast which can be used for testing.
     /// </summary>
-    public partial class IllustrationPointsControl : UserControl
+    public class TestSubMechanismIllustrationPointStochast : SubmechanismIllustrationPointStochast
     {
-        private GeneralResult data;
-
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointsControl"/>.
+        /// Creates a new instance of <see cref="TestSubMechanismIllustrationPointStochast"/>.
         /// </summary>
-        public IllustrationPointsControl()
-        {
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Gets or sets the data of the control.
-        /// </summary>
-        public GeneralResult Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                if (data != null && data.Equals(value)
-                    || data == null && value == null)
-                {
-                    return;
-                }
-
-                data = value;
-                illustrationPointsChartControl.Data = data;
-                illustrationPointsTableControl.Data = data;
-            }
-        }
+        /// <param name="name">The name of the stochast.</param>
+        /// <param name="alpha">The alpha value of the stochast.</param>
+        public TestSubMechanismIllustrationPointStochast(string name, double alpha) 
+            : base(name, 1, alpha, 3) {}
     }
 }

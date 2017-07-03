@@ -137,28 +137,28 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 1",
-                                              new[]
-                                              {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.43589, 3)
-                                              },
-                                              Enumerable.Empty<IllustrationPointResult>(), 1)),
+                                                          new[]
+                                                          {
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.9),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.43589)
+                                                          },
+                                                          Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 2",
-                                              new[]
-                                              {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.9, 3)
-                                              },
-                                              Enumerable.Empty<IllustrationPointResult>(), 1))
+                                                          new[]
+                                                          {
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.43589),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.9)
+                                                          },
+                                                          Enumerable.Empty<IllustrationPointResult>(), 1))
                 });
 
             // Then
             Assert.AreEqual(2, chart.Data.Columns.Count());
 
             RowChartData[] rows = chart.Data.Rows.ToArray();
-            Assert.AreEqual(2, rows.Length);            
+            Assert.AreEqual(2, rows.Length);
 
             Assert.AreEqual("Stochast 3", rows[0].Name);
             Assert.AreEqual("Stochast 4", rows[1].Name);
@@ -174,36 +174,36 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 1",
-                                              new[]
-                                              {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.01, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.01, 3)
-                                              },
-                                              Enumerable.Empty<IllustrationPointResult>(), 1)),
+                                                          new[]
+                                                          {
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01)
+                                                          },
+                                                          Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 2",
-                                              new[]
-                                              {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.02, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.02, 3)
-                                              },
-                                              Enumerable.Empty<IllustrationPointResult>(), 1)),
+                                                          new[]
+                                                          {
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02)
+                                                          },
+                                                          Enumerable.Empty<IllustrationPointResult>(), 1)),
                     new TopLevelSubmechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
                         new SubmechanismIllustrationPoint("Punt 3",
-                                              new[]
-                                              {
-                                                  new SubmechanismIllustrationPointStochast("Stochast 1", 1, -0.43589, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 2", 1, -0.9, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 3", 1, -0.03, 3),
-                                                  new SubmechanismIllustrationPointStochast("Stochast 4", 1, -0.03, 3)
-                                              },
-                                              Enumerable.Empty<IllustrationPointResult>(), 1))
+                                                          new[]
+                                                          {
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
+                                                              new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03)
+                                                          },
+                                                          Enumerable.Empty<IllustrationPointResult>(), 1))
                 });
         }
     }

@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var chartControl = (IllustrationPointsChartControl) control.Controls.Find("IllustrationPointsChartControl", true).Single();
             var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
 
-            // Call            
+            // Call
             control.Data = data;
 
             // Assert

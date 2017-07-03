@@ -76,7 +76,9 @@ namespace Ringtoets.Common.Forms.Factories
 
                 if (showClosingSituation)
                 {
-                    columnName = $"{columnName} ({label.Item2})";
+                    columnName = string.Format(Resources.RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1,
+                                               columnName,
+                                               label.Item2);
                 }
 
                 stackChartData.AddColumn(columnName);
@@ -115,9 +117,9 @@ namespace Ringtoets.Common.Forms.Factories
             CreateRowsForStochasts(stackChartData, stochasts);
         }
 
-        private static IDictionary<string, List<double>> CreateStochastsLookup(List<Tuple<string, double>> stochastValues)
+        private static IDictionary<string, List<double>> CreateStochastsLookup(IEnumerable<Tuple<string, double>> stochastValues)
         {
-            IDictionary<string, List<double>> lookup = new Dictionary<string, List<double>>();
+            var lookup = new Dictionary<string, List<double>>();
 
             foreach (Tuple<string, double> stochastValue in stochastValues)
             {

@@ -127,6 +127,21 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
+        public void AddLabel_EmptyLabels_AbsoluteMaximumSet()
+        {
+            // Setup
+            var plotView = new CategoryPlotView();
+
+            // Call
+            plotView.AddLabels(Enumerable.Empty<string>());
+
+            // Assert
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+            Assert.AreEqual(0, axis.Labels.Count);
+            Assert.AreEqual(0, axis.AbsoluteMaximum);
+        }
+
+        [Test]
         public void ClearLabels_Always_LabelsCleared()
         {
             // Setup

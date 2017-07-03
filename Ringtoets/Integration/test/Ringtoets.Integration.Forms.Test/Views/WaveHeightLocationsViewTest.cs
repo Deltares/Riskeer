@@ -110,9 +110,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var control = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
@@ -126,9 +126,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var control = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
@@ -142,9 +142,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var control = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
@@ -379,9 +379,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-            var illustrationPointsControl = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+            var illustrationPointsControl = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
             dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 

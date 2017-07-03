@@ -2086,6 +2086,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}).
+        /// </summary>
+        public static string RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1 {
+            get {
+                return ResourceManager.GetString("RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overig.
         /// </summary>
         public static string RingtoetsStackChartDataFactory_RemainingRow_DisplayName {

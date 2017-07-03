@@ -490,9 +490,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var illustrationPointsControl = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
+            var illustrationPointsControl = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
 
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
 
             dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 
@@ -503,8 +503,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new TestGeneralResult();
             output.SetIllustrationPoints(result);
 
+            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+
             // Call
-            var locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
             locations[3].DesignWaterLevelCalculation.Output = output;
             locations.NotifyObservers();
 

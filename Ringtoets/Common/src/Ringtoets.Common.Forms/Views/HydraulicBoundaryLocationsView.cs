@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
