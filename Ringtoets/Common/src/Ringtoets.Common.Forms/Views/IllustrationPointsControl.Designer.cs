@@ -60,11 +60,14 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // splitContainer
             // 
-            this.splitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer.Size = new System.Drawing.Size(150, 150);
+            this.splitContainer.SplitterDistance = 72;
+            this.splitContainer.TabIndex = 0;
             // 
             // splitContainer.Panel1
             // 
@@ -75,9 +78,6 @@ namespace Ringtoets.Common.Forms.Views
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.illustrationPointsTableControl);
-            this.splitContainer.Size = new System.Drawing.Size(150, 150);
-            this.splitContainer.SplitterDistance = 72;
-            this.splitContainer.TabIndex = 0;
             // 
             // illustrationPointsChartControl
             // 

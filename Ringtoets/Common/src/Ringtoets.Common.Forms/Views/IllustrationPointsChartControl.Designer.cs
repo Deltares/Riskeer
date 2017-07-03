@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Ringtoets.Common.Forms.Views
 {
     partial class IllustrationPointsChartControl
@@ -65,6 +67,7 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // IllustrationPointsChartControl
             // 
+            this.BorderStyle = BorderStyle.FixedSingle;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.stackChartControl);

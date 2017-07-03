@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Ringtoets.Common.Forms.Views
 {
     partial class LocationsView<T>
@@ -67,6 +69,7 @@ namespace Ringtoets.Common.Forms.Views
             // CalculateForSelectedButton
             // 
             this.CalculateForSelectedButton.Enabled = false;
+            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(this.CalculateForSelectedButton, 2);
             this.CalculateForSelectedButton.Location = new System.Drawing.Point(227, 29);
             this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
             this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
@@ -107,13 +110,13 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // CalculateForSelectedButtonErrorProvider
             // 
-            this.CalculateForSelectedButtonErrorProvider.SetIconPadding(this.CalculateForSelectedButton, 2);
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
             this.CalculateForSelectedButtonErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
             // 
             // splitContainer
             // 
+            this.splitContainer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
@@ -130,9 +133,9 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.illustrationPointsControl);
             this.splitContainer.Panel2.AutoScroll = true;
             this.splitContainer.Panel2.AutoScrollMinSize = new System.Drawing.Size(440, 0);
+            this.splitContainer.Panel2.Controls.Add(this.illustrationPointsControl);
             // 
             // illustrationPointsControl
             // 
@@ -140,7 +143,7 @@ namespace Ringtoets.Common.Forms.Views
             this.illustrationPointsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.illustrationPointsControl.Location = new System.Drawing.Point(0, 0);
             this.illustrationPointsControl.Name = "illustrationPointsControl";
-            this.illustrationPointsControl.Size = new System.Drawing.Size(371, 541);
+            this.illustrationPointsControl.Size = new System.Drawing.Size(440, 524);
             this.illustrationPointsControl.TabIndex = 0;
             // 
             // LocationsView
