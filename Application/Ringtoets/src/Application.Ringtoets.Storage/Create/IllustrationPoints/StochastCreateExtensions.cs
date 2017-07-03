@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 throw new ArgumentNullException(nameof(stochast));
             }
 
-            var entity = new StochastEntity()
+            var entity = new StochastEntity
             {
                 Name = stochast.Name.DeepClone(),
                 Alpha = stochast.Alpha,

@@ -73,6 +73,7 @@
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensions.cs" />
+    <Compile Include="Create\IllustrationPoints\SubmechanismIllustrationPointCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\SubmechanismIllustrationPointStochastCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
@@ -349,6 +350,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\SubmechanismIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\SubmechanismIllustrationPointStochastEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensions.cs" />

@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
     internal static class IllustrationPointResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IllustrationPointResultEntity"/> and use the information to 
+        /// Reads the <see cref="IllustrationPointResultEntity"/> and uses the information to 
         /// construct an <see cref="IllustrationPointResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="IllustrationPointResultEntity"/> to create 
