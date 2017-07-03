@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
@@ -53,8 +54,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             WindDirection windDirection = topLevelSubMechanismIllustrationPoint.WindDirection;
             return new TopLevelSubMechanismIllustrationPointEntity
             {
-                ClosingSituation = topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                WindDirectionName = windDirection.Name,
+                ClosingSituation = topLevelSubMechanismIllustrationPoint.ClosingSituation.DeepClone(),
+                WindDirectionName = windDirection.Name.DeepClone(),
                 WindDirectionAngle = windDirection.Angle,
                 SubMechanismIllustrationPointEntity =
                     topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint

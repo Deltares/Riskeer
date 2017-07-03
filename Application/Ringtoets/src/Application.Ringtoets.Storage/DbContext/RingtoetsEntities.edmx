@@ -1086,7 +1086,6 @@
           <Property Name="ClosingSituation" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="WindDirectionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="WindDirectionAngle" Type="real" Nullable="false" />
-          <Property Name="Beta" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VersionEntity">
@@ -4629,7 +4628,6 @@
           <Property Name="ClosingSituation" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="WindDirectionName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="WindDirectionAngle" Type="Double" Nullable="false" />
-          <Property Name="Beta" Type="Double" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GeneralResultSubMechanismIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_TopLevelSubMechanismIllustrationPointEntity_1_0" FromRole="TopLevelSubMechanismIllustrationPointEntity" ToRole="GeneralResultSubMechanismIllustrationPointEntity" />
           <NavigationProperty Name="SubMechanismIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_TopLevelSubMechanismIllustrationPointEntity_0_0" FromRole="TopLevelSubMechanismIllustrationPointEntity" ToRole="SubMechanismIllustrationPointEntity" />
@@ -7065,7 +7063,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity">
               <MappingFragment StoreEntitySet="TopLevelSubMechanismIllustrationPointEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="Beta" ColumnName="Beta" />
                 <ScalarProperty Name="WindDirectionAngle" ColumnName="WindDirectionAngle" />
                 <ScalarProperty Name="WindDirectionName" ColumnName="WindDirectionName" />
                 <ScalarProperty Name="ClosingSituation" ColumnName="ClosingSituation" />

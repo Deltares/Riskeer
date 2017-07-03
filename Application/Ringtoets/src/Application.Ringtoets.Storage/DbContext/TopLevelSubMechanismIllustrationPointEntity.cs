@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public string ClosingSituation { get; set; }
         public string WindDirectionName { get; set; }
         public double WindDirectionAngle { get; set; }
-        public double Beta { get; set; }
         public int Order { get; set; }
 
         public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }

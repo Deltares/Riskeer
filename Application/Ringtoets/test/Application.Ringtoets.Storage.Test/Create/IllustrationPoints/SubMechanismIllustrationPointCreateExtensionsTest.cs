@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
@@ -60,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
 
             // Assert
-            Assert.AreEqual(illustrationPoint.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
             Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
 
             CollectionAssert.IsEmpty(entity.IllustrationPointResultEntities);
@@ -102,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
 
             // Assert
-            Assert.AreEqual(illustrationPoint.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
             Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
             CollectionAssert.IsEmpty(entity.IllustrationPointResultEntities);
 
@@ -114,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 SubMechanismIllustrationPointStochast stochast = stochasts[i];
                 SubMechanismIllustrationPointStochastEntity stochastEntity = stochastEntities[i];
 
-                Assert.AreEqual(stochast.Name, stochastEntity.Name);
+                TestHelper.AssertAreEqualButNotSame(stochast.Name, stochastEntity.Name);
                 Assert.AreEqual(stochast.Duration, stochastEntity.Duration, stochast.Duration.GetAccuracy());
                 Assert.AreEqual(stochast.Alpha, stochastEntity.Alpha, stochast.Alpha.GetAccuracy());
                 Assert.AreEqual(stochast.Realization, stochastEntity.Realization, stochast.Realization.GetAccuracy());
@@ -149,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
 
             // Assert
-            Assert.AreEqual(illustrationPoint.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
             Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
             CollectionAssert.IsEmpty(entity.SubMechanismIllustrationPointStochastEntities);
 
@@ -161,7 +162,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 IllustrationPointResult illustrationPointResult = illustrationPointResults[i];
                 IllustrationPointResultEntity illustrationPointResultEntity = resultEntities[i];
 
-                Assert.AreEqual(illustrationPointResult.Description, illustrationPointResultEntity.Description);
+                TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, illustrationPointResultEntity.Description);
                 Assert.AreEqual(illustrationPointResult.Value, illustrationPointResultEntity.Value,
                                 illustrationPointResult.Value.GetAccuracy());
             }

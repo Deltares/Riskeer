@@ -24,6 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -71,14 +72,14 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 topLevelSubMechanismIllustrationPoint.CreateTopLevelSubMechanismIllustrationPointEntity(order);
 
             // Assert
-            Assert.AreEqual(topLevelSubMechanismIllustrationPoint.ClosingSituation, entity.ClosingSituation);
+            TestHelper.AssertAreEqualButNotSame(topLevelSubMechanismIllustrationPoint.ClosingSituation, entity.ClosingSituation);
             Assert.AreEqual(order, entity.Order);
 
-            Assert.AreEqual(windDirection.Name, entity.WindDirectionName);
+            TestHelper.AssertAreEqualButNotSame(windDirection.Name, entity.WindDirectionName);
             Assert.AreEqual(windDirection.Angle, entity.WindDirectionAngle, windDirection.Angle.GetAccuracy());
 
             SubMechanismIllustrationPointEntity subMechanismIllustrationPointEntity = entity.SubMechanismIllustrationPointEntity;
-            Assert.AreEqual(illustrationPoint.Name, subMechanismIllustrationPointEntity.Name);
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, subMechanismIllustrationPointEntity.Name);
             Assert.AreEqual(illustrationPoint.Beta, subMechanismIllustrationPointEntity.Beta, illustrationPoint.Beta.GetAccuracy());
             CollectionAssert.IsEmpty(subMechanismIllustrationPointEntity.IllustrationPointResultEntities);
             CollectionAssert.IsEmpty(subMechanismIllustrationPointEntity.SubMechanismIllustrationPointStochastEntities);

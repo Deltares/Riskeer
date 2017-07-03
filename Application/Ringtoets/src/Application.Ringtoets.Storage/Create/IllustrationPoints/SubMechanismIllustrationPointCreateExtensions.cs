@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
@@ -52,7 +53,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             var entity = new SubMechanismIllustrationPointEntity
             {
                 Beta = subMechanismIllustrationPoint.Beta,
-                Name = subMechanismIllustrationPoint.Name
+                Name = subMechanismIllustrationPoint.Name.DeepClone()
             };
 
             AddEntitiesForSubMechanismIllustrationPoints(subMechanismIllustrationPoint.Stochasts, entity);
