@@ -66,6 +66,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -1098,21 +1113,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
-        }
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
         }
 
         private static void ChangeDikeProfile(DikeProfile dikeProfile)
