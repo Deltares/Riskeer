@@ -143,6 +143,12 @@
     <Compile Include="Views\IllustrationPointsControl.Designer.cs">
       <DependentUpon>IllustrationPointsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IllustrationPointsTableControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\IllustrationPointsTableControl.Designer.cs">
+      <DependentUpon>IllustrationPointsTableControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

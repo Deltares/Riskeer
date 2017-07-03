@@ -51,8 +51,10 @@ namespace Ringtoets.Common.Forms.Views
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.illustrationPointsChartControl = new Ringtoets.Common.Forms.Views.IllustrationPointsChartControl();
+            this.illustrationPointsTableControl1 = new Ringtoets.Common.Forms.Views.IllustrationPointsTableControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,15 +65,19 @@ namespace Ringtoets.Common.Forms.Views
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer.Size = new System.Drawing.Size(150, 150);
-            this.splitContainer.SplitterDistance = 72;
-            this.splitContainer.TabIndex = 0;
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.illustrationPointsChartControl);
             this.splitContainer.Panel1.AutoScroll = true;
             this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(0, 230);
+            this.splitContainer.Panel1.Controls.Add(this.illustrationPointsChartControl);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.illustrationPointsTableControl1);
+            this.splitContainer.Size = new System.Drawing.Size(150, 150);
+            this.splitContainer.SplitterDistance = 72;
+            this.splitContainer.TabIndex = 0;
             // 
             // illustrationPointsChartControl
             // 
@@ -79,8 +85,16 @@ namespace Ringtoets.Common.Forms.Views
             this.illustrationPointsChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.illustrationPointsChartControl.Location = new System.Drawing.Point(0, 0);
             this.illustrationPointsChartControl.Name = "illustrationPointsChartControl";
-            this.illustrationPointsChartControl.Size = new System.Drawing.Size(148, 70);
+            this.illustrationPointsChartControl.Size = new System.Drawing.Size(131, 230);
             this.illustrationPointsChartControl.TabIndex = 0;
+            // 
+            // illustrationPointsTableControl1
+            // 
+            this.illustrationPointsTableControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illustrationPointsTableControl1.Location = new System.Drawing.Point(0, 0);
+            this.illustrationPointsTableControl1.Name = "illustrationPointsTableControl1";
+            this.illustrationPointsTableControl1.Size = new System.Drawing.Size(148, 72);
+            this.illustrationPointsTableControl1.TabIndex = 0;
             // 
             // IllustrationPointsControl
             // 
@@ -89,6 +103,7 @@ namespace Ringtoets.Common.Forms.Views
             this.Controls.Add(this.splitContainer);
             this.Name = "IllustrationPointsControl";
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -99,5 +114,6 @@ namespace Ringtoets.Common.Forms.Views
 
         private System.Windows.Forms.SplitContainer splitContainer;
         private IllustrationPointsChartControl illustrationPointsChartControl;
+        private IllustrationPointsTableControl illustrationPointsTableControl1;
     }
 }
