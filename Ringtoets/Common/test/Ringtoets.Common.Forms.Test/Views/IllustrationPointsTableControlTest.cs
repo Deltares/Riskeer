@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
@@ -29,6 +30,25 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class IllustrationPointsTableControlTest
     {
+        private const int windDirectionColumnIndex = 0;
+        private const int closingScenarioColumnIndex = 1;
+        private const int calculatedProbabilityColumnIndex = 2;
+        private const int calculatedReliabilityColumnIndex = 3;
+
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -40,6 +60,31 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsNull(control.Data);
             Assert.AreEqual(1, control.Controls.Count);
             Assert.IsInstanceOf<DataGridViewControl>(control.Controls[0]);
+        }
+
+        [Test]
+        public void OnLoad_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            IllustrationPointsTableControl control = ShowControl();
+
+            // Assert
+            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+            Assert.AreEqual(4, dataGridView.ColumnCount);
+            Assert.AreEqual("Windrichting", dataGridView.Columns[windDirectionColumnIndex].HeaderText);
+            Assert.AreEqual("Sluitscenario", dataGridView.Columns[closingScenarioColumnIndex].HeaderText);
+            Assert.AreEqual("Berekende kans", dataGridView.Columns[calculatedProbabilityColumnIndex].HeaderText);
+            Assert.AreEqual("Berekende beta", dataGridView.Columns[calculatedReliabilityColumnIndex].HeaderText);
+        }
+
+        private IllustrationPointsTableControl ShowControl()
+        {
+            var control = new IllustrationPointsTableControl();
+
+            testForm.Controls.Add(control);
+            testForm.Show();
+
+            return control;
         }
     }
 }

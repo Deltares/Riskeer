@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -41,5 +43,23 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets or sets the data of the control.
         /// </summary>
         public GeneralResult Data { get; set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            InitializeDataGridView();
+        }
+
+        private void InitializeDataGridView()
+        {
+            illustrationPointsDataGridViewControl.AddTextBoxColumn("WindDirection",
+                                                                   Resources.IllustrationPoint_WindDirection_DisplayName);
+            illustrationPointsDataGridViewControl.AddTextBoxColumn("ClosingScenario",
+                                                                   Resources.IllustrationPoint_ClosingSituation_DisplayName);
+            illustrationPointsDataGridViewControl.AddTextBoxColumn("CalculatedProbability",
+                                                                   Resources.IllustrationPoint_CalculatedProbability_DisplayName);
+            illustrationPointsDataGridViewControl.AddTextBoxColumn("CalculatedReliability",
+                                                                   Resources.IllustrationPoint_CalculatedReliability_DisplayName);
+        }
     }
 }

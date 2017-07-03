@@ -1638,6 +1638,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende kans.
+        /// </summary>
+        public static string IllustrationPoint_CalculatedProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_CalculatedProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende beta.
+        /// </summary>
+        public static string IllustrationPoint_CalculatedReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_CalculatedReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het sluitscenario waarvoor dit illustratiepunt is berekend..
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_Description {

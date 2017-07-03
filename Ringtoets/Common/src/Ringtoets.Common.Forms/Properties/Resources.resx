@@ -1044,4 +1044,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="RingtoetsStackChartDataFactory_RemainingRow_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>
+  <data name="IllustrationPoint_CalculatedProbability_DisplayName" xml:space="preserve">
+    <value>Berekende kans</value>
+  </data>
+  <data name="IllustrationPoint_CalculatedReliability_DisplayName" xml:space="preserve">
+    <value>Berekende beta</value>
+  </data>
 </root>
