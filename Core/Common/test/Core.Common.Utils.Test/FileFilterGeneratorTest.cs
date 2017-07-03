@@ -29,12 +29,14 @@ namespace Core.Common.Utils.Test
     public class FileFilterGeneratorTest
     {
         [Test]
-        public void DefaultConstructor_DefaultFilter()
+        public void DefaultConstructor_DefaultValues()
         {
             // Call
             var generator = new FileFilterGenerator();
 
             // Assert
+            Assert.AreEqual("*", generator.Extension);
+            Assert.AreEqual("Alle bestanden", generator.Description);
             Assert.AreEqual("Alle bestanden (*.*)|*.*", generator.Filter);
         }
 
@@ -89,31 +91,30 @@ namespace Core.Common.Utils.Test
         [Test]
         [TestCase("some filter")]
         [TestCase("txt")]
-        public void Filter_WithExtension_ReturnsExpectedFilter(string extension)
+        public void Constructor_WithExtension_ExpectedValues(string extension)
         {
-            // Setup
+            // Call
             var generator = new FileFilterGenerator(extension);
 
-            // Call
-            string filter = generator.Filter;
-
             // Assert
-            Assert.AreEqual($"{extension.ToUpperInvariant()}-bestanden (*.{extension})|*.{extension}", filter);
+            Assert.AreEqual(extension, generator.Extension);
+            string description = $"{extension.ToUpperInvariant()}-bestanden";
+            Assert.AreEqual(description, generator.Description);
+            Assert.AreEqual($"{description} (*.{extension})|*.{extension}", generator.Filter);
         }
 
         [Test]
         [TestCase("some filter", "some description")]
         [TestCase("txt", "text file")]
-        public void Filter_WithExtensionWithDescription_ReturnsExpectedFilter(string extension, string description)
+        public void Constructor_WithExtensionWithDescription_ExpectedValues(string extension, string description)
         {
-            // Setup
+            // Call
             var generator = new FileFilterGenerator(extension, description);
 
-            // Call
-            string filter = generator.Filter;
-
             // Assert
-            Assert.AreEqual($"{description} (*.{extension})|*.{extension}", filter);
+            Assert.AreEqual(extension, generator.Extension);
+            Assert.AreEqual(description, generator.Description);
+            Assert.AreEqual($"{description} (*.{extension})|*.{extension}", generator.Filter);
         }
 
         [Test]

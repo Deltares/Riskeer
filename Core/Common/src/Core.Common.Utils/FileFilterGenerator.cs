@@ -80,6 +80,28 @@ namespace Core.Common.Utils
         }
 
         /// <summary>
+        /// Gets the extension of the <see cref="FileFilterGenerator"/>.
+        /// </summary>
+        public string Extension
+        {
+            get
+            {
+                return extension;
+            }
+        }
+
+        /// <summary>
+        /// Gets the description of the <see cref="FileFilterGenerator"/>.
+        /// </summary>
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+        }
+
+        /// <summary>
         /// Gets a filter string for the <see cref="FileFilterGenerator"/>.
         /// </summary>
         public string Filter
