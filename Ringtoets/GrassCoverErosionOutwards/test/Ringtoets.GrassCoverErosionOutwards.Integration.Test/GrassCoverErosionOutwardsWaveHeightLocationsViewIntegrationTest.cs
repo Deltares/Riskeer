@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
@@ -71,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             if (rowSelected)
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true).First();
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }

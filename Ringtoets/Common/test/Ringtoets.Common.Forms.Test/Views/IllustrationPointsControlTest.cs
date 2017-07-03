@@ -61,6 +61,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var control = new IllustrationPointsControl();
             
             var chartControl = (IllustrationPointsChartControl) control.Controls.Find("IllustrationPointsChartControl", true).Single();
+            var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
 
             // Call            
             control.Data = data;
@@ -68,6 +69,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.AreSame(data, control.Data);
             Assert.AreSame(data, chartControl.Data);
+            Assert.AreSame(data, tableControl.Data);
         }
     }
 }

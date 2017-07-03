@@ -49,10 +49,31 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.illustrationPointsDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.SuspendLayout();
+            // 
+            // illustrationPointsDataGridViewControl
+            // 
+            this.illustrationPointsDataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illustrationPointsDataGridViewControl.Location = new System.Drawing.Point(0, 0);
+            this.illustrationPointsDataGridViewControl.MultiSelect = true;
+            this.illustrationPointsDataGridViewControl.Name = "illustrationPointsDataGridViewControl";
+            this.illustrationPointsDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.illustrationPointsDataGridViewControl.Size = new System.Drawing.Size(150, 150);
+            this.illustrationPointsDataGridViewControl.TabIndex = 0;
+            // 
+            // IllustrationPointsTableControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.illustrationPointsDataGridViewControl);
+            this.Name = "IllustrationPointsTableControl";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Core.Common.Controls.DataGrid.DataGridViewControl illustrationPointsDataGridViewControl;
     }
 }

@@ -72,10 +72,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowTestHydraulicBoundaryLocationsView();
+            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true).First();
             Assert.AreEqual(5, dataGridView.ColumnCount);
 
             var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
@@ -177,9 +177,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
+            TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true).First();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             return view;
         }
 
-        private void ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
+        private TestHydraulicBoundaryLocationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
             TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
 
@@ -212,6 +212,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
 
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            return view;
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase

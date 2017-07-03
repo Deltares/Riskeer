@@ -213,6 +213,9 @@
     <EmbeddedResource Include="Views\IllustrationPointsControl.resx">
       <DependentUpon>IllustrationPointsControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\IllustrationPointsTableControl.resx">
+      <DependentUpon>IllustrationPointsTableControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LocationsView.resx">
       <DependentUpon>LocationsView.cs</DependentUpon>
     </EmbeddedResource>

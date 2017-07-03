@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
 
@@ -36,6 +37,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<UserControl>(control);
+            Assert.IsNull(control.Data);
+            Assert.AreEqual(1, control.Controls.Count);
+            Assert.IsInstanceOf<DataGridViewControl>(control.Controls[0]);
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -28,9 +29,17 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsTableControl : UserControl
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="IllustrationPointsTableControl"/>.
+        /// </summary>
         public IllustrationPointsTableControl()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets or sets the data of the control.
+        /// </summary>
+        public GeneralResult Data { get; set; }
     }
 }
