@@ -28,43 +28,43 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="SubmechanismIllustrationPointEntity"/>
-    /// related to creating a <see cref="SubmechanismIllustrationPoint"/>.
+    /// Extension methods for <see cref="SubMechanismIllustrationPointEntity"/>
+    /// related to creating a <see cref="SubMechanismIllustrationPoint"/>.
     /// </summary>
-    internal static class SubmechanismIllustrationPointEntityReadExtensions
+    internal static class SubMechanismIllustrationPointEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SubmechanismIllustrationPointEntity"/> and uses 
-        /// the information to construct a <see cref="SubmechanismIllustrationPoint"/>.
+        /// Reads the <see cref="SubMechanismIllustrationPointEntity"/> and uses 
+        /// the information to construct a <see cref="SubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SubmechanismIllustrationPointEntity"/>
-        /// to create a <see cref="SubmechanismIllustrationPoint"/> for.</param>
-        /// <returns>A new <see cref="SubmechanismIllustrationPoint"/>.</returns>
+        /// <param name="entity">The <see cref="SubMechanismIllustrationPointEntity"/>
+        /// to create a <see cref="SubMechanismIllustrationPoint"/> for.</param>
+        /// <returns>A new <see cref="SubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        public static SubmechanismIllustrationPoint Read(this SubmechanismIllustrationPointEntity entity)
+        public static SubMechanismIllustrationPoint Read(this SubMechanismIllustrationPointEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            IEnumerable<SubmechanismIllustrationPointStochast> stochasts =
-                GetReadSubmechanismIllustrationPointStochasts(entity.SubmechanismIllustrationPointStochastEntities);
+            IEnumerable<SubMechanismIllustrationPointStochast> stochasts =
+                GetReadSubMechanismIllustrationPointStochasts(entity.SubMechanismIllustrationPointStochastEntities);
 
             IEnumerable<IllustrationPointResult> illustrationPointResults =
                 GetReadIllustrationPointResults(entity.IllustrationPointResultEntities);
 
-            return new SubmechanismIllustrationPoint(entity.Name,
+            return new SubMechanismIllustrationPoint(entity.Name,
                                                      stochasts,
                                                      illustrationPointResults,
                                                      entity.Beta);
         }
 
-        private static IEnumerable<SubmechanismIllustrationPointStochast> GetReadSubmechanismIllustrationPointStochasts(
-            IEnumerable<SubmechanismIllustrationPointStochastEntity> stochastEntities)
+        private static IEnumerable<SubMechanismIllustrationPointStochast> GetReadSubMechanismIllustrationPointStochasts(
+            IEnumerable<SubMechanismIllustrationPointStochastEntity> stochastEntities)
         {
-            var stochasts = new List<SubmechanismIllustrationPointStochast>();
+            var stochasts = new List<SubMechanismIllustrationPointStochast>();
             stochasts.AddRange(stochastEntities.OrderBy(st => st.Order)
                                                .Select(st => st.Read()));
             return stochasts;

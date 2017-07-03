@@ -189,7 +189,7 @@ SELECT
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity(
 	[GrassCoverErosionOutwardsHydraulicLocationOutputEntityId],
 	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GeneralResultSubmechanismIllustrationPointEntityId],
+	[GeneralResultSubMechanismIllustrationPointEntityId],
 	[HydraulicLocationOutputType],
 	[Result],
 	[TargetProbability],
@@ -310,7 +310,7 @@ SELECT
 INSERT INTO HydraulicLocationOutputEntity(
 	[HydraulicLocationEntityOutputId],
 	[HydraulicLocationEntityId],
-	[GeneralResultSubmechanismIllustrationPointEntityId],
+	[GeneralResultSubMechanismIllustrationPointEntityId],
 	[HydraulicLocationOutputType],
 	[Result],
 	[TargetProbability],

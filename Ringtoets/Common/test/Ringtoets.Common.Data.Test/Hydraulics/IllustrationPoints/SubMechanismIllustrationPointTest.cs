@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointTest
+    public class SubMechanismIllustrationPointTest
     {
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
@@ -39,8 +39,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPoint(null,
-                                                                        Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+            TestDelegate call = () => new SubMechanismIllustrationPoint(null,
+                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                         Enumerable.Empty<IllustrationPointResult>(),
                                                                         beta);
 
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPoint("Illustration Point",
+            TestDelegate call = () => new SubMechanismIllustrationPoint("Illustration Point",
                                                                         null,
                                                                         Enumerable.Empty<IllustrationPointResult>(),
                                                                         beta);
@@ -75,8 +75,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             double beta = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPoint("Illustration Point",
-                                                                        Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+            TestDelegate call = () => new SubMechanismIllustrationPoint("Illustration Point",
+                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                         null,
                                                                         beta);
 
@@ -93,11 +93,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var random = new Random(21);
             double beta = random.NextDouble();
 
-            var stochasts = new List<SubmechanismIllustrationPointStochast>();
+            var stochasts = new List<SubMechanismIllustrationPointStochast>();
             var illustrationPointResults = new List<IllustrationPointResult>();
 
             // Call
-            var illustrationPoint = new SubmechanismIllustrationPoint(name,
+            var illustrationPoint = new SubMechanismIllustrationPoint(name,
                                                                       stochasts,
                                                                       illustrationPointResults,
                                                                       beta);

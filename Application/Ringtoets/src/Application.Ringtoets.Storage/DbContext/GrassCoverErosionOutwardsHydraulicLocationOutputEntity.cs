@@ -34,9 +34,9 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long GrassCoverErosionOutwardsHydraulicLocationOutputEntityId { get; set; }
         public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
-        public long? GeneralResultSubmechanismIllustrationPointEntityId { get; set; }
+        public long? GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
 
-        public virtual GeneralResultSubmechanismIllustrationPointEntity GeneralResultSubmechanismIllustrationPointEntity { get; set; }
+        public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
         public byte HydraulicLocationOutputType { get; set; }
         public double? Result { get; set; }

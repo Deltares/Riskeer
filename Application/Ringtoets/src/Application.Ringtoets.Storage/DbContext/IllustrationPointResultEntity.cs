@@ -33,11 +33,11 @@ namespace Application.Ringtoets.Storage.DbContext
     public class IllustrationPointResultEntity
     {
         public long IllustrationPointResultEntityId { get; set; }
-        public long SubmechanismIllustrationPointEntityId { get; set; }
+        public long SubMechanismIllustrationPointEntityId { get; set; }
         public string Description { get; set; }
         public double Value { get; set; }
         public int Order { get; set; }
 
-        public virtual SubmechanismIllustrationPointEntity SubmechanismIllustrationPointEntity { get; set; }
+        public virtual SubMechanismIllustrationPointEntity SubMechanismIllustrationPointEntity { get; set; }
     }
 }

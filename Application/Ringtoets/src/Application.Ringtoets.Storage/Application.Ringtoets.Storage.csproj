@@ -73,8 +73,8 @@
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\SubmechanismIllustrationPointCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\SubmechanismIllustrationPointStochastCreateExtensions.cs" />
+    <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointCreateExtensions.cs" />
+    <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>
@@ -139,7 +139,7 @@
     <Compile Include="DbContext\ForeshoreProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\GeneralResultSubmechanismIllustrationPointEntity.cs">
+    <Compile Include="DbContext\GeneralResultSubMechanismIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
@@ -295,10 +295,10 @@
     <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\SubmechanismIllustrationPointEntity.cs">
+    <Compile Include="DbContext\SubMechanismIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\SubmechanismIllustrationPointStochastEntity.cs">
+    <Compile Include="DbContext\SubMechanismIllustrationPointStochastEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SurfaceLineEntity.cs">
@@ -307,7 +307,7 @@
     <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\TopLevelSubmechanismIllustrationPointEntity.cs">
+    <Compile Include="DbContext\TopLevelSubMechanismIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\VersionEntity.cs">
@@ -350,8 +350,8 @@
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\SubmechanismIllustrationPointEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\SubmechanismIllustrationPointStochastEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointStochastEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IStructureCalculationEntityReadExtensions.cs" />

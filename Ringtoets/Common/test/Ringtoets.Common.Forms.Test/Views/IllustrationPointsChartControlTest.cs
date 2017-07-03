@@ -134,18 +134,18 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
-                    new TopLevelSubmechanismIllustrationPoint(
+                    new TopLevelSubMechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new SubmechanismIllustrationPoint("Punt 1",
+                        new SubMechanismIllustrationPoint("Punt 1",
                                                           new[]
                                                           {
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.9),
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.43589)
                                                           },
                                                           Enumerable.Empty<IllustrationPointResult>(), 1)),
-                    new TopLevelSubmechanismIllustrationPoint(
+                    new TopLevelSubMechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new SubmechanismIllustrationPoint("Punt 2",
+                        new SubMechanismIllustrationPoint("Punt 2",
                                                           new[]
                                                           {
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.43589),
@@ -171,9 +171,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
-                    new TopLevelSubmechanismIllustrationPoint(
+                    new TopLevelSubMechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new SubmechanismIllustrationPoint("Punt 1",
+                        new SubMechanismIllustrationPoint("Punt 1",
                                                           new[]
                                                           {
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
@@ -182,9 +182,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01)
                                                           },
                                                           Enumerable.Empty<IllustrationPointResult>(), 1)),
-                    new TopLevelSubmechanismIllustrationPoint(
+                    new TopLevelSubMechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new SubmechanismIllustrationPoint("Punt 2",
+                        new SubMechanismIllustrationPoint("Punt 2",
                                                           new[]
                                                           {
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
@@ -193,9 +193,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02)
                                                           },
                                                           Enumerable.Empty<IllustrationPointResult>(), 1)),
-                    new TopLevelSubmechanismIllustrationPoint(
+                    new TopLevelSubMechanismIllustrationPoint(
                         new TestWindDirection(), "Regular",
-                        new SubmechanismIllustrationPoint("Punt 3",
+                        new SubMechanismIllustrationPoint("Punt 3",
                                                           new[]
                                                           {
                                                               new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),

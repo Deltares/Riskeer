@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
     /// <summary>
     /// A simple sub mechanism illustration point stochast which can be used for testing.
     /// </summary>
-    public class TestSubMechanismIllustrationPointStochast : SubmechanismIllustrationPointStochast
+    public class TestSubMechanismIllustrationPointStochast : SubMechanismIllustrationPointStochast
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestSubMechanismIllustrationPointStochast"/>.

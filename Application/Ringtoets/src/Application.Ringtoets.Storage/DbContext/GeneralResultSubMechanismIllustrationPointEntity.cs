@@ -33,18 +33,18 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class GeneralResultSubmechanismIllustrationPointEntity
+    public class GeneralResultSubMechanismIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GeneralResultSubmechanismIllustrationPointEntity()
+        public GeneralResultSubMechanismIllustrationPointEntity()
         {
             GrassCoverErosionOutwardsHydraulicLocationOutputEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>();
             HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
-            TopLevelSubmechanismIllustrationPointEntities = new HashSet<TopLevelSubmechanismIllustrationPointEntity>();
+            TopLevelSubMechanismIllustrationPointEntities = new HashSet<TopLevelSubMechanismIllustrationPointEntity>();
             StochastEntities = new HashSet<StochastEntity>();
         }
 
-        public long GeneralResultSubmechanismIllustrationPointEntityId { get; set; }
+        public long GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
         public string GoverningWindDirectionName { get; set; }
         public double GoverningWindDirectionAngle { get; set; }
 
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TopLevelSubmechanismIllustrationPointEntity> TopLevelSubmechanismIllustrationPointEntities { get; set; }
+        public virtual ICollection<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StochastEntity> StochastEntities { get; set; }

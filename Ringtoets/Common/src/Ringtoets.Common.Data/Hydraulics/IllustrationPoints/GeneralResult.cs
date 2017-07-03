@@ -34,13 +34,13 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// </summary>
         /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
-        /// <param name="topLevelSubmechanismIllustrationPoints">A collections of all 
+        /// <param name="topLevelSubMechanismIllustrationPoints">A collections of all 
         /// the combinations of wind directions, closing situations and illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindDirection"/>,
-        /// <paramref name="stochasts"/> or <paramref name="topLevelSubmechanismIllustrationPoints"/> is <c>null</c>.</exception>
+        /// <paramref name="stochasts"/> or <paramref name="topLevelSubMechanismIllustrationPoints"/> is <c>null</c>.</exception>
         public GeneralResult(WindDirection governingWindDirection,
                              IEnumerable<Stochast> stochasts,
-                             IEnumerable<TopLevelSubmechanismIllustrationPoint> topLevelSubmechanismIllustrationPoints)
+                             IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelSubMechanismIllustrationPoints)
         {
             if (governingWindDirection == null)
             {
@@ -50,14 +50,14 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
-            if (topLevelSubmechanismIllustrationPoints == null)
+            if (topLevelSubMechanismIllustrationPoints == null)
             {
-                throw new ArgumentNullException(nameof(topLevelSubmechanismIllustrationPoints));
+                throw new ArgumentNullException(nameof(topLevelSubMechanismIllustrationPoints));
             }
 
             GoverningWindDirection = governingWindDirection;
             Stochasts = stochasts;
-            TopLevelSubmechanismIllustrationPoints = topLevelSubmechanismIllustrationPoints;
+            TopLevelSubMechanismIllustrationPoints = topLevelSubMechanismIllustrationPoints;
         }
 
         /// <summary>
@@ -73,6 +73,6 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <summary>
         /// Gets all the top level combinations of wind directions, closing situation and illustration points.
         /// </summary>
-        public IEnumerable<TopLevelSubmechanismIllustrationPoint> TopLevelSubmechanismIllustrationPoints { get; }
+        public IEnumerable<TopLevelSubMechanismIllustrationPoint> TopLevelSubMechanismIllustrationPoints { get; }
     }
 }

@@ -29,13 +29,13 @@ using Application.Ringtoets.Storage.Read.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointStochastEntityReadExtensionsTest
+    public class SubMechanismIllustrationPointStochastEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubmechanismIllustrationPointStochastEntity) null).Read();
+            TestDelegate call = () => ((SubMechanismIllustrationPointStochastEntity) null).Read();
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         {
             // Setup
             var random = new Random(123);
-            var entity = new SubmechanismIllustrationPointStochastEntity
+            var entity = new SubMechanismIllustrationPointStochastEntity
             {
                 Name = "Description",
                 Alpha = random.NextDouble(),
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             };
 
             // Call
-            SubmechanismIllustrationPointStochast illustrationPointResult = entity.Read();
+            SubMechanismIllustrationPointStochast illustrationPointResult = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.Name, illustrationPointResult.Name);

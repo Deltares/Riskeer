@@ -71,7 +71,7 @@
     <Compile Include="TestForeshoreProfileTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationTest.cs" />
-    <Compile Include="IllustrationPoints\TestSubmechanismIllustrationPointTest.cs" />
+    <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointTest.cs" />
     <Compile Include="TestStructuresOutputTest.cs" />
     <Compile Include="TestStructureTest.cs" />
   </ItemGroup>

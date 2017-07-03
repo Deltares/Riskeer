@@ -28,10 +28,10 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     /// <summary>
     /// Illustration point which contains the results.
     /// </summary>
-    public class SubmechanismIllustrationPoint
+    public class SubMechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubmechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point result</param>
         /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
@@ -44,8 +44,8 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <item><paramref name="illustrationPointResults"/></item>
         /// </list>
         /// is <c>null</c>.</exception>
-        public SubmechanismIllustrationPoint(string name,
-                                             IEnumerable<SubmechanismIllustrationPointStochast> stochasts,
+        public SubMechanismIllustrationPoint(string name,
+                                             IEnumerable<SubMechanismIllustrationPointStochast> stochasts,
                                              IEnumerable<IllustrationPointResult> illustrationPointResults,
                                              double beta)
         {
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <summary>
         /// Gets the stochasts that belong to this submechanism illustration point.
         /// </summary>
-        public IEnumerable<SubmechanismIllustrationPointStochast> Stochasts { get; }
+        public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the output variables.

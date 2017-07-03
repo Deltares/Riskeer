@@ -75,12 +75,12 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Assert
             AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
-            CollectionAssert.IsEmpty(generalResult.TopLevelSubmechanismIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
         }
 
         [Test]
-        public void CreateGeneralResult_HydraGeneralResultWithSubmechanismIllustrationPointsOnly_ExpectedProperties()
+        public void CreateGeneralResult_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ExpectedProperties()
         {
             // Setup
             const string closingSituation = "Closing situation";
@@ -121,15 +121,15 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             CollectionAssert.IsEmpty(generalResult.Stochasts);
 
-            TopLevelSubmechanismIllustrationPoint combination = generalResult.TopLevelSubmechanismIllustrationPoints.Single();
+            TopLevelSubMechanismIllustrationPoint combination = generalResult.TopLevelSubMechanismIllustrationPoints.Single();
             AssertWindDirection(hydraWindDirection, combination.WindDirection);
             Assert.AreEqual(closingSituation, combination.ClosingSituation);
 
-            SubmechanismIllustrationPoint submechanismIllustrationPoint = combination.SubmechanismIllustrationPoint;
-            Assert.AreEqual(hydraIllustrationPoint.Name, submechanismIllustrationPoint.Name);
-            Assert.AreEqual(hydraIllustrationPoint.Beta, submechanismIllustrationPoint.Beta, submechanismIllustrationPoint.Beta.GetAccuracy());
-            CollectionAssert.IsEmpty(submechanismIllustrationPoint.Stochasts);
-            CollectionAssert.IsEmpty(submechanismIllustrationPoint.IllustrationPointResults);
+            SubMechanismIllustrationPoint subMechanismIllustrationPoint = combination.SubMechanismIllustrationPoint;
+            Assert.AreEqual(hydraIllustrationPoint.Name, subMechanismIllustrationPoint.Name);
+            Assert.AreEqual(hydraIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
+            CollectionAssert.IsEmpty(subMechanismIllustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(subMechanismIllustrationPoint.IllustrationPointResults);
         }
 
         [Test]
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
             AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
-            CollectionAssert.IsEmpty(generalResult.TopLevelSubmechanismIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
         }
 
         private static void AssertWindDirection(HydraWindDirection hydraWindDirection, WindDirection windDirection)

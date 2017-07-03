@@ -26,27 +26,27 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="SubmechanismIllustrationPointStochastEntity"/> 
-    /// related to creating a <see cref="SubmechanismIllustrationPointStochast"/>.
+    /// Extension methods for <see cref="SubMechanismIllustrationPointStochastEntity"/> 
+    /// related to creating a <see cref="SubMechanismIllustrationPointStochast"/>.
     /// </summary>
-    internal static class SubmechanismIllustrationPointStochastEntityReadExtensions
+    internal static class SubMechanismIllustrationPointStochastEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SubmechanismIllustrationPointStochastEntity"/> 
-        /// and use the information to construct a <see cref="SubmechanismIllustrationPointStochast"/>.
+        /// Reads the <see cref="SubMechanismIllustrationPointStochastEntity"/> 
+        /// and use the information to construct a <see cref="SubMechanismIllustrationPointStochast"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SubmechanismIllustrationPointStochastEntity"/> to create 
-        /// <see cref="SubmechanismIllustrationPointStochast"/> for.</param>
-        /// <returns>A new <see cref="SubmechanismIllustrationPointStochast"/>.</returns>
+        /// <param name="entity">The <see cref="SubMechanismIllustrationPointStochastEntity"/> to create 
+        /// <see cref="SubMechanismIllustrationPointStochast"/> for.</param>
+        /// <returns>A new <see cref="SubMechanismIllustrationPointStochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public static SubmechanismIllustrationPointStochast Read(this SubmechanismIllustrationPointStochastEntity entity)
+        public static SubMechanismIllustrationPointStochast Read(this SubMechanismIllustrationPointStochastEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new SubmechanismIllustrationPointStochast(entity.Name,
+            return new SubMechanismIllustrationPointStochast(entity.Name,
                                                              entity.Duration,
                                                              entity.Alpha,
                                                              entity.Realization);

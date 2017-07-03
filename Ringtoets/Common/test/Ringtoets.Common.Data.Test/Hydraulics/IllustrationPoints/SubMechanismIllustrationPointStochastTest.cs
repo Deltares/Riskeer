@@ -19,28 +19,39 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
+namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class TestSubmechanismIllustrationPointTest
+    public class SubMechanismIllustrationPointStochastTest
     {
         [Test]
-        public void DefaultConstructor_Test()
+        public void Constructor_ValidArguments_ReturnExpectedValues()
         {
+            // Setup
+            const string name = "Stochast name";
+
+            var random = new Random(21);
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
+            double realization = random.NextDouble();
+
             // Call
-            var illustrationPoint = new TestSubmechanismIllustrationPoint();
+            var stochast = new SubMechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             // Assert
-            Assert.IsInstanceOf<SubmechanismIllustrationPoint>(illustrationPoint);
+            Assert.IsInstanceOf<Stochast>(stochast);
+            Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
 
-            Assert.AreEqual("Illustration Point", illustrationPoint.Name);
-            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
-            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
-            Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(realization, stochast.Realization,
+                            stochast.Realization.GetAccuracy());
+            Assert.AreEqual(5, stochast.Realization.NumberOfDecimalPlaces);
         }
     }
 }

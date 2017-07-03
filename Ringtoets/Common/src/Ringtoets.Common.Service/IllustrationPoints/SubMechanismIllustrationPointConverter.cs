@@ -22,43 +22,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using HydraSubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
 using IllustrationPointResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.IllustrationPointResult;
-using SubmechanismIllustrationPoint = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubmechanismIllustrationPoint;
-using SubmechanismIllustrationPointStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubmechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// The converter that converts <see cref="IIllustrationPoint"/> data into <see cref="HydraSubmechanismIllustrationPoint"/> data.
     /// </summary>
-    public static class SubmechanismIllustrationPointConverter
+    public static class SubMechanismIllustrationPointConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubmechanismIllustrationPoint"/> based on the information of <paramref name="submechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/> based on the information of <paramref name="subMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="submechanismIllustrationPoint">The <see cref="SubmechanismIllustrationPoint"/> to base the 
-        /// <see cref="SubmechanismIllustrationPoint"/> to create on.</param>
-        /// <returns>The newly created <see cref="SubmechanismIllustrationPoint"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="submechanismIllustrationPoint"/> 
+        /// <param name="subMechanismIllustrationPoint">The <see cref="SubMechanismIllustrationPoint"/> to base the 
+        /// <see cref="SubMechanismIllustrationPoint"/> to create on.</param>
+        /// <returns>The newly created <see cref="SubMechanismIllustrationPoint"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPoint"/> 
         /// is <c>null</c>.</exception>
-        public static SubmechanismIllustrationPoint CreateSubmechanismIllustrationPoint(HydraSubmechanismIllustrationPoint submechanismIllustrationPoint)
+        public static SubMechanismIllustrationPoint CreateSubMechanismIllustrationPoint(HydraSubmechanismIllustrationPoint subMechanismIllustrationPoint)
         {
-            if (submechanismIllustrationPoint == null)
+            if (subMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(submechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
             }
 
-            IEnumerable<SubmechanismIllustrationPointStochast> stochasts = submechanismIllustrationPoint
-                .Stochasts.Select(StochastConverter.CreateSubmechanismIllustrationStochast);
-            IEnumerable<IllustrationPointResult> illustrationPointResults = submechanismIllustrationPoint
+            IEnumerable<SubMechanismIllustrationPointStochast> stochasts = subMechanismIllustrationPoint
+                .Stochasts.Select(StochastConverter.CreateSubMechanismIllustrationStochast);
+            IEnumerable<IllustrationPointResult> illustrationPointResults = subMechanismIllustrationPoint
                 .Results.Select(IllustrationPointResultConverter.CreateIllustrationPointResult);
 
-            return new SubmechanismIllustrationPoint(submechanismIllustrationPoint.Name,
+            return new SubMechanismIllustrationPoint(subMechanismIllustrationPoint.Name,
                                                      stochasts,
                                                      illustrationPointResults,
-                                                     submechanismIllustrationPoint.Beta);
+                                                     subMechanismIllustrationPoint.Beta);
         }
     }
 }

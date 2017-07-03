@@ -81,10 +81,10 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\GeneralResultTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResultTest.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointTest.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\SubmechanismIllustrationPointStochastTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\SubMechanismIllustrationPointTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\SubMechanismIllustrationPointStochastTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\StochastTest.cs" />
-    <Compile Include="Hydraulics\IllustrationPoints\TopLevelSubmechanismIllustrationPointTest.cs" />
+    <Compile Include="Hydraulics\IllustrationPoints\TopLevelSubMechanismIllustrationPointTest.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\WindDirectionTest.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculationTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />

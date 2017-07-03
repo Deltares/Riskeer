@@ -34,10 +34,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="TopLevelSubmechanismIllustrationPoint"/> for properties panel.
+    /// ViewModel of <see cref="TopLevelSubMechanismIllustrationPoint"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class TopLevelSubmechanismIllustrationPointProperties : ObjectProperties<TopLevelSubmechanismIllustrationPoint>
+    public class TopLevelSubMechanismIllustrationPointProperties : ObjectProperties<TopLevelSubMechanismIllustrationPoint>
     {
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return StatisticsConverter.ReliabilityToProbability(data.SubmechanismIllustrationPoint.Beta);
+                return StatisticsConverter.ReliabilityToProbability(data.SubMechanismIllustrationPoint.Beta);
 
             }
         }
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.SubmechanismIllustrationPoint.Beta;
+                return data.SubMechanismIllustrationPoint.Beta;
             }
         }
 
@@ -90,12 +90,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(SubmechanismIllustrationPointStochast.Name), nameof(SubmechanismIllustrationPointStochast.Alpha))]
-        public SubmechanismIllustrationPointStochast[] AlphaValues
+        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Alpha))]
+        public SubMechanismIllustrationPointStochast[] AlphaValues
         {
             get
             {
-                return data.SubmechanismIllustrationPoint.Stochasts.ToArray();
+                return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -103,12 +103,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(SubmechanismIllustrationPointStochast.Name), nameof(SubmechanismIllustrationPointStochast.Duration))]
-        public SubmechanismIllustrationPointStochast[] Durations
+        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Duration))]
+        public SubMechanismIllustrationPointStochast[] Durations
         {
             get
             {
-                return data.SubmechanismIllustrationPoint.Stochasts.ToArray();
+                return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -121,13 +121,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.SubmechanismIllustrationPoint.IllustrationPointResults.ToArray();
+                return data.SubMechanismIllustrationPoint.IllustrationPointResults.ToArray();
             }
         }
 
         public override string ToString()
         {
-            return $"{data.SubmechanismIllustrationPoint.Name}";
+            return $"{data.SubMechanismIllustrationPoint.Name}";
         }
     }
 }

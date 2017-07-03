@@ -126,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var illustrationPoints = new[]
             {
-                new TopLevelSubmechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubmechanismIllustrationPoint()),
+                new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint()),
             };
             var stochasts = new[]
             {

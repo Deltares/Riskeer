@@ -33,16 +33,16 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class TopLevelSubmechanismIllustrationPointPropertiesTest
+    public class TopLevelSubMechanismIllustrationPointPropertiesTest
     {
         [Test]
         public void Constructor_DefaultArgumentValues_DoesNotThrowException()
         {
             // Call
-            var properties = new TopLevelSubmechanismIllustrationPointProperties();
+            var properties = new TopLevelSubMechanismIllustrationPointProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<TopLevelSubmechanismIllustrationPoint>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<TopLevelSubMechanismIllustrationPoint>>(properties);
         }
 
         [Test]
@@ -51,14 +51,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_WithName_ReturnsCombinationOfWindDirectionAndClosingSituation(string name)
         {
             // Setup
-            var submechanismIllustrationPoint = new SubmechanismIllustrationPoint(name,
-                                                                                  Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+            var submechanismIllustrationPoint = new SubMechanismIllustrationPoint(name,
+                                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                                   Enumerable.Empty<IllustrationPointResult>(),
                                                                                   3);
-            var context = new TopLevelSubmechanismIllustrationPoint(new TestWindDirection(), "direction", submechanismIllustrationPoint);
+            var context = new TopLevelSubMechanismIllustrationPoint(new TestWindDirection(), "direction", submechanismIllustrationPoint);
 
             // Call
-            var hydraulicBoundaryLocationProperties = new TopLevelSubmechanismIllustrationPointProperties
+            var hydraulicBoundaryLocationProperties = new TopLevelSubMechanismIllustrationPointProperties
             {
                 Data = context
             };
@@ -75,22 +75,22 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             double beta = random.NextDouble();
             var stochasts = new[]
             {
-                new SubmechanismIllustrationPointStochast("some name", random.NextDouble(), random.NextDouble(), random.NextDouble())
+                new SubMechanismIllustrationPointStochast("some name", random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             var illustrationPointResults = new[]
             {
                 new IllustrationPointResult("some description", random.NextDouble())
             };
-            var submechanismIllustrationPoint = new SubmechanismIllustrationPoint("name", stochasts, illustrationPointResults, beta);
+            var submechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", stochasts, illustrationPointResults, beta);
 
             const string closingSituation = "closingSituation";
             const string windDirectionName = "windDirection";
             var windDirection = new WindDirection(windDirectionName, 123);
 
-            var context = new TopLevelSubmechanismIllustrationPoint(windDirection, closingSituation, submechanismIllustrationPoint);
+            var context = new TopLevelSubMechanismIllustrationPoint(windDirection, closingSituation, submechanismIllustrationPoint);
 
             // Call
-            var properties = new TopLevelSubmechanismIllustrationPointProperties
+            var properties = new TopLevelSubMechanismIllustrationPointProperties
             {
                 Data = context
             };
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<TopLevelSubmechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubmechanismIllustrationPointProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.AlphaValues));
             PropertyDescriptor alphaValuesProperty = dynamicProperties[4];
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<TopLevelSubmechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubmechanismIllustrationPointProperties.Durations));
+            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.Durations));
             PropertyDescriptor durationsProperty = dynamicProperties[5];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<TopLevelSubmechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubmechanismIllustrationPointProperties.IllustrationPointResults));
+            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.IllustrationPointResults));
             PropertyDescriptor illustrationPointResultsProperty = dynamicProperties[6];
             Assert.NotNull(illustrationPointResultsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointResultsProperty,

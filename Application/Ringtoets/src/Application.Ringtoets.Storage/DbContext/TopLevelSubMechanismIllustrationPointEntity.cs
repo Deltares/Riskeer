@@ -30,18 +30,18 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class TopLevelSubmechanismIllustrationPointEntity
+    public class TopLevelSubMechanismIllustrationPointEntity
     {
-        public long TopLevelSubmechanismIllustrationPointEntityId { get; set; }
-        public long GeneralResultSubmechanismIllustrationPointEntityId { get; set; }
-        public long SubmechanismIllustrationPointEntityId { get; set; }
+        public long TopLevelSubMechanismIllustrationPointEntityId { get; set; }
+        public long GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
+        public long SubMechanismIllustrationPointEntityId { get; set; }
         public string ClosingSituation { get; set; }
         public string WindDirectionName { get; set; }
         public double WindDirectionAngle { get; set; }
         public double Beta { get; set; }
         public int Order { get; set; }
 
-        public virtual GeneralResultSubmechanismIllustrationPointEntity GeneralResultSubmechanismIllustrationPointEntity { get; set; }
-        public virtual SubmechanismIllustrationPointEntity SubmechanismIllustrationPointEntity { get; set; }
+        public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
+        public virtual SubMechanismIllustrationPointEntity SubMechanismIllustrationPointEntity { get; set; }
     }
 }

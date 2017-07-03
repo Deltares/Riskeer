@@ -49,20 +49,20 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SubmechanismIllustrationPointStochast"/> based on the information of <paramref name="hydraSubmechanismIllustrationPointStochast"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPointStochast"/> based on the information of <paramref name="hydraSubmechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="hydraSubmechanismIllustrationPointStochast">The <see cref="HydraSubmechanismIllustrationPointStochast"/> to base the 
-        /// <see cref="SubmechanismIllustrationPointStochast"/> to create on.</param>
+        /// <see cref="SubMechanismIllustrationPointStochast"/> to create on.</param>
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraSubmechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
-        public static SubmechanismIllustrationPointStochast CreateSubmechanismIllustrationStochast(HydraSubmechanismIllustrationPointStochast hydraSubmechanismIllustrationPointStochast)
+        public static SubMechanismIllustrationPointStochast CreateSubMechanismIllustrationStochast(HydraSubmechanismIllustrationPointStochast hydraSubmechanismIllustrationPointStochast)
         {
             if (hydraSubmechanismIllustrationPointStochast == null)
             {
                 throw new ArgumentNullException(nameof(hydraSubmechanismIllustrationPointStochast));
             }
-            return new SubmechanismIllustrationPointStochast(hydraSubmechanismIllustrationPointStochast.Name,
+            return new SubMechanismIllustrationPointStochast(hydraSubmechanismIllustrationPointStochast.Name,
                                                              hydraSubmechanismIllustrationPointStochast.Duration,
                                                              hydraSubmechanismIllustrationPointStochast.Alpha,
                                                              hydraSubmechanismIllustrationPointStochast.Realization);

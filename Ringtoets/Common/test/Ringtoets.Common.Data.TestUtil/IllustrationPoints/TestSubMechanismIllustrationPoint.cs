@@ -27,12 +27,12 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
     /// <summary>
     /// A simple submechanism illustration point which can be used for testing.
     /// </summary>
-    public class TestSubmechanismIllustrationPoint : SubmechanismIllustrationPoint
+    public class TestSubMechanismIllustrationPoint : SubMechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates a <see cref="TestSubmechanismIllustrationPoint"/>.
+        /// Creates a <see cref="TestSubMechanismIllustrationPoint"/>.
         /// </summary>
-        public TestSubmechanismIllustrationPoint()
-            : base("Illustration Point", Enumerable.Empty<SubmechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>(), 3.14) {}
+        public TestSubMechanismIllustrationPoint()
+            : base("Illustration Point", Enumerable.Empty<SubMechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>(), 3.14) {}
     }
 }

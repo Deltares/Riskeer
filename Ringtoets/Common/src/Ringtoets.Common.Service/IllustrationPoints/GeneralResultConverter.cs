@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
 
             WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraGeneralResult.GoverningWindDirection);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraGeneralResult);
-            IEnumerable<TopLevelSubmechanismIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
+            IEnumerable<TopLevelSubMechanismIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
                 GetWindDirectionClosingSituationIllustrationPoint(hydraGeneralResult);
 
             return new GeneralResult(windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
@@ -63,10 +63,10 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             return hydraGeneralResult.Stochasts.Select(StochastConverter.CreateStochast);
         }
 
-        private static IEnumerable<TopLevelSubmechanismIllustrationPoint> GetWindDirectionClosingSituationIllustrationPoint(
+        private static IEnumerable<TopLevelSubMechanismIllustrationPoint> GetWindDirectionClosingSituationIllustrationPoint(
             HydraGeneralResult hydraGeneralResult)
         {
-            var combinations = new List<TopLevelSubmechanismIllustrationPoint>();
+            var combinations = new List<TopLevelSubMechanismIllustrationPoint>();
             foreach (KeyValuePair<HydraWindDirectionClosingSituation, HydraIllustrationPointTreeNode> illustrationPointTreeNode in hydraGeneralResult.IllustrationPoints)
             {
                 IHydraRingIllustrationPoint hydraIllustrationPoint = illustrationPointTreeNode.Value.Data;
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 var subMechanismIllustrationPoint = hydraIllustrationPoint as SubmechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
-                    combinations.Add(TopLevelSubmechanismIllustrationPointConverter.CreateWindDirectionClosingScenarioIllustrationPoint(
+                    combinations.Add(TopLevelSubMechanismIllustrationPointConverter.CreateTopLevelSubMechanismIllustrationPoint(
                                          hydraWindDirectionClosingSituation, subMechanismIllustrationPoint));
                 }
             }

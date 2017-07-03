@@ -102,7 +102,7 @@
     <Compile Include="PropertyClasses\UseBreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\UseForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\TopLevelSubmechanismIllustrationPointPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\TopLevelSubMechanismIllustrationPointPropertiesTest.cs" />
     <Compile Include="ScenarioSelectionControlTest.cs" />
     <Compile Include="SelectionDialogBaseTest.cs" />
     <Compile Include="HydraulicBoundaryLocationSelectionDialogTest.cs" />

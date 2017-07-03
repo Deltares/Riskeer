@@ -19,39 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointStochastTest
+    public class TestSubMechanismIllustrationPointTest
     {
         [Test]
-        public void Constructor_ValidArguments_ReturnExpectedValues()
+        public void DefaultConstructor_Test()
         {
-            // Setup
-            const string name = "Stochast name";
-
-            var random = new Random(21);
-            double duration = random.NextDouble();
-            double alpha = random.NextDouble();
-            double realization = random.NextDouble();
-
             // Call
-            var stochast = new SubmechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var illustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Assert
-            Assert.IsInstanceOf<Stochast>(stochast);
-            Assert.AreEqual(name, stochast.Name);
-            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
-            Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(illustrationPoint);
 
-            Assert.AreEqual(realization, stochast.Realization,
-                            stochast.Realization.GetAccuracy());
-            Assert.AreEqual(5, stochast.Realization.NumberOfDecimalPlaces);
+            Assert.AreEqual("Illustration Point", illustrationPoint.Name);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
         }
     }
 }

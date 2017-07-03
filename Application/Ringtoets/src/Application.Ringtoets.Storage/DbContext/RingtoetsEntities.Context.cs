@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         public virtual DbSet<ForeshoreProfileEntity> ForeshoreProfileEntities { get; set; }
-        public virtual DbSet<GeneralResultSubmechanismIllustrationPointEntity> GeneralResultSubmechanismIllustrationPointEntities { get; set; }
+        public virtual DbSet<GeneralResultSubMechanismIllustrationPointEntity> GeneralResultSubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsDikeHeightOutputEntity> GrassCoverErosionInwardsDikeHeightOutputEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity> GrassCoverErosionInwardsFailureMechanismMetaEntities { get; set; }
@@ -101,11 +101,11 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
         public virtual DbSet<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }
         public virtual DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
-        public virtual DbSet<SubmechanismIllustrationPointEntity> SubmechanismIllustrationPointEntities { get; set; }
-        public virtual DbSet<SubmechanismIllustrationPointStochastEntity> SubmechanismIllustrationPointStochastEntities { get; set; }
+        public virtual DbSet<SubMechanismIllustrationPointEntity> SubMechanismIllustrationPointEntities { get; set; }
+        public virtual DbSet<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
         public virtual DbSet<SurfaceLineEntity> SurfaceLineEntities { get; set; }
         public virtual DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
-        public virtual DbSet<TopLevelSubmechanismIllustrationPointEntity> TopLevelSubmechanismIllustrationPointEntities { get; set; }
+        public virtual DbSet<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<VersionEntity> VersionEntities { get; set; }
         public virtual DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverFailureMechanismMetaEntity> WaveImpactAsphaltCoverFailureMechanismMetaEntities { get; set; }

@@ -49,10 +49,10 @@
     <Compile Include="HydraRingSettingsDatabaseHelper.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidator.cs" />
     <Compile Include="IllustrationPoints\GeneralResultConverter.cs" />
-    <Compile Include="IllustrationPoints\SubmechanismIllustrationPointConverter.cs" />
+    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverter.cs" />
     <Compile Include="IllustrationPoints\StochastConverter.cs" />
-    <Compile Include="IllustrationPoints\TopLevelSubmechanismIllustrationPointConverter.cs" />
+    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\WindDirectionConverter.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="SynchronizeCalculationWithForeshoreProfileHelper.cs" />

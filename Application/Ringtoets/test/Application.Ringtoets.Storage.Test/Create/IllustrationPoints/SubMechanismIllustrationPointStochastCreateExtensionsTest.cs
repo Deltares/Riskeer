@@ -30,32 +30,32 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointStochastCreateExtensionsTest
+    public class SubMechanismIllustrationPointStochastCreateExtensionsTest
     {
         [Test]
-        public void CreateSubmechanismIllustrationPointStochastEntity_StochastNull_ThrowsArgumentNullException()
+        public void CreateSubMechanismIllustrationPointStochastEntity_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubmechanismIllustrationPointStochast) null).CreateSubmechanismIllustrationPointStochastEntity(0);
+            TestDelegate call = () => ((SubMechanismIllustrationPointStochast) null).CreateSubMechanismIllustrationPointStochastEntity(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("submechanismIllustrationPointStochast", paramName);
+            Assert.AreEqual("subMechanismIllustrationPointStochast", paramName);
         }
 
         [Test]
-        public void CreateSubmechanismIllustrationPointStochastEntity_ValidRealizedStochast_ReturnEntity()
+        public void CreateSubMechanismIllustrationPointStochastEntity_ValidRealizedStochast_ReturnEntity()
         {
             // Setup
             var random = new Random(123);
-            var stochast = new SubmechanismIllustrationPointStochast("Some description",
+            var stochast = new SubMechanismIllustrationPointStochast("Some description",
                                                                      random.NextDouble(),
                                                                      random.NextDouble(),
                                                                      random.NextDouble());
             int order = random.Next();
 
             // Call
-            SubmechanismIllustrationPointStochastEntity entity = stochast.CreateSubmechanismIllustrationPointStochastEntity(order);
+            SubMechanismIllustrationPointStochastEntity entity = stochast.CreateSubMechanismIllustrationPointStochastEntity(order);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(stochast.Name, entity.Name);

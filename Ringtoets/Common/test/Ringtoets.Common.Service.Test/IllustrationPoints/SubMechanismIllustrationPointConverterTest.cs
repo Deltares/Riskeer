@@ -27,21 +27,22 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointConverterTest
+    public class SubMechanismIllustrationPointConverterTest
     {
         [Test]
         public void CreateCreateIllustrationPoint_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SubmechanismIllustrationPointConverter.CreateSubmechanismIllustrationPoint(null);
+            TestDelegate call = () => SubMechanismIllustrationPointConverter.CreateSubMechanismIllustrationPoint(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("submechanismIllustrationPoint", paramName);
+            Assert.AreEqual("subMechanismIllustrationPoint", paramName);
         }
 
         [Test]
@@ -60,7 +61,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 new HydraSubmechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
-            var subMechanismIllustrationPoint = new HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint("name", new[]
+            var hydraSubMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
             {
                 hydraSubmechanismIllustrationPointStochast
             }, new[]
@@ -69,18 +70,18 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             }, beta);
 
             // Call
-            SubmechanismIllustrationPoint submechanismIllustrationPoint =
-                SubmechanismIllustrationPointConverter.CreateSubmechanismIllustrationPoint(subMechanismIllustrationPoint);
+            SubMechanismIllustrationPoint subMechanismIllustrationPoint =
+                SubMechanismIllustrationPointConverter.CreateSubMechanismIllustrationPoint(hydraSubMechanismIllustrationPoint);
 
             // Assert
-            Assert.AreEqual(subMechanismIllustrationPoint.Beta, submechanismIllustrationPoint.Beta, submechanismIllustrationPoint.Beta.GetAccuracy());
-            Assert.AreEqual(subMechanismIllustrationPoint.Name, submechanismIllustrationPoint.Name);
+            Assert.AreEqual(subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(subMechanismIllustrationPoint.Name, subMechanismIllustrationPoint.Name);
 
-            IllustrationPointResult illustrationPointResult = submechanismIllustrationPoint.IllustrationPointResults.Single();
+            IllustrationPointResult illustrationPointResult = subMechanismIllustrationPoint.IllustrationPointResults.Single();
             Assert.AreEqual(hydraIllustrationPointResult.Description, illustrationPointResult.Description);
             Assert.AreEqual(hydraIllustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
 
-            SubmechanismIllustrationPointStochast stochast = submechanismIllustrationPoint.Stochasts.Single();
+            SubMechanismIllustrationPointStochast stochast = subMechanismIllustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Name, stochast.Name);

@@ -33,17 +33,17 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class SubmechanismIllustrationPointEntity
+    public class SubMechanismIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubmechanismIllustrationPointEntity()
+        public SubMechanismIllustrationPointEntity()
         {
             IllustrationPointResultEntities = new HashSet<IllustrationPointResultEntity>();
-            SubmechanismIllustrationPointStochastEntities = new HashSet<SubmechanismIllustrationPointStochastEntity>();
-            TopLevelSubmechanismIllustrationPointEntities = new HashSet<TopLevelSubmechanismIllustrationPointEntity>();
+            SubMechanismIllustrationPointStochastEntities = new HashSet<SubMechanismIllustrationPointStochastEntity>();
+            TopLevelSubMechanismIllustrationPointEntities = new HashSet<TopLevelSubMechanismIllustrationPointEntity>();
         }
 
-        public long SubmechanismIllustrationPointEntityId { get; set; }
+        public long SubMechanismIllustrationPointEntityId { get; set; }
         public string Name { get; set; }
         public double Beta { get; set; }
         public int Order { get; set; }
@@ -52,9 +52,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<IllustrationPointResultEntity> IllustrationPointResultEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubmechanismIllustrationPointStochastEntity> SubmechanismIllustrationPointStochastEntities { get; set; }
+        public virtual ICollection<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TopLevelSubmechanismIllustrationPointEntity> TopLevelSubmechanismIllustrationPointEntities { get; set; }
+        public virtual ICollection<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
     }
 }

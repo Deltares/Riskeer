@@ -30,13 +30,13 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointReadExtensionsTest
+    public class SubMechanismIllustrationPointReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubmechanismIllustrationPointEntity) null).Read();
+            TestDelegate call = () => ((SubMechanismIllustrationPointEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -44,21 +44,21 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntityWithoutStochastsAndIllustrationPointResults_ReturnsSubmechanismIllustrationPoint()
+        public void Read_ValidEntityWithoutStochastsAndIllustrationPointResults_ReturnsSubMechanismIllustrationPoint()
         {
             // Setup
             var random = new Random(21);
 
             const string illustrationPointName = "Name";
             double beta = random.NextDouble();
-            var entity = new SubmechanismIllustrationPointEntity
+            var entity = new SubMechanismIllustrationPointEntity
             {
                 Name = illustrationPointName,
                 Beta = beta
             };
 
             // Call
-            SubmechanismIllustrationPoint illustrationPoint = entity.Read();
+            SubMechanismIllustrationPoint illustrationPoint = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.Name, illustrationPoint.Name);
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntityWithIllustrationPointResults_ReturnsSubmechanismIllustrationPoint()
+        public void Read_ValidEntityWithIllustrationPointResults_ReturnsSubMechanismIllustrationPoint()
         {
             // Setup
             var random = new Random(21);
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             const string illustrationPointName = "Name";
             double beta = random.NextDouble();
-            var entity = new SubmechanismIllustrationPointEntity
+            var entity = new SubMechanismIllustrationPointEntity
             {
                 Name = illustrationPointName,
                 Beta = beta,
@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             };
 
             // Call
-            SubmechanismIllustrationPoint illustrationPoint = entity.Read();
+            SubMechanismIllustrationPoint illustrationPoint = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.Name, illustrationPoint.Name);
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntityWithStochasts_ReturnsSubmechanismIllustrationPoint()
+        public void Read_ValidEntityWithStochasts_ReturnsSubMechanismIllustrationPoint()
         {
             // Setup
             var random = new Random(21);
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             double alpha = random.NextDouble();
             double realization = random.NextDouble();
             double duration = random.NextDouble();
-            var stochastEntityOne = new SubmechanismIllustrationPointStochastEntity
+            var stochastEntityOne = new SubMechanismIllustrationPointStochastEntity
             {
                 Name = stochastName,
                 Alpha = alpha,
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
                 Realization = realization,
                 Order = 0
             };
-            var stochastEntityTwo = new SubmechanismIllustrationPointStochastEntity
+            var stochastEntityTwo = new SubMechanismIllustrationPointStochastEntity
             {
                 Name = $"{stochastName}_Two",
                 Alpha = alpha + 1,
@@ -149,11 +149,11 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             const string illustrationPointName = "Name";
             double beta = random.NextDouble();
-            var entity = new SubmechanismIllustrationPointEntity
+            var entity = new SubMechanismIllustrationPointEntity
             {
                 Name = illustrationPointName,
                 Beta = beta,
-                SubmechanismIllustrationPointStochastEntities = new[]
+                SubMechanismIllustrationPointStochastEntities = new[]
                 {
                     stochastEntityTwo,
                     stochastEntityOne
@@ -161,20 +161,20 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             };
 
             // Call
-            SubmechanismIllustrationPoint illustrationPoint = entity.Read();
+            SubMechanismIllustrationPoint illustrationPoint = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.Name, illustrationPoint.Name);
             Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
             CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
 
-            SubmechanismIllustrationPointStochast[] stochasts = illustrationPoint.Stochasts.ToArray();
+            SubMechanismIllustrationPointStochast[] stochasts = illustrationPoint.Stochasts.ToArray();
             Assert.AreEqual(2, stochasts.Length);
 
-            SubmechanismIllustrationPointStochast readStochastOne = stochasts[0];
+            SubMechanismIllustrationPointStochast readStochastOne = stochasts[0];
             AssertReadStochast(stochastEntityOne, readStochastOne);
 
-            SubmechanismIllustrationPointStochast readStochastTwo = stochasts[1];
+            SubMechanismIllustrationPointStochast readStochastTwo = stochasts[1];
             AssertReadStochast(stochastEntityTwo, readStochastTwo);
         }
 
@@ -186,8 +186,8 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
                             readIllustrationPointResult.Value.GetAccuracy());
         }
 
-        private static void AssertReadStochast(SubmechanismIllustrationPointStochastEntity stochastEntity,
-                                               SubmechanismIllustrationPointStochast readStochast)
+        private static void AssertReadStochast(SubMechanismIllustrationPointStochastEntity stochastEntity,
+                                               SubMechanismIllustrationPointStochast readStochast)
         {
             Assert.AreEqual(stochastEntity.Name, readStochast.Name);
             Assert.AreEqual(stochastEntity.Alpha, readStochast.Alpha, readStochast.Alpha.GetAccuracy());
