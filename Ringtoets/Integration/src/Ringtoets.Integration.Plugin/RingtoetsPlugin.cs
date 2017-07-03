@@ -468,6 +468,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new ExportInfo<ReferenceLineContext>
             {
+                Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
@@ -476,6 +477,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
+                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
                     context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
                     RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
