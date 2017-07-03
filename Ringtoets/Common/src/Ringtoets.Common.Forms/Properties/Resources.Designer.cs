@@ -337,7 +337,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie (*.xml).
+        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
         /// </summary>
         public static string CalculationConfigurationExporter_DisplayName {
             get {
@@ -1620,7 +1620,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden en golfhoogtes uit marginale statistiek (*.shp)..
+        ///   Looks up a localized string similar to Waterstanden en golfhoogtes uit marginale statistiek.
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {
@@ -2882,7 +2882,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende belastingen bij verschillende waterstanden (*.csv)..
+        ///   Looks up a localized string similar to Berekende belastingen bij verschillende waterstanden.
         /// </summary>
         public static string WaveConditionsExporter_DisplayName {
             get {

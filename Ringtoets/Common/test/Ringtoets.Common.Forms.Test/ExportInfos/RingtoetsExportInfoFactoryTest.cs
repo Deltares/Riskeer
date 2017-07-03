@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.ExportInfos
 
             // Assert
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", exportInfo.Name);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie", exportInfo.Name);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Forms.Test.ExportInfos
             // Assert
             Assert.AreSame(isEnabled, exportInfo.IsEnabled);
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", exportInfo.Name);
+            Assert.AreEqual("Ringtoets berekeningenconfiguratie", exportInfo.Name);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;

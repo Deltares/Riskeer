@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
+                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie"));
             }
         }
 

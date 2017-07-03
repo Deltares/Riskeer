@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)
-                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
             }
         }
 

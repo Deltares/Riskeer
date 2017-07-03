@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)
-                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
+                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie"));
             }
         }
 

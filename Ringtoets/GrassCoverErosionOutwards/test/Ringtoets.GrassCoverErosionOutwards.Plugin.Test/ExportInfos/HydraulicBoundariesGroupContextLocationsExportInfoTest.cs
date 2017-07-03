@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(HydraulicBoundariesGroupContext)
-                                                 && ei.Name.Equals("Waterstanden en golfhoogtes uit marginale statistiek (*.shp)."));
+                                                 && ei.Name.Equals("Waterstanden en golfhoogtes uit marginale statistiek"));
             }
         }
 

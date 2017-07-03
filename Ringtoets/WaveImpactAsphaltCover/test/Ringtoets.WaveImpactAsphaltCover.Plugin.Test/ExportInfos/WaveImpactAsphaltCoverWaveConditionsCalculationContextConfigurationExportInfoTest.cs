@@ -46,7 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie (*.xml)"));
+                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie"));
             }
         }
 

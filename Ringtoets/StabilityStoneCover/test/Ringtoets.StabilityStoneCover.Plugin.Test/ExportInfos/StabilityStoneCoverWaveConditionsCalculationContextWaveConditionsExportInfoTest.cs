@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
             }
         }
 

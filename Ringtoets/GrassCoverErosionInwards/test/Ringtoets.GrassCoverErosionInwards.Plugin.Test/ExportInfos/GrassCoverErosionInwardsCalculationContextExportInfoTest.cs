@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)", info.Name);
+                Assert.AreEqual("Ringtoets berekeningenconfiguratie", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);

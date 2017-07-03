@@ -48,7 +48,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)
-                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
+                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
             }
         }
 
