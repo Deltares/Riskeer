@@ -29,8 +29,7 @@ using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.Illustrat
 using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraRingTestWindDirection = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
-using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
-using HydraSubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -42,8 +41,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var hydraSubMechanismIllustrationPoint =
-                new HydraSubmechanismIllustrationPoint("name",
-                                                       Enumerable.Empty<HydraSubmechanismIllustrationPointStochast>(),
+                new HydraSubMechanismIllustrationPoint("name",
+                                                       Enumerable.Empty<HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast>(),
                                                        Enumerable.Empty<HydraIllustrationPointResult>(),
                                                        double.NaN);
 
@@ -71,7 +70,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("hydraSubmechanismIllustrationPoint", paramName);
+            Assert.AreEqual("hydraSubMechanismIllustrationPoint", paramName);
         }
 
         [Test]
@@ -89,17 +88,17 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraIllustrationPointResult = new HydraIllustrationPointResult("HydraIllustrationPointResult",
                                                                                 random.NextDouble());
 
-            const string name = "HydraSubmechanismIllustrationPointStochast";
+            const string name = "HydraSubMechanismIllustrationPointStochast";
             double alpha = random.NextDouble();
             double duration = random.NextDouble();
             double realization = random.NextDouble();
-            var hydraSubmechanismIllustrationPointStochast =
-                new HydraSubmechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var hydraSubMechanismIllustrationPointStochast =
+                new HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             double beta = random.NextDouble();
-            var hydraSubmechanismIllustrationPoint = new HydraSubmechanismIllustrationPoint("name", new[]
+            var hydraSubMechanismIllustrationPoint = new HydraSubMechanismIllustrationPoint("name", new[]
             {
-                hydraSubmechanismIllustrationPointStochast
+                hydraSubMechanismIllustrationPointStochast
             }, new[]
             {
                 hydraIllustrationPointResult
@@ -108,7 +107,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             // Call
             TopLevelSubMechanismIllustrationPoint combination =
                 TopLevelSubMechanismIllustrationPointConverter.CreateTopLevelSubMechanismIllustrationPoint(
-                    windDirectionClosingSituation, hydraSubmechanismIllustrationPoint);
+                    windDirectionClosingSituation, hydraSubMechanismIllustrationPoint);
 
             // Assert
             WindDirection windDirection = combination.WindDirection;
@@ -118,18 +117,18 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(closingScenario, combination.ClosingSituation);
 
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = combination.SubMechanismIllustrationPoint;
-            Assert.AreEqual(hydraSubmechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
-            Assert.AreEqual(hydraSubmechanismIllustrationPoint.Name, subMechanismIllustrationPoint.Name);
+            Assert.AreEqual(hydraSubMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(hydraSubMechanismIllustrationPoint.Name, subMechanismIllustrationPoint.Name);
 
             IllustrationPointResult illustrationPointResult = subMechanismIllustrationPoint.IllustrationPointResults.Single();
             Assert.AreEqual(hydraIllustrationPointResult.Description, illustrationPointResult.Description);
             Assert.AreEqual(hydraIllustrationPointResult.Value, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
 
             SubMechanismIllustrationPointStochast stochast = subMechanismIllustrationPoint.Stochasts.Single();
-            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
-            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Name, stochast.Name);
-            Assert.AreEqual(hydraSubmechanismIllustrationPointStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
+            Assert.AreEqual(hydraSubMechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(hydraSubMechanismIllustrationPointStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(hydraSubMechanismIllustrationPointStochast.Name, stochast.Name);
+            Assert.AreEqual(hydraSubMechanismIllustrationPointStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }
     }
 }

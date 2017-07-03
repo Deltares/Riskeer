@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="SubmechanismIllustrationPoint"/> in the <see cref="IllustrationPointsTableControl"/>.
+    /// This class represents a row of <see cref="SubMechanismIllustrationPoint"/> in the <see cref="IllustrationPointsTableControl"/>.
     /// </summary>
     internal class IllustrationPointRow
     {

@@ -26,13 +26,13 @@ using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointStochastTest
+    public class SubMechanismIllustrationPointStochastTest
     {
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPointStochast(null, double.NaN, double.NaN, double.NaN);
+            TestDelegate call = () => new SubMechanismIllustrationPointStochast(null, double.NaN, double.NaN, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             double realization = random.NextDouble();
 
             // Call
-            var stochast = new SubmechanismIllustrationPointStochast(name, duration, alpha, realization);
+            var stochast = new SubMechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             // Assert
             Assert.IsInstanceOf<Stochast>(stochast);

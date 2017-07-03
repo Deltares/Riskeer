@@ -119,7 +119,7 @@
     <Compile Include="Data\Output\IllustrationPoints\IllustrationPointResultTest.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParserTest.cs" />
     <Compile Include="Data\Output\IllustrationPoints\IllustrationPointTreeNodeTest.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\SubmechanismIllustrationPointStochastTest.cs" />
+    <Compile Include="Data\Output\IllustrationPoints\SubMechanismIllustrationPointStochastTest.cs" />
     <Compile Include="Data\Output\IllustrationPoints\StochastTest.cs" />
     <Compile Include="Data\Output\IllustrationPoints\SubMechanismIllustrationPointTest.cs" />
     <Compile Include="Data\Output\IllustrationPoints\WindDirectionClosingSituationTest.cs" />

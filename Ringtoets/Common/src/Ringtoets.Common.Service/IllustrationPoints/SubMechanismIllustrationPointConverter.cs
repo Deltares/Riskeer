@@ -22,27 +22,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using HydraSubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using IllustrationPointResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.IllustrationPointResult;
+using SubMechanismIllustrationPoint = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubMechanismIllustrationPoint;
+using SubMechanismIllustrationPointStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// The converter that converts <see cref="IIllustrationPoint"/> data into <see cref="HydraSubmechanismIllustrationPoint"/> data.
+    /// The converter that converts <see cref="IIllustrationPoint"/> data into <see cref="HydraSubMechanismIllustrationPoint"/> data.
     /// </summary>
     public static class SubMechanismIllustrationPointConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/> based on the information of <paramref name="subMechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/> based on the information of 
+        /// <paramref name="subMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="subMechanismIllustrationPoint">The <see cref="SubMechanismIllustrationPoint"/> to base the 
+        /// <param name="subMechanismIllustrationPoint">The <see cref="HydraSubMechanismIllustrationPoint"/> to base the 
         /// <see cref="SubMechanismIllustrationPoint"/> to create on.</param>
         /// <returns>The newly created <see cref="SubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPoint"/> 
         /// is <c>null</c>.</exception>
-        public static SubMechanismIllustrationPoint CreateSubMechanismIllustrationPoint(HydraSubmechanismIllustrationPoint subMechanismIllustrationPoint)
+        public static SubMechanismIllustrationPoint CreateSubMechanismIllustrationPoint(
+            HydraSubMechanismIllustrationPoint subMechanismIllustrationPoint)
         {
             if (subMechanismIllustrationPoint == null)
             {

@@ -27,7 +27,7 @@ using HydraWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.
 using HydraIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 using IHydraRingIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
-using SubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 IHydraRingIllustrationPoint hydraIllustrationPoint = illustrationPointTreeNode.Value.Data;
                 HydraWindDirectionClosingSituation hydraWindDirectionClosingSituation = illustrationPointTreeNode.Key;
 
-                var subMechanismIllustrationPoint = hydraIllustrationPoint as SubmechanismIllustrationPoint;
+                var subMechanismIllustrationPoint = hydraIllustrationPoint as HydraSubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
                     combinations.Add(TopLevelSubMechanismIllustrationPointConverter.CreateTopLevelSubMechanismIllustrationPoint(

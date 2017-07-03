@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> faultTreeBetaValues = new Dictionary<ThreeKeyIndex, double>();
 
-        private readonly Dictionary<ThreeKeyIndex, IList<SubmechanismIllustrationPointStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<SubmechanismIllustrationPointStochast>>();
+        private readonly Dictionary<ThreeKeyIndex, IList<SubMechanismIllustrationPointStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<SubMechanismIllustrationPointStochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> subMechanismBetaValues = new Dictionary<ThreeKeyIndex, double>();
         private readonly Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>>();
 
@@ -152,13 +152,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
                 double subMechanismIllustrationPointBeta = subMechanismBetaValues[key];
 
-                var illustrationPointStochasts = new List<SubmechanismIllustrationPointStochast>();
+                var illustrationPointStochasts = new List<SubMechanismIllustrationPointStochast>();
                 AddRange(illustrationPointStochasts, subMechanismStochasts[key]);
 
                 var illustrationPointResults = new List<IllustrationPointResult>();
                 AddRange(illustrationPointResults, subMechanismResults[key]);
 
-                var illustrationPoint = new SubmechanismIllustrationPoint(submechanismIllustrationPointName,
+                var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
                                                                           illustrationPointStochasts,
                                                                           illustrationPointResults,
                                                                           subMechanismIllustrationPointBeta);
@@ -226,7 +226,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         }
 
         /// <summary>
-        /// Parses <see cref="SubmechanismIllustrationPointStochast"/> objects from the <paramref name="reader"/>.
+        /// Parses <see cref="SubMechanismIllustrationPointStochast"/> objects from the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The database reader.</param>
         /// <exception cref="HydraRingFileParserException">Throw when the read <see cref="IllustrationPointsDatabaseConstants.Duration"/>, 
@@ -250,10 +250,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 var key = new ThreeKeyIndex(windDirectionId, closingSituationid, subMechanismId);
                 if (!subMechanismStochasts.ContainsKey(key))
                 {
-                    subMechanismStochasts[key] = new List<SubmechanismIllustrationPointStochast>();
+                    subMechanismStochasts[key] = new List<SubMechanismIllustrationPointStochast>();
                 }
 
-                subMechanismStochasts[key].Add(new SubmechanismIllustrationPointStochast(name, duration, alpha, realization));
+                subMechanismStochasts[key].Add(new SubMechanismIllustrationPointStochast(name, duration, alpha, realization));
             }
         }
 
@@ -349,7 +349,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 results.Add(Tuple.Create(
                                 parentId,
                                 id,
-                                type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubmechanismIllustrationPoint),
+                                type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubMechanismIllustrationPoint),
                                 combine == "and" ? CombinationType.And : CombinationType.Or));
             }
             return results;
@@ -394,7 +394,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismId);
 
-            var illustrationPointStochasts = new List<SubmechanismIllustrationPointStochast>();
+            var illustrationPointStochasts = new List<SubMechanismIllustrationPointStochast>();
             var illustrationPointResults = new List<IllustrationPointResult>();
 
             if (subMechanismStochasts.ContainsKey(dataKey))
@@ -408,7 +408,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
             string submechanismIllustrationPointName = subMechanisms[subMechanismId];
             double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
-            var illustrationPoint = new SubmechanismIllustrationPoint(submechanismIllustrationPointName,
+            var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
                                                                       illustrationPointStochasts,
                                                                       illustrationPointResults,
                                                                       subMechanismIllustrationPointBeta);

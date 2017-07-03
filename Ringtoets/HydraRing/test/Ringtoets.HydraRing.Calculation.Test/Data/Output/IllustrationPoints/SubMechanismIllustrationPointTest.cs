@@ -28,14 +28,14 @@ using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {
     [TestFixture]
-    public class SubmechanismIllustrationPointTest
+    public class SubMechanismIllustrationPointTest
     {
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPoint(null,
-                                                                        Enumerable.Empty<SubmechanismIllustrationPointStochast>(),
+            TestDelegate call = () => new SubMechanismIllustrationPoint(null,
+                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                         Enumerable.Empty<IllustrationPointResult>(),
                                                                         123);
 
@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPoint("Name", null, Enumerable.Empty<IllustrationPointResult>(), 123);
+            TestDelegate call = () => new SubMechanismIllustrationPoint("Name", null, Enumerable.Empty<IllustrationPointResult>(), 123);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_IllustrationPointResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubmechanismIllustrationPoint("Name", Enumerable.Empty<SubmechanismIllustrationPointStochast>(), null, 123);
+            TestDelegate call = () => new SubMechanismIllustrationPoint("Name", Enumerable.Empty<SubMechanismIllustrationPointStochast>(), null, 123);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,11 +75,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var random = new Random(21);
             double beta = random.NextDouble();
 
-            IEnumerable<SubmechanismIllustrationPointStochast> stochasts = Enumerable.Empty<SubmechanismIllustrationPointStochast>();
+            IEnumerable<SubMechanismIllustrationPointStochast> stochasts = Enumerable.Empty<SubMechanismIllustrationPointStochast>();
             IEnumerable<IllustrationPointResult> illustrationPointResults = Enumerable.Empty<IllustrationPointResult>();
 
             // Call
-            var illustrationPoint = new SubmechanismIllustrationPoint(name, stochasts, illustrationPointResults, beta);
+            var illustrationPoint = new SubMechanismIllustrationPoint(name, stochasts, illustrationPointResults, beta);
 
             // Assert
             Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);

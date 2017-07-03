@@ -27,13 +27,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
     /// <summary>
     /// Illustration point which contains the result of applying the sub mechanism.
     /// </summary>
-    public class SubmechanismIllustrationPoint : IIllustrationPoint
+    public class SubMechanismIllustrationPoint : IIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubmechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point.</param>
-        /// <param name="stochasts">A collection of <see cref="SubmechanismIllustrationPointStochast"/>
+        /// <param name="stochasts">A collection of <see cref="SubMechanismIllustrationPointStochast"/>
         /// that are associated with this illustration point.</param>
         /// <param name="illustrationPointResults">A collection of 
         /// <see cref="IllustrationPointResult"/> that are associated with this 
@@ -41,8 +41,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <param name="beta">The beta value of the illustration point</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="stochasts"/>
         /// , or <paramref name="illustrationPointResults"/> is <c>null</c>.</exception>
-        public SubmechanismIllustrationPoint(string name,
-                                             IEnumerable<SubmechanismIllustrationPointStochast> stochasts,
+        public SubMechanismIllustrationPoint(string name,
+                                             IEnumerable<SubMechanismIllustrationPointStochast> stochasts,
                                              IEnumerable<IllustrationPointResult> illustrationPointResults,
                                              double beta)
         {
@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the realized stochasts that belong to this submechanism illustration point.
         /// </summary>
-        public IEnumerable<SubmechanismIllustrationPointStochast> Stochasts { get; }
+        public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the beta values that were realized.

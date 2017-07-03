@@ -35,8 +35,8 @@ using HydraIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Outp
 using HydraCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 using HydraFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
-using HydraSubmechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPointStochast;
-using HydrasubmechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubmechanismIllustrationPoint;
+using HydraSubMechanismIllustrationPointStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
+using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -93,8 +93,8 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             double beta = random.NextDouble();
             var hydraIllustrationPoint =
-                new HydrasubmechanismIllustrationPoint("Illustration Point",
-                                                       Enumerable.Empty<HydraSubmechanismIllustrationPointStochast>(),
+                new HydraSubMechanismIllustrationPoint("Illustration Point",
+                                                       Enumerable.Empty<HydraSubMechanismIllustrationPointStochast>(),
                                                        Enumerable.Empty<HydraIllustrationPointResult>(),
                                                        beta);
             var hydraIllustrationTreeNode = new HydraIllustrationPointTreeNode(hydraIllustrationPoint);

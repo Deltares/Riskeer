@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_SubmechanismIllustationPointNull_ThrowsArgumentNullException()
+        public void Constructor_SubMechanismIllustationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             var windDirection = new TestWindDirection();

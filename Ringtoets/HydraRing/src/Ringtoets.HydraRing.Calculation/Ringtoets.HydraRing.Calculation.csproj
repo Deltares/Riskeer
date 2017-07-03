@@ -120,9 +120,9 @@
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsDatabaseConstants.cs" />
     <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParser.cs" />
     <Compile Include="Data\Output\IllustrationPoints\IllustrationPointTreeNode.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\SubmechanismIllustrationPointStochast.cs" />
+    <Compile Include="Data\Output\IllustrationPoints\SubMechanismIllustrationPointStochast.cs" />
     <Compile Include="Data\Output\IllustrationPoints\Stochast.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\SubmechanismIllustrationPoint.cs" />
+    <Compile Include="Data\Output\IllustrationPoints\SubMechanismIllustrationPoint.cs" />
     <Compile Include="Data\Output\IllustrationPoints\WindDirection.cs" />
     <Compile Include="Data\Output\IllustrationPoints\WindDirectionClosingSituation.cs" />
     <Compile Include="Readers\HydraRingDatabaseReader.cs" />
