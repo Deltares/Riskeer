@@ -29,15 +29,15 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
 {
     [TestFixture]
-    public class GeneralResultTest
+    public class GeneralResultSubMechanismIllustrationPointTest
     {
         [Test]
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GeneralResult(null,
-                                                        Enumerable.Empty<Stochast>(),
-                                                        Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
+            TestDelegate call = () => new GeneralResultSubMechanismIllustrationPoint(null,
+                                                                                     Enumerable.Empty<Stochast>(),
+                                                                                     Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -51,9 +51,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var windDirection = new TestWindDirection();
 
             // Call
-            TestDelegate call = () => new GeneralResult(windDirection,
-                                                        null,
-                                                        Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
+            TestDelegate call = () => new GeneralResultSubMechanismIllustrationPoint(windDirection,
+                                                                                     null,
+                                                                                     Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -67,9 +67,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
             var windDirection = new TestWindDirection();
 
             // Call
-            TestDelegate call = () => new GeneralResult(windDirection,
-                                                        Enumerable.Empty<Stochast>(),
-                                                        null);
+            TestDelegate call = () => new GeneralResultSubMechanismIllustrationPoint(windDirection,
+                                                                                     Enumerable.Empty<Stochast>(),
+                                                                                     null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
                 Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>();
 
             // Call
-            var generalResult = new GeneralResult(windDirection, stochasts, combinations);
+            var generalResult = new GeneralResultSubMechanismIllustrationPoint(windDirection, stochasts, combinations);
 
             // Assert
             Assert.AreSame(windDirection, generalResult.GoverningWindDirection);

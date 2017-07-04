@@ -25,12 +25,12 @@ using System.Collections.Generic;
 namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
 {
     /// <summary>
-    /// The general illustration points result.
+    /// The general submechanism illustration points result.
     /// </summary>
-    public class GeneralResult
+    public class GeneralResultSubMechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/>.
+        /// Creates a new instance of <see cref="GeneralResultSubMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
@@ -38,9 +38,9 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// points for every combination of a wind direction and a closing situation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindDirection"/>,
         /// <paramref name="stochasts"/> or <paramref name="topLevelSubMechanismIllustrationPoints"/> is <c>null</c>.</exception>
-        public GeneralResult(WindDirection governingWindDirection,
-                             IEnumerable<Stochast> stochasts,
-                             IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelSubMechanismIllustrationPoints)
+        public GeneralResultSubMechanismIllustrationPoint(WindDirection governingWindDirection,
+                                                          IEnumerable<Stochast> stochasts,
+                                                          IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelSubMechanismIllustrationPoints)
         {
             if (governingWindDirection == null)
             {

@@ -389,7 +389,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsNull(illustrationPointsControl.Data);
 
             var output = new TestHydraulicBoundaryLocationOutput(1);
-            var result = new TestGeneralResult();
+            var result = new TestGeneralResultSubMechanismIllustrationPoint();
             output.SetIllustrationPoints(result);
 
             // Call
@@ -454,7 +454,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     }
                 });
                 var output = new TestHydraulicBoundaryLocationOutput(1.01);
-                output.SetIllustrationPoints(new TestGeneralResult());
+                output.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
                 Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
                     WaveHeightCalculation =

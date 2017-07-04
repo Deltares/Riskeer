@@ -46,21 +46,21 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateColumns_GeneralResultNull_ThrowArgumentNullException()
+        public void CreateColumns_GeneralResultSubMechanismIllustrationPointNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalResult", exception.ParamName);
+            Assert.AreEqual("generalResultSubMechanismIllustrationPoint", exception.ParamName);
         }
 
         [Test]
         public void CreateColumns_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(new TestGeneralResult(), null);
+            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(new TestGeneralResultSubMechanismIllustrationPoint(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Setup
             var stackChartData = new StackChartData();
             var windDirection = new TestWindDirection();
-            var generalResult = new GeneralResult(
+            var generalResult = new GeneralResultSubMechanismIllustrationPoint(
                 windDirection,
                 Enumerable.Empty<Stochast>(),
                 new[]
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             var windDirection = new TestWindDirection();
 
             var stackChartData = new StackChartData();
-            var generalResult = new GeneralResult(
+            var generalResult = new GeneralResultSubMechanismIllustrationPoint(
                 windDirection,
                 Enumerable.Empty<Stochast>(),
                 new[]
@@ -138,21 +138,21 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRows_GeneralResultNull_ThrowArgumentNullException()
+        public void CreateRows_GeneralResultSubMechanismIllustrationPointNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalResult", exception.ParamName);
+            Assert.AreEqual("generalResultSubMechanismIllustrationPoint", exception.ParamName);
         }
 
         [Test]
         public void CreateRows_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(new TestGeneralResult(), null);
+            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(new TestGeneralResultSubMechanismIllustrationPoint(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         public void CreateRows_WithAllData_RowsAddedToStackChartData()
         {
             var stackChartData = new StackChartData();
-            var generalResult = new GeneralResult(
+            var generalResult = new GeneralResultSubMechanismIllustrationPoint(
                new TestWindDirection(),
                Enumerable.Empty<Stochast>(),
                new[]

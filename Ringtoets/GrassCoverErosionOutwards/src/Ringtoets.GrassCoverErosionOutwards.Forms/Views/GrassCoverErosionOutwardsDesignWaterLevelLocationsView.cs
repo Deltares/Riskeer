@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return base.ValidateCalculatableObjects();
         }
 
-        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             if (currentRow == null)
@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             return location.DesignWaterLevelCalculation.HasOutput
                    && location.DesignWaterLevelCalculation.Output.HasIllustrationPoints
-                       ? location.DesignWaterLevelCalculation.Output.GeneralResult
+                       ? location.DesignWaterLevelCalculation.Output.GeneralResultSubMechanismIllustrationPoint
                        : null;
         }
 

@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            bool hasGeneralIllustrationPointsResult = GetGeneralIllustrationPointsResult() != null;
+            bool hasGeneralIllustrationPointsResult = GetGeneralResultSubMechanismIllustrationPoints() != null;
             if (propertyName == nameof(GoverningWindDirection)
                 || propertyName == nameof(AlphaValues)
                 || propertyName == nameof(Durations)
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralIllustrationPointsResult().GoverningWindDirection.Name;
+                return GetGeneralResultSubMechanismIllustrationPoints().GoverningWindDirection.Name;
             }
         }
 
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralIllustrationPointsResult().Stochasts.ToArray();
+                return GetGeneralResultSubMechanismIllustrationPoints().Stochasts.ToArray();
             }
         }
 
@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralIllustrationPointsResult().Stochasts.ToArray();
+                return GetGeneralResultSubMechanismIllustrationPoints().Stochasts.ToArray();
             }
         }
 
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralIllustrationPointsResult()
+                return GetGeneralResultSubMechanismIllustrationPoints()
                     .TopLevelSubMechanismIllustrationPoints
                     .Select(p => new TopLevelSubMechanismIllustrationPointProperties
                     {
@@ -207,11 +207,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the general illustration points result.
+        /// Gets the general result with the submec illustration points result.
         /// </summary>
         /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>
-        protected abstract GeneralResult GetGeneralIllustrationPointsResult();
+        protected abstract GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints();
 
         public override string ToString()
         {

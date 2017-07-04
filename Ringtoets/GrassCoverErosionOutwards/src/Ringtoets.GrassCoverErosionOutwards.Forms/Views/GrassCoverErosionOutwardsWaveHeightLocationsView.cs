@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return base.ValidateCalculatableObjects();
         }
 
-        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             if (currentRow == null)
@@ -173,7 +173,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             return location.WaveHeightCalculation.HasOutput
                    && location.WaveHeightCalculation.Output.HasIllustrationPoints
-                       ? location.WaveHeightCalculation.Output.GeneralResult
+                       ? location.WaveHeightCalculation.Output.GeneralResultSubMechanismIllustrationPoint
                        : null;
         }
 

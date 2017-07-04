@@ -97,9 +97,9 @@ namespace Ringtoets.Common.Data.Hydraulics
         public CalculationConvergence CalculationConvergence { get; }
 
         /// <summary>
-        /// Gets the general illustration points result.
+        /// Gets the general results with the submechanism illustration points.
         /// </summary>
-        public GeneralResult GeneralResult { get; private set; }
+        public GeneralResultSubMechanismIllustrationPoint GeneralResultSubMechanismIllustrationPoint { get; private set; }
 
         /// <summary>
         /// Gets the value indicating whether the output contains illustration points.
@@ -108,23 +108,23 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return GeneralResult != null;
+                return GeneralResultSubMechanismIllustrationPoint != null;
             }
         }
 
         /// <summary>
-        /// Sets the general result of the illustration points.
+        /// Sets the general result with the submechanism illustration points.
         /// </summary>
-        /// <param name="generalResult">The general result to set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/> 
+        /// <param name="generalResultSubMechanismIllustrationPoint"></param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultSubMechanismIllustrationPoint"/> 
         /// is <c>null</c>.</exception>
-        public void SetIllustrationPoints(GeneralResult generalResult)
+        public void SetIllustrationPoints(GeneralResultSubMechanismIllustrationPoint generalResultSubMechanismIllustrationPoint)
         {
-            if (generalResult == null)
+            if (generalResultSubMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(generalResult));
+                throw new ArgumentNullException(nameof(generalResultSubMechanismIllustrationPoint));
             }
-            GeneralResult = generalResult;
+            GeneralResultSubMechanismIllustrationPoint = generalResultSubMechanismIllustrationPoint;
         }
     }
 }

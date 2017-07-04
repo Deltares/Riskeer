@@ -48,21 +48,21 @@ namespace Ringtoets.Common.Forms.Factories
         /// <summary>
         /// Creates the columns for the given <paramref name="stackChartData"/>.
         /// </summary>
-        /// <param name="generalResult">The data to create the columns from.</param>
+        /// <param name="generalResultSubMechanismIllustrationPoint">The data to create the columns from.</param>
         /// <param name="stackChartData">The stack chart data to create the columns for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void CreateColumns(GeneralResult generalResult, StackChartData stackChartData)
+        public static void CreateColumns(GeneralResultSubMechanismIllustrationPoint generalResultSubMechanismIllustrationPoint, StackChartData stackChartData)
         {
-            if (generalResult == null)
+            if (generalResultSubMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(generalResult));
+                throw new ArgumentNullException(nameof(generalResultSubMechanismIllustrationPoint));
             }
             if (stackChartData == null)
             {
                 throw new ArgumentNullException(nameof(stackChartData));
             }
 
-            Tuple<string, string>[] labels = generalResult.TopLevelSubMechanismIllustrationPoints
+            Tuple<string, string>[] labels = generalResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints
                                                           .Select(illustrationPoint =>
                                                                       new Tuple<string, string>(illustrationPoint.WindDirection.Name,
                                                                                                 illustrationPoint.ClosingSituation))
@@ -88,14 +88,14 @@ namespace Ringtoets.Common.Forms.Factories
         /// <summary>
         /// Creates the rows for the given <paramref name="stackChartData"/>.
         /// </summary>
-        /// <param name="generalResult">The data to create the rows from.</param>
+        /// <param name="generalResultSubMechanismIllustrationPoint">The data to create the rows from.</param>
         /// <param name="stackChartData">The stack chart data to create the rows for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void CreateRows(GeneralResult generalResult, StackChartData stackChartData)
+        public static void CreateRows(GeneralResultSubMechanismIllustrationPoint generalResultSubMechanismIllustrationPoint, StackChartData stackChartData)
         {
-            if (generalResult == null)
+            if (generalResultSubMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(generalResult));
+                throw new ArgumentNullException(nameof(generalResultSubMechanismIllustrationPoint));
             }
             if (stackChartData == null)
             {
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Forms.Factories
 
             var stochastValues = new List<Tuple<string, double>>();
 
-            foreach (TopLevelSubMechanismIllustrationPoint illustrationPoint in generalResult.TopLevelSubMechanismIllustrationPoints)
+            foreach (TopLevelSubMechanismIllustrationPoint illustrationPoint in generalResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints)
             {
                 stochastValues.AddRange(illustrationPoint.SubMechanismIllustrationPoint.Stochasts
                                                          .Select(illustrationPointStochast =>

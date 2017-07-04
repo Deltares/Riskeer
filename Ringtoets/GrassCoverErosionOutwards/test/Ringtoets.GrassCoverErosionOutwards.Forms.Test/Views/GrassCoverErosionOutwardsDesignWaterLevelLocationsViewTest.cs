@@ -500,7 +500,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.IsNull(illustrationPointsControl.Data);
 
             var output = new TestHydraulicBoundaryLocationOutput(1);
-            var result = new TestGeneralResult();
+            var result = new TestGeneralResultSubMechanismIllustrationPoint();
             output.SetIllustrationPoints(result);
 
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
@@ -528,7 +528,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
 
             var output = new TestHydraulicBoundaryLocationOutput(1.01);
-            output.SetIllustrationPoints(new TestGeneralResult());
+            output.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
             view.Data = new ObservableList<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),

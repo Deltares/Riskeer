@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsChartControl : UserControl
     {
-        private GeneralResult data;
+        private GeneralResultSubMechanismIllustrationPoint data;
 
         private readonly StackChartData chartData;
 
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResult Data
+        public GeneralResultSubMechanismIllustrationPoint Data
         {
             get
             {

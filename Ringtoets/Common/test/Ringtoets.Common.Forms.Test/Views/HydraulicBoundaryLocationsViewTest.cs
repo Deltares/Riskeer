@@ -275,7 +275,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 throw new NotImplementedException();
             }
 
-            protected override GeneralResult GetGeneralIllustrationPointsResult()
+            protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
             {
                 return null;
             }

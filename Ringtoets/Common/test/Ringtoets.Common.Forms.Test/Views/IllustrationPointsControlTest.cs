@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_ValueSet_DataSetToIllustrationPointsChartControl()
         {
             // Setup
-            var data = new TestGeneralResult();
+            var data = new TestGeneralResultSubMechanismIllustrationPoint();
             var control = new IllustrationPointsControl();
             
             var chartControl = (IllustrationPointsChartControl) control.Controls.Find("IllustrationPointsChartControl", true).Single();

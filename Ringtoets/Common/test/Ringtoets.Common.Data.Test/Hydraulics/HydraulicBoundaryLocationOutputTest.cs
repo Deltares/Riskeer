@@ -114,12 +114,12 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsNull(output.GeneralResult);
+            Assert.IsNull(output.GeneralResultSubMechanismIllustrationPoint);
             Assert.IsFalse(output.HasIllustrationPoints);
         }
 
         [Test]
-        public void SetIllustrationPoints_GeneralResultNull_ThrowsArgumentNullException()
+        public void SetIllustrationPoints_GeneralResultSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(32);
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("generalResult", paramName);
+            Assert.AreEqual("generalResultSubMechanismIllustrationPoint", paramName);
         }
 
         [Test]
@@ -142,13 +142,13 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             double result = random.NextDouble();
             var output = new TestHydraulicBoundaryLocationOutput(result);
 
-            var generalResult = new TestGeneralResult();
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint();
 
             // Call
             output.SetIllustrationPoints(generalResult);
 
             // Assert
-            Assert.AreSame(generalResult, output.GeneralResult);
+            Assert.AreSame(generalResult, output.GeneralResultSubMechanismIllustrationPoint);
             Assert.IsTrue(output.HasIllustrationPoints);
         }
     }

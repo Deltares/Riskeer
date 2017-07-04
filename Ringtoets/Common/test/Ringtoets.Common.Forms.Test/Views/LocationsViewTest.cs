@@ -322,7 +322,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     .Select(row => row.CalculatableObject);
             }
 
-            protected override GeneralResult GetGeneralIllustrationPointsResult()
+            protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
             {
                 return null;
             }

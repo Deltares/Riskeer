@@ -32,10 +32,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         public void Constructor_ExpectedProperties()
         {
             // Call
-            var generalResult = new TestGeneralResult();
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint();
 
             // Assert
-            Assert.IsInstanceOf<GeneralResult>(generalResult);
+            Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPoint>(generalResult);
             AssertWindDirection(new TestWindDirection(), generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
             CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);

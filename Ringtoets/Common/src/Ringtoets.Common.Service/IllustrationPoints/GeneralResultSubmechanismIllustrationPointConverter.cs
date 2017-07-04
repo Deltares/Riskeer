@@ -32,18 +32,20 @@ using HydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.D
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// Converter for <see cref="HydraRingGeneralResult"/> related to creating a <see cref="GeneralResult"/>.
+    /// Converter for <see cref="HydraRingGeneralResult"/> related to creating a <see cref="GeneralResultSubMechanismIllustrationPoint"/>.
     /// </summary>
-    public static class GeneralResultConverter
+    public static class GeneralResultSubmechanismIllustrationPointConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/> based on the information of <paramref name="hydraRingGeneralResult"/>.
+        /// Creates a new instance of <see cref="GeneralResultSubMechanismIllustrationPoint"/> 
+        /// based on the information of <paramref name="hydraRingGeneralResult"/>.
         /// </summary>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
-        /// <see cref="GeneralResult"/> to create on.</param>
-        /// <returns>The newly created <see cref="GeneralResult"/>.</returns>
+        /// <see cref="GeneralResultSubMechanismIllustrationPoint"/> to create on.</param>
+        /// <returns>The newly created <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingGeneralResult"/> is <c>null</c>.</exception>
-        public static GeneralResult CreateGeneralResult(HydraRingGeneralResult hydraRingGeneralResult)
+        public static GeneralResultSubMechanismIllustrationPoint CreateGeneralResultSubmechanismIllustrationPoint(
+            HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
             {
@@ -55,7 +57,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             IEnumerable<TopLevelSubMechanismIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
                 GetWindDirectionClosingSituationIllustrationPoint(hydraRingGeneralResult);
 
-            return new GeneralResult(windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
+            return new GeneralResultSubMechanismIllustrationPoint(windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
         }
 
         private static IEnumerable<Stochast> GetStochasts(HydraRingGeneralResult hydraGeneralResult)

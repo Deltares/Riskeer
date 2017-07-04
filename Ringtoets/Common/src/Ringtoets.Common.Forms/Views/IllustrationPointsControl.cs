@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsControl : UserControl
     {
-        private GeneralResult data;
+        private GeneralResultSubMechanismIllustrationPoint data;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsControl"/>.
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResult Data
+        public GeneralResultSubMechanismIllustrationPoint Data
         {
             get
             {

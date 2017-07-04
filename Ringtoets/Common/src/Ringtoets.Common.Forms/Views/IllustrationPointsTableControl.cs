@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.Views
     public partial class IllustrationPointsTableControl : UserControl
     {
         private const int closingSituationColumnIndex = 1;
-        private GeneralResult data;
+        private GeneralResultSubMechanismIllustrationPoint data;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsTableControl"/>.
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResult Data
+        public GeneralResultSubMechanismIllustrationPoint Data
         {
             get
             {

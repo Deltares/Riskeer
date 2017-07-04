@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Forms.Views
         protected void HandleHydraulicBoundaryDatabaseUpdate()
         {
             dataGridViewControl.RefreshDataGridView();
-            illustrationPointsControl.Data = GetGeneralIllustrationPointsResult();
+            illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
         }
 
         private void LocalizeControls()
@@ -192,7 +192,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             SelectionChanged?.Invoke(this, new EventArgs());
 
-            illustrationPointsControl.Data = GetGeneralIllustrationPointsResult();
+            illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
         }
 
         #region Event handling
@@ -211,11 +211,11 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the general illustration points result.
+        /// Gets the general result with the submechanism illustration points.
         /// </summary>
-        /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
+        /// <returns>The general result submechanism illustration points if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>
-        protected abstract GeneralResult GetGeneralIllustrationPointsResult();
+        protected abstract GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints();
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {

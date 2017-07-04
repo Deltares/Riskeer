@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_SetNewValue_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            GeneralResult data = GetGerenalResult();
+            GeneralResultSubMechanismIllustrationPoint data = GetGeneralResult();
             IllustrationPointsTableControl control = ShowControl();
 
             // Call
@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_SetToNull_DataGridViewCleared()
         {
             // Setup
-            GeneralResult data = GetGerenalResult();
+            GeneralResultSubMechanismIllustrationPoint data = GetGeneralResult();
             IllustrationPointsTableControl control = ShowControl();
             control.Data = data;
 
@@ -155,9 +155,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             return control;
         }
 
-        private static GeneralResult GetGerenalResult()
+        private static GeneralResultSubMechanismIllustrationPoint GetGeneralResult()
         {
-            return new GeneralResult(
+            return new GeneralResultSubMechanismIllustrationPoint(
                 new TestWindDirection(),
                 Enumerable.Empty<Stochast>(),
                 new[]

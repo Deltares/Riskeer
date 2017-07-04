@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             if (currentRow == null)
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             return location.DesignWaterLevelCalculation.HasOutput
                    && location.DesignWaterLevelCalculation.Output.HasIllustrationPoints
-                       ? location.DesignWaterLevelCalculation.Output.GeneralResult
+                       ? location.DesignWaterLevelCalculation.Output.GeneralResultSubMechanismIllustrationPoint
                        : null;
         }
 

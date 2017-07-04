@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var chartControl = new IllustrationPointsChartControl();
 
             // When
-            chartControl.Data = GetGerenalResult();
+            chartControl.Data = GetGeneralResult();
 
             // Then
             IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var chartControl = new IllustrationPointsChartControl
             {
-                Data = GetGerenalResult()
+                Data = GetGeneralResult()
             };
 
             // When
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var chartControl = new IllustrationPointsChartControl
             {
-                Data = GetGerenalResult()
+                Data = GetGeneralResult()
             };
 
             // Precondition
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(3, chart.Data.Rows.Count());
 
             // When
-            chartControl.Data = new GeneralResult(
+            chartControl.Data = new GeneralResultSubMechanismIllustrationPoint(
                 new TestWindDirection(),
                 Enumerable.Empty<Stochast>(),
                 new[]
@@ -164,9 +164,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Stochast 4", rows[1].Name);
         }
 
-        private static GeneralResult GetGerenalResult()
+        private static GeneralResultSubMechanismIllustrationPoint GetGeneralResult()
         {
-            return new GeneralResult(
+            return new GeneralResultSubMechanismIllustrationPoint(
                 new TestWindDirection(),
                 Enumerable.Empty<Stochast>(),
                 new[]

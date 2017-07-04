@@ -133,12 +133,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        protected override GeneralResult GetGeneralIllustrationPointsResult()
+        protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
         {
             if (data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput
                 && data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.HasIllustrationPoints)
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.GeneralResult;
+                return data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.GeneralResultSubMechanismIllustrationPoint;
             }
             return null;
         }
