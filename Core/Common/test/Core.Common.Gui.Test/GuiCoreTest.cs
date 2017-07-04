@@ -1525,7 +1525,7 @@ namespace Core.Common.Gui.Test
             return projectFactory;
         }
 
-        private class TestSelectionProvider : Control, ISelectionProvider
+        private class TestSelectionProvider : Control, ISelectionProvider, IView
         {
             public event EventHandler<EventArgs> SelectionChanged;
 

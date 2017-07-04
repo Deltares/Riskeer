@@ -547,7 +547,7 @@ namespace Core.Common.Gui
 
         private void HandleDeactivatingCurrentSelectionProvidingDocumentView()
         {
-            if (currentSelectionProvider != null && ViewHost.DocumentViews.Contains(currentSelectionProvider))
+            if (currentSelectionProvider != null && ViewHost.DocumentViews.Contains((IView) currentSelectionProvider))
             {
                 currentSelectionProvider.SelectionChanged -= OnSelectionChanged;
             }

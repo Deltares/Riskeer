@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// This class is a view for configuring piping calculations.
     /// </summary>
-    public partial class PipingCalculationsView : UserControl, ISelectionProvider
+    public partial class PipingCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int stochasticSoilModelColumnIndex = 1;
         private const int stochasticSoilProfileColumnIndex = 2;

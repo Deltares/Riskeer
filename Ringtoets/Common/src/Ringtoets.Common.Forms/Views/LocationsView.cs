@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for selecting locations and starting calculation for said objects.
     /// </summary>
     /// <typeparam name="T">The type of the location object.</typeparam>
-    public abstract partial class LocationsView<T> : UserControl, ISelectionProvider where T : class
+    public abstract partial class LocationsView<T> : UserControl, ISelectionProvider, IView where T : class
     {
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;

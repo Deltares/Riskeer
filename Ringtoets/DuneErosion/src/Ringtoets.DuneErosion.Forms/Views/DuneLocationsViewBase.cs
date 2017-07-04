@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// Base view for selecting calculatable locations and starting calculation for said objects.
     /// </summary>
-    public abstract partial class DuneLocationsViewBase : UserControl, ISelectionProvider
+    public abstract partial class DuneLocationsViewBase : UserControl, ISelectionProvider, IView
     {
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;

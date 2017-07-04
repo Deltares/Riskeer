@@ -36,7 +36,7 @@ namespace Core.Plugins.Map.Legend
     /// <summary>
     /// The view which shows the data that is added to a <see cref="Components.DotSpatial.Forms.MapControl"/>.
     /// </summary>
-    public sealed partial class MapLegendView : UserControl, ISelectionProvider
+    public sealed partial class MapLegendView : UserControl, ISelectionProvider, IView
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 

@@ -26,7 +26,7 @@ namespace Core.Common.Controls.Views
     /// <summary>
     /// Interface for views which can influence the selection on an application level.
     /// </summary>
-    public interface ISelectionProvider : IView
+    public interface ISelectionProvider
     {
         /// <summary>
         /// Fired when the provider's selection has been changed.

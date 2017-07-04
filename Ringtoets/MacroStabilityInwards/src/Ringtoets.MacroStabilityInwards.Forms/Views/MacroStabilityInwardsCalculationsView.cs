@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// This class is a view for configuring macro stability inwards calculations.
     /// </summary>
-    public partial class MacroStabilityInwardsCalculationsView : UserControl, ISelectionProvider
+    public partial class MacroStabilityInwardsCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int stochasticSoilModelColumnIndex = 1;
         private const int stochasticSoilProfileColumnIndex = 2;

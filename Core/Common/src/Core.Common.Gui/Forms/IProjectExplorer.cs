@@ -27,5 +27,5 @@ namespace Core.Common.Gui.Forms
     /// <summary>
     /// View to show the contents of a <see cref="IProject"/> instance.
     /// </summary>
-    public interface IProjectExplorer : ISelectionProvider {}
+    public interface IProjectExplorer : ISelectionProvider, IView {}
 }

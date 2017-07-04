@@ -38,7 +38,7 @@ namespace Core.Plugins.Chart.Legend
     /// <summary>
     /// This class defines a view which shows the data that have been added to a <see cref="IChartControl"/>.
     /// </summary>
-    public sealed partial class ChartLegendView : UserControl, ISelectionProvider
+    public sealed partial class ChartLegendView : UserControl, ISelectionProvider, IView
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private IChartControl chartControl;
