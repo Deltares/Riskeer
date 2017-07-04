@@ -34,10 +34,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            double value = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new WindDirection(null, value);
+            TestDelegate call = () => new WindDirection(null, random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,13 +44,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         }
 
         [Test]
-        [TestCase(360.004)]
-        [TestCase(double.NaN)]
-        [TestCase(50)]
-        [TestCase(-0.004)]
-        public void Constructor_ValidValues_ReturnsExpectedValues(double angle)
+        public void Constructor_ValidValues_ReturnsExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double angle = random.NextDouble();
             const string windDirectionName = "SSE";
 
             // Call

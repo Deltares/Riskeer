@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>        
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(IDesignWaterLevelCalculation designWaterLevelCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
                               double norm,
@@ -110,32 +110,10 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
-
-                bool calculateIllustrationPoints = designWaterLevelCalculation.CalculateIllustrationPoints;
-                if (calculateIllustrationPoints)
-                {
-                    calculator.CalculateWithIllustrationPoints(calculationInput);
-                }
-                else
-                {
-                    calculator.Calculate(calculationInput);
-                }
-
-                if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
-                {
-                    return;
-                }
-
-                HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
-                    messageProvider, designWaterLevelCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
-
-                if (calculateIllustrationPoints)
-                {
-                    SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
-                }
-
-                designWaterLevelCalculation.Output = hydraulicBoundaryLocationOutput;
+                PerformCalculation(designWaterLevelCalculation,
+                                   hydraulicBoundaryDatabaseFilePath,
+                                   norm,
+                                   messageProvider);
             }
             catch (HydraRingCalculationException e)
             {
@@ -177,6 +155,54 @@ namespace Ringtoets.Common.Service
         {
             calculator?.Cancel();
             canceled = true;
+        }
+
+        /// <summary>
+        /// Performs a calculation for the design water level.
+        /// </summary>
+        /// <param name="designWaterLevelCalculation">The design water level calculation to use.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="norm">The norm of the assessment section.</param>
+        /// <param name="messageProvider">The object which is used to build log messages.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list></exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        private void PerformCalculation(IDesignWaterLevelCalculation designWaterLevelCalculation,
+                                        string hydraulicBoundaryDatabaseFilePath,
+                                        double norm,
+                                        ICalculationMessageProvider messageProvider)
+        {
+            AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
+
+            bool calculateIllustrationPoints = designWaterLevelCalculation.CalculateIllustrationPoints;
+            if (calculateIllustrationPoints)
+            {
+                calculator.CalculateWithIllustrationPoints(calculationInput);
+            }
+            else
+            {
+                calculator.Calculate(calculationInput);
+            }
+
+            if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
+            {
+                return;
+            }
+
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
+                messageProvider, designWaterLevelCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
+
+            if (calculateIllustrationPoints)
+            {
+                SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
+            }
+
+            designWaterLevelCalculation.Output = hydraulicBoundaryLocationOutput;
         }
 
         private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,

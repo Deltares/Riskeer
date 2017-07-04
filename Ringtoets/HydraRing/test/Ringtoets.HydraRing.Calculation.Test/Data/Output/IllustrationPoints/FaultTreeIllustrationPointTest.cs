@@ -34,11 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             var random = new Random(123);
-            double beta = random.NextDouble();
-            var combinationType = random.NextEnumValue<CombinationType>();
 
             // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint(null, beta, combinationType);
+            TestDelegate call = () => new FaultTreeIllustrationPoint(null,
+                                                                     random.NextDouble(),
+                                                                     random.NextEnumValue<CombinationType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -32,12 +32,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         [Test]
         public void Constructor_DescriptionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random();
-            double value = random.NextDouble();
-
             // Call
-            TestDelegate call = () => new IllustrationPointResult(null, value);
+            TestDelegate call = () => new IllustrationPointResult(null,
+                                                                  new Random(21).NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,16 +45,16 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_ValidArguments_ReturnExpectedValues()
         {
             // Setup
-            const string name = "illustration point";
+            const string description = "illustration point";
 
             var random = new Random(21);
             double value = random.NextDouble();
 
             // Call
-            var illustrationPointResult = new IllustrationPointResult(name, value);
+            var illustrationPointResult = new IllustrationPointResult(description, value);
 
             // Assert
-            Assert.AreEqual(name, illustrationPointResult.Description);
+            Assert.AreEqual(description, illustrationPointResult.Description);
             Assert.AreEqual(value, illustrationPointResult.Value,
                             illustrationPointResult.Value.GetAccuracy());
             Assert.AreEqual(5, illustrationPointResult.Value.NumberOfDecimalPlaces);

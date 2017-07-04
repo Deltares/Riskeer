@@ -49,12 +49,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         [Test]
         public void Constructor_StochastsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var governingWind = new TestWindDirection();
-
             // Call
             TestDelegate call = () => new GeneralResult(0,
-                                                        governingWind,
+                                                        new TestWindDirection(),
                                                         null,
                                                         new Dictionary<
                                                             WindDirectionClosingSituation,
@@ -68,12 +65,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         [Test]
         public void Constructor_IllustrationPointsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var governingWind = new TestWindDirection();
-
             // Call
             TestDelegate call = () => new GeneralResult(0,
-                                                        governingWind,
+                                                        new TestWindDirection(),
                                                         Enumerable.Empty<Stochast>(),
                                                         null);
 

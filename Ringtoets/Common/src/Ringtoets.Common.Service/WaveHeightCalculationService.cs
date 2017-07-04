@@ -111,32 +111,10 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                WaveHeightCalculationInput calculationInput = CreateInput(waveHeightCalculation, norm, hydraulicBoundaryDatabaseFilePath);
-
-                bool calculateIllustrationPoints = waveHeightCalculation.CalculateIllustrationPoints;
-                if (calculateIllustrationPoints)
-                {
-                    calculator.CalculateWithIllustrationPoints(calculationInput);
-                }
-                else
-                {
-                    calculator.Calculate(calculationInput);
-                }
-
-                if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
-                {
-                    return;
-                }
-
-                HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
-                    messageProvider, waveHeightCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
-
-                if (calculateIllustrationPoints)
-                {
-                    SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
-                }
-
-                waveHeightCalculation.Output = hydraulicBoundaryLocationOutput;
+                PerformCalculation(waveHeightCalculation,
+                                   hydraulicBoundaryDatabaseFilePath,
+                                   norm,
+                                   messageProvider);
             }
             catch (HydraRingCalculationException e)
             {
@@ -145,8 +123,8 @@ namespace Ringtoets.Common.Service
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(!string.IsNullOrEmpty(lastErrorContent)
                                   ? messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, lastErrorContent)
-                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, e.Message), 
-                                  e);
+                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, e.Message),
+                              e);
 
                     exceptionThrown = true;
                     throw;
@@ -180,12 +158,60 @@ namespace Ringtoets.Common.Service
             canceled = true;
         }
 
+        /// <summary>
+        /// Performs a calculation for the wave height.
+        /// </summary>
+        /// <param name="waveHeightCalculation">The wave height calculation to use.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="norm">The norm of the assessment section.</param>
+        /// <param name="messageProvider">The object which is used to build log messages.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list></exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        private void PerformCalculation(IWaveHeightCalculation waveHeightCalculation,
+                                        string hydraulicBoundaryDatabaseFilePath,
+                                        double norm,
+                                        ICalculationMessageProvider messageProvider)
+        {
+            WaveHeightCalculationInput calculationInput = CreateInput(waveHeightCalculation, norm, hydraulicBoundaryDatabaseFilePath);
+
+            bool calculateIllustrationPoints = waveHeightCalculation.CalculateIllustrationPoints;
+            if (calculateIllustrationPoints)
+            {
+                calculator.CalculateWithIllustrationPoints(calculationInput);
+            }
+            else
+            {
+                calculator.Calculate(calculationInput);
+            }
+
+            if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
+            {
+                return;
+            }
+
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
+                messageProvider, waveHeightCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
+
+            if (calculateIllustrationPoints)
+            {
+                SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
+            }
+
+            waveHeightCalculation.Output = hydraulicBoundaryLocationOutput;
+        }
+
         private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
                                                         HydraGeneralResult hydraGeneralResult)
         {
             if (hydraGeneralResult != null)
             {
-                GeneralResultSubMechanismIllustrationPoint generalResult = 
+                GeneralResultSubMechanismIllustrationPoint generalResult =
                     GeneralResultSubmechanismIllustrationPointConverter.CreateGeneralResultSubmechanismIllustrationPoint(hydraGeneralResult);
                 hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
             }
