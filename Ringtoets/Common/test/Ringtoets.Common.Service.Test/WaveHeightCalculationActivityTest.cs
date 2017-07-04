@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Service.Test
                 });
                 WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(calculation.GetId(), waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(calculation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);

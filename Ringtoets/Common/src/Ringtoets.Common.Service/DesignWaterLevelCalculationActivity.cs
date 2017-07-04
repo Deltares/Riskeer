@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service
 
             calculationService = new DesignWaterLevelCalculationService();
 
-            Description = messageProvider.GetActivityDescription(designWaterLevelCalculation.GetName());
+            Description = messageProvider.GetActivityDescription(designWaterLevelCalculation.Name);
         }
 
         protected override bool Validate()
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            designWaterLevelCalculation.GetObservableObject().NotifyObservers();
+            designWaterLevelCalculation.ObservableObject.NotifyObservers();
         }
 
         private bool AlreadyCalculated

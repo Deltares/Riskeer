@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Service
             {
                 AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
 
-                bool calculateIllustrationPoints = designWaterLevelCalculation.GetCalculateIllustrationPoints();
+                bool calculateIllustrationPoints = designWaterLevelCalculation.CalculateIllustrationPoints;
                 if (calculateIllustrationPoints)
                 {
                     calculator.CalculateWithIllustrationPoints(calculationInput);
@@ -127,14 +127,14 @@ namespace Ringtoets.Common.Service
                 }
 
                 HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
-                    messageProvider, designWaterLevelCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged);
+                    messageProvider, designWaterLevelCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
 
                 if (calculateIllustrationPoints)
                 {
                     SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
                 }
 
-                designWaterLevelCalculation.SetOutput(hydraulicBoundaryLocationOutput);
+                designWaterLevelCalculation.Output = hydraulicBoundaryLocationOutput;
             }
             catch (HydraRingCalculationException e)
             {
@@ -142,8 +142,8 @@ namespace Ringtoets.Common.Service
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(!string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), lastErrorContent)
-                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), e.Message),
+                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, lastErrorContent)
+                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, e.Message),
                               e);
 
                     exceptionThrown = true;
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.GetName(), lastErrorFileContent));
+                    log.Error(messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Service
                                                                    double norm,
                                                                    string hydraulicBoundaryDatabaseFilePath)
         {
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, designWaterLevelCalculation.GetId(), norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, designWaterLevelCalculation.Id, norm);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath);
 

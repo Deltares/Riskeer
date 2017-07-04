@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// </summary>
         /// <param name="name">The name of the stochast.</param>
         /// <param name="duration">The duration.</param>
-        /// <param name="alpha">The alpha value</param>
+        /// <param name="alpha">The alpha value.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public Stochast(string name, double duration, double alpha)
         {

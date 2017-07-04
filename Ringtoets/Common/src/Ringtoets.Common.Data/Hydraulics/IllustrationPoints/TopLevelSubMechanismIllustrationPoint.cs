@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     public class TopLevelSubMechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates an instance of <see cref="TopLevelSubMechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="TopLevelSubMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>

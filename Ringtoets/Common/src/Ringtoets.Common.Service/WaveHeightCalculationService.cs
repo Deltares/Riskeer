@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Service
             {
                 WaveHeightCalculationInput calculationInput = CreateInput(waveHeightCalculation, norm, hydraulicBoundaryDatabaseFilePath);
 
-                bool calculateIllustrationPoints = waveHeightCalculation.GetCalculateIllustrationPoints();
+                bool calculateIllustrationPoints = waveHeightCalculation.CalculateIllustrationPoints;
                 if (calculateIllustrationPoints)
                 {
                     calculator.CalculateWithIllustrationPoints(calculationInput);
@@ -128,14 +128,14 @@ namespace Ringtoets.Common.Service
                 }
 
                 HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
-                    messageProvider, waveHeightCalculation.GetName(), calculationInput.Beta, norm, calculator.Converged);
+                    messageProvider, waveHeightCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
 
                 if (calculateIllustrationPoints)
                 {
                     SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
                 }
 
-                waveHeightCalculation.SetOutput(hydraulicBoundaryLocationOutput);
+                waveHeightCalculation.Output = hydraulicBoundaryLocationOutput;
             }
             catch (HydraRingCalculationException e)
             {
@@ -143,8 +143,8 @@ namespace Ringtoets.Common.Service
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(!string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), lastErrorContent)
-                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), e.Message), 
+                                  ? messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, lastErrorContent)
+                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, e.Message), 
                                   e);
 
                     exceptionThrown = true;
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(waveHeightCalculation.GetName(), lastErrorFileContent));
+                    log.Error(messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
@@ -245,7 +245,7 @@ namespace Ringtoets.Common.Service
                                                               double norm,
                                                               string hydraulicBoundaryDatabaseFilePath)
         {
-            var waveHeightCalculationInput = new WaveHeightCalculationInput(1, waveHeightCalculation.GetId(), norm);
+            var waveHeightCalculationInput = new WaveHeightCalculationInput(1, waveHeightCalculation.Id, norm);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
 

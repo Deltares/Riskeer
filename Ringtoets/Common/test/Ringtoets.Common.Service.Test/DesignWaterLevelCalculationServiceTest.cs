@@ -164,14 +164,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return(locationName);
-            calculation.Expect(c => c.GetId()).Return(id);
-            calculation.Expect(c => c.SetOutput(null)).IgnoreArguments().WhenCalled(invocation =>
-            {
-                var result = (HydraulicBoundaryLocationOutput) invocation.Arguments.Single();
-                Assert.IsFalse(result.HasIllustrationPoints);
-            });
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(id);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
@@ -192,6 +187,9 @@ namespace Ringtoets.Common.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
 
                 Assert.IsFalse(calculator.CalculatedWithIllustrationPoints);
+
+                HydraulicBoundaryLocationOutput output = calculation.Output;
+                Assert.IsFalse(output.HasIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }
@@ -217,9 +215,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return(locationName);
-            calculation.Expect(c => c.GetId()).Return(100);
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(true);
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(100);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
@@ -262,14 +260,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return(locationName);
-            calculation.Expect(c => c.GetId()).Return(id);
-            calculation.Expect(c => c.SetOutput(null)).IgnoreArguments().WhenCalled(invocation =>
-            {
-                var result = (HydraulicBoundaryLocationOutput) invocation.Arguments.Single();
-                Assert.IsTrue(result.HasIllustrationPoints);
-            });
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(true);
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(id);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
@@ -290,6 +283,9 @@ namespace Ringtoets.Common.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
 
                 Assert.IsTrue(calculator.CalculatedWithIllustrationPoints);
+
+                HydraulicBoundaryLocationOutput output = calculation.Output;
+                Assert.IsTrue(output.HasIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }
@@ -307,9 +303,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return("name");
-            calculation.Expect(c => c.GetId()).Return(0);
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
+            calculation.Stub(c => c.Name).Return("name");
+            calculation.Expect(c => c.Id).Return(0);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
@@ -355,9 +351,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return(locationName);
-            calculation.Expect(c => c.GetId()).Return(0);
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(0);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
@@ -420,9 +416,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return(locationName);
-            calculation.Expect(c => c.GetId()).Return(0);
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(0);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
@@ -487,9 +483,9 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
 
             var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.GetName()).Return(locationName);
-            calculation.Expect(c => c.GetId()).Return(0);
-            calculation.Expect(c => c.GetCalculateIllustrationPoints()).Return(false);
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(0);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);

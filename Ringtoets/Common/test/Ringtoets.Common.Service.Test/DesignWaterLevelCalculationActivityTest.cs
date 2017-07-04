@@ -226,7 +226,7 @@ namespace Ringtoets.Common.Service.Test
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(calculation.GetId(), designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(calculation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);

@@ -90,11 +90,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.IsInstanceOf<IWaveHeightCalculation>(calculation);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.GetId());
-            Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.GetName());
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.Id);
+            Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.Name);
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocation.WaveHeightCalculation;
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculation.GetCalculateIllustrationPoints());
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculation.CalculateIllustrationPoints);
 
             Assert.AreSame(hydraulicBoundaryLocation, calculation.GetObservableObject());
         }
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void SetOutput_ValidOutput_SetsOutput()
+        public void Output_ValidOutput_SetsOutput()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var output = new TestHydraulicBoundaryLocationOutput(1);
 
             // Call
-            calculation.SetOutput(output);
+            calculation.Output = output;
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation.WaveHeightCalculation.Output, output);

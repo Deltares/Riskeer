@@ -34,8 +34,8 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// </summary>
         /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
-        /// <param name="topLevelSubMechanismIllustrationPoints">A collections of all 
-        /// the combinations of wind directions, closing situations and illustration points.</param>
+        /// <param name="topLevelSubMechanismIllustrationPoints">A collection of illustration 
+        /// points for every combination of a wind direction and a closing situation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindDirection"/>,
         /// <paramref name="stochasts"/> or <paramref name="topLevelSubMechanismIllustrationPoints"/> is <c>null</c>.</exception>
         public GeneralResult(WindDirection governingWindDirection,
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         public IEnumerable<Stochast> Stochasts { get; }
 
         /// <summary>
-        /// Gets all the top level combinations of wind directions, closing situation and illustration points.
+        /// Gets the collection of illustration points for every combination of a wind direction and a closing situation.
         /// </summary>
         public IEnumerable<TopLevelSubMechanismIllustrationPoint> TopLevelSubMechanismIllustrationPoints { get; }
     }

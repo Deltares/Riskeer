@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Service
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.norm = norm;
 
-            Description = messageProvider.GetActivityDescription(waveHeightCalculation.GetName());
+            Description = messageProvider.GetActivityDescription(waveHeightCalculation.Name);
 
             calculationService = new WaveHeightCalculationService();
         }

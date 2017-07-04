@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         public GeneralResult GeneralResult { get; private set; }
 
         /// <summary>
-        /// Gets if the output contains illustration points.
+        /// Gets the value indicating whether the output contains illustration points.
         /// </summary>
         public bool HasIllustrationPoints
         {
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Sets the general result of the illustration points.
         /// </summary>
-        /// <param name="generalResult"></param>
+        /// <param name="generalResult">The general result to set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/> 
         /// is <c>null</c>.</exception>
         public void SetIllustrationPoints(GeneralResult generalResult)

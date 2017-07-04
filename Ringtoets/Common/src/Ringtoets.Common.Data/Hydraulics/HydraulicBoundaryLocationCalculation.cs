@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     public class HydraulicBoundaryLocationCalculation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculation"/>.
         /// </summary>
         public HydraulicBoundaryLocationCalculation()
         {

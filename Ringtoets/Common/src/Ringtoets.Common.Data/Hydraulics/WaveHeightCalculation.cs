@@ -46,6 +46,42 @@ namespace Ringtoets.Common.Data.Hydraulics
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }
 
+        public long Id
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Id;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Name;
+            }
+        }
+
+        public bool CalculateIllustrationPoints
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+            }
+        }
+
+        public HydraulicBoundaryLocationOutput Output
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.WaveHeightCalculation.Output;
+            }
+            set
+            {
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = value;
+            }
+        }
+
         /// <summary>
         /// Gets a value indicating whether this calculation has already been calculated.
         /// </summary>
@@ -64,26 +100,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         public IObservable GetObservableObject()
         {
             return hydraulicBoundaryLocation;
-        }
-
-        public long GetId()
-        {
-            return hydraulicBoundaryLocation.Id;
-        }
-
-        public string GetName()
-        {
-            return hydraulicBoundaryLocation.Name;
-        }
-
-        public bool GetCalculateIllustrationPoints()
-        {
-            return hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
-        }
-
-        public void SetOutput(HydraulicBoundaryLocationOutput output)
-        {
-            hydraulicBoundaryLocation.WaveHeightCalculation.Output = output;
         }
     }
 }

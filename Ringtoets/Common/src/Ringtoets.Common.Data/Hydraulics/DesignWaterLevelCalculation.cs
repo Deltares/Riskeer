@@ -47,43 +47,62 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
+        /// Gets the observable object to notify upon an internal state change.
+        /// </summary>
+        public IObservable ObservableObject
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+        }
+
+        public long Id
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Id;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Name;
+            }
+        }
+
+        public bool CalculateIllustrationPoints
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+            }
+        }
+
+        public HydraulicBoundaryLocationOutput Output
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output;
+            }
+            set
+            {
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = value;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether this calculation has already been calculated.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if the calculation is fully calculated, <c>false</c> otherwise.</returns>
+        /// <remarks>A calculation is fully calculated, depending on if the illustration points are set to be calculated.</remarks>
         public bool IsCalculated()
         {
             HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;
             return calculation.HasOutput
                    && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasIllustrationPoints;
-        }
-
-        /// <summary>
-        /// Gets the observable object to notify upon an internal state change.
-        /// </summary>
-        /// <returns></returns>
-        public IObservable GetObservableObject()
-        {
-            return hydraulicBoundaryLocation;
-        }
-
-        public long GetId()
-        {
-            return hydraulicBoundaryLocation.Id;
-        }
-
-        public string GetName()
-        {
-            return hydraulicBoundaryLocation.Name;
-        }
-
-        public bool GetCalculateIllustrationPoints()
-        {
-            return hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
-        }
-
-        public void SetOutput(HydraulicBoundaryLocationOutput output)
-        {
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = output;
         }
     }
 }

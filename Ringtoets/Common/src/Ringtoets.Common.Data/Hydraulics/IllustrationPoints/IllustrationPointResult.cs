@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     public class IllustrationPointResult
     {
         /// <summary>
-        /// Instantiates a <see cref="IllustrationPointResult"/>.
+        /// Creates a new instance of <see cref="IllustrationPointResult"/>.
         /// </summary>
         /// <param name="description">The description.</param>
         /// <param name="value">The value.</param>

@@ -22,31 +22,28 @@
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
-    /// Interface for a design water level calculation
+    /// Interface for a design water level calculation.
     /// </summary>
     public interface IDesignWaterLevelCalculation
     {
         /// <summary>
         /// Gets the database id of the hydraulic boundary location.
         /// </summary>
-        /// <returns>The database id of the hydraulic boundary location.</returns>
-        long GetId();
+        long Id { get; }
 
         /// <summary>
         /// Gets the name of the hydraulic boundary location.
         /// </summary>
-        /// <returns>The name of the hydraulic boundary location.</returns>
-        string GetName();
+        string Name { get; }
 
         /// <summary>
         /// Gets if the illustration points should be calculated.
         /// </summary>
-        /// <returns>The illustration points should be calculated.</returns>
-        bool GetCalculateIllustrationPoints();
+        bool CalculateIllustrationPoints { get; }
 
         /// <summary>
-        ///Sets the output of the design water level calculation.
+        /// Gets or sets the output of the design water level calculation.
         /// </summary>
-        void SetOutput(HydraulicBoundaryLocationOutput output);
+        HydraulicBoundaryLocationOutput Output { get; set; }
     }
 }
