@@ -57,19 +57,26 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_ValueSet_DataSetToIllustrationPointsChartControl()
         {
             // Setup
-            var data = new TestGeneralResultSubMechanismIllustrationPoint();
-            var control = new IllustrationPointsControl();
-            
-            var chartControl = (IllustrationPointsChartControl) control.Controls.Find("IllustrationPointsChartControl", true).Single();
-            var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
+            using (var form = new Form())
+            {
+                var control = new IllustrationPointsControl();
 
-            // Call
-            control.Data = data;
+                form.Controls.Add(control);
+                form.Show();
 
-            // Assert
-            Assert.AreSame(data, control.Data);
-            Assert.AreSame(data, chartControl.Data);
-            Assert.AreSame(data, tableControl.Data);
+                var chartControl = (IllustrationPointsChartControl) control.Controls.Find("IllustrationPointsChartControl", true).Single();
+                var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
+
+                var data = new TestGeneralResultSubMechanismIllustrationPoint();
+
+                // Call
+                control.Data = data;
+
+                // Assert
+                Assert.AreSame(data, control.Data);
+                Assert.AreSame(data, chartControl.Data);
+                Assert.AreSame(data, tableControl.Data);
+            }
         }
     }
 }
