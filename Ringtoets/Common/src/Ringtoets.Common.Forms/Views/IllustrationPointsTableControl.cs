@@ -61,7 +61,23 @@ namespace Ringtoets.Common.Forms.Views
                 illustrationPointsDataGridViewControl.SetDataSource(data != null
                                                                         ? CreateRows()
                                                                         : null);
+
+                UpdateClosingStructureVisibility();
             }
+        }
+
+        private void UpdateClosingStructureVisibility()
+        {
+            if (data != null)
+            {
+                if (data.TopLevelSubMechanismIllustrationPoints.Any(ip => ip.ClosingSituation != data.TopLevelSubMechanismIllustrationPoints.First().ClosingSituation))
+                {
+                    illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
+                    return;
+                }
+            }
+
+            illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, false);
         }
 
         protected override void OnLoad(EventArgs e)

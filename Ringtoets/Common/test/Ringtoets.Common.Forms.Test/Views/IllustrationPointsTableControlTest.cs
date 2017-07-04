@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetNewValue_DataGridViewCorrectlyInitialized()
+        public void Data_SetNewValueWithDifferentClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup
             GeneralResultSubMechanismIllustrationPoint data = GetGeneralResult();
@@ -122,6 +122,54 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual(0.24196, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
             Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+
+            Assert.IsTrue(dataGridView.Columns[closingScenarioColumnIndex].Visible);
+        }
+
+        [Test]
+        public void Data_SetNewValueWithSameClosingSituations_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var data = new GeneralResultSubMechanismIllustrationPoint(
+                new TestWindDirection(),
+                Enumerable.Empty<Stochast>(),
+                new[]
+                {
+                    new TopLevelSubMechanismIllustrationPoint(
+                        new TestWindDirection(), "Regular",
+                        new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>(), 0.9)),
+                    new TopLevelSubMechanismIllustrationPoint(
+                        new TestWindDirection(), "Regular",
+                        new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>(), 0.7))
+                });
+            IllustrationPointsTableControl control = ShowControl();
+
+            // Call
+            control.Data = data;
+
+            // Assert
+            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
+            Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
+            Assert.AreEqual(0.18406, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual(0.9.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
+            Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
+            Assert.AreEqual(0.24196, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+
+            Assert.IsFalse(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
 
         [Test]
@@ -143,6 +191,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(0, rows.Count);
+
+            Assert.IsFalse(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
 
         private IllustrationPointsTableControl ShowControl()
