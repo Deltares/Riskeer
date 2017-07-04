@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocation.WaveHeightCalculation;
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculation.CalculateIllustrationPoints);
 
-            Assert.AreSame(hydraulicBoundaryLocation, calculation.GetObservableObject());
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.ObservableObject);
         }
 
         [Test]

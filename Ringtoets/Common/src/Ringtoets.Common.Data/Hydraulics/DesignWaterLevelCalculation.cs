@@ -97,7 +97,8 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets a value indicating whether this calculation has already been calculated.
         /// </summary>
         /// <returns><c>true</c> if the calculation is fully calculated, <c>false</c> otherwise.</returns>
-        /// <remarks>A calculation is fully calculated, depending on if the illustration points are set to be calculated.</remarks>
+        /// <remarks>A calculation is fully calculated, depending on if the illustration points 
+        /// are set to be calculated.</remarks>
         public bool IsCalculated()
         {
             HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;

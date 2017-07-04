@@ -635,7 +635,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de windrichting moet in het bereik van {0} liggen..
+        ///   Looks up a localized string similar to De waarde voor de windrichting moet in het bereik {0} liggen..
         /// </summary>
         public static string WindDirection_WindDirectionAngle_Value_needs_to_be_in_Range_0_ {
             get {

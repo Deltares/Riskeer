@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
-    /// Interface for a wave height calculation
+    /// Interface for a wave height calculation.
     /// </summary>
     public interface IWaveHeightCalculation
     {

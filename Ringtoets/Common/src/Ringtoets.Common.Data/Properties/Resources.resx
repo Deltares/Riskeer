@@ -301,6 +301,6 @@
     <value>id</value>
   </data>
   <data name="WindDirection_WindDirectionAngle_Value_needs_to_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde voor de windrichting moet in het bereik van {0} liggen.</value>
+    <value>De waarde voor de windrichting moet in het bereik {0} liggen.</value>
   </data>
 </root>

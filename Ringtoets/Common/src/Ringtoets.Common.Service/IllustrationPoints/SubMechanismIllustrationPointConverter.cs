@@ -22,45 +22,43 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using HydraSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
-using IllustrationPointResult = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.IllustrationPointResult;
-using SubMechanismIllustrationPoint = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubMechanismIllustrationPoint;
-using SubMechanismIllustrationPointStochast = Ringtoets.Common.Data.Hydraulics.IllustrationPoints.SubMechanismIllustrationPointStochast;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using HydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// The converter that converts <see cref="IIllustrationPoint"/> data into <see cref="HydraSubMechanismIllustrationPoint"/> data.
+    /// The converter that converts <see cref="HydraRingSubMechanismIllustrationPoint"/> data into 
+    /// <see cref="SubMechanismIllustrationPoint"/> data.
     /// </summary>
     public static class SubMechanismIllustrationPointConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/> based on the information of 
-        /// <paramref name="subMechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/> based on the 
+        /// information of <paramref name="hydraRingSubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="subMechanismIllustrationPoint">The <see cref="HydraSubMechanismIllustrationPoint"/> to base the 
-        /// <see cref="SubMechanismIllustrationPoint"/> to create on.</param>
+        /// <param name="hydraRingSubMechanismIllustrationPoint">The <see cref="HydraRingSubMechanismIllustrationPoint"/> 
+        /// to base the <see cref="SubMechanismIllustrationPoint"/> to create on.</param>
         /// <returns>The newly created <see cref="SubMechanismIllustrationPoint"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPoint"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingSubMechanismIllustrationPoint"/> 
         /// is <c>null</c>.</exception>
         public static SubMechanismIllustrationPoint CreateSubMechanismIllustrationPoint(
-            HydraSubMechanismIllustrationPoint subMechanismIllustrationPoint)
+            HydraRingSubMechanismIllustrationPoint hydraRingSubMechanismIllustrationPoint)
         {
-            if (subMechanismIllustrationPoint == null)
+            if (hydraRingSubMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(hydraRingSubMechanismIllustrationPoint));
             }
 
-            IEnumerable<SubMechanismIllustrationPointStochast> stochasts = subMechanismIllustrationPoint
+            IEnumerable<SubMechanismIllustrationPointStochast> stochasts = hydraRingSubMechanismIllustrationPoint
                 .Stochasts.Select(StochastConverter.CreateSubMechanismIllustrationStochast);
-            IEnumerable<IllustrationPointResult> illustrationPointResults = subMechanismIllustrationPoint
+            IEnumerable<IllustrationPointResult> illustrationPointResults = hydraRingSubMechanismIllustrationPoint
                 .Results.Select(IllustrationPointResultConverter.CreateIllustrationPointResult);
 
-            return new SubMechanismIllustrationPoint(subMechanismIllustrationPoint.Name,
+            return new SubMechanismIllustrationPoint(hydraRingSubMechanismIllustrationPoint.Name,
                                                      stochasts,
                                                      illustrationPointResults,
-                                                     subMechanismIllustrationPoint.Beta);
+                                                     hydraRingSubMechanismIllustrationPoint.Beta);
         }
     }
 }

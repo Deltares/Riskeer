@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
+using HydraRingWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -32,14 +32,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class WindDirectionConverterTest
     {
         [Test]
-        public void CreateWindDirection_HydraWindDirectionNull_ThrowsArgumentNullException()
+        public void CreateWindDirection_HydraRingWindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => WindDirectionConverter.CreateWindDirection(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("hydraWindDirection", paramName);
+            Assert.AreEqual("hydraRingWindDirection", paramName);
         }
 
         [Test]
@@ -48,14 +48,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             // Setup
             var random = new Random(21);
             double angle = random.NextDouble();
-            var hydraWindDirection = new HydraWindDirection("name", angle);
+            var hydraRingWindDirection = new HydraRingWindDirection("name", angle);
 
             // Call
-            WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraWindDirection);
+            WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraRingWindDirection);
 
             // Assert
-            Assert.AreEqual(hydraWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
-            Assert.AreEqual(hydraWindDirection.Name, windDirection.Name);
+            Assert.AreEqual(hydraRingWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual(hydraRingWindDirection.Name, windDirection.Name);
         }
     }
 }

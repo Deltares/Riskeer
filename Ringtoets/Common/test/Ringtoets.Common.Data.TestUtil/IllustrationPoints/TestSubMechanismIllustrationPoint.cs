@@ -33,6 +33,9 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// Creates a <see cref="TestSubMechanismIllustrationPoint"/>.
         /// </summary>
         public TestSubMechanismIllustrationPoint()
-            : base("Illustration Point", Enumerable.Empty<SubMechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>(), 3.14) {}
+            : base("Illustration Point",
+                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                   Enumerable.Empty<IllustrationPointResult>(),
+                   3.14) {}
     }
 }

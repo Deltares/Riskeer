@@ -46,6 +46,17 @@ namespace Ringtoets.Common.Data.Hydraulics
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }
 
+        /// <summary>
+        /// Gets the observable object to notify upon an internal state change.
+        /// </summary>
+        public IObservable ObservableObject
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+        }
+
         public long Id
         {
             get
@@ -85,21 +96,14 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets a value indicating whether this calculation has already been calculated.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if the calculation is fully calculated, <c>false</c> otherwise.</returns>
+        /// <remarks>A calculation is fully calculated, depending on if the illustration points 
+        /// are set to be calculated.</remarks>
         public bool IsCalculated()
         {
             HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.WaveHeightCalculation;
             return calculation.HasOutput
                    && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasIllustrationPoints;
-        }
-
-        /// <summary>
-        /// Gets the observable object to notify upon an internal state change.
-        /// </summary>
-        /// <returns></returns>
-        public IObservable GetObservableObject()
-        {
-            return hydraulicBoundaryLocation;
         }
     }
 }

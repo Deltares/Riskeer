@@ -21,31 +21,33 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
+using HydraRingIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// The converter that converts <see cref="HydraIllustrationPointResult"/> data into <see cref="IllustrationPointResult"/> data.
+    /// The converter that converts <see cref="HydraRingIllustrationPointResult"/> data into 
+    /// <see cref="IllustrationPointResult"/> data.
     /// </summary>
     public static class IllustrationPointResultConverter
     {
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointResult"/> based on the information 
-        /// of <paramref name="hydraIllustrationPointResult"/>.
+        /// of <paramref name="hydraRingIllustrationPointResult"/>.
         /// </summary>
-        /// <param name="hydraIllustrationPointResult">The <see cref="HydraIllustrationPointResult"/> to base the 
-        /// <see cref="IllustrationPointResult"/> to create on.</param>
+        /// <param name="hydraRingIllustrationPointResult">The <see cref="HydraRingIllustrationPointResult"/> 
+        /// to base the <see cref="IllustrationPointResult"/> to create on.</param>
         /// <returns>The newly created <see cref="IllustrationPointResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraIllustrationPointResult"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingIllustrationPointResult"/> 
         /// is <c>null</c>.</exception>
-        public static IllustrationPointResult CreateIllustrationPointResult(HydraIllustrationPointResult hydraIllustrationPointResult)
+        public static IllustrationPointResult CreateIllustrationPointResult(HydraRingIllustrationPointResult hydraRingIllustrationPointResult)
         {
-            if (hydraIllustrationPointResult == null)
+            if (hydraRingIllustrationPointResult == null)
             {
-                throw new ArgumentNullException(nameof(hydraIllustrationPointResult));
+                throw new ArgumentNullException(nameof(hydraRingIllustrationPointResult));
             }
-            return new IllustrationPointResult(hydraIllustrationPointResult.Description, hydraIllustrationPointResult.Value);
+            return new IllustrationPointResult(hydraRingIllustrationPointResult.Description,
+                                               hydraRingIllustrationPointResult.Value);
         }
     }
 }

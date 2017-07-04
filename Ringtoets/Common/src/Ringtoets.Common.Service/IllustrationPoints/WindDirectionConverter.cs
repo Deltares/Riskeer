@@ -21,30 +21,32 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
-using HydraWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
+using HydraRingWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
     /// <summary>
-    /// The converter that converts <see cref="HydraWindDirection"/> data into <see cref="WindDirection"/> data.
+    /// The converter that converts <see cref="HydraRingWindDirection"/> data into <see cref="WindDirection"/> data.
     /// </summary>
     public static class WindDirectionConverter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WindDirection"/> based on the information of <paramref name="hydraWindDirection"/>.
+        /// Creates a new instance of <see cref="WindDirection"/> based on the information of <paramref name="hydraRingWindDirection"/>.
         /// </summary>
-        /// <param name="hydraWindDirection">The <see cref="HydraWindDirection"/> to base the 
+        /// <param name="hydraRingWindDirection">The <see cref="HydraRingWindDirection"/> to base the 
         /// <see cref="WindDirection"/> to create on.</param>
         /// <returns>The newly created <see cref="WindDirection"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraWindDirection"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingWindDirection"/> 
         /// is <c>null</c>.</exception>
-        public static WindDirection CreateWindDirection(HydraWindDirection hydraWindDirection)
+        public static WindDirection CreateWindDirection(HydraRingWindDirection hydraRingWindDirection)
         {
-            if (hydraWindDirection == null)
+            if (hydraRingWindDirection == null)
             {
-                throw new ArgumentNullException(nameof(hydraWindDirection));
+                throw new ArgumentNullException(nameof(hydraRingWindDirection));
             }
-            return new WindDirection(hydraWindDirection.Name, hydraWindDirection.Angle);
+
+            return new WindDirection(hydraRingWindDirection.Name,
+                                     hydraRingWindDirection.Angle);
         }
     }
 }

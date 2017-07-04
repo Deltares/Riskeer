@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using HydraIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
+using HydraRingIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -32,14 +32,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class IllustrationPointResultConverterTest
     {
         [Test]
-        public void CreateIllustrationPointResult_HydraIllustrationPointResultNull_ThrowsArgumentNullException()
+        public void CreateIllustrationPointResult_HydraRingIllustrationPointResultNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => IllustrationPointResultConverter.CreateIllustrationPointResult(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("hydraIllustrationPointResult", paramName);
+            Assert.AreEqual("hydraRingIllustrationPointResult", paramName);
         }
 
         [Test]
@@ -47,11 +47,11 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            var hydraIllustrationPointResult = new HydraIllustrationPointResult("Description",
-                                                                                random.NextDouble());
+            var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("Description",
+                                                                                        random.NextDouble());
 
             // Call
-            IllustrationPointResult illustrationPointResult = IllustrationPointResultConverter.CreateIllustrationPointResult(hydraIllustrationPointResult);
+            IllustrationPointResult illustrationPointResult = IllustrationPointResultConverter.CreateIllustrationPointResult(hydraRingIllustrationPointResult);
 
             // Assert
             Assert.AreEqual(illustrationPointResult.Description, illustrationPointResult.Description);

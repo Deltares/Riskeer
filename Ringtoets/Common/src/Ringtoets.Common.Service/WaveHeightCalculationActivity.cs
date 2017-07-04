@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            waveHeightCalculation.GetObservableObject().NotifyObservers();
+            waveHeightCalculation.ObservableObject.NotifyObservers();
         }
 
         private bool AlreadyCalculated

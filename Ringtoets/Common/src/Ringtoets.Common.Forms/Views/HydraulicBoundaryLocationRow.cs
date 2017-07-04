@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets if the illustration points need to be included.
+        /// Gets or sets the value indicating whether the illustration points need to be included.
         /// </summary>
         public bool IncludeIllustrationPoints
         {
