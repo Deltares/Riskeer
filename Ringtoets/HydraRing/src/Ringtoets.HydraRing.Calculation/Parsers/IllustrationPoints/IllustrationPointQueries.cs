@@ -26,8 +26,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// </summary>
     internal static class IllustrationPointQueries
     {
-        private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM DesignPointResults)";
-        private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM DesignPointResults)";
+        private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM GoverningWind)";
+        private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)";
 
         /// <summary>
         /// Selects all the closing situations.
@@ -47,7 +47,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"WindDirections.WindDirectionId = GoverningWind.WindDirectionId as {IllustrationPointsDatabaseConstants.IsGoverning} " +
             "FROM WindDirections " +
             "JOIN GoverningWind " +
-            $"WHERE {lastIteration};";
+            $"WHERE {lastIteration}" +
+            $"AND {firstPeriod};";
 
         /// <summary>
         /// Selects all the sub mechanisms.
@@ -77,8 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "FROM DesignAlpha " +
             "JOIN Stochasts USING(StochastId) " +
             "WHERE LevelTypeId = 4 " +
-            $"AND {lastIteration} " +
-            $"AND {firstPeriod};";
+            $"AND {lastIteration};";
 
         /// <summary>
         /// Selects the beta values for a general result.
@@ -87,8 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"SELECT {IllustrationPointsDatabaseConstants.BetaValue} " +
             "FROM DesignBeta " +
             "WHERE LevelTypeId = 4 " +
-            $"AND {lastIteration} " +
-            $"AND {firstPeriod};";
+            $"AND {lastIteration};";
 
         /// <summary>
         /// Selects the alpha values for each fault tree illustration point.

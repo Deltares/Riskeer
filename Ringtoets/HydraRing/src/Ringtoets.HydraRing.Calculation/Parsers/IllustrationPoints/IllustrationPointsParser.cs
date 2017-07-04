@@ -374,6 +374,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             ICollection<Tuple<int?, int, Type, CombinationType>> results)
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, faultTreeId);
+
+            if (!faultTreeBetaValues.ContainsKey(dataKey))
+            {
+                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found);
+            }
             var illustrationPoint = new FaultTreeIllustrationPoint(faultTrees[faultTreeId], faultTreeBetaValues[dataKey], combinationType);
             if (faultTreeStochasts.ContainsKey(dataKey))
             {
@@ -406,8 +411,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 AddRange(illustrationPointResults, subMechanismResults[dataKey]);
             }
 
-            string submechanismIllustrationPointName = subMechanisms[subMechanismId];
+            if (!subMechanismBetaValues.ContainsKey(dataKey))
+            {
+                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found);
+            }
             double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
+
+            string submechanismIllustrationPointName = subMechanisms[subMechanismId];
             var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
                                                                       illustrationPointStochasts,
                                                                       illustrationPointResults,
@@ -437,9 +447,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private void ParseGeneralBetaValue(HydraRingDatabaseReader reader)
         {
             Dictionary<string, object>[] betaValues = GetIterator(reader).ToArray();
-            if (betaValues.Length != 1)
+            if (betaValues.Length > 1)
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
+            }
+            if (betaValues.Length == 0)
+            {
+                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found);
             }
             beta = ConvertToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue],
                                    IllustrationPointsDatabaseConstants.BetaValue);

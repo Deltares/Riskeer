@@ -129,6 +129,24 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         }
 
         [Test]
+        [TestCase("NoBetaSubMechanism")]
+        [TestCase("NoBetaFaultTree")]
+        [TestCase("NoBetaGeneralResult")]
+        public void Parse_NoBetaValues_ThrowsHydraRingFileParserException(string workingDirectory)
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, workingDirectory);
+            var parser = new IllustrationPointsParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Geen waarde voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database.", exception.Message);
+        }
+
+        [Test]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.AlphaValue), IllustrationPointsDatabaseConstants.AlphaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.BetaValue), IllustrationPointsDatabaseConstants.BetaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.Duration), IllustrationPointsDatabaseConstants.Duration)]

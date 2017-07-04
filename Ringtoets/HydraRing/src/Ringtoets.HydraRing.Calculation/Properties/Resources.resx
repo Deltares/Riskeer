@@ -150,6 +150,9 @@
   <data name="IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found" xml:space="preserve">
     <value>Meerdere waarden voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database.</value>
   </data>
+  <data name="IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found" xml:space="preserve">
+    <value>Geen waarde voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database.</value>
+  </data>
   <data name="IllustrationPointsParser_Parse_Column_0_is_Null" xml:space="preserve">
     <value>Er is geen waarde gevonden voor kolom '{0}' tijdens het uitlezen van de illustratiepunten in de uitvoer database.</value>
   </data>
