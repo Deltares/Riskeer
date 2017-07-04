@@ -90,6 +90,7 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\IllustrationPoints\GeneralResultSubMechanismIllustrationPointCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensionsTest.cs" />
@@ -126,8 +127,9 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\GeneralResultSubMechanismIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\IllustrationPointResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointStochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />

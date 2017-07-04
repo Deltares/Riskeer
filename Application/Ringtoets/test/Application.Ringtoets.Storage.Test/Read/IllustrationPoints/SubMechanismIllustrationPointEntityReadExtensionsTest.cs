@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {
     [TestFixture]
-    public class SubMechanismIllustrationPointReadExtensionsTest
+    public class SubMechanismIllustrationPointEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
@@ -112,12 +112,8 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             IllustrationPointResult[] illustrationPointResults = illustrationPoint.IllustrationPointResults.ToArray();
             Assert.AreEqual(2, illustrationPointResults.Length);
-
-            IllustrationPointResult resultOne = illustrationPointResults[0];
-            AssertReadIllustrationPointResult(illustrationPointResultEntityOne, resultOne);
-
-            IllustrationPointResult resultTwo = illustrationPointResults[1];
-            AssertReadIllustrationPointResult(illustrationPointResultEntityTwo, resultTwo);
+            AssertReadIllustrationPointResult(illustrationPointResultEntityOne, illustrationPointResults[0]);
+            AssertReadIllustrationPointResult(illustrationPointResultEntityTwo, illustrationPointResults[1]);
         }
 
         [Test]
@@ -170,12 +166,8 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             SubMechanismIllustrationPointStochast[] stochasts = illustrationPoint.Stochasts.ToArray();
             Assert.AreEqual(2, stochasts.Length);
-
-            SubMechanismIllustrationPointStochast readStochastOne = stochasts[0];
-            AssertReadStochast(stochastEntityOne, readStochastOne);
-
-            SubMechanismIllustrationPointStochast readStochastTwo = stochasts[1];
-            AssertReadStochast(stochastEntityTwo, readStochastTwo);
+            AssertReadStochast(stochastEntityOne, stochasts[0]);
+            AssertReadStochast(stochastEntityTwo, stochasts[1]);
         }
 
         private static void AssertReadIllustrationPointResult(IllustrationPointResultEntity illustrationPointResultEntity,

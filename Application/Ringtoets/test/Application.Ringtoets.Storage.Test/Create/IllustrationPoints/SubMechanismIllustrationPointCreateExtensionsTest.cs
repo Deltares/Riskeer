@@ -119,6 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 Assert.AreEqual(stochast.Duration, stochastEntity.Duration, stochast.Duration.GetAccuracy());
                 Assert.AreEqual(stochast.Alpha, stochastEntity.Alpha, stochast.Alpha.GetAccuracy());
                 Assert.AreEqual(stochast.Realization, stochastEntity.Realization, stochast.Realization.GetAccuracy());
+                Assert.AreEqual(i, stochastEntity.Order);
             }
         }
 
@@ -165,6 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, illustrationPointResultEntity.Description);
                 Assert.AreEqual(illustrationPointResult.Value, illustrationPointResultEntity.Value,
                                 illustrationPointResult.Value.GetAccuracy());
+                Assert.AreEqual(i, illustrationPointResultEntity.Order);
             }
         }
     }

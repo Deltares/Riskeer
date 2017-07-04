@@ -56,14 +56,14 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 Name = subMechanismIllustrationPoint.Name.DeepClone()
             };
 
-            AddEntitiesForSubMechanismIllustrationPoints(subMechanismIllustrationPoint.Stochasts, entity);
-            AddEntitiesForIllustrationPointResults(subMechanismIllustrationPoint.IllustrationPointResults, entity);
+            AddEntitiesForSubMechanismIllustrationPoints(entity, subMechanismIllustrationPoint.Stochasts);
+            AddEntitiesForIllustrationPointResults(entity, subMechanismIllustrationPoint.IllustrationPointResults);
 
             return entity;
         }
 
-        private static void AddEntitiesForIllustrationPointResults(IEnumerable<IllustrationPointResult> illustrationPointResults,
-                                                                   SubMechanismIllustrationPointEntity entity)
+        private static void AddEntitiesForIllustrationPointResults(SubMechanismIllustrationPointEntity entity,
+                                                                   IEnumerable<IllustrationPointResult> illustrationPointResults)
         {
             var order = 0;
             foreach (IllustrationPointResult illustrationPointResult in illustrationPointResults)
@@ -73,8 +73,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             }
         }
 
-        private static void AddEntitiesForSubMechanismIllustrationPoints(IEnumerable<SubMechanismIllustrationPointStochast> stochasts,
-                                                                         SubMechanismIllustrationPointEntity entity)
+        private static void AddEntitiesForSubMechanismIllustrationPoints(SubMechanismIllustrationPointEntity entity,
+                                                                         IEnumerable<SubMechanismIllustrationPointStochast> stochasts)
         {
             var order = 0;
             foreach (SubMechanismIllustrationPointStochast subMechanismIllustrationPointStochast in stochasts)

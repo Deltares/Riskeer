@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
-    public class TestGeneralResultTest
+    public class TestGeneralResultSubMechanismIllustrationPointTest
     {
         [Test]
         public void Constructor_ExpectedProperties()
