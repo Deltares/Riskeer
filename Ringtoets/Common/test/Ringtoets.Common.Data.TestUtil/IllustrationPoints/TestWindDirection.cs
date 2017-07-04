@@ -24,12 +24,12 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// Simple wind direction which can be used for testing.
+    /// Simple wind direction that can be used for testing.
     /// </summary>
     public class TestWindDirection : WindDirection
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestWindDirection"/>
+        /// Creates a new instance of <see cref="TestWindDirection"/>.
         /// </summary>
         public TestWindDirection() : base("SSE", 5.0) {}
     }

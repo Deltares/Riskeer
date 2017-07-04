@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class that creates simple instances of <see cref="HydraulicBoundaryLocation"/>, which
+    /// Class that creates simple instances of <see cref="HydraulicBoundaryLocation"/>, that
     /// can be used during testing.
     /// </summary>
     public class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
         /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set for
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>.
         /// </summary>
         /// <param name="designWaterLevel">The design water level result to set in the output.</param>
         /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
         /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set for
-        /// <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/>
+        /// <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/>.
         /// </summary>
         /// <param name="waveheight">The wave height result to set in the output.</param>
         /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>

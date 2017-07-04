@@ -101,8 +101,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         [Test]
         [TestCaseSource(nameof(HydraulicBoundaryLocationsToCalculate))]
-        public void IsCalculated_NotFullyCalculated_ReturnIsCalculated(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                       bool shouldBeCalculated)
+        public void IsCalculated_HydraulicBoundaryLocationsToCalculate_ReturnIsCalculated(
+            HydraulicBoundaryLocation hydraulicBoundaryLocation, bool shouldBeCalculated)
         {
             // Setup
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);

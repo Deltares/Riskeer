@@ -261,8 +261,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
             {
-                return new TestHydraulicBoundaryLocationRow(location,
-                                                            location.WaveHeightCalculation);
+                return new TestHydraulicBoundaryLocationRow(location, location.WaveHeightCalculation);
             }
 
             protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)

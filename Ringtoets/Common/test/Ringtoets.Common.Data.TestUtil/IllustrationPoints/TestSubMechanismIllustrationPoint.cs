@@ -25,12 +25,12 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// A simple submechanism illustration point which can be used for testing.
+    /// A simple submechanism illustration point that can be used for testing.
     /// </summary>
     public class TestSubMechanismIllustrationPoint : SubMechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates a <see cref="TestSubMechanismIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
         /// </summary>
         public TestSubMechanismIllustrationPoint()
             : base("Illustration Point",

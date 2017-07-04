@@ -36,11 +36,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation, null);
+            TestDelegate call = () => new HydraulicBoundaryLocationRow(new TestHydraulicBoundaryLocation(),
+                                                                       null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -82,10 +80,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             [Values(true, false)] bool setIllustrationPoints)
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var calculation = new HydraulicBoundaryLocationCalculation();
-            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
-                                                       calculation);
+            var row = new HydraulicBoundaryLocationRow(new TestHydraulicBoundaryLocation(), calculation);
 
             // Call
             row.IncludeIllustrationPoints = setIllustrationPoints;
@@ -99,9 +95,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Result_WithCalculationOutput_ReturnsResult()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var calculation = new HydraulicBoundaryLocationCalculation();
-            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
+            var row = new HydraulicBoundaryLocationRow(new TestHydraulicBoundaryLocation(),
                                                        calculation);
 
             var random = new Random(432);

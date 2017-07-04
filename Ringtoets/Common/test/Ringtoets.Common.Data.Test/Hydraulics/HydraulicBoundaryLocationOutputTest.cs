@@ -39,19 +39,14 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             var random = new Random(32);
-            double result = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result,
-                                                                          targetProbability,
-                                                                          targetReliability,
-                                                                          calculatedProbability,
-                                                                          calculatedReliability,
-                                                                          convergence);
+            TestDelegate call = () => new HydraulicBoundaryLocationOutput(random.NextDouble(),
+                                                                          random.NextDouble(),
+                                                                          random.NextDouble(),
+                                                                          random.NextDouble(),
+                                                                          random.NextDouble(),
+                                                                          random.NextEnumValue<CalculationConvergence>());
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -67,19 +62,14 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             var random = new Random(32);
-            double result = random.NextDouble();
-            double targetProbability = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(result,
-                                                                          targetProbability,
-                                                                          targetReliability,
+            TestDelegate call = () => new HydraulicBoundaryLocationOutput(random.NextDouble(),
+                                                                          random.NextDouble(),
+                                                                          random.NextDouble(),
                                                                           calculatedProbability,
-                                                                          calculatedReliability,
-                                                                          convergence);
+                                                                          random.NextDouble(),
+                                                                          random.NextEnumValue<CalculationConvergence>());
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
