@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 
@@ -32,6 +35,7 @@ namespace Ringtoets.Common.Forms.Views
     public partial class IllustrationPointsTableControl : UserControl
     {
         private const int closingSituationColumnIndex = 1;
+        private GeneralResult data;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsTableControl"/>.
@@ -44,7 +48,21 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResult Data { get; set; }
+        public GeneralResult Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value;
+
+                illustrationPointsDataGridViewControl.SetDataSource(data != null
+                                                                        ? CreateRows()
+                                                                        : null);
+            }
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -54,20 +72,30 @@ namespace Ringtoets.Common.Forms.Views
 
         private void InitializeDataGridView()
         {
-            illustrationPointsDataGridViewControl.AddTextBoxColumn("WindDirection",
+            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.WindDirection),
                                                                    Resources.IllustrationPoint_WindDirection_DisplayName,
                                                                    true);
-            illustrationPointsDataGridViewControl.AddTextBoxColumn("ClosingScenario",
+            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.ClosingSituation),
                                                                    Resources.IllustrationPoint_ClosingSituation_DisplayName,
                                                                    true);
-            illustrationPointsDataGridViewControl.AddTextBoxColumn("CalculatedProbability",
+            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Probability),
                                                                    Resources.IllustrationPoint_CalculatedProbability_DisplayName,
                                                                    true);
-            illustrationPointsDataGridViewControl.AddTextBoxColumn("CalculatedReliability",
+            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Reliability),
                                                                    Resources.IllustrationPoint_CalculatedReliability_DisplayName,
                                                                    true);
 
             illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, false);
+        }
+
+        private List<IllustrationPointRow> CreateRows()
+        {
+            return data.TopLevelSubMechanismIllustrationPoints
+                       .Select(illustrationPoint => new IllustrationPointRow(illustrationPoint.WindDirection.Name,
+                                                                             illustrationPoint.ClosingSituation,
+                                                                             StatisticsConverter.ReliabilityToProbability(illustrationPoint.SubMechanismIllustrationPoint.Beta),
+                                                                             illustrationPoint.SubMechanismIllustrationPoint.Beta))
+                       .ToList();
         }
     }
 }

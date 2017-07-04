@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -89,6 +93,58 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsTrue(calculatedReliabilityColumn.ReadOnly);
         }
 
+        [Test]
+        public void Data_SetNewValue_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            GeneralResult data = GetGerenalResult();
+            IllustrationPointsTableControl control = ShowControl();
+
+            // Call
+            control.Data = data;
+
+            // Assert
+            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
+            Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
+            Assert.AreEqual(0.18406, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual(0.9.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
+            Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
+            Assert.AreEqual(0.24196, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void Data_SetToNull_DataGridViewCleared()
+        {
+            // Setup
+            GeneralResult data = GetGerenalResult();
+            IllustrationPointsTableControl control = ShowControl();
+            control.Data = data;
+
+            var dataGridView = (DataGridView)control.Controls.Find("DataGridView", true).Single();
+            DataGridViewRowCollection rows = dataGridView.Rows;
+
+            // Precondition
+            Assert.AreEqual(2, rows.Count);
+
+            // Call
+            control.Data = null;
+
+            // Assert
+            Assert.AreEqual(0, rows.Count);
+        }
+
         private IllustrationPointsTableControl ShowControl()
         {
             var control = new IllustrationPointsTableControl();
@@ -97,6 +153,24 @@ namespace Ringtoets.Common.Forms.Test.Views
             testForm.Show();
 
             return control;
+        }
+
+        private static GeneralResult GetGerenalResult()
+        {
+            return new GeneralResult(
+                new TestWindDirection(),
+                Enumerable.Empty<Stochast>(),
+                new[]
+                {
+                    new TopLevelSubMechanismIllustrationPoint(
+                        new TestWindDirection(), "Regular",
+                        new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>(), 0.9)),
+                    new TopLevelSubMechanismIllustrationPoint(
+                        new TestWindDirection(), "Open",
+                        new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>(), 0.7))
+                });
         }
     }
 }
