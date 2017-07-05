@@ -42,6 +42,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -1779,14 +1780,18 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
         }
 
-        private static void AssertHydraulicBoundaryLocations(List<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations,
-                                                             List<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
+        private static void AssertHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations,
+                                                             IEnumerable<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
         {
-            Assert.AreEqual(expectedHydraulicBoundaryLocations.Count, actualHydraulicBoundaryLocations.Count);
-            for (var i = 0; i < expectedHydraulicBoundaryLocations.Count; i++)
+            HydraulicBoundaryLocation[] expectedHydraulicBoundaryLocationsArray = expectedHydraulicBoundaryLocations.ToArray();
+            HydraulicBoundaryLocation[] actualHydraulicBoundaryLocationsArray = actualHydraulicBoundaryLocations.ToArray();
+
+            int expectedNrOfHydraulicBoundaryLocations = expectedHydraulicBoundaryLocationsArray.Length;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, actualHydraulicBoundaryLocationsArray.Length);
+            for (var i = 0; i < expectedNrOfHydraulicBoundaryLocations; i++)
             {
-                HydraulicBoundaryLocation expectedBoundaryLocation = expectedHydraulicBoundaryLocations[i];
-                HydraulicBoundaryLocation actualBoundaryLocation = actualHydraulicBoundaryLocations[i];
+                HydraulicBoundaryLocation expectedBoundaryLocation = expectedHydraulicBoundaryLocationsArray[i];
+                HydraulicBoundaryLocation actualBoundaryLocation = actualHydraulicBoundaryLocationsArray[i];
 
                 AssertHydraulicBoundaryLocation(expectedBoundaryLocation, actualBoundaryLocation);
             }
@@ -1799,10 +1804,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
 
-            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.DesignWaterLevelCalculation.Output,
-                                                  actualBoundaryLocation.DesignWaterLevelCalculation.Output);
-            AssertHydraulicBoundaryLocationOutput(expectedBoundaryLocation.WaveHeightCalculation.Output,
-                                                  actualBoundaryLocation.WaveHeightCalculation.Output);
+            HydraulicBoundaryLocationCalculation expectedDesignWaterLevelCalculation = expectedBoundaryLocation.DesignWaterLevelCalculation;
+            HydraulicBoundaryLocationCalculation actualDesignWaterLevelCalculation = actualBoundaryLocation.DesignWaterLevelCalculation;
+            Assert.AreEqual(expectedDesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
+                            actualDesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationOutput(expectedDesignWaterLevelCalculation.Output,
+                                                  actualDesignWaterLevelCalculation.Output);
+
+            HydraulicBoundaryLocationCalculation expectedWaveHeightCalculation = expectedBoundaryLocation.WaveHeightCalculation;
+            HydraulicBoundaryLocationCalculation actualWaveHeightCalculation = actualBoundaryLocation.WaveHeightCalculation;
+            Assert.AreEqual(expectedWaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
+                            actualWaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationOutput(expectedWaveHeightCalculation.Output,
+                                                  actualWaveHeightCalculation.Output);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput expectedOutput,
@@ -1819,6 +1833,119 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, actualOutput.CalculationConvergence);
+
+            AssertGeneralResultSubMechanismIllustrationPoint(expectedOutput.GeneralResultSubMechanismIllustrationPoint,
+                                                             actualOutput.GeneralResultSubMechanismIllustrationPoint);
+        }
+
+        #endregion
+
+        #region IllustrationPoints
+
+        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint expectedGeneralResult,
+                                                                             GeneralResultSubMechanismIllustrationPoint actualGeneralResult)
+        {
+            if (expectedGeneralResult == null)
+            {
+                Assert.IsNull(actualGeneralResult);
+                return;
+            }
+
+            WindDirection expectedGoverningWindDirection = expectedGeneralResult.GoverningWindDirection;
+            WindDirection actualGoverningWindDirection = actualGeneralResult.GoverningWindDirection;
+            AssertWindDirection(expectedGoverningWindDirection, actualGoverningWindDirection);
+
+            Stochast[] expectedStochasts = expectedGeneralResult.Stochasts.ToArray();
+            Stochast[] actualStochasts = actualGeneralResult.Stochasts.ToArray();
+            int expectedNrOfStochasts = expectedStochasts.Length;
+            Assert.AreEqual(expectedNrOfStochasts, actualStochasts.Length);
+            for (var i = 0; i < expectedNrOfStochasts; i++)
+            {
+                AssertStochast(expectedStochasts[i], actualStochasts[i]);
+            }
+
+            TopLevelSubMechanismIllustrationPoint[] expectedTopLevelSubMechanismIllustrationPoints =
+                expectedGeneralResult.TopLevelSubMechanismIllustrationPoints.ToArray();
+            TopLevelSubMechanismIllustrationPoint[] actualTopLevelSubMechanismIllustrationPoints =
+                actualGeneralResult.TopLevelSubMechanismIllustrationPoints.ToArray();
+            int expectedNrOfTopLevelSubMechanismIllustrationPoints = expectedTopLevelSubMechanismIllustrationPoints.Length;
+            Assert.AreEqual(expectedNrOfTopLevelSubMechanismIllustrationPoints,
+                            actualTopLevelSubMechanismIllustrationPoints.Length);
+            for (var i = 0; i < expectedNrOfTopLevelSubMechanismIllustrationPoints; i++)
+            {
+                AssertTopLevelSubMechanismIllustrationPoint(expectedTopLevelSubMechanismIllustrationPoints[i],
+                                                            actualTopLevelSubMechanismIllustrationPoints[i]);
+            }
+        }
+
+        private static void AssertWindDirection(WindDirection expectedWindDirection, WindDirection actualWindDirection)
+        {
+            Assert.AreEqual(expectedWindDirection.Name, actualWindDirection.Name);
+            Assert.AreEqual(expectedWindDirection.Angle, actualWindDirection.Angle);
+        }
+
+        private static void AssertStochast(Stochast expectedStochast,
+                                           Stochast actualStochast)
+        {
+            Assert.AreEqual(expectedStochast.Name, actualStochast.Name);
+            Assert.AreEqual(expectedStochast.Alpha, actualStochast.Alpha);
+            Assert.AreEqual(expectedStochast.Duration, actualStochast.Duration);
+        }
+
+        private static void AssertTopLevelSubMechanismIllustrationPoint(
+            TopLevelSubMechanismIllustrationPoint expectedTopLevelSubMechanismIllustrationPoint,
+            TopLevelSubMechanismIllustrationPoint actualTopLevelSubMechanismIllustrationPoint)
+        {
+            Assert.AreEqual(expectedTopLevelSubMechanismIllustrationPoint.ClosingSituation,
+                            actualTopLevelSubMechanismIllustrationPoint.ClosingSituation);
+
+            WindDirection expectedWindDirection = expectedTopLevelSubMechanismIllustrationPoint.WindDirection;
+            WindDirection actualWindDirection = actualTopLevelSubMechanismIllustrationPoint.WindDirection;
+            AssertWindDirection(expectedWindDirection, actualWindDirection);
+
+            AssertSubMechanismIllustrationPoint(expectedTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint,
+                                                actualTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint);
+        }
+
+        private static void AssertSubMechanismIllustrationPoint(SubMechanismIllustrationPoint expectedSubMechanismIllustrationPoint,
+                                                                SubMechanismIllustrationPoint actualSubMechanismIllustrationPoint)
+        {
+            Assert.AreEqual(expectedSubMechanismIllustrationPoint.Name, actualSubMechanismIllustrationPoint.Name);
+            Assert.AreEqual(expectedSubMechanismIllustrationPoint.Beta, actualSubMechanismIllustrationPoint.Beta);
+
+            SubMechanismIllustrationPointStochast[] expectedStochasts = expectedSubMechanismIllustrationPoint.Stochasts.ToArray();
+            SubMechanismIllustrationPointStochast[] actualStochasts = actualSubMechanismIllustrationPoint.Stochasts.ToArray();
+            int expectedNrOfStochasts = expectedStochasts.Length;
+            Assert.AreEqual(expectedNrOfStochasts, actualStochasts.Length);
+            for (var i = 0; i < expectedNrOfStochasts; i++)
+            {
+                AssertSubMechanismIllustrationPointStochast(expectedStochasts[i],
+                                                            actualStochasts[i]);
+            }
+
+            IllustrationPointResult[] expectedIllustrationPointResults = expectedSubMechanismIllustrationPoint.IllustrationPointResults.ToArray();
+            IllustrationPointResult[] actualIllustrationPointResults = actualSubMechanismIllustrationPoint.IllustrationPointResults.ToArray();
+            int expectedNrOfIllustrationPointResults = expectedIllustrationPointResults.Length;
+            Assert.AreEqual(expectedNrOfIllustrationPointResults, actualIllustrationPointResults.Length);
+            for (int i = 0; i < expectedNrOfIllustrationPointResults; i++)
+            {
+                AssertIllustrationPointResult(expectedIllustrationPointResults[i],
+                                              actualIllustrationPointResults[i]);
+            }
+        }
+
+        private static void AssertSubMechanismIllustrationPointStochast(SubMechanismIllustrationPointStochast expectedStochast,
+                                                                        SubMechanismIllustrationPointStochast actualStochast)
+        {
+            AssertStochast(expectedStochast, actualStochast);
+            Assert.AreEqual(expectedStochast.Realization, actualStochast.Realization);
+        }
+
+        private static void AssertIllustrationPointResult(IllustrationPointResult expectedResult,
+                                                          IllustrationPointResult actualResult)
+        {
+            Assert.AreEqual(expectedResult.Description, actualResult.Description);
+            Assert.AreEqual(expectedResult.Value, actualResult.Value);
         }
 
         #endregion

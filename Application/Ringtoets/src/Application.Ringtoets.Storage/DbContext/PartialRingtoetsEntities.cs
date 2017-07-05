@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
         private void LoadIllustrationPointsIntoContext()
         {
-            GeneralResultSubMechanismIllustrationPointEntities.Load();
+            GeneralResultSubMechanismIllustrationPointEntities.Include(grsm => grsm.StochastEntities).Load();
             StochastEntities.Load();
             TopLevelSubMechanismIllustrationPointEntities.Load();
             SubMechanismIllustrationPointEntities.Load();

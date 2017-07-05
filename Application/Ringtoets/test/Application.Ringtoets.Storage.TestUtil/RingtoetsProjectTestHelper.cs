@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
@@ -327,7 +328,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 FilePath = "/temp/test",
                 Version = "1.0"
             };
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
+
+            var waveHeightCalculationOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
+            waveHeightCalculationOutput.SetIllustrationPoints(GetConfiguredGeneralResultSubMechanismIllustrationPoint());
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
                 DesignWaterLevelCalculation =
                 {
@@ -335,13 +339,51 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                  double.NaN, double.NaN,
                                                                  double.NaN, CalculationConvergence.NotCalculated)
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation = 
                 {
-                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = waveHeightCalculationOutput
                 }
-            });
+            };
+
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             return hydraulicBoundaryDatabase;
+        }
+
+        private static GeneralResultSubMechanismIllustrationPoint GetConfiguredGeneralResultSubMechanismIllustrationPoint()
+        {
+            var illustrationPointResult = new IllustrationPointResult("Description of result", 5);
+            var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a submechanism stochast", 10, 9, 8);
+
+            var illustrationPoint = new SubMechanismIllustrationPoint("Name of illustrationPoint", new[]
+                                                                      {
+                                                                          subMechanismIllustrationPointStochast
+                                                                      },
+                                                                      new[]
+                                                                      {
+                                                                          illustrationPointResult
+                                                                      }, 3);
+
+            var windDirection = new WindDirection("60", 60);
+            var topLevelIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(windDirection,
+                                                                                      "Closing situation",
+                                                                                      illustrationPoint);
+
+            var governingWindDirection = new WindDirection("SSE", 120);
+            var stochast = new Stochast("Name of stochast", 13, 37);
+            return new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
+                                                                  new[]
+                                                                  {
+                                                                      stochast
+                                                                  },
+                                                                  new[]
+                                                                  {
+                                                                      topLevelIllustrationPoint
+                                                                  });
         }
 
         private static AssessmentLayerOneState GetAssessmentLayerOneState()

@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
@@ -352,11 +353,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
+            Assert.IsNull(output.GeneralResultSubMechanismIllustrationPoint);
         }
 
         private static void AssertHydraulicBoundaryLocationWaveHeightCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
-            Assert.IsFalse(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.IsTrue(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
             HydraulicBoundaryLocationOutput output = calculation.Output;
             Assert.AreEqual(2.4, output.Result, output.Result.GetAccuracy());
@@ -365,6 +367,41 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(0, output.CalculatedProbability);
             Assert.AreEqual(0, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
+            AssertGeneralResultSubMechanismIllustrationPoint(output.GeneralResultSubMechanismIllustrationPoint);
+        }
+
+
+        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint generalResult)
+        {
+            WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
+            Assert.AreEqual("SSE", actualGoverningWindDirection.Name);
+            Assert.AreEqual(120, actualGoverningWindDirection.Angle, actualGoverningWindDirection.Angle.GetAccuracy());
+
+            Stochast stochast = generalResult.Stochasts.Single();
+            Assert.AreEqual("Name of stochast", stochast.Name);
+            Assert.AreEqual(37, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(13, stochast.Duration, stochast.Duration.GetAccuracy());
+
+            TopLevelSubMechanismIllustrationPoint actualTopLevelSubMechanismIllustrationPoint =
+               generalResult.TopLevelSubMechanismIllustrationPoints.Single();
+            Assert.AreEqual("Closing situation", actualTopLevelSubMechanismIllustrationPoint.ClosingSituation);
+            Assert.AreEqual("60", actualTopLevelSubMechanismIllustrationPoint.WindDirection.Name);
+            Assert.AreEqual(60, actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle, 
+                actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle.GetAccuracy());
+
+            SubMechanismIllustrationPoint illustrationPoint = actualTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
+            Assert.AreEqual("Name of illustrationPoint", illustrationPoint.Name);
+            Assert.AreEqual(3,illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+
+            SubMechanismIllustrationPointStochast illustrationPointStochast = illustrationPoint.Stochasts.Single();
+            Assert.AreEqual("Name of a submechanism stochast", illustrationPointStochast.Name);
+            Assert.AreEqual(10, illustrationPointStochast.Duration, illustrationPointStochast.Duration.GetAccuracy());
+            Assert.AreEqual(9, illustrationPointStochast.Alpha, illustrationPointStochast.Alpha.GetAccuracy());
+            Assert.AreEqual(8, illustrationPointStochast.Realization, illustrationPointStochast.Realization.GetAccuracy());
+
+            IllustrationPointResult illustrationPointResult = illustrationPoint.IllustrationPointResults.Single();
+            Assert.AreEqual("Description of result", illustrationPointResult.Description);
+            Assert.AreEqual(5, illustrationPointResult.Value, illustrationPointResult.Value.GetAccuracy());
         }
 
         #endregion
