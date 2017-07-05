@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationOutput(random.NextDouble(),
-                                                                          random.NextDouble(),
+                                                                          targetProbability,
                                                                           random.NextDouble(),
                                                                           random.NextDouble(),
                                                                           random.NextDouble(),
